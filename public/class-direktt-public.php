@@ -129,7 +129,7 @@ class Direktt_Public {
 		if ( ! $secret_key ) {
 			return new WP_Error(
 				'jwt_auth_bad_config',
-				__( 'JWT is not configured properly, please contact the admin', 'wp-api-jwt-auth' ),
+				__( 'JWT is not configured properly, please contact the admin', 'direktt' ),
 				[
 					'status' => 403,
 				]
@@ -175,7 +175,7 @@ class Direktt_Public {
 			return new WP_Error(
 				'jwt_auth_unsupported_algorithm',
 				__( 'Algorithm not supported, see https://www.rfc-editor.org/rfc/rfc7518#section-3',
-					'wp-api-jwt-auth' ),
+					'direktt' ),
 				[
 					'status' => 403,
 				]
@@ -350,7 +350,7 @@ class Direktt_Public {
 				return new WP_Error(
 					'jwt_auth_unsupported_algorithm',
 					__( 'Algorithm not supported, see https://www.rfc-editor.org/rfc/rfc7518#section-3',
-						'wp-api-jwt-auth' ),
+						'direktt' ),
 					[
 						'status' => 403,
 					]

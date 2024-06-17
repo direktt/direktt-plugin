@@ -73,7 +73,7 @@ class Direktt_Admin {
 					printf(
 					/* translators: %s: Link to the JWT Authentication settings page */
 						__( 'Please visit the <a href="%s">JWT Authentication settings page</a> for an important message from the author.',
-							'jwt-auth' ),
+							'direktt' ),
 						admin_url( 'options-general.php?page=jwt_authentication' )
 					);
 					?>
@@ -165,8 +165,61 @@ class Direktt_Admin {
      * @since 1.3.4
      */
 	public function render_admin_page() {
-		?>
-        Blah
-		<?php
+
+		$action = ( isset( $_GET['action'] ) ) ? sanitize_text_field( $_GET['action'] ) : false;
+	
+		if ( !$action ) {
+
+			$api_key = get_option('direktt_api_key')?esc_attr(get_option('direktt_api_key')):'';
+	
+	?>
+	
+			<form method="POST" action="<?php echo admin_url('admin.php'); ?>" class="bt-form-pb-selection">
+				<input type="hidden" name="action" value="direkttoptions" />
+				<?php wp_nonce_field('direkttoptions', 'direktt_nonce'); ?>
+				<h1><?php echo esc_html__( 'Direktt settings', 'direktt' ); ?></h1>
+
+				<table class="form-table" role="presentation">
+
+				<tbody><tr>
+
+				<th scope="row"><label for="blogname"><?php echo esc_html__( 'API Key', 'direktt' ); ?></label></th>
+					
+				
+					<td>
+					<input type="text" name="direkttapikey" id="direkttapikey" size="50" placeholder="<?php echo esc_html__( 'Paste your API Key here', 'direktt' ); ?>" value="<?php echo $api_key?>">
+					</td>
+						
+			</tr>
+			</tbody>
+			</table>	
+			<p>
+					<input type="submit" value="<?php echo __( 'Save Direktt Settings', 'direktt' ); ?>" class="button button-primary button-large" />
+					</p>
+			</form>
+	
+	<?php
+	
+		}
+	}
+	
+	public function set_page_builder_option()
+	{
+		
+		$choice = ( isset($_POST['direkttapikey'])) ? sanitize_text_field($_POST['direkttapikey']) : false;
+	
+		if ( ! isset( $_POST['direktt_nonce'] ) || ! wp_verify_nonce( $_POST['direktt_nonce'], 'direkttoptions' ) || !current_user_can('manage_options') ) {
+			exit;
+		} else {
+			if( $choice ){
+				update_option('direktt_api_key',  $choice);
+				wp_safe_redirect(admin_url('options-general.php?page=direktt'));
+				exit();
+			} else {
+				delete_option('direktt_api_key');
+				wp_safe_redirect(admin_url('options-general.php?page=direktt'));
+				exit();
+			}   
+		}
 	}
 }
