@@ -49,10 +49,10 @@ class Direktt_Admin {
 	public function register_menu_page() {
 		add_submenu_page(
 			'options-general.php',
-			__( 'JWT Authentication', 'jwt-auth' ),
-			__( 'JWT Authentication', 'jwt-auth' ),
+			__( 'Direktt', 'direktt' ),
+			__( 'Direktt', 'direktt' ),
 			'manage_options',
-			'jwt_authentication',
+			'direktt',
 			[ $this, 'render_admin_page' ]
 		);
 	}
@@ -166,7 +166,7 @@ class Direktt_Admin {
      */
 	public function render_admin_page() {
 		?>
-        <div id="jwt-auth-holder"></div>
+        Blah
 		<?php
 	}
 }
