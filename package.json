@@ -1,0 +1,26 @@
+{
+  "devDependencies": {
+    "@parcel/transformer-vue": "latest",
+    "buffer": "^6.0.3",
+    "parcel": "^2.12.0",
+    "process": "^0.11.10"
+  },
+  "browserslist": "> 0.5%, last 2 versions, not dead",
+  "scripts": {
+    "watch": "parcel watch",
+    "build": "parcel build"
+  },
+  "targets": {
+    "app": {
+      "source": "./src/js/direktt-plugin.js",
+      "distDir": "js"
+    }
+  },
+  "dependencies": {
+    "lodash.debounce": "^4.0.8",
+    "pinia": "^2.1.7",
+    "uuid": "^9.0.1",
+    "vue": "^3.4.15",
+    "vuetify": "^3.6.9"
+  }
+}
