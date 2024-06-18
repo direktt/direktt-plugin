@@ -47,12 +47,30 @@ class Direktt_Admin {
 	 * @since 1.3.4
 	 */
 	public function register_menu_page() {
+		add_menu_page(
+			__( 'Direktt', 'direktt' ),
+			__( 'Direktt', 'direktt' ), 
+			"manage_options", 
+			"direktt-dashboard", 
+			[ $this, 'render_admin_page' ], 
+			"", 
+			30
+		);
+
+		add_submenu_page( 
+			'direktt-dashboard', 
+			__( 'Dashboard', 'direktt' ),
+			__( 'Dashboard', 'direktt' ),
+			'manage_options', 
+			'direktt-dashboard'
+		);
+
 		add_submenu_page(
-			'options-general.php',
-			__( 'Direktt', 'direktt' ),
-			__( 'Direktt', 'direktt' ),
+			'direktt-dashboard',
+			__( 'Settings', 'direktt' ),
+			__( 'Settings', 'direktt' ),
 			'manage_options',
-			'direktt',
+			'direktt-settings',
 			[ $this, 'render_admin_page' ]
 		);
 	}
@@ -93,42 +111,32 @@ class Direktt_Admin {
 	 * @since 1.3.4
 	 */
 	public function enqueue_plugin_assets( string $suffix ) {
-		if ( $suffix !== 'settings_page_jwt_authentication' ) {
-			return null;
-		}
-		// get full path to admin/ui/build/index.asset.php
-		$asset_file = plugin_dir_path( __FILE__ ) . 'ui/build/index.asset.php';
 
-		// If the asset file do not exist then just return false
-		if ( ! file_exists( $asset_file ) ) {
+
+		if ( $suffix !== 'direktt_page_direktt-settings' && $suffix !== 'toplevel_page_direktt-dashboard' ) {
 			return null;
 		}
 
-		// Get the asset file
-		$asset = require_once $asset_file;
-		// Enqueue the script files based on the asset file
-		wp_enqueue_script(
-			$this->plugin_name . '-settings',
-			plugins_url( 'ui/build/index.js', __FILE__ ),
-			$asset['dependencies'],
-			$asset['version'],
-			[
-				'in_footer' => true,
-			]
-		);
-
-		// Enqueue the style file for the Gutenberg components
-		foreach ( $asset['dependencies'] as $style ) {
-			wp_enqueue_style( $style );
+		if ($suffix == 'direktt_page_direktt-settings') {
+			wp_enqueue_script(
+				$this->plugin_name . '-settings',
+				plugin_dir_url( __DIR__ ) . 'js/settings/direktt-settings.js',
+				[],
+				'',
+				[
+					'in_footer' => true,
+				]
+			);
+	
+			// Enqueue the style file
+			wp_enqueue_style(
+				$this->plugin_name . '-settings',
+				plugin_dir_url( __DIR__ ) . 'css/style.js',
+				[],
+				''
+			);
 		}
-
-		// Enqueue the style file
-		wp_enqueue_style(
-			$this->plugin_name . '-settings',
-			plugins_url( 'ui/build/index.css', __FILE__ ),
-			[],
-			$asset['version']
-		);
+		
 	}
 
 	/**
@@ -165,6 +173,11 @@ class Direktt_Admin {
      * @since 1.3.4
      */
 	public function render_admin_page() {
+		?>
+		<div id="app"></div>
+		<?php
+	}
+	public function render_admin_page1() {
 
 		$action = ( isset( $_GET['action'] ) ) ? sanitize_text_field( $_GET['action'] ) : false;
 	

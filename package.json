@@ -11,9 +11,13 @@
     "build": "parcel build"
   },
   "targets": {
-    "app": {
-      "source": "./src/js/direktt-plugin.js",
-      "distDir": "js"
+    "settings": {
+      "source": "./src/settings/js/direktt-settings.js",
+      "distDir": "./js/settings"
+    },
+    "dashboard": {
+      "source": "./src/dashboard/js/direktt-dashboard.js",
+      "distDir": "./js/dashboard"
     }
   },
   "dependencies": {

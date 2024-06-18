@@ -1,6 +1,5 @@
 import { defineStore } from "pinia";
 import { ref, watch, computed } from "vue";
-import { direktt } from "../js/utils.js";
 
 export const useDirekttStore = defineStore("direkttstore", () => {
   const initial = ref("Initial");
