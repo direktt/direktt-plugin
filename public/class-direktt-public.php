@@ -437,4 +437,20 @@ class Direktt_Public {
 
 		return $algorithm;
 	}
+
+	public function api_register_routes()
+	{
+		register_rest_route('direktt/v1', '/validate/', array(
+			'methods' => 'GET',
+			'callback' => array( $this, 'api_validate_domain'),
+			'args' => array(),
+			'permission_callback' => '__return_true'
+		));
+	}
+
+	public function api_validate_domain()
+	{
+		$data = array();
+		wp_send_json_success($data, 200);
+	}
 }

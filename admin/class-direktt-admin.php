@@ -143,7 +143,7 @@ class Direktt_Admin
 				''
 			);
 
-			$nonce = wp_create_nonce( $this->plugin_name . '-settings' );
+			$nonce = wp_create_nonce($this->plugin_name . '-settings');
 
 			wp_localize_script(
 				$this->plugin_name . '-settings',
@@ -280,24 +280,24 @@ class Direktt_Admin
 
 	public function ajax_get_settings()
 	{
-		if(!current_user_can('manage_options')){
-			wp_send_json_error(new WP_Error( 'Unauthorized', 'Access to API is unauthorized.' ), 401);
+		if (!current_user_can('manage_options')) {
+			wp_send_json_error(new WP_Error('Unauthorized', 'Access to API is unauthorized.'), 401);
 			return;
 		}
 
-		$data = array( 
+		$data = array(
 			'api_key' => get_option('direktt_api_key') ? esc_attr(get_option('direktt_api_key')) : '',
 			'activation_status' => get_option('direktt_activation_status') ? esc_attr(get_option('direktt_activation_status')) : 'false'
 			//'activation_status' => 'true'
 		);
 
-    	wp_send_json_success($data, 200);
+		wp_send_json_success($data, 200);
 	}
 
 	public function ajax_save_settings()
 	{
-		if(!current_user_can('manage_options')){
-			wp_send_json_error(new WP_Error( 'Unauthorized', 'Access to API is unauthorized.' ), 401);
+		if (!current_user_can('manage_options')) {
+			wp_send_json_error(new WP_Error('Unauthorized', 'Access to API is unauthorized.'), 401);
 			return;
 		}
 
@@ -305,9 +305,8 @@ class Direktt_Admin
 
 		if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], $this->plugin_name . '-settings')) {
 
-			wp_send_json_error(new WP_Error( 'Unauthorized', 'Nonce is not valid' ), 401);
+			wp_send_json_error(new WP_Error('Unauthorized', 'Nonce is not valid'), 401);
 			exit;
-
 		} else {
 			if ($choice) {
 
@@ -323,6 +322,7 @@ class Direktt_Admin
 		}
 
 		$data = array();
-    	wp_send_json_success($data, 200);
+		wp_send_json_success($data, 200);
 	}
+
 }
