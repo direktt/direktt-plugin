@@ -11,9 +11,14 @@ const store = useDirekttStore()
 const nonce = ref(direktt_settings_object.nonce)
 
 const api_key = ref('')
+const activation_status = ref(false)
 const save_loading = ref(false)
 
-const snackbar = ref(false);
+const snackbar = ref(false)
+const snackbar_color = ref('success')
+const snackbar_text = ref(snack_succ_text)
+const snack_succ_text = 'Direktt API Key Saved and Validated'
+
 
 const { isLoading, isError, isFetching, data, error, refetch } = useQuery({
   queryKey: ['direktt-settings'],
@@ -26,6 +31,16 @@ const mutation = useMutation({
     // Invalidate and refetch
     queryClient.invalidateQueries({ queryKey: ['direktt-settings'] })
     save_loading.value = false
+
+    snackbar_color.value = 'success'
+    snackbar_text.value = snack_succ_text
+    snackbar.value = true
+  },
+  onError: (error, variables, context) => {
+    save_loading.value = false
+
+    snackbar_color.value = 'error'
+    snackbar_text.value = error.responseJSON.data[0].message
     snackbar.value = true
   },
 })
@@ -40,7 +55,7 @@ async function doAjax(args) {
     });
     return result;
   } catch (error) {
-    console.error(error);
+    throw (error)
   }
 }
 
@@ -55,6 +70,7 @@ async function getSettings() {
   ret = response.data
 
   api_key.value = response.data.api_key
+  activation_status.value = (response.data.activation_status === 'true')
 
   return ret
 }
@@ -72,7 +88,6 @@ async function saveSettings(obj) {
   obj.nonce = nonce.value
 
   const response = await doAjax(obj)
-  console.log(response.data)
 }
 
 const openInNewTab = (url) => {
@@ -81,7 +96,6 @@ const openInNewTab = (url) => {
 }
 
 onMounted(() => {
-  console.log(nonce.value)
 })
 
 </script>
@@ -105,7 +119,14 @@ onMounted(() => {
         <tr>
           <th scope="row"><label for="blogname">Activation status:</label></th>
           <td>
-            Not activated
+            <div v-if="!activation_status">
+              <v-icon color="error" icon="mdi-alert-outline" size="large"class='rm-4'></v-icon>
+              Not activated
+            </div>
+            <div v-if="activation_status">
+              <v-icon color="success" icon="mdi-check-bold" size="large"class='rm-4'></v-icon>
+              Activated
+            </div>
           </td>
 
         </tr>
@@ -118,9 +139,8 @@ onMounted(() => {
       Save API key and (re)activate instance
     </v-btn>
 
-    <v-snackbar v-model="snackbar" :timeout="2000" color="#2271b1">
-      Direktt API Key Saved and Validated
-
+    <v-snackbar v-model="snackbar" :timeout="3000" :color="snackbar_color">
+      {{ snackbar_text }}
       <template v-slot:actions>
         <v-btn variant="text" @click="snackbar = false">
           X

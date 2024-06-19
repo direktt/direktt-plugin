@@ -281,11 +281,14 @@ class Direktt_Admin
 	public function ajax_get_settings()
 	{
 		if(!current_user_can('manage_options')){
+			wp_send_json_error(new WP_Error( 'Unauthorized', 'Access to API is unauthorized.' ), 401);
 			return;
 		}
 
 		$data = array( 
-			'api_key' => get_option('direktt_api_key') ? esc_attr(get_option('direktt_api_key')) : ''
+			'api_key' => get_option('direktt_api_key') ? esc_attr(get_option('direktt_api_key')) : '',
+			'activation_status' => get_option('direktt_activation_status') ? esc_attr(get_option('direktt_activation_status')) : 'false'
+			//'activation_status' => 'true'
 		);
 
     	wp_send_json_success($data, 200);
@@ -294,16 +297,26 @@ class Direktt_Admin
 	public function ajax_save_settings()
 	{
 		if(!current_user_can('manage_options')){
+			wp_send_json_error(new WP_Error( 'Unauthorized', 'Access to API is unauthorized.' ), 401);
 			return;
 		}
 
 		$choice = (isset($_POST['api_key'])) ? sanitize_text_field($_POST['api_key']) : false;
 
 		if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], $this->plugin_name . '-settings')) {
+
+			wp_send_json_error(new WP_Error( 'Unauthorized', 'Nonce is not valid' ), 401);
 			exit;
+
 		} else {
 			if ($choice) {
+
+				delete_option('direktt_activation_status');
 				update_option('direktt_api_key',  $choice);
+
+				// Ovde treba poslati poziv
+
+
 			} else {
 				delete_option('direktt_api_key');
 			}
