@@ -37,6 +37,7 @@ const mutation = useMutation({
     snackbar.value = true
   },
   onError: (error, variables, context) => {
+    queryClient.invalidateQueries({ queryKey: ['direktt-settings'] })
     save_loading.value = false
 
     snackbar_color.value = 'error'

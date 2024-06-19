@@ -446,11 +446,28 @@ class Direktt_Public {
 			'args' => array(),
 			'permission_callback' => array( $this, 'api_validate_api_key') 
 		));
+
+		register_rest_route('direktt/v1', '/test/', array(
+			'methods' => 'POST',
+			'callback' => array( $this, 'api_test'),
+			'args' => array(),
+			'permission_callback' => array( $this, 'api_validate_api_key') 
+		));
 	}
 
 	public function api_validate_domain()
 	{
 		$data = array();
+		wp_send_json_success($data, 200);
+	}
+
+	public function api_test( WP_REST_Request $request )
+	{
+		$parameters = $request->get_body_params();
+
+		$data = array(
+			'domain' => $parameters['domain']
+		);
 		wp_send_json_success($data, 200);
 	}
 
@@ -470,7 +487,7 @@ class Direktt_Public {
 		 * Check if the auth header is not bearer, if so, return the user
 		 */
 		if ( strpos( $auth_header, 'Bearer' ) !== 0 ) {
-			return $false;
+			return false;
 		}
 
 		[ $token ] = sscanf( $auth_header, 'Bearer %s' );

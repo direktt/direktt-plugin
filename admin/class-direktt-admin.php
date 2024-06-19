@@ -315,12 +315,38 @@ class Direktt_Admin
 
 				// Ovde treba poslati poziv
 
+				$url = 'https://direktt-wordpress-plugin.local/wp-json/direktt/v1/test';
+
+				$data = array(
+					'domain' => 'https://direktt-wordpress-plugin.local/'
+				);
+
+				$response = wp_remote_post( $url, array(
+					'body'    => $data,
+					'headers' => array(
+						'Authorization' => 'Bearer ' . $choice,
+					),
+				) );
+
+				//var_dump($response['response']['code']);
+
+				if ( is_wp_error( $response ) ) {
+					wp_send_json_error( $response , 500);
+					return;
+				}
+
+				if ( $response['response']['code'] != '200' ){
+					wp_send_json_error(new WP_Error('Unauthorized', 'API Key validation failed'), 401);
+					return;
+				}
+				
 
 			} else {
 				delete_option('direktt_api_key');
 			}
 		}
 
+		update_option('direktt_activation_status', 'true');
 		$data = array();
 		wp_send_json_success($data, 200);
 	}
