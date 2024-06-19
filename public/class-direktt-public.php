@@ -441,10 +441,10 @@ class Direktt_Public {
 	public function api_register_routes()
 	{
 		register_rest_route('direktt/v1', '/validate/', array(
-			'methods' => 'GET',
+			'methods' => 'POST',
 			'callback' => array( $this, 'api_validate_domain'),
 			'args' => array(),
-			'permission_callback' => '__return_true'
+			'permission_callback' => array( $this, 'api_validate_api_key') 
 		));
 	}
 
@@ -452,5 +452,36 @@ class Direktt_Public {
 	{
 		$data = array();
 		wp_send_json_success($data, 200);
+	}
+
+	public function api_validate_api_key()
+	{
+		$auth_header = ! empty( $_SERVER['HTTP_AUTHORIZATION'] ) ? sanitize_text_field( $_SERVER['HTTP_AUTHORIZATION'] ) : false;
+		/* Double check for different auth header string (server dependent) */
+		if ( ! $auth_header ) {
+			$auth_header = ! empty( $_SERVER['REDIRECT_HTTP_AUTHORIZATION'] ) ? sanitize_text_field( $_SERVER['REDIRECT_HTTP_AUTHORIZATION'] ) : false;
+		}
+
+		if ( ! $auth_header ) {
+			return false;
+		}
+
+		/**
+		 * Check if the auth header is not bearer, if so, return the user
+		 */
+		if ( strpos( $auth_header, 'Bearer' ) !== 0 ) {
+			return $false;
+		}
+
+		[ $token ] = sscanf( $auth_header, 'Bearer %s' );
+
+		$api_key = get_option('direktt_api_key');
+
+		if( $api_key && $api_key == $token ){
+			return true;
+		} else {
+			return false;
+		}
+		
 	}
 }
