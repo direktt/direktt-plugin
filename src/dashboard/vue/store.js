@@ -2,7 +2,7 @@ import { defineStore } from "pinia";
 import { ref, watch, computed } from "vue";
 
 export const useDirekttStore = defineStore("direkttstore", () => {
-  const initial = ref("Initial");
+  const initial = ref("Dashboard");
 
   /* watch(activetab, (newactivetab, prevactivetab) => {
       

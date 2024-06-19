@@ -169,6 +169,9 @@ class Direktt {
 		$this->loader->add_action( 'admin_init', $plugin_admin, 'register_plugin_settings' );
 		$this->loader->add_action( 'rest_api_init', $plugin_admin, 'register_plugin_settings' );
 		//$this->loader->add_action( 'admin_notices', $plugin_admin, 'display_admin_notice' );
+
+		$this->loader->add_action( 'wp_ajax_direktt_get_settings', $plugin_admin, 'ajax_get_settings' );
+		$this->loader->add_action( 'wp_ajax_direktt_save_settings', $plugin_admin, 'ajax_save_settings' );
 	}
 
 	/**
