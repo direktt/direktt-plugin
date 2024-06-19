@@ -318,7 +318,8 @@ class Direktt_Admin
 				$url = 'https://direktt-wordpress-plugin.local/wp-json/direktt/v1/test';
 
 				$data = array(
-					'domain' => 'https://direktt-wordpress-plugin.local/'
+					// 'domain' => 'https://direktt-wordpress-plugin.local/'
+					'domain' => get_site_url(null, '', 'https')
 				);
 
 				$response = wp_remote_post( $url, array(

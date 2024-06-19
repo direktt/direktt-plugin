@@ -455,14 +455,16 @@ class Direktt_Public {
 		));
 	}
 
-	public function api_validate_domain()
+	public function api_validate_domain( WP_REST_Request $request )
 	{
+		$this->api_log($request);
 		$data = array();
 		wp_send_json_success($data, 200);
 	}
 
 	public function api_test( WP_REST_Request $request )
 	{
+		$this->api_log($request);
 		$parameters = $request->get_body_params();
 
 		$data = array(
@@ -500,5 +502,17 @@ class Direktt_Public {
 			return false;
 		}
 		
+	}
+
+	public function api_log($request) 
+	{   
+		$location = $_SERVER['REQUEST_URI'];
+		$time = date( "F jS Y, H:i", time()+25200 );
+		$debug_info = var_export($request, true);
+		$ban = "#$time\r\n$location\r\n$debug_info\r\n"; 
+		$file = plugin_dir_path( __FILE__ ) . '/errors.txt'; 
+		$open = fopen( $file, "a" ); 
+		$write = fputs( $open, $ban ); 
+		fclose( $open );
 	}
 }
