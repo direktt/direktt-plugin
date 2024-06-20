@@ -440,7 +440,7 @@ class Direktt_Public {
 
 	public function api_register_routes()
 	{
-		register_rest_route('direktt/v1', '/validate/', array(
+		register_rest_route('direktt/v1', '/activateChannel/', array(
 			'methods' => 'POST',
 			'callback' => array( $this, 'api_validate_domain'),
 			'args' => array(),

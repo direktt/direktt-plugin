@@ -315,17 +315,18 @@ class Direktt_Admin
 
 				// Ovde treba poslati poziv
 
-				$url = 'https://direktt-wordpress-plugin.local/wp-json/direktt/v1/test';
+				$url = 'https://activatechannel-lnkonwpiwa-uc.a.run.app';
 
 				$data = array(
-					// 'domain' => 'https://direktt-wordpress-plugin.local/'
-					'domain' => get_site_url(null, '', 'https')
+					'domain' => 'https://2f70-82-117-218-70.ngrok-free.app'
+					// 'domain' => get_site_url(null, '', 'https')
 				);
 
 				$response = wp_remote_post( $url, array(
-					'body'    => $data,
+					'body'    => json_encode( $data ) ,
 					'headers' => array(
 						'Authorization' => 'Bearer ' . $choice,
+						'Content-type' => 'application/json',
 					),
 				) );
 
@@ -336,12 +337,11 @@ class Direktt_Admin
 					return;
 				}
 
-				if ( $response['response']['code'] != '200' ){
+				if ( $response['response']['code'] != '200' && $response['response']['code'] != '201' ){
 					wp_send_json_error(new WP_Error('Unauthorized', 'API Key validation failed'), 401);
 					return;
 				}
 				
-
 			} else {
 				delete_option('direktt_api_key');
 			}
