@@ -68,6 +68,30 @@ class Direktt_Admin
 			'direktt-dashboard'
 		);
 
+		
+	}
+
+	public function register_menu_page_end()
+	{
+
+		add_submenu_page(
+			'direktt-dashboard', 
+			__('User Categories', 'direktt'), 
+			__('User Categories', 'direktt'),
+			'manage_options', 
+			'edit-tags.php?taxonomy=direkttusercategories', 
+			false
+		);
+
+		add_submenu_page(
+			'direktt-dashboard', 
+			__('User Tags', 'direktt'), 
+			__('User Tags', 'direktt'),
+			'manage_options', 
+			'edit-tags.php?taxonomy=direkttusertags', 
+			false
+		);
+
 		add_submenu_page(
 			'direktt-dashboard',
 			__('Settings', 'direktt'),
@@ -76,6 +100,125 @@ class Direktt_Admin
 			'direktt-settings',
 			[$this, 'render_admin_page']
 		);
+	}
+
+	public function highlight_direktt_submenu($parent_file){
+		global $submenu_file, $current_screen, $pagenow;
+		
+		if ( $pagenow == 'edit-tags.php' && $current_screen->taxonomy == 'direkttusercategories' ) {
+			$submenu_file = 'edit-tags.php?taxonomy=direkttusercategories';
+			$parent_file = 'direktt-dashboard';
+		}
+
+		if ( $pagenow == 'edit-tags.php' && $current_screen->taxonomy == 'direkttusertags' ) {
+			$submenu_file = 'edit-tags.php?taxonomy=direkttusertags';
+			$parent_file = 'direktt-dashboard';
+		}
+		
+		return $parent_file;
+	}
+
+	public function register_custom_post_type_users()
+	{
+		// register custom user category
+
+		$labels = array(
+			'name'              => _x('User Categories', 'taxonomy general name', 'direktt'),
+			'singular_name'     => _x('User Category', 'taxonomy singular name', 'direktt'),
+			'search_items'      => __('Search Categories', 'direktt'),
+			'all_items'         => __('All Categories', 'direktt'),
+			'parent_item'       => __('Parent Category', 'direktt'),
+			'parent_item_colon' => __('Parent Category:', 'direktt'),
+			'edit_item'         => __('Edit Category', 'direktt'),
+			'update_item'       => __('Update Category', 'direktt'),
+			'add_new_item'      => __('Add New Category', 'direktt'),
+			'new_item_name'     => __('New Category Name', 'direktt'),
+			'menu_name'         => __('Category', 'direktt'),
+		);
+		$args   = array(
+			'hierarchical'      => true, // make it hierarchical (like categories)
+			'public'			=> false,
+			'labels'            => $labels,
+			'show_ui'           => true,
+			'show_admin_column' => true,
+			'show_in_menu'      => 'direktt-dashboard',
+			'show_in_nav_menus' => true,
+			'query_var'         => true,
+			'show_in_rest'	=> false,
+			'publicly_queryable'  => false
+		);
+
+		register_taxonomy('direkttusercategories', ['direkttusers'], $args);
+
+		// register custom user category
+
+		$labels = array(
+			'name'              => _x('User Tags', 'taxonomy general name', 'direktt'),
+			'singular_name'     => _x('User Tag', 'taxonomy singular name', 'direktt'),
+			'search_items'      => __('Search Tags', 'direktt'),
+			'all_items'         => __('All Tags', 'direktt'),
+			'parent_item'       => __('Parent Tag', 'direktt'),
+			'parent_item_colon' => __('Parent Tag:', 'direktt'),
+			'edit_item'         => __('Edit Tag', 'direktt'),
+			'update_item'       => __('Update Tag', 'direktt'),
+			'add_new_item'      => __('Add New Tag', 'direktt'),
+			'new_item_name'     => __('New Tag Name', 'direktt'),
+			'menu_name'         => __('Tag', 'direktt'),
+		);
+		$args   = array(
+			'hierarchical'      => false, // make it hierarchical (like categories)
+			'public'			=> false,
+			'labels'            => $labels,
+			'show_ui'           => true,
+			'show_admin_column' => true,
+			'show_in_menu'      => 'direktt-dashboard',
+			'show_in_nav_menus' => true,
+			'query_var'         => true,
+			'show_in_rest'	=> false,
+			'publicly_queryable'  => false
+		);
+
+		register_taxonomy('direkttusertags', ['direkttusers'], $args);
+
+		$labels = array(
+			'name'                => __('Direktt Users', 'direktt'),
+			'singular_name'       => __('Direktt User',  'direktt'),
+			'menu_name'           => __('Direktt', 'direktt'),
+			'all_items'           => __('Direktt Users', 'direktt'),
+			'view_item'           => __('View Direktt User', 'direktt'),
+			'add_new_item'        => __('Add New Direktt User', 'direktt'),
+			'add_new'             => __('Add New', 'direktt'),
+			'edit_item'           => __('Edit Direktt User', 'direktt'),
+			'update_item'         => __('Update Direktt User', 'direktt'),
+			'search_items'        => __('Search Direktt Users', 'direktt'),
+			'not_found'           => __('Not Found', 'direktt'),
+			'not_found_in_trash'  => __('Not found in Trash', 'direktt'),
+		);
+
+		$args = array(
+			'label'               => __('users', 'direktt'),
+			'description'         => __('Direktt Users', 'direktt'),
+			'labels'              => $labels,
+			'supports'            => array('title', 'editor'),
+			'hierarchical'        => false,
+			'public'              => false,
+			'show_ui'             => true,
+			'show_in_menu'        => 'direktt-dashboard',
+			'show_in_nav_menus'   => true,
+			'show_in_admin_bar'   => true,
+			'menu_position'       => 5,
+			'can_export'          => true,
+			'has_archive'         => false,
+			'exclude_from_search' => true,
+			'publicly_queryable'  => false,
+			'capability_type'     => 'post',
+			'capabilities'          => array(
+				//'create_posts' => 'do_not_allow' // <-- The important bit.
+			),
+			'show_in_rest'	=> false,
+		);
+
+		register_post_type('direkttusers', $args);
 	}
 
 	/**
@@ -118,8 +261,6 @@ class Direktt_Admin
 	 */
 	public function enqueue_plugin_assets(string $suffix)
 	{
-
-
 		if ($suffix !== 'direktt_page_direktt-settings' && $suffix !== 'toplevel_page_direktt-dashboard') {
 			return null;
 		}
@@ -214,68 +355,7 @@ class Direktt_Admin
 	{
 		?>
 		<div id="app"></div>
-		<?php
-	}
-
-	public function render_admin_page1()
-	{
-
-		$action = (isset($_GET['action'])) ? sanitize_text_field($_GET['action']) : false;
-
-		if (!$action) {
-
-			$api_key = get_option('direktt_api_key') ? esc_attr(get_option('direktt_api_key')) : '';
-
-		?>
-
-			<form method="POST" action="<?php echo admin_url('admin.php'); ?>" class="bt-form-pb-selection">
-				<input type="hidden" name="action" value="direkttoptions" />
-				<?php wp_nonce_field('direkttoptions', 'direktt_nonce'); ?>
-				<h1><?php echo esc_html__('Direktt settings', 'direktt'); ?></h1>
-
-				<table class="form-table" role="presentation">
-
-					<tbody>
-						<tr>
-
-							<th scope="row"><label for="blogname"><?php echo esc_html__('API Key', 'direktt'); ?></label></th>
-
-
-							<td>
-								<input type="text" name="direkttapikey" id="direkttapikey" size="50" placeholder="<?php echo esc_html__('Paste your API Key here', 'direktt'); ?>" value="<?php echo $api_key ?>">
-							</td>
-
-						</tr>
-					</tbody>
-				</table>
-				<p>
-					<input type="submit" value="<?php echo __('Save Direktt Settings', 'direktt'); ?>" class="button button-primary button-large" />
-				</p>
-			</form>
-
 <?php
-
-		}
-	}
-
-	public function set_page_builder_option()
-	{
-
-		$choice = (isset($_POST['direkttapikey'])) ? sanitize_text_field($_POST['direkttapikey']) : false;
-
-		if (!isset($_POST['direktt_nonce']) || !wp_verify_nonce($_POST['direktt_nonce'], 'direkttoptions') || !current_user_can('manage_options')) {
-			exit;
-		} else {
-			if ($choice) {
-				update_option('direktt_api_key',  $choice);
-				wp_safe_redirect(admin_url('options-general.php?page=direktt'));
-				exit();
-			} else {
-				delete_option('direktt_api_key');
-				wp_safe_redirect(admin_url('options-general.php?page=direktt'));
-				exit();
-			}
-		}
 	}
 
 	public function ajax_get_settings()
@@ -322,26 +402,25 @@ class Direktt_Admin
 					// 'domain' => get_site_url(null, '', 'https')
 				);
 
-				$response = wp_remote_post( $url, array(
-					'body'    => json_encode( $data ) ,
+				$response = wp_remote_post($url, array(
+					'body'    => json_encode($data),
 					'headers' => array(
 						'Authorization' => 'Bearer ' . $choice,
 						'Content-type' => 'application/json',
 					),
-				) );
+				));
 
 				//var_dump($response['response']['code']);
 
-				if ( is_wp_error( $response ) ) {
-					wp_send_json_error( $response , 500);
+				if (is_wp_error($response)) {
+					wp_send_json_error($response, 500);
 					return;
 				}
 
-				if ( $response['response']['code'] != '200' && $response['response']['code'] != '201' ){
+				if ($response['response']['code'] != '200' && $response['response']['code'] != '201') {
 					wp_send_json_error(new WP_Error('Unauthorized', 'API Key validation failed'), 401);
 					return;
 				}
-				
 			} else {
 				delete_option('direktt_api_key');
 			}
@@ -351,5 +430,4 @@ class Direktt_Admin
 		$data = array();
 		wp_send_json_success($data, 200);
 	}
-
 }
