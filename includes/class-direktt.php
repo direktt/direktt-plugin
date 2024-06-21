@@ -69,6 +69,8 @@ class Direktt {
 		$this->set_locale();
 		$this->define_public_hooks();
 		$this->define_admin_hooks();
+
+		$this->define_event_hooks();
 	}
 
 	/**
@@ -124,6 +126,8 @@ class Direktt {
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-direktt-admin.php';
 
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-direktt-event.php';
+
 		$this->loader = new Direktt_Loader();
 	}
 
@@ -176,6 +180,14 @@ class Direktt {
 
 		$this->loader->add_action( 'wp_ajax_direktt_get_settings', $plugin_admin, 'ajax_get_settings' );
 		$this->loader->add_action( 'wp_ajax_direktt_save_settings', $plugin_admin, 'ajax_save_settings' );
+	}
+
+	private function define_event_hooks() {
+
+		//var_dump(dirname( __FILE__ ) . '/../direktt.php');
+
+		$plugin_event = new Direktt_Event( $this->get_plugin_name(), $this->get_version() );
+		register_activation_hook( WP_PLUGIN_DIR . '/direktt-plugin/direktt.php' , array('Direktt_Event', 'create_database_table') );
 	}
 
 	/**
