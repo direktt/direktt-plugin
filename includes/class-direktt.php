@@ -71,6 +71,7 @@ class Direktt {
 		$this->define_admin_hooks();
 
 		$this->define_event_hooks();
+		$this->define_user_hooks();
 	}
 
 	/**
@@ -128,6 +129,8 @@ class Direktt {
 
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-direktt-event.php';
 
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-direktt-user.php';
+
 		$this->loader = new Direktt_Loader();
 	}
 
@@ -184,10 +187,13 @@ class Direktt {
 
 	private function define_event_hooks() {
 
-		//var_dump(dirname( __FILE__ ) . '/../direktt.php');
-
 		$plugin_event = new Direktt_Event( $this->get_plugin_name(), $this->get_version() );
 		register_activation_hook( WP_PLUGIN_DIR . '/direktt-plugin/direktt.php' , array('Direktt_Event', 'create_database_table') );
+	}
+
+	private function define_user_hooks() {
+
+		$plugin_user = new Direktt_User( $this->get_plugin_name(), $this->get_version() );
 	}
 
 	/**
