@@ -183,6 +183,8 @@ class Direktt {
 
 		$this->loader->add_action( 'wp_ajax_direktt_get_settings', $plugin_admin, 'ajax_get_settings' );
 		$this->loader->add_action( 'wp_ajax_direktt_save_settings', $plugin_admin, 'ajax_save_settings' );
+		$this->loader->add_action( 'wp_ajax_direktt_get_marketing_consent', $plugin_admin, 'ajax_get_marketing_consent' );
+		
 		$this->loader->add_action( 'edit_form_after_editor', $plugin_admin, 'render_consent_events' );
 	}
 

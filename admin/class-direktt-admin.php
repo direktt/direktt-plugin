@@ -340,6 +340,15 @@ class Direktt_Admin
 					''
 				);
 
+				wp_localize_script(
+					$this->plugin_name . '-users',
+					$this->plugin_name . '_users_object',
+					array(
+						'ajaxurl' => admin_url('admin-ajax.php'),
+						'postId' => $post->ID
+					)
+				);
+
 			}
 		}
 	}
@@ -404,6 +413,23 @@ class Direktt_Admin
 			'api_key' => get_option('direktt_api_key') ? esc_attr(get_option('direktt_api_key')) : '',
 			'activation_status' => get_option('direktt_activation_status') ? esc_attr(get_option('direktt_activation_status')) : 'false'
 			//'activation_status' => 'true'
+		);
+
+		wp_send_json_success($data, 200);
+	}
+
+	public function ajax_get_marketing_consent()
+	{
+		if (!current_user_can('manage_options')) {
+			wp_send_json_error(new WP_Error('Unauthorized', 'Access to API is unauthorized.'), 401);
+			return;
+		}
+
+		$post_id = (isset($_POST['postId'])) ? sanitize_text_field($_POST['postId']) : false;
+
+		$data = array(
+			'direktt_user_id' => get_post_meta( $post_id, "direktt_user_id", true ),
+			'marketing_consent' => get_post_meta( $post_id, "direktt_marketing_consent_status", true )
 		);
 
 		wp_send_json_success($data, 200);
