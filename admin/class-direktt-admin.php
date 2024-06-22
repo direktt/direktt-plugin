@@ -213,7 +213,8 @@ class Direktt_Admin
 			'publicly_queryable'  => false,
 			'capability_type'     => 'post',
 			'capabilities'          => array(
-				//'create_posts' => 'do_not_allow' // <-- The important bit.
+				//'create_posts' => 'do_not_allow', // <-- The important bit.
+				//'edit_posts' => 'allow' // <-- The important bit.
 			),
 			'show_in_rest'	=> false,
 		);

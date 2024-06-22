@@ -447,6 +447,20 @@ class Direktt_Public {
 			'permission_callback' => array( $this, 'api_validate_api_key') 
 		));
 
+		register_rest_route('direktt/v1', '/onNewSubscription/', array(
+			'methods' => 'POST',
+			'callback' => array( $this, 'on_new_subscription'),
+			'args' => array(),
+			'permission_callback' => array( $this, 'api_validate_api_key') 
+		));
+
+		register_rest_route('direktt/v1', '/onUnsubscribe/', array(
+			'methods' => 'POST',
+			'callback' => array( $this, 'on_unsubscribe'),
+			'args' => array(),
+			'permission_callback' => array( $this, 'api_validate_api_key') 
+		));
+
 		register_rest_route('direktt/v1', '/test/', array(
 			'methods' => 'POST',
 			'callback' => array( $this, 'api_test'),
@@ -460,6 +474,92 @@ class Direktt_Public {
 		$this->api_log($request);
 		$data = array();
 		wp_send_json_success($data, 200);
+	}
+
+	public function on_new_subscription( WP_REST_Request $request )
+	{
+		$this->api_log($request);
+		$parameters = json_decode($request->get_body(), true);
+
+		if( array_key_exists('subscriptionId', $parameters ) ){
+			$direktt_user_id = sanitize_text_field($parameters['subscriptionId']);
+
+
+			// $hierarchical_tax = array( 13, 10 ); // Array of tax ids.
+			// $non_hierarchical_terms = 'tax name 1, tax name 2'; // Can use array of ids or string of tax names separated by commas
+
+			$post_arr = array(
+				'post_type'		=>	'direkttusers',
+				'post_title'   	=> 	$direktt_user_id,
+				//'post_content' 	=> 	'Test post content',
+				'post_status'  	=> 	'publish',
+				//'post_author'  	=> 	get_current_user_id(),
+				/* 'tax_input'    	=> 	array(
+					'hierarchical_tax'     => $hierarchical_tax,
+					'non_hierarchical_tax' => $non_hierarchical_terms,
+				), */
+				'meta_input'	=>	array(
+					'direktt_user_id'	=> $direktt_user_id,
+				),
+			);
+
+			$wp_error = false;
+
+			$post_id = wp_insert_post( $post_arr, $wp_error );
+
+			if ( $wp_error ) {
+				wp_send_json_error($wp_error, 500);
+			} else {
+				$data = array();
+				wp_send_json_success($data, 200);
+			}
+		} else {
+			wp_send_json_error(new WP_Error('Missing param', 'Subscription Id missing'), 400);
+		}
+		
+	}
+
+	public function on_unsubscribe( WP_REST_Request $request )
+	{
+		$this->api_log($request);
+		$parameters = json_decode($request->get_body(), true);
+
+		if( array_key_exists('subscriptionId', $parameters ) ){
+			$direktt_user_id = sanitize_text_field($parameters['subscriptionId']);
+
+			$args = array(
+				'post_type' => 'direkttusers',
+				'post_status' => 'publish',
+				'posts_per_page' => -1,
+				'fields' => 'ids',
+				'meta_query' => array(
+						array(
+							'key'   => 'direktt_user_id',
+							'value' => $direktt_user_id,
+						)
+					)/* ,
+				'tax_query' => array(
+					array(
+						'taxonomy' => 'genre',
+						'field'    => 'slug',
+						'terms'    => 'jazz'
+					)
+				) */
+			);
+			$posts = get_posts($args);
+
+			if(!empty($posts)) {
+				$post_id = $posts[0];
+				wp_delete_post( $post_id, true );
+			}
+
+			$data = array();
+			wp_send_json_success($data, 200);
+
+		} else {
+			wp_send_json_error(new WP_Error('Missing param', 'Subscription Id missing'), 400);
+		}
+		
 	}
 
 	public function api_test( WP_REST_Request $request )
