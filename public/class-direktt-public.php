@@ -461,6 +461,13 @@ class Direktt_Public {
 			'permission_callback' => array( $this, 'api_validate_api_key') 
 		));
 
+		register_rest_route('direktt/v1', '/onMarketingConsentUpdate/', array(
+			'methods' => 'POST',
+			'callback' => array( $this, 'on_marketing_consent_update'),
+			'args' => array(),
+			'permission_callback' => array( $this, 'api_validate_api_key') 
+		));
+
 		register_rest_route('direktt/v1', '/test/', array(
 			'methods' => 'POST',
 			'callback' => array( $this, 'api_test'),
@@ -527,29 +534,9 @@ class Direktt_Public {
 		if( array_key_exists('subscriptionId', $parameters ) ){
 			$direktt_user_id = sanitize_text_field($parameters['subscriptionId']);
 
-			$args = array(
-				'post_type' => 'direkttusers',
-				'post_status' => 'publish',
-				'posts_per_page' => -1,
-				'fields' => 'ids',
-				'meta_query' => array(
-						array(
-							'key'   => 'direktt_user_id',
-							'value' => $direktt_user_id,
-						)
-					)/* ,
-				'tax_query' => array(
-					array(
-						'taxonomy' => 'genre',
-						'field'    => 'slug',
-						'terms'    => 'jazz'
-					)
-				) */
-			);
-			$posts = get_posts($args);
+			$post_id = Direktt_User::get_user_by_subscription_id( $direktt_user_id );
 
-			if(!empty($posts)) {
-				$post_id = $posts[0];
+			if( $post_id ) {
 				wp_delete_post( $post_id, true );
 			}
 
@@ -558,6 +545,31 @@ class Direktt_Public {
 
 		} else {
 			wp_send_json_error(new WP_Error('Missing param', 'Subscription Id missing'), 400);
+		}
+		
+	}
+
+	public function on_marketing_consent_update( WP_REST_Request $request )
+	{
+		$this->api_log($request);
+		$parameters = json_decode($request->get_body(), true);
+
+		if( array_key_exists('subscriptionId', $parameters ) && array_key_exists('marketingConsentStatus', $parameters ) ){
+			
+			$direktt_user_id = sanitize_text_field($parameters['subscriptionId']);
+			$marketing_consent_status = (sanitize_text_field($parameters['marketingConsentStatus']) === 'true');
+
+			$post_id = Direktt_User::get_user_by_subscription_id( $direktt_user_id );
+
+			if( $post_id ) {
+				update_post_meta( $post_id, "direktt_marketing_consent_status", $marketing_consent_status );
+			}
+
+			$data = array();
+			wp_send_json_success($data, 200);
+
+		} else {
+			wp_send_json_error(new WP_Error('Missing param', 'Subscription Id or Marketing Consent Status is missing'), 400);
 		}
 		
 	}

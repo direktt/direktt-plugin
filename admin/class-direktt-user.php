@@ -34,4 +34,36 @@ class Direktt_User
 		$this->version     = $version;
 	}
 
+	static function get_user_by_subscription_id( $subscription_id )
+	{
+		$args = array(
+			'post_type' => 'direkttusers',
+			'post_status' => 'publish',
+			'posts_per_page' => -1,
+			'fields' => 'ids',
+			'meta_query' => array(
+					array(
+						'key'   => 'direktt_user_id',
+						'value' => $subscription_id,
+					)
+				)/* ,
+			'tax_query' => array(
+				array(
+					'taxonomy' => 'genre',
+					'field'    => 'slug',
+					'terms'    => 'jazz'
+				)
+			) */
+		);
+		$posts = get_posts($args);
+
+		$post_id = false;
+
+		if(!empty($posts)) {
+			$post_id = $posts[0];
+		}
+
+		return $post_id;
+	}
+
 }
