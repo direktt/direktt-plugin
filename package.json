@@ -18,6 +18,10 @@
     "dashboard": {
       "source": "./src/dashboard/js/direktt-dashboard.js",
       "distDir": "./js/dashboard"
+    },
+    "users": {
+      "source": "./src/users/js/direktt-users.js",
+      "distDir": "./js/users"
     }
   },
   "dependencies": {

@@ -262,9 +262,9 @@ class Direktt_Admin
 	 */
 	public function enqueue_plugin_assets(string $suffix)
 	{
-		if ($suffix !== 'direktt_page_direktt-settings' && $suffix !== 'toplevel_page_direktt-dashboard') {
+		/* if ($suffix !== 'direktt_page_direktt-settings' && $suffix !== 'toplevel_page_direktt-dashboard') {
 			return null;
-		}
+		} */
 
 		if ($suffix == 'direktt_page_direktt-settings') {
 			wp_enqueue_script(
@@ -316,6 +316,32 @@ class Direktt_Admin
 				''
 			);
 		}
+
+		if ($suffix == 'post.php') {
+			global $post;
+
+			if ( 'direkttusers' === $post->post_type ) {
+
+				wp_enqueue_script(
+					$this->plugin_name . '-users',
+					plugin_dir_url(__DIR__) . 'js/users/direktt-users.js',
+					[],
+					'',
+					[
+						'in_footer' => true,
+					]
+				);
+	
+				// Enqueue the style file
+				wp_enqueue_style(
+					$this->plugin_name . '-users',
+					plugin_dir_url(__DIR__) . 'js/users/direktt-users.css',
+					[],
+					''
+				);
+
+			}
+		}
 	}
 
 	/**
@@ -355,8 +381,16 @@ class Direktt_Admin
 	public function render_admin_page()
 	{
 		?>
-		<div id="app"></div>
-<?php
+			<div id="app"></div>
+		<?php
+	}
+
+	public function render_consent_events( $post )
+	{
+		if ($post->post_type != 'direkttusers') return;
+		?>
+			<div id="app">Here goes the User app</div>
+		<?php
 	}
 
 	public function ajax_get_settings()
