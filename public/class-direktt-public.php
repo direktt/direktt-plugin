@@ -468,6 +468,13 @@ class Direktt_Public {
 			'permission_callback' => array( $this, 'api_validate_api_key') 
 		));
 
+		register_rest_route('direktt/v1', '/recordEvent/', array(
+			'methods' => 'POST',
+			'callback' => array( $this, 'record_event'),
+			'args' => array(),
+			'permission_callback' => array( $this, 'api_validate_api_key') 
+		));
+
 		register_rest_route('direktt/v1', '/test/', array(
 			'methods' => 'POST',
 			'callback' => array( $this, 'api_test'),
@@ -490,31 +497,10 @@ class Direktt_Public {
 
 		if( array_key_exists('subscriptionId', $parameters ) ){
 			$direktt_user_id = sanitize_text_field($parameters['subscriptionId']);
+			
+			$result = Direktt_User::subscribe_user( $direktt_user_id );
 
-
-			// $hierarchical_tax = array( 13, 10 ); // Array of tax ids.
-			// $non_hierarchical_terms = 'tax name 1, tax name 2'; // Can use array of ids or string of tax names separated by commas
-
-			$post_arr = array(
-				'post_type'		=>	'direkttusers',
-				'post_title'   	=> 	$direktt_user_id,
-				//'post_content' 	=> 	'Test post content',
-				'post_status'  	=> 	'publish',
-				//'post_author'  	=> 	get_current_user_id(),
-				/* 'tax_input'    	=> 	array(
-					'hierarchical_tax'     => $hierarchical_tax,
-					'non_hierarchical_tax' => $non_hierarchical_terms,
-				), */
-				'meta_input'	=>	array(
-					'direktt_user_id'	=> $direktt_user_id,
-				),
-			);
-
-			$wp_error = false;
-
-			$post_id = wp_insert_post( $post_arr, $wp_error );
-
-			if ( $wp_error ) {
+			if ( is_wp_error( $result ) ) {
 				wp_send_json_error($wp_error, 500);
 			} else {
 				$data = array();
@@ -523,7 +509,6 @@ class Direktt_Public {
 		} else {
 			wp_send_json_error(new WP_Error('Missing param', 'Subscription Id missing'), 400);
 		}
-		
 	}
 
 	public function on_unsubscribe( WP_REST_Request $request )
@@ -532,21 +517,17 @@ class Direktt_Public {
 		$parameters = json_decode($request->get_body(), true);
 
 		if( array_key_exists('subscriptionId', $parameters ) ){
+
 			$direktt_user_id = sanitize_text_field($parameters['subscriptionId']);
-
 			$post_id = Direktt_User::get_user_by_subscription_id( $direktt_user_id );
-
-			if( $post_id ) {
-				wp_delete_post( $post_id, true );
-			}
+			Direktt_User::unsubscribe_user( $post_id );
 
 			$data = array();
 			wp_send_json_success($data, 200);
 
 		} else {
 			wp_send_json_error(new WP_Error('Missing param', 'Subscription Id missing'), 400);
-		}
-		
+		}	
 	}
 
 	public function on_marketing_consent_update( WP_REST_Request $request )
@@ -570,6 +551,43 @@ class Direktt_Public {
 
 		} else {
 			wp_send_json_error(new WP_Error('Missing param', 'Subscription Id or Marketing Consent Status is missing'), 400);
+		}
+		
+	}
+
+	public function record_event( WP_REST_Request $request )
+	{
+		$this->api_log($request);
+		$parameters = json_decode($request->get_body(), true);
+
+		if( array_key_exists('subscriptionId', $parameters ) && array_key_exists('eventTarget',$parameters ) && array_key_exists('eventType', $parameters )){
+			
+			$direktt_user_id = sanitize_text_field($parameters['subscriptionId']);
+			$event_target = sanitize_text_field($parameters['eventTarget']);
+			$event_type = sanitize_text_field($parameters['eventType']);
+
+			$event = array(
+				'direktt_user_id' => $direktt_user_id,
+				'event_target' => $event_target,
+				'event_type' => $event_type
+				//'event_time' => time()
+			);
+
+			if( array_key_exists('direktt_campaign_id', $parameters )){
+				$event['direktt_campaign_id'] = sanitize_text_field($parameters['direktt_campaign_id']);
+			}
+
+			if( array_key_exists('event_data', $parameters )){
+				$event['event_data'] = sanitize_text_field($parameters['event_data']);
+			}
+
+			Direktt_Event::insert_event( $event );
+
+			$data = array();
+			wp_send_json_success($data, 200);
+
+		} else {
+			wp_send_json_error(new WP_Error('Missing param', 'Subscription Id, Event Target or Event Type is missing'), 400);
 		}
 		
 	}

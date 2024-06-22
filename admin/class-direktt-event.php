@@ -49,7 +49,7 @@ class Direktt_Event
   			direktt_campaign_id bigint(20) unsigned DEFAULT NULL,
   			event_type varchar(256) COLLATE utf8mb4_unicode_520_ci DEFAULT NULL,
   			event_data json DEFAULT NULL,
-  			event_time timestamp NOT NULL ON UPDATE CURRENT_TIMESTAMP,
+  			event_time timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   			PRIMARY KEY  (ID),
 			KEY direktt_campaign_id (direktt_campaign_id),
   			KEY event_type (event_type),
@@ -59,5 +59,17 @@ class Direktt_Event
 
 		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 		dbDelta($sql);
+	}
+
+	static function insert_event( $event )
+	{
+		global $wpdb;
+
+		$table_name = $wpdb->prefix . 'direktt_events';
+
+		$wpdb->insert(
+			$table_name,
+			$event
+		);
 	}
 }
