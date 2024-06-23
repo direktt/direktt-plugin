@@ -187,6 +187,7 @@ class Direktt {
 		$this->loader->add_action( 'wp_ajax_direktt_get_user_events', $plugin_admin, 'ajax_get_user_events' );
 
 		$this->loader->add_action( 'add_meta_boxes_page', $plugin_admin, 'page_direktt_custom_box' );
+		$this->loader->add_action( 'save_post', $plugin_admin, 'save_direktt_custom_box', 10, 2 );
 		
 		$this->loader->add_action( 'edit_form_after_editor', $plugin_admin, 'render_consent_events' );
 	}

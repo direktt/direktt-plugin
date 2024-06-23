@@ -418,11 +418,53 @@ class Direktt_Admin
 
 	public function render_direktt_custom_box( $post )
 	{
-		wp_nonce_field( 'direktt_custom_box', 'direktt_custom_box' );
+		wp_nonce_field( 'direktt_custom_box_nonce', 'direktt_custom_box_nonce' );
+
+		$box_value = intval(get_post_meta($post->ID, 'direktt_custom_box', true)) === 1;
+
+		$box_checked = $box_value? 'checked': 0;
+		
 		?>
-			<input type="checkbox">
+
+			<input id="direktt_custom_box" name="direktt_custom_box" type="checkbox" <?php echo $box_checked ?>>
 			<label><?php echo __( 'Perform Direktt checks', 'direktt') ?></label>
 		<?php
+	}
+
+	function save_direktt_custom_box( $post_id, $post ) {
+
+		// nonce check
+		if ( ! isset( $_POST[ 'direktt_custom_box_nonce' ] ) || ! wp_verify_nonce( $_POST[ 'direktt_custom_box_nonce' ], 'direktt_custom_box_nonce' ) ) {
+			return $post_id;
+		}
+	
+		// check current user permissions
+		$post_type = get_post_type_object( $post->post_type );
+	
+		if ( ! current_user_can( $post_type->cap->edit_post, $post_id ) ) {
+			return $post_id;
+		}
+	
+		// Do not save the data if autosave
+		if ( defined('DOING_AUTOSAVE') && DOING_AUTOSAVE ) {
+			return $post_id;
+		}
+	
+		// define your own post type here
+		if( 'page' !== $post->post_type ) {
+			return $post_id;
+		}
+	
+		if( isset( $_POST[ 'direktt_custom_box' ] ) && sanitize_text_field( $_POST[ 'direktt_custom_box' ] ) == 'on' ) {
+			update_post_meta( $post_id, 'direktt_custom_box', true );
+			var_dump($_POST[ 'direktt_custom_box' ]);
+			die();
+		} else {
+			delete_post_meta( $post_id, 'direktt_custom_box' );
+		}
+	
+		return $post_id;
+	
 	}
 
 	public function ajax_get_settings()
