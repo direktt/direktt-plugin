@@ -402,6 +402,29 @@ class Direktt_Admin
 		<?php
 	}
 
+	public function page_direktt_custom_box() {
+		$screens = [ 'page' ];
+		foreach ( $screens as $screen ) {
+			add_meta_box(
+				'wporg_box_id',                 // Unique ID
+				'Direktt features',      // Box title
+				array($this, 'render_direktt_custom_box'),  // Content callback, must be of type callable
+				$screen,                            // Post type
+				'side',
+				'low'
+			);
+		}
+	}
+
+	public function render_direktt_custom_box( $post )
+	{
+		wp_nonce_field( 'direktt_custom_box', 'direktt_custom_box' );
+		?>
+			<input type="checkbox">
+			<label><?php echo __( 'Perform Direktt checks', 'direktt') ?></label>
+		<?php
+	}
+
 	public function ajax_get_settings()
 	{
 		if (!current_user_can('manage_options')) {
@@ -431,6 +454,40 @@ class Direktt_Admin
 			'direktt_user_id' => get_post_meta( $post_id, "direktt_user_id", true ),
 			'marketing_consent' => get_post_meta( $post_id, "direktt_marketing_consent_status", true )
 		);
+
+		wp_send_json_success($data, 200);
+	}
+
+	public function ajax_get_user_events()
+	{
+		if (!current_user_can('manage_options')) {
+			wp_send_json_error(new WP_Error('Unauthorized', 'Access to API is unauthorized.'), 401);
+			return;
+		}
+
+		$post_id = (isset($_POST['postId'])) ? sanitize_text_field($_POST['postId']) : false;
+		$page = (isset($_POST['page'])) ? sanitize_text_field($_POST['page']) : false;
+
+		global $wpdb;
+
+		$table_name = $wpdb->prefix . 'direktt_events';
+
+		if(intval($page) == 0){
+			$results = $wpdb->get_results( "SELECT * FROM $table_name ORDER BY ID DESC LIMIT 20" );
+		} else {
+			$results = $wpdb->get_results( "SELECT * FROM $table_name WHERE ID < " . intval($page) . " ORDER BY ID DESC LIMIT 20" );
+		}
+
+		/* foreach ( $results as $result ) {
+			echo $result->name . ' ' . $result->text . '<br>';
+		} */
+
+		/* $data = array(
+			'direktt_user_id' => get_post_meta( $post_id, "direktt_user_id", true ),
+			'marketing_consent' => get_post_meta( $post_id, "direktt_marketing_consent_status", true )
+		); */
+
+		$data = $results;
 
 		wp_send_json_success($data, 200);
 	}

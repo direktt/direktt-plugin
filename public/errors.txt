@@ -7366,3 +7366,307 @@ WP_REST_Request::__set_state(array(
    'parsed_json' => true,
    'parsed_body' => false,
 ))
+#June 23rd 2024, 23:08
+/wp-json/direktt/v1/recordEvent
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => NULL,
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'accept_encoding' => 
+    array (
+      0 => 'gzip, deflate, br',
+    ),
+    'postman_token' => 
+    array (
+      0 => 'c13b7408-5169-4a50-8984-60e743291fe6',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'PostmanRuntime/7.31.3',
+    ),
+    'content_type' => 
+    array (
+      0 => 'text/plain',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer a123435bc',
+    ),
+    'content_length' => 
+    array (
+      0 => '93',
+    ),
+    'connection' => 
+    array (
+      0 => 'close',
+    ),
+    'x_forwarded_proto' => 
+    array (
+      0 => 'http',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt-wordpress-plugin.local',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '127.0.0.1',
+    ),
+    'x_real_ip' => 
+    array (
+      0 => '127.0.0.1',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt-wordpress-plugin.local',
+    ),
+  ),
+   'body' => '{
+    "subscriptionId": "1111",
+    "eventTarget": "user",
+    "eventType": "confirmed sub"
+}',
+   'route' => '/direktt/v1/recordEvent',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Public::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+         'jwt_error' => NULL,
+         'supported_algorithms' => 
+        array (
+          0 => 'HS256',
+          1 => 'HS384',
+          2 => 'HS512',
+          3 => 'RS256',
+          4 => 'RS384',
+          5 => 'RS512',
+          6 => 'ES256',
+          7 => 'ES384',
+          8 => 'ES512',
+          9 => 'PS256',
+          10 => 'PS384',
+          11 => 'PS512',
+        ),
+      )),
+      1 => 'record_event',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Public::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+         'jwt_error' => NULL,
+         'supported_algorithms' => 
+        array (
+          0 => 'HS256',
+          1 => 'HS384',
+          2 => 'HS512',
+          3 => 'RS256',
+          4 => 'RS384',
+          5 => 'RS512',
+          6 => 'ES256',
+          7 => 'ES384',
+          8 => 'ES512',
+          9 => 'PS256',
+          10 => 'PS384',
+          11 => 'PS512',
+        ),
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#June 23rd 2024, 23:08
+/wp-json/direktt/v1/recordEvent
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => NULL,
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'accept_encoding' => 
+    array (
+      0 => 'gzip, deflate, br',
+    ),
+    'postman_token' => 
+    array (
+      0 => '733dac0b-a4a2-4c9b-8340-4da5bc4ad5e3',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'PostmanRuntime/7.31.3',
+    ),
+    'content_type' => 
+    array (
+      0 => 'text/plain',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer a123435bc',
+    ),
+    'content_length' => 
+    array (
+      0 => '97',
+    ),
+    'connection' => 
+    array (
+      0 => 'close',
+    ),
+    'x_forwarded_proto' => 
+    array (
+      0 => 'http',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt-wordpress-plugin.local',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '127.0.0.1',
+    ),
+    'x_real_ip' => 
+    array (
+      0 => '127.0.0.1',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt-wordpress-plugin.local',
+    ),
+  ),
+   'body' => '{
+    "subscriptionId": "1111",
+    "eventTarget": "channel",
+    "eventType": "consent update"
+}',
+   'route' => '/direktt/v1/recordEvent',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Public::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+         'jwt_error' => NULL,
+         'supported_algorithms' => 
+        array (
+          0 => 'HS256',
+          1 => 'HS384',
+          2 => 'HS512',
+          3 => 'RS256',
+          4 => 'RS384',
+          5 => 'RS512',
+          6 => 'ES256',
+          7 => 'ES384',
+          8 => 'ES512',
+          9 => 'PS256',
+          10 => 'PS384',
+          11 => 'PS512',
+        ),
+      )),
+      1 => 'record_event',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Public::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+         'jwt_error' => NULL,
+         'supported_algorithms' => 
+        array (
+          0 => 'HS256',
+          1 => 'HS384',
+          2 => 'HS512',
+          3 => 'RS256',
+          4 => 'RS384',
+          5 => 'RS512',
+          6 => 'ES256',
+          7 => 'ES384',
+          8 => 'ES512',
+          9 => 'PS256',
+          10 => 'PS384',
+          11 => 'PS512',
+        ),
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))

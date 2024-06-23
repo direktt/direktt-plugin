@@ -8,14 +8,23 @@ const store = useDirekttStore();
 const postId = ref(direktt_users_object.postId);
 const marketing_consent = ref(false);
 const direktt_user_id = ref()
+const items = ref([]);
+
+const page = ref(0)
 
 const { isLoading, isError, isFetching, data, error, refetch } = useQuery({
   queryKey: ["marketing-consent", postId.value],
   queryFn: getMarketingConsent,
 });
 
+
+/* const { isLoadingEv, isErrorEv, isFetchingEv, dataEv, errorEv, refetchEv, isPreviousDataEv } = useQuery({
+  queryKey: ["user-events", postId.value, page.value],
+  queryFn: () => getUserEvents(),
+  keepPreviousData: true,
+}); */
+
 async function getMarketingConsent() {
-  console.log('Ucitvam');
   let ret = {};
   const response = await doAjax({
     action: "direktt_get_marketing_consent", // the action to fire in the server
@@ -26,6 +35,32 @@ async function getMarketingConsent() {
   marketing_consent.value = response.data.marketing_consent === "1"
   direktt_user_id.value = response.data.direktt_user_id
   return ret;
+}
+
+async function getUserEvents() {
+  let ret = {};
+  console.log('Ucitavam');
+  console.log(page.value);
+  const response = await doAjax({
+    action: "direktt_get_user_events", // the action to fire in the server
+    postId: postId.value,
+    page: page.value
+  });
+
+  ret = response.data;
+  return ret;
+}
+
+async function load({ done }) {
+  // Perform API call
+    const res = await getUserEvents();
+    if (res.length == 0) {
+      done("empty");
+    } else {
+      items.value.push(...res);
+      page.value = items.value[items.value.length - 1].ID
+      done("ok");
+    }
 }
 
 async function doAjax(args) {
@@ -46,24 +81,6 @@ const openInNewTab = (url) => {
   const newWindow = window.open(url, "_blank", "noopener,noreferrer");
   if (newWindow) newWindow.opener = null;
 };
-
-const items = ref(Array.from({ length: 30 }, (k, v) => v + 1));
-
-async function api() {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(Array.from({ length: 10 }, (k, v) => v + items.value.at(-1) + 1));
-    }, 1000);
-  });
-}
-async function load({ done }) {
-  // Perform API call
-  const res = await api();
-
-  items.value.push(...res);
-
-  done("ok");
-}
 
 onMounted(() => {});
 </script>
