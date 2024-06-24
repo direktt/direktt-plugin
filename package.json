@@ -22,6 +22,10 @@
     "users": {
       "source": "./src/users/js/direktt-users.js",
       "distDir": "./js/users"
+    },
+    "frontend": {
+      "source": "./src/frontend/js/direktt-frontend.js",
+      "distDir": "./js/frontend"
     }
   },
   "dependencies": {

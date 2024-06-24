@@ -1,5 +1,7 @@
 <?php
 
+
+
 /**
  * The file that defines the core plugin class.
  *
@@ -161,6 +163,10 @@ class Direktt {
 		$this->loader->add_filter( 'rest_api_init', $plugin_public, 'add_cors_support' );
 		$this->loader->add_filter( 'rest_pre_dispatch', $plugin_public, 'rest_pre_dispatch', 10, 2 );
 		// $this->loader->add_filter( 'determine_current_user', $plugin_public, 'determine_current_user' );
+
+		//$this->loader->add_action( 'template_redirect', $plugin_public, 'direktt_check_user' );
+		$this->loader->add_action( 'wp', $plugin_public, 'direktt_check_user' );
+		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_plugin_assets' );
 	}
 
 	/**

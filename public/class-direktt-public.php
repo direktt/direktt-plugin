@@ -14,7 +14,8 @@ use Tmeister\Firebase\JWT\Key;
  * @author     Enrique Chavez <noone@tmeister.net>
  * @since      1.0.0
  */
-class Direktt_Public {
+class Direktt_Public
+{
 	/**
 	 * The ID of this plugin.
 	 *
@@ -69,6 +70,8 @@ class Direktt_Public {
 		'PS512'
 	];
 
+	private string $direktt_user_id;
+
 	/**
 	 * Initialize the class and set its properties.
 	 *
@@ -78,38 +81,110 @@ class Direktt_Public {
 	 * @since    1.0.0
 	 *
 	 */
-	public function __construct( string $plugin_name, string $version ) {
+	public function __construct(string $plugin_name, string $version)
+	{
 		$this->plugin_name = $plugin_name;
 		$this->version     = $version;
-		$this->namespace   = $this->plugin_name . '/v' . intval( $this->version );
+		$this->namespace   = $this->plugin_name . '/v' . intval($this->version);
+	}
+
+	function direktt_check_user()
+	{
+		global $post;
+
+		if (intval(get_post_meta($post->ID, 'direktt_custom_box', true)) !== 1) {
+			return;
+		}
+
+		$token = (isset($_GET['token'])) ? sanitize_text_field($_GET['token']) : false;
+		if($token) {
+
+			var_dump($post->ID);
+			$api_key = get_option('direktt_api_key') ? esc_attr(get_option('direktt_api_key')) : '';
+
+			$algorithm = $this->get_algorithm();
+
+			if ($api_key == '' || $algorithm === false){
+				header('HTTP/1.1 403 Unauthorized');
+				exit();
+			}
+
+			var_dump($algorithm);
+			$decoded_token = Direktt\Firebase\JWT\JWT::decode($token, new Direktt\Firebase\JWT\Key($api_key, $algorithm));
+			$this->direktt_user_id = $decoded_token->subscriptionUid;
+			var_dump($decoded_token);
+			show_admin_bar( false );
+
+
+		} else {
+			header('HTTP/1.1 403 Unauthorized');
+			exit();
+		}
+
+		/* if ( is_page( 'goodies' ) && ! is_user_logged_in() ) {
+			wp_redirect( home_url( '/signup/' ) );
+			exit();
+		} */
+	}
+
+	public function enqueue_plugin_assets(string $suffix)
+	{
+		/* if ($suffix !== 'direktt_page_direktt-settings' && $suffix !== 'toplevel_page_direktt-dashboard') {
+			return null;
+		} */
+
+		echo('enqueue_script');
+
+		wp_enqueue_script(
+				$this->plugin_name . '-frontend',
+				plugin_dir_url(__DIR__) . 'js/frontend/direktt-frontend.js',
+				array('jquery'),
+				'',
+				[
+					'in_footer' => true,
+				]
+			);
+
+			wp_localize_script(
+				$this->plugin_name . '-frontend',
+				$this->plugin_name . '_frontend_object',
+				array(
+					'ajaxurl' => admin_url('admin-ajax.php'),
+					'direktt_user_id' => $this->direktt_user_id
+				)
+			);
 	}
 
 	/**
 	 * Add the endpoints to the API
 	 */
-	public function add_api_routes() {
-		register_rest_route( $this->namespace, 'token', [
+	public function add_api_routes()
+	{
+		register_rest_route($this->namespace, 'token', [
 			'methods'             => 'POST',
-			'callback'            => [ $this, 'generate_token' ],
+			'callback'            => [$this, 'generate_token'],
 			'permission_callback' => '__return_true',
-		] );
+		]);
 
-		register_rest_route( $this->namespace, 'token/validate', [
+		register_rest_route($this->namespace, 'token/validate', [
 			'methods'             => 'POST',
-			'callback'            => [ $this, 'validate_token' ],
+			'callback'            => [$this, 'validate_token'],
 			'permission_callback' => '__return_true',
-		] );
+		]);
 	}
 
 	/**
 	 * Add CORs support to the request.
 	 */
-	public function add_cors_support() {
-		$enable_cors = defined( 'JWT_AUTH_CORS_ENABLE' ) && JWT_AUTH_CORS_ENABLE;
-		if ( $enable_cors ) {
-			$headers = apply_filters( 'jwt_auth_cors_allow_headers',
-				'Access-Control-Allow-Headers, Content-Type, Authorization' );
-			header( sprintf( 'Access-Control-Allow-Headers: %s', $headers ) );
+	public function add_cors_support()
+	{
+		$enable_cors = defined('JWT_AUTH_CORS_ENABLE') && JWT_AUTH_CORS_ENABLE;
+		if ($enable_cors) {
+			$headers = apply_filters(
+				'jwt_auth_cors_allow_headers',
+				'Access-Control-Allow-Headers, Content-Type, Authorization'
+			);
+			header(sprintf('Access-Control-Allow-Headers: %s', $headers));
 		}
 	}
 
@@ -120,31 +195,32 @@ class Direktt_Public {
 	 *
 	 * @return mixed|WP_Error|null
 	 */
-	public function generate_token( WP_REST_Request $request ) {
-		$secret_key = defined( 'JWT_AUTH_SECRET_KEY' ) ? JWT_AUTH_SECRET_KEY : false;
-		$username   = $request->get_param( 'username' );
-		$password   = $request->get_param( 'password' );
+	public function generate_token(WP_REST_Request $request)
+	{
+		$secret_key = defined('JWT_AUTH_SECRET_KEY') ? JWT_AUTH_SECRET_KEY : false;
+		$username   = $request->get_param('username');
+		$password   = $request->get_param('password');
 
 		/** First thing, check the secret key if not exist return an error*/
-		if ( ! $secret_key ) {
+		if (!$secret_key) {
 			return new WP_Error(
 				'jwt_auth_bad_config',
-				__( 'JWT is not configured properly, please contact the admin', 'direktt' ),
+				__('JWT is not configured properly, please contact the admin', 'direktt'),
 				[
 					'status' => 403,
 				]
 			);
 		}
 		/** Try to authenticate the user with the passed credentials*/
-		$user = wp_authenticate( $username, $password );
+		$user = wp_authenticate($username, $password);
 
 		/** If the authentication fails return an error*/
-		if ( is_wp_error( $user ) ) {
+		if (is_wp_error($user)) {
 			$error_code = $user->get_error_code();
 
 			return new WP_Error(
 				'[jwt_auth] ' . $error_code,
-				$user->get_error_message( $error_code ),
+				$user->get_error_message($error_code),
 				[
 					'status' => 403,
 				]
@@ -153,11 +229,11 @@ class Direktt_Public {
 
 		/** Valid credentials, the user exists create the according Token */
 		$issuedAt  = time();
-		$notBefore = apply_filters( 'jwt_auth_not_before', $issuedAt, $issuedAt );
-		$expire    = apply_filters( 'jwt_auth_expire', $issuedAt + ( DAY_IN_SECONDS * 7 ), $issuedAt );
+		$notBefore = apply_filters('jwt_auth_not_before', $issuedAt, $issuedAt);
+		$expire    = apply_filters('jwt_auth_expire', $issuedAt + (DAY_IN_SECONDS * 7), $issuedAt);
 
 		$token = [
-			'iss'  => get_bloginfo( 'url' ),
+			'iss'  => get_bloginfo('url'),
 			'iat'  => $issuedAt,
 			'nbf'  => $notBefore,
 			'exp'  => $expire,
@@ -171,11 +247,13 @@ class Direktt_Public {
 		/** Let the user modify the token data before the sign. */
 		$algorithm = $this->get_algorithm();
 
-		if ( $algorithm === false ) {
+		if ($algorithm === false) {
 			return new WP_Error(
 				'jwt_auth_unsupported_algorithm',
-				__( 'Algorithm not supported, see https://www.rfc-editor.org/rfc/rfc7518#section-3',
-					'direktt' ),
+				__(
+					'Algorithm not supported, see https://www.rfc-editor.org/rfc/rfc7518#section-3',
+					'direktt'
+				),
 				[
 					'status' => 403,
 				]
@@ -183,7 +261,7 @@ class Direktt_Public {
 		}
 
 		$token = JWT::encode(
-			apply_filters( 'jwt_auth_token_before_sign', $token, $user ),
+			apply_filters('jwt_auth_token_before_sign', $token, $user),
 			$secret_key,
 			$algorithm
 		);
@@ -197,7 +275,7 @@ class Direktt_Public {
 		];
 
 		/** Let the user modify the data before send it back */
-		return apply_filters( 'jwt_auth_token_before_dispatch', $data, $user );
+		return apply_filters('jwt_auth_token_before_dispatch', $data, $user);
 	}
 
 	/**
@@ -208,7 +286,8 @@ class Direktt_Public {
 	 *
 	 * @return (int|bool)
 	 */
-	public function determine_current_user( $user ) {
+	public function determine_current_user($user)
+	{
 		/**
 		 * This hook only should run on the REST API requests to determine
 		 * if the user in the Token (if any) is valid, for any other
@@ -217,12 +296,14 @@ class Direktt_Public {
 		 * @since 1.2.3
 		 **/
 		$rest_api_slug = rest_get_url_prefix();
-		$requested_url = sanitize_url( $_SERVER['REQUEST_URI'] );
+		$requested_url = sanitize_url($_SERVER['REQUEST_URI']);
 		// if we already have a valid user, or we have an invalid url, don't attempt to validate token
-		$is_rest_request_constant_defined = defined( 'REST_REQUEST' ) && REST_REQUEST;
-		$is_rest_request                  = $is_rest_request_constant_defined || strpos( $requested_url,
-				$rest_api_slug );
-		if ( $is_rest_request && $user ) {
+		$is_rest_request_constant_defined = defined('REST_REQUEST') && REST_REQUEST;
+		$is_rest_request                  = $is_rest_request_constant_defined || strpos(
+			$requested_url,
+			$rest_api_slug
+		);
+		if ($is_rest_request && $user) {
 			return $user;
 		}
 
@@ -230,38 +311,38 @@ class Direktt_Public {
 		 * if the request URI is for validate the token don't do anything,
 		 * this avoids double calls.
 		 */
-		$validate_uri = strpos( $requested_url, 'token/validate' );
-		if ( $validate_uri > 0 ) {
+		$validate_uri = strpos($requested_url, 'token/validate');
+		if ($validate_uri > 0) {
 			return $user;
 		}
 
 		/**
 		 * We still need to get the Authorization header and check for the token.
 		 */
-		$auth_header = ! empty( $_SERVER['HTTP_AUTHORIZATION'] ) ? sanitize_text_field( $_SERVER['HTTP_AUTHORIZATION'] ) : false;
+		$auth_header = !empty($_SERVER['HTTP_AUTHORIZATION']) ? sanitize_text_field($_SERVER['HTTP_AUTHORIZATION']) : false;
 		/* Double check for different auth header string (server dependent) */
-		if ( ! $auth_header ) {
-			$auth_header = ! empty( $_SERVER['REDIRECT_HTTP_AUTHORIZATION'] ) ? sanitize_text_field( $_SERVER['REDIRECT_HTTP_AUTHORIZATION'] ) : false;
+		if (!$auth_header) {
+			$auth_header = !empty($_SERVER['REDIRECT_HTTP_AUTHORIZATION']) ? sanitize_text_field($_SERVER['REDIRECT_HTTP_AUTHORIZATION']) : false;
 		}
 
-		if ( ! $auth_header ) {
+		if (!$auth_header) {
 			return $user;
 		}
 
 		/**
 		 * Check if the auth header is not bearer, if so, return the user
 		 */
-		if ( strpos( $auth_header, 'Bearer' ) !== 0 ) {
+		if (strpos($auth_header, 'Bearer') !== 0) {
 			return $user;
 		}
 
 		/*
 		 * Check the token from the headers.
 		 */
-		$token = $this->validate_token( new WP_REST_Request(), $auth_header );
+		$token = $this->validate_token(new WP_REST_Request(), $auth_header);
 
-		if ( is_wp_error( $token ) ) {
-			if ( $token->get_error_code() != 'jwt_auth_no_auth_header' ) {
+		if (is_wp_error($token)) {
+			if ($token->get_error_code() != 'jwt_auth_no_auth_header') {
 				/** If there is an error, store it to show it after see rest_pre_dispatch */
 				$this->jwt_error = $token;
 			}
@@ -286,7 +367,8 @@ class Direktt_Public {
 	 *
 	 * @return WP_Error | Object | Array
 	 */
-	public function validate_token( WP_REST_Request $request, $custom_token = false ) {
+	public function validate_token(WP_REST_Request $request, $custom_token = false)
+	{
 		/*
 		 * Looking for the Authorization header
 		 *
@@ -301,9 +383,9 @@ class Direktt_Public {
 		 * @see https://core.trac.wordpress.org/ticket/47077
 		 */
 
-		$auth_header = $custom_token ?: $request->get_header( 'Authorization' );
+		$auth_header = $custom_token ?: $request->get_header('Authorization');
 
-		if ( ! $auth_header ) {
+		if (!$auth_header) {
 			return new WP_Error(
 				'jwt_auth_no_auth_header',
 				'Authorization header not found.',
@@ -316,12 +398,12 @@ class Direktt_Public {
 		/*
 		 * Extract the authorization header
 		 */
-		[ $token ] = sscanf( $auth_header, 'Bearer %s' );
+		[$token] = sscanf($auth_header, 'Bearer %s');
 
 		/**
 		 * if the format is not valid return an error.
 		 */
-		if ( ! $token ) {
+		if (!$token) {
 			return new WP_Error(
 				'jwt_auth_bad_auth_header',
 				'Authorization header malformed.',
@@ -332,8 +414,8 @@ class Direktt_Public {
 		}
 
 		/** Get the Secret Key */
-		$secret_key = defined( 'JWT_AUTH_SECRET_KEY' ) ? JWT_AUTH_SECRET_KEY : false;
-		if ( ! $secret_key ) {
+		$secret_key = defined('JWT_AUTH_SECRET_KEY') ? JWT_AUTH_SECRET_KEY : false;
+		if (!$secret_key) {
 			return new WP_Error(
 				'jwt_auth_bad_config',
 				'JWT is not configured properly, please contact the admin',
@@ -346,21 +428,23 @@ class Direktt_Public {
 		/** Try to decode the token */
 		try {
 			$algorithm = $this->get_algorithm();
-			if ( $algorithm === false ) {
+			if ($algorithm === false) {
 				return new WP_Error(
 					'jwt_auth_unsupported_algorithm',
-					__( 'Algorithm not supported, see https://www.rfc-editor.org/rfc/rfc7518#section-3',
-						'direktt' ),
+					__(
+						'Algorithm not supported, see https://www.rfc-editor.org/rfc/rfc7518#section-3',
+						'direktt'
+					),
 					[
 						'status' => 403,
 					]
 				);
 			}
 
-			$token = JWT::decode( $token, new Key( $secret_key, $algorithm ) );
+			$token = JWT::decode($token, new Key($secret_key, $algorithm));
 
 			/** The Token is decoded now validate the iss */
-			if ( $token->iss !== get_bloginfo( 'url' ) ) {
+			if ($token->iss !== get_bloginfo('url')) {
 				/** The iss do not match, return error */
 				return new WP_Error(
 					'jwt_auth_bad_iss',
@@ -372,7 +456,7 @@ class Direktt_Public {
 			}
 
 			/** So far so good, validate the user id in the token */
-			if ( ! isset( $token->data->user->id ) ) {
+			if (!isset($token->data->user->id)) {
 				/** No user id in the token, abort!! */
 				return new WP_Error(
 					'jwt_auth_bad_request',
@@ -384,7 +468,7 @@ class Direktt_Public {
 			}
 
 			/** Everything looks good return the decoded token if we are using the custom_token */
-			if ( $custom_token ) {
+			if ($custom_token) {
 				return $token;
 			}
 
@@ -395,7 +479,7 @@ class Direktt_Public {
 					'status' => 200,
 				],
 			];
-		} catch ( Exception $e ) {
+		} catch (Exception $e) {
 			/** Something were wrong trying to decode the token, send back the error */
 			return new WP_Error(
 				'jwt_auth_invalid_token',
@@ -415,8 +499,9 @@ class Direktt_Public {
 	 *
 	 * @return mixed|WP_Error|null
 	 */
-	public function rest_pre_dispatch( $request ) {
-		if ( is_wp_error( $this->jwt_error ) ) {
+	public function rest_pre_dispatch($request)
+	{
+		if (is_wp_error($this->jwt_error)) {
 			return $this->jwt_error;
 		}
 
@@ -429,9 +514,10 @@ class Direktt_Public {
 	 *
 	 * @return false|mixed|null
 	 */
-	private function get_algorithm() {
-		$algorithm = apply_filters( 'jwt_auth_algorithm', 'HS256' );
-		if ( ! in_array( $algorithm, $this->supported_algorithms ) ) {
+	private function get_algorithm()
+	{
+		$algorithm = apply_filters('jwt_auth_algorithm', 'HS256');
+		if (!in_array($algorithm, $this->supported_algorithms)) {
 			return false;
 		}
 
@@ -442,65 +528,65 @@ class Direktt_Public {
 	{
 		register_rest_route('direktt/v1', '/activateChannel/', array(
 			'methods' => 'POST',
-			'callback' => array( $this, 'api_validate_domain'),
+			'callback' => array($this, 'api_validate_domain'),
 			'args' => array(),
-			'permission_callback' => array( $this, 'api_validate_api_key') 
+			'permission_callback' => array($this, 'api_validate_api_key')
 		));
 
 		register_rest_route('direktt/v1', '/onNewSubscription/', array(
 			'methods' => 'POST',
-			'callback' => array( $this, 'on_new_subscription'),
+			'callback' => array($this, 'on_new_subscription'),
 			'args' => array(),
-			'permission_callback' => array( $this, 'api_validate_api_key') 
+			'permission_callback' => array($this, 'api_validate_api_key')
 		));
 
 		register_rest_route('direktt/v1', '/onUnsubscribe/', array(
 			'methods' => 'POST',
-			'callback' => array( $this, 'on_unsubscribe'),
+			'callback' => array($this, 'on_unsubscribe'),
 			'args' => array(),
-			'permission_callback' => array( $this, 'api_validate_api_key') 
+			'permission_callback' => array($this, 'api_validate_api_key')
 		));
 
 		register_rest_route('direktt/v1', '/onMarketingConsentUpdate/', array(
 			'methods' => 'POST',
-			'callback' => array( $this, 'on_marketing_consent_update'),
+			'callback' => array($this, 'on_marketing_consent_update'),
 			'args' => array(),
-			'permission_callback' => array( $this, 'api_validate_api_key') 
+			'permission_callback' => array($this, 'api_validate_api_key')
 		));
 
 		register_rest_route('direktt/v1', '/recordEvent/', array(
 			'methods' => 'POST',
-			'callback' => array( $this, 'record_event'),
+			'callback' => array($this, 'record_event'),
 			'args' => array(),
-			'permission_callback' => array( $this, 'api_validate_api_key') 
+			'permission_callback' => array($this, 'api_validate_api_key')
 		));
 
 		register_rest_route('direktt/v1', '/test/', array(
 			'methods' => 'POST',
-			'callback' => array( $this, 'api_test'),
+			'callback' => array($this, 'api_test'),
 			'args' => array(),
-			'permission_callback' => array( $this, 'api_validate_api_key') 
+			'permission_callback' => array($this, 'api_validate_api_key')
 		));
 	}
 
-	public function api_validate_domain( WP_REST_Request $request )
+	public function api_validate_domain(WP_REST_Request $request)
 	{
 		$this->api_log($request);
 		$data = array();
 		wp_send_json_success($data, 200);
 	}
 
-	public function on_new_subscription( WP_REST_Request $request )
+	public function on_new_subscription(WP_REST_Request $request)
 	{
 		$this->api_log($request);
 		$parameters = json_decode($request->get_body(), true);
 
-		if( array_key_exists('subscriptionId', $parameters ) ){
+		if (array_key_exists('subscriptionId', $parameters)) {
 			$direktt_user_id = sanitize_text_field($parameters['subscriptionId']);
-			
-			$result = Direktt_User::subscribe_user( $direktt_user_id );
 
-			if ( is_wp_error( $result ) ) {
+			$result = Direktt_User::subscribe_user($direktt_user_id);
+
+			if (is_wp_error($result)) {
 				wp_send_json_error($wp_error, 500);
 			} else {
 				$data = array();
@@ -511,57 +597,54 @@ class Direktt_Public {
 		}
 	}
 
-	public function on_unsubscribe( WP_REST_Request $request )
+	public function on_unsubscribe(WP_REST_Request $request)
 	{
 		$this->api_log($request);
 		$parameters = json_decode($request->get_body(), true);
 
-		if( array_key_exists('subscriptionId', $parameters ) ){
+		if (array_key_exists('subscriptionId', $parameters)) {
 
 			$direktt_user_id = sanitize_text_field($parameters['subscriptionId']);
-			$post_id = Direktt_User::get_user_by_subscription_id( $direktt_user_id );
-			Direktt_User::unsubscribe_user( $post_id );
+			$post_id = Direktt_User::get_user_by_subscription_id($direktt_user_id);
+			Direktt_User::unsubscribe_user($post_id);
 
 			$data = array();
 			wp_send_json_success($data, 200);
-
 		} else {
 			wp_send_json_error(new WP_Error('Missing param', 'Subscription Id missing'), 400);
-		}	
+		}
 	}
 
-	public function on_marketing_consent_update( WP_REST_Request $request )
+	public function on_marketing_consent_update(WP_REST_Request $request)
 	{
 		$this->api_log($request);
 		$parameters = json_decode($request->get_body(), true);
 
-		if( array_key_exists('subscriptionId', $parameters ) && array_key_exists('marketingConsentStatus', $parameters ) ){
-			
+		if (array_key_exists('subscriptionId', $parameters) && array_key_exists('marketingConsentStatus', $parameters)) {
+
 			$direktt_user_id = sanitize_text_field($parameters['subscriptionId']);
 			$marketing_consent_status = (sanitize_text_field($parameters['marketingConsentStatus']) === 'true');
 
-			$post_id = Direktt_User::get_user_by_subscription_id( $direktt_user_id );
+			$post_id = Direktt_User::get_user_by_subscription_id($direktt_user_id);
 
-			if( $post_id ) {
-				update_post_meta( $post_id, "direktt_marketing_consent_status", $marketing_consent_status );
+			if ($post_id) {
+				update_post_meta($post_id, "direktt_marketing_consent_status", $marketing_consent_status);
 			}
 
 			$data = array();
 			wp_send_json_success($data, 200);
-
 		} else {
 			wp_send_json_error(new WP_Error('Missing param', 'Subscription Id or Marketing Consent Status is missing'), 400);
 		}
-		
 	}
 
-	public function record_event( WP_REST_Request $request )
+	public function record_event(WP_REST_Request $request)
 	{
 		$this->api_log($request);
 		$parameters = json_decode($request->get_body(), true);
 
-		if( array_key_exists('subscriptionId', $parameters ) && array_key_exists('eventTarget',$parameters ) && array_key_exists('eventType', $parameters )){
-			
+		if (array_key_exists('subscriptionId', $parameters) && array_key_exists('eventTarget', $parameters) && array_key_exists('eventType', $parameters)) {
+
 			$direktt_user_id = sanitize_text_field($parameters['subscriptionId']);
 			$event_target = sanitize_text_field($parameters['eventTarget']);
 			$event_type = sanitize_text_field($parameters['eventType']);
@@ -573,26 +656,24 @@ class Direktt_Public {
 				//'event_time' => time()
 			);
 
-			if( array_key_exists('direktt_campaign_id', $parameters )){
+			if (array_key_exists('direktt_campaign_id', $parameters)) {
 				$event['direktt_campaign_id'] = sanitize_text_field($parameters['direktt_campaign_id']);
 			}
 
-			if( array_key_exists('event_data', $parameters )){
+			if (array_key_exists('event_data', $parameters)) {
 				$event['event_data'] = sanitize_text_field($parameters['event_data']);
 			}
 
-			Direktt_Event::insert_event( $event );
+			Direktt_Event::insert_event($event);
 
 			$data = array();
 			wp_send_json_success($data, 200);
-
 		} else {
 			wp_send_json_error(new WP_Error('Missing param', 'Subscription Id, Event Target or Event Type is missing'), 400);
 		}
-		
 	}
 
-	public function api_test( WP_REST_Request $request )
+	public function api_test(WP_REST_Request $request)
 	{
 		$this->api_log($request);
 		$parameters = $request->get_body_params();
@@ -605,44 +686,43 @@ class Direktt_Public {
 
 	public function api_validate_api_key()
 	{
-		$auth_header = ! empty( $_SERVER['HTTP_AUTHORIZATION'] ) ? sanitize_text_field( $_SERVER['HTTP_AUTHORIZATION'] ) : false;
+		$auth_header = !empty($_SERVER['HTTP_AUTHORIZATION']) ? sanitize_text_field($_SERVER['HTTP_AUTHORIZATION']) : false;
 		/* Double check for different auth header string (server dependent) */
-		if ( ! $auth_header ) {
-			$auth_header = ! empty( $_SERVER['REDIRECT_HTTP_AUTHORIZATION'] ) ? sanitize_text_field( $_SERVER['REDIRECT_HTTP_AUTHORIZATION'] ) : false;
+		if (!$auth_header) {
+			$auth_header = !empty($_SERVER['REDIRECT_HTTP_AUTHORIZATION']) ? sanitize_text_field($_SERVER['REDIRECT_HTTP_AUTHORIZATION']) : false;
 		}
 
-		if ( ! $auth_header ) {
+		if (!$auth_header) {
 			return false;
 		}
 
 		/**
 		 * Check if the auth header is not bearer, if so, return the user
 		 */
-		if ( strpos( $auth_header, 'Bearer' ) !== 0 ) {
+		if (strpos($auth_header, 'Bearer') !== 0) {
 			return false;
 		}
 
-		[ $token ] = sscanf( $auth_header, 'Bearer %s' );
+		[$token] = sscanf($auth_header, 'Bearer %s');
 
 		$api_key = get_option('direktt_api_key');
 
-		if( $api_key && $api_key == $token ){
+		if ($api_key && $api_key == $token) {
 			return true;
 		} else {
 			return false;
 		}
-		
 	}
 
-	public function api_log($request) 
-	{   
+	public function api_log($request)
+	{
 		$location = $_SERVER['REQUEST_URI'];
-		$time = date( "F jS Y, H:i", time()+25200 );
+		$time = date("F jS Y, H:i", time() + 25200);
 		$debug_info = var_export($request, true);
-		$ban = "#$time\r\n$location\r\n$debug_info\r\n"; 
-		$file = plugin_dir_path( __FILE__ ) . '/errors.txt'; 
-		$open = fopen( $file, "a" ); 
-		$write = fputs( $open, $ban ); 
-		fclose( $open );
+		$ban = "#$time\r\n$location\r\n$debug_info\r\n";
+		$file = plugin_dir_path(__FILE__) . '/errors.txt';
+		$open = fopen($file, "a");
+		$write = fputs($open, $ban);
+		fclose($open);
 	}
 }
