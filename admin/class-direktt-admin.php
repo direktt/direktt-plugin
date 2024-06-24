@@ -558,7 +558,7 @@ class Direktt_Admin
 				$url = 'https://activatechannel-lnkonwpiwa-uc.a.run.app';
 
 				$data = array(
-					'domain' => 'https://2f70-82-117-218-70.ngrok-free.app'
+					'domain' => 'https://041e-82-117-218-70.ngrok-free.app'
 					// 'domain' => get_site_url(null, '', 'https')
 				);
 

@@ -44,12 +44,12 @@ class Direktt_Event
 
 		$sql = "CREATE TABLE $table_name (
   			ID bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  			direktt_user_id bigint(20) unsigned DEFAULT NULL,
+  			direktt_user_id varchar(256) COLLATE utf8mb4_unicode_520_ci DEFAULT NULL,
   			event_target varchar(256) COLLATE utf8mb4_unicode_520_ci DEFAULT NULL,
   			direktt_campaign_id bigint(20) unsigned DEFAULT NULL,
   			event_type varchar(256) COLLATE utf8mb4_unicode_520_ci DEFAULT NULL,
   			event_data json DEFAULT NULL,
-  			event_time timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  			event_time timestamp NOT NULL,
   			PRIMARY KEY  (ID),
 			KEY direktt_campaign_id (direktt_campaign_id),
   			KEY event_type (event_type),
@@ -59,6 +59,10 @@ class Direktt_Event
 
 		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 		dbDelta($sql);
+
+		$the_default_timestamp_query = "ALTER TABLE $table_name MODIFY COLUMN event_time timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP;";
+
+		$wpdb->query( $the_default_timestamp_query );
 	}
 
 	static function insert_event( $event )
