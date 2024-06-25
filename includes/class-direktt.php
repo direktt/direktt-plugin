@@ -90,6 +90,17 @@ class Direktt {
 		$this->loader->add_action( 'save_post', $plugin_admin, 'save_direktt_custom_box', 10, 2 );
 		
 		$this->loader->add_action( 'edit_form_after_editor', $plugin_admin, 'render_meta_panel' );
+
+		// User Test meta related
+		
+		$this->loader->add_action( 'show_user_profile', $plugin_admin, 'render_user_meta_panel' );
+		$this->loader->add_action( 'edit_user_profile', $plugin_admin, 'render_user_meta_panel' );
+		$this->loader->add_action( 'user_new_form', $plugin_admin, 'render_user_meta_panel' );
+
+		$this->loader->add_action( 'personal_options_update', $plugin_admin, 'save_user_meta_panel' );
+		$this->loader->add_action( 'edit_user_profile_update', $plugin_admin, 'save_user_meta_panel' );
+		$this->loader->add_action( 'user_register', $plugin_admin, 'save_user_meta_panel' );
+
 	}
 
 	private function define_event_hooks() {

@@ -36,20 +36,20 @@ class Direktt_Admin
 	{
 
 		add_submenu_page(
-			'direktt-dashboard', 
-			__('User Categories', 'direktt'), 
+			'direktt-dashboard',
 			__('User Categories', 'direktt'),
-			'manage_options', 
-			'edit-tags.php?taxonomy=direkttusercategories', 
+			__('User Categories', 'direktt'),
+			'manage_options',
+			'edit-tags.php?taxonomy=direkttusercategories',
 			false
 		);
 
 		add_submenu_page(
-			'direktt-dashboard', 
-			__('User Tags', 'direktt'), 
+			'direktt-dashboard',
 			__('User Tags', 'direktt'),
-			'manage_options', 
-			'edit-tags.php?taxonomy=direkttusertags', 
+			__('User Tags', 'direktt'),
+			'manage_options',
+			'edit-tags.php?taxonomy=direkttusertags',
 			false
 		);
 
@@ -63,19 +63,20 @@ class Direktt_Admin
 		);
 	}
 
-	public function highlight_direktt_submenu($parent_file){
+	public function highlight_direktt_submenu($parent_file)
+	{
 		global $submenu_file, $current_screen, $pagenow;
-		
-		if ( $pagenow == 'edit-tags.php' && $current_screen->taxonomy == 'direkttusercategories' ) {
+
+		if ($pagenow == 'edit-tags.php' && $current_screen->taxonomy == 'direkttusercategories') {
 			$submenu_file = 'edit-tags.php?taxonomy=direkttusercategories';
 			$parent_file = 'direktt-dashboard';
 		}
 
-		if ( $pagenow == 'edit-tags.php' && $current_screen->taxonomy == 'direkttusertags' ) {
+		if ($pagenow == 'edit-tags.php' && $current_screen->taxonomy == 'direkttusertags') {
 			$submenu_file = 'edit-tags.php?taxonomy=direkttusertags';
 			$parent_file = 'direktt-dashboard';
 		}
-		
+
 		return $parent_file;
 	}
 
@@ -98,7 +99,7 @@ class Direktt_Admin
 			'menu_name'         => __('Category', 'direktt'),
 		);
 		$args   = array(
-			'hierarchical'      => true, 
+			'hierarchical'      => true,
 			'public'			=> false,
 			'labels'            => $labels,
 			'show_ui'           => true,
@@ -273,7 +274,7 @@ class Direktt_Admin
 		if ($suffix == 'post.php') {
 			global $post;
 
-			if ( 'direkttusers' === $post->post_type ) {
+			if ('direkttusers' === $post->post_type) {
 
 				wp_enqueue_script(
 					$this->plugin_name . '-users',
@@ -284,7 +285,7 @@ class Direktt_Admin
 						'in_footer' => true,
 					]
 				);
-	
+
 				// Enqueue the style file
 				wp_enqueue_style(
 					$this->plugin_name . '-users',
@@ -301,29 +302,58 @@ class Direktt_Admin
 						'postId' => $post->ID
 					)
 				);
-
 			}
 		}
 	}
-		
+
 	public function render_admin_page()
 	{
 		?>
-			<div id="app"></div>
-		<?php
+		<div id="app"></div>
+	<?php
 	}
 
-	public function render_meta_panel( $post )
+	public function render_meta_panel($post)
 	{
 		if ($post->post_type != 'direkttusers') return;
-		?>
-			<div id="app"></div>
-		<?php
+	?>
+		<div id="app"></div>
+	<?php
 	}
 
-	public function page_direktt_custom_box() {
-		$screens = [ 'page' ];
-		foreach ( $screens as $screen ) {
+	public function render_user_meta_panel(WP_User $user)
+	{
+	?>
+	<h2>Direktt Test User</h2>
+		<table class="form-table" role="presentation">
+			<tbody v-if="data">
+				<tr>
+					<th scope="row"><label for="direktt_test_user_id">Direktt Test User Id</label></th>
+					<td>
+						<input type="text" name="direktt_test_user_id" id="direktt_test_user_id" size="50" placeholder="Enter Direktt User Id here" value="<?php echo esc_attr(get_user_meta($user->ID, 'direktt_test_user_id', true)); ?>">
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	<?php
+	}
+
+	function save_user_meta_panel($userId) {
+		if (!current_user_can('edit_user', $userId)) {
+			return;
+		}
+
+		if (isset($_POST['direktt_test_user_id'])){
+			update_user_meta( $userId, 'direktt_test_user_id' , sanitize_text_field($_POST['direktt_test_user_id']) );
+		} else {
+			delete_user_meta( $userId, 'direktt_test_user_id' );
+		}
+	}
+
+	public function page_direktt_custom_box()
+	{
+		$screens = ['page'];
+		foreach ($screens as $screen) {
 			add_meta_box(
 				'direktt_features',                 // Unique ID
 				'Direktt features',      // Box title
@@ -335,47 +365,47 @@ class Direktt_Admin
 		}
 	}
 
-	public function render_direktt_custom_box( $post )
+	public function render_direktt_custom_box($post)
 	{
-		wp_nonce_field( 'direktt_custom_box_nonce', 'direktt_custom_box_nonce' );
+		wp_nonce_field('direktt_custom_box_nonce', 'direktt_custom_box_nonce');
 		$box_value = intval(get_post_meta($post->ID, 'direktt_custom_box', true)) === 1;
-		$box_checked = $box_value? 'checked': 0;
-		?>
-			<input id="direktt_custom_box" name="direktt_custom_box" type="checkbox" <?php echo $box_checked ?>>
-			<label><?php echo __( 'Perform Direktt checks', 'direktt') ?></label>
-		<?php
+		$box_checked = $box_value ? 'checked' : 0;
+	?>
+		<input id="direktt_custom_box" name="direktt_custom_box" type="checkbox" <?php echo $box_checked ?>>
+		<label><?php echo __('Perform Direktt checks', 'direktt') ?></label>
+<?php
 	}
 
-	function save_direktt_custom_box( $post_id, $post ) {
+	function save_direktt_custom_box($post_id, $post)
+	{
 
 		// nonce check
-		if ( ! isset( $_POST[ 'direktt_custom_box_nonce' ] ) || ! wp_verify_nonce( $_POST[ 'direktt_custom_box_nonce' ], 'direktt_custom_box_nonce' ) ) {
+		if (!isset($_POST['direktt_custom_box_nonce']) || !wp_verify_nonce($_POST['direktt_custom_box_nonce'], 'direktt_custom_box_nonce')) {
 			return $post_id;
 		}
-	
+
 		// check current user permissions
-		$post_type = get_post_type_object( $post->post_type );
-	
-		if ( ! current_user_can( $post_type->cap->edit_post, $post_id ) ) {
+		$post_type = get_post_type_object($post->post_type);
+
+		if (!current_user_can($post_type->cap->edit_post, $post_id)) {
 			return $post_id;
 		}
-	
+
 		// Do not save the data if autosave
-		if ( defined('DOING_AUTOSAVE') && DOING_AUTOSAVE ) {
+		if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
 			return $post_id;
 		}
-	
-		if( 'page' !== $post->post_type ) {
+
+		if ('page' !== $post->post_type) {
 			return $post_id;
 		}
-	
-		if( isset( $_POST[ 'direktt_custom_box' ] ) && sanitize_text_field( $_POST[ 'direktt_custom_box' ] ) == 'on' ) {
-			update_post_meta( $post_id, 'direktt_custom_box', true );
+
+		if (isset($_POST['direktt_custom_box']) && sanitize_text_field($_POST['direktt_custom_box']) == 'on') {
+			update_post_meta($post_id, 'direktt_custom_box', true);
 		} else {
-			delete_post_meta( $post_id, 'direktt_custom_box' );
+			delete_post_meta($post_id, 'direktt_custom_box');
 		}
-		
+
 		return $post_id;
 	}
-
 }
