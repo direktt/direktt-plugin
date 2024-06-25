@@ -8,6 +8,7 @@ const store = useDirekttStore();
 const postId = ref(direktt_users_object.postId);
 const marketing_consent = ref(false);
 const direktt_user_id = ref()
+const direktt_admin_user_id = ref()
 const items = ref([]);
 
 const page = ref(0)
@@ -34,6 +35,7 @@ async function getMarketingConsent() {
   ret = response.data;
   marketing_consent.value = response.data.marketing_consent === "1"
   direktt_user_id.value = response.data.direktt_user_id
+  direktt_admin_user_id.value = response.data.direktt_admin_user_id
   return ret;
 }
 
@@ -98,6 +100,12 @@ onMounted(() => {});
         <th scope="row"><label for="blogname">Direktt Subscription ID:</label></th>
         <td>
           {{ direktt_user_id }}
+        </td>
+      </tr>
+      <tr>
+        <th scope="row"><label for="blogname">Direktt Admin ID:</label></th>
+        <td>
+          {{ direktt_admin_user_id }}
         </td>
       </tr>
       <tr>

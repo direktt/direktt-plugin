@@ -38,7 +38,8 @@ class Direktt_Ajax
 
 		$data = array(
 			'direktt_user_id' => get_post_meta( $post_id, "direktt_user_id", true ),
-			'marketing_consent' => get_post_meta( $post_id, "direktt_marketing_consent_status", true )
+			'marketing_consent' => get_post_meta( $post_id, "direktt_marketing_consent_status", true ),
+			'direktt_admin_user_id' => get_post_meta( $post_id, "direktt_admin_user_id", true ),
 		);
 
 		wp_send_json_success($data, 200);

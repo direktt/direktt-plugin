@@ -656,3 +656,336 @@ WP_REST_Request::__set_state(array(
    'parsed_json' => true,
    'parsed_body' => false,
 ))
+#June 25th 2024, 20:48
+/wp-json/direktt/v1/onSetAdminUser
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'Y2wYYNXxQWbDL61d71E3',
+      'adminId' => 'mQaYzEkMFQe40KsjwuaSo4Pnk6t1',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'content_length' => 
+    array (
+      0 => '98',
+    ),
+    'connection' => 
+    array (
+      0 => 'keep-alive',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip, deflate, br',
+    ),
+    'host' => 
+    array (
+      0 => 'localhost:10029',
+    ),
+    'postman_token' => 
+    array (
+      0 => 'a0b0ee8d-849f-4b48-a019-b882ba794798',
+    ),
+    'cache_control' => 
+    array (
+      0 => 'no-cache',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'PostmanRuntime/7.39.0',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer ac97bcd3-9014-4178-a91b-ada5dbe6c188',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+  ),
+   'body' => '{
+    "subscriptionId": "Y2wYYNXxQWbDL61d71E3",
+    "adminId": "mQaYzEkMFQe40KsjwuaSo4Pnk6t1"
+}',
+   'route' => '/direktt/v1/onSetAdminUser',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'on_set_admin_user',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#June 25th 2024, 20:56
+/wp-json/direktt/v1/onSetAdminUser
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'Y2wYYNXxQWbDL61d71E3',
+      'adminId' => 'mQaYzEkMFQe40KsjwuaSo4Pnk6t1',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'content_length' => 
+    array (
+      0 => '98',
+    ),
+    'connection' => 
+    array (
+      0 => 'keep-alive',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip, deflate, br',
+    ),
+    'host' => 
+    array (
+      0 => 'localhost:10029',
+    ),
+    'postman_token' => 
+    array (
+      0 => '134e27b7-dd45-411c-afec-7cbc2e2bcdae',
+    ),
+    'cache_control' => 
+    array (
+      0 => 'no-cache',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'PostmanRuntime/7.39.0',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer ac97bcd3-9014-4178-a91b-ada5dbe6c188',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+  ),
+   'body' => '{
+    "subscriptionId": "Y2wYYNXxQWbDL61d71E3",
+    "adminId": "mQaYzEkMFQe40KsjwuaSo4Pnk6t1"
+}',
+   'route' => '/direktt/v1/onSetAdminUser',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'on_set_admin_user',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#June 25th 2024, 20:57
+/wp-json/direktt/v1/onSetAdminUser
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'Y2wYYNXxQWbDL61d71E3',
+      'adminId' => 'mQaYzEkMFQe40KsjwuaSo4Pnk6t1',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'content_length' => 
+    array (
+      0 => '98',
+    ),
+    'connection' => 
+    array (
+      0 => 'keep-alive',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip, deflate, br',
+    ),
+    'host' => 
+    array (
+      0 => 'localhost:10029',
+    ),
+    'postman_token' => 
+    array (
+      0 => '1857e6b7-3bdb-4aec-85a1-0c8ef412422d',
+    ),
+    'cache_control' => 
+    array (
+      0 => 'no-cache',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'PostmanRuntime/7.39.0',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer ac97bcd3-9014-4178-a91b-ada5dbe6c188',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+  ),
+   'body' => '{
+    "subscriptionId": "Y2wYYNXxQWbDL61d71E3",
+    "adminId": "mQaYzEkMFQe40KsjwuaSo4Pnk6t1"
+}',
+   'route' => '/direktt/v1/onSetAdminUser',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'on_set_admin_user',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))

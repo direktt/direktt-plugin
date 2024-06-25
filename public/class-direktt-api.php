@@ -31,6 +31,13 @@ class Direktt_Api
 			'permission_callback' => array($this, 'api_validate_api_key')
 		));
 
+		register_rest_route('direktt/v1', '/onSetAdminUser/', array(
+			'methods' => 'POST',
+			'callback' => array($this, 'on_set_admin_user'),
+			'args' => array(),
+			'permission_callback' => array($this, 'api_validate_api_key')
+		));
+
 		register_rest_route('direktt/v1', '/onUnsubscribe/', array(
 			'methods' => 'POST',
 			'callback' => array($this, 'on_unsubscribe'),
@@ -87,6 +94,29 @@ class Direktt_Api
 			}
 		} else {
 			wp_send_json_error(new WP_Error('Missing param', 'Subscription Id missing'), 400);
+		}
+	}
+
+	public function on_set_admin_user(WP_REST_Request $request)
+	{
+		$this->api_log($request);
+		$parameters = json_decode($request->get_body(), true);
+
+		if (array_key_exists('subscriptionId', $parameters) && array_key_exists('adminId', $parameters) ) {
+			$direktt_user_id = sanitize_text_field($parameters['subscriptionId']);
+			$admin_id = sanitize_text_field($parameters['adminId']);
+
+			$post_id = Direktt_User::get_user_by_subscription_id($direktt_user_id);
+
+			if ($post_id) {
+				update_post_meta($post_id, "direktt_admin_user_id", $admin_id);
+				//delete_post_meta($post_id, "direktt_admin_user_id");
+			}
+
+			$data = array();
+			wp_send_json_success($data, 200);
+		} else {
+			wp_send_json_error(new WP_Error('Missing param', 'Subscription Id or Admin Id is missing'), 400);
 		}
 	}
 
