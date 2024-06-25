@@ -80,6 +80,8 @@ class Direktt_Public
 		} */
 	}
 
+	// todo remove when tested boilerplate
+
 	public function enqueue_plugin_assets(string $suffix)
 	{
 		/* if ($suffix !== 'direktt_page_direktt-settings' && $suffix !== 'toplevel_page_direktt-dashboard') {
