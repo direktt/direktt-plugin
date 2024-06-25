@@ -1,53 +1,16 @@
 <?php
 
-/**
- * The admin-facing functionality of the plugin.
- *
- * Defines the plugin name, version
- *
- * @author     Enrique Chavez <noone@tmeister.net>
- * @since      1.3.4
- */
 class Direktt_Admin
 {
-	/**
-	 * The ID of this plugin.
-	 *
-	 * @since    1.3.4
-	 *
-	 * @var string The ID of this plugin.
-	 */
 	private string $plugin_name;
-
-	/**
-	 * The version of this plugin.
-	 *
-	 * @since    1.3.4
-	 *
-	 * @var string The current version of this plugin.
-	 */
 	private string $version;
 
-	/**
-	 * Initialize the class and set its properties.
-	 *
-	 * @param string $plugin_name The name of the plugin.
-	 * @param string $version The version of this plugin.
-	 *
-	 * @since    1.3.4
-	 */
 	public function __construct(string $plugin_name, string $version)
 	{
 		$this->plugin_name = $plugin_name;
 		$this->version     = $version;
 	}
 
-	/**
-	 * Register a new settings page under Settings main menu
-	 * .
-	 * @return void
-	 * @since 1.3.4
-	 */
 	public function register_menu_page()
 	{
 		add_menu_page(
@@ -67,8 +30,6 @@ class Direktt_Admin
 			'manage_options',
 			'direktt-dashboard'
 		);
-
-		
 	}
 
 	public function register_menu_page_end()
@@ -118,9 +79,10 @@ class Direktt_Admin
 		return $parent_file;
 	}
 
-	public function register_custom_post_type_users()
+	public function register_custom_post_types()
 	{
-		// register custom user category
+
+		// User Categories
 
 		$labels = array(
 			'name'              => _x('User Categories', 'taxonomy general name', 'direktt'),
@@ -136,7 +98,7 @@ class Direktt_Admin
 			'menu_name'         => __('Category', 'direktt'),
 		);
 		$args   = array(
-			'hierarchical'      => true, // make it hierarchical (like categories)
+			'hierarchical'      => true, 
 			'public'			=> false,
 			'labels'            => $labels,
 			'show_ui'           => true,
@@ -150,7 +112,7 @@ class Direktt_Admin
 
 		register_taxonomy('direkttusercategories', ['direkttusers'], $args);
 
-		// register custom user category
+		// User Tags
 
 		$labels = array(
 			'name'              => _x('User Tags', 'taxonomy general name', 'direktt'),
@@ -179,6 +141,8 @@ class Direktt_Admin
 		);
 
 		register_taxonomy('direkttusertags', ['direkttusers'], $args);
+
+		// Users
 
 		$labels = array(
 			'name'                => __('Direktt Users', 'direktt'),
@@ -213,8 +177,9 @@ class Direktt_Admin
 			'publicly_queryable'  => false,
 			'capability_type'     => 'post',
 			'capabilities'          => array(
-				//'create_posts' => 'do_not_allow', // <-- The important bit.
-				//'edit_posts' => 'allow' // <-- The important bit.
+				// todo Srediti prava za new i edit ako ikako moze, ako ne, ostaviti new
+				//'create_posts' => 'do_not_allow', 
+				//'edit_posts' => 'allow' 
 			),
 			'show_in_rest'	=> false,
 		);
@@ -222,13 +187,8 @@ class Direktt_Admin
 		register_post_type('direkttusers', $args);
 	}
 
-	/**
-	 * Shows an admin notice on the admin dashboard to notify the new settings page.
-	 * This is only shown once and the message is dismissed.
-	 *
-	 * @return void
-	 * @since 1.3.4
-	 */
+	// todo skloniti jer nam realno ne treba
+
 	public function display_admin_notice()
 	{
 		if (!get_option('jwt_auth_admin_notice')) {
@@ -252,19 +212,9 @@ class Direktt_Admin
 		}
 	}
 
-	/**
-	 * Enqueue the plugin assets only on the plugin settings page.
-	 *
-	 * @param string $suffix
-	 *
-	 * @return void|null
-	 * @since 1.3.4
-	 */
 	public function enqueue_plugin_assets(string $suffix)
 	{
-		/* if ($suffix !== 'direktt_page_direktt-settings' && $suffix !== 'toplevel_page_direktt-dashboard') {
-			return null;
-		} */
+		// Settings page
 
 		if ($suffix == 'direktt_page_direktt-settings') {
 			wp_enqueue_script(
@@ -277,7 +227,6 @@ class Direktt_Admin
 				]
 			);
 
-			// Enqueue the style file
 			wp_enqueue_style(
 				$this->plugin_name . '-settings',
 				plugin_dir_url(__DIR__) . 'js/settings/direktt-settings.css',
@@ -296,6 +245,8 @@ class Direktt_Admin
 				)
 			);
 		}
+
+		// Dashboard
 
 		if ($suffix == 'toplevel_page_direktt-dashboard') {
 			wp_enqueue_script(
@@ -316,6 +267,8 @@ class Direktt_Admin
 				''
 			);
 		}
+
+		// CPT direktusers
 
 		if ($suffix == 'post.php') {
 			global $post;
@@ -352,41 +305,7 @@ class Direktt_Admin
 			}
 		}
 	}
-
-	/**
-	 * Register the plugin settings.
-	 *
-	 * @return void
-	 * @since 1.3.4
-	 */
-	public function register_plugin_settings()
-	{
-		register_setting('jwt_auth', 'jwt_auth_options', [
-			'type'         => 'object',
-			'default'      => [
-				'share_data' => false,
-			],
-			'show_in_rest' => [
-				'schema' => [
-					'type'       => 'object',
-					'properties' => [
-						'share_data' => [
-							'type'    => 'boolean',
-							'default' => false,
-						],
-					],
-				],
-			]
-		]);
-	}
-
-	/**
-	 * Render the plugin settings page.
-	 * This is a React application that will be rendered on the admin page.
-	 *
-	 * @return void
-	 * @since 1.3.4
-	 */
+		
 	public function render_admin_page()
 	{
 		?>
@@ -394,11 +313,11 @@ class Direktt_Admin
 		<?php
 	}
 
-	public function render_consent_events( $post )
+	public function render_meta_panel( $post )
 	{
 		if ($post->post_type != 'direkttusers') return;
 		?>
-			<div id="app">Here goes the User app</div>
+			<div id="app"></div>
 		<?php
 	}
 
@@ -406,7 +325,7 @@ class Direktt_Admin
 		$screens = [ 'page' ];
 		foreach ( $screens as $screen ) {
 			add_meta_box(
-				'wporg_box_id',                 // Unique ID
+				'direktt_features',                 // Unique ID
 				'Direktt features',      // Box title
 				array($this, 'render_direktt_custom_box'),  // Content callback, must be of type callable
 				$screen,                            // Post type
@@ -419,13 +338,9 @@ class Direktt_Admin
 	public function render_direktt_custom_box( $post )
 	{
 		wp_nonce_field( 'direktt_custom_box_nonce', 'direktt_custom_box_nonce' );
-
 		$box_value = intval(get_post_meta($post->ID, 'direktt_custom_box', true)) === 1;
-
 		$box_checked = $box_value? 'checked': 0;
-		
 		?>
-
 			<input id="direktt_custom_box" name="direktt_custom_box" type="checkbox" <?php echo $box_checked ?>>
 			<label><?php echo __( 'Perform Direktt checks', 'direktt') ?></label>
 		<?php
@@ -450,144 +365,17 @@ class Direktt_Admin
 			return $post_id;
 		}
 	
-		// define your own post type here
 		if( 'page' !== $post->post_type ) {
 			return $post_id;
 		}
 	
 		if( isset( $_POST[ 'direktt_custom_box' ] ) && sanitize_text_field( $_POST[ 'direktt_custom_box' ] ) == 'on' ) {
 			update_post_meta( $post_id, 'direktt_custom_box', true );
-			var_dump($_POST[ 'direktt_custom_box' ]);
-			die();
 		} else {
 			delete_post_meta( $post_id, 'direktt_custom_box' );
 		}
-	
+		
 		return $post_id;
-	
 	}
 
-	public function ajax_get_settings()
-	{
-		if (!current_user_can('manage_options')) {
-			wp_send_json_error(new WP_Error('Unauthorized', 'Access to API is unauthorized.'), 401);
-			return;
-		}
-
-		$data = array(
-			'api_key' => get_option('direktt_api_key') ? esc_attr(get_option('direktt_api_key')) : '',
-			'activation_status' => get_option('direktt_activation_status') ? esc_attr(get_option('direktt_activation_status')) : 'false'
-			//'activation_status' => 'true'
-		);
-
-		wp_send_json_success($data, 200);
-	}
-
-	public function ajax_get_marketing_consent()
-	{
-		if (!current_user_can('manage_options')) {
-			wp_send_json_error(new WP_Error('Unauthorized', 'Access to API is unauthorized.'), 401);
-			return;
-		}
-
-		$post_id = (isset($_POST['postId'])) ? sanitize_text_field($_POST['postId']) : false;
-
-		$data = array(
-			'direktt_user_id' => get_post_meta( $post_id, "direktt_user_id", true ),
-			'marketing_consent' => get_post_meta( $post_id, "direktt_marketing_consent_status", true )
-		);
-
-		wp_send_json_success($data, 200);
-	}
-
-	public function ajax_get_user_events()
-	{
-		if (!current_user_can('manage_options')) {
-			wp_send_json_error(new WP_Error('Unauthorized', 'Access to API is unauthorized.'), 401);
-			return;
-		}
-
-		$post_id = (isset($_POST['postId'])) ? sanitize_text_field($_POST['postId']) : false;
-		$page = (isset($_POST['page'])) ? sanitize_text_field($_POST['page']) : false;
-
-		global $wpdb;
-
-		$table_name = $wpdb->prefix . 'direktt_events';
-
-		if(intval($page) == 0){
-			$results = $wpdb->get_results( "SELECT * FROM $table_name ORDER BY ID DESC LIMIT 20" );
-		} else {
-			$results = $wpdb->get_results( "SELECT * FROM $table_name WHERE ID < " . intval($page) . " ORDER BY ID DESC LIMIT 20" );
-		}
-
-		/* foreach ( $results as $result ) {
-			echo $result->name . ' ' . $result->text . '<br>';
-		} */
-
-		/* $data = array(
-			'direktt_user_id' => get_post_meta( $post_id, "direktt_user_id", true ),
-			'marketing_consent' => get_post_meta( $post_id, "direktt_marketing_consent_status", true )
-		); */
-
-		$data = $results;
-
-		wp_send_json_success($data, 200);
-	}
-
-	public function ajax_save_settings()
-	{
-		if (!current_user_can('manage_options')) {
-			wp_send_json_error(new WP_Error('Unauthorized', 'Access to API is unauthorized.'), 401);
-			return;
-		}
-
-		$choice = (isset($_POST['api_key'])) ? sanitize_text_field($_POST['api_key']) : false;
-
-		if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], $this->plugin_name . '-settings')) {
-
-			wp_send_json_error(new WP_Error('Unauthorized', 'Nonce is not valid'), 401);
-			exit;
-		} else {
-			if ($choice) {
-
-				delete_option('direktt_activation_status');
-				update_option('direktt_api_key',  $choice);
-
-				// Ovde treba poslati poziv
-
-				$url = 'https://activatechannel-lnkonwpiwa-uc.a.run.app';
-
-				$data = array(
-					'domain' => 'https://041e-82-117-218-70.ngrok-free.app'
-					// 'domain' => get_site_url(null, '', 'https')
-				);
-
-				$response = wp_remote_post($url, array(
-					'body'    => json_encode($data),
-					'headers' => array(
-						'Authorization' => 'Bearer ' . $choice,
-						'Content-type' => 'application/json',
-					),
-				));
-
-				//var_dump($response['response']['code']);
-
-				if (is_wp_error($response)) {
-					wp_send_json_error($response, 500);
-					return;
-				}
-
-				if ($response['response']['code'] != '200' && $response['response']['code'] != '201') {
-					wp_send_json_error(new WP_Error('Unauthorized', 'API Key validation failed'), 401);
-					return;
-				}
-			} else {
-				delete_option('direktt_api_key');
-			}
-		}
-
-		update_option('direktt_activation_status', 'true');
-		$data = array();
-		wp_send_json_success($data, 200);
-	}
 }

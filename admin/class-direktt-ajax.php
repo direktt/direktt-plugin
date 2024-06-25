@@ -1,0 +1,128 @@
+<?php
+
+class Direktt_Ajax
+{
+
+	private string $plugin_name;
+	private string $version;
+
+	public function __construct(string $plugin_name, string $version)
+	{
+		$this->plugin_name = $plugin_name;
+		$this->version     = $version;
+	}
+
+	public function ajax_get_settings()
+	{
+		if (!current_user_can('manage_options')) {
+			wp_send_json_error(new WP_Error('Unauthorized', 'Access to API is unauthorized.'), 401);
+			return;
+		}
+
+		$data = array(
+			'api_key' => get_option('direktt_api_key') ? esc_attr(get_option('direktt_api_key')) : '',
+			'activation_status' => get_option('direktt_activation_status') ? esc_attr(get_option('direktt_activation_status')) : 'false'
+		);
+
+		wp_send_json_success($data, 200);
+	}
+
+	public function ajax_get_marketing_consent()
+	{
+		if (!current_user_can('manage_options')) {
+			wp_send_json_error(new WP_Error('Unauthorized', 'Access to API is unauthorized.'), 401);
+			return;
+		}
+
+		$post_id = (isset($_POST['postId'])) ? sanitize_text_field($_POST['postId']) : false;
+
+		$data = array(
+			'direktt_user_id' => get_post_meta( $post_id, "direktt_user_id", true ),
+			'marketing_consent' => get_post_meta( $post_id, "direktt_marketing_consent_status", true )
+		);
+
+		wp_send_json_success($data, 200);
+	}
+
+	public function ajax_get_user_events()
+	{
+		if (!current_user_can('manage_options')) {
+			wp_send_json_error(new WP_Error('Unauthorized', 'Access to API is unauthorized.'), 401);
+			return;
+		}
+
+		$post_id = (isset($_POST['postId'])) ? sanitize_text_field($_POST['postId']) : false;
+		$page = (isset($_POST['page'])) ? sanitize_text_field($_POST['page']) : false;
+
+		global $wpdb;
+
+		$table_name = $wpdb->prefix . 'direktt_events';
+
+		if(intval($page) == 0){
+			$results = $wpdb->get_results( "SELECT * FROM $table_name ORDER BY ID DESC LIMIT 20" );
+		} else {
+			$results = $wpdb->get_results( "SELECT * FROM $table_name WHERE ID < " . intval($page) . " ORDER BY ID DESC LIMIT 20" );
+		}
+
+		$data = $results;
+
+		wp_send_json_success($data, 200);
+	}
+
+	public function ajax_save_settings()
+	{
+		if (!current_user_can('manage_options')) {
+			wp_send_json_error(new WP_Error('Unauthorized', 'Access to API is unauthorized.'), 401);
+			return;
+		}
+
+		$choice = (isset($_POST['api_key'])) ? sanitize_text_field($_POST['api_key']) : false;
+
+		if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], $this->plugin_name . '-settings')) {
+
+			wp_send_json_error(new WP_Error('Unauthorized', 'Nonce is not valid'), 401);
+			exit;
+		} else {
+			if ($choice) {
+
+				delete_option('direktt_activation_status');
+				update_option('direktt_api_key',  $choice);
+
+				// Ovde treba poslati poziv
+
+				$url = 'https://activatechannel-lnkonwpiwa-uc.a.run.app';
+
+				$data = array(
+					'domain' => 'https://041e-82-117-218-70.ngrok-free.app'
+					// 'domain' => get_site_url(null, '', 'https')
+				);
+
+				$response = wp_remote_post($url, array(
+					'body'    => json_encode($data),
+					'headers' => array(
+						'Authorization' => 'Bearer ' . $choice,
+						'Content-type' => 'application/json',
+					),
+				));
+
+				//var_dump($response['response']['code']);
+
+				if (is_wp_error($response)) {
+					wp_send_json_error($response, 500);
+					return;
+				}
+
+				if ($response['response']['code'] != '200' && $response['response']['code'] != '201') {
+					wp_send_json_error(new WP_Error('Unauthorized', 'API Key validation failed'), 401);
+					return;
+				}
+			} else {
+				delete_option('direktt_api_key');
+			}
+		}
+
+		update_option('direktt_activation_status', 'true');
+		$data = array();
+		wp_send_json_success($data, 200);
+	}
+}

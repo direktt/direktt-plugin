@@ -2,39 +2,16 @@
 
 class Direktt_User
 {
-	/**
-	 * The ID of this plugin.
-	 *
-	 * @since    1.3.4
-	 *
-	 * @var string The ID of this plugin.
-	 */
 	private string $plugin_name;
-
-	/**
-	 * The version of this plugin.
-	 *
-	 * @since    1.3.4
-	 *
-	 * @var string The current version of this plugin.
-	 */
 	private string $version;
 
-	/**
-	 * Initialize the class and set its properties.
-	 *
-	 * @param string $plugin_name The name of the plugin.
-	 * @param string $version The version of this plugin.
-	 *
-	 * @since    1.3.4
-	 */
 	public function __construct(string $plugin_name, string $version)
 	{
 		$this->plugin_name = $plugin_name;
 		$this->version     = $version;
 	}
 
-	static function get_user_by_subscription_id( $subscription_id )
+	static function get_user_by_subscription_id( $direktt_user_id )
 	{
 		$args = array(
 			'post_type' => 'direkttusers',
@@ -44,7 +21,7 @@ class Direktt_User
 			'meta_query' => array(
 					array(
 						'key'   => 'direktt_user_id',
-						'value' => $subscription_id,
+						'value' => $direktt_user_id,
 					)
 				)/* ,
 			'tax_query' => array(
@@ -97,8 +74,10 @@ class Direktt_User
 		}
 	}
 
-	static function unsubscribe_user( $post_id )
+	static function unsubscribe_user( $direktt_user_id )
 	{
+		$post_id = Direktt_User::get_user_by_subscription_id($direktt_user_id);
+		
 		if( $post_id ) {
 			wp_delete_post( $post_id, true );
 		}

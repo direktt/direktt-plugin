@@ -586,8 +586,8 @@ class Direktt_Public
 
 			$result = Direktt_User::subscribe_user($direktt_user_id);
 
-			if (is_wp_error($result)) {
-				wp_send_json_error($wp_error, 500);
+			if (is_wp_error( $result )) {
+				wp_send_json_error($result, 500);
 			} else {
 				$data = array();
 				wp_send_json_success($data, 200);
@@ -605,8 +605,7 @@ class Direktt_Public
 		if (array_key_exists('subscriptionId', $parameters)) {
 
 			$direktt_user_id = sanitize_text_field($parameters['subscriptionId']);
-			$post_id = Direktt_User::get_user_by_subscription_id($direktt_user_id);
-			Direktt_User::unsubscribe_user($post_id);
+			Direktt_User::unsubscribe_user($direktt_user_id);
 
 			$data = array();
 			wp_send_json_success($data, 200);

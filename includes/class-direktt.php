@@ -1,68 +1,13 @@
 <?php
 
-
-
-/**
- * The file that defines the core plugin class.
- *
- * A class definition that includes attributes and functions used across both the
- * public-facing side of the site and the admin area.
- *
- * @link       https://enriquechavez.co
- * @since      1.0.0
- */
-
-/**
- * The core plugin class.
- *
- * This is used to define internationalization, admin-specific hooks, and
- * public-facing site hooks.
- *
- * Also maintains the unique identifier of this plugin as well as the current
- * version of the plugin.
- *
- * @since      1.0.0
- *
- * @author     Enrique Chavez <noone@tmeister.net>
- */
 class Direktt {
-	/**
-	 * The loader that's responsible for maintaining and registering all hooks that power
-	 * the plugin.
-	 *
-	 * @since    1.0.0
-	 *
-	 * @var Direktt_Loader Maintains and registers all hooks for the plugin.
-	 */
+
 	protected Direktt_Loader $loader;
 
-	/**
-	 * The unique identifier of this plugin.
-	 *
-	 * @since    1.0.0
-	 *
-	 * @var string The string used to uniquely identify this plugin.
-	 */
 	protected string $plugin_name;
 
-	/**
-	 * The current version of the plugin.
-	 *
-	 * @since    1.0.0
-	 *
-	 * @var string The current version of the plugin.
-	 */
 	protected string $version;
 
-	/**
-	 * Define the core functionality of the plugin.
-	 *
-	 * Set the plugin name and the plugin version that can be used throughout the plugin.
-	 * Load the dependencies, define the locale, and set the hooks for the admin area and
-	 * the public-facing side of the site.
-	 *
-	 * @since    1.0.0
-	 */
 	public function __construct() {
 		$this->plugin_name = 'direktt';
 		$this->version     = '1.0.0';
@@ -72,90 +17,46 @@ class Direktt {
 		$this->define_public_hooks();
 		$this->define_admin_hooks();
 
+		$this->define_api_hooks();
+
 		$this->define_event_hooks();
 		$this->define_user_hooks();
+		$this->define_ajax_hooks();
 	}
 
-	/**
-	 * Load the required dependencies for this plugin.
-	 *
-	 * Include the following files that make up the plugin:
-	 *
-	 * - Jwt_Auth_Loader. Orchestrates the hooks of the plugin.
-	 * - Jwt_Auth_i18n. Defines internationalization functionality.
-	 * - Jwt_Auth_Admin. Defines all hooks for the admin area.
-	 * - Jwt_Auth_Public. Defines all hooks for the public side of the site.
-	 *
-	 * Create an instance of the loader which will be used to register the hooks
-	 * with WordPress.
-	 *
-	 * @since    1.0.0
-	 */
 	private function load_dependencies() {
-
 		/**
 		 * Load dependencies managed by composer.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/vendor/autoload.php';
 
-		/**
-		 * The class responsible for orchestrating the actions and filters of the
-		 * core plugin.
-		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-direktt-loader.php';
 
-		/**
-		 * The class responsible for defining internationalization functionality
-		 * of the plugin.
-		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-direktt-i18n.php';
 
-		/**
-		 * Class responsible for creating a `wrapper namespace` to load the Firebase's JWT & Key
-		 * classes and prevent conflicts with other plugins using the same library
-		 * with different versions.
-		 */
 		require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-direktt-wrapper.php';
 
-		/**
-		 * The class responsible for defining all actions that occur in the public-facing
-		 * side of the site.
-		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-direktt-public.php';
 
-		/**
-		 * The class responsible for defining all actions that occur in the admin-facing
-		 * side of the site.
-		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-direktt-api.php';
+
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-direktt-admin.php';
 
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-direktt-event.php';
 
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-direktt-user.php';
 
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-direktt-ajax.php';
+
 		$this->loader = new Direktt_Loader();
 	}
 
-	/**
-	 * Define the locale for this plugin for internationalization.
-	 *
-	 * Uses the Jwt_Auth_i18n class in order to set the domain and to register the hook
-	 * with WordPress.
-	 *
-	 * @since    1.0.0
-	 */
 	private function set_locale() {
 		$plugin_i18n = new Direktt_i18n();
 		$plugin_i18n->set_domain( $this->get_plugin_name() );
 		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
 	}
 
-	/**
-	 * Register all the hooks related to the public-facing functionality
-	 * of the plugin.
-	 *
-	 * @since    1.0.0
-	 */
 	private function define_public_hooks() {
 		$plugin_public = new Direktt_Public( $this->get_plugin_name(), $this->get_version() );
 		// $this->loader->add_action( 'rest_api_init', $plugin_public, 'add_api_routes' ); api_register_routes 
@@ -169,33 +70,25 @@ class Direktt {
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_plugin_assets' );
 	}
 
-	/**
-	 * Register all the hooks related to the admin-facing functionality
-	 * of the plugin.
-	 *
-	 * @since    1.3.4
-	 */
+	private function define_api_hooks() {
+
+		$plugin_user = new Direktt_Api( $this->get_plugin_name(), $this->get_version() );
+	}
+	
 	private function define_admin_hooks() {
 		$plugin_admin = new Direktt_Admin( $this->get_plugin_name(), $this->get_version() );
+		
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'register_menu_page', 9 );
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'register_menu_page_end');
 		$this->loader->add_action( 'parent_file', $plugin_admin, 'highlight_direktt_submenu');
-		$this->loader->add_action('admin_action_direkttoptions', $plugin_admin, 'set_page_builder_option' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_plugin_assets' );
-		$this->loader->add_action( 'init', $plugin_admin, 'register_custom_post_type_users' );
-		$this->loader->add_action( 'admin_init', $plugin_admin, 'register_plugin_settings' );
-		$this->loader->add_action( 'rest_api_init', $plugin_admin, 'register_plugin_settings' );
+		$this->loader->add_action( 'init', $plugin_admin, 'register_custom_post_types' );
 		//$this->loader->add_action( 'admin_notices', $plugin_admin, 'display_admin_notice' );
-
-		$this->loader->add_action( 'wp_ajax_direktt_get_settings', $plugin_admin, 'ajax_get_settings' );
-		$this->loader->add_action( 'wp_ajax_direktt_save_settings', $plugin_admin, 'ajax_save_settings' );
-		$this->loader->add_action( 'wp_ajax_direktt_get_marketing_consent', $plugin_admin, 'ajax_get_marketing_consent' );
-		$this->loader->add_action( 'wp_ajax_direktt_get_user_events', $plugin_admin, 'ajax_get_user_events' );
 
 		$this->loader->add_action( 'add_meta_boxes_page', $plugin_admin, 'page_direktt_custom_box' );
 		$this->loader->add_action( 'save_post', $plugin_admin, 'save_direktt_custom_box', 10, 2 );
 		
-		$this->loader->add_action( 'edit_form_after_editor', $plugin_admin, 'render_consent_events' );
+		$this->loader->add_action( 'edit_form_after_editor', $plugin_admin, 'render_meta_panel' );
 	}
 
 	private function define_event_hooks() {
@@ -209,45 +102,28 @@ class Direktt {
 		$plugin_user = new Direktt_User( $this->get_plugin_name(), $this->get_version() );
 	}
 
-	/**
-	 * Run the loader to execute all the hooks with WordPress.
-	 *
-	 * @since    1.0.0
-	 */
+	private function define_ajax_hooks() {
+
+		$plugin_ajax = new Direktt_Ajax( $this->get_plugin_name(), $this->get_version() );
+
+		$this->loader->add_action( 'wp_ajax_direktt_get_settings', $plugin_ajax, 'ajax_get_settings' );
+		$this->loader->add_action( 'wp_ajax_direktt_save_settings', $plugin_ajax, 'ajax_save_settings' );
+		$this->loader->add_action( 'wp_ajax_direktt_get_marketing_consent', $plugin_ajax, 'ajax_get_marketing_consent' );
+		$this->loader->add_action( 'wp_ajax_direktt_get_user_events', $plugin_ajax, 'ajax_get_user_events' );
+	}
+
 	public function run() {
 		$this->loader->run();
 	}
 
-	/**
-	 * The name of the plugin used to uniquely identify it within the context of
-	 * WordPress and to define internationalization functionality.
-	 *
-	 * @return string The name of the plugin.
-	 * @since     1.0.0
-	 *
-	 */
 	public function get_plugin_name(): string {
 		return $this->plugin_name;
 	}
 
-	/**
-	 * The reference to the class that orchestrates the hooks with the plugin.
-	 *
-	 * @return Jwt_Auth_Loader Orchestrates the hooks of the plugin.
-	 * @since     1.0.0
-	 *
-	 */
 	public function get_loader(): Direktt_Loader {
 		return $this->loader;
 	}
 
-	/**
-	 * Retrieve the version number of the plugin.
-	 *
-	 * @return string The version number of the plugin.
-	 * @since     1.0.0
-	 *
-	 */
 	public function get_version(): string {
 		return $this->version;
 	}
