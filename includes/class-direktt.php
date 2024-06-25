@@ -9,6 +9,7 @@ class Direktt {
 	protected string $version;
 
 	public function __construct() {
+
 		$this->plugin_name = 'direktt';
 		$this->version     = '1.0.0';
 

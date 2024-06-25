@@ -39,10 +39,56 @@ class Direktt_Public
 		$this->namespace   = $this->plugin_name . '/v' . intval($this->version);
 	}
 
+	private function set_direktt_auth_cookie( $cookie_value ){
+
+		$arr_cookie_options = array (
+			'expires' => time() + 15*60, // 15 minutes
+			'path' => '/', 
+			'domain' => parse_url( get_site_url(), PHP_URL_HOST ), // leading dot for compatibility or use subdomain
+			'secure' => is_ssl(),     // or false
+			'httponly' => true,    // or false
+			'samesite' => 'Strict' // None || Lax  || Strict
+			);
+		
+		setcookie('DirekttAuthToken', $cookie_value, $arr_cookie_options);  
+	}
+
+	private function remove_direktt_auth_cookie( $cookie_value ){
+		setcookie('DirekttAuthToken', $cookie_value, 1);
+	}
+
+	private function validate_direktt_token( $token ){
+		
+		$api_key = get_option('direktt_api_key') ? esc_attr(get_option('direktt_api_key')) : '';
+		$algorithm = $this->get_algorithm();
+
+		if ($api_key == '' || $algorithm === false){
+			return false;
+		}
+
+		// todo ovde mora try/catch zato sto ovaj moze da vrati exception
+
+		$decoded_token = Direktt\Firebase\JWT\JWT::decode($token, new Direktt\Firebase\JWT\Key($api_key, $algorithm));
+		
+		$direktt_user_id_tocheck = strval( $decoded_token->subscriptionUid );
+
+		$post_id = Direktt_User::get_user_by_subscription_id( $direktt_user_id_tocheck );
+
+		// todo validate expiration date
+
+		// todo sta se desava ukoliko ga nemamo u bazi - treba poslati zahtev api-ju da proverimo usera i da nam on posalje zahtev da ga registruje i ako sve prodje kako treba ponovo ga validiramo
+
+		if($post_id){
+			return $direktt_user_id_tocheck;
+		} else {
+			return false;
+		}
+
+	}
+
 	public function direktt_check_user()
 	{
 		global $post;
-
 		global $direktt_user_id;
 
 		if (intval(get_post_meta($post->ID, 'direktt_custom_box', true)) !== 1) {
@@ -50,24 +96,18 @@ class Direktt_Public
 		}
 
 		$token = (isset($_GET['token'])) ? sanitize_text_field($_GET['token']) : false;
-		if($token) {
 
-			var_dump($post->ID);
-			$api_key = get_option('direktt_api_key') ? esc_attr(get_option('direktt_api_key')) : '';
+		if( $token ) {
 
-			$algorithm = $this->get_algorithm();
+			$direktt_user_id = $this->validate_direktt_token( $token );
 
-			if ($api_key == '' || $algorithm === false){
+			if( $direktt_user_id ) {
+				$this->set_direktt_auth_cookie( $token );
+				show_admin_bar( false );
+			} else {
 				header('HTTP/1.1 403 Unauthorized');
 				exit();
 			}
-
-			var_dump($algorithm);
-			$decoded_token = Direktt\Firebase\JWT\JWT::decode($token, new Direktt\Firebase\JWT\Key($api_key, $algorithm));
-			$direktt_user_id = $decoded_token->subscriptionUid;
-			var_dump($decoded_token);
-			show_admin_bar( false );
-
 
 		} else {
 			header('HTTP/1.1 403 Unauthorized');

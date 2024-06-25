@@ -11,7 +11,7 @@ class Direktt_User
 		$this->version     = $version;
 	}
 
-	static function get_user_by_subscription_id( $direktt_user_id )
+	static function get_user_by_subscription_id($direktt_user_id_tocheck)
 	{
 		$args = array(
 			'post_type' => 'direkttusers',
@@ -19,11 +19,12 @@ class Direktt_User
 			'posts_per_page' => -1,
 			'fields' => 'ids',
 			'meta_query' => array(
-					array(
-						'key'   => 'direktt_user_id',
-						'value' => $direktt_user_id,
-					)
-				)/* ,
+				array(
+					'key'   => 'direktt_user_id',
+					'value' => $direktt_user_id_tocheck
+				)
+				),
+			/* ,
 			'tax_query' => array(
 				array(
 					'taxonomy' => 'genre',
@@ -32,18 +33,19 @@ class Direktt_User
 				)
 			) */
 		);
+		
 		$posts = get_posts($args);
 
 		$post_id = false;
 
-		if(!empty($posts)) {
+		if (!empty($posts)) {
 			$post_id = $posts[0];
 		}
 
 		return $post_id;
 	}
 
-	static function subscribe_user( $direktt_user_id )
+	static function subscribe_user($direktt_user_id)
 	{
 		// $hierarchical_tax = array( 13, 10 ); // Array of tax ids.
 		// $non_hierarchical_terms = 'tax name 1, tax name 2'; // Can use array of ids or string of tax names separated by commas
@@ -65,22 +67,21 @@ class Direktt_User
 
 		$wp_error = false;
 
-		$post_id = wp_insert_post( $post_arr, $wp_error );
+		$post_id = wp_insert_post($post_arr, $wp_error);
 
-		if( $wp_error ){
+		if ($wp_error) {
 			return $wp_error;
 		} else {
 			return $post_id;
 		}
 	}
 
-	static function unsubscribe_user( $direktt_user_id )
+	static function unsubscribe_user($direktt_user_id)
 	{
 		$post_id = Direktt_User::get_user_by_subscription_id($direktt_user_id);
-		
-		if( $post_id ) {
-			wp_delete_post( $post_id, true );
+
+		if ($post_id) {
+			wp_delete_post($post_id, true);
 		}
 	}
-
 }
