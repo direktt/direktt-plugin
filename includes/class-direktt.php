@@ -60,9 +60,8 @@ class Direktt {
 	private function define_public_hooks() {
 		$plugin_public = new Direktt_Public( $this->get_plugin_name(), $this->get_version() );
 		// $this->loader->add_action( 'rest_api_init', $plugin_public, 'add_api_routes' ); api_register_routes 
-		$this->loader->add_action( 'rest_api_init', $plugin_public, 'api_register_routes' );
-		$this->loader->add_filter( 'rest_api_init', $plugin_public, 'add_cors_support' );
-		$this->loader->add_filter( 'rest_pre_dispatch', $plugin_public, 'rest_pre_dispatch', 10, 2 );
+		// $this->loader->add_filter( 'rest_api_init', $plugin_public, 'add_cors_support' );
+		//$this->loader->add_filter( 'rest_pre_dispatch', $plugin_public, 'rest_pre_dispatch', 10, 2 );
 		// $this->loader->add_filter( 'determine_current_user', $plugin_public, 'determine_current_user' );
 
 		//$this->loader->add_action( 'template_redirect', $plugin_public, 'direktt_check_user' );
@@ -72,7 +71,9 @@ class Direktt {
 
 	private function define_api_hooks() {
 
-		$plugin_user = new Direktt_Api( $this->get_plugin_name(), $this->get_version() );
+		$plugin_api = new Direktt_Api( $this->get_plugin_name(), $this->get_version() );
+		
+		$this->loader->add_action( 'rest_api_init', $plugin_api, 'api_register_routes' );
 	}
 	
 	private function define_admin_hooks() {
