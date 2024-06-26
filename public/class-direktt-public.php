@@ -31,7 +31,7 @@ class Direktt_Public
 	public function __construct(string $plugin_name, string $version)
 	{
 		global $direktt_user_id;
-		
+
 		$direktt_user_id = false;
 
 		$this->plugin_name = $plugin_name;
@@ -39,51 +39,98 @@ class Direktt_Public
 		$this->namespace   = $this->plugin_name . '/v' . intval($this->version);
 	}
 
-	private function set_direktt_auth_cookie( $cookie_value ){
+	private function set_direktt_auth_cookie($cookie_value)
+	{
 
-		$arr_cookie_options = array (
-			'expires' => time() + 15*60, // 15 minutes
-			'path' => '/', 
-			'domain' => parse_url( get_site_url(), PHP_URL_HOST ), // leading dot for compatibility or use subdomain
+		$arr_cookie_options = array(
+			'expires' => 0, // session cookie
+			'path' => '/',
+			'domain' => parse_url(get_site_url(), PHP_URL_HOST), // leading dot for compatibility or use subdomain
 			'secure' => is_ssl(),     // or false
 			'httponly' => true,    // or false
 			'samesite' => 'Strict' // None || Lax  || Strict
-			);
-		
-		setcookie('DirekttAuthToken', $cookie_value, $arr_cookie_options);  
+		);
+
+		setcookie('DirekttAuthToken', $cookie_value, $arr_cookie_options);
 	}
 
-	private function remove_direktt_auth_cookie( $cookie_value ){
-		setcookie('DirekttAuthToken', $cookie_value, 1);
+	private function remove_direktt_auth_cookie()
+	{
+		$this->set_direktt_auth_cookie('');
 	}
 
-	private function validate_direktt_token( $token ){
-		
-		$api_key = get_option('direktt_api_key') ? esc_attr(get_option('direktt_api_key')) : '';
-		$algorithm = $this->get_algorithm();
+	private function not_auth_redirect()
+	{
+		global $direktt_user_id;
 
-		if ($api_key == '' || $algorithm === false){
+		$direktt_user_id = false;
+		$this->remove_direktt_auth_cookie();
+		header('HTTP/1.1 403 Unauthorized');
+		exit();
+	}
+
+	private function validate_direktt_token($token)
+	{
+		if (!$token) {
 			return false;
 		}
 
-		// todo ovde mora try/catch zato sto ovaj moze da vrati exception
+		$api_key = get_option('direktt_api_key') ? esc_attr(get_option('direktt_api_key')) : '';
+		$algorithm = $this->get_algorithm();
 
-		$decoded_token = Direktt\Firebase\JWT\JWT::decode($token, new Direktt\Firebase\JWT\Key($api_key, $algorithm));
-		
-		$direktt_user_id_tocheck = strval( $decoded_token->subscriptionUid );
+		if ($api_key == '' || $algorithm === false) {
+			return false;
+		}
 
-		$post_id = Direktt_User::get_user_by_subscription_id( $direktt_user_id_tocheck );
+		try {
+			$decoded_token = Direktt\Firebase\JWT\JWT::decode($token, new Direktt\Firebase\JWT\Key($api_key, $algorithm));
+		} catch (Exception $e) {
+			return false;
+		}
 
-		// todo validate expiration date
+		$direktt_user_id_tocheck = strval($decoded_token->subscriptionUid);
+
+		$post_id = Direktt_User::get_user_by_subscription_id($direktt_user_id_tocheck);
+
+		if (time() > intval($decoded_token->exp)) {
+			return false;
+		}
 
 		// todo sta se desava ukoliko ga nemamo u bazi - treba poslati zahtev api-ju da proverimo usera i da nam on posalje zahtev da ga registruje i ako sve prodje kako treba ponovo ga validiramo
 
-		if($post_id){
+		if ($post_id) {
 			return $direktt_user_id_tocheck;
 		} else {
 			return false;
 		}
+	}
 
+	private function generate_direktt_token($direktt_user_id)
+	{
+		$api_key = get_option('direktt_api_key') ? esc_attr(get_option('direktt_api_key')) : '';
+		$algorithm = $this->get_algorithm();
+
+		/** First thing, check the secret key if not exist return an error*/
+		if (!$api_key || !$algorithm) {
+			return false;
+		}
+
+		$issuedAt  = time();
+		$expire    = $issuedAt + 15 * 60; // 15 minutes;
+
+		$token = [
+			'iat'  => $issuedAt,
+			'exp'  => $expire,
+			'subscriptionUid' => $direktt_user_id
+		];
+
+		$token = Direktt\Firebase\JWT\JWT::encode(
+			$token,
+			$api_key,
+			$algorithm
+		);
+
+		return $token;
 	}
 
 	public function direktt_check_user()
@@ -97,27 +144,49 @@ class Direktt_Public
 
 		$token = (isset($_GET['token'])) ? sanitize_text_field($_GET['token']) : false;
 
-		if( $token ) {
+		if ($token) {
 
-			$direktt_user_id = $this->validate_direktt_token( $token );
+			$direktt_user_id = $this->validate_direktt_token($token);
 
-			if( $direktt_user_id ) {
-				$this->set_direktt_auth_cookie( $token );
-				show_admin_bar( false );
+			if ($direktt_user_id) {
+
+				$this->set_direktt_auth_cookie($token);
+				show_admin_bar(false);
 			} else {
-				header('HTTP/1.1 403 Unauthorized');
-				exit();
+				$this->not_auth_redirect();
 			}
-
 		} else {
-			header('HTTP/1.1 403 Unauthorized');
-			exit();
-		}
 
-		/* if ( is_page( 'goodies' ) && ! is_user_logged_in() ) {
-			wp_redirect( home_url( '/signup/' ) );
-			exit();
-		} */
+			if (is_user_logged_in()) {
+
+				$current_user = wp_get_current_user();
+
+				$test_user_id = get_user_meta($current_user->ID, 'direktt_test_user_id', true);
+
+				if ($test_user_id && Direktt_User::get_user_by_subscription_id($test_user_id)) {
+
+					$direktt_user_id = $test_user_id;
+
+					$token = $this->generate_direktt_token($direktt_user_id);
+					$this->set_direktt_auth_cookie($token);
+					show_admin_bar(false);
+				} else {
+					$this->not_auth_redirect();
+				}
+			} else {
+
+				$token = (isset($_COOKIE['DirekttAuthToken'])) ? sanitize_text_field($_COOKIE['DirekttAuthToken']) : false;
+
+				$direktt_user_id = $this->validate_direktt_token($token);
+
+				if ($token && $direktt_user_id) {
+
+					show_admin_bar(false);
+				} else {
+					$this->not_auth_redirect();
+				}
+			}
+		}
 	}
 
 	// todo remove when tested boilerplate
@@ -131,23 +200,23 @@ class Direktt_Public
 		global $direktt_user_id;
 
 		wp_enqueue_script(
-				$this->plugin_name . '-frontend',
-				plugin_dir_url(__DIR__) . 'js/frontend/direktt-frontend.js',
-				array('jquery'),
-				'',
-				[
-					'in_footer' => true,
-				]
-			);
+			$this->plugin_name . '-frontend',
+			plugin_dir_url(__DIR__) . 'js/frontend/direktt-frontend.js',
+			array('jquery'),
+			'',
+			[
+				'in_footer' => true,
+			]
+		);
 
-			wp_localize_script(
-				$this->plugin_name . '-frontend',
-				$this->plugin_name . '_frontend_object',
-				array(
-					'ajaxurl' => admin_url('admin-ajax.php'),
-					'direktt_user_id' => $direktt_user_id
-				)
-			);
+		wp_localize_script(
+			$this->plugin_name . '-frontend',
+			$this->plugin_name . '_frontend_object',
+			array(
+				'ajaxurl' => admin_url('admin-ajax.php'),
+				'direktt_user_id' => $direktt_user_id
+			)
+		);
 	}
 
 
