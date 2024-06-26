@@ -36,13 +36,20 @@ class Direktt_User
 		
 		$posts = get_posts($args);
 
-		$post_id = false;
+		$post_obj = false;
 
 		if (!empty($posts)) {
 			$post_id = $posts[0];
+
+			$post_obj = array (
+				'ID'=> $post_id,
+				'direktt_user_id' => $direktt_user_id_tocheck,
+				'direktt_admin_user_id' => get_post_meta($post_id, 'direktt_admin_user_id', true),
+				'direktt_marketing_consent_status' => get_post_meta($post_id, 'direktt_marketing_consent_status', true)
+			);
 		}
 
-		return $post_id;
+		return $post_obj;
 	}
 
 	static function subscribe_user($direktt_user_id)
@@ -78,10 +85,10 @@ class Direktt_User
 
 	static function unsubscribe_user($direktt_user_id)
 	{
-		$post_id = Direktt_User::get_user_by_subscription_id($direktt_user_id);
+		$user = Direktt_User::get_user_by_subscription_id($direktt_user_id);
 
-		if ($post_id) {
-			wp_delete_post($post_id, true);
+		if ($user) {
+			wp_delete_post($user['ID'], true);
 		}
 	}
 }

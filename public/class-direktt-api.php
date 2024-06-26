@@ -106,10 +106,10 @@ class Direktt_Api
 			$direktt_user_id = sanitize_text_field($parameters['subscriptionId']);
 			$admin_id = sanitize_text_field($parameters['adminId']);
 
-			$post_id = Direktt_User::get_user_by_subscription_id($direktt_user_id);
+			$user = Direktt_User::get_user_by_subscription_id($direktt_user_id);
 
-			if ($post_id) {
-				update_post_meta($post_id, "direktt_admin_user_id", $admin_id);
+			if ($user) {
+				update_post_meta($user['ID'], "direktt_admin_user_id", $admin_id);
 				//delete_post_meta($post_id, "direktt_admin_user_id");
 			}
 
@@ -147,10 +147,10 @@ class Direktt_Api
 			$direktt_user_id = sanitize_text_field($parameters['subscriptionId']);
 			$marketing_consent_status = (sanitize_text_field($parameters['marketingConsentStatus']) === 'true');
 
-			$post_id = Direktt_User::get_user_by_subscription_id($direktt_user_id);
+			$user = Direktt_User::get_user_by_subscription_id($direktt_user_id);
 
-			if ($post_id) {
-				update_post_meta($post_id, "direktt_marketing_consent_status", $marketing_consent_status);
+			if ($user) {
+				update_post_meta($user['ID'], "direktt_marketing_consent_status", $marketing_consent_status);
 			}
 
 			$data = array();

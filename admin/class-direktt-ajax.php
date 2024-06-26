@@ -54,15 +54,17 @@ class Direktt_Ajax
 
 		$post_id = (isset($_POST['postId'])) ? sanitize_text_field($_POST['postId']) : false;
 		$page = (isset($_POST['page'])) ? sanitize_text_field($_POST['page']) : false;
+		
+		$direktt_user_id = get_post_meta( $post_id, 'direktt_user_id', true );
 
 		global $wpdb;
 
 		$table_name = $wpdb->prefix . 'direktt_events';
 
 		if(intval($page) == 0){
-			$results = $wpdb->get_results( "SELECT * FROM $table_name ORDER BY ID DESC LIMIT 20" );
+			$results = $wpdb->get_results( "SELECT * FROM $table_name WHERE direktt_user_id = '" . $direktt_user_id . "' ORDER BY ID DESC LIMIT 20" );
 		} else {
-			$results = $wpdb->get_results( "SELECT * FROM $table_name WHERE ID < " . intval($page) . " ORDER BY ID DESC LIMIT 20" );
+			$results = $wpdb->get_results( "SELECT * FROM $table_name WHERE direktt_user_id = '" . $direktt_user_id . "' AND ID < " . intval($page) . " ORDER BY ID DESC LIMIT 20" );
 		}
 
 		$data = $results;
