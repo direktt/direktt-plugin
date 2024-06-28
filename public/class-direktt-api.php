@@ -163,7 +163,8 @@ class Direktt_Api
 		if (array_key_exists('subscriptionId', $parameters) && array_key_exists('marketingConsentStatus', $parameters)) {
 
 			$direktt_user_id = sanitize_text_field($parameters['subscriptionId']);
-			$marketing_consent_status = (sanitize_text_field($parameters['marketingConsentStatus']) === 'true');
+
+			$marketing_consent_status = (sanitize_text_field($parameters['marketingConsentStatus']) == '1' );
 
 			$user = Direktt_User::get_user_by_subscription_id($direktt_user_id);
 

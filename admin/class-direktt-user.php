@@ -79,6 +79,7 @@ class Direktt_User
 		if ($wp_error) {
 			return $wp_error;
 		} else {
+			do_action( 'direktt_subscribe_user', $direktt_user_id );
 			return $post_id;
 		}
 	}
