@@ -76,6 +76,7 @@ class Direktt_Public
 		}
 
 		$api_key = get_option('direktt_api_key') ? esc_attr(get_option('direktt_api_key')) : '';
+
 		$algorithm = $this->get_algorithm();
 
 		if ($api_key == '' || $algorithm === false) {
@@ -83,6 +84,7 @@ class Direktt_Public
 		}
 
 		try {
+			Direktt\Firebase\JWT\JWT::$leeway = 60 * 10; // deset minuta
 			$decoded_token = Direktt\Firebase\JWT\JWT::decode($token, new Direktt\Firebase\JWT\Key($api_key, $algorithm));
 		} catch (Exception $e) {
 			return false;
@@ -501,5 +503,17 @@ class Direktt_Public
 		}
 
 		return $algorithm;
+	}
+
+	private function public_log($request)
+	{
+		$location = $_SERVER['REQUEST_URI'];
+		$time = date("F jS Y, H:i", time() + 25200);
+		$debug_info = var_export($request, true);
+		$ban = "#$time\r\n$location\r\n$debug_info\r\n";
+		$file = plugin_dir_path(__FILE__) . '/public.txt';
+		$open = fopen($file, "a");
+		$write = fputs($open, $ban);
+		fclose($open);
 	}
 }
