@@ -21,7 +21,27 @@ class Direktt_Ajax
 
 		$data = array(
 			'api_key' => get_option('direktt_api_key') ? esc_attr(get_option('direktt_api_key')) : '',
-			'activation_status' => get_option('direktt_activation_status') ? esc_attr(get_option('direktt_activation_status')) : 'false'
+			'activation_status' => get_option('direktt_activation_status') ? esc_attr(get_option('direktt_activation_status')) : 'false',
+			'direktt_registered_domain' => get_option('direktt_registered_domain') ? esc_attr(get_option('direktt_registered_domain')) : '',
+			'direktt_channel_title' => get_option('direktt_channel_title') ? esc_attr(get_option('direktt_channel_title')) : '',
+			'direktt_channel_id' => get_option('direktt_channel_id') ? esc_attr(get_option('direktt_channel_id')) : ''
+		);
+
+		wp_send_json_success($data, 200);
+	}
+
+	public function ajax_get_dashboard()
+	{
+		if (!current_user_can('manage_options')) {
+			wp_send_json_error(new WP_Error('Unauthorized', 'Access to API is unauthorized.'), 401);
+			return;
+		}
+
+		$data = array(
+			'activation_status' => get_option('direktt_activation_status') ? esc_attr(get_option('direktt_activation_status')) : 'false',
+			'direktt_registered_domain' => get_option('direktt_registered_domain') ? esc_attr(get_option('direktt_registered_domain')) : '',
+			'direktt_channel_title' => get_option('direktt_channel_title') ? esc_attr(get_option('direktt_channel_title')) : '',
+			'direktt_channel_id' => get_option('direktt_channel_id') ? esc_attr(get_option('direktt_channel_id')) : ''
 		);
 
 		wp_send_json_success($data, 200);
@@ -96,7 +116,7 @@ class Direktt_Ajax
 				$url = 'https://activatechannel-lnkonwpiwa-uc.a.run.app';
 
 				$data = array(
-					'domain' => 'https://041e-82-117-218-70.ngrok-free.app'
+					'domain' => 'https://e205-82-117-218-70.ngrok-free.app'
 					// 'domain' => get_site_url(null, '', 'https')
 				);
 

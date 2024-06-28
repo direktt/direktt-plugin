@@ -129,8 +129,33 @@ onMounted(() => {
               Activated
             </div>
           </td>
-
         </tr>
+
+        <tr v-if="activation_status">
+          <th scope="row"><label for="blogname">Registered domain:</label></th>
+          <td>
+            <div v-if="activation_status">
+              {{ data.direktt_registered_domain }}
+            </div>
+          </td>
+        </tr>
+        <tr v-if="activation_status">
+          <th scope="row"><label for="blogname">Channel Id:</label></th>
+          <td>
+            <div v-if="activation_status">
+              {{ data.direktt_channel_id }}
+            </div>
+          </td>
+        </tr>
+        <tr v-if="activation_status">
+          <th scope="row"><label for="blogname">Channel title:</label></th>
+          <td>
+            <div v-if="activation_status">
+              {{ data.direktt_channel_title }}
+            </div>
+          </td>
+        </tr>
+
       </tbody>
     </table>
     <p></p>

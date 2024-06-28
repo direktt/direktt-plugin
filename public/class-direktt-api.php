@@ -72,8 +72,26 @@ class Direktt_Api
 	public function activate_channel(WP_REST_Request $request)
 	{
 		$this->api_log($request);
-		$data = array();
-		wp_send_json_success($data, 200);
+
+		$parameters = json_decode($request->get_body(), true);
+
+		if ( array_key_exists('domain', $parameters) && array_key_exists('title', $parameters) && array_key_exists('uid', $parameters) )  {
+			
+			$direktt_registered_domain = sanitize_text_field($parameters['domain']);
+			update_option('direktt_registered_domain', $direktt_registered_domain);
+			
+			$direktt_channel_title = sanitize_text_field($parameters['title']);
+			update_option('direktt_channel_title', $direktt_channel_title);
+
+			$direktt_channel_id = sanitize_text_field($parameters['uid']);
+			update_option('direktt_channel_id', $direktt_channel_id);
+
+			$data = array();
+			wp_send_json_success($data, 200);
+		} else {
+			wp_send_json_error(new WP_Error('Missing param', 'Either domain or title or uid missing'), 400);
+		}
+
 	}
 
 	public function on_new_subscription(WP_REST_Request $request)

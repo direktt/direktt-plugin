@@ -120,6 +120,7 @@ class Direktt {
 		$plugin_ajax = new Direktt_Ajax( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->add_action( 'wp_ajax_direktt_get_settings', $plugin_ajax, 'ajax_get_settings' );
+		$this->loader->add_action( 'wp_ajax_direktt_get_dashboard', $plugin_ajax, 'ajax_get_dashboard' );
 		$this->loader->add_action( 'wp_ajax_direktt_save_settings', $plugin_ajax, 'ajax_save_settings' );
 		$this->loader->add_action( 'wp_ajax_direktt_get_marketing_consent', $plugin_ajax, 'ajax_get_marketing_consent' );
 		$this->loader->add_action( 'wp_ajax_direktt_get_user_events', $plugin_ajax, 'ajax_get_user_events' );

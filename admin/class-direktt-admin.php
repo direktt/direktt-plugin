@@ -263,9 +263,20 @@ class Direktt_Admin
 			// Enqueue the style file
 			wp_enqueue_style(
 				$this->plugin_name . '-dashboard',
-				plugin_dir_url(__DIR__) . 'css/style.js',
+				plugin_dir_url(__DIR__) . 'js/dashboard/direktt-dashboard.css',
 				[],
 				''
+			);
+
+			$nonce = wp_create_nonce($this->plugin_name . '-dashboard');
+
+			wp_localize_script(
+				$this->plugin_name . '-dashboard',
+				$this->plugin_name . '_dashboard_object',
+				array(
+					'ajaxurl' => admin_url('admin-ajax.php'),
+					'nonce' => $nonce
+				)
 			);
 		}
 

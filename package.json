@@ -25,10 +25,12 @@
     }
   },
   "dependencies": {
+    "@chenfengyuan/vue-qrcode": "^2.0.0",
     "@mdi/font": "^7.4.47",
     "@tanstack/vue-query": "^5.40.1",
     "lodash.debounce": "^4.0.8",
     "pinia": "^2.1.7",
+    "qrcode": "^1.5.3",
     "uuid": "^9.0.1",
     "vue": "^3.4.15",
     "vuetify": "^3.6.9"
