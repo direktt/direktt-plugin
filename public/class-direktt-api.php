@@ -120,21 +120,59 @@ class Direktt_Api
 		$this->api_log($request);
 		$parameters = json_decode($request->get_body(), true);
 
-		if (array_key_exists('subscriptionId', $parameters) && array_key_exists('adminId', $parameters) ) {
-			$direktt_user_id = sanitize_text_field($parameters['subscriptionId']);
+		if (array_key_exists('adminId', $parameters) ) {
+
 			$admin_id = sanitize_text_field($parameters['adminId']);
 
-			$user = Direktt_User::get_user_by_subscription_id($direktt_user_id);
+			$user = Direktt_User::get_user_by_admin_id($admin_id);
 
-			if ($user) {
-				update_post_meta($user['ID'], "direktt_admin_user_id", $admin_id);
-				//delete_post_meta($post_id, "direktt_admin_user_id");
+			if( !$user ) {
+
+				if( array_key_exists('subscriptionId', $parameters) ){
+					
+					$direktt_user_id = sanitize_text_field($parameters['subscriptionId']);
+					$user = Direktt_User::get_user_by_subscription_id($direktt_user_id);
+
+					if ($user) {
+
+						Direktt_User::promote_to_admin($direktt_user_id, $admin_id);
+
+					} else {
+
+						$result = Direktt_User::subscribe_user($direktt_user_id);
+
+						if( is_wp_error( $result) ) {
+							wp_send_json_error( $result, 500);
+							return;
+						}
+
+						Direktt_User::promote_to_admin($direktt_user_id, $admin_id);
+					}
+
+				} else {
+					
+					$result = Direktt_User::subscribe_admin($admin_id);
+
+					if( is_wp_error( $result) ) {
+						wp_send_json_error( $result, 500);
+						return;
+					}
+				}
+				
+			} else {
+				if( array_key_exists('subscriptionId', $parameters) ){
+
+					$direktt_user_id = sanitize_text_field($parameters['subscriptionId']);
+					Direktt_User::pair_user_with_admin( $direktt_user_id, $admin_id );
+
+				}
 			}
 
 			$data = array();
 			wp_send_json_success($data, 200);
+
 		} else {
-			wp_send_json_error(new WP_Error('Missing param', 'Subscription Id or Admin Id is missing'), 400);
+			wp_send_json_error(new WP_Error('Missing param', 'Admin Id is missing'), 400);
 		}
 	}
 

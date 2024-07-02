@@ -52,6 +52,39 @@ class Direktt_User
 		return $post_obj;
 	}
 
+	static function get_user_by_admin_id($direktt_admin_id_tocheck)
+	{
+		$args = array(
+			'post_type' => 'direkttusers',
+			'post_status' => 'publish',
+			'posts_per_page' => -1,
+			'fields' => 'ids',
+			'meta_query' => array(
+				array(
+					'key'   => 'direktt_admin_user_id',
+					'value' => $direktt_admin_id_tocheck
+				)
+				),
+		);
+		
+		$posts = get_posts($args);
+
+		$post_obj = false;
+
+		if (!empty($posts)) {
+			$post_id = $posts[0];
+
+			$post_obj = array (
+				'ID'=> $post_id,
+				'direktt_user_id' => get_post_meta($post_id, 'direktt_user_id', true),
+				'direktt_admin_user_id' => $direktt_admin_id_tocheck,
+				'direktt_marketing_consent_status' => get_post_meta($post_id, 'direktt_marketing_consent_status', true)
+			);
+		}
+
+		return $post_obj;
+	}
+
 	static function subscribe_user($direktt_user_id)
 	{
 		// $hierarchical_tax = array( 13, 10 ); // Array of tax ids.
@@ -84,6 +117,30 @@ class Direktt_User
 		}
 	}
 
+	static function subscribe_admin($admin_id)
+	{
+
+		$post_arr = array(
+			'post_type'		=>	'direkttusers',
+			'post_title'   	=> 	'Admin - ' . $admin_id,
+			'post_status'  	=> 	'publish',
+			'meta_input'	=>	array(
+				'direktt_admin_user_id'	=> $admin_id,
+			),
+		);
+
+		$wp_error = false;
+
+		$post_id = wp_insert_post($post_arr, $wp_error);
+
+		if ($wp_error) {
+			return $wp_error;
+		} else {
+			do_action( 'direktt_subscribe_admin', $admin_id );
+			return $post_id;
+		}
+	}
+
 	static function unsubscribe_user($direktt_user_id)
 	{
 		$user = Direktt_User::get_user_by_subscription_id($direktt_user_id);
@@ -91,5 +148,21 @@ class Direktt_User
 		if ($user) {
 			wp_delete_post($user['ID'], true);
 		}
+	}
+
+	static function promote_to_admin($direktt_user_id, $admin_id)
+	{
+		$user = Direktt_User::get_user_by_subscription_id($direktt_user_id);
+
+		update_post_meta($user['ID'], "direktt_admin_user_id", $admin_id);
+
+	}
+
+	static function pair_user_with_admin($direktt_user_id, $admin_id)
+	{
+		$user = Direktt_User::get_user_by_admin_id($admin_id);
+
+		update_post_meta($user['ID'], "direktt_user_id", $direktt_user_id);
+
 	}
 }

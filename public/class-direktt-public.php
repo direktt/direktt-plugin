@@ -45,10 +45,10 @@ class Direktt_Public
 		$arr_cookie_options = array(
 			'expires' => 0, // session cookie
 			'path' => '/',
-			'domain' => parse_url(get_site_url(), PHP_URL_HOST), // leading dot for compatibility or use subdomain
-			'secure' => is_ssl(),     // or false
-			'httponly' => true,    // or false
-			'samesite' => 'Strict' // None || Lax  || Strict
+			'domain' => parse_url(get_site_url(), PHP_URL_HOST), 
+			'secure' => is_ssl(),     
+			'httponly' => true,    
+			'samesite' => 'Strict' 
 		);
 
 		setcookie('DirekttAuthToken', $cookie_value, $arr_cookie_options);
@@ -84,16 +84,28 @@ class Direktt_Public
 		}
 
 		try {
-			Direktt\Firebase\JWT\JWT::$leeway = 60 * 10; // deset minuta
+			Direktt\Firebase\JWT\JWT::$leeway = 60 * 10; // ten minutes
 			$decoded_token = Direktt\Firebase\JWT\JWT::decode($token, new Direktt\Firebase\JWT\Key($api_key, $algorithm));
+			
 		} catch (Exception $e) {
 			return false;
 		}
 
-		$direktt_user_id_tocheck = strval($decoded_token->subscriptionUid);
+		if( property_exists($decoded_token, 'subscriptionUid') ){
+			
+			$direktt_user_id_tocheck = sanitize_text_field($decoded_token->subscriptionUid);
+			$user = Direktt_User::get_user_by_subscription_id($direktt_user_id_tocheck);
 
-		$user = Direktt_User::get_user_by_subscription_id($direktt_user_id_tocheck);
+		} else if( ! property_exists($decoded_token, 'subscriptionUid') && property_exists($decoded_token, 'channelUid') && property_exists($decoded_token, 'adminUid')) {
+			
+			$direktt_admin_id_tocheck = sanitize_text_field($decoded_token->adminUid);
+			$user = Direktt_User::get_user_by_admin_id($direktt_admin_id_tocheck);
 
+		} else {
+			return false;
+		}
+
+		//Da li je istekao
 		if (time() > intval($decoded_token->exp)) {
 			return false;
 		}
@@ -146,13 +158,17 @@ class Direktt_Public
 
 		$token = (isset($_GET['token'])) ? sanitize_text_field($_GET['token']) : false;
 
+		$this->public_log($token);
+
 		if ($token) {
 
 			$direktt_user = $this->validate_direktt_token($token);
 
 			if ($direktt_user) {
 
+				$token = $this->generate_direktt_token($direktt_user['direktt_user_id']);
 				$this->set_direktt_auth_cookie($token);
+
 				show_admin_bar(false);
 			} else {
 				$this->not_auth_redirect();
