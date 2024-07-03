@@ -11,13 +11,14 @@ const store = useDirekttStore()
 const nonce = ref(direktt_settings_object.nonce)
 
 const api_key = ref('')
+const redirect_url = ref('')
 const activation_status = ref(false)
 const save_loading = ref(false)
 
 const snackbar = ref(false)
 const snackbar_color = ref('success')
 const snackbar_text = ref(snack_succ_text)
-const snack_succ_text = 'Direktt API Key Saved and Validated'
+const snack_succ_text = 'Direktt Settings Saved'
 
 
 const { isLoading, isError, isFetching, data, error, refetch } = useQuery({
@@ -72,6 +73,7 @@ async function getSettings() {
 
   api_key.value = response.data.api_key
   activation_status.value = (response.data.activation_status === 'true')
+  redirect_url.value = response.data.redirect_url
 
   return ret
 }
@@ -79,7 +81,8 @@ async function getSettings() {
 function clickSaveSettings() {
   save_loading.value = true
   mutation.mutate({
-    api_key: api_key.value
+    api_key: api_key.value,
+    redirect_url: redirect_url.value
   })
 }
 
@@ -121,11 +124,11 @@ onMounted(() => {
           <th scope="row"><label for="blogname">Activation status:</label></th>
           <td>
             <div v-if="!activation_status">
-              <v-icon color="error" icon="mdi-alert-outline" size="large"class='rm-4'></v-icon>
+              <v-icon color="error" icon="mdi-alert-outline" size="large" class='rm-4'></v-icon>
               Not activated
             </div>
             <div v-if="activation_status">
-              <v-icon color="success" icon="mdi-check-bold" size="large"class='rm-4'></v-icon>
+              <v-icon color="success" icon="mdi-check-bold" size="large" class='rm-4'></v-icon>
               Activated
             </div>
           </td>
@@ -159,10 +162,25 @@ onMounted(() => {
       </tbody>
     </table>
     <p></p>
+    <v-divider class="border-opacity-100"></v-divider>
+    <p></p>
+    <table class="form-table" role="presentation">
+
+      <tbody v-if="data">
+        <tr>
+          <th scope="row"><label for="blogname">Optional redirect url upon unaturhorized access</label></th>
+          <td>
+            <input type="text" name="unauthorized_redirect_url" id="unauthorized_redirect_url" size="50" placeholder="" v-model="redirect_url">
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p></p>
 
     <v-btn variant="flat" class="text-none text-caption" color="#2271b1" @click="clickSaveSettings"
       :loading="save_loading">
-      Save API key and (re)activate instance
+      Save Direktt Settings
     </v-btn>
 
     <v-snackbar v-model="snackbar" :timeout="3000" :color="snackbar_color">

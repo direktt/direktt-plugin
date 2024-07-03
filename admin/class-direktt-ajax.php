@@ -24,7 +24,9 @@ class Direktt_Ajax
 			'activation_status' => get_option('direktt_activation_status') ? esc_attr(get_option('direktt_activation_status')) : 'false',
 			'direktt_registered_domain' => get_option('direktt_registered_domain') ? esc_attr(get_option('direktt_registered_domain')) : '',
 			'direktt_channel_title' => get_option('direktt_channel_title') ? esc_attr(get_option('direktt_channel_title')) : '',
-			'direktt_channel_id' => get_option('direktt_channel_id') ? esc_attr(get_option('direktt_channel_id')) : ''
+			'direktt_channel_id' => get_option('direktt_channel_id') ? esc_attr(get_option('direktt_channel_id')) : '',
+
+			'redirect_url' => get_option('unauthorized_redirect_url') ? esc_attr(get_option('unauthorized_redirect_url')) : '',
 		);
 
 		wp_send_json_success($data, 200);
@@ -57,9 +59,9 @@ class Direktt_Ajax
 		$post_id = (isset($_POST['postId'])) ? sanitize_text_field($_POST['postId']) : false;
 
 		$data = array(
-			'direktt_user_id' => get_post_meta( $post_id, "direktt_user_id", true ),
-			'marketing_consent' => get_post_meta( $post_id, "direktt_marketing_consent_status", true ),
-			'direktt_admin_user_id' => get_post_meta( $post_id, "direktt_admin_user_id", true ),
+			'direktt_user_id' => get_post_meta($post_id, "direktt_user_id", true),
+			'marketing_consent' => get_post_meta($post_id, "direktt_marketing_consent_status", true),
+			'direktt_admin_user_id' => get_post_meta($post_id, "direktt_admin_user_id", true),
 		);
 
 		wp_send_json_success($data, 200);
@@ -74,17 +76,17 @@ class Direktt_Ajax
 
 		$post_id = (isset($_POST['postId'])) ? sanitize_text_field($_POST['postId']) : false;
 		$page = (isset($_POST['page'])) ? sanitize_text_field($_POST['page']) : false;
-		
-		$direktt_user_id = get_post_meta( $post_id, 'direktt_user_id', true );
+
+		$direktt_user_id = get_post_meta($post_id, 'direktt_user_id', true);
 
 		global $wpdb;
 
 		$table_name = $wpdb->prefix . 'direktt_events';
 
-		if(intval($page) == 0){
-			$results = $wpdb->get_results( "SELECT * FROM $table_name WHERE direktt_user_id = '" . $direktt_user_id . "' ORDER BY ID DESC LIMIT 20" );
+		if (intval($page) == 0) {
+			$results = $wpdb->get_results("SELECT * FROM $table_name WHERE direktt_user_id = '" . $direktt_user_id . "' ORDER BY ID DESC LIMIT 20");
 		} else {
-			$results = $wpdb->get_results( "SELECT * FROM $table_name WHERE direktt_user_id = '" . $direktt_user_id . "' AND ID < " . intval($page) . " ORDER BY ID DESC LIMIT 20" );
+			$results = $wpdb->get_results("SELECT * FROM $table_name WHERE direktt_user_id = '" . $direktt_user_id . "' AND ID < " . intval($page) . " ORDER BY ID DESC LIMIT 20");
 		}
 
 		$data = $results;
@@ -101,6 +103,8 @@ class Direktt_Ajax
 
 		$choice = (isset($_POST['api_key'])) ? sanitize_text_field($_POST['api_key']) : false;
 
+		$url_choice = (isset($_POST['redirect_url'])) ? sanitize_text_field($_POST['redirect_url']) : false;
+
 		if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], $this->plugin_name . '-settings')) {
 
 			wp_send_json_error(new WP_Error('Unauthorized', 'Nonce is not valid'), 401);
@@ -108,43 +112,56 @@ class Direktt_Ajax
 		} else {
 			if ($choice) {
 
-				delete_option('direktt_activation_status');
-				update_option('direktt_api_key',  $choice);
+				$current_api = get_option('direktt_api_key');
 
-				// Ovde treba poslati poziv
+				if ($current_api != $choice) {
 
-				$url = 'https://activatechannel-lnkonwpiwa-uc.a.run.app';
 
-				$data = array(
-					'domain' => 'https://73bb-82-117-218-70.ngrok-free.app'
-					// 'domain' => get_site_url(null, '', 'https')
-				);
+					delete_option('direktt_activation_status');
+					update_option('direktt_api_key',  $choice);
 
-				$response = wp_remote_post($url, array(
-					'body'    => json_encode($data),
-					'headers' => array(
-						'Authorization' => 'Bearer ' . $choice,
-						'Content-type' => 'application/json',
-					),
-				));
+					// Ovde treba poslati poziv
 
-				//var_dump($response['response']['code']);
+					$url = 'https://activatechannel-lnkonwpiwa-uc.a.run.app';
 
-				if (is_wp_error($response)) {
-					wp_send_json_error($response, 500);
-					return;
-				}
+					$data = array(
+						'domain' => 'https://73bb-82-117-218-70.ngrok-free.app'
+						// 'domain' => get_site_url(null, '', 'https')
+					);
 
-				if ($response['response']['code'] != '200' && $response['response']['code'] != '201') {
-					wp_send_json_error(new WP_Error('Unauthorized', 'API Key validation failed'), 401);
-					return;
+					$response = wp_remote_post($url, array(
+						'body'    => json_encode($data),
+						'headers' => array(
+							'Authorization' => 'Bearer ' . $choice,
+							'Content-type' => 'application/json',
+						),
+					));
+
+					//var_dump($response['response']['code']);
+
+					if (is_wp_error($response)) {
+						wp_send_json_error($response, 500);
+						return;
+					}
+
+					if ($response['response']['code'] != '200' && $response['response']['code'] != '201') {
+						wp_send_json_error(new WP_Error('Unauthorized', 'API Key validation failed'), 401);
+						return;
+					}
+
+					update_option('direktt_activation_status', 'true');
 				}
 			} else {
 				delete_option('direktt_api_key');
 			}
+
+			if ($url_choice) {
+				update_option('unauthorized_redirect_url',  $url_choice);
+			} else {
+				delete_option('unauthorized_redirect_url');
+			}
 		}
 
-		update_option('direktt_activation_status', 'true');
 		$data = array();
 		wp_send_json_success($data, 200);
 	}

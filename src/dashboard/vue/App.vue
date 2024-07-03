@@ -66,7 +66,7 @@ onMounted(() => {
     <tbody v-if="data">
 
       <tr>
-        <th scope="row"><label for="blogname">Activation status:</label></th>
+        <th scope="row"><label for="blogname">QR Code for subscription:</label></th>
         <td>
           <div>
             <vue-qrcode :value="'https://direktt.io/?site=' + data.direktt_channel_id + '&name=' + encodeURIComponent(data.direktt_channel_title)" :options="{ width: 300 }"></vue-qrcode>

@@ -65,8 +65,19 @@ class Direktt_Public
 
 		$direktt_user = false;
 		$this->remove_direktt_auth_cookie();
-		header('HTTP/1.1 403 Unauthorized');
-		exit();
+
+		$redirect_url = get_option('unauthorized_redirect_url');
+
+		if( $redirect_url ) {
+			
+			nocache_headers();
+			wp_safe_redirect( $redirect_url );
+			exit;
+
+		} else {
+			header('HTTP/1.1 403 Unauthorized');
+			exit();
+		}
 	}
 
 	private function validate_direktt_token($token)
@@ -557,13 +568,18 @@ class Direktt_Public
 
 	static function is_post_for_direktt_user(){
 		global $post;
-		return intval(get_post_meta($post->ID, 'direktt_custom_box', true)) == 1;
-		
+
+		if($post){
+			return intval(get_post_meta($post->ID, 'direktt_custom_box', true)) == 1;
+		}
 	}
 	
 	static function is_post_for_direktt_admin(){
 		global $post;
-		return intval(get_post_meta($post->ID, 'direktt_custom_admin_box', true)) == 1;
+
+		if($post){
+			return intval(get_post_meta($post->ID, 'direktt_custom_admin_box', true)) == 1;
+		}
 	}
 
 	static function check_user_access_rights(){
