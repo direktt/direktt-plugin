@@ -335,11 +335,11 @@ class Direktt_Admin
 	public function render_user_meta_panel(WP_User $user)
 	{
 	?>
-	<h2>Direktt Test User</h2>
+		<h2>Direktt Test User</h2>
 		<table class="form-table" role="presentation">
 			<tbody v-if="data">
 				<tr>
-					<th scope="row"><label for="direktt_test_user_id">Direktt Test User Id</label></th>
+					<th scope="row"><label for="direktt_test_user_id">Post Id of Test Direktt User <p class="description">Post id of Direktt User which will be used on Direktt pages</p></label></th>
 					<td>
 						<input type="text" name="direktt_test_user_id" id="direktt_test_user_id" size="50" placeholder="Enter Direktt User Id here" value="<?php echo esc_attr(get_user_meta($user->ID, 'direktt_test_user_id', true)); ?>">
 					</td>
@@ -349,15 +349,16 @@ class Direktt_Admin
 	<?php
 	}
 
-	function save_user_meta_panel($userId) {
+	function save_user_meta_panel($userId)
+	{
 		if (!current_user_can('edit_user', $userId)) {
 			return;
 		}
 
-		if (isset($_POST['direktt_test_user_id'])){
-			update_user_meta( $userId, 'direktt_test_user_id' , sanitize_text_field($_POST['direktt_test_user_id']) );
+		if (isset($_POST['direktt_test_user_id'])) {
+			update_user_meta($userId, 'direktt_test_user_id', sanitize_text_field($_POST['direktt_test_user_id']));
 		} else {
-			delete_user_meta( $userId, 'direktt_test_user_id' );
+			delete_user_meta($userId, 'direktt_test_user_id');
 		}
 	}
 
@@ -381,9 +382,17 @@ class Direktt_Admin
 		wp_nonce_field('direktt_custom_box_nonce', 'direktt_custom_box_nonce');
 		$box_value = intval(get_post_meta($post->ID, 'direktt_custom_box', true)) === 1;
 		$box_checked = $box_value ? 'checked' : 0;
+		$box_admin_value = intval(get_post_meta($post->ID, 'direktt_custom_admin_box', true)) === 1;
+		$box_admin_checked = $box_admin_value ? 'checked' : 0;
 	?>
-		<input id="direktt_custom_box" name="direktt_custom_box" type="checkbox" <?php echo $box_checked ?>>
-		<label><?php echo __('Perform Direktt checks', 'direktt') ?></label>
+		<p>
+			<input id="direktt_custom_box" name="direktt_custom_box" type="checkbox" <?php echo $box_checked ?>>
+			<label><?php echo __('Restrict access to Direktt users', 'direktt') ?></label>
+		</p>
+		<p>
+			<input id="direktt_custom_admin_box" name="direktt_custom_admin_box" type="checkbox" <?php echo $box_admin_checked ?>>
+			<label><?php echo __('Restrict access to Direktt admins', 'direktt') ?></label>
+		</p>
 <?php
 	}
 
@@ -415,6 +424,12 @@ class Direktt_Admin
 			update_post_meta($post_id, 'direktt_custom_box', true);
 		} else {
 			delete_post_meta($post_id, 'direktt_custom_box');
+		}
+
+		if (isset($_POST['direktt_custom_admin_box']) && sanitize_text_field($_POST['direktt_custom_admin_box']) == 'on') {
+			update_post_meta($post_id, 'direktt_custom_admin_box', true);
+		} else {
+			delete_post_meta($post_id, 'direktt_custom_admin_box');
 		}
 
 		return $post_id;

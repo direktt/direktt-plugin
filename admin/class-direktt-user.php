@@ -11,6 +11,34 @@ class Direktt_User
 		$this->version     = $version;
 	}
 
+	static function get_user_by_post_id($direktt_user_post_id)
+	{
+		$args = array(
+			'post_type' => 'direkttusers',
+			'post_status' => 'publish',
+			'posts_per_page' => -1,
+			'fields' => 'ids',
+			'post__in' => array( $direktt_user_post_id )
+		);
+		
+		$posts = get_posts($args);
+
+		$post_obj = false;
+
+		if (!empty($posts)) {
+			$post_id = $posts[0];
+
+			$post_obj = array (
+				'ID'=> $post_id,
+				'direktt_user_id' => get_post_meta($post_id, 'direktt_user_id', true),
+				'direktt_admin_user_id' => get_post_meta($post_id, 'direktt_admin_user_id', true),
+				'direktt_marketing_consent_status' => get_post_meta($post_id, 'direktt_marketing_consent_status', true)
+			);
+		}
+
+		return $post_obj;
+	}
+
 	static function get_user_by_subscription_id($direktt_user_id_tocheck)
 	{
 		$args = array(

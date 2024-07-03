@@ -119,7 +119,7 @@ class Direktt_Public
 		}
 	}
 
-	private function generate_direktt_token($direktt_user_id)
+	private function generate_direktt_token($direktt_user)
 	{
 		$api_key = get_option('direktt_api_key') ? esc_attr(get_option('direktt_api_key')) : '';
 		$algorithm = $this->get_algorithm();
@@ -130,13 +130,20 @@ class Direktt_Public
 		}
 
 		$issuedAt  = time();
-		$expire    = $issuedAt + 15 * 60; // 15 minutes;
+		$expire    = $issuedAt + 30 * 60; // 30 minutes;
 
 		$token = [
 			'iat'  => $issuedAt,
-			'exp'  => $expire,
-			'subscriptionUid' => $direktt_user_id
+			'exp'  => $expire
 		];
+
+		if ( $direktt_user['direktt_user_id'] ){
+			$token['subscriptionUid'] = $direktt_user['direktt_user_id'];
+		}
+
+		if ( $direktt_user['direktt_admin_user_id'] ){
+			$token['adminUid'] = $direktt_user['direktt_admin_user_id'];
+		}
 
 		$token = Direktt\Firebase\JWT\JWT::encode(
 			$token,
@@ -152,7 +159,14 @@ class Direktt_Public
 		global $post;
 		global $direktt_user;
 
-		if (!$post || intval(get_post_meta($post->ID, 'direktt_custom_box', true)) !== 1) {
+		if( !$post ){
+			return;
+		}
+
+		$for_users = Direktt_Public::is_post_for_direktt_user();
+		$for_admins = Direktt_Public::is_post_for_direktt_admin();
+
+		if ( !$for_admins && !$for_users ) {
 			return;
 		}
 
@@ -164,9 +178,9 @@ class Direktt_Public
 
 			$direktt_user = $this->validate_direktt_token($token);
 
-			if ($direktt_user) {
+			if ($direktt_user && Direktt_Public::check_user_access_rights()) {
 
-				$token = $this->generate_direktt_token($direktt_user['direktt_user_id']);
+				$token = $this->generate_direktt_token($direktt_user);
 				$this->set_direktt_auth_cookie($token);
 
 				show_admin_bar(false);
@@ -180,13 +194,21 @@ class Direktt_Public
 				$current_user = wp_get_current_user();
 
 				$test_user_id = get_user_meta($current_user->ID, 'direktt_test_user_id', true);
-				$user = Direktt_User::get_user_by_subscription_id($test_user_id);
 
-				if ($test_user_id && $user) {
+				if ( $test_user_id ) {
+					$user = Direktt_User::get_user_by_post_id($test_user_id);
+					if( $user ){
+						$direktt_user = $user;
+					} else {
+						$direktt_user = false;
+					}
+				} else {
+					$this->not_auth_redirect();
+				}
 
-					$direktt_user = $user;
+				if ($direktt_user && Direktt_Public::check_user_access_rights()) {
 
-					$token = $this->generate_direktt_token($direktt_user['direktt_user_id']);
+					$token = $this->generate_direktt_token($direktt_user);
 					$this->set_direktt_auth_cookie($token);
 					show_admin_bar(false);
 				} else {
@@ -198,7 +220,7 @@ class Direktt_Public
 
 				$direktt_user = $this->validate_direktt_token($token);
 
-				if ($token && $direktt_user) {
+				if ($direktt_user && Direktt_Public::check_user_access_rights()) {
 
 					show_admin_bar(false);
 
@@ -531,5 +553,26 @@ class Direktt_Public
 		$open = fopen($file, "a");
 		$write = fputs($open, $ban);
 		fclose($open);
+	}
+
+	static function is_post_for_direktt_user(){
+		global $post;
+		return intval(get_post_meta($post->ID, 'direktt_custom_box', true)) == 1;
+		
+	}
+	
+	static function is_post_for_direktt_admin(){
+		global $post;
+		return intval(get_post_meta($post->ID, 'direktt_custom_admin_box', true)) == 1;
+	}
+
+	static function check_user_access_rights(){
+		$rights = false;
+		global $direktt_user;
+
+		if( ( Direktt_Public::is_post_for_direktt_user() && $direktt_user['direktt_user_id'] ) || ( Direktt_Public::is_post_for_direktt_admin() && $direktt_user['direktt_admin_user_id'] ) ){
+			$rights = true;
+		}
+		return $rights;
 	}
 }
