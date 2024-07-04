@@ -210,6 +210,15 @@ class Direktt_Api
 				update_post_meta($user['ID'], "direktt_marketing_consent_status", $marketing_consent_status);
 			}
 
+			Direktt_Event::insert_event(
+				array(
+					"direktt_user_id" => $direktt_user_id,
+					"event_target" => "user",
+					"event_type" => "marketing_consent",
+					"event_value" => $marketing_consent_status ? 'true' : 'false'
+				)
+			);
+
 			$data = array();
 			wp_send_json_success($data, 200);
 		} else {
@@ -235,12 +244,16 @@ class Direktt_Api
 				//'event_time' => time()
 			);
 
-			if (array_key_exists('direktt_campaign_id', $parameters)) {
-				$event['direktt_campaign_id'] = sanitize_text_field($parameters['direktt_campaign_id']);
+			if (array_key_exists('campaignId', $parameters)) {
+				$event['direktt_campaign_id'] = sanitize_text_field($parameters['campaignId']);
 			}
 
-			if (array_key_exists('event_data', $parameters)) {
-				$event['event_data'] = sanitize_text_field($parameters['event_data']);
+			if (array_key_exists('eventData', $parameters)) {
+				$event['event_data'] = sanitize_text_field($parameters['eventData']);
+			}
+
+			if (array_key_exists('eventValue', $parameters)) {
+				$event['event_value'] = sanitize_text_field($parameters['eventValue']);
 			}
 
 			Direktt_Event::insert_event($event);

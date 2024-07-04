@@ -140,8 +140,19 @@ class Direktt_User
 		if ($wp_error) {
 			return $wp_error;
 		} else {
+
 			do_action( 'direktt_subscribe_user', $direktt_user_id );
+
+			Direktt_Event::insert_event(
+				array(
+					"direktt_user_id" => $direktt_user_id,
+					"event_target" => "user",
+					"event_type" => "subscribe"
+				)
+			);
+
 			return $post_id;
+
 		}
 	}
 
@@ -171,10 +182,22 @@ class Direktt_User
 
 	static function unsubscribe_user($direktt_user_id)
 	{
-		$user = Direktt_User::get_user_by_subscription_id($direktt_user_id);
+		$user = Direktt_User::get_user_by_subscription_id( $direktt_user_id );
 
 		if ($user) {
+
 			wp_delete_post($user['ID'], true);
+
+			Direktt_Event::insert_event(
+				array(
+					"direktt_user_id" => $direktt_user_id,
+					"event_target" => "user",
+					"event_type" => "unsubscribe"
+				)
+			);
+
+			do_action( 'direktt_unsubscribe_user', $direktt_user_id );
+
 		}
 	}
 
@@ -184,6 +207,15 @@ class Direktt_User
 
 		update_post_meta($user['ID'], "direktt_admin_user_id", $admin_id);
 
+		Direktt_Event::insert_event(
+			array(
+				"direktt_user_id" => $direktt_user_id,
+				"event_target" => "user",
+				"event_type" => "admin",
+				"event_value" => "true"
+			)
+		);
+
 	}
 
 	static function pair_user_with_admin($direktt_user_id, $admin_id)
@@ -191,6 +223,15 @@ class Direktt_User
 		$user = Direktt_User::get_user_by_admin_id($admin_id);
 
 		update_post_meta($user['ID'], "direktt_user_id", $direktt_user_id);
+
+		Direktt_Event::insert_event(
+			array(
+				"direktt_user_id" => $direktt_user_id,
+				"event_target" => "user",
+				"event_type" => "admin",
+				"event_value" => "true"
+			)
+		);
 
 	}
 }

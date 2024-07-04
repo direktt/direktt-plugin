@@ -25,6 +25,7 @@ class Direktt_Event
   			event_target varchar(256) COLLATE utf8mb4_unicode_520_ci DEFAULT NULL,
   			direktt_campaign_id bigint(20) unsigned DEFAULT NULL,
   			event_type varchar(256) COLLATE utf8mb4_unicode_520_ci DEFAULT NULL,
+			event_value varchar(256) COLLATE utf8mb4_unicode_520_ci DEFAULT NULL,
   			event_data json DEFAULT NULL,
   			event_time timestamp NOT NULL,
   			PRIMARY KEY  (ID),
@@ -39,18 +40,36 @@ class Direktt_Event
 
 		$the_default_timestamp_query = "ALTER TABLE $table_name MODIFY COLUMN event_time timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP;";
 
-		$wpdb->query( $the_default_timestamp_query );
+		$wpdb->query($the_default_timestamp_query);
 	}
 
-	static function insert_event( $event )
+	static function insert_event($event)
 	{
 		global $wpdb;
 
 		$table_name = $wpdb->prefix . 'direktt_events';
 
+		$event_fil = apply_filters("direktt_insert_event", $event);
+
+		if(array_key_exists( 'event_data', $event_fil )){
+			$event_data = json_decode($event_fil["event_data"]);
+			if (json_last_error() !== JSON_ERROR_NONE) {
+				$evet_data_array = array(
+					"data" => $event_fil["event_data"]
+				);
+
+				$event_data = json_encode($evet_data_array);
+				$event_fil["event_data"] = $event_data;
+			}
+		}
+
 		$wpdb->insert(
 			$table_name,
-			$event
+			$event_fil
 		);
+
+		if ($wpdb->last_error !== '') :
+			$wpdb->print_error();
+		endif;
 	}
 }
