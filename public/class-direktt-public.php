@@ -39,6 +39,27 @@ class Direktt_Public
 		$this->namespace   = $this->plugin_name . '/v' . intval($this->version);
 	}
 
+	public function direktt_enqueue_public_scripts(){
+
+		global $post;
+
+		if( !$post ){
+			return;
+		}
+		
+		wp_enqueue_script(
+            'direktt_public',
+            plugin_dir_url( __FILE__ ) . 'js/direktt-public.js',
+            [],
+            '',
+            [
+                'in_footer' => true,
+            ]
+        );
+
+		do_action('direktt_enqueue_public_scripts');
+	}
+
 	private function set_direktt_auth_cookie($cookie_value)
 	{
 

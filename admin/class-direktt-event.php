@@ -49,9 +49,14 @@ class Direktt_Event
 
 		$table_name = $wpdb->prefix . 'direktt_events';
 
+		if (array_key_exists('event_target', $event) && array_key_exists('event_type', $event)) {
+
+			do_action("direktt_event_" . $event["event_target"] . "_" .  $event["event_type"], $event);
+		}
+
 		$event_fil = apply_filters("direktt_insert_event", $event);
 
-		if(array_key_exists( 'event_data', $event_fil )){
+		if (array_key_exists('event_data', $event_fil)) {
 			$event_data = json_decode($event_fil["event_data"]);
 			if (json_last_error() !== JSON_ERROR_NONE) {
 				$evet_data_array = array(

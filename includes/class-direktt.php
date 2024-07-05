@@ -23,6 +23,7 @@ class Direktt {
 		$this->define_event_hooks();
 		$this->define_user_hooks();
 		$this->define_ajax_hooks();
+		$this->define_message_hooks();
 	}
 
 	private function load_dependencies() {
@@ -49,6 +50,8 @@ class Direktt {
 
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-direktt-ajax.php';
 
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-direktt-message.php';
+
 		$this->loader = new Direktt_Loader();
 	}
 
@@ -67,6 +70,7 @@ class Direktt {
 
 		//$this->loader->add_action( 'template_redirect', $plugin_public, 'direktt_check_user' );
 		$this->loader->add_action( 'wp', $plugin_public, 'direktt_check_user' );
+		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'direktt_enqueue_public_scripts' );
 		// $this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_plugin_assets' );
 	}
 
@@ -113,6 +117,11 @@ class Direktt {
 	private function define_user_hooks() {
 
 		$plugin_user = new Direktt_User( $this->get_plugin_name(), $this->get_version() );
+	}
+
+	private function define_message_hooks() {
+
+		$plugin_message = new Direktt_Message( $this->get_plugin_name(), $this->get_version() );
 	}
 
 	private function define_ajax_hooks() {
