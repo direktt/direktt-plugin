@@ -125,7 +125,7 @@ class Direktt_Ajax
 					$url = 'https://activatechannel-lnkonwpiwa-uc.a.run.app';
 
 					$data = array(
-						'domain' => 'https://73bb-82-117-218-70.ngrok-free.app'
+						'domain' => 'https://cf83-82-117-218-70.ngrok-free.app'
 						// 'domain' => get_site_url(null, '', 'https')
 					);
 
