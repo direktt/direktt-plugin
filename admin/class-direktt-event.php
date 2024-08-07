@@ -51,10 +51,10 @@ class Direktt_Event
 
 		if (array_key_exists('event_target', $event) && array_key_exists('event_type', $event)) {
 
-			do_action("direktt_event_" . $event["event_target"] . "_" .  $event["event_type"], $event);
+			do_action("direktt/event/" . $event["event_target"] . "/" .  $event["event_type"], $event);
 		}
 
-		$event_fil = apply_filters("direktt_insert_event", $event);
+		$event_fil = apply_filters("direktt/event/insert", $event);
 
 		if (array_key_exists('event_data', $event_fil)) {
 			$event_data = json_decode($event_fil["event_data"]);

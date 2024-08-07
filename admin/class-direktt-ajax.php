@@ -125,7 +125,7 @@ class Direktt_Ajax
 					$url = 'https://activatechannel-lnkonwpiwa-uc.a.run.app';
 
 					$data = array(
-						'domain' => 'https://cf83-82-117-218-70.ngrok-free.app'
+						'domain' => 'https://direktt.ngrok.dev'
 						// 'domain' => get_site_url(null, '', 'https')
 					);
 
@@ -150,6 +150,8 @@ class Direktt_Ajax
 					}
 
 					update_option('direktt_activation_status', 'true');
+					
+
 				}
 			} else {
 				delete_option('direktt_api_key');

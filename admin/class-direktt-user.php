@@ -141,7 +141,7 @@ class Direktt_User
 			return $wp_error;
 		} else {
 
-			do_action( 'direktt_subscribe_user', $direktt_user_id );
+			do_action( 'direktt/user/subscribe', $direktt_user_id );
 
 			Direktt_Event::insert_event(
 				array(
@@ -175,7 +175,7 @@ class Direktt_User
 		if ($wp_error) {
 			return $wp_error;
 		} else {
-			do_action( 'direktt_subscribe_admin', $admin_id );
+			do_action( 'direktt/admin/subscribe', $admin_id );
 			return $post_id;
 		}
 	}
@@ -196,7 +196,7 @@ class Direktt_User
 				)
 			);
 
-			do_action( 'direktt_unsubscribe_user', $direktt_user_id );
+			do_action( 'direktt/user/unsubscribe', $direktt_user_id );
 
 		}
 	}

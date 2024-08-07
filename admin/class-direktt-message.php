@@ -30,4 +30,22 @@ class Direktt_Message
             ),
         ));
     }
+
+    static function send_message_to_admin( $message )
+    {
+        $api_key = get_option('direktt_api_key') ? esc_attr(get_option('direktt_api_key')) : '';
+        $url = 'https://sendadminmessage-lnkonwpiwa-uc.a.run.app';
+
+        $data = array(
+            'pushNotificationMessage' => $message
+        );
+
+        $response = wp_remote_post($url, array(
+            'body'    => json_encode($data),
+            'headers' => array(
+                'Authorization' => 'Bearer ' . $api_key,
+                'Content-type' => 'application/json',
+            ),
+        ));
+    }
 }
