@@ -186,6 +186,31 @@ class Direktt_Public
 		return $token;
 	}
 
+	public function direktt_check_token()
+	{
+
+		$token = (isset($_GET['token'])) ? sanitize_text_field($_GET['token']) : false;
+
+		if( $token ){
+
+			if (is_user_logged_in()) {
+
+				$current_user = wp_get_current_user();
+	
+				if (!in_array('direktt', $current_user->roles)) {
+					return;
+				}
+			}
+	
+			wp_logout();
+	
+			if( !$this->validate_direktt_token($token) ) {
+				return;
+			}
+
+		}
+	}
+
 	public function direktt_check_user()
 	{
 		global $post;

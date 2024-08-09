@@ -3187,3 +3187,5445 @@ WP_REST_Request::__set_state(array(
    'parsed_json' => true,
    'parsed_body' => false,
 ))
+#August 8th 2024, 18:29
+/wp-json/direktt/v1/recordEvent
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'ilvYnlZhRyghUgQlofna',
+      'eventTarget' => 'chat',
+      'eventData' => '"Message from cloud function 2."',
+      'eventType' => 'message_sent',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d03::3501',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '138',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"ilvYnlZhRyghUgQlofna","eventTarget":"chat","eventData":"\\"Message from cloud function 2.\\"","eventType":"message_sent"}',
+   'route' => '/direktt/v1/recordEvent',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'record_event',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 8th 2024, 20:58
+/wp-json/direktt/v1/recordEvent
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'ilvYnlZhRyghUgQlofna',
+      'eventTarget' => 'chat',
+      'eventData' => '"fdsfsd"',
+      'eventType' => 'message_sent',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d03::701',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '114',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"ilvYnlZhRyghUgQlofna","eventTarget":"chat","eventData":"\\"fdsfsd\\"","eventType":"message_sent"}',
+   'route' => '/direktt/v1/recordEvent',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'record_event',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 8th 2024, 20:59
+/wp-json/direktt/v1/recordEvent
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'ilvYnlZhRyghUgQlofna',
+      'eventTarget' => 'chat',
+      'eventData' => '"fdsfsd"',
+      'eventType' => 'message_sent',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d03::701',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '114',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"ilvYnlZhRyghUgQlofna","eventTarget":"chat","eventData":"\\"fdsfsd\\"","eventType":"message_sent"}',
+   'route' => '/direktt/v1/recordEvent',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'record_event',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 8th 2024, 21:01
+/wp-json/direktt/v1/recordEvent
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'ilvYnlZhRyghUgQlofna',
+      'eventTarget' => 'chat',
+      'eventData' => '"Korisnik sa ID-ijem 1 i sa emailom dev-email@wpengine.local se ulogovao u August 8, 2024 2:01 pm"',
+      'eventType' => 'message_sent',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d03::701',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '204',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"ilvYnlZhRyghUgQlofna","eventTarget":"chat","eventData":"\\"Korisnik sa ID-ijem 1 i sa emailom dev-email@wpengine.local se ulogovao u August 8, 2024 2:01 pm\\"","eventType":"message_sent"}',
+   'route' => '/direktt/v1/recordEvent',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'record_event',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 8th 2024, 21:34
+/wp-json/direktt/v1/onNewSubscription
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'qdS52119SsSLuVFAfNTK',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d04::1201',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '41',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"qdS52119SsSLuVFAfNTK"}',
+   'route' => '/direktt/v1/onNewSubscription',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'on_new_subscription',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 8th 2024, 21:34
+/wp-json/direktt/v1/onSetAdminUser
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'qdS52119SsSLuVFAfNTK',
+      'adminId' => 'mQaYzEkMFQe40KsjwuaSo4Pnk6t1',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d04::1201',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '82',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"qdS52119SsSLuVFAfNTK","adminId":"mQaYzEkMFQe40KsjwuaSo4Pnk6t1"}',
+   'route' => '/direktt/v1/onSetAdminUser',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'on_set_admin_user',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 8th 2024, 21:34
+/wp-json/direktt/v1/recordEvent
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'qdS52119SsSLuVFAfNTK',
+      'eventTarget' => 'chat',
+      'eventData' => '"Dobrodošli"',
+      'eventType' => 'message_received',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d03::701',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '123',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"qdS52119SsSLuVFAfNTK","eventTarget":"chat","eventData":"\\"Dobrodošli\\"","eventType":"message_received"}',
+   'route' => '/direktt/v1/recordEvent',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'record_event',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 8th 2024, 21:34
+/wp-json/direktt/v1/recordEvent
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'ilvYnlZhRyghUgQlofna',
+      'eventTarget' => 'chat',
+      'eventData' => '"Subscribovao se korisnik: qdS52119SsSLuVFAfNTK"',
+      'eventType' => 'message_sent',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d03::701',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '154',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"ilvYnlZhRyghUgQlofna","eventTarget":"chat","eventData":"\\"Subscribovao se korisnik: qdS52119SsSLuVFAfNTK\\"","eventType":"message_sent"}',
+   'route' => '/direktt/v1/recordEvent',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'record_event',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 8th 2024, 21:34
+/wp-json/direktt/v1/onMarketingConsentUpdate
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'qdS52119SsSLuVFAfNTK',
+      'marketingConsentStatus' => true,
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d07::1f01',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '71',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"qdS52119SsSLuVFAfNTK","marketingConsentStatus":true}',
+   'route' => '/direktt/v1/onMarketingConsentUpdate',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'on_marketing_consent_update',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 8th 2024, 21:35
+/wp-json/direktt/v1/recordEvent
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'qdS52119SsSLuVFAfNTK',
+      'eventTarget' => 'chat',
+      'eventType' => 'message_seen',
+      'eventData' => '"Dobrodošli"',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d08::2200',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '119',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"qdS52119SsSLuVFAfNTK","eventTarget":"chat","eventType":"message_seen","eventData":"\\"Dobrodošli\\""}',
+   'route' => '/direktt/v1/recordEvent',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'record_event',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 9th 2024, 18:02
+/wp-json/direktt/v1/onNewSubscription
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'eoXmqp9aF5MqHXIPTk3Y',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d08::1200',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '41',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"eoXmqp9aF5MqHXIPTk3Y"}',
+   'route' => '/direktt/v1/onNewSubscription',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'on_new_subscription',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 9th 2024, 18:02
+/wp-json/direktt/v1/onMarketingConsentUpdate
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'eoXmqp9aF5MqHXIPTk3Y',
+      'marketingConsentStatus' => true,
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d01::501',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '71',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"eoXmqp9aF5MqHXIPTk3Y","marketingConsentStatus":true}',
+   'route' => '/direktt/v1/onMarketingConsentUpdate',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'on_marketing_consent_update',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 9th 2024, 18:02
+/wp-json/direktt/v1/recordEvent
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'ilvYnlZhRyghUgQlofna',
+      'eventTarget' => 'chat',
+      'eventData' => '"Subscribovao se korisnik: eoXmqp9aF5MqHXIPTk3Y"',
+      'eventType' => 'message_sent',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d03::2300',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '154',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"ilvYnlZhRyghUgQlofna","eventTarget":"chat","eventData":"\\"Subscribovao se korisnik: eoXmqp9aF5MqHXIPTk3Y\\"","eventType":"message_sent"}',
+   'route' => '/direktt/v1/recordEvent',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'record_event',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 9th 2024, 18:02
+/wp-json/direktt/v1/recordEvent
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'eoXmqp9aF5MqHXIPTk3Y',
+      'eventTarget' => 'chat',
+      'eventData' => '"Dobrodošli"',
+      'eventType' => 'message_received',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d03::2300',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '123',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"eoXmqp9aF5MqHXIPTk3Y","eventTarget":"chat","eventData":"\\"Dobrodošli\\"","eventType":"message_received"}',
+   'route' => '/direktt/v1/recordEvent',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'record_event',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 9th 2024, 18:02
+/wp-json/direktt/v1/onSetAdminUser
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'eoXmqp9aF5MqHXIPTk3Y',
+      'adminId' => 'mQaYzEkMFQe40KsjwuaSo4Pnk6t1',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d08::1200',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '82',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"eoXmqp9aF5MqHXIPTk3Y","adminId":"mQaYzEkMFQe40KsjwuaSo4Pnk6t1"}',
+   'route' => '/direktt/v1/onSetAdminUser',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'on_set_admin_user',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 9th 2024, 18:02
+/wp-json/direktt/v1/recordEvent
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'eoXmqp9aF5MqHXIPTk3Y',
+      'eventTarget' => 'chat',
+      'eventType' => 'message_seen',
+      'eventData' => '"Dobrodošli"',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d07::3800',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '119',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"eoXmqp9aF5MqHXIPTk3Y","eventTarget":"chat","eventType":"message_seen","eventData":"\\"Dobrodošli\\""}',
+   'route' => '/direktt/v1/recordEvent',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'record_event',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 9th 2024, 19:08
+/wp-json/direktt/v1/onUnsubscribe
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'eoXmqp9aF5MqHXIPTk3Y',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d08::301',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '41',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"eoXmqp9aF5MqHXIPTk3Y"}',
+   'route' => '/direktt/v1/onUnsubscribe',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'on_unsubscribe',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 9th 2024, 19:10
+/wp-json/direktt/v1/onNewSubscription
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => '23OfFvbUdzL380ZFXKAd',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d03::1200',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '41',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"23OfFvbUdzL380ZFXKAd"}',
+   'route' => '/direktt/v1/onNewSubscription',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'on_new_subscription',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 9th 2024, 19:10
+/wp-json/direktt/v1/onMarketingConsentUpdate
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => '23OfFvbUdzL380ZFXKAd',
+      'marketingConsentStatus' => true,
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d04::1f00',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '71',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"23OfFvbUdzL380ZFXKAd","marketingConsentStatus":true}',
+   'route' => '/direktt/v1/onMarketingConsentUpdate',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'on_marketing_consent_update',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 9th 2024, 19:10
+/wp-json/direktt/v1/onSetAdminUser
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => '23OfFvbUdzL380ZFXKAd',
+      'adminId' => 'mQaYzEkMFQe40KsjwuaSo4Pnk6t1',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d03::1200',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '82',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"23OfFvbUdzL380ZFXKAd","adminId":"mQaYzEkMFQe40KsjwuaSo4Pnk6t1"}',
+   'route' => '/direktt/v1/onSetAdminUser',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'on_set_admin_user',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+pi_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 9th 2024, 19:10
+/wp-json/direktt/v1/recordEvent
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'ilvYnlZhRyghUgQlofna',
+      'eventTarget' => 'chat',
+      'eventData' => '"Subscribovao se korisnik: 23OfFvbUdzL380ZFXKAd"',
+      'eventType' => 'message_sent',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d04::700',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '154',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"ilvYnlZhRyghUgQlofna","eventTarget":"chat","eventData":"\\"Subscribovao se korisnik: 23OfFvbUdzL380ZFXKAd\\"","eventType":"message_sent"}',
+   'route' => '/direktt/v1/recordEvent',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'record_event',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 9th 2024, 19:11
+/wp-json/direktt/v1/recordEvent
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => '23OfFvbUdzL380ZFXKAd',
+      'eventTarget' => 'chat',
+      'eventType' => 'message_seen',
+      'eventData' => '"Dobrodošli"',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d08::2200',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '119',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"23OfFvbUdzL380ZFXKAd","eventTarget":"chat","eventType":"message_seen","eventData":"\\"Dobrodošli\\""}',
+   'route' => '/direktt/v1/recordEvent',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'record_event',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 9th 2024, 19:12
+/wp-json/direktt/v1/onUnsubscribe
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => '23OfFvbUdzL380ZFXKAd',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d08::301',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '41',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"23OfFvbUdzL380ZFXKAd"}',
+   'route' => '/direktt/v1/onUnsubscribe',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'on_unsubscribe',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 9th 2024, 19:14
+/wp-json/direktt/v1/onNewSubscription
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'Hzr24WNMqh0QdQhAIzd7',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d03::1200',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '41',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"Hzr24WNMqh0QdQhAIzd7"}',
+   'route' => '/direktt/v1/onNewSubscription',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'on_new_subscription',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 9th 2024, 19:14
+/wp-json/direktt/v1/onSetAdminUser
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'Hzr24WNMqh0QdQhAIzd7',
+      'adminId' => 'mQaYzEkMFQe40KsjwuaSo4Pnk6t1',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d03::1200',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '82',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"Hzr24WNMqh0QdQhAIzd7","adminId":"mQaYzEkMFQe40KsjwuaSo4Pnk6t1"}',
+   'route' => '/direktt/v1/onSetAdminUser',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'on_set_admin_user',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 9th 2024, 19:14
+/wp-json/direktt/v1/onMarketingConsentUpdate
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'Hzr24WNMqh0QdQhAIzd7',
+      'marketingConsentStatus' => true,
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d04::1f00',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '71',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"Hzr24WNMqh0QdQhAIzd7","marketingConsentStatus":true}',
+   'route' => '/direktt/v1/onMarketingConsentUpdate',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'on_marketing_consent_update',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 9th 2024, 19:14
+/wp-json/direktt/v1/recordEvent
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'Hzr24WNMqh0QdQhAIzd7',
+      'eventTarget' => 'chat',
+      'eventData' => '"Dobrodošli"',
+      'eventType' => 'message_received',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d05::2300',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '123',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"Hzr24WNMqh0QdQhAIzd7","eventTarget":"chat","eventData":"\\"Dobrodošli\\"","eventType":"message_received"}',
+   'route' => '/direktt/v1/recordEvent',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'record_event',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 9th 2024, 19:14
+/wp-json/direktt/v1/recordEvent
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'ilvYnlZhRyghUgQlofna',
+      'eventTarget' => 'chat',
+      'eventData' => '"Subscribovao se korisnik: Hzr24WNMqh0QdQhAIzd7"',
+      'eventType' => 'message_sent',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d05::2300',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '154',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"ilvYnlZhRyghUgQlofna","eventTarget":"chat","eventData":"\\"Subscribovao se korisnik: Hzr24WNMqh0QdQhAIzd7\\"","eventType":"message_sent"}',
+   'route' => '/direktt/v1/recordEvent',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'record_event',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 9th 2024, 19:16
+/wp-json/direktt/v1/recordEvent
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'Hzr24WNMqh0QdQhAIzd7',
+      'eventTarget' => 'chat',
+      'eventType' => 'message_seen',
+      'eventData' => '"Dobrodošli"',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d08::2200',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '119',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"Hzr24WNMqh0QdQhAIzd7","eventTarget":"chat","eventType":"message_seen","eventData":"\\"Dobrodošli\\""}',
+   'route' => '/direktt/v1/recordEvent',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'record_event',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 9th 2024, 19:16
+/wp-json/direktt/v1/onUnsubscribe
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'Hzr24WNMqh0QdQhAIzd7',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d08::301',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '41',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"Hzr24WNMqh0QdQhAIzd7"}',
+   'route' => '/direktt/v1/onUnsubscribe',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'on_unsubscribe',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 9th 2024, 19:19
+/wp-json/direktt/v1/onNewSubscription
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'cIbi5vd5T44stpGFToHF',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d03::1200',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '41',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"cIbi5vd5T44stpGFToHF"}',
+   'route' => '/direktt/v1/onNewSubscription',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'on_new_subscription',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 9th 2024, 19:19
+/wp-json/direktt/v1/onMarketingConsentUpdate
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'cIbi5vd5T44stpGFToHF',
+      'marketingConsentStatus' => true,
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d04::1f00',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '71',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"cIbi5vd5T44stpGFToHF","marketingConsentStatus":true}',
+   'route' => '/direktt/v1/onMarketingConsentUpdate',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'on_marketing_consent_update',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 9th 2024, 19:19
+/wp-json/direktt/v1/recordEvent
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'cIbi5vd5T44stpGFToHF',
+      'eventTarget' => 'chat',
+      'eventData' => '"Dobrodošli"',
+      'eventType' => 'message_received',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d05::2300',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '123',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"cIbi5vd5T44stpGFToHF","eventTarget":"chat","eventData":"\\"Dobrodošli\\"","eventType":"message_received"}',
+   'route' => '/direktt/v1/recordEvent',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'record_event',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 9th 2024, 19:19
+/wp-json/direktt/v1/onSetAdminUser
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'cIbi5vd5T44stpGFToHF',
+      'adminId' => 'mQaYzEkMFQe40KsjwuaSo4Pnk6t1',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d03::1200',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '82',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"cIbi5vd5T44stpGFToHF","adminId":"mQaYzEkMFQe40KsjwuaSo4Pnk6t1"}',
+   'route' => '/direktt/v1/onSetAdminUser',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'on_set_admin_user',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 9th 2024, 19:19
+/wp-json/direktt/v1/recordEvent
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'ilvYnlZhRyghUgQlofna',
+      'eventTarget' => 'chat',
+      'eventData' => '"Subscribovao se korisnik: cIbi5vd5T44stpGFToHF"',
+      'eventType' => 'message_sent',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d05::2300',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '154',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"ilvYnlZhRyghUgQlofna","eventTarget":"chat","eventData":"\\"Subscribovao se korisnik: cIbi5vd5T44stpGFToHF\\"","eventType":"message_sent"}',
+   'route' => '/direktt/v1/recordEvent',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'record_event',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 9th 2024, 19:20
+/wp-json/direktt/v1/recordEvent
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'cIbi5vd5T44stpGFToHF',
+      'eventTarget' => 'chat',
+      'eventType' => 'message_seen',
+      'eventData' => '"Dobrodošli"',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d08::2200',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '119',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"cIbi5vd5T44stpGFToHF","eventTarget":"chat","eventType":"message_seen","eventData":"\\"Dobrodošli\\""}',
+   'route' => '/direktt/v1/recordEvent',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'record_event',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 9th 2024, 19:20
+/wp-json/direktt/v1/onUnsubscribe
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'cIbi5vd5T44stpGFToHF',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d08::301',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '41',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"cIbi5vd5T44stpGFToHF"}',
+   'route' => '/direktt/v1/onUnsubscribe',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'on_unsubscribe',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 9th 2024, 19:24
+/wp-json/direktt/v1/onNewSubscription
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'j7lwWEIXVVoDRE5z74O9',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d03::1200',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '41',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"j7lwWEIXVVoDRE5z74O9"}',
+   'route' => '/direktt/v1/onNewSubscription',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'on_new_subscription',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 9th 2024, 19:24
+/wp-json/direktt/v1/recordEvent
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'j7lwWEIXVVoDRE5z74O9',
+      'eventTarget' => 'chat',
+      'eventData' => '"Dobrodošli"',
+      'eventType' => 'message_received',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d05::2300',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '123',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"j7lwWEIXVVoDRE5z74O9","eventTarget":"chat","eventData":"\\"Dobrodošli\\"","eventType":"message_received"}',
+   'route' => '/direktt/v1/recordEvent',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'record_event',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 9th 2024, 19:24
+/wp-json/direktt/v1/onMarketingConsentUpdate
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'j7lwWEIXVVoDRE5z74O9',
+      'marketingConsentStatus' => true,
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d04::1f00',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '71',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"j7lwWEIXVVoDRE5z74O9","marketingConsentStatus":true}',
+   'route' => '/direktt/v1/onMarketingConsentUpdate',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'on_marketing_consent_update',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 9th 2024, 19:24
+/wp-json/direktt/v1/onSetAdminUser
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'j7lwWEIXVVoDRE5z74O9',
+      'adminId' => 'mQaYzEkMFQe40KsjwuaSo4Pnk6t1',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d03::1200',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '82',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"j7lwWEIXVVoDRE5z74O9","adminId":"mQaYzEkMFQe40KsjwuaSo4Pnk6t1"}',
+   'route' => '/direktt/v1/onSetAdminUser',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'on_set_admin_user',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 9th 2024, 19:24
+/wp-json/direktt/v1/recordEvent
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'ilvYnlZhRyghUgQlofna',
+      'eventTarget' => 'chat',
+      'eventData' => '"Subscribovao se korisnik: j7lwWEIXVVoDRE5z74O9"',
+      'eventType' => 'message_sent',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d05::2300',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '154',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"ilvYnlZhRyghUgQlofna","eventTarget":"chat","eventData":"\\"Subscribovao se korisnik: j7lwWEIXVVoDRE5z74O9\\"","eventType":"message_sent"}',
+   'route' => '/direktt/v1/recordEvent',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'record_event',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 9th 2024, 19:24
+/wp-json/direktt/v1/recordEvent
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'j7lwWEIXVVoDRE5z74O9',
+      'eventTarget' => 'chat',
+      'eventType' => 'message_seen',
+      'eventData' => '"Dobrodošli"',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d08::2200',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '119',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"j7lwWEIXVVoDRE5z74O9","eventTarget":"chat","eventType":"message_seen","eventData":"\\"Dobrodošli\\""}',
+   'route' => '/direktt/v1/recordEvent',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'record_event',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 9th 2024, 19:24
+/wp-json/direktt/v1/onUnsubscribe
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'j7lwWEIXVVoDRE5z74O9',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d08::301',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '41',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"j7lwWEIXVVoDRE5z74O9"}',
+   'route' => '/direktt/v1/onUnsubscribe',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'on_unsubscribe',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 9th 2024, 19:26
+/wp-json/direktt/v1/onNewSubscription
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'TlVyilZDOJqgvAlcfekY',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d03::1200',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '41',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"TlVyilZDOJqgvAlcfekY"}',
+   'route' => '/direktt/v1/onNewSubscription',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'on_new_subscription',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 9th 2024, 19:26
+/wp-json/direktt/v1/onMarketingConsentUpdate
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'TlVyilZDOJqgvAlcfekY',
+      'marketingConsentStatus' => true,
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d04::1f00',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '71',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"TlVyilZDOJqgvAlcfekY","marketingConsentStatus":true}',
+   'route' => '/direktt/v1/onMarketingConsentUpdate',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'on_marketing_consent_update',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 9th 2024, 19:26
+/wp-json/direktt/v1/recordEvent
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'TlVyilZDOJqgvAlcfekY',
+      'eventTarget' => 'chat',
+      'eventData' => '"Dobrodošli"',
+      'eventType' => 'message_received',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d05::2300',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '123',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"TlVyilZDOJqgvAlcfekY","eventTarget":"chat","eventData":"\\"Dobrodošli\\"","eventType":"message_received"}',
+   'route' => '/direktt/v1/recordEvent',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'record_event',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 9th 2024, 19:26
+/wp-json/direktt/v1/recordEvent
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'ilvYnlZhRyghUgQlofna',
+      'eventTarget' => 'chat',
+      'eventData' => '"Subscribovao se korisnik: TlVyilZDOJqgvAlcfekY"',
+      'eventType' => 'message_sent',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d05::2300',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '154',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"ilvYnlZhRyghUgQlofna","eventTarget":"chat","eventData":"\\"Subscribovao se korisnik: TlVyilZDOJqgvAlcfekY\\"","eventType":"message_sent"}',
+   'route' => '/direktt/v1/recordEvent',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'record_event',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 9th 2024, 19:26
+/wp-json/direktt/v1/onSetAdminUser
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'TlVyilZDOJqgvAlcfekY',
+      'adminId' => 'mQaYzEkMFQe40KsjwuaSo4Pnk6t1',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d03::1200',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '82',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"TlVyilZDOJqgvAlcfekY","adminId":"mQaYzEkMFQe40KsjwuaSo4Pnk6t1"}',
+   'route' => '/direktt/v1/onSetAdminUser',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'on_set_admin_user',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 9th 2024, 19:27
+/wp-json/direktt/v1/recordEvent
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'TlVyilZDOJqgvAlcfekY',
+      'eventTarget' => 'chat',
+      'eventType' => 'message_seen',
+      'eventData' => '"Dobrodošli"',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d08::2200',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '119',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"TlVyilZDOJqgvAlcfekY","eventTarget":"chat","eventType":"message_seen","eventData":"\\"Dobrodošli\\""}',
+   'route' => '/direktt/v1/recordEvent',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'record_event',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))

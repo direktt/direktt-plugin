@@ -18,9 +18,9 @@ class Direktt_User
 			'post_status' => 'publish',
 			'posts_per_page' => -1,
 			'fields' => 'ids',
-			'post__in' => array( $direktt_user_post_id )
+			'post__in' => array($direktt_user_post_id)
 		);
-		
+
 		$posts = get_posts($args);
 
 		$post_obj = false;
@@ -28,8 +28,8 @@ class Direktt_User
 		if (!empty($posts)) {
 			$post_id = $posts[0];
 
-			$post_obj = array (
-				'ID'=> $post_id,
+			$post_obj = array(
+				'ID' => $post_id,
 				'direktt_user_id' => get_post_meta($post_id, 'direktt_user_id', true),
 				'direktt_admin_user_id' => get_post_meta($post_id, 'direktt_admin_user_id', true),
 				'direktt_marketing_consent_status' => get_post_meta($post_id, 'direktt_marketing_consent_status', true)
@@ -51,7 +51,7 @@ class Direktt_User
 					'key'   => 'direktt_user_id',
 					'value' => $direktt_user_id_tocheck
 				)
-				),
+			),
 			/* ,
 			'tax_query' => array(
 				array(
@@ -61,7 +61,7 @@ class Direktt_User
 				)
 			) */
 		);
-		
+
 		$posts = get_posts($args);
 
 		$post_obj = false;
@@ -69,8 +69,8 @@ class Direktt_User
 		if (!empty($posts)) {
 			$post_id = $posts[0];
 
-			$post_obj = array (
-				'ID'=> $post_id,
+			$post_obj = array(
+				'ID' => $post_id,
 				'direktt_user_id' => $direktt_user_id_tocheck,
 				'direktt_admin_user_id' => get_post_meta($post_id, 'direktt_admin_user_id', true),
 				'direktt_marketing_consent_status' => get_post_meta($post_id, 'direktt_marketing_consent_status', true)
@@ -92,9 +92,9 @@ class Direktt_User
 					'key'   => 'direktt_admin_user_id',
 					'value' => $direktt_admin_id_tocheck
 				)
-				),
+			),
 		);
-		
+
 		$posts = get_posts($args);
 
 		$post_obj = false;
@@ -102,8 +102,8 @@ class Direktt_User
 		if (!empty($posts)) {
 			$post_id = $posts[0];
 
-			$post_obj = array (
-				'ID'=> $post_id,
+			$post_obj = array(
+				'ID' => $post_id,
 				'direktt_user_id' => get_post_meta($post_id, 'direktt_user_id', true),
 				'direktt_admin_user_id' => $direktt_admin_id_tocheck,
 				'direktt_marketing_consent_status' => get_post_meta($post_id, 'direktt_marketing_consent_status', true)
@@ -141,7 +141,12 @@ class Direktt_User
 			return $wp_error;
 		} else {
 
-			do_action( 'direktt/user/subscribe', $direktt_user_id );
+			$wp_user_id = Direktt_User::create_wp_direktt_user($post_id);
+			if (is_wp_error($wp_user_id)) {
+				return $wp_user_id;
+			}
+
+			do_action('direktt/user/subscribe', $direktt_user_id);
 
 			Direktt_Event::insert_event(
 				array(
@@ -152,7 +157,6 @@ class Direktt_User
 			);
 
 			return $post_id;
-
 		}
 	}
 
@@ -175,18 +179,26 @@ class Direktt_User
 		if ($wp_error) {
 			return $wp_error;
 		} else {
-			do_action( 'direktt/admin/subscribe', $admin_id );
+
+			$wp_user_id = Direktt_User::create_wp_direktt_user($post_id);
+			if (is_wp_error($wp_user_id)) {
+				return $wp_user_id;
+			}
+
+			do_action('direktt/admin/subscribe', $admin_id);
 			return $post_id;
 		}
 	}
 
 	static function unsubscribe_user($direktt_user_id)
 	{
-		$user = Direktt_User::get_user_by_subscription_id( $direktt_user_id );
+		$user = Direktt_User::get_user_by_subscription_id($direktt_user_id);
 
 		if ($user) {
 
 			wp_delete_post($user['ID'], true);
+
+			Direktt_User::delete_wp_direktt_user($user['ID']);
 
 			Direktt_Event::insert_event(
 				array(
@@ -196,8 +208,7 @@ class Direktt_User
 				)
 			);
 
-			do_action( 'direktt/user/unsubscribe', $direktt_user_id );
-
+			do_action('direktt/user/unsubscribe', $direktt_user_id);
 		}
 	}
 
@@ -215,7 +226,6 @@ class Direktt_User
 				"event_value" => "true"
 			)
 		);
-
 	}
 
 	static function pair_user_with_admin($direktt_user_id, $admin_id)
@@ -232,6 +242,79 @@ class Direktt_User
 				"event_value" => "true"
 			)
 		);
+	}
 
+	private static function generate_random_string($length = 12)
+	{
+		$characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+		$charactersLength = strlen($characters);
+		$randomString = '';
+
+		for ($i = 0; $i < $length; $i++) {
+			$randomString .= $characters[rand(0, $charactersLength - 1)];
+		}
+
+		return $randomString;
+	}
+
+	private static function create_wp_direktt_user($user_id)
+	{
+		$username = 'direktt_' . $user_id;
+		$email = Direktt_User::generate_random_string(8) . '@direktt.com';
+		$password = Direktt_User::generate_random_string(12);
+
+		while (email_exists($email)) {
+			$email = Direktt_User::generate_random_string(8) . '@example.com';
+		}
+
+		$wp_user_id = wp_create_user($username, $password, $email);
+
+		if (is_wp_error($wp_user_id)) {
+			return $wp_user_id;
+		}
+
+		$user = new WP_User($wp_user_id);
+		$user->set_role('direktt');
+
+		update_user_meta($wp_user_id, 'direktt_user_id', $user_id);
+	}
+
+	private static function delete_wp_direktt_user($direktt_user_id)
+	{
+		require_once( ABSPATH.'wp-admin/includes/user.php' );
+
+		// Query users by meta key and value
+		$users = get_users(array(
+			'meta_key' => 'direktt_user_id',
+			'meta_value' => $direktt_user_id,
+			'fields' => 'ID' // Return only user IDs
+		));
+
+		// Check if users were found
+		if (!empty($users)) {
+			foreach ($users as $user_id) {
+				// Delete the user
+				wp_delete_user( intval($user_id) );
+			}
+		}
+	}
+
+	public static function get_or_generate_user_pair_code( $user_id ) {
+		// Define the meta key
+		$meta_key = 'direktt_user_pair_code';
+		
+		// Check if the user already has the meta field set
+		$pair_code = get_user_meta($user_id, $meta_key, true);
+		
+		// If the meta field is not set or is empty, generate a new 6-digit code
+		if (empty($pair_code)) {
+			$pair_code = str_pad(mt_rand(0, 999999), 6, '0', STR_PAD_LEFT);
+			
+			// Save the new code to the user's meta field
+			update_user_meta($user_id, $meta_key, $pair_code);
+		}
+		
+		// Return the existing or newly generated code
+		return $pair_code;
 	}
 }

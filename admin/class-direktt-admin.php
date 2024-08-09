@@ -186,6 +186,10 @@ class Direktt_Admin
 		);
 
 		register_post_type('direkttusers', $args);
+
+		// User role direktt
+
+		add_role('direktt', 'Direktt User', array());
 	}
 
 	// todo skloniti jer nam realno ne treba
@@ -329,24 +333,69 @@ class Direktt_Admin
 		if ($post->post_type != 'direkttusers') return;
 	?>
 		<div id="app"></div>
-	<?php
+		<?php
 	}
 
-	public function render_user_meta_panel(WP_User $user)
+	public function render_user_meta_panel($user)
 	{
-	?>
-		<h2>Direktt Test User</h2>
-		<table class="form-table" role="presentation">
-			<tbody v-if="data">
-				<tr>
-					<th scope="row"><label for="direktt_test_user_id">Post Id of Test Direktt User <p class="description">Post id of Direktt User which will be used on Direktt pages</p></label></th>
-					<td>
-						<input type="text" name="direktt_test_user_id" id="direktt_test_user_id" size="50" placeholder="Enter Direktt User Id here" value="<?php echo esc_attr(get_user_meta($user->ID, 'direktt_test_user_id', true)); ?>">
-					</td>
-				</tr>
-			</tbody>
-		</table>
-	<?php
+		if ($user instanceof WP_User) {
+
+			$direktt_user_id = get_user_meta($user->ID, 'direktt_user_id', true);
+			$direktt_user_pair_code = Direktt_User::get_or_generate_user_pair_code($user->ID);
+
+		?>
+			<h2>Direktt Test User</h2>
+			<table class="form-table" role="presentation">
+				<tbody v-if="data">
+					<tr>
+						<th scope="row"><label for="direktt_test_user_id">Post Id of Test Direktt User <p class="description">Post id of Direktt User which will be used on Direktt pages</p></label></th>
+						<td>
+							<input type="text" name="direktt_test_user_id" id="direktt_test_user_id" size="50" placeholder="Enter Direktt User Id here" value="<?php echo esc_attr(get_user_meta($user->ID, 'direktt_test_user_id', true)); ?>">
+						</td>
+					</tr>
+
+					<?php
+
+					if (! empty($direktt_user_id)) {
+					?>
+
+						<tr>
+							<th scope="row"><label for="direktt_test_user_id">Post Id of related Direktt User:</label></th>
+							<td>
+								<b><?php echo esc_attr($direktt_user_id); ?></b>
+							</td>
+						</tr>
+
+					<?php
+						// Ovde ispisi checkbox za resetovanje asocijacije
+					} else if (! empty($direktt_user_pair_code)) {
+					?>
+
+						<tr>
+							<th scope="row"><label for="direktt_test_user_id">Code for pairing with related Direktt User:</label></th>
+							<td>
+								<b><?php echo ("pair" . esc_attr($direktt_user_pair_code)); ?></b>
+							</td>
+						</tr>
+
+						<tr>
+							<th scope="row"><label for="direktt_test_user_id">Reset Pairing Code</label></th>
+							<td>
+								<label for="direktt_update_code">
+									<input name="direktt_update_code" type="checkbox" id="direktt_update_code" value="1">
+									Check to update pairing code and click Update Profile </label>
+							</td>
+						</tr>
+
+					<?php
+						// Ovde ispisi checkbox za resetovanje pair coda
+					}
+
+					?>
+				</tbody>
+			</table>
+		<?php
+		}
 	}
 
 	function save_user_meta_panel($userId)
@@ -360,6 +409,10 @@ class Direktt_Admin
 		} else {
 			delete_user_meta($userId, 'direktt_test_user_id');
 		}
+
+		if (isset($_POST['direktt_update_code'])) {
+			delete_user_meta($userId, 'direktt_user_pair_code');
+		} 
 	}
 
 	public function page_direktt_custom_box()
@@ -384,7 +437,7 @@ class Direktt_Admin
 		$box_checked = $box_value ? 'checked' : 0;
 		$box_admin_value = intval(get_post_meta($post->ID, 'direktt_custom_admin_box', true)) === 1;
 		$box_admin_checked = $box_admin_value ? 'checked' : 0;
-	?>
+		?>
 		<p>
 			<input id="direktt_custom_box" name="direktt_custom_box" type="checkbox" <?php echo $box_checked ?>>
 			<label><?php echo __('Restrict access to Direktt users', 'direktt') ?></label>

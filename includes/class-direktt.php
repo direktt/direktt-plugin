@@ -69,7 +69,8 @@ class Direktt {
 		// $this->loader->add_filter( 'determine_current_user', $plugin_public, 'determine_current_user' );
 
 		//$this->loader->add_action( 'template_redirect', $plugin_public, 'direktt_check_user' );
-		$this->loader->add_action( 'wp', $plugin_public, 'direktt_check_user' );
+		$this->loader->add_action( 'init', $plugin_public, 'direktt_check_token' );
+		//$this->loader->add_action( 'wp', $plugin_public, 'direktt_check_user' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'direktt_enqueue_public_scripts' );
 		// $this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_plugin_assets' );
 	}
@@ -100,11 +101,11 @@ class Direktt {
 		
 		$this->loader->add_action( 'show_user_profile', $plugin_admin, 'render_user_meta_panel' );
 		$this->loader->add_action( 'edit_user_profile', $plugin_admin, 'render_user_meta_panel' );
-		$this->loader->add_action( 'user_new_form', $plugin_admin, 'render_user_meta_panel' );
+		//$this->loader->add_action( 'user_new_form', $plugin_admin, 'render_user_meta_panel' );
 
 		$this->loader->add_action( 'personal_options_update', $plugin_admin, 'save_user_meta_panel' );
 		$this->loader->add_action( 'edit_user_profile_update', $plugin_admin, 'save_user_meta_panel' );
-		$this->loader->add_action( 'user_register', $plugin_admin, 'save_user_meta_panel' );
+		//$this->loader->add_action( 'user_register', $plugin_admin, 'save_user_meta_panel' );
 
 	}
 
