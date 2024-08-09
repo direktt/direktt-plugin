@@ -338,7 +338,7 @@ class Direktt_Admin
 
 	public function render_user_meta_panel($user)
 	{
-		if ($user instanceof WP_User) {
+		if ($user instanceof WP_User && !in_array('direktt', $user->roles)) {
 
 			$direktt_user_id = get_user_meta($user->ID, 'direktt_user_id', true);
 			$direktt_user_pair_code = Direktt_User::get_or_generate_user_pair_code($user->ID);
@@ -366,15 +366,24 @@ class Direktt_Admin
 							</td>
 						</tr>
 
+						<tr>
+							<th scope="row"><label for="direktt_test_user_id">Delete Relation with Direktt User</label></th>
+							<td>
+								<label for="direktt_delete_relation">
+									<input name="direktt_delete_relation" type="checkbox" id="direktt_delete_relation" value="1">
+									Check to delete relation with Direktt User and click Update Profile </label>
+							</td>
+						</tr>
+
 					<?php
-						// Ovde ispisi checkbox za resetovanje asocijacije
+						
 					} else if (! empty($direktt_user_pair_code)) {
 					?>
 
 						<tr>
 							<th scope="row"><label for="direktt_test_user_id">Code for pairing with related Direktt User:</label></th>
 							<td>
-								<b><?php echo ("pair" . esc_attr($direktt_user_pair_code)); ?></b>
+								<b><?php echo esc_html($direktt_user_pair_code);  ?></b>
 							</td>
 						</tr>
 
@@ -388,7 +397,7 @@ class Direktt_Admin
 						</tr>
 
 					<?php
-						// Ovde ispisi checkbox za resetovanje pair coda
+						
 					}
 
 					?>
@@ -412,7 +421,11 @@ class Direktt_Admin
 
 		if (isset($_POST['direktt_update_code'])) {
 			delete_user_meta($userId, 'direktt_user_pair_code');
-		} 
+		}
+		
+		if (isset($_POST['direktt_delete_relation'])) {
+			delete_user_meta($userId, 'direktt_user_id');
+		}
 	}
 
 	public function page_direktt_custom_box()

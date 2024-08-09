@@ -118,6 +118,8 @@ class Direktt {
 	private function define_user_hooks() {
 
 		$plugin_user = new Direktt_User( $this->get_plugin_name(), $this->get_version() );
+
+		$this->loader->add_action( 'direktt/event/chat/message_sent', $plugin_user, 'pair_wp_user_by_code' );
 	}
 
 	private function define_message_hooks() {

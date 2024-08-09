@@ -193,6 +193,8 @@ class Direktt_Public
 
 		if( $token ){
 
+			$this->public_log($token);
+
 			if (is_user_logged_in()) {
 
 				$current_user = wp_get_current_user();
@@ -203,11 +205,58 @@ class Direktt_Public
 			}
 	
 			wp_logout();
+
+			$direktt_user = $this->validate_direktt_token($token);
 	
-			if( !$this->validate_direktt_token($token) ) {
+			if( !$direktt_user ) {
 				return;
 			}
 
+			//nadji usera koji je direktt user i koji je i uloguj ga
+			$direktt_wp_user = Direktt_User::get_wp_direktt_user_by_post_id( $direktt_user['ID'] );
+
+			if ( $direktt_wp_user ) {
+				// Log the user in
+				wp_set_current_user($direktt_wp_user->ID );
+				wp_set_auth_cookie( $direktt_wp_user->ID );
+				do_action('wp_login', $direktt_wp_user->login, $direktt_wp_user);
+	
+				$this->redirect_without_token();
+			}
+		}
+	}
+
+	private function redirect_without_token() {
+		// Get current URL
+		$current_url = (is_ssl() ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+	
+		// Parse the URL into its components
+		$parsed_url = wp_parse_url($current_url);
+	
+		// Parse the query string into an associative array
+		if (!empty($parsed_url['query'])) {
+			wp_parse_str($parsed_url['query'], $query_vars);
+	
+			// Unset the 'token' query variable
+			if (isset($query_vars['token'])) {
+				unset($query_vars['token']);
+			}
+	
+			// Build the modified query string
+			$modified_query_string = build_query($query_vars);
+	
+			// Reassemble the URL components without the 'token'
+			$modified_url = $parsed_url['scheme'] . '://' . $parsed_url['host'];
+			if (!empty($parsed_url['path'])) {
+				$modified_url .= $parsed_url['path'];
+			}
+			if (!empty($modified_query_string)) {
+				$modified_url .= '?' . $modified_query_string;
+			}
+	
+			// Perform the safe redirect to the modified URL
+			wp_safe_redirect($modified_url);
+			exit;
 		}
 	}
 
