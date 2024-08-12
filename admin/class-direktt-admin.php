@@ -362,7 +362,7 @@ class Direktt_Admin
 						<tr>
 							<th scope="row"><label for="direktt_test_user_id">Post Id of related Direktt User:</label></th>
 							<td>
-								<b><?php echo esc_attr($direktt_user_id); ?></b>
+								<b><?php echo esc_attr($direktt_user_id); ?> - <?php echo '<a href="' . esc_url(get_edit_post_link($direktt_user_id)) . '">View Post</a>'?></b>
 							</td>
 						</tr>
 

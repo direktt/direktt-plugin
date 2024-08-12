@@ -39,23 +39,24 @@ class Direktt_Public
 		$this->namespace   = $this->plugin_name . '/v' . intval($this->version);
 	}
 
-	public function direktt_enqueue_public_scripts(){
+	public function direktt_enqueue_public_scripts()
+	{
 
 		global $post;
 
-		if( !$post ){
+		if (!$post) {
 			return;
 		}
-		
+
 		wp_enqueue_script(
-            'direktt_public',
-            plugin_dir_url( __FILE__ ) . 'js/direktt-public.js',
-            [],
-            '',
-            [
-                'in_footer' => true,
-            ]
-        );
+			'direktt_public',
+			plugin_dir_url(__FILE__) . 'js/direktt-public.js',
+			[],
+			'',
+			[
+				'in_footer' => true,
+			]
+		);
 
 		do_action('direktt_enqueue_public_scripts');
 	}
@@ -66,10 +67,10 @@ class Direktt_Public
 		$arr_cookie_options = array(
 			'expires' => 0, // session cookie
 			'path' => '/',
-			'domain' => parse_url(get_site_url(), PHP_URL_HOST), 
-			'secure' => is_ssl(),     
-			'httponly' => true,    
-			'samesite' => 'Strict' 
+			'domain' => parse_url(get_site_url(), PHP_URL_HOST),
+			'secure' => is_ssl(),
+			'httponly' => true,
+			'samesite' => 'Strict'
 		);
 
 		setcookie('DirekttAuthToken', $cookie_value, $arr_cookie_options);
@@ -89,12 +90,11 @@ class Direktt_Public
 
 		$redirect_url = get_option('unauthorized_redirect_url');
 
-		if( $redirect_url ) {
-			
-			nocache_headers();
-			wp_safe_redirect( $redirect_url );
-			exit;
+		if ($redirect_url) {
 
+			nocache_headers();
+			wp_safe_redirect($redirect_url);
+			exit;
 		} else {
 			header('HTTP/1.1 403 Unauthorized');
 			exit();
@@ -118,21 +118,18 @@ class Direktt_Public
 		try {
 			Direktt\Firebase\JWT\JWT::$leeway = 60 * 10; // ten minutes
 			$decoded_token = Direktt\Firebase\JWT\JWT::decode($token, new Direktt\Firebase\JWT\Key($api_key, $algorithm));
-			
 		} catch (Exception $e) {
 			return false;
 		}
 
-		if( property_exists($decoded_token, 'subscriptionUid') ){
-			
+		if (property_exists($decoded_token, 'subscriptionUid')) {
+
 			$direktt_user_id_tocheck = sanitize_text_field($decoded_token->subscriptionUid);
 			$user = Direktt_User::get_user_by_subscription_id($direktt_user_id_tocheck);
+		} else if (! property_exists($decoded_token, 'subscriptionUid') && property_exists($decoded_token, 'channelUid') && property_exists($decoded_token, 'adminUid')) {
 
-		} else if( ! property_exists($decoded_token, 'subscriptionUid') && property_exists($decoded_token, 'channelUid') && property_exists($decoded_token, 'adminUid')) {
-			
 			$direktt_admin_id_tocheck = sanitize_text_field($decoded_token->adminUid);
 			$user = Direktt_User::get_user_by_admin_id($direktt_admin_id_tocheck);
-
 		} else {
 			return false;
 		}
@@ -169,11 +166,11 @@ class Direktt_Public
 			'exp'  => $expire
 		];
 
-		if ( $direktt_user['direktt_user_id'] ){
+		if ($direktt_user['direktt_user_id']) {
 			$token['subscriptionUid'] = $direktt_user['direktt_user_id'];
 		}
 
-		if ( $direktt_user['direktt_admin_user_id'] ){
+		if ($direktt_user['direktt_admin_user_id']) {
 			$token['adminUid'] = $direktt_user['direktt_admin_user_id'];
 		}
 
@@ -191,149 +188,104 @@ class Direktt_Public
 
 		$token = (isset($_GET['token'])) ? sanitize_text_field($_GET['token']) : false;
 
-		if( $token ){
+		if ($token) {
 
 			$this->public_log($token);
 
 			if (is_user_logged_in()) {
 
 				$current_user = wp_get_current_user();
-	
+
 				if (!in_array('direktt', $current_user->roles)) {
 					return;
 				}
 			}
-	
+
 			wp_logout();
 
 			$direktt_user = $this->validate_direktt_token($token);
-	
-			if( !$direktt_user ) {
+
+			if (!$direktt_user) {
 				return;
 			}
 
 			//nadji usera koji je direktt user i koji je i uloguj ga
-			$direktt_wp_user = Direktt_User::get_wp_direktt_user_by_post_id( $direktt_user['ID'] );
+			$direktt_wp_user = Direktt_User::get_wp_direktt_user_by_post_id($direktt_user['ID']);
 
-			if ( $direktt_wp_user ) {
+			if ($direktt_wp_user) {
 				// Log the user in
-				wp_set_current_user($direktt_wp_user->ID );
-				wp_set_auth_cookie( $direktt_wp_user->ID );
+				wp_set_current_user($direktt_wp_user->ID);
+				wp_set_auth_cookie($direktt_wp_user->ID);
 				do_action('wp_login', $direktt_wp_user->login, $direktt_wp_user);
-	
+
 				$this->redirect_without_token();
 			}
 		}
 	}
 
-	private function redirect_without_token() {
+	private function redirect_without_token()
+	{
 		// Get current URL
-		$current_url = (is_ssl() ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
-	
-		// Parse the URL into its components
+		$current_url  = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http");
+		$current_url .= "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+
+		$new_url = $current_url;
+
 		$parsed_url = wp_parse_url($current_url);
-	
-		// Parse the query string into an associative array
-		if (!empty($parsed_url['query'])) {
-			wp_parse_str($parsed_url['query'], $query_vars);
-	
-			// Unset the 'token' query variable
-			if (isset($query_vars['token'])) {
-				unset($query_vars['token']);
+
+		if (isset($parsed_url['query'])) {
+			parse_str($parsed_url['query'], $query_args);
+			if (isset($query_args['token'])) {
+				unset($query_args['token']);
+				$new_query_string = http_build_query($query_args);
+				$new_url = $parsed_url['scheme'] . '://' . $parsed_url['host'];
+				$new_url .= isset($parsed_url['port']) ? ':' . $parsed_url['port'] : '';
+				$new_url .= isset($parsed_url['path']) ? $parsed_url['path'] : '';
+				$new_url .= $new_query_string ? '?' . $new_query_string : '';
+				$new_url .= isset($parsed_url['fragment']) ? '#' . $parsed_url['fragment'] : '';
 			}
-	
-			// Build the modified query string
-			$modified_query_string = build_query($query_vars);
-	
-			// Reassemble the URL components without the 'token'
-			$modified_url = $parsed_url['scheme'] . '://' . $parsed_url['host'];
-			if (!empty($parsed_url['path'])) {
-				$modified_url .= $parsed_url['path'];
-			}
-			if (!empty($modified_query_string)) {
-				$modified_url .= '?' . $modified_query_string;
-			}
-	
-			// Perform the safe redirect to the modified URL
-			wp_safe_redirect($modified_url);
-			exit;
 		}
+
+		wp_safe_redirect($new_url);
+        exit;
 	}
 
 	public function direktt_check_user()
 	{
+
 		global $post;
 		global $direktt_user;
+		$direktt_user = false;
 
-		if( !$post ){
+		if (!$post) {
 			return;
 		}
 
 		$for_users = Direktt_Public::is_post_for_direktt_user();
 		$for_admins = Direktt_Public::is_post_for_direktt_admin();
 
-		if ( !$for_admins && !$for_users ) {
+		if (!$for_admins && !$for_users) {
 			return;
-		}
-
-		$token = (isset($_GET['token'])) ? sanitize_text_field($_GET['token']) : false;
-
-		$this->public_log($token);
-
-		if ($token) {
-
-			$direktt_user = $this->validate_direktt_token($token);
-
-			if ($direktt_user && Direktt_Public::check_user_access_rights()) {
-
-				$token = $this->generate_direktt_token($direktt_user);
-				$this->set_direktt_auth_cookie($token);
-
-				show_admin_bar(false);
-			} else {
+		} else {
+			if (! is_user_logged_in()) {
 				$this->not_auth_redirect();
 			}
+		}
+
+		$current_user = wp_get_current_user();
+
+		if (in_array('direktt', (array) $current_user->roles)) {
+			// The user is direktt user and that it the way it is logged in 
+			$direktt_user = Direktt_User::get_user_by_wp_direktt_user($current_user);
 		} else {
+			// The user is WP User and we need to check if there is associated direktt user
+			$direktt_user = Direktt_User::get_user_by_wp_user($current_user);
+		}
 
-			if (is_user_logged_in()) {
-
-				$current_user = wp_get_current_user();
-
-				$test_user_id = get_user_meta($current_user->ID, 'direktt_test_user_id', true);
-
-				if ( $test_user_id ) {
-					$user = Direktt_User::get_user_by_post_id($test_user_id);
-					if( $user ){
-						$direktt_user = $user;
-					} else {
-						$direktt_user = false;
-					}
-				} else {
-					$this->not_auth_redirect();
-				}
-
-				if ($direktt_user && Direktt_Public::check_user_access_rights()) {
-
-					$token = $this->generate_direktt_token($direktt_user);
-					$this->set_direktt_auth_cookie($token);
-					show_admin_bar(false);
-				} else {
-					$this->not_auth_redirect();
-				}
-			} else {
-
-				$token = (isset($_COOKIE['DirekttAuthToken'])) ? sanitize_text_field($_COOKIE['DirekttAuthToken']) : false;
-
-				$direktt_user = $this->validate_direktt_token($token);
-
-				if ($direktt_user && Direktt_Public::check_user_access_rights()) {
-
-					show_admin_bar(false);
-
-				} else {
-					$this->not_auth_redirect();
-				}
-			}
+		if ($direktt_user && Direktt_Public::check_user_access_rights()) {
+			show_admin_bar(false);
+		} else {
+			$this->not_auth_redirect();
 		}
 	}
 
@@ -661,27 +613,30 @@ class Direktt_Public
 		fclose($open);
 	}
 
-	static function is_post_for_direktt_user(){
+	static function is_post_for_direktt_user()
+	{
 		global $post;
 
-		if($post){
+		if ($post) {
 			return intval(get_post_meta($post->ID, 'direktt_custom_box', true)) == 1;
 		}
 	}
-	
-	static function is_post_for_direktt_admin(){
+
+	static function is_post_for_direktt_admin()
+	{
 		global $post;
 
-		if($post){
+		if ($post) {
 			return intval(get_post_meta($post->ID, 'direktt_custom_admin_box', true)) == 1;
 		}
 	}
 
-	static function check_user_access_rights(){
+	static function check_user_access_rights()
+	{
 		$rights = false;
 		global $direktt_user;
 
-		if( ( Direktt_Public::is_post_for_direktt_user() && $direktt_user['direktt_user_id'] ) || ( Direktt_Public::is_post_for_direktt_admin() && $direktt_user['direktt_admin_user_id'] ) ){
+		if ((Direktt_Public::is_post_for_direktt_user() && $direktt_user['direktt_user_id']) || (Direktt_Public::is_post_for_direktt_admin() && $direktt_user['direktt_admin_user_id'])) {
 			$rights = true;
 		}
 		return $rights;

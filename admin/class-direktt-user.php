@@ -299,6 +299,30 @@ class Direktt_User
 		}
 	}
 
+	static function get_wp_direktt_user_by_post_id($direktt_user_id)
+	{
+
+		$args = array(
+			'role'    => 'direktt',
+			'meta_query' => array(
+				array(
+					'key'     => 'direktt_user_id',
+					'value'   => $direktt_user_id,
+					'compare' => '='
+				)
+			)
+		);
+
+		$user_query = new WP_User_Query($args);
+
+		$users = $user_query->get_results();
+
+		// Check if users were found and return the first one
+		if (!empty($users)) {
+			return $users[0];
+		}
+	}
+
 	public static function get_or_generate_user_pair_code($user_id)
 	{
 		// Define the meta key
@@ -372,27 +396,34 @@ class Direktt_User
 		}
 	}
 
-	static function get_wp_direktt_user_by_post_id( $direktt_user_id ){
+	static function get_user_by_wp_direktt_user($wp_user)
+	{
 
-		$args = array(
-			'role'    => 'direktt',
-			'meta_query' => array(
-				array(
-					'key'     => 'direktt_user_id',
-					'value'   => $direktt_user_id,
-					'compare' => '='
-				)
-			)
-		);
+		$user_id = $wp_user->ID;
+		$direktt_user_id = get_user_meta($user_id, 'direktt_user_id', true);
 
-		$user_query = new WP_User_Query($args);
+		return Direktt_User::get_user_by_post_id($direktt_user_id);
 
-		$users = $user_query->get_results();
+	}
 
-		// Check if users were found and return the first one
-		if (!empty($users)) {
-			return $users[0];
+	static function get_user_by_wp_user($wp_user)
+	{
+
+		$user_id = $wp_user->ID;
+		$test_user_id = get_user_meta($user_id, 'direktt_test_user_id', true);
+
+		if ($test_user_id) {
+			$user = Direktt_User::get_user_by_post_id($test_user_id);
+			if ($user) {
+				$direktt_user = $user;
+			} else {
+				$direktt_user = false;
+			}
+		} else {
+			$direktt_user = Direktt_User::get_user_by_wp_direktt_user($wp_user);
 		}
+
+		return $direktt_user;
 
 	}
 }

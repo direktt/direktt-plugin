@@ -31,6 +31,13 @@ class Direktt_Api
 			'permission_callback' => array($this, 'api_validate_api_key')
 		));
 
+		register_rest_route('direktt/v1', '/doAction/', array(
+			'methods' => 'POST',
+			'callback' => array($this, 'do_action'),
+			'args' => array(),
+			'permission_callback' => array($this, 'api_validate_api_key')
+		));
+
 		register_rest_route('direktt/v1', '/onSetAdminUser/', array(
 			'methods' => 'POST',
 			'callback' => array($this, 'on_set_admin_user'),
@@ -112,6 +119,22 @@ class Direktt_Api
 			}
 		} else {
 			wp_send_json_error(new WP_Error('Missing param', 'Subscription Id missing'), 400);
+		}
+	}
+
+	public function do_action(WP_REST_Request $request)
+	{
+		$this->api_log($request);
+		$parameters = json_decode($request->get_body(), true);
+
+		if (array_key_exists('actionType', $parameters)) {
+			$action_type = sanitize_text_field($parameters['actionType']);
+
+			$data = array();
+			wp_send_json_success($data, 200);
+			
+		} else {
+			wp_send_json_error(new WP_Error('Missing param', 'Action Type is missing'), 400);
 		}
 	}
 
