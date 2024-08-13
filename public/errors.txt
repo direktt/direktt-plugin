@@ -14700,3 +14700,5725 @@ WP_REST_Request::__set_state(array(
    'parsed_json' => true,
    'parsed_body' => false,
 ))
+#August 12th 2024, 20:45
+/wp-json/direktt/v1/recordEvent
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'ilvYnlZhRyghUgQlofna',
+      'eventTarget' => 'chat',
+      'eventData' => '"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 12, 2024 1:44 pm"',
+      'eventType' => 'message_sent',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d01::1901',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '201',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"ilvYnlZhRyghUgQlofna","eventTarget":"chat","eventData":"\\"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 12, 2024 1:44 pm\\"","eventType":"message_sent"}',
+   'route' => '/direktt/v1/recordEvent',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'record_event',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 12th 2024, 20:47
+/wp-json/direktt/v1/recordEvent
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'TlVyilZDOJqgvAlcfekY',
+      'eventTarget' => 'chat',
+      'eventData' => '"Pair 466679"',
+      'eventType' => 'message_sent',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d01::1901',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '119',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"TlVyilZDOJqgvAlcfekY","eventTarget":"chat","eventData":"\\"Pair 466679\\"","eventType":"message_sent"}',
+   'route' => '/direktt/v1/recordEvent',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'record_event',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 12th 2024, 20:47
+/wp-json/direktt/v1/recordEvent
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'TlVyilZDOJqgvAlcfekY',
+      'eventTarget' => 'chat',
+      'eventData' => '"You have been paired"',
+      'eventType' => 'message_received',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d01::1901',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '132',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"TlVyilZDOJqgvAlcfekY","eventTarget":"chat","eventData":"\\"You have been paired\\"","eventType":"message_received"}',
+   'route' => '/direktt/v1/recordEvent',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'record_event',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 12th 2024, 20:47
+/wp-json/direktt/v1/recordEvent
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'TlVyilZDOJqgvAlcfekY',
+      'eventTarget' => 'chat',
+      'eventType' => 'message_seen',
+      'eventData' => '"You have been paired"',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d03::2300',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '128',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"TlVyilZDOJqgvAlcfekY","eventTarget":"chat","eventType":"message_seen","eventData":"\\"You have been paired\\""}',
+   'route' => '/direktt/v1/recordEvent',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'record_event',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 12th 2024, 20:48
+/wp-json/direktt/v1/recordEvent
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'ilvYnlZhRyghUgQlofna',
+      'eventTarget' => 'chat',
+      'eventData' => '"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 12, 2024 1:47 pm"',
+      'eventType' => 'message_sent',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d01::1901',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '201',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"ilvYnlZhRyghUgQlofna","eventTarget":"chat","eventData":"\\"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 12, 2024 1:47 pm\\"","eventType":"message_sent"}',
+   'route' => '/direktt/v1/recordEvent',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'record_event',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 12th 2024, 20:48
+/wp-json/direktt/v1/recordEvent
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'TlVyilZDOJqgvAlcfekY',
+      'eventTarget' => 'chat',
+      'eventData' => '"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 12, 2024 1:47 pm"',
+      'eventType' => 'message_received',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d01::1901',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '205',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"TlVyilZDOJqgvAlcfekY","eventTarget":"chat","eventData":"\\"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 12, 2024 1:47 pm\\"","eventType":"message_received"}',
+   'route' => '/direktt/v1/recordEvent',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'record_event',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 12th 2024, 20:48
+/wp-json/direktt/v1/recordEvent
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'TlVyilZDOJqgvAlcfekY',
+      'eventTarget' => 'chat',
+      'eventData' => '"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 12, 2024 1:47 pm"',
+      'eventType' => 'message_received',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d01::1901',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '205',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"TlVyilZDOJqgvAlcfekY","eventTarget":"chat","eventData":"\\"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 12, 2024 1:47 pm\\"","eventType":"message_received"}',
+   'route' => '/direktt/v1/recordEvent',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'record_event',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 12th 2024, 20:49
+/wp-json/direktt/v1/recordEvent
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'TlVyilZDOJqgvAlcfekY',
+      'eventTarget' => 'chat',
+      'eventType' => 'message_seen',
+      'eventData' => '"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 12, 2024 1:47 pm"',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d03::2300',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '201',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"TlVyilZDOJqgvAlcfekY","eventTarget":"chat","eventType":"message_seen","eventData":"\\"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 12, 2024 1:47 pm\\""}',
+   'route' => '/direktt/v1/recordEvent',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'record_event',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 12th 2024, 20:49
+/wp-json/direktt/v1/recordEvent
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'TlVyilZDOJqgvAlcfekY',
+      'eventTarget' => 'chat',
+      'eventType' => 'message_seen',
+      'eventData' => '"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 12, 2024 1:47 pm"',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d03::2300',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '201',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"TlVyilZDOJqgvAlcfekY","eventTarget":"chat","eventType":"message_seen","eventData":"\\"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 12, 2024 1:47 pm\\""}',
+   'route' => '/direktt/v1/recordEvent',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'record_event',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 12th 2024, 20:50
+/wp-json/direktt/v1/recordEvent
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'ilvYnlZhRyghUgQlofna',
+      'eventTarget' => 'chat',
+      'eventData' => '"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 12, 2024 1:50 pm"',
+      'eventType' => 'message_sent',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d01::1901',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '201',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"ilvYnlZhRyghUgQlofna","eventTarget":"chat","eventData":"\\"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 12, 2024 1:50 pm\\"","eventType":"message_sent"}',
+   'route' => '/direktt/v1/recordEvent',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'record_event',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 12th 2024, 20:51
+/wp-json/direktt/v1/recordEvent
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'TlVyilZDOJqgvAlcfekY',
+      'eventTarget' => 'chat',
+      'eventData' => '"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 12, 2024 1:50 pm"',
+      'eventType' => 'message_received',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d01::1901',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '205',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"TlVyilZDOJqgvAlcfekY","eventTarget":"chat","eventData":"\\"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 12, 2024 1:50 pm\\"","eventType":"message_received"}',
+   'route' => '/direktt/v1/recordEvent',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'record_event',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 12th 2024, 20:51
+/wp-json/direktt/v1/recordEvent
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'TlVyilZDOJqgvAlcfekY',
+      'eventTarget' => 'chat',
+      'eventData' => '"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 12, 2024 1:50 pm"',
+      'eventType' => 'message_received',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d01::1901',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '205',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"TlVyilZDOJqgvAlcfekY","eventTarget":"chat","eventData":"\\"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 12, 2024 1:50 pm\\"","eventType":"message_received"}',
+   'route' => '/direktt/v1/recordEvent',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'record_event',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 12th 2024, 20:51
+/wp-json/direktt/v1/recordEvent
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'TlVyilZDOJqgvAlcfekY',
+      'eventTarget' => 'chat',
+      'eventType' => 'message_seen',
+      'eventData' => '"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 12, 2024 1:50 pm"',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d03::2300',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '201',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"TlVyilZDOJqgvAlcfekY","eventTarget":"chat","eventType":"message_seen","eventData":"\\"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 12, 2024 1:50 pm\\""}',
+   'route' => '/direktt/v1/recordEvent',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'record_event',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 12th 2024, 20:51
+/wp-json/direktt/v1/recordEvent
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'TlVyilZDOJqgvAlcfekY',
+      'eventTarget' => 'chat',
+      'eventType' => 'message_seen',
+      'eventData' => '"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 12, 2024 1:50 pm"',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d03::2300',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '201',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"TlVyilZDOJqgvAlcfekY","eventTarget":"chat","eventType":"message_seen","eventData":"\\"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 12, 2024 1:50 pm\\""}',
+   'route' => '/direktt/v1/recordEvent',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'record_event',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 12th 2024, 20:58
+/wp-json/direktt/v1/recordEvent
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'TlVyilZDOJqgvAlcfekY',
+      'eventTarget' => 'chat',
+      'eventData' => '"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 12, 2024 1:58 pm"',
+      'eventType' => 'message_received',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d01::1901',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '205',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"TlVyilZDOJqgvAlcfekY","eventTarget":"chat","eventData":"\\"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 12, 2024 1:58 pm\\"","eventType":"message_received"}',
+   'route' => '/direktt/v1/recordEvent',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'record_event',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 12th 2024, 20:58
+/wp-json/direktt/v1/recordEvent
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'TlVyilZDOJqgvAlcfekY',
+      'eventTarget' => 'chat',
+      'eventData' => '"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 12, 2024 1:58 pm"',
+      'eventType' => 'message_received',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d01::1901',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '205',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"TlVyilZDOJqgvAlcfekY","eventTarget":"chat","eventData":"\\"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 12, 2024 1:58 pm\\"","eventType":"message_received"}',
+   'route' => '/direktt/v1/recordEvent',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'record_event',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 12th 2024, 21:00
+/wp-json/direktt/v1/recordEvent
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'TlVyilZDOJqgvAlcfekY',
+      'eventTarget' => 'chat',
+      'eventData' => '"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 12, 2024 1:59 pm"',
+      'eventType' => 'message_received',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d01::1901',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '205',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"TlVyilZDOJqgvAlcfekY","eventTarget":"chat","eventData":"\\"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 12, 2024 1:59 pm\\"","eventType":"message_received"}',
+   'route' => '/direktt/v1/recordEvent',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'record_event',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 12th 2024, 21:00
+/wp-json/direktt/v1/recordEvent
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'TlVyilZDOJqgvAlcfekY',
+      'eventTarget' => 'chat',
+      'eventType' => 'message_seen',
+      'eventData' => '"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 12, 2024 1:59 pm"',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d03::2300',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '201',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"TlVyilZDOJqgvAlcfekY","eventTarget":"chat","eventType":"message_seen","eventData":"\\"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 12, 2024 1:59 pm\\""}',
+   'route' => '/direktt/v1/recordEvent',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'record_event',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 12th 2024, 21:00
+/wp-json/direktt/v1/recordEvent
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'TlVyilZDOJqgvAlcfekY',
+      'eventTarget' => 'chat',
+      'eventType' => 'message_seen',
+      'eventData' => '"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 12, 2024 1:59 pm"',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d03::2300',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '201',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"TlVyilZDOJqgvAlcfekY","eventTarget":"chat","eventType":"message_seen","eventData":"\\"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 12, 2024 1:59 pm\\""}',
+   'route' => '/direktt/v1/recordEvent',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'record_event',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 12th 2024, 21:00
+/wp-json/direktt/v1/recordEvent
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'TlVyilZDOJqgvAlcfekY',
+      'eventTarget' => 'chat',
+      'eventType' => 'message_seen',
+      'eventData' => '"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 12, 2024 1:58 pm"',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d03::2300',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '201',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"TlVyilZDOJqgvAlcfekY","eventTarget":"chat","eventType":"message_seen","eventData":"\\"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 12, 2024 1:58 pm\\""}',
+   'route' => '/direktt/v1/recordEvent',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'record_event',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 12th 2024, 21:00
+/wp-json/direktt/v1/recordEvent
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'TlVyilZDOJqgvAlcfekY',
+      'eventTarget' => 'chat',
+      'eventType' => 'message_seen',
+      'eventData' => '"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 12, 2024 1:58 pm"',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d03::2300',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '201',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"TlVyilZDOJqgvAlcfekY","eventTarget":"chat","eventType":"message_seen","eventData":"\\"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 12, 2024 1:58 pm\\""}',
+   'route' => '/direktt/v1/recordEvent',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'record_event',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 12th 2024, 21:01
+/wp-json/direktt/v1/recordEvent
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'TlVyilZDOJqgvAlcfekY',
+      'eventTarget' => 'chat',
+      'eventData' => '"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 12, 2024 2:00 pm"',
+      'eventType' => 'message_received',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d01::1901',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '205',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"TlVyilZDOJqgvAlcfekY","eventTarget":"chat","eventData":"\\"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 12, 2024 2:00 pm\\"","eventType":"message_received"}',
+   'route' => '/direktt/v1/recordEvent',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'record_event',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 12th 2024, 21:01
+/wp-json/direktt/v1/recordEvent
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'TlVyilZDOJqgvAlcfekY',
+      'eventTarget' => 'chat',
+      'eventType' => 'message_seen',
+      'eventData' => '"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 12, 2024 2:00 pm"',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d03::2300',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '201',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"TlVyilZDOJqgvAlcfekY","eventTarget":"chat","eventType":"message_seen","eventData":"\\"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 12, 2024 2:00 pm\\""}',
+   'route' => '/direktt/v1/recordEvent',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'record_event',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 12th 2024, 21:35
+/wp-json/direktt/v1/recordEvent
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'TlVyilZDOJqgvAlcfekY',
+      'eventTarget' => 'chat',
+      'eventData' => '"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 12, 2024 2:35 pm"',
+      'eventType' => 'message_received',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d01::1900',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '205',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"TlVyilZDOJqgvAlcfekY","eventTarget":"chat","eventData":"\\"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 12, 2024 2:35 pm\\"","eventType":"message_received"}',
+   'route' => '/direktt/v1/recordEvent',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'record_event',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 12th 2024, 21:35
+/wp-json/direktt/v1/recordEvent
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'TlVyilZDOJqgvAlcfekY',
+      'eventTarget' => 'chat',
+      'eventType' => 'message_seen',
+      'eventData' => '"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 12, 2024 2:35 pm"',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d04::3601',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '201',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"TlVyilZDOJqgvAlcfekY","eventTarget":"chat","eventType":"message_seen","eventData":"\\"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 12, 2024 2:35 pm\\""}',
+   'route' => '/direktt/v1/recordEvent',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'record_event',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 12th 2024, 21:59
+/wp-json/direktt/v1/recordEvent
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'TlVyilZDOJqgvAlcfekY',
+      'eventTarget' => 'chat',
+      'eventData' => '"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 12, 2024 2:59 pm"',
+      'eventType' => 'message_received',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d07::2d01',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '205',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"TlVyilZDOJqgvAlcfekY","eventTarget":"chat","eventData":"\\"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 12, 2024 2:59 pm\\"","eventType":"message_received"}',
+   'route' => '/direktt/v1/recordEvent',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'record_event',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 12th 2024, 22:03
+/wp-json/direktt/v1/recordEvent
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'TlVyilZDOJqgvAlcfekY',
+      'eventTarget' => 'chat',
+      'eventData' => '"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 12, 2024 3:03 pm"',
+      'eventType' => 'message_received',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d07::2d01',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '205',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"TlVyilZDOJqgvAlcfekY","eventTarget":"chat","eventData":"\\"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 12, 2024 3:03 pm\\"","eventType":"message_received"}',
+   'route' => '/direktt/v1/recordEvent',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'record_event',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 12th 2024, 22:03
+/wp-json/direktt/v1/recordEvent
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'TlVyilZDOJqgvAlcfekY',
+      'eventTarget' => 'chat',
+      'eventType' => 'message_seen',
+      'eventData' => '"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 12, 2024 3:03 pm"',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d03::2300',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '201',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"TlVyilZDOJqgvAlcfekY","eventTarget":"chat","eventType":"message_seen","eventData":"\\"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 12, 2024 3:03 pm\\""}',
+   'route' => '/direktt/v1/recordEvent',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'record_event',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 12th 2024, 22:04
+/wp-json/direktt/v1/recordEvent
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'TlVyilZDOJqgvAlcfekY',
+      'eventTarget' => 'chat',
+      'eventType' => 'message_seen',
+      'eventData' => '"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 12, 2024 2:59 pm"',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d03::2300',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '201',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"TlVyilZDOJqgvAlcfekY","eventTarget":"chat","eventType":"message_seen","eventData":"\\"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 12, 2024 2:59 pm\\""}',
+   'route' => '/direktt/v1/recordEvent',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'record_event',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 12th 2024, 22:04
+/wp-json/direktt/v1/recordEvent
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'TlVyilZDOJqgvAlcfekY',
+      'eventTarget' => 'chat',
+      'eventData' => '"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 12, 2024 3:03 pm"',
+      'eventType' => 'message_received',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d07::2d01',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '205',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"TlVyilZDOJqgvAlcfekY","eventTarget":"chat","eventData":"\\"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 12, 2024 3:03 pm\\"","eventType":"message_received"}',
+   'route' => '/direktt/v1/recordEvent',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'record_event',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 12th 2024, 22:04
+/wp-json/direktt/v1/recordEvent
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'TlVyilZDOJqgvAlcfekY',
+      'eventTarget' => 'chat',
+      'eventType' => 'message_seen',
+      'eventData' => '"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 12, 2024 3:03 pm"',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d03::2300',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '201',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"TlVyilZDOJqgvAlcfekY","eventTarget":"chat","eventType":"message_seen","eventData":"\\"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 12, 2024 3:03 pm\\""}',
+   'route' => '/direktt/v1/recordEvent',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'record_event',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 12th 2024, 22:24
+/wp-json/direktt/v1/recordEvent
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'TlVyilZDOJqgvAlcfekY',
+      'eventTarget' => 'chat',
+      'eventData' => '"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 12, 2024 3:20 pm"',
+      'eventType' => 'message_received',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d08::2d00',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '205',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"TlVyilZDOJqgvAlcfekY","eventTarget":"chat","eventData":"\\"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 12, 2024 3:20 pm\\"","eventType":"message_received"}',
+   'route' => '/direktt/v1/recordEvent',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'record_event',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 13th 2024, 15:12
+/wp-json/direktt/v1/recordEvent
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'TlVyilZDOJqgvAlcfekY',
+      'eventTarget' => 'chat',
+      'eventData' => '"Korisnik sa ID-ijem 1 i sa emailom dev-email@wpengine.local se ulogovao u August 13, 2024 8:12 am"',
+      'eventType' => 'message_received',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d00::2d00',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '209',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"TlVyilZDOJqgvAlcfekY","eventTarget":"chat","eventData":"\\"Korisnik sa ID-ijem 1 i sa emailom dev-email@wpengine.local se ulogovao u August 13, 2024 8:12 am\\"","eventType":"message_received"}',
+   'route' => '/direktt/v1/recordEvent',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'record_event',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 13th 2024, 17:32
+/wp-json/direktt/v1/recordEvent
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'TlVyilZDOJqgvAlcfekY',
+      'eventTarget' => 'chat',
+      'eventType' => 'message_seen',
+      'eventData' => '"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 12, 2024 3:20 pm"',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d04::3601',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '201',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"TlVyilZDOJqgvAlcfekY","eventTarget":"chat","eventType":"message_seen","eventData":"\\"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 12, 2024 3:20 pm\\""}',
+   'route' => '/direktt/v1/recordEvent',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'record_event',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+se,
+))
+#August 13th 2024, 18:53
+/wp-json/direktt/v1/recordEvent
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'TlVyilZDOJqgvAlcfekY',
+      'eventTarget' => 'chat',
+      'eventData' => '"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 13, 2024 11:53 am"',
+      'eventType' => 'message_received',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d05::2d00',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '206',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"TlVyilZDOJqgvAlcfekY","eventTarget":"chat","eventData":"\\"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 13, 2024 11:53 am\\"","eventType":"message_received"}',
+   'route' => '/direktt/v1/recordEvent',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'record_event',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 13th 2024, 18:53
+/wp-json/direktt/v1/recordEvent
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'TlVyilZDOJqgvAlcfekY',
+      'eventTarget' => 'chat',
+      'eventType' => 'message_seen',
+      'eventData' => '"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 13, 2024 11:53 am"',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d04::3600',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '202',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"TlVyilZDOJqgvAlcfekY","eventTarget":"chat","eventType":"message_seen","eventData":"\\"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 13, 2024 11:53 am\\""}',
+   'route' => '/direktt/v1/recordEvent',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'record_event',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 13th 2024, 18:57
+/wp-json/direktt/v1/recordEvent
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'TlVyilZDOJqgvAlcfekY',
+      'eventTarget' => 'chat',
+      'eventData' => '"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 13, 2024 11:57 am"',
+      'eventType' => 'message_received',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d05::2d00',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '206',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"TlVyilZDOJqgvAlcfekY","eventTarget":"chat","eventData":"\\"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 13, 2024 11:57 am\\"","eventType":"message_received"}',
+   'route' => '/direktt/v1/recordEvent',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'record_event',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 13th 2024, 18:58
+/wp-json/direktt/v1/recordEvent
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'TlVyilZDOJqgvAlcfekY',
+      'eventTarget' => 'chat',
+      'eventType' => 'message_seen',
+      'eventData' => '"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 13, 2024 11:57 am"',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d04::3600',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '202',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"TlVyilZDOJqgvAlcfekY","eventTarget":"chat","eventType":"message_seen","eventData":"\\"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 13, 2024 11:57 am\\""}',
+   'route' => '/direktt/v1/recordEvent',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'record_event',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 13th 2024, 18:58
+/wp-json/direktt/v1/recordEvent
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'TlVyilZDOJqgvAlcfekY',
+      'eventTarget' => 'chat',
+      'eventData' => '"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 13, 2024 11:58 am"',
+      'eventType' => 'message_received',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d05::2d00',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '206',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"TlVyilZDOJqgvAlcfekY","eventTarget":"chat","eventData":"\\"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 13, 2024 11:58 am\\"","eventType":"message_received"}',
+   'route' => '/direktt/v1/recordEvent',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'record_event',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 13th 2024, 19:01
+/wp-json/direktt/v1/recordEvent
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'TlVyilZDOJqgvAlcfekY',
+      'eventTarget' => 'chat',
+      'eventData' => '"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 13, 2024 12:00 pm"',
+      'eventType' => 'message_received',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d05::2d00',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '206',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"TlVyilZDOJqgvAlcfekY","eventTarget":"chat","eventData":"\\"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 13, 2024 12:00 pm\\"","eventType":"message_received"}',
+   'route' => '/direktt/v1/recordEvent',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'record_event',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 13th 2024, 19:01
+/wp-json/direktt/v1/recordEvent
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'TlVyilZDOJqgvAlcfekY',
+      'eventTarget' => 'chat',
+      'eventType' => 'message_seen',
+      'eventData' => '"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 13, 2024 11:58 am"',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d04::3600',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '202',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"TlVyilZDOJqgvAlcfekY","eventTarget":"chat","eventType":"message_seen","eventData":"\\"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 13, 2024 11:58 am\\""}',
+   'route' => '/direktt/v1/recordEvent',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'record_event',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 13th 2024, 19:01
+/wp-json/direktt/v1/recordEvent
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'TlVyilZDOJqgvAlcfekY',
+      'eventTarget' => 'chat',
+      'eventType' => 'message_seen',
+      'eventData' => '"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 13, 2024 12:00 pm"',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d04::3600',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '202',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"TlVyilZDOJqgvAlcfekY","eventTarget":"chat","eventType":"message_seen","eventData":"\\"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 13, 2024 12:00 pm\\""}',
+   'route' => '/direktt/v1/recordEvent',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'record_event',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 13th 2024, 19:03
+/wp-json/direktt/v1/recordEvent
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'TlVyilZDOJqgvAlcfekY',
+      'eventTarget' => 'chat',
+      'eventData' => '"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 13, 2024 12:03 pm"',
+      'eventType' => 'message_received',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d05::2d00',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '206',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"TlVyilZDOJqgvAlcfekY","eventTarget":"chat","eventData":"\\"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 13, 2024 12:03 pm\\"","eventType":"message_received"}',
+   'route' => '/direktt/v1/recordEvent',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'record_event',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 13th 2024, 19:03
+/wp-json/direktt/v1/recordEvent
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'TlVyilZDOJqgvAlcfekY',
+      'eventTarget' => 'chat',
+      'eventType' => 'message_seen',
+      'eventData' => '"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 13, 2024 12:03 pm"',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d04::3600',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '202',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"TlVyilZDOJqgvAlcfekY","eventTarget":"chat","eventType":"message_seen","eventData":"\\"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 13, 2024 12:03 pm\\""}',
+   'route' => '/direktt/v1/recordEvent',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'record_event',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 13th 2024, 19:26
+/wp-json/direktt/v1/recordEvent
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'TlVyilZDOJqgvAlcfekY',
+      'eventTarget' => 'chat',
+      'eventData' => '"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 13, 2024 12:26 pm"',
+      'eventType' => 'message_received',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d03::2d00',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '206',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"TlVyilZDOJqgvAlcfekY","eventTarget":"chat","eventData":"\\"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 13, 2024 12:26 pm\\"","eventType":"message_received"}',
+   'route' => '/direktt/v1/recordEvent',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'record_event',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 13th 2024, 19:26
+/wp-json/direktt/v1/recordEvent
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'TlVyilZDOJqgvAlcfekY',
+      'eventTarget' => 'chat',
+      'eventData' => '"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 13, 2024 12:26 pm"',
+      'eventType' => 'message_received',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d03::2d00',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '206',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"TlVyilZDOJqgvAlcfekY","eventTarget":"chat","eventData":"\\"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 13, 2024 12:26 pm\\"","eventType":"message_received"}',
+   'route' => '/direktt/v1/recordEvent',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'record_event',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 13th 2024, 19:26
+/wp-json/direktt/v1/recordEvent
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'TlVyilZDOJqgvAlcfekY',
+      'eventTarget' => 'chat',
+      'eventType' => 'message_seen',
+      'eventData' => '"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 13, 2024 12:26 pm"',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d03::2300',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '202',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"TlVyilZDOJqgvAlcfekY","eventTarget":"chat","eventType":"message_seen","eventData":"\\"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 13, 2024 12:26 pm\\""}',
+   'route' => '/direktt/v1/recordEvent',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'record_event',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 13th 2024, 19:26
+/wp-json/direktt/v1/recordEvent
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'TlVyilZDOJqgvAlcfekY',
+      'eventTarget' => 'chat',
+      'eventType' => 'message_seen',
+      'eventData' => '"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 13, 2024 12:26 pm"',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d03::2300',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '202',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"TlVyilZDOJqgvAlcfekY","eventTarget":"chat","eventType":"message_seen","eventData":"\\"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 13, 2024 12:26 pm\\""}',
+   'route' => '/direktt/v1/recordEvent',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'record_event',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 13th 2024, 19:32
+/wp-json/direktt/v1/recordEvent
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'TlVyilZDOJqgvAlcfekY',
+      'eventTarget' => 'chat',
+      'eventData' => '"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 13, 2024 12:32 pm"',
+      'eventType' => 'message_received',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d03::2d00',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '206',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"TlVyilZDOJqgvAlcfekY","eventTarget":"chat","eventData":"\\"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 13, 2024 12:32 pm\\"","eventType":"message_received"}',
+   'route' => '/direktt/v1/recordEvent',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'record_event',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 13th 2024, 19:33
+/wp-json/direktt/v1/recordEvent
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'TlVyilZDOJqgvAlcfekY',
+      'eventTarget' => 'chat',
+      'eventData' => '"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 13, 2024 12:33 pm"',
+      'eventType' => 'message_received',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d03::2d00',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '206',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"TlVyilZDOJqgvAlcfekY","eventTarget":"chat","eventData":"\\"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 13, 2024 12:33 pm\\"","eventType":"message_received"}',
+   'route' => '/direktt/v1/recordEvent',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'record_event',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 13th 2024, 19:33
+/wp-json/direktt/v1/recordEvent
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'TlVyilZDOJqgvAlcfekY',
+      'eventTarget' => 'chat',
+      'eventType' => 'message_seen',
+      'eventData' => '"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 13, 2024 12:33 pm"',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d03::3401',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '202',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"TlVyilZDOJqgvAlcfekY","eventTarget":"chat","eventType":"message_seen","eventData":"\\"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 13, 2024 12:33 pm\\""}',
+   'route' => '/direktt/v1/recordEvent',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'record_event',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))
+#August 13th 2024, 19:33
+/wp-json/direktt/v1/recordEvent
+WP_REST_Request::__set_state(array(
+   'method' => 'POST',
+   'params' => 
+  array (
+    'URL' => 
+    array (
+    ),
+    'GET' => 
+    array (
+    ),
+    'POST' => 
+    array (
+    ),
+    'FILES' => 
+    array (
+    ),
+    'JSON' => 
+    array (
+      'subscriptionId' => 'TlVyilZDOJqgvAlcfekY',
+      'eventTarget' => 'chat',
+      'eventType' => 'message_seen',
+      'eventData' => '"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 13, 2024 12:32 pm"',
+    ),
+    'defaults' => 
+    array (
+    ),
+  ),
+   'headers' => 
+  array (
+    'x_forwarded_proto' => 
+    array (
+      0 => 'https',
+    ),
+    'x_forwarded_host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+    'x_forwarded_for' => 
+    array (
+      0 => '2600:1900:0:2d03::3401',
+    ),
+    'content_type' => 
+    array (
+      0 => 'application/json',
+    ),
+    'authorization' => 
+    array (
+      0 => 'Bearer 5821871c-2dc1-4f13-bc11-a57012346d1d',
+    ),
+    'accept_encoding' => 
+    array (
+      0 => 'gzip,deflate',
+    ),
+    'accept' => 
+    array (
+      0 => '*/*',
+    ),
+    'content_length' => 
+    array (
+      0 => '202',
+    ),
+    'user_agent' => 
+    array (
+      0 => 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)',
+    ),
+    'host' => 
+    array (
+      0 => 'direktt.ngrok.dev',
+    ),
+  ),
+   'body' => '{"subscriptionId":"TlVyilZDOJqgvAlcfekY","eventTarget":"chat","eventType":"message_seen","eventData":"\\"Korisnik sa ID-ijem 8 i sa emailom KTXS3DeL@direktt.com se ulogovao u August 13, 2024 12:32 pm\\""}',
+   'route' => '/direktt/v1/recordEvent',
+   'attributes' => 
+  array (
+    'methods' => 
+    array (
+      'POST' => true,
+    ),
+    'accept_json' => false,
+    'accept_raw' => false,
+    'show_in_index' => true,
+    'args' => 
+    array (
+    ),
+    'callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'record_event',
+    ),
+    'permission_callback' => 
+    array (
+      0 => 
+      Direktt_Api::__set_state(array(
+         'plugin_name' => 'direktt',
+         'version' => '1.0.0',
+         'namespace' => 'direktt/v1',
+      )),
+      1 => 'api_validate_api_key',
+    ),
+  ),
+   'parsed_json' => true,
+   'parsed_body' => false,
+))

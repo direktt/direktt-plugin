@@ -89,7 +89,7 @@ class Direktt {
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'register_menu_page_end');
 		$this->loader->add_action( 'parent_file', $plugin_admin, 'highlight_direktt_submenu');
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_plugin_assets' );
-		$this->loader->add_action( 'init', $plugin_admin, 'register_custom_post_types' );
+		$this->loader->add_action( 'init', $plugin_admin, 'register_custom_post_types', 5 );
 		//$this->loader->add_action( 'admin_notices', $plugin_admin, 'display_admin_notice' );
 
 		$this->loader->add_action( 'add_meta_boxes_page', $plugin_admin, 'page_direktt_custom_box' );

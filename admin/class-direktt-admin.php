@@ -83,68 +83,6 @@ class Direktt_Admin
 	public function register_custom_post_types()
 	{
 
-		// User Categories
-
-		$labels = array(
-			'name'              => _x('User Categories', 'taxonomy general name', 'direktt'),
-			'singular_name'     => _x('User Category', 'taxonomy singular name', 'direktt'),
-			'search_items'      => __('Search Categories', 'direktt'),
-			'all_items'         => __('All Categories', 'direktt'),
-			'parent_item'       => __('Parent Category', 'direktt'),
-			'parent_item_colon' => __('Parent Category:', 'direktt'),
-			'edit_item'         => __('Edit Category', 'direktt'),
-			'update_item'       => __('Update Category', 'direktt'),
-			'add_new_item'      => __('Add New Category', 'direktt'),
-			'new_item_name'     => __('New Category Name', 'direktt'),
-			'menu_name'         => __('Category', 'direktt'),
-		);
-		$args   = array(
-			'hierarchical'      => true,
-			'public'			=> false,
-			'labels'            => $labels,
-			'show_ui'           => true,
-			'show_admin_column' => true,
-			'show_in_menu'      => 'direktt-dashboard',
-			'show_in_nav_menus' => true,
-			'query_var'         => true,
-			'show_in_rest'	=> false,
-			'publicly_queryable'  => false
-		);
-
-		register_taxonomy('direkttusercategories', ['direkttusers'], $args);
-
-		// User Tags
-
-		$labels = array(
-			'name'              => _x('User Tags', 'taxonomy general name', 'direktt'),
-			'singular_name'     => _x('User Tag', 'taxonomy singular name', 'direktt'),
-			'search_items'      => __('Search Tags', 'direktt'),
-			'all_items'         => __('All Tags', 'direktt'),
-			'parent_item'       => __('Parent Tag', 'direktt'),
-			'parent_item_colon' => __('Parent Tag:', 'direktt'),
-			'edit_item'         => __('Edit Tag', 'direktt'),
-			'update_item'       => __('Update Tag', 'direktt'),
-			'add_new_item'      => __('Add New Tag', 'direktt'),
-			'new_item_name'     => __('New Tag Name', 'direktt'),
-			'menu_name'         => __('Tag', 'direktt'),
-		);
-		$args   = array(
-			'hierarchical'      => false, // make it hierarchical (like categories)
-			'public'			=> false,
-			'labels'            => $labels,
-			'show_ui'           => true,
-			'show_admin_column' => true,
-			'show_in_menu'      => 'direktt-dashboard',
-			'show_in_nav_menus' => true,
-			'query_var'         => true,
-			'show_in_rest'	=> false,
-			'publicly_queryable'  => false
-		);
-
-		register_taxonomy('direkttusertags', ['direkttusers'], $args);
-
-		// Users
-
 		$labels = array(
 			'name'                => __('Direktt Users', 'direktt'),
 			'singular_name'       => __('Direktt User',  'direktt'),
@@ -174,7 +112,7 @@ class Direktt_Admin
 			'menu_position'       => 5,
 			'can_export'          => true,
 			'has_archive'         => false,
-			'exclude_from_search' => true,
+			'exclude_from_search' => false,
 			'publicly_queryable'  => false,
 			'capability_type'     => 'post',
 			'capabilities'          => array(
@@ -186,6 +124,66 @@ class Direktt_Admin
 		);
 
 		register_post_type('direkttusers', $args);
+
+		// User Categories
+
+		$labels = array(
+			'name'              => _x('User Categories', 'taxonomy general name', 'direktt'),
+			'singular_name'     => _x('User Category', 'taxonomy singular name', 'direktt'),
+			'search_items'      => __('Search Categories', 'direktt'),
+			'all_items'         => __('All Categories', 'direktt'),
+			'parent_item'       => __('Parent Category', 'direktt'),
+			'parent_item_colon' => __('Parent Category:', 'direktt'),
+			'edit_item'         => __('Edit Category', 'direktt'),
+			'update_item'       => __('Update Category', 'direktt'),
+			'add_new_item'      => __('Add New Category', 'direktt'),
+			'new_item_name'     => __('New Category Name', 'direktt'),
+			'menu_name'         => __('Category', 'direktt'),
+		);
+		$args   = array(
+			'hierarchical'      => true,
+			'public'			=> false,
+			'labels'            => $labels,
+			'show_ui'           => true,
+			'show_admin_column' => true,
+			'show_in_menu'      => 'direktt-dashboard',
+			'show_in_nav_menus' => true,
+			'query_var'         => false,
+			'show_in_rest'	=> false,
+			'publicly_queryable'  => false
+		);
+
+		register_taxonomy('direkttusercategories', ['direkttusers'], $args);
+
+		// User Tags
+
+		$labels = array(
+			'name'              => _x('User Tags', 'taxonomy general name', 'direktt'),
+			'singular_name'     => _x('User Tag', 'taxonomy singular name', 'direktt'),
+			'search_items'      => __('Search Tags', 'direktt'),
+			'all_items'         => __('All Tags', 'direktt'),
+			'parent_item'       => __('Parent Tag', 'direktt'),
+			'parent_item_colon' => __('Parent Tag:', 'direktt'),
+			'edit_item'         => __('Edit Tag', 'direktt'),
+			'update_item'       => __('Update Tag', 'direktt'),
+			'add_new_item'      => __('Add New Tag', 'direktt'),
+			'new_item_name'     => __('New Tag Name', 'direktt'),
+			'menu_name'         => __('Tag', 'direktt'),
+		);
+		$args   = array(
+			'hierarchical'      => true, // make it hierarchical (like categories)
+			'public'			=> false,
+			'labels'            => $labels,
+			'show_ui'           => true,
+			'show_admin_column' => true,
+			'show_in_menu'      => 'direktt-dashboard',
+			'show_in_nav_menus' => true,
+			'query_var'         => false,
+			'show_in_rest'	=> false,
+			'publicly_queryable'  => false
+		);
+
+		register_taxonomy('direkttusertags', ['direkttusers'], $args);
 
 		// User role direktt
 
