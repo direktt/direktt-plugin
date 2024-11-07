@@ -67,3 +67,6 @@ dist/
 
 #js
 /js/
+
+#logs
+/public/*.txt
