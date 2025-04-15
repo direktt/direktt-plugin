@@ -33,7 +33,7 @@ class Direktt_Api
 
 		register_rest_route('direktt/v1', '/doAction/', array(
 			'methods' => 'POST',
-			'callback' => array($this, 'do_action'),
+			'callback' => array($this, 'do_direktt_action'),
 			'args' => array(),
 			'permission_callback' => array($this, 'api_validate_api_key')
 		));
@@ -122,7 +122,7 @@ class Direktt_Api
 		}
 	}
 
-	public function do_action(WP_REST_Request $request)
+	public function do_direktt_action(WP_REST_Request $request)
 	{
 		$this->api_log($request);
 		$parameters = json_decode($request->get_body(), true);
@@ -130,6 +130,8 @@ class Direktt_Api
 		if (array_key_exists('actionType', $parameters)) {
 			$action_type = sanitize_text_field($parameters['actionType']);
 
+			do_action("direktt/action/" . $action_type, $parameters);
+			
 			$data = array();
 			wp_send_json_success($data, 200);
 			
@@ -137,6 +139,8 @@ class Direktt_Api
 			wp_send_json_error(new WP_Error('Missing param', 'Action Type is missing'), 400);
 		}
 	}
+
+	// Called once user scans QR code and becomes the app admin user
 
 	public function on_set_admin_user(WP_REST_Request $request)
 	{

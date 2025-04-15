@@ -196,7 +196,7 @@ class Direktt_User
 
 		if ($user) {
 
-			wp_delete_post($user['ID'], true);
+			//wp_delete_post($user['ID'], true);
 
 			Direktt_User::delete_wp_direktt_user($user['ID']);
 
