@@ -35,6 +35,8 @@ class Direktt_Admin
 	public function register_menu_page_end()
 	{
 
+
+
 		add_submenu_page(
 			'direktt-dashboard',
 			__('User Categories', 'direktt'),
@@ -188,6 +190,49 @@ class Direktt_Admin
 		// User role direktt
 
 		add_role('direktt', 'Direktt User', array());
+
+		// Message templates
+
+		$labels = array(
+			'name'                => __('Message Templates', 'direktt'),
+			'singular_name'       => __('Message Template',  'direktt'),
+			'menu_name'           => __('Direktt', 'direktt'),
+			'all_items'           => __('Message Templates', 'direktt'),
+			'view_item'           => __('View Message Template', 'direktt'),
+			'add_new_item'        => __('Add New Message Template', 'direktt'),
+			'add_new'             => __('Add New', 'direktt'),
+			'edit_item'           => __('Edit Message Template', 'direktt'),
+			'update_item'         => __('Update Message Template', 'direktt'),
+			'search_items'        => __('Search Message Templates', 'direktt'),
+			'not_found'           => __('Not Found', 'direktt'),
+			'not_found_in_trash'  => __('Not found in Trash', 'direktt'),
+		);
+
+		$args = array(
+			'label'               => __('message templates', 'direktt'),
+			'description'         => __('Message Templates', 'direktt'),
+			'labels'              => $labels,
+			'supports'            => array('title'),
+			'hierarchical'        => false,
+			'public'              => false,
+			'show_ui'             => true,
+			'show_in_menu'        => 'direktt-dashboard',
+			'show_in_nav_menus'   => true,
+			'show_in_admin_bar'   => true,
+			'menu_position'       => 5,
+			'can_export'          => true,
+			'has_archive'         => false,
+			'exclude_from_search' => false,
+			'publicly_queryable'  => false,
+			'capability_type'     => 'post',
+			'capabilities'          => array(
+				// todo Srediti prava za new i edit ako ikako moze, ako ne, ostaviti new
+				//'create_posts' => 'do_not_allow', 
+				//'edit_posts' => 'allow' 
+			),
+			'show_in_rest'	=> false,
+		);
+		register_post_type('direkttmtemplates', $args);
 	}
 
 	// todo skloniti jer nam realno ne treba
@@ -360,7 +405,7 @@ class Direktt_Admin
 						<tr>
 							<th scope="row"><label for="direktt_test_user_id">Post Id of related Direktt User:</label></th>
 							<td>
-								<b><?php echo esc_attr($direktt_user_id); ?> - <?php echo '<a href="' . esc_url(get_edit_post_link($direktt_user_id)) . '">View Post</a>'?></b>
+								<b><?php echo esc_attr($direktt_user_id); ?> - <?php echo '<a href="' . esc_url(get_edit_post_link($direktt_user_id)) . '">View Post</a>' ?></b>
 							</td>
 						</tr>
 
@@ -374,7 +419,7 @@ class Direktt_Admin
 						</tr>
 
 					<?php
-						
+
 					} else if (! empty($direktt_user_pair_code)) {
 					?>
 
@@ -395,7 +440,7 @@ class Direktt_Admin
 						</tr>
 
 					<?php
-						
+
 					}
 
 					?>
@@ -420,7 +465,7 @@ class Direktt_Admin
 		if (isset($_POST['direktt_update_code'])) {
 			delete_user_meta($userId, 'direktt_user_pair_code');
 		}
-		
+
 		if (isset($_POST['direktt_delete_relation'])) {
 			delete_user_meta($userId, 'direktt_user_id');
 		}
@@ -497,5 +542,55 @@ class Direktt_Admin
 		}
 
 		return $post_id;
+	}
+
+	function direkttmtemplates_add_custom_box()
+	{
+		add_meta_box(
+			'direkttMTJson_textarea',           // ID
+			__('Message JSON Content', 'direktt'),                       // Title
+			[$this, 'direkttmtemplates_render_textarea'],    // Callback function
+			'direkttmtemplates',                    // CPT slug
+			'normal',                        // Context
+			'high'                           // Priority
+		);
+	}
+
+	function direkttmtemplates_render_textarea($post) {
+		$value = get_post_meta($post->ID, 'direkttMTJson', true);
+		
+		echo '<textarea style="width:100%" rows="10" name="direktt_mt_json">' . esc_textarea($value) . '</textarea>';
+
+		// Get stored value or default
+		$dropdown_value = get_post_meta($post->ID, 'direkttMTType', true);
+
+		if (!$dropdown_value) $dropdown_value = 'all';
+	
+		echo '<p><label for="direktt_mt_type"><strong>' . __('Message Type', 'direktt') . '</strong></label> ';
+		echo '<select name="direktt_mt_type" id="direktt_mt_type">';
+		echo '<option value="all"' . selected($dropdown_value, 'all', false) . '>' . __('All Messages', 'direktt') . '</option>';
+		echo '<option value="bulk"' . selected($dropdown_value, 'bulk', false) . '>' . __('Only Bulk Messages', 'direktt') . '</option>';
+		echo '<option value="individual"' . selected($dropdown_value, 'individual', false) . '>' . __('Only Individual Messages', 'direktt') . '</option>';
+		echo '</select></p>';
+
+		// Security nonce
+		wp_nonce_field('direktt_mt_json_nonce', 'direktt_mt_json_nonce');
+	}
+
+	function direkttmtemplates_save_meta_box_data($post_id) {
+		if (!isset($_POST['direktt_mt_json_nonce']) ||
+			!wp_verify_nonce($_POST['direktt_mt_json_nonce'], 'direktt_mt_json_nonce')) {
+			return;
+		}
+		if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
+		if (isset($_POST['post_type']) && 'direkttmtemplates' === $_POST['post_type']) {
+			$content = sanitize_textarea_field($_POST['direktt_mt_json']);
+			update_post_meta($post_id, 'direkttMTJson', $content);
+		}
+
+		if (isset($_POST['direktt_mt_type'])) {
+			$dropdown_value = sanitize_text_field($_POST['direktt_mt_type']);
+			update_post_meta($post_id, 'direkttMTType', $dropdown_value);
+		}
 	}
 }

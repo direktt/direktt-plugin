@@ -333,10 +333,10 @@ class Direktt_User
 
 		// If the meta field is not set or is empty, generate a new 6-digit code
 		if (empty($pair_code)) {
-			$pair_code = str_pad(mt_rand(0, 999999), 6, '0', STR_PAD_LEFT);
+			$pair_code = "pair" . str_pad(mt_rand(0, 999999), 6, '0', STR_PAD_LEFT);
 
 			// Save the new code to the user's meta field
-			update_user_meta($user_id, $meta_key, "pair" . $pair_code);
+			update_user_meta($user_id, $meta_key, $pair_code);
 		}
 
 		// Return the existing or newly generated code

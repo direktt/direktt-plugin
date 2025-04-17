@@ -92,8 +92,12 @@ class Direktt {
 		$this->loader->add_action( 'init', $plugin_admin, 'register_custom_post_types', 5 );
 		//$this->loader->add_action( 'admin_notices', $plugin_admin, 'display_admin_notice' );
 
+		$this->loader->add_action( 'add_meta_boxes', $plugin_admin, 'direkttmtemplates_add_custom_box' );
+
 		$this->loader->add_action( 'add_meta_boxes_page', $plugin_admin, 'page_direktt_custom_box' );
+		
 		$this->loader->add_action( 'save_post', $plugin_admin, 'save_direktt_custom_box', 10, 2 );
+		$this->loader->add_action( 'save_post', $plugin_admin, 'direkttmtemplates_save_meta_box_data');
 		
 		$this->loader->add_action( 'edit_form_after_editor', $plugin_admin, 'render_meta_panel' );
 
