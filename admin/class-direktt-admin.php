@@ -13,6 +13,7 @@ class Direktt_Admin
 
 	public function register_menu_page()
 	{
+
 		add_menu_page(
 			__('Direktt', 'direktt'),
 			__('Direktt', 'direktt'),
@@ -34,8 +35,6 @@ class Direktt_Admin
 
 	public function register_menu_page_end()
 	{
-
-
 
 		add_submenu_page(
 			'direktt-dashboard',
@@ -62,6 +61,30 @@ class Direktt_Admin
 			'manage_options',
 			'direktt-settings',
 			[$this, 'render_admin_page']
+		);
+
+		/*add_submenu_page(
+			'direktt-dashboard',
+			__('Hello', 'direktt'),
+			__('Hello', 'direktt'),
+			'manage_options',
+			'direktt-hello',
+			[$this, 'render_hello']
+		);*/
+
+	}
+
+	public function setup_settings_pages(){
+		do_action('direktt_setup_settings_pages');
+	}
+
+	public function on_setup_settings_pages(){
+		Direktt::add_settings_page(
+			array(
+				"id" => "bulk-message",
+				"label" => __('Bulk Messaging Settings', 'direktt'),
+				"callback" => [$this, 'render_bulk_message_settings']
+			)
 		);
 	}
 
@@ -366,8 +389,56 @@ class Direktt_Admin
 
 	public function render_admin_page()
 	{
+		$active_tab = isset($_GET['subpage']) ? $_GET['subpage'] : '';
+
+		if ($active_tab == '') {
 		?>
-		<div id="app"></div>
+			<div id="app"></div>
+		<?php
+		} else {
+			foreach (Direktt::$settings_array as $item) {
+				if ( isset( $item['id'] ) && $active_tab == $item['id'] ) {
+					echo('<h1>' . $item['label'] . '</h1>');
+					call_user_func($item['callback']);
+				} 
+			}
+		}
+
+		$url = $_SERVER['REQUEST_URI'];
+		$parts = parse_url($url);
+
+		if( !empty(Direktt::$settings_array) ){
+			parse_str($parts['query'] ?? '', $params);
+			unset($params['subpage']);
+			$newQuery = http_build_query($params);
+			$newUri = $parts['path'] . ($newQuery ? '?' . $newQuery : '');
+			echo('<p><a href="' . $newUri . '">' . __('Direktt Settings', 'direktt') . '</a></p>');
+		}
+
+		foreach (Direktt::$settings_array as $item) {
+			if ( isset( $item['label'] ) ) {
+				parse_str($parts['query'] ?? '', $params);
+				$params['subpage'] = $item['id'];
+				$newQuery = http_build_query($params);
+				$newUri = $parts['path'] . ($newQuery ? '?' . $newQuery : '');
+				echo('<p><a href="' . $newUri . '">' . $item['label'] . '</a></p>');
+			} 
+		}
+
+		$url = $_SERVER['REQUEST_URI'];
+		$parts = parse_url($url);
+
+		parse_str($parts['query'] ?? '', $params);
+
+		$params['foo'] = 'new_value'; 
+		unset($params['bar']); 
+
+	}
+
+	public function render_bulk_message_settings()
+	{
+		?>
+		Hello
 	<?php
 	}
 
@@ -556,30 +627,35 @@ class Direktt_Admin
 		);
 	}
 
-	function direkttmtemplates_render_textarea($post) {
+	function direkttmtemplates_render_textarea($post)
+	{
 		$value = get_post_meta($post->ID, 'direkttMTJson', true);
-		
+
 		echo '<textarea style="width:100%" rows="10" name="direktt_mt_json">' . esc_textarea($value) . '</textarea>';
 
 		// Get stored value or default
 		$dropdown_value = get_post_meta($post->ID, 'direkttMTType', true);
 
 		if (!$dropdown_value) $dropdown_value = 'all';
-	
+
 		echo '<p><label for="direktt_mt_type"><strong>' . __('Message Type', 'direktt') . '</strong></label> ';
 		echo '<select name="direktt_mt_type" id="direktt_mt_type">';
 		echo '<option value="all"' . selected($dropdown_value, 'all', false) . '>' . __('All Messages', 'direktt') . '</option>';
 		echo '<option value="bulk"' . selected($dropdown_value, 'bulk', false) . '>' . __('Only Bulk Messages', 'direktt') . '</option>';
 		echo '<option value="individual"' . selected($dropdown_value, 'individual', false) . '>' . __('Only Individual Messages', 'direktt') . '</option>';
+		echo '<option value="none"' . selected($dropdown_value, 'none', false) . '>' . __('Use it only via API', 'direktt') . '</option>';
 		echo '</select></p>';
 
 		// Security nonce
 		wp_nonce_field('direktt_mt_json_nonce', 'direktt_mt_json_nonce');
 	}
 
-	function direkttmtemplates_save_meta_box_data($post_id) {
-		if (!isset($_POST['direktt_mt_json_nonce']) ||
-			!wp_verify_nonce($_POST['direktt_mt_json_nonce'], 'direktt_mt_json_nonce')) {
+	function direkttmtemplates_save_meta_box_data($post_id)
+	{
+		if (
+			!isset($_POST['direktt_mt_json_nonce']) ||
+			!wp_verify_nonce($_POST['direktt_mt_json_nonce'], 'direktt_mt_json_nonce')
+		) {
 			return;
 		}
 		if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;

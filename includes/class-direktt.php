@@ -2,6 +2,8 @@
 
 class Direktt {
 
+	static $settings_array = array();
+
 	protected Direktt_Loader $loader;
 
 	protected string $plugin_name;
@@ -87,6 +89,10 @@ class Direktt {
 		
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'register_menu_page', 9 );
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'register_menu_page_end');
+		$this->loader->add_action( 'admin_menu', $plugin_admin, 'setup_settings_pages');
+
+		$this->loader->add_action( 'direktt_setup_settings_pages', $plugin_admin, 'on_setup_settings_pages');
+
 		$this->loader->add_action( 'parent_file', $plugin_admin, 'highlight_direktt_submenu');
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_plugin_assets' );
 		$this->loader->add_action( 'init', $plugin_admin, 'register_custom_post_types', 5 );
@@ -156,5 +162,9 @@ class Direktt {
 
 	public function get_version(): string {
 		return $this->version;
+	}
+
+	static function add_settings_page( $params ) {
+		Direktt::$settings_array[] = $params;
 	}
 }
