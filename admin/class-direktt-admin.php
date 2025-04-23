@@ -71,14 +71,15 @@ class Direktt_Admin
 			'direktt-hello',
 			[$this, 'render_hello']
 		);*/
-
 	}
 
-	public function setup_settings_pages(){
+	public function setup_settings_pages()
+	{
 		do_action('direktt_setup_settings_pages');
 	}
 
-	public function on_setup_settings_pages(){
+	public function on_setup_settings_pages()
+	{
 		Direktt::add_settings_page(
 			array(
 				"id" => "bulk-message",
@@ -397,32 +398,32 @@ class Direktt_Admin
 		<?php
 		} else {
 			foreach (Direktt::$settings_array as $item) {
-				if ( isset( $item['id'] ) && $active_tab == $item['id'] ) {
-					echo('<h1>' . $item['label'] . '</h1>');
+				if (isset($item['id']) && $active_tab == $item['id']) {
+					echo ('<h1>' . $item['label'] . '</h1>');
 					call_user_func($item['callback']);
-				} 
+				}
 			}
 		}
 
 		$url = $_SERVER['REQUEST_URI'];
 		$parts = parse_url($url);
 
-		if( !empty(Direktt::$settings_array) ){
+		if (!empty(Direktt::$settings_array)) {
 			parse_str($parts['query'] ?? '', $params);
 			unset($params['subpage']);
 			$newQuery = http_build_query($params);
 			$newUri = $parts['path'] . ($newQuery ? '?' . $newQuery : '');
-			echo('<p><a href="' . $newUri . '">' . __('Direktt Settings', 'direktt') . '</a></p>');
+			echo ('<p><a href="' . $newUri . '">' . __('Direktt Settings', 'direktt') . '</a></p>');
 		}
 
 		foreach (Direktt::$settings_array as $item) {
-			if ( isset( $item['label'] ) ) {
+			if (isset($item['label'])) {
 				parse_str($parts['query'] ?? '', $params);
 				$params['subpage'] = $item['id'];
 				$newQuery = http_build_query($params);
 				$newUri = $parts['path'] . ($newQuery ? '?' . $newQuery : '');
-				echo('<p><a href="' . $newUri . '">' . $item['label'] . '</a></p>');
-			} 
+				echo ('<p><a href="' . $newUri . '">' . $item['label'] . '</a></p>');
+			}
 		}
 
 		$url = $_SERVER['REQUEST_URI'];
@@ -430,9 +431,8 @@ class Direktt_Admin
 
 		parse_str($parts['query'] ?? '', $params);
 
-		$params['foo'] = 'new_value'; 
-		unset($params['bar']); 
-
+		$params['foo'] = 'new_value';
+		unset($params['bar']);
 	}
 
 	public function render_bulk_message_settings()
@@ -452,23 +452,29 @@ class Direktt_Admin
 
 	public function render_user_meta_panel($user)
 	{
-		if ($user instanceof WP_User && !in_array('direktt', $user->roles)) {
+
+		if ($user instanceof WP_User) {
+			//if ($user instanceof WP_User && !in_array('direktt', $user->roles)) {
 
 			$direktt_user_id = get_user_meta($user->ID, 'direktt_user_id', true);
 			$direktt_user_pair_code = Direktt_User::get_or_generate_user_pair_code($user->ID);
 
 		?>
-			<h2>Direktt Test User</h2>
+			<h2>Direktt User Properties</h2>
 			<table class="form-table" role="presentation">
 				<tbody v-if="data">
-					<tr>
-						<th scope="row"><label for="direktt_test_user_id">Post Id of Test Direktt User <p class="description">Post id of Direktt User which will be used on Direktt pages</p></label></th>
-						<td>
-							<input type="text" name="direktt_test_user_id" id="direktt_test_user_id" size="50" placeholder="Enter Direktt User Id here" value="<?php echo esc_attr(get_user_meta($user->ID, 'direktt_test_user_id', true)); ?>">
-						</td>
-					</tr>
+					<?php
+					if (!in_array('direktt', $user->roles)) {
+					?>
+						<tr>
+							<th scope="row"><label for="direktt_test_user_id">Post Id of Test Direktt User <p class="description">Post id of Direktt User which will be used on Direktt pages</p></label></th>
+							<td>
+								<input type="text" name="direktt_test_user_id" id="direktt_test_user_id" size="50" placeholder="Enter Direktt User Id here" value="<?php echo esc_attr(get_user_meta($user->ID, 'direktt_test_user_id', true)); ?>">
+							</td>
+						</tr>
 
 					<?php
+					}
 
 					if (! empty($direktt_user_id)) {
 					?>
@@ -564,6 +570,15 @@ class Direktt_Admin
 		$box_checked = $box_value ? 'checked' : 0;
 		$box_admin_value = intval(get_post_meta($post->ID, 'direktt_custom_admin_box', true)) === 1;
 		$box_admin_checked = $box_admin_value ? 'checked' : 0;
+
+		$direktt_user_categories = get_post_meta($post->ID, 'direktt_user_categories', true); // array
+		if (!is_array($direktt_user_categories)) $direktt_user_categories = array();
+
+		$category_terms = get_terms(array(
+			'taxonomy' => 'direkttusercategories',
+			'hide_empty' => false,
+		));
+
 		?>
 		<p>
 			<input id="direktt_custom_box" name="direktt_custom_box" type="checkbox" <?php echo $box_checked ?>>
@@ -572,6 +587,25 @@ class Direktt_Admin
 		<p>
 			<input id="direktt_custom_admin_box" name="direktt_custom_admin_box" type="checkbox" <?php echo $box_admin_checked ?>>
 			<label><?php echo __('Restrict access to Direktt admins', 'direktt') ?></label>
+		</p>
+		<p>
+			<strong>Allowed for Direktt Categories:</strong></p>
+			<p>
+			<?php
+			if (empty($category_terms) || is_wp_error($category_terms)) {
+				echo '<em>No Direktt User Categories found.</em>';
+				return;
+			}
+
+			foreach ($category_terms as $term) {
+				printf(
+					'<label><input type="checkbox" name="direktt_user_categories[]" value="%d" %s /> %s</label><br>',
+					esc_attr($term->term_id),
+					in_array($term->term_id, $direktt_user_categories) ? 'checked="checked"' : '',
+					esc_html($term->name)
+				);
+			}
+			?>
 		</p>
 <?php
 	}

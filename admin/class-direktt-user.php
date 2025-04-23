@@ -333,7 +333,14 @@ class Direktt_User
 
 		// If the meta field is not set or is empty, generate a new 6-digit code
 		if (empty($pair_code)) {
-			$pair_code = "pair" . str_pad(mt_rand(0, 999999), 6, '0', STR_PAD_LEFT);
+
+			$par_code_prefix = get_option('direktt_pairing_prefix', false);
+
+			if (!$par_code_prefix) {
+				$par_code_prefix = 'pair';
+			}
+
+			$pair_code = $par_code_prefix . str_pad(mt_rand(0, 999999), 6, '0', STR_PAD_LEFT);
 
 			// Save the new code to the user's meta field
 			update_user_meta($user_id, $meta_key, $pair_code);
@@ -345,16 +352,17 @@ class Direktt_User
 
 	function pair_wp_user_by_code($event)
 	{
+
 		function strip_special_chars($input)
 		{
 			// Use preg_replace to strip all characters except for a-z, A-Z, and 0-9
 			return preg_replace('/[^a-zA-Z0-9]/', '', $input);
 		}
 
-		function find_pair_code($string)
+		function find_pair_code($string, $pair_patt = 'pair')
 		{
 			// Define the regular expression pattern
-			$pattern = '/pair\d{6}/';
+			$pattern = '/' . $pair_patt . '\d{6}/';
 
 			// Use preg_match to find the code in the string
 			if (preg_match($pattern, $string, $matches)) {
@@ -366,8 +374,14 @@ class Direktt_User
 			}
 		}
 
+		$par_code_prefix = get_option('direktt_pairing_prefix', false);
+
+		if (!$par_code_prefix) {
+			$par_code_prefix = 'pair';
+		}
+
 		$event_data = strtolower(strip_special_chars($event["event_data"]));
-		$pair_code = find_pair_code($event_data);
+		$pair_code = find_pair_code($event_data, $par_code_prefix);
 
 		if ($pair_code) {
 
@@ -381,17 +395,45 @@ class Direktt_User
 
 				$meta_user_post = Direktt_User::get_user_by_subscription_id($event['direktt_user_id']);
 
-				foreach ($users as $user_id) {
-					// Delete the user
-					update_user_meta($user_id, 'direktt_user_id', $meta_user_post['ID']);
+				$users_to_remove = get_users( array(
+					'meta_key' => 'direktt_user_id',
+					'meta_value' => $meta_user_post['ID'],
+					'fields' => 'ID' // Return only user IDs
+				));
+
+				foreach ( $users_to_remove as $user_id_to_remove ){
+					delete_user_meta($user_id_to_remove, 'direktt_user_id');
+					delete_user_meta($user_id_to_remove, 'direktt_user_pair_code');
 				}
 
-				$pushNotificationMessage = array(
-					"type" =>  "text",
-					"content" => 'You have been paired'
-				);
+				$pairing_message_template = get_option('direktt_pairing_succ_template', false);
 
-				Direktt_Message::send_message(array($event['direktt_user_id']), $pushNotificationMessage);
+				foreach ($users as $user_id) {
+					
+					update_user_meta($user_id, 'direktt_user_id', $meta_user_post['ID']);
+					delete_user_meta($user_id, 'direktt_user_pair_code');
+
+					if( $pairing_message_template ){
+						
+						Direktt_Message::send_message_template(
+							array($event['direktt_user_id']), 
+							$pairing_message_template, 
+							[ 
+								"wp_user" =>  get_user_by( 'id', $user_id )->user_login 
+							]
+						);
+	
+					} else {
+	
+						$pushNotificationMessage = array(
+							"type" =>  "text",
+							"content" => 'You have been paired'
+						);
+		
+						Direktt_Message::send_message(array($event['direktt_user_id']), $pushNotificationMessage);
+	
+					}
+				}
 			}
 		}
 	}
@@ -403,7 +445,6 @@ class Direktt_User
 		$direktt_user_id = get_user_meta($user_id, 'direktt_user_id', true);
 
 		return Direktt_User::get_user_by_post_id($direktt_user_id);
-
 	}
 
 	static function get_user_by_wp_user($wp_user)
@@ -424,6 +465,17 @@ class Direktt_User
 		}
 
 		return $direktt_user;
-
 	}
+
+	static function delete_user_meta_for_all_users($meta_key) {
+		global $wpdb;
+	
+		$sql = $wpdb->prepare( 
+			"DELETE FROM {$wpdb->usermeta} WHERE meta_key = %s", 
+			$meta_key 
+		);
+	
+		$wpdb->query($sql);
+	}
+	
 }

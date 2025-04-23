@@ -54,6 +54,8 @@ class Direktt {
 
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-direktt-message.php';
 
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-direktt-message-template.php';
+
 		$this->loader = new Direktt_Loader();
 	}
 

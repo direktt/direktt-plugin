@@ -19,6 +19,8 @@ class Direktt_Ajax
 			return;
 		}
 
+		$templates = Direktt_Message_Template::get_templates(['all', 'none']);
+
 		$data = array(
 			'api_key' => get_option('direktt_api_key') ? esc_attr(get_option('direktt_api_key')) : '',
 			'activation_status' => get_option('direktt_activation_status') ? esc_attr(get_option('direktt_activation_status')) : 'false',
@@ -27,6 +29,9 @@ class Direktt_Ajax
 			'direktt_channel_id' => get_option('direktt_channel_id') ? esc_attr(get_option('direktt_channel_id')) : '',
 
 			'redirect_url' => get_option('unauthorized_redirect_url') ? esc_attr(get_option('unauthorized_redirect_url')) : '',
+			'pairing_prefix' => get_option('direktt_pairing_prefix') ? esc_attr(get_option('direktt_pairing_prefix')) : '',
+			'pairing_succ_template' => get_option('direktt_pairing_succ_template') ? esc_attr(get_option('direktt_pairing_succ_template')) : '',
+			'templates' => $templates
 		);
 
 		wp_send_json_success($data, 200);
@@ -105,6 +110,12 @@ class Direktt_Ajax
 
 		$url_choice = (isset($_POST['redirect_url'])) ? sanitize_text_field($_POST['redirect_url']) : false;
 
+		$pairing_prefix = (isset($_POST['pairing_prefix'])) ? sanitize_text_field($_POST['pairing_prefix']) : false;
+
+		$pairing_succ_template = (isset($_POST['pairing_succ_template'])) ? sanitize_text_field($_POST['pairing_succ_template']) : false;
+
+		$reset_pairings = (isset($_POST['reset_pairings'])) ? sanitize_text_field($_POST['reset_pairings']) : false;
+
 		if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], $this->plugin_name . '-settings')) {
 
 			wp_send_json_error(new WP_Error('Unauthorized', 'Nonce is not valid'), 401);
@@ -161,6 +172,22 @@ class Direktt_Ajax
 				update_option('unauthorized_redirect_url',  $url_choice);
 			} else {
 				delete_option('unauthorized_redirect_url');
+			}
+
+			if ($pairing_prefix) {
+				update_option('direktt_pairing_prefix',  $pairing_prefix);
+			} else {
+				delete_option('direktt_pairing_prefix');
+			}
+
+			if ($pairing_succ_template) {
+				update_option('direktt_pairing_succ_template',  $pairing_succ_template);
+			} else {
+				delete_option('direktt_pairing_succ_template');
+			}
+
+			if ($reset_pairings && $reset_pairings == "true"){
+				Direktt_User::delete_user_meta_for_all_users('direktt_user_pair_code');
 			}
 		}
 

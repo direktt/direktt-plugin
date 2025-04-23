@@ -12,8 +12,13 @@ const nonce = ref(direktt_settings_object.nonce)
 
 const api_key = ref('')
 const redirect_url = ref('')
+const pairing_prefix = ref('')
+const pairing_succ_template = ref('')
 const activation_status = ref(false)
 const save_loading = ref(false)
+const templates = ref([])
+const selected_template = ref({})
+const reset_pairings = ref(false)
 
 const snackbar = ref(false)
 const snackbar_color = ref('success')
@@ -74,16 +79,32 @@ async function getSettings() {
   api_key.value = response.data.api_key
   activation_status.value = (response.data.activation_status === 'true')
   redirect_url.value = response.data.redirect_url
+  pairing_prefix.value = response.data.pairing_prefix
+  pairing_succ_template.value = response.data.pairing_succ_template
+  templates.value = response.data.templates
 
+  selected_template.value = templates.value.find(
+    function(elem){
+      return elem.value == pairing_succ_template.value
+    }
+  )
   return ret
 }
 
 function clickSaveSettings() {
   save_loading.value = true
+
+  console.log( selected_template.value )
+
   mutation.mutate({
     api_key: api_key.value,
-    redirect_url: redirect_url.value
+    redirect_url: redirect_url.value,
+    pairing_prefix: pairing_prefix.value,
+    pairing_succ_template: selected_template.value.value,
+    reset_pairings: reset_pairings.value
   })
+
+  reset_pairings.value = false
 }
 
 async function saveSettings(obj) {
@@ -171,6 +192,39 @@ onMounted(() => {
           <th scope="row"><label for="blogname">Optional redirect url upon unaturhorized access</label></th>
           <td>
             <input type="text" name="unauthorized_redirect_url" id="unauthorized_redirect_url" size="50" placeholder="" v-model="redirect_url">
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p></p>
+    <v-divider class="border-opacity-100"></v-divider>
+    <p></p>
+    <table class="form-table" role="presentation">
+
+      <tbody v-if="data">
+        <tr>
+          <th scope="row"><label for="pairing_prefix">Prefix for pairing message</label></th>
+          <td>
+            <input type="text" name="pairing_prefix" id="pairing_prefix" size="50" placeholder="pair" v-model="pairing_prefix">
+          </td>
+        </tr>
+        <tr>
+          <th scope="row"><label for="blogname">Message template for successful pairing (you can use placeholder #wp_user# in the template to display WP username just paired with)</label></th>
+          <td>
+            <v-select
+              :items="templates"
+              v-model="selected_template"
+              label="Select Message Template"
+              width="500"
+              return-object
+            ></v-select>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row"><label for="blogname">Reset all pairing codes (Check this box if you want to do so)</label></th>
+          <td>
+            <input type="checkbox" name="pairing_reset" id="pairing_reset" v-model="reset_pairings">
           </td>
         </tr>
       </tbody>
