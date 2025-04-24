@@ -113,24 +113,26 @@ class Direktt_User
 		return $post_obj;
 	}
 
-	static function subscribe_user($direktt_user_id)
+	static function subscribe_user($direktt_user_id, $direktt_user_title = null, $direktt_user_avatar_url = null)
 	{
-		// $hierarchical_tax = array( 13, 10 ); // Array of tax ids.
-		// $non_hierarchical_terms = 'tax name 1, tax name 2'; // Can use array of ids or string of tax names separated by commas
+		$usr_title = $direktt_user_id;
+		if( !is_null( $direktt_user_title ) && $direktt_user_title != '' ){
+			$usr_title = $direktt_user_title;
+		}
+
+		$meta_input = array(
+			'direktt_user_id'	=> $direktt_user_id,
+		);
+
+		if( !is_null( $direktt_user_avatar_url ) && $direktt_user_avatar_url != '' ){
+			$meta_input['direktt_avatar_url'] = $direktt_user_avatar_url;
+		}
 
 		$post_arr = array(
 			'post_type'		=>	'direkttusers',
-			'post_title'   	=> 	$direktt_user_id,
-			//'post_content' 	=> 	'Test post content',
+			'post_title'   	=> 	$usr_title,
 			'post_status'  	=> 	'publish',
-			//'post_author'  	=> 	get_current_user_id(),
-			/* 'tax_input'    	=> 	array(
-				'hierarchical_tax'     => $hierarchical_tax,
-				'non_hierarchical_tax' => $non_hierarchical_terms,
-			), */
-			'meta_input'	=>	array(
-				'direktt_user_id'	=> $direktt_user_id,
-			),
+			'meta_input'	=>	$meta_input,
 		);
 
 		$wp_error = false;
@@ -199,6 +201,7 @@ class Direktt_User
 			//wp_delete_post($user['ID'], true);
 
 			Direktt_User::delete_wp_direktt_user($user['ID']);
+			wp_trash_post($user['ID']);
 
 			Direktt_Event::insert_event(
 				array(
@@ -207,7 +210,6 @@ class Direktt_User
 					"event_type" => "unsubscribe"
 				)
 			);
-
 			do_action('direktt/user/unsubscribe', $direktt_user_id);
 		}
 	}
@@ -283,18 +285,32 @@ class Direktt_User
 	{
 		require_once(ABSPATH . 'wp-admin/includes/user.php');
 
-		// Query users by meta key and value
+		// Delete users which were assoicated with the Direktt User with subscriptionId equal to $direktt_user_id but only with role direktt
+		$users = get_users(array(
+			'meta_key' => 'direktt_user_id',
+			'meta_value' => $direktt_user_id,
+			'role'       => 'direktt',
+			'fields' => 'ID' // Return only user IDs
+		));
+
+		if (!empty($users)) {
+			foreach ($users as $user_id) {
+				// Delete the user
+				wp_delete_user(intval($user_id));
+			}
+		}
+
+		// For users with other roles, remove the reference to the direktt user
 		$users = get_users(array(
 			'meta_key' => 'direktt_user_id',
 			'meta_value' => $direktt_user_id,
 			'fields' => 'ID' // Return only user IDs
 		));
 
-		// Check if users were found
 		if (!empty($users)) {
 			foreach ($users as $user_id) {
-				// Delete the user
-				wp_delete_user(intval($user_id));
+				// Delete the user meta for users which are not WP users
+				delete_user_meta(intval($user_id), 'direktt_user_id');
 			}
 		}
 	}

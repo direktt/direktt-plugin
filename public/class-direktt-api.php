@@ -79,28 +79,18 @@ class Direktt_Api
 			'args' => array(),
 			'permission_callback' => array($this, 'api_validate_api_key')
 		));
-
-		//todo ukloniti na kraju
-
-		register_rest_route('direktt/v1', '/test/', array(
-			'methods' => 'POST',
-			'callback' => array($this, 'api_test'),
-			'args' => array(),
-			'permission_callback' => array($this, 'api_validate_api_key')
-		));
 	}
 
 	public function activate_channel(WP_REST_Request $request)
 	{
-		$this->api_log($request);
 
 		$parameters = json_decode($request->get_body(), true);
 
-		if ( array_key_exists('domain', $parameters) && array_key_exists('title', $parameters) && array_key_exists('uid', $parameters) )  {
-			
+		if (array_key_exists('domain', $parameters) && array_key_exists('title', $parameters) && array_key_exists('uid', $parameters)) {
+
 			$direktt_registered_domain = sanitize_text_field($parameters['domain']);
 			update_option('direktt_registered_domain', $direktt_registered_domain);
-			
+
 			$direktt_channel_title = sanitize_text_field($parameters['title']);
 			update_option('direktt_channel_title', $direktt_channel_title);
 
@@ -112,20 +102,29 @@ class Direktt_Api
 		} else {
 			wp_send_json_error(new WP_Error('Missing param', 'Either domain or title or uid missing'), 400);
 		}
-
 	}
 
 	public function on_new_subscription(WP_REST_Request $request)
 	{
-		$this->api_log($request);
 		$parameters = json_decode($request->get_body(), true);
 
 		if (array_key_exists('subscriptionId', $parameters)) {
 			$direktt_user_id = sanitize_text_field($parameters['subscriptionId']);
 
-			$result = Direktt_User::subscribe_user($direktt_user_id);
+			$avatar_url = null;
+			$display_name = null;
 
-			if (is_wp_error( $result )) {
+			if (array_key_exists('avatarUrl', $parameters)) {
+				$avatar_url = sanitize_text_field($parameters['avatarUrl']);
+			}
+
+			if (array_key_exists('displayName', $parameters)) {
+				$display_name = sanitize_text_field($parameters['displayName']);
+			}
+
+			$result = Direktt_User::subscribe_user($direktt_user_id, $display_name, $avatar_url );
+
+			if (is_wp_error($result)) {
 				wp_send_json_error($result, 500);
 			} else {
 				$data = array();
@@ -138,24 +137,29 @@ class Direktt_Api
 
 	public function on_change_avatar_url(WP_REST_Request $request)
 	{
-		$this->api_log($request);
 		$parameters = json_decode($request->get_body(), true);
 
-		if ( array_key_exists('subscriptionId', $parameters) && array_key_exists('imageUrl', $parameters) ) {
+		if (array_key_exists('subscriptionId', $parameters)) {
+
 			$direktt_user_id = sanitize_text_field($parameters['subscriptionId']);
+			$user = Direktt_User::get_user_by_subscription_id($direktt_user_id);
 
-			/*$result = Direktt_User::subscribe_user($direktt_user_id);
-
-			if (is_wp_error( $result )) {
-				wp_send_json_error($result, 500);
+			if (array_key_exists('imageUrl', $parameters)) {
+				$avatar_url = sanitize_text_field($parameters['imageUrl']);
 			} else {
-				$data = array();
-				wp_send_json_success($data, 200);
-			}*/
+				$avatar_url = '';
+			}			
+
+			if ($user) {
+				if ( $avatar_url != ''){
+					update_post_meta($user['ID'], "direktt_avatar_url", $avatar_url);
+				} else {
+					delete_post_meta($user['ID'], "direktt_avatar_url");
+				}
+			}
 
 			$data = array();
 			wp_send_json_success($data, 200);
-
 		} else {
 			wp_send_json_error(new WP_Error('Missing param', 'Subscription Id or Image Url is missing'), 400);
 		}
@@ -163,24 +167,33 @@ class Direktt_Api
 
 	public function on_change_display_name(WP_REST_Request $request)
 	{
-		$this->api_log($request);
 		$parameters = json_decode($request->get_body(), true);
 
-		if ( array_key_exists('subscriptionId', $parameters) && array_key_exists('displayName', $parameters) ) {
+		if (array_key_exists('subscriptionId', $parameters)) {
+
 			$direktt_user_id = sanitize_text_field($parameters['subscriptionId']);
+			$user = Direktt_User::get_user_by_subscription_id($direktt_user_id);
 
-			/*$result = Direktt_User::subscribe_user($direktt_user_id);
+			if (array_key_exists('displayName', $parameters)) {
 
-			if (is_wp_error( $result )) {
-				wp_send_json_error($result, 500);
+				$direktt_display_name = sanitize_text_field($parameters['displayName']);
+				if ($direktt_display_name == '') {
+					$direktt_display_name = $direktt_user_id;
+				}
 			} else {
-				$data = array();
-				wp_send_json_success($data, 200);
-			}*/
+				$direktt_display_name = $direktt_user_id;
+			}
+
+			if ($user) {
+				$post_data = array(
+					'ID'         => $user['ID'],
+					'post_title' => $direktt_display_name
+				);
+				wp_update_post($post_data);
+			}
 
 			$data = array();
 			wp_send_json_success($data, 200);
-
 		} else {
 			wp_send_json_error(new WP_Error('Missing param', 'Subscription Id missing'), 400);
 		}
@@ -188,19 +201,32 @@ class Direktt_Api
 
 	public function do_direktt_action(WP_REST_Request $request)
 	{
-		$this->api_log($request);
+		global $direktt_user;
 		$parameters = json_decode($request->get_body(), true);
 
-		if (array_key_exists('actionType', $parameters)) {
-			$action_type = sanitize_text_field($parameters['actionType']);
+		if (array_key_exists('token', $parameters)) {
 
-			do_action("direktt/action/" . $action_type, $parameters);
-			
-			$data = array();
-			wp_send_json_success($data, 200);
-			
+			$token = sanitize_text_field($parameters['token']);
+
+			$direktt_user = Direktt_Public::validate_direktt_token($token);
+
+			if (!$direktt_user) {
+				wp_send_json_error(new WP_Error('Auth', 'Token is not valid'), 401);
+				return;
+			}
+
+			if (array_key_exists('actionType', $parameters)) {
+				$action_type = sanitize_text_field($parameters['actionType']);
+
+				do_action("direktt/action/" . $action_type, $parameters);
+
+				$data = array();
+				wp_send_json_success($data, 200);
+			} else {
+				wp_send_json_error(new WP_Error('Missing param', 'Action Type is missing'), 400);
+			}
 		} else {
-			wp_send_json_error(new WP_Error('Missing param', 'Action Type is missing'), 400);
+			wp_send_json_error(new WP_Error('Missing param', 'Token is missing'), 400);
 		}
 	}
 
@@ -208,60 +234,54 @@ class Direktt_Api
 
 	public function on_set_admin_user(WP_REST_Request $request)
 	{
-		$this->api_log($request);
 		$parameters = json_decode($request->get_body(), true);
 
-		if (array_key_exists('adminId', $parameters) ) {
+		if (array_key_exists('adminId', $parameters)) {
 
 			$admin_id = sanitize_text_field($parameters['adminId']);
 
 			$user = Direktt_User::get_user_by_admin_id($admin_id);
 
-			if( !$user ) {
+			if (!$user) {
 
-				if( array_key_exists('subscriptionId', $parameters) ){
-					
+				if (array_key_exists('subscriptionId', $parameters)) {
+
 					$direktt_user_id = sanitize_text_field($parameters['subscriptionId']);
 					$user = Direktt_User::get_user_by_subscription_id($direktt_user_id);
 
 					if ($user) {
 
 						Direktt_User::promote_to_admin($direktt_user_id, $admin_id);
-
 					} else {
 
 						$result = Direktt_User::subscribe_user($direktt_user_id);
 
-						if( is_wp_error( $result) ) {
-							wp_send_json_error( $result, 500);
+						if (is_wp_error($result)) {
+							wp_send_json_error($result, 500);
 							return;
 						}
 
 						Direktt_User::promote_to_admin($direktt_user_id, $admin_id);
 					}
-
 				} else {
-					
+
 					$result = Direktt_User::subscribe_admin($admin_id);
 
-					if( is_wp_error( $result) ) {
-						wp_send_json_error( $result, 500);
+					if (is_wp_error($result)) {
+						wp_send_json_error($result, 500);
 						return;
 					}
 				}
-				
 			} else {
-				if( array_key_exists('subscriptionId', $parameters) ){
+				if (array_key_exists('subscriptionId', $parameters)) {
 
 					$direktt_user_id = sanitize_text_field($parameters['subscriptionId']);
-					Direktt_User::pair_user_with_admin( $direktt_user_id, $admin_id );
-
+					Direktt_User::pair_user_with_admin($direktt_user_id, $admin_id);
 				}
 			}
 
 			$data = array();
 			wp_send_json_success($data, 200);
-
 		} else {
 			wp_send_json_error(new WP_Error('Missing param', 'Admin Id is missing'), 400);
 		}
@@ -269,12 +289,12 @@ class Direktt_Api
 
 	public function on_unsubscribe(WP_REST_Request $request)
 	{
-		$this->api_log($request);
 		$parameters = json_decode($request->get_body(), true);
 
 		if (array_key_exists('subscriptionId', $parameters)) {
 
 			$direktt_user_id = sanitize_text_field($parameters['subscriptionId']);
+
 			Direktt_User::unsubscribe_user($direktt_user_id);
 
 			$data = array();
@@ -286,14 +306,13 @@ class Direktt_Api
 
 	public function on_marketing_consent_update(WP_REST_Request $request)
 	{
-		$this->api_log($request);
 		$parameters = json_decode($request->get_body(), true);
 
 		if (array_key_exists('subscriptionId', $parameters) && array_key_exists('marketingConsentStatus', $parameters)) {
 
 			$direktt_user_id = sanitize_text_field($parameters['subscriptionId']);
 
-			$marketing_consent_status = (sanitize_text_field($parameters['marketingConsentStatus']) == '1' );
+			$marketing_consent_status = (sanitize_text_field($parameters['marketingConsentStatus']) == '1');
 
 			$user = Direktt_User::get_user_by_subscription_id($direktt_user_id);
 
@@ -319,7 +338,6 @@ class Direktt_Api
 
 	public function record_event(WP_REST_Request $request)
 	{
-		$this->api_log($request);
 		$parameters = json_decode($request->get_body(), true);
 
 		if (array_key_exists('subscriptionId', $parameters) && array_key_exists('eventTarget', $parameters) && array_key_exists('eventType', $parameters)) {
@@ -354,17 +372,6 @@ class Direktt_Api
 		} else {
 			wp_send_json_error(new WP_Error('Missing param', 'Subscription Id, Event Target or Event Type is missing'), 400);
 		}
-	}
-
-	public function api_test(WP_REST_Request $request)
-	{
-		$this->api_log($request);
-		$parameters = json_decode($request->get_body(), true);
-
-		$data = array(
-			'domain' => $parameters['domain']
-		);
-		wp_send_json_success($data, 200);
 	}
 
 	public function api_validate_api_key()

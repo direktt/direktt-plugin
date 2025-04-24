@@ -554,7 +554,7 @@ class Direktt_Admin
 		foreach ($screens as $screen) {
 			add_meta_box(
 				'direktt_features',                 // Unique ID
-				'Direktt features',      // Box title
+				'Direktt',      // Box title
 				array($this, 'render_direktt_custom_box'),  // Content callback, must be of type callable
 				$screen,                            // Post type
 				'side',
@@ -579,6 +579,19 @@ class Direktt_Admin
 			'hide_empty' => false,
 		));
 
+		$direktt_user_tags = get_post_meta($post->ID, 'direktt_user_tags', true); // array
+		if (!is_array($direktt_user_tags)) $direktt_user_tags = array();
+
+		$tag_terms = get_terms(array(
+			'taxonomy' => 'direkttusertags',
+			'hide_empty' => false,
+		));
+
+		$all_tags = [];
+		foreach ($tag_terms as $term) {
+			$all_tags[] = $term->name;
+		}
+
 		?>
 		<p>
 			<input id="direktt_custom_box" name="direktt_custom_box" type="checkbox" <?php echo $box_checked ?>>
@@ -589,11 +602,12 @@ class Direktt_Admin
 			<label><?php echo __('Restrict access to Direktt admins', 'direktt') ?></label>
 		</p>
 		<p>
-			<strong>Allowed for Direktt Categories:</strong></p>
-			<p>
+			<strong><?php echo __('Restrict access to Direktt User Categories:', 'direktt') ?></strong>
+		</p>
+		<p>
 			<?php
 			if (empty($category_terms) || is_wp_error($category_terms)) {
-				echo '<em>No Direktt User Categories found.</em>';
+				echo '<em>' . __('No Direktt User Categories Found', 'direktt') . '</em>';
 				return;
 			}
 
@@ -607,6 +621,41 @@ class Direktt_Admin
 			}
 			?>
 		</p>
+		<?php
+		$selected_term_names = [];
+		foreach ($direktt_user_tags as $term_id) {
+			$term_obj = get_term($term_id, 'direkttusertags');
+			if ($term_obj && !is_wp_error($term_obj)) {
+				$selected_term_names[] = $term_obj->name;
+			}
+		}
+
+		?>
+		<p>
+			<strong><?php echo __('Restrict access to Direktt User Tags:', 'direktt') ?></strong>
+		</p>
+		<p>
+			<input
+				type="text"
+				id="direktt_user_tags"
+				name="direktt_user_tags"
+				value="<?php echo esc_attr(implode(', ', $selected_term_names)); ?>"
+				style="width:100%;"
+				data-available-tags='<?php echo json_encode($all_tags); ?>' />
+		</p>
+		<p class="description"><?php echo __('Enter tags separated by commas. Existing tags: ', 'direktt') ?><?php echo implode(', ', $all_tags); ?></p>
+		<script>
+			jQuery(function($) {
+				var tags = <?php echo json_encode($all_tags); ?>;
+				$('#direktt_user_tags').autocomplete({
+					source: tags,
+					minLength: 0
+				}).on('focus', function() {
+					$(this).autocomplete("search");
+				});
+			});
+		</script>
+
 <?php
 	}
 
@@ -645,6 +694,22 @@ class Direktt_Admin
 		} else {
 			delete_post_meta($post_id, 'direktt_custom_admin_box');
 		}
+
+		$term_ids = isset($_POST['direktt_user_categories']) && is_array($_POST['direktt_user_categories'])
+			? array_map('intval', $_POST['direktt_user_categories']) : array();
+		update_post_meta($post_id, 'direktt_user_categories', $term_ids);
+
+		$tags_input = isset($_POST['direktt_user_tags']) ? sanitize_text_field($_POST['direktt_user_tags']) : '';
+		$tag_names = array_filter(array_map('trim', explode(',', $tags_input)));
+
+		$tag_ids = [];
+		foreach ($tag_names as $tag_name) {
+			$term = get_term_by('name', $tag_name, 'direkttusertags');
+			if ($term && !is_wp_error($term)) {
+				$tag_ids[] = $term->term_id;
+			}
+		}
+		update_post_meta($post_id, 'direktt_user_tags', $tag_ids);
 
 		return $post_id;
 	}
