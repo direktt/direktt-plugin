@@ -3,6 +3,7 @@
 class Direktt {
 
 	static $settings_array = array();
+	static $profile_tools_array = array();
 
 	protected Direktt_Loader $loader;
 
@@ -21,6 +22,7 @@ class Direktt {
 		$this->define_admin_hooks();
 
 		$this->define_api_hooks();
+		$this->define_profile_hooks();
 
 		$this->define_event_hooks();
 		$this->define_user_hooks();
@@ -43,6 +45,8 @@ class Direktt {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-direktt-public.php';
 
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-direktt-api.php';
+		
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-direktt-profile.php';
 
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-direktt-admin.php';
 
@@ -67,16 +71,12 @@ class Direktt {
 
 	private function define_public_hooks() {
 		$plugin_public = new Direktt_Public( $this->get_plugin_name(), $this->get_version() );
-		// $this->loader->add_action( 'rest_api_init', $plugin_public, 'add_api_routes' ); api_register_routes 
-		// $this->loader->add_filter( 'rest_api_init', $plugin_public, 'add_cors_support' );
-		//$this->loader->add_filter( 'rest_pre_dispatch', $plugin_public, 'rest_pre_dispatch', 10, 2 );
-		// $this->loader->add_filter( 'determine_current_user', $plugin_public, 'determine_current_user' );
 
-		//$this->loader->add_action( 'template_redirect', $plugin_public, 'direktt_check_user' );
 		$this->loader->add_action( 'init', $plugin_public, 'direktt_check_token' );
 		$this->loader->add_action( 'wp', $plugin_public, 'direktt_check_user' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'direktt_enqueue_public_scripts' );
-		// $this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_plugin_assets' );
+
+		$this->loader->add_action( 'init', $plugin_public, 'direktt_check_token' );
 	}
 
 	private function define_api_hooks() {
@@ -85,8 +85,17 @@ class Direktt {
 		
 		$this->loader->add_action( 'rest_api_init', $plugin_api, 'api_register_routes' );
 	}
+
+	private function define_profile_hooks() {
+
+		$plugin_profile = new Direktt_Profile( $this->get_plugin_name(), $this->get_version() );
+		
+		$this->loader->add_action( 'init', $plugin_profile, 'profile_shortcode' );
+		$this->loader->add_action( 'init', $plugin_profile, 'setup_profile_tools');
+	}
 	
 	private function define_admin_hooks() {
+		
 		$plugin_admin = new Direktt_Admin( $this->get_plugin_name(), $this->get_version() );
 		
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'register_menu_page', 9 );

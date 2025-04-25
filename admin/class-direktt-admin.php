@@ -426,13 +426,6 @@ class Direktt_Admin
 			}
 		}
 
-		$url = $_SERVER['REQUEST_URI'];
-		$parts = parse_url($url);
-
-		parse_str($parts['query'] ?? '', $params);
-
-		$params['foo'] = 'new_value';
-		unset($params['bar']);
 	}
 
 	public function render_bulk_message_settings()

@@ -43,6 +43,7 @@ class Direktt_Public
 	{
 
 		global $post;
+		global $direktt_user;
 
 		if (!$post) {
 			return;
@@ -57,6 +58,15 @@ class Direktt_Public
 				'in_footer' => true,
 			]
 		);
+
+		wp_localize_script(
+            'direktt_public',
+            'direktt_public',
+            array(
+                'direktt_user' => $direktt_user,
+                'direktt_post_id' => get_the_ID()
+            )
+        );
 
 		do_action('direktt_enqueue_public_scripts');
 	}
