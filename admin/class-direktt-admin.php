@@ -84,7 +84,8 @@ class Direktt_Admin
 			array(
 				"id" => "bulk-message",
 				"label" => __('Bulk Messaging Settings', 'direktt'),
-				"callback" => [$this, 'render_bulk_message_settings']
+				"callback" => [$this, 'render_bulk_message_settings'],
+				"priority" => 0
 			)
 		);
 	}
@@ -408,6 +409,8 @@ class Direktt_Admin
 		$url = $_SERVER['REQUEST_URI'];
 		$parts = parse_url($url);
 
+		// Print out the Direktt Settings label and link
+
 		if (!empty(Direktt::$settings_array)) {
 			parse_str($parts['query'] ?? '', $params);
 			unset($params['subpage']);
@@ -415,6 +418,14 @@ class Direktt_Admin
 			$newUri = $parts['path'] . ($newQuery ? '?' . $newQuery : '');
 			echo ('<p><a href="' . $newUri . '">' . __('Direktt Settings', 'direktt') . '</a></p>');
 		}
+
+		// Sort links by priority asc
+
+		usort(Direktt::$settings_array, function($a, $b) {
+			return $a['priority'] <=> $b['priority'];
+		});
+
+		// Print out all other labels and links
 
 		foreach (Direktt::$settings_array as $item) {
 			if (isset($item['label'])) {

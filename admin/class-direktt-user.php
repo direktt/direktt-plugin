@@ -80,6 +80,18 @@ class Direktt_User
 		return $post_obj;
 	}
 
+	static function is_direktt_admin(){
+
+		global $direktt_user;
+
+		if (isset ( $direktt_user['direktt_admin_user_id']) && $direktt_user['direktt_admin_user_id'] != '') {
+			return true;
+		}
+
+		return false;
+		
+	}
+
 	static function get_user_by_admin_id($direktt_admin_id_tocheck)
 	{
 		$args = array(
