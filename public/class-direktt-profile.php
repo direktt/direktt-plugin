@@ -27,16 +27,19 @@ class Direktt_Profile
 
 		ob_start();
 
-		$subscriptionId   = isset($_GET['subscriptionId']) ? sanitize_text_field(wp_unslash($_GET['subscriptionId'])) : false;
-
 		$active_tab = isset($_GET['subpage']) ? $_GET['subpage'] : '';
 
 		if ($active_tab == '') {
 			if ($direktt_user) {
-				echo ('User ID: ' . $direktt_user['ID'] . '<br>');
-				echo ('Direktt User Id: ' . $direktt_user['direktt_user_id'] . '<br>');
-				echo ('Direktt User Admin Id: ' . $direktt_user['direktt_admin_user_id'] . '<br>');
-				echo ('Direktt User Marketing Consent: ' . $direktt_user['direktt_marketing_consent_status'] . '<br><br><br>');
+				$subscriptionId   = isset($_GET['subscriptionId']) ? sanitize_text_field(wp_unslash($_GET['subscriptionId'])) : false;
+
+				$profile_user = Direktt_User::get_user_by_subscription_id($subscriptionId);
+				if ($profile_user) {
+					echo ('User ID: ' . $profile_user['ID'] . '<br>');
+					echo ('Direktt User Id: ' . $profile_user['direktt_user_id'] . '<br>');
+					echo ('Direktt User Admin Id: ' . $profile_user['direktt_admin_user_id'] . '<br>');
+					echo ('Direktt User Marketing Consent: ' . $profile_user['direktt_marketing_consent_status'] . '<br><br><br>');
+				}
 			}
 		} else {
 			foreach (Direktt::$profile_tools_array as $item) {
