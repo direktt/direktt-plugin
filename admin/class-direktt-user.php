@@ -51,15 +51,7 @@ class Direktt_User
 					'key'   => 'direktt_user_id',
 					'value' => $direktt_user_id_tocheck
 				)
-			),
-			/* ,
-			'tax_query' => array(
-				array(
-					'taxonomy' => 'genre',
-					'field'    => 'slug',
-					'terms'    => 'jazz'
-				)
-			) */
+			)
 		);
 
 		$posts = get_posts($args);
@@ -89,7 +81,6 @@ class Direktt_User
 		}
 
 		return false;
-		
 	}
 
 	static function get_user_by_admin_id($direktt_admin_id_tocheck)
@@ -210,8 +201,6 @@ class Direktt_User
 
 		if ($user) {
 
-			//wp_delete_post($user['ID'], true);
-
 			Direktt_User::delete_wp_direktt_user($user['ID']);
 			wp_trash_post($user['ID']);
 
@@ -312,19 +301,6 @@ class Direktt_User
 			}
 		}
 
-		// For users with other roles, remove the reference to the direktt user
-		$users = get_users(array(
-			'meta_key' => 'direktt_user_id',
-			'meta_value' => $direktt_user_id,
-			'fields' => 'ID' // Return only user IDs
-		));
-
-		if (!empty($users)) {
-			foreach ($users as $user_id) {
-				// Delete the user meta for users which are not WP users
-				delete_user_meta(intval($user_id), 'direktt_user_id');
-			}
-		}
 	}
 
 	static function get_wp_direktt_user_by_post_id($direktt_user_id)
@@ -423,22 +399,21 @@ class Direktt_User
 
 				$meta_user_post = Direktt_User::get_user_by_subscription_id($event['direktt_user_id']);
 
-				$users_to_remove = get_users( array(
+				$users_to_update = get_users( array(
 					'meta_key' => 'direktt_user_id',
 					'meta_value' => $meta_user_post['ID'],
 					'fields' => 'ID' // Return only user IDs
 				));
 
-				foreach ( $users_to_remove as $user_id_to_remove ){
-					delete_user_meta($user_id_to_remove, 'direktt_user_id');
-					delete_user_meta($user_id_to_remove, 'direktt_user_pair_code');
-				}
-
 				$pairing_message_template = get_option('direktt_pairing_succ_template', false);
 
 				foreach ($users as $user_id) {
+
+					foreach ( $users_to_update as $user_id_to_update ){
+						update_user_meta($user_id_to_update, 'direktt_wp_user_id', $user_id);
+						delete_user_meta($user_id_to_update, 'direktt_user_pair_code');
+					}
 					
-					update_user_meta($user_id, 'direktt_user_id', $meta_user_post['ID']);
 					delete_user_meta($user_id, 'direktt_user_pair_code');
 
 					if( $pairing_message_template ){
@@ -470,14 +445,17 @@ class Direktt_User
 	{
 
 		$user_id = $wp_user->ID;
+
+		// ako je rola direktt onda
 		$direktt_user_id = get_user_meta($user_id, 'direktt_user_id', true);
 
+		//ako nije, onda trazimo usera sa rolom direktt i sa direktt_wp_user_id jednakim ovom nasem i onda vadimo ovo gore
+		
 		return Direktt_User::get_user_by_post_id($direktt_user_id);
 	}
 
 	static function get_user_by_wp_user($wp_user)
 	{
-
 		$user_id = $wp_user->ID;
 		$test_user_id = get_user_meta($user_id, 'direktt_test_user_id', true);
 

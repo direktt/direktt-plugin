@@ -421,7 +421,7 @@ class Direktt_Admin
 
 		// Sort links by priority asc
 
-		usort(Direktt::$settings_array, function($a, $b) {
+		usort(Direktt::$settings_array, function ($a, $b) {
 			return $a['priority'] <=> $b['priority'];
 		});
 
@@ -436,7 +436,6 @@ class Direktt_Admin
 				echo ('<p><a href="' . $newUri . '">' . $item['label'] . '</a></p>');
 			}
 		}
-
 	}
 
 	public function render_bulk_message_settings()
@@ -458,9 +457,9 @@ class Direktt_Admin
 	{
 
 		if ($user instanceof WP_User) {
-			//if ($user instanceof WP_User && !in_array('direktt', $user->roles)) {
 
 			$direktt_user_id = get_user_meta($user->ID, 'direktt_user_id', true);
+			$direktt_wp_user_id = get_user_meta($user->ID, 'direktt_wp_user_id', true);
 			$direktt_user_pair_code = Direktt_User::get_or_generate_user_pair_code($user->ID);
 
 		?>
@@ -477,53 +476,94 @@ class Direktt_Admin
 							</td>
 						</tr>
 
-					<?php
-					}
+						<?php
 
-					if (! empty($direktt_user_id)) {
-					?>
+						// Treba proveriti da li postoji user sa rolom direktt i meta-om direktt_wp_user_is kao trenutni user
+						$related_users = get_users(array(
+							'role__in' => array('direktt'),
+							'meta_key' => 'direktt_wp_user_id',
+							'meta_value' => $user->ID,
+							'fields' => 'ID' // Return only user IDs
+						));
 
+						if (!empty($related_users)) {
+
+
+							// Ako postoji ispisati mogucnost brisanja veze
+
+						?>
+
+							<tr>
+								<th scope="row"><label for="direktt_test_user_id">Post Id of related Direktt User:</label></th>
+								<td>
+									<b><?php echo esc_attr(get_user_meta($related_users[0], 'direktt_user_id', true)); ?> - <?php echo '<a href="' . esc_url(get_edit_post_link(get_user_meta($related_users[0], 'direktt_user_id', true))) . '">View Post</a>' ?></b>
+								</td>
+							</tr>
+
+
+							<tr>
+								<th scope="row"><label for="direktt_test_user_id">Delete Relation with Direktt User</label></th>
+								<td>
+									<label for="direktt_delete_relation">
+										<input name="direktt_delete_relation" type="checkbox" id="direktt_delete_relation" value="1">
+										Check to delete relation with Direktt User and click Update Profile </label>
+								</td>
+							</tr>
+
+							<?php
+						} else {
+
+							// Ako ne postoji ispisati upar kod
+							if (! empty($direktt_user_pair_code)) {
+							?>
+
+								<tr>
+									<th scope="row"><label for="direktt_test_user_id">Code for pairing with related Direktt User:</label></th>
+									<td>
+										<b><?php echo esc_html($direktt_user_pair_code);  ?></b>
+									</td>
+								</tr>
+
+								<tr>
+									<th scope="row"><label for="direktt_test_user_id">Reset Pairing Code</label></th>
+									<td>
+										<label for="direktt_update_code">
+											<input name="direktt_update_code" type="checkbox" id="direktt_update_code" value="1">
+											Check to update pairing code and click Update Profile </label>
+									</td>
+								</tr>
+
+						<?php
+							}
+						}
+					} else {
+						// onda ide else (role == direkt)
+						?>
 						<tr>
 							<th scope="row"><label for="direktt_test_user_id">Post Id of related Direktt User:</label></th>
 							<td>
 								<b><?php echo esc_attr($direktt_user_id); ?> - <?php echo '<a href="' . esc_url(get_edit_post_link($direktt_user_id)) . '">View Post</a>' ?></b>
 							</td>
 						</tr>
-
 						<tr>
-							<th scope="row"><label for="direktt_test_user_id">Delete Relation with Direktt User</label></th>
+							<th scope="row"><label for="direktt_wp_user_id">User Id of related WordPress User:</label></th>
 							<td>
-								<label for="direktt_delete_relation">
-									<input name="direktt_delete_relation" type="checkbox" id="direktt_delete_relation" value="1">
-									Check to delete relation with Direktt User and click Update Profile </label>
+								<?php
+								if ($direktt_wp_user_id) {
+								?>
+									<b><?php echo esc_attr($direktt_wp_user_id); ?> - <?php echo '<a href="' . esc_url(get_edit_user_link($direktt_wp_user_id)) . '">View User</a>' ?></b>
+								<?php
+								} else {
+								?>
+									<b>There is no associated WP User</b>
+								<?php
+								}
+								?>
 							</td>
 						</tr>
 
 					<?php
-
-					} else if (! empty($direktt_user_pair_code)) {
-					?>
-
-						<tr>
-							<th scope="row"><label for="direktt_test_user_id">Code for pairing with related Direktt User:</label></th>
-							<td>
-								<b><?php echo esc_html($direktt_user_pair_code);  ?></b>
-							</td>
-						</tr>
-
-						<tr>
-							<th scope="row"><label for="direktt_test_user_id">Reset Pairing Code</label></th>
-							<td>
-								<label for="direktt_update_code">
-									<input name="direktt_update_code" type="checkbox" id="direktt_update_code" value="1">
-									Check to update pairing code and click Update Profile </label>
-							</td>
-						</tr>
-
-					<?php
-
 					}
-
 					?>
 				</tbody>
 			</table>
@@ -548,7 +588,17 @@ class Direktt_Admin
 		}
 
 		if (isset($_POST['direktt_delete_relation'])) {
-			delete_user_meta($userId, 'direktt_user_id');
+
+			$related_users = get_users(array(
+				'role__in' => array('direktt'),
+				'meta_key' => 'direktt_wp_user_id',
+				'meta_value' => $userId,
+				'fields' => 'ID' // Return only user IDs
+			));
+
+			if (!empty($related_users)) {
+				delete_user_meta($related_users[0], 'direktt_wp_user_id');
+			}
 		}
 	}
 
