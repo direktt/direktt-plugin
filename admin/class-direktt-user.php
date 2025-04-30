@@ -72,11 +72,12 @@ class Direktt_User
 		return $post_obj;
 	}
 
-	static function is_direktt_admin(){
+	static function is_direktt_admin()
+	{
 
 		global $direktt_user;
 
-		if (isset ( $direktt_user['direktt_admin_user_id']) && $direktt_user['direktt_admin_user_id'] != '') {
+		if (isset($direktt_user['direktt_admin_user_id']) && $direktt_user['direktt_admin_user_id'] != '') {
 			return true;
 		}
 
@@ -119,7 +120,7 @@ class Direktt_User
 	static function subscribe_user($direktt_user_id, $direktt_user_title = null, $direktt_user_avatar_url = null)
 	{
 		$usr_title = $direktt_user_id;
-		if( !is_null( $direktt_user_title ) && $direktt_user_title != '' ){
+		if (!is_null($direktt_user_title) && $direktt_user_title != '') {
 			$usr_title = $direktt_user_title;
 		}
 
@@ -127,7 +128,7 @@ class Direktt_User
 			'direktt_user_id'	=> $direktt_user_id,
 		);
 
-		if( !is_null( $direktt_user_avatar_url ) && $direktt_user_avatar_url != '' ){
+		if (!is_null($direktt_user_avatar_url) && $direktt_user_avatar_url != '') {
 			$meta_input['direktt_avatar_url'] = $direktt_user_avatar_url;
 		}
 
@@ -300,7 +301,6 @@ class Direktt_User
 				wp_delete_user(intval($user_id));
 			}
 		}
-
 	}
 
 	static function get_wp_direktt_user_by_post_id($direktt_user_id)
@@ -399,7 +399,7 @@ class Direktt_User
 
 				$meta_user_post = Direktt_User::get_user_by_subscription_id($event['direktt_user_id']);
 
-				$users_to_update = get_users( array(
+				$users_to_update = get_users(array(
 					'meta_key' => 'direktt_user_id',
 					'meta_value' => $meta_user_post['ID'],
 					'fields' => 'ID' // Return only user IDs
@@ -409,79 +409,91 @@ class Direktt_User
 
 				foreach ($users as $user_id) {
 
-					foreach ( $users_to_update as $user_id_to_update ){
+					foreach ($users_to_update as $user_id_to_update) {
 						update_user_meta($user_id_to_update, 'direktt_wp_user_id', $user_id);
 						delete_user_meta($user_id_to_update, 'direktt_user_pair_code');
 					}
-					
+
 					delete_user_meta($user_id, 'direktt_user_pair_code');
 
-					if( $pairing_message_template ){
-						
+					if ($pairing_message_template) {
+
 						Direktt_Message::send_message_template(
-							array($event['direktt_user_id']), 
-							$pairing_message_template, 
-							[ 
-								"wp_user" =>  get_user_by( 'id', $user_id )->user_login 
+							array($event['direktt_user_id']),
+							$pairing_message_template,
+							[
+								"wp_user" =>  get_user_by('id', $user_id)->user_login
 							]
 						);
-	
 					} else {
-	
+
 						$pushNotificationMessage = array(
 							"type" =>  "text",
 							"content" => 'You have been paired'
 						);
-		
+
 						Direktt_Message::send_message(array($event['direktt_user_id']), $pushNotificationMessage);
-	
 					}
 				}
 			}
 		}
 	}
 
-	static function get_user_by_wp_direktt_user($wp_user)
+	static function get_direktt_user_by_wp_user($wp_user)
 	{
 
-		$user_id = $wp_user->ID;
+		$direktt_user_id = false;
 
 		// ako je rola direktt onda
-		$direktt_user_id = get_user_meta($user_id, 'direktt_user_id', true);
+		if (Direktt_User::is_wp_user_direktt_user($wp_user)) {
 
-		//ako nije, onda trazimo usera sa rolom direktt i sa direktt_wp_user_id jednakim ovom nasem i onda vadimo ovo gore
-		
-		return Direktt_User::get_user_by_post_id($direktt_user_id);
-	}
-
-	static function get_user_by_wp_user($wp_user)
-	{
-		$user_id = $wp_user->ID;
-		$test_user_id = get_user_meta($user_id, 'direktt_test_user_id', true);
-
-		if ($test_user_id) {
-			$user = Direktt_User::get_user_by_post_id($test_user_id);
-			if ($user) {
-				$direktt_user = $user;
-			} else {
-				$direktt_user = false;
-			}
+			$direktt_user_id = get_user_meta($wp_user->ID, 'direktt_user_id', true);
 		} else {
-			$direktt_user = Direktt_User::get_user_by_wp_direktt_user($wp_user);
+
+			//ako nije, prvo gledamo test usera. Ako ga nema onda trazimo usera sa rolom direktt i sa direktt_wp_user_id jednakim ovom nasem i onda vadimo ovo gore
+
+			$direktt_user_id = get_user_meta($wp_user->ID, 'direktt_test_user_id', true);
+
+			if (!$direktt_user_id) {
+				$related_users = get_users(array(
+					'role__in' => array('direktt'),
+					'meta_key' => 'direktt_wp_user_id',
+					'meta_value' => $wp_user->ID,
+					'fields' => 'ID' // Return only user IDs
+				));
+
+				if (!empty($related_users)) {
+					$direktt_user_id = get_user_meta($related_users[0], 'direktt_user_id', true);
+				}
+			}
 		}
 
-		return $direktt_user;
+		if ($direktt_user_id) {
+			return Direktt_User::get_user_by_post_id($direktt_user_id);
+		} else {
+			return false;
+		}
 	}
 
-	static function delete_user_meta_for_all_users($meta_key) {
+	static function is_wp_user_direktt_user($wp_user)
+	{
+		if ($wp_user instanceof WP_User) {
+			if (in_array('direktt', $wp_user->roles)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	static function delete_user_meta_for_all_users($meta_key)
+	{
 		global $wpdb;
-	
-		$sql = $wpdb->prepare( 
-			"DELETE FROM {$wpdb->usermeta} WHERE meta_key = %s", 
-			$meta_key 
+
+		$sql = $wpdb->prepare(
+			"DELETE FROM {$wpdb->usermeta} WHERE meta_key = %s",
+			$meta_key
 		);
-	
+
 		$wpdb->query($sql);
 	}
-	
 }

@@ -260,33 +260,9 @@ class Direktt_Admin
 		register_post_type('direkttmtemplates', $args);
 	}
 
-	// todo skloniti jer nam realno ne treba
-
-	public function display_admin_notice()
-	{
-		if (!get_option('jwt_auth_admin_notice')) {
-?>
-			<div class="notice notice-info is-dismissible">
-				<p>
-					<?php
-					printf(
-						/* translators: %s: Link to the JWT Authentication settings page */
-						__(
-							'Please visit the <a href="%s">JWT Authentication settings page</a> for an important message from the author.',
-							'direktt'
-						),
-						admin_url('options-general.php?page=jwt_authentication')
-					);
-					?>
-				</p>
-			</div>
-		<?php
-			update_option('jwt_auth_admin_notice', true);
-		}
-	}
-
 	public function enqueue_plugin_assets(string $suffix)
 	{
+
 		// Settings page
 
 		if ($suffix == 'direktt_page_direktt-settings') {
@@ -386,7 +362,44 @@ class Direktt_Admin
 					)
 				);
 			}
+
+			if ('direkttmtemplates' === $post->post_type) {
+
+				wp_enqueue_script(
+					$this->plugin_name . '-mtemplates',
+					plugin_dir_url(__DIR__) . 'js/mtemplates/direktt-mtemplates.js',
+					[],
+					'',
+					[
+						'in_footer' => true,
+					]
+				);
+
+				// Enqueue the style file
+				wp_enqueue_style(
+					$this->plugin_name . '-mtemplates',
+					plugin_dir_url(__DIR__) . 'js/mtemplates/direktt-mtemplates.css',
+					[],
+					''
+				);
+
+				wp_localize_script(
+					$this->plugin_name . '-mtemplates',
+					$this->plugin_name . '_mtemplates_object',
+					array(
+						'ajaxurl' => admin_url('admin-ajax.php'),
+						'postId' => $post->ID
+					)
+				);
+			}
 		}
+
+		wp_enqueue_style(
+			$this->plugin_name . '-admin',
+			plugin_dir_url(__DIR__) . 'admin/css/direktt-admin.css',
+			[],
+			''
+		);
 	}
 
 	public function render_admin_page()
@@ -467,7 +480,7 @@ class Direktt_Admin
 			<table class="form-table" role="presentation">
 				<tbody v-if="data">
 					<?php
-					if (!in_array('direktt', $user->roles)) {
+					if (!Direktt_User::is_wp_user_direktt_user($user)) {
 					?>
 						<tr>
 							<th scope="row"><label for="direktt_test_user_id">Post Id of Test Direktt User <p class="description">Post id of Direktt User which will be used on Direktt pages</p></label></th>
@@ -801,6 +814,8 @@ class Direktt_Admin
 
 		// Security nonce
 		wp_nonce_field('direktt_mt_json_nonce', 'direktt_mt_json_nonce');
+
+		echo('<div id="app"></div>');
 	}
 
 	function direkttmtemplates_save_meta_box_data($post_id)

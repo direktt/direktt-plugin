@@ -107,7 +107,6 @@ class Direktt {
 		$this->loader->add_action( 'parent_file', $plugin_admin, 'highlight_direktt_submenu');
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_plugin_assets' );
 		$this->loader->add_action( 'init', $plugin_admin, 'register_custom_post_types', 5 );
-		//$this->loader->add_action( 'admin_notices', $plugin_admin, 'display_admin_notice' );
 
 		$this->loader->add_action( 'add_meta_boxes', $plugin_admin, 'direkttmtemplates_add_custom_box' );
 
@@ -122,11 +121,9 @@ class Direktt {
 		
 		$this->loader->add_action( 'show_user_profile', $plugin_admin, 'render_user_meta_panel' );
 		$this->loader->add_action( 'edit_user_profile', $plugin_admin, 'render_user_meta_panel' );
-		//$this->loader->add_action( 'user_new_form', $plugin_admin, 'render_user_meta_panel' );
 
 		$this->loader->add_action( 'personal_options_update', $plugin_admin, 'save_user_meta_panel' );
 		$this->loader->add_action( 'edit_user_profile_update', $plugin_admin, 'save_user_meta_panel' );
-		//$this->loader->add_action( 'user_register', $plugin_admin, 'save_user_meta_panel' );
 
 	}
 
