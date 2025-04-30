@@ -327,6 +327,44 @@ class Direktt_User
 		}
 	}
 
+	static function get_user_categories(){
+
+		$category_terms = get_terms(array(
+			'taxonomy' => 'direkttusercategories',
+			'hide_empty' => false,
+		));
+
+		$all_categories = [];
+		
+		foreach ($category_terms as $term) {
+			$all_categories[] = [
+				'value' => $term->term_id,
+				'name' => $term->name
+			];
+		}
+
+		return $all_categories;
+
+	}
+
+	static function get_user_tags(){
+
+		$tag_terms = get_terms(array(
+			'taxonomy' => 'direkttusertags',
+			'hide_empty' => false,
+		));
+
+		$all_tags = [];
+
+		foreach ($tag_terms as $term) {
+			$all_tags[] = [
+				'value' => $term->term_id,
+				'name' => $term->name
+			];
+		}
+		return $all_tags;
+	}
+
 	public static function get_or_generate_user_pair_code($user_id)
 	{
 		// Define the meta key

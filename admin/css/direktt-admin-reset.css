@@ -1,0 +1,8 @@
+.v-input input[type = text],
+.v-input input[type = text]:focus {
+  all: unset;
+  /* Optionally set display to make them render as block/inline/etc.: */
+  display: revert;
+  /* You may want to restore box sizing if needed: */
+  box-sizing: border-box;
+}

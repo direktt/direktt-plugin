@@ -365,6 +365,13 @@ class Direktt_Admin
 
 			if ('direkttmtemplates' === $post->post_type) {
 
+				wp_enqueue_style(
+					$this->plugin_name . '-admin-reset',
+					plugin_dir_url(__DIR__) . 'admin/css/direktt-admin-reset.css',
+					[],
+					''
+				);
+
 				wp_enqueue_script(
 					$this->plugin_name . '-mtemplates',
 					plugin_dir_url(__DIR__) . 'js/mtemplates/direktt-mtemplates.js',

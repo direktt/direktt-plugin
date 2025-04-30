@@ -12,6 +12,42 @@ class Direktt_Ajax
 		$this->version     = $version;
 	}
 
+	
+	public function ajax_get_mtemplates_taxonomies()
+	{
+		if (!current_user_can('manage_options')) {
+			wp_send_json_error(new WP_Error('Unauthorized', 'Access to API is unauthorized.'), 401);
+			return;
+		}
+
+		$categories = Direktt_User::get_user_categories();
+		$tags = Direktt_User::get_user_tags();
+
+		$data = array(
+			'categories' => $categories,
+			'tags' => $tags
+		);
+
+		wp_send_json_success($data, 200);
+	}
+
+	public function ajax_send_mtemplates_message()
+	{
+		if (!current_user_can('manage_options')) {
+			wp_send_json_error(new WP_Error('Unauthorized', 'Access to API is unauthorized.'), 401);
+			return;
+		}
+
+		//$categories = Direktt_User::get_user_categories();
+		//$tags = Direktt_User::get_user_tags();
+
+		$data = array(
+			'succ' => true
+		);
+
+		wp_send_json_success($data, 200);
+	}
+	
 	public function ajax_get_settings()
 	{
 		if (!current_user_can('manage_options')) {

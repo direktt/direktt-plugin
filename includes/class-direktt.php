@@ -154,6 +154,10 @@ class Direktt {
 		$this->loader->add_action( 'wp_ajax_direktt_save_settings', $plugin_ajax, 'ajax_save_settings' );
 		$this->loader->add_action( 'wp_ajax_direktt_get_marketing_consent', $plugin_ajax, 'ajax_get_marketing_consent' );
 		$this->loader->add_action( 'wp_ajax_direktt_get_user_events', $plugin_ajax, 'ajax_get_user_events' );
+
+		// direkttmtemplates
+		$this->loader->add_action( 'wp_ajax_direktt_get_mtemplates_taxonomies', $plugin_ajax, 'ajax_get_mtemplates_taxonomies' );
+		$this->loader->add_action( 'wp_ajax_direktt_send_mtemplates_message', $plugin_ajax, 'ajax_send_mtemplates_message' );
 	}
 
 	public function run() {

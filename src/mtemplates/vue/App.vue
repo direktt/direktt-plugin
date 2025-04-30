@@ -4,58 +4,70 @@ import { onMounted, computed, ref } from "vue";
 import { useQueryClient, useQuery, useMutation } from "@tanstack/vue-query";
 
 const store = useDirekttStore();
+const consent = ref(true)
+const userSet = ref('all')
+
+const categories = ref([]);
+const tags = ref([]);
+const selectedCategories = ref([]);
+const selectedTags = ref([]);
+
+const send_message = ref(false)
+const snackbar = ref(false)
+const snackbar_color = ref('success')
+const snackbar_text = ref(snack_succ_text)
+const snack_succ_text = 'Message Template Sent'
 
 const postId = ref(direktt_mtemplates_object.postId);
 const marketing_consent = ref(false);
 const direktt_user_id = ref()
 const direktt_admin_user_id = ref()
-const items = ref([]);
 
 const page = ref(0)
 
 const { isLoading, isError, isFetching, data, error, refetch } = useQuery({
-  queryKey: ["marketing-consent", postId.value],
-  queryFn: getMarketingConsent,
+  queryKey: ["mtemplates-taxonomies"],
+  queryFn: getMTemplatesTaxonomies,
 });
 
-async function getMarketingConsent() {
+async function getMTemplatesTaxonomies() {
   let ret = {};
   const response = await doAjax({
-    action: "direktt_get_marketing_consent", // the action to fire in the server
-    postId: postId.value
+    action: "direktt_get_mtemplates_taxonomies",
   });
 
   ret = response.data;
-  marketing_consent.value = response.data.marketing_consent === "1"
-  direktt_user_id.value = response.data.direktt_user_id
-  direktt_admin_user_id.value = response.data.direktt_admin_user_id
+  categories.value = response.data.categories
+  tags.value = response.data.tags
   return ret;
 }
 
-async function getUserEvents() {
+async function clickSendMessage() {
+  send_message.value = true
   let ret = {};
-  console.log('Ucitavam');
-  console.log(page.value);
   const response = await doAjax({
-    action: "direktt_get_user_events", // the action to fire in the server
-    postId: postId.value,
-    page: page.value
+    action: "direktt_send_mtemplates_message", // the action to fire in the server
+    userSet: userSet.value,
+    categories: selectedCategories.value,
+    tags: selectedTags.value
   });
 
   ret = response.data;
-  return ret;
-}
 
-async function load({ done }) {
-  // Perform API call
-  const res = await getUserEvents();
-  if (res.length == 0) {
-    done("empty");
+  send_message.value = false
+
+  if(ret.succ){
+    snackbar_color.value = 'success'
+    snackbar_text.value = snack_succ_text
+    snackbar.value = true
   } else {
-    items.value.push(...res);
-    page.value = items.value[items.value.length - 1].ID
-    done("ok");
+    snackbar_color.value = 'error'
+    snackbar_text.value = error.responseJSON.data[0].message
+    snackbar.value = true
   }
+
+  
+  return ret;
 }
 
 async function doAjax(args) {
@@ -92,12 +104,12 @@ onMounted(() => {
       <tbody v-if="data">
         <tr>
           <td>
-            <v-checkbox label="Send only to users who gave consent"></v-checkbox>
+            <v-checkbox label="Send only to users who gave consent" v-model="consent"></v-checkbox>
           </td>
         </tr>
         <tr>
           <td>
-            <v-radio-group>
+            <v-radio-group inline v-model="userSet">
               <v-radio label="All Direktt Users" value="all"></v-radio>
               <v-radio label="Selected Users" value="selected"></v-radio>
             </v-radio-group>
@@ -105,9 +117,9 @@ onMounted(() => {
         </tr>
       </tbody>
     </table>
-    <v-card class="pa-4">
-      <v-autocomplete v-model="friends" :disabled="isUpdating" :items="people" color="blue-grey-lighten-2"
-        item-title="name" item-value="name" label="Categories" chips closable-chips multiple>
+    <v-card>
+      <v-autocomplete v-model="selectedCategories" :items="categories" color="blue-grey-lighten-2" item-title="name"
+        item-value="name" label="Categories" chips closable-chips multiple v-show="userSet == 'selected'">
         <template v-slot:chip="{ props, item }">
           <v-chip v-bind="props" :prepend-avatar="item.raw.avatar" :text="item.raw.name"></v-chip>
         </template>
@@ -118,8 +130,8 @@ onMounted(() => {
         </template>
       </v-autocomplete>
 
-      <v-autocomplete v-model="friends" :disabled="isUpdating" :items="people" color="blue-grey-lighten-2"
-        item-title="name" item-value="name" label="Tags" chips closable-chips multiple>
+      <v-autocomplete v-model="selectedTags" :items="tags" color="blue-grey-lighten-2" item-title="name"
+        item-value="name" label="Tags" chips closable-chips multiple v-show="userSet == 'selected'">
         <template v-slot:chip="{ props, item }">
           <v-chip v-bind="props" :prepend-avatar="item.raw.avatar" :text="item.raw.name"></v-chip>
         </template>
@@ -129,23 +141,23 @@ onMounted(() => {
             :title="item.raw.name"></v-list-item>
         </template>
       </v-autocomplete>
-      <v-btn variant="flat" class="text-none text-caption" color="#2271b1">
-  Send template
-</v-btn>
+      <v-btn variant="flat" class="text-none text-caption" color="#2271b1" :loading="send_message"
+        @click="clickSendMessage">
+        Send Template as Message
+      </v-btn>
     </v-card>
-    
     <p></p>
 
-  </v-card>
+    <v-snackbar v-model="snackbar" :timeout="3000" :color="snackbar_color">
+      {{ snackbar_text }}
+      <template v-slot:actions>
+        <v-btn variant="text" @click="snackbar = false">
+          X
+        </v-btn>
+      </template>
+    </v-snackbar>
 
-  <h1 class="mt-4">Direktt User Events</h1>
-  <v-infinite-scroll :height="300" :items="items" :onLoad="load">
-    <template v-for="(item, index) in items" :key="item">
-      <div :class="['pa-2', index % 2 === 0 ? 'bg-grey-lighten-2' : '']">
-        Item number #{{ item }}
-      </div>
-    </template>
-  </v-infinite-scroll>
+  </v-card>
 </template>
 
 <style></style>
