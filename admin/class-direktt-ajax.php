@@ -175,8 +175,7 @@ class Direktt_Ajax
 					$url = 'https://activatechannel-lnkonwpiwa-uc.a.run.app';
 
 					$data = array(
-						// 'domain' => 'https://direktt.ngrok.dev'
-						'domain' => get_site_url(null, '', 'https')
+						'domain' => get_site_url(null, '')
 					);
 
 					$response = wp_remote_post($url, array(

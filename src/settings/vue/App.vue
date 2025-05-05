@@ -94,15 +94,20 @@ async function getSettings() {
 function clickSaveSettings() {
   save_loading.value = true
 
-  console.log( selected_template.value )
-
-  mutation.mutate({
+  let mutation_obj = {
     api_key: api_key.value,
     redirect_url: redirect_url.value,
     pairing_prefix: pairing_prefix.value,
-    pairing_succ_template: selected_template.value.value,
     reset_pairings: reset_pairings.value
-  })
+  }
+
+  if( selected_template.value ) {
+    mutation_obj.pairing_succ_template = selected_template.value.value
+  }
+
+  console.log( selected_template.value )
+
+  mutation.mutate( mutation_obj )
 
   reset_pairings.value = false
 }
