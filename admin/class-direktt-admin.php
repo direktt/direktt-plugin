@@ -19,7 +19,7 @@ class Direktt_Admin
 			__('Direktt', 'direktt'),
 			"manage_options",
 			"direktt-dashboard",
-			[$this, 'render_admin_page'],
+			[$this, 'render_admin_dashboard'],
 			"",
 			30
 		);
@@ -60,7 +60,7 @@ class Direktt_Admin
 			__('Settings', 'direktt'),
 			'manage_options',
 			'direktt-settings',
-			[$this, 'render_admin_page']
+			[$this, 'render_admin_settings']
 		);
 
 		/*add_submenu_page(
@@ -409,7 +409,16 @@ class Direktt_Admin
 		);
 	}
 
-	public function render_admin_page()
+	public function render_admin_dashboard()
+	{
+		
+		?>
+			<div id="app"></div>
+		<?php
+		
+	}
+
+	public function render_admin_settings()
 	{
 		$active_tab = isset($_GET['subpage']) ? $_GET['subpage'] : '';
 
