@@ -38,8 +38,11 @@ class Direktt_Ajax
 			return;
 		}
 
-		//$categories = Direktt_User::get_user_categories();
-		//$tags = Direktt_User::get_user_tags();
+		$categories = (isset($_POST['categories'])) ? json_decode(stripslashes($_POST['categories']), true) : false;
+		$tags = (isset($_POST['tags'])) ? json_decode(stripslashes($_POST['tags']), true) : false;
+
+		var_dump($categories);
+		var_dump($tags);
 
 		$data = array(
 			'succ' => true

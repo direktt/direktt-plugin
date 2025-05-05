@@ -48,8 +48,8 @@ async function clickSendMessage() {
   const response = await doAjax({
     action: "direktt_send_mtemplates_message", // the action to fire in the server
     userSet: userSet.value,
-    categories: selectedCategories.value,
-    tags: selectedTags.value
+    categories: JSON.stringify(selectedCategories.value),
+    tags: JSON.stringify(selectedTags.value)
   });
 
   ret = response.data;
