@@ -105,8 +105,6 @@ function clickSaveSettings() {
     mutation_obj.pairing_succ_template = selected_template.value.value
   }
 
-  console.log( selected_template.value )
-
   mutation.mutate( mutation_obj )
 
   reset_pairings.value = false
