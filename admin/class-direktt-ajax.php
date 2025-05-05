@@ -176,7 +176,6 @@ class Direktt_Ajax
 
 					$data = array(
 						// 'domain' => 'https://direktt.ngrok.dev'
-						// 'domain' => 'https://direktt.ngrok.dev'
 						'domain' => get_site_url(null, '', 'https')
 					);
 
