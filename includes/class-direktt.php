@@ -48,6 +48,8 @@ class Direktt {
 		
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-direktt-profile.php';
 
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/addons/class-direktt-taxonomies-addon.php';
+
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-direktt-admin.php';
 
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-direktt-event.php';
@@ -92,6 +94,9 @@ class Direktt {
 		
 		$this->loader->add_action( 'init', $plugin_profile, 'profile_shortcode' );
 		$this->loader->add_action( 'init', $plugin_profile, 'setup_profile_tools');
+
+		$taxonomies_addon = new Direktt_Taxonomies_Addon();
+		$this->loader->add_action( 'direktt_setup_profile_tools', $taxonomies_addon, 'setup_profile_tools_taxonomies' );
 	}
 	
 	private function define_admin_hooks() {
