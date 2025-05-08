@@ -57,9 +57,7 @@ class Direktt_Profile
 			}
 		} else {
 			foreach (Direktt::$profile_tools_array as $item) {
-
 				if (isset($item['id']) && $active_tab == $item['id']) {
-
 					if ($this->direktt_user_has_term_slugs($item, $direktt_user) || Direktt_User::is_direktt_admin()) {
 						call_user_func($item['callback']);
 					}
@@ -157,7 +155,6 @@ class Direktt_Profile
 
 	function direktt_user_can_see_profile($direktt_user, $categories, $tags)
 	{
-
 		// Get assigned category and tag slugs
 		$assigned_categories = wp_get_post_terms($direktt_user['ID'], 'direkttusercategories', array('fields' => 'slugs'));
 		$assigned_tags       = wp_get_post_terms($direktt_user['ID'], 'direkttusertags', array('fields' => 'slugs'));
