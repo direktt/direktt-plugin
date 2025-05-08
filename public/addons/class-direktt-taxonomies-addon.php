@@ -106,8 +106,7 @@ class Direktt_Taxonomies_Addon {
                 </div>
                 <div class="direktt-taxonomies-tool-submit">
                     <input type="submit" name="save_user_taxonomies" value="<?php echo esc_html__( 'Save', 'direktt' ); ?>" class="button button-primary">
-                    <?php $nonce = wp_create_nonce( 'save_user_taxonomies_nonce' ); ?>
-                    <input type="hidden" name="save_user_taxonomies_nonce" value="<?php echo esc_attr( $nonce ); ?>">
+                    <input type="hidden" name="save_user_taxonomies_nonce" value="<?php echo esc_attr( wp_create_nonce( 'save_user_taxonomies_nonce' ) ); ?>">
                 </div>
             </div>
         </form>
