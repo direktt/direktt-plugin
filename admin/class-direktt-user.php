@@ -347,6 +347,17 @@ class Direktt_User
 
 	}
 
+	static function get_user_categories($direktt_user_post_id){
+
+		$term_ids = [];
+		$term_objects = get_the_terms($direktt_user_post_id, 'direkttusercategories');
+		if (! is_wp_error($term_objects) && ! empty($term_objects)) {
+			$term_ids = wp_list_pluck($term_objects, 'term_id');
+		}
+
+		return $term_ids;
+	}
+
 	static function get_all_user_tags(){
 
 		$tag_terms = get_terms(array(
@@ -363,6 +374,17 @@ class Direktt_User
 			];
 		}
 		return $all_tags;
+	}
+
+	static function get_user_tags($direktt_user_post_id){
+
+		$term_ids = [];
+		$term_objects = get_the_terms($direktt_user_post_id, 'direkttusertags');
+		if (! is_wp_error($term_objects) && ! empty($term_objects)) {
+			$term_ids = wp_list_pluck($term_objects, 'term_id');
+		}
+
+		return $term_ids;
 	}
 
 	public static function get_or_generate_user_pair_code($user_id)
@@ -392,7 +414,7 @@ class Direktt_User
 		return $pair_code;
 	}
 
-	function pair_wp_user_by_code($event)
+	public function pair_wp_user_by_code($event)
 	{
 
 		function strip_special_chars($input)
@@ -483,7 +505,7 @@ class Direktt_User
 		$direktt_user_id = false;
 
 		// ako je rola direktt onda
-		if (Direktt_User::is_wp_user_direktt_user($wp_user)) {
+		if (Direktt_User::is_wp_user_direktt_role($wp_user)) {
 
 			$direktt_user_id = get_user_meta($wp_user->ID, 'direktt_user_id', true);
 		} else {
@@ -513,7 +535,7 @@ class Direktt_User
 		}
 	}
 
-	static function is_wp_user_direktt_user($wp_user)
+	static function is_wp_user_direktt_role($wp_user)
 	{
 		if ($wp_user instanceof WP_User) {
 			if (in_array('direktt', $wp_user->roles)) {

@@ -169,7 +169,7 @@ class Direktt_Public
 
 				$current_user = wp_get_current_user();
 
-				if (! Direktt_User::is_wp_user_direktt_user($current_user)) {
+				if (! Direktt_User::is_wp_user_direktt_role($current_user)) {
 					return;
 				}
 			}
@@ -346,17 +346,11 @@ class Direktt_Public
 
 			if ($allowed_categories) {
 
-				$term_objects = get_the_terms($direktt_user['ID'], 'direkttusercategories');
-				$term_ids = array();
-
-				if (! is_wp_error($term_objects) && ! empty($term_objects)) {
-					$term_ids = wp_list_pluck($term_objects, 'term_id');
-
-					// Now check for allowed categories
-					$has_allowed_category = ! empty(array_intersect($term_ids, $allowed_categories));
-					if ($has_allowed_category) {
-						$rights = true;
-					}
+				$term_ids = Direktt_User::get_user_categories($direktt_user['ID']);
+	
+				$has_allowed_category = ! empty(array_intersect($term_ids, $allowed_categories));
+				if ($has_allowed_category) {
+					$rights = true;
 				}
 			}
 
@@ -364,18 +358,13 @@ class Direktt_Public
 
 			if ($allowed_tags) {
 
-				$term_objects = get_the_terms($direktt_user['ID'], 'direkttusertags');
-				$term_ids = array();
+				$term_ids = Direktt_User::get_user_tags($direktt_user['ID']);
 
-				if (! is_wp_error($term_objects) && ! empty($term_objects)) {
-					$term_ids = wp_list_pluck($term_objects, 'term_id');
-
-					// Now check for allowed categories
-					$has_allowed_tag = ! empty(array_intersect($term_ids, $allowed_tags));
-					if ($has_allowed_tag) {
-						$rights = true;
-					}
+				$has_allowed_tag = ! empty(array_intersect($term_ids, $allowed_tags));
+				if ($has_allowed_tag) {
+					$rights = true;
 				}
+				
 			}
 		}
 		return $rights;

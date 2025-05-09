@@ -496,7 +496,7 @@ class Direktt_Admin
 			<table class="form-table" role="presentation">
 				<tbody v-if="data">
 					<?php
-					if (!Direktt_User::is_wp_user_direktt_user($user)) {
+					if (!Direktt_User::is_wp_user_direktt_role($user)) {
 					?>
 						<tr>
 							<th scope="row"><label for="direktt_test_user_id">Post Id of Test Direktt User <p class="description">Post id of Direktt User which will be used on Direktt pages</p></label></th>
