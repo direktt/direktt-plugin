@@ -327,7 +327,7 @@ class Direktt_User
 		}
 	}
 
-	static function get_user_categories(){
+	static function get_all_user_categories(){
 
 		$category_terms = get_terms(array(
 			'taxonomy' => 'direkttusercategories',
@@ -347,7 +347,7 @@ class Direktt_User
 
 	}
 
-	static function get_user_tags(){
+	static function get_all_user_tags(){
 
 		$tag_terms = get_terms(array(
 			'taxonomy' => 'direkttusertags',

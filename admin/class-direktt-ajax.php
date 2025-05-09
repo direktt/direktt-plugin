@@ -20,8 +20,8 @@ class Direktt_Ajax
 			return;
 		}
 
-		$categories = Direktt_User::get_user_categories();
-		$tags = Direktt_User::get_user_tags();
+		$categories = Direktt_User::get_all_user_categories();
+		$tags = Direktt_User::get_all_user_tags();
 
 		$data = array(
 			'categories' => $categories,

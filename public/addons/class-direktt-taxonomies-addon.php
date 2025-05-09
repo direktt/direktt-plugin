@@ -41,8 +41,8 @@ class Direktt_Taxonomies_Addon {
             exit;
         }
     
-        $all_categories = Direktt_User::get_user_categories();
-        $all_tags       = Direktt_User::get_user_tags();
+        $all_categories = Direktt_User::get_all_user_categories();
+        $all_tags       = Direktt_User::get_all_user_tags();
     
         if ( $subscriptionId === false || $profile_user === false ) {
             wp_send_json( ['status' => 'no_user'] );
