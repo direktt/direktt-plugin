@@ -225,11 +225,23 @@ class Direktt_Ajax
 			}
 
 			if ($reset_pairings && $reset_pairings == "true"){
-				Direktt_User::delete_user_meta_for_all_users('direktt_user_pair_code');
+				$this->delete_user_meta_for_all_users('direktt_user_pair_code');
 			}
 		}
 
 		$data = array();
 		wp_send_json_success($data, 200);
+	}
+
+	private function delete_user_meta_for_all_users($meta_key)
+	{
+		global $wpdb;
+
+		$sql = $wpdb->prepare(
+			"DELETE FROM {$wpdb->usermeta} WHERE meta_key = %s",
+			$meta_key
+		);
+
+		$wpdb->query($sql);
 	}
 }

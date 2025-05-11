@@ -122,6 +122,10 @@ class Direktt {
 		
 		$this->loader->add_action( 'edit_form_after_editor', $plugin_admin, 'render_meta_panel' );
 
+		// Pairing related
+
+		$this->loader->add_action( 'direktt/event/chat/message_sent', $plugin_admin, 'pair_wp_user_by_code' );
+
 		// User Test meta related
 		
 		$this->loader->add_action( 'show_user_profile', $plugin_admin, 'render_user_meta_panel' );
@@ -135,6 +139,7 @@ class Direktt {
 	private function define_event_hooks() {
 
 		$plugin_event = new Direktt_Event( $this->get_plugin_name(), $this->get_version() );
+		
 		register_activation_hook( WP_PLUGIN_DIR . '/direktt-plugin/direktt.php' , array('Direktt_Event', 'create_database_table') );
 	}
 
@@ -142,7 +147,6 @@ class Direktt {
 
 		$plugin_user = new Direktt_User( $this->get_plugin_name(), $this->get_version() );
 
-		$this->loader->add_action( 'direktt/event/chat/message_sent', $plugin_user, 'pair_wp_user_by_code' );
 	}
 
 	private function define_message_hooks() {

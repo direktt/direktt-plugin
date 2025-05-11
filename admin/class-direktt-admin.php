@@ -489,7 +489,7 @@ class Direktt_Admin
 
 			$direktt_user_id = get_user_meta($user->ID, 'direktt_user_id', true);
 			$direktt_wp_user_id = get_user_meta($user->ID, 'direktt_wp_user_id', true);
-			$direktt_user_pair_code = Direktt_User::get_or_generate_user_pair_code($user->ID);
+			$direktt_user_pair_code = $this->get_or_generate_user_pair_code($user->ID);
 
 		?>
 			<h2>Direktt User Properties</h2>
@@ -598,6 +598,33 @@ class Direktt_Admin
 			</table>
 		<?php
 		}
+	}
+
+	private function get_or_generate_user_pair_code($user_id)
+	{
+		// Define the meta key
+		$meta_key = 'direktt_user_pair_code';
+
+		// Check if the user already has the meta field set
+		$pair_code = get_user_meta($user_id, $meta_key, true);
+
+		// If the meta field is not set or is empty, generate a new 6-digit code
+		if (empty($pair_code)) {
+
+			$par_code_prefix = get_option('direktt_pairing_prefix', false);
+
+			if (!$par_code_prefix) {
+				$par_code_prefix = 'pair';
+			}
+
+			$pair_code = $par_code_prefix . str_pad(mt_rand(0, 999999), 6, '0', STR_PAD_LEFT);
+
+			// Save the new code to the user's meta field
+			update_user_meta($user_id, $meta_key, $pair_code);
+		}
+
+		// Return the existing or newly generated code
+		return $pair_code;
 	}
 
 	function save_user_meta_panel($userId)
@@ -851,6 +878,86 @@ class Direktt_Admin
 		if (isset($_POST['direktt_mt_type'])) {
 			$dropdown_value = sanitize_text_field($_POST['direktt_mt_type']);
 			update_post_meta($post_id, 'direkttMTType', $dropdown_value);
+		}
+	}
+
+	public function pair_wp_user_by_code($event)
+	{
+		
+		function strip_special_chars($input)
+		{
+			return preg_replace('/[^a-zA-Z0-9]/', '', $input);
+		}
+
+		function find_pair_code($string, $pair_patt = 'pair')
+		{
+			$pattern = '/' . $pair_patt . '\d{6}/';
+
+			if (preg_match($pattern, $string, $matches)) {
+				return $matches[0];
+			} else {
+				return false;
+			}
+		}
+
+		$par_code_prefix = get_option('direktt_pairing_prefix', false);
+
+		if (!$par_code_prefix) {
+			$par_code_prefix = 'pair';
+		}
+
+		$event_data = strtolower(strip_special_chars($event["event_data"]));
+		$pair_code = find_pair_code($event_data, $par_code_prefix);
+
+		if ($pair_code) {
+
+			$users = get_users(array(
+				'meta_key' => 'direktt_user_pair_code',
+				'meta_value' => $pair_code,
+				'fields' => 'ID' 
+			));
+
+			if (!empty($users)) {
+
+				$meta_user_post = Direktt_User::get_user_by_subscription_id($event['direktt_user_id']);
+
+				$users_to_update = get_users(array(
+					'meta_key' => 'direktt_user_id',
+					'meta_value' => $meta_user_post['ID'],
+					'fields' => 'ID' 
+				));
+
+				$pairing_message_template = get_option('direktt_pairing_succ_template', false);
+
+				foreach ($users as $user_id) {
+
+					foreach ($users_to_update as $user_id_to_update) {
+						update_user_meta($user_id_to_update, 'direktt_wp_user_id', $user_id);
+						delete_user_meta($user_id_to_update, 'direktt_user_pair_code');
+					}
+
+					delete_user_meta($user_id, 'direktt_user_pair_code');
+
+					if ($pairing_message_template) {
+
+						Direktt_Message::send_message_template(
+							array($event['direktt_user_id']),
+							$pairing_message_template,
+							[
+								"wp_user" =>  get_user_by('id', $user_id)->user_login
+							]
+						);
+					} else {
+
+						$pushNotificationMessage = array(
+							"type" =>  "text",
+							"content" => 'You have been paired'
+						);
+
+						Direktt_Message::send_message(array($event['direktt_user_id']), $pushNotificationMessage);
+					}
+				}
+			}
 		}
 	}
 }
