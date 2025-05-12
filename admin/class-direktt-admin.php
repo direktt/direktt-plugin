@@ -705,14 +705,14 @@ class Direktt_Admin
 		?>
 		<p>
 			<input id="direktt_custom_box" name="direktt_custom_box" type="checkbox" <?php echo $box_checked ?>>
-			<label><?php echo __('Restrict access to Direktt users', 'direktt') ?></label>
+			<label><?php echo __('Allow access to Direktt users', 'direktt') ?></label>
 		</p>
 		<p>
 			<input id="direktt_custom_admin_box" name="direktt_custom_admin_box" type="checkbox" <?php echo $box_admin_checked ?>>
-			<label><?php echo __('Restrict access to Direktt admins', 'direktt') ?></label>
+			<label><?php echo __('Allow access to Direktt admin', 'direktt') ?></label>
 		</p>
 		<p>
-			<strong><?php echo __('Restrict access to Direktt User Categories:', 'direktt') ?></strong>
+			<strong><?php echo __('Allow access to Direktt User Categories:', 'direktt') ?></strong>
 		</p>
 		<p>
 			<?php
@@ -742,7 +742,7 @@ class Direktt_Admin
 
 		?>
 		<p>
-			<strong><?php echo __('Restrict access to Direktt User Tags:', 'direktt') ?></strong>
+			<strong><?php echo __('Allow access to Direktt User Tags:', 'direktt') ?></strong>
 		</p>
 		<p>
 			<input
