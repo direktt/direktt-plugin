@@ -137,6 +137,8 @@ class Direktt_User
 
 		if (!empty($users)) {
 			return $users[0];
+		} else {
+			return false;
 		}
 	}
 
