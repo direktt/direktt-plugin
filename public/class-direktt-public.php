@@ -275,7 +275,7 @@ class Direktt_Public
 	static function direktt_ajax_check_user($post)
 	{
 		if (!$post) {
-			return;
+			return false;
 		}
 
 		$current_user = wp_get_current_user();
