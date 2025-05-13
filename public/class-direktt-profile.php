@@ -29,7 +29,7 @@ class Direktt_Profile
 				'tags' => ''
 			),
 			$atts,
-			'direktt_user_profile' // shortcode tag for context (since WP 3.6+)
+			'direktt_user_profile' 
 		);
 
 		$categories = array_filter(array_map('trim', explode(',', $atts['categories'])));
