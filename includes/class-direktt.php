@@ -48,7 +48,9 @@ class Direktt {
 		
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-direktt-profile.php';
 
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/addons/class-direktt-taxonomies-addon.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/tools_services/class-direktt-taxonomies-tool.php';
+
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/tools_services/class-direktt-taxonomies-service.php';
 
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-direktt-admin.php';
 
@@ -95,8 +97,12 @@ class Direktt {
 		$this->loader->add_action( 'init', $plugin_profile, 'profile_shortcode' );
 		$this->loader->add_action( 'init', $plugin_profile, 'setup_profile_tools');
 
-		$taxonomies_addon = new Direktt_Taxonomies_Addon();
-		$this->loader->add_action( 'direktt_setup_profile_tools', $taxonomies_addon, 'setup_profile_tools_taxonomies' );
+		$taxonomies_tool = new Direktt_Taxonomies_Tool();
+		$this->loader->add_action( 'direktt_setup_profile_tools', $taxonomies_tool, 'setup_profile_tools_taxonomies' );
+
+		$taxonomies_service = new Direktt_Taxonomies_Service();
+		$this->loader->add_action( 'direktt_enqueue_public_scripts', $taxonomies_service, 'direktt_register_taxonomies_service_scripts' );
+		$this->loader->add_action( 'init', $taxonomies_service, 'direktt_taxonomies_service_add_shortcode' );
 	}
 	
 	private function define_admin_hooks() {

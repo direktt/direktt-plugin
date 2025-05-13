@@ -1,12 +1,12 @@
 <?php
 
-class Direktt_Taxonomies_Addon {
+class Direktt_Taxonomies_Tool {
     static function setup_profile_tools_taxonomies() {
         Direktt_Profile::add_profile_tool(
             array(
                 "id" => "edit-user-taxonomies",
                 "label" => esc_html__( 'Edit User Taxonomies', 'direktt' ),
-                "callback" => 'Direktt_Taxonomies_Addon::render_user_taxonomies',
+                "callback" => 'Direktt_Taxonomies_Tool::render_user_taxonomies',
                 "categories" => [],
                 "tags" => [],
                 "priority" => 1
@@ -45,7 +45,7 @@ class Direktt_Taxonomies_Addon {
         $all_tags       = Direktt_User::get_all_user_tags();
     
         if ( $subscriptionId === false || $profile_user === false ) {
-            wp_send_json( ['status' => 'no_user'] );
+            return;
         }
     
         $assigned_categories = wp_get_post_terms( $profile_user['ID'], 'direkttusercategories', array( 'fields' => 'names' ) );
