@@ -1,12 +1,12 @@
 <?php
 
 class Direktt_Taxonomies_Tool {
-    static function setup_profile_tools_taxonomies() {
+    public function setup_profile_tools_taxonomies() {
         Direktt_Profile::add_profile_tool(
             array(
                 "id" => "edit-user-taxonomies",
                 "label" => esc_html__( 'Edit User Taxonomies', 'direktt' ),
-                "callback" => 'Direktt_Taxonomies_Tool::render_user_taxonomies',
+                "callback" => [$this, 'render_user_taxonomies'],
                 "categories" => [],
                 "tags" => [],
                 "priority" => 1
@@ -14,7 +14,7 @@ class Direktt_Taxonomies_Tool {
         );
     }
 
-    static function render_user_taxonomies() {
+    public function render_user_taxonomies() {
         $subscriptionId = isset( $_GET['subscriptionId'] ) ? sanitize_text_field( wp_unslash( $_GET['subscriptionId'] ) ) : false;
         $profile_user   = Direktt_User::get_user_by_subscription_id( $subscriptionId );
     

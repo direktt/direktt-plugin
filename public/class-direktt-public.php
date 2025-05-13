@@ -370,7 +370,7 @@ class Direktt_Public
 		return $rights;
 	}
 
-	static function direktt_pairing_code_shortcode() {
+	public function direktt_pairing_code_shortcode() {
 		ob_start();
 		if ( ! is_user_logged_in() ) {
 			?>
@@ -395,7 +395,7 @@ class Direktt_Public
 		return ob_get_clean();
 	}
 
-	static function direktt_register_pairing_code_shortcode() {
-		add_shortcode( 'direktt_pairing_code', 'Direktt_Public::direktt_pairing_code_shortcode' );
+	public function direktt_register_pairing_code_shortcode() {
+		add_shortcode( 'direktt_pairing_code', [$this, 'direktt_pairing_code_shortcode'] );
 	}
 }
