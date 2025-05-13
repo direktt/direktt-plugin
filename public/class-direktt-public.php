@@ -369,4 +369,33 @@ class Direktt_Public
 		}
 		return $rights;
 	}
+
+	static function direktt_pairing_code_shortcode() {
+		ob_start();
+		if ( ! is_user_logged_in() ) {
+			?>
+			<p><?php echo esc_html__( 'You have to login.', 'direktt' ); ?></p>
+			<?php
+		} else {
+			$wp_user = wp_get_current_user();
+			if ( Direktt_User::get_direktt_user_by_wp_user( $wp_user ) ) {
+				?>
+				<p><?php echo esc_html__( 'You have already been paired.', 'direktt' ); ?></p>
+				<?php
+			} else {
+				$code = get_user_meta( $wp_user->ID, 'direktt_user_pair_code', true );
+				?>
+				<div class="direktt-paring-code">
+					<h2><?php echo esc_html__( 'Direktt Pairing Code', 'direktt' ); ?></h2>
+					<p><?php echo esc_html( $code ); ?></p>
+				</div>
+				<?php
+			}
+		}
+		return ob_get_clean();
+	}
+
+	static function direktt_register_pairing_code_shortcode() {
+		add_shortcode( 'direktt_pairing_code', 'Direktt_Public::direktt_pairing_code_shortcode' );
+	}
 }
