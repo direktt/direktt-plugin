@@ -244,4 +244,27 @@ class Direktt_User
 		}
 		return false;
 	}
+
+	static function has_direktt_taxonomies($direktt_user, $categories, $tags)
+	{
+		// Get assigned category and tag slugs
+		$assigned_categories = wp_get_post_terms($direktt_user['ID'], 'direkttusercategories', array('fields' => 'slugs'));
+		$assigned_tags       = wp_get_post_terms($direktt_user['ID'], 'direkttusertags', array('fields' => 'slugs'));
+
+		// If any input category matches assigned categories
+		if (! empty($categories) && ! empty($assigned_categories)) {
+			if (array_intersect($categories, $assigned_categories)) {
+				return true;
+			}
+		}
+
+		// If any input tag matches assigned tags
+		if (! empty($tags) && ! empty($assigned_tags)) {
+			if (array_intersect($tags, $assigned_tags)) {
+				return true;
+			}
+		}
+
+		return false;
+	}
 }

@@ -79,8 +79,6 @@ class Direktt {
 		$this->loader->add_action( 'init', $plugin_public, 'direktt_check_token' );
 		$this->loader->add_action( 'wp', $plugin_public, 'direktt_check_user' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'direktt_enqueue_public_scripts' );
-
-		$this->loader->add_action( 'init', $plugin_public, 'direktt_check_token' );
 	}
 
 	private function define_api_hooks() {

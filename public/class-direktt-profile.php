@@ -29,7 +29,7 @@ class Direktt_Profile
 				'tags' => ''
 			),
 			$atts,
-			'direktt_user_profile' // shortcode tag for context (since WP 3.6+)
+			'direktt_user_profile' 
 		);
 
 		$categories = array_filter(array_map('trim', explode(',', $atts['categories'])));
@@ -48,7 +48,7 @@ class Direktt_Profile
 			$profile_user = Direktt_User::get_user_by_subscription_id($subscriptionId);
 
 			if ($profile_user) {
-				if (($this->direktt_user_can_see_profile($direktt_user, $categories, $tags) || Direktt_User::is_direktt_admin()) || ($direktt_user['ID'] == $profile_user['ID'])) {
+				if ((Direktt_User::has_direktt_taxonomies($direktt_user, $categories, $tags) || Direktt_User::is_direktt_admin()) || ($direktt_user['ID'] == $profile_user['ID'])) {
 					echo ('User ID: ' . $profile_user['ID'] . '<br>');
 					echo ('Direktt User Id: ' . $profile_user['direktt_user_id'] . '<br>');
 					echo ('Direktt User Admin Id: ' . $profile_user['direktt_admin_user_id'] . '<br>');
@@ -132,29 +132,6 @@ class Direktt_Profile
 		$categories = $this->arrCategories($item);
 		$tags = $this->arrTags($item);
 
-		// Get assigned category and tag slugs
-		$assigned_categories = wp_get_post_terms($direktt_user['ID'], 'direkttusercategories', array('fields' => 'slugs'));
-		$assigned_tags       = wp_get_post_terms($direktt_user['ID'], 'direkttusertags', array('fields' => 'slugs'));
-
-		// If any input category matches assigned categories
-		if (! empty($categories) && ! empty($assigned_categories)) {
-			if (array_intersect($categories, $assigned_categories)) {
-				return true;
-			}
-		}
-
-		// If any input tag matches assigned tags
-		if (! empty($tags) && ! empty($assigned_tags)) {
-			if (array_intersect($tags, $assigned_tags)) {
-				return true;
-			}
-		}
-
-		return false;
-	}
-
-	function direktt_user_can_see_profile($direktt_user, $categories, $tags)
-	{
 		// Get assigned category and tag slugs
 		$assigned_categories = wp_get_post_terms($direktt_user['ID'], 'direkttusercategories', array('fields' => 'slugs'));
 		$assigned_tags       = wp_get_post_terms($direktt_user['ID'], 'direkttusertags', array('fields' => 'slugs'));

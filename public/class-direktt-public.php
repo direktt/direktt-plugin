@@ -71,7 +71,7 @@ class Direktt_Public
 		do_action('direktt_enqueue_public_scripts');
 	}
 
-	private function set_direktt_auth_cookie($cookie_value)
+	static private function set_direktt_auth_cookie($cookie_value)
 	{
 
 		$arr_cookie_options = array(
@@ -86,17 +86,17 @@ class Direktt_Public
 		setcookie('DirekttAuthToken', $cookie_value, $arr_cookie_options);
 	}
 
-	private function remove_direktt_auth_cookie()
+	static private function remove_direktt_auth_cookie()
 	{
-		$this->set_direktt_auth_cookie('');
+		Direktt_Public::set_direktt_auth_cookie('');
 	}
 
-	private function not_auth_redirect()
+	static function not_auth_redirect()
 	{
 		global $direktt_user;
 
 		$direktt_user = false;
-		$this->remove_direktt_auth_cookie();
+		Direktt_Public::remove_direktt_auth_cookie();
 
 		$redirect_url = get_option('unauthorized_redirect_url');
 
@@ -223,7 +223,7 @@ class Direktt_Public
 		exit;
 	}
 
-	static private function is_restricted($post)
+	static function is_restricted($post)
 	{
 		$for_users = Direktt_Public::is_post_for_direktt_user($post);
 		$for_admins = Direktt_Public::is_post_for_direktt_admin($post);
@@ -257,7 +257,7 @@ class Direktt_Public
 			return;
 		} else {
 			if (! is_user_logged_in()) {
-				$this->not_auth_redirect();
+				Direktt_Public::not_auth_redirect();
 			}
 		}
 
@@ -268,7 +268,7 @@ class Direktt_Public
 		if ($direktt_user && Direktt_Public::check_user_access_rights($direktt_user, $post)) {
 			show_admin_bar(false);
 		} else {
-			$this->not_auth_redirect();
+			Direktt_Public::not_auth_redirect();
 		}
 	}
 
