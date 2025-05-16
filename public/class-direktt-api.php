@@ -320,6 +320,10 @@ class Direktt_Api
 			if (array_key_exists('actionType', $parameters)) {
 				$action_type = sanitize_text_field($parameters['actionType']);
 
+				unset($parameters['actionType']);
+				unset($parameters['token']);
+				unset($parameters['subscriptionId']);
+
 				do_action("direktt/action/" . $action_type, $parameters);
 
 				$data = array();
