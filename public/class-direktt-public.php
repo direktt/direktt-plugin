@@ -136,10 +136,10 @@ class Direktt_Public
 
 			$direktt_user_id_tocheck = sanitize_text_field($decoded_token->subscriptionUid);
 			$user = Direktt_User::get_user_by_subscription_id($direktt_user_id_tocheck);
-		} else if (! property_exists($decoded_token, 'subscriptionUid') && property_exists($decoded_token, 'channelUid') && property_exists($decoded_token, 'adminUid')) {
+		//} else if (! property_exists($decoded_token, 'subscriptionUid') && property_exists($decoded_token, 'channelUid') && property_exists($decoded_token, 'adminUid')) {
 
-			$direktt_admin_id_tocheck = sanitize_text_field($decoded_token->adminUid);
-			$user = Direktt_User::get_user_by_admin_id($direktt_admin_id_tocheck);
+			//$direktt_admin_id_tocheck = sanitize_text_field($decoded_token->adminUid);
+			//$user = Direktt_User::get_user_by_admin_id($direktt_admin_id_tocheck);
 		} else {
 			return false;
 		}
@@ -339,7 +339,7 @@ class Direktt_Public
 	{
 		$rights = false;
 
-		if ((Direktt_Public::is_post_for_direktt_user($post) && $direktt_user['direktt_user_id']) || (Direktt_Public::is_post_for_direktt_admin($post) && $direktt_user['direktt_admin_user_id'])) {
+		if ((Direktt_Public::is_post_for_direktt_user($post) && $direktt_user['direktt_user_id']) || (Direktt_Public::is_post_for_direktt_admin($post) && $direktt_user['direktt_admin_subscription'])) {
 			$rights = true;
 		} else {
 			$allowed_categories = Direktt_Public::is_post_for_direktt_user_categories($post);

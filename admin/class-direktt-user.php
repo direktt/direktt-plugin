@@ -31,8 +31,8 @@ class Direktt_User
 			$post_obj = array(
 				'ID' => $post_id,
 				'direktt_user_id' => get_post_meta($post_id, 'direktt_user_id', true),
-				'direktt_admin_user_id' => get_post_meta($post_id, 'direktt_admin_user_id', true),
-				'direktt_marketing_consent_status' => get_post_meta($post_id, 'direktt_marketing_consent_status', true)
+				'direktt_admin_subscription' => ( get_post_meta($post_id, 'direktt_admin_subscription', true) == '1' ),
+				'direktt_marketing_consent_status' => ( get_post_meta($post_id, 'direktt_marketing_consent_status', true) == '1')
 			);
 		}
 
@@ -64,8 +64,8 @@ class Direktt_User
 			$post_obj = array(
 				'ID' => $post_id,
 				'direktt_user_id' => $direktt_user_id,
-				'direktt_admin_user_id' => get_post_meta($post_id, 'direktt_admin_user_id', true),
-				'direktt_marketing_consent_status' => get_post_meta($post_id, 'direktt_marketing_consent_status', true)
+				'direktt_admin_subscription' => ( get_post_meta($post_id, 'direktt_admin_subscription', true) == '1' ),
+				'direktt_marketing_consent_status' => ( get_post_meta($post_id, 'direktt_marketing_consent_status', true) == '1')
 			);
 		}
 
@@ -77,44 +77,11 @@ class Direktt_User
 
 		global $direktt_user;
 
-		if (isset($direktt_user['direktt_admin_user_id']) && $direktt_user['direktt_admin_user_id'] != '') {
+		if ( isset($direktt_user['direktt_admin_subscription']) && $direktt_user['direktt_admin_subscription'] ) {
 			return true;
 		}
 
 		return false;
-	}
-
-	static function get_user_by_admin_id($direktt_admin_id)
-	{
-		$args = array(
-			'post_type' => 'direkttusers',
-			'post_status' => 'publish',
-			'posts_per_page' => -1,
-			'fields' => 'ids',
-			'meta_query' => array(
-				array(
-					'key'   => 'direktt_admin_user_id',
-					'value' => $direktt_admin_id
-				)
-			),
-		);
-
-		$posts = get_posts($args);
-
-		$post_obj = false;
-
-		if (!empty($posts)) {
-			$post_id = $posts[0];
-
-			$post_obj = array(
-				'ID' => $post_id,
-				'direktt_user_id' => get_post_meta($post_id, 'direktt_user_id', true),
-				'direktt_admin_user_id' => $direktt_admin_id,
-				'direktt_marketing_consent_status' => get_post_meta($post_id, 'direktt_marketing_consent_status', true)
-			);
-		}
-
-		return $post_obj;
 	}
 
 	static function get_wp_direktt_user_by_post_id($direktt_user_id)

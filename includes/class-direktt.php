@@ -6,6 +6,7 @@ class Direktt {
 	static $profile_tools_array = array();
 
 	protected Direktt_Loader $loader;
+	protected Direktt_Api $direktt_api;
 
 	protected string $plugin_name;
 
@@ -65,6 +66,7 @@ class Direktt {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-direktt-message-template.php';
 
 		$this->loader = new Direktt_Loader();
+		$this->direktt_api = new Direktt_Api( $this->get_plugin_name(), $this->get_version() );
 	}
 
 	private function set_locale() {
@@ -84,9 +86,10 @@ class Direktt {
 
 	private function define_api_hooks() {
 
-		$plugin_api = new Direktt_Api( $this->get_plugin_name(), $this->get_version() );
+		//$plugin_api = new Direktt_Api( $this->get_plugin_name(), $this->get_version() );
+		//$this->loader->add_action( 'rest_api_init', $plugin_api, 'api_register_routes' );
 		
-		$this->loader->add_action( 'rest_api_init', $plugin_api, 'api_register_routes' );
+		$this->loader->add_action( 'rest_api_init', $this->direktt_api, 'api_register_routes' );
 	}
 
 	private function define_profile_hooks() {
@@ -161,7 +164,7 @@ class Direktt {
 
 	private function define_ajax_hooks() {
 
-		$plugin_ajax = new Direktt_Ajax( $this->get_plugin_name(), $this->get_version() );
+		$plugin_ajax = new Direktt_Ajax( $this->get_plugin_name(), $this->get_version(), $this->direktt_api );
 
 		$this->loader->add_action( 'wp_ajax_direktt_get_settings', $plugin_ajax, 'ajax_get_settings' );
 		$this->loader->add_action( 'wp_ajax_direktt_get_dashboard', $plugin_ajax, 'ajax_get_dashboard' );

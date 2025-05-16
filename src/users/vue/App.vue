@@ -7,8 +7,10 @@ const store = useDirekttStore();
 
 const postId = ref(direktt_users_object.postId);
 const marketing_consent = ref(false);
-const direktt_user_id = ref()
-const direktt_admin_user_id = ref()
+const direktt_user_id = ref("")
+const direktt_admin_subscription = ref("")
+const direktt_membership_id = ref("")
+const direktt_avatar_url = ref("")
 const items = ref([]);
 
 const page = ref(0)
@@ -34,8 +36,11 @@ async function getMarketingConsent() {
 
   ret = response.data;
   marketing_consent.value = response.data.marketing_consent === "1"
+  direktt_admin_subscription.value = response.data.admin_subscription === "1"
   direktt_user_id.value = response.data.direktt_user_id
-  direktt_admin_user_id.value = response.data.direktt_admin_user_id
+  direktt_avatar_url.value = response.data.avatar_url
+  direktt_membership_id.value = response.data.membership_id
+  //direktt_admin_subscription.value = response.data.admin_subscription
   return ret;
 }
 
@@ -103,9 +108,21 @@ onMounted(() => {});
         </td>
       </tr>
       <tr>
-        <th scope="row"><label for="blogname">Direktt Admin ID:</label></th>
+        <th scope="row"><label for="blogname">Admin Subscription:</label></th>
         <td>
-          {{ direktt_admin_user_id }}
+          {{ direktt_admin_subscription }}
+        </td>
+      </tr>
+      <tr>
+        <th scope="row"><label for="blogname">Avatar URL:</label></th>
+        <td>
+          {{ direktt_avatar_url }}
+        </td>
+      </tr>
+      <tr>
+        <th scope="row"><label for="blogname">Memebrship ID:</label></th>
+        <td>
+          {{ direktt_membership_id }}
         </td>
       </tr>
       <tr>

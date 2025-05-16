@@ -21,7 +21,6 @@ const snack_succ_text = 'Message Template Sent'
 const postId = ref(direktt_mtemplates_object.postId);
 const marketing_consent = ref(false);
 const direktt_user_id = ref()
-const direktt_admin_user_id = ref()
 
 const page = ref(0)
 

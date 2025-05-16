@@ -51,7 +51,7 @@ class Direktt_Profile
 				if ((Direktt_User::has_direktt_taxonomies($direktt_user, $categories, $tags) || Direktt_User::is_direktt_admin()) || ($direktt_user['ID'] == $profile_user['ID'])) {
 					echo ('User ID: ' . $profile_user['ID'] . '<br>');
 					echo ('Direktt User Id: ' . $profile_user['direktt_user_id'] . '<br>');
-					echo ('Direktt User Admin Id: ' . $profile_user['direktt_admin_user_id'] . '<br>');
+					echo ('Admin Subscription: ' . $profile_user['direktt_admin_subscription'] . '<br>');
 					echo ('Direktt User Marketing Consent: ' . $profile_user['direktt_marketing_consent_status'] . '<br><br><br>');
 				}
 			}

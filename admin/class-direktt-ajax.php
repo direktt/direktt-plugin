@@ -5,14 +5,16 @@ class Direktt_Ajax
 
 	private string $plugin_name;
 	private string $version;
+	private Direktt_Api $direktt_api;
 
-	public function __construct(string $plugin_name, string $version)
+	public function __construct(string $plugin_name, string $version, Direktt_Api $direktt_api)
 	{
 		$this->plugin_name = $plugin_name;
 		$this->version     = $version;
+		$this->direktt_api     = $direktt_api;
 	}
 
-	
+
 	public function ajax_get_mtemplates_taxonomies()
 	{
 		if (!current_user_can('manage_options')) {
@@ -50,7 +52,7 @@ class Direktt_Ajax
 
 		wp_send_json_success($data, 200);
 	}
-	
+
 	public function ajax_get_settings()
 	{
 		if (!current_user_can('manage_options')) {
@@ -105,7 +107,9 @@ class Direktt_Ajax
 		$data = array(
 			'direktt_user_id' => get_post_meta($post_id, "direktt_user_id", true),
 			'marketing_consent' => get_post_meta($post_id, "direktt_marketing_consent_status", true),
-			'direktt_admin_user_id' => get_post_meta($post_id, "direktt_admin_user_id", true),
+			'admin_subscription' => get_post_meta($post_id, "direktt_admin_subscription", true),
+			'membership_id' => get_post_meta($post_id, "direktt_membership_id", true),
+			'avatar_url' => get_post_meta($post_id, "direktt_avatar_url", true),
 		);
 
 		wp_send_json_success($data, 200);
@@ -160,14 +164,12 @@ class Direktt_Ajax
 			wp_send_json_error(new WP_Error('Unauthorized', 'Nonce is not valid'), 401);
 			exit;
 		} else {
-			if ($choice) {
+			if ($choice && $choice != "") {
 
 				$current_api = get_option('direktt_api_key');
 
 				if ($current_api != $choice) {
 
-
-					delete_option('direktt_activation_status');
 					update_option('direktt_api_key',  $choice);
 
 					// Ovde treba poslati poziv
@@ -180,13 +182,12 @@ class Direktt_Ajax
 
 					$response = wp_remote_post($url, array(
 						'body'    => json_encode($data),
+						'timeout'     => 30,
 						'headers' => array(
 							'Authorization' => 'Bearer ' . $choice,
 							'Content-type' => 'application/json',
 						),
 					));
-
-					//var_dump($response['response']['code']);
 
 					if (is_wp_error($response)) {
 						wp_send_json_error($response, 500);
@@ -194,16 +195,24 @@ class Direktt_Ajax
 					}
 
 					if ($response['response']['code'] != '200' && $response['response']['code'] != '201') {
+
+						delete_option('direktt_activation_status');
+
 						wp_send_json_error(new WP_Error('Unauthorized', 'API Key validation failed'), 401);
 						return;
 					}
 
 					update_option('direktt_activation_status', 'true');
-					
 
+					// ovde treba da ide poziv za dovlacenje subscription-a
+
+					if (!$this->has_published_direkttusers_posts()) {
+						$this->get_all_existing_subscriptions();
+					}
 				}
 			} else {
 				delete_option('direktt_api_key');
+				delete_option('direktt_activation_status');
 			}
 
 			if ($url_choice) {
@@ -224,13 +233,61 @@ class Direktt_Ajax
 				delete_option('direktt_pairing_succ_template');
 			}
 
-			if ($reset_pairings && $reset_pairings == "true"){
+			if ($reset_pairings && $reset_pairings == "true") {
 				$this->delete_user_meta_for_all_users('direktt_user_pair_code');
 			}
 		}
 
 		$data = array();
 		wp_send_json_success($data, 200);
+	}
+
+	private function get_all_existing_subscriptions()
+	{
+
+		$api_key = (isset($_POST['api_key'])) ? sanitize_text_field($_POST['api_key']) : false;
+
+		$url = 'https://getsubscriptionsforchannel-lnkonwpiwa-uc.a.run.app';
+
+		$data = array();
+
+		$response = wp_remote_post($url, array(
+			'body'    => json_encode($data),
+			'timeout'     => 30,
+			'headers' => array(
+				'Authorization' => 'Bearer ' . $api_key,
+				'Content-type' => 'application/json',
+			),
+		));
+
+		if (is_wp_error($response)) {
+			return;
+		}
+
+		$body = wp_remote_retrieve_body($response);
+		$data = json_decode($body, true);
+
+		if (isset($data['success']) && $data['success'] && !empty($data['subscriptions'])) {
+			foreach ($data['subscriptions'] as $subscription) {
+				$subscriptionId    = $subscription['subscriptionId']   ?? null;
+				$displayName       = $subscription['displayName']      ?? null;
+				$avatarUrl         = $subscription['avatarUrl']        ?? null;
+				$adminSubscription = $subscription['adminSubscription'] == 'true' ?? null;
+				$membershipId         = $subscription['membershipId']        ?? null;
+				$marketingConsentStatus         = $subscription['marketingConsentStatus'] == 'true'  ?? null;
+
+				$this->direktt_api->subscribe_user(
+					$subscriptionId,
+					$displayName,
+					$avatarUrl,
+					$adminSubscription,
+					$membershipId,
+					$marketingConsentStatus
+					// Remaining params defaults to null
+				);
+			}
+		}
+
 	}
 
 	private function delete_user_meta_for_all_users($meta_key)
@@ -243,5 +300,17 @@ class Direktt_Ajax
 		);
 
 		$wpdb->query($sql);
+	}
+
+	private function has_published_direkttusers_posts()
+	{
+		$args = array(
+			'post_type'      => 'direkttusers',
+			'post_status'    => 'publish',
+			'posts_per_page' => 1, // Just need to check existence
+			'fields'         => 'ids',
+		);
+		$query = new WP_Query($args);
+		return ($query->have_posts());
 	}
 }
