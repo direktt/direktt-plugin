@@ -64,7 +64,8 @@ class Direktt_Public
 			'direktt_public',
 			array(
 				'direktt_user' => $direktt_user,
-				'direktt_post_id' => get_the_ID()
+				'direktt_post_id' => get_the_ID(),
+				'direktt_wp_rest_nonce' => wp_create_nonce( 'wp_rest' )
 			)
 		);
 

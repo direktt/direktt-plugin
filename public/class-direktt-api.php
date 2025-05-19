@@ -137,7 +137,7 @@ class Direktt_Api
 				$marketing_consent_status = (sanitize_text_field($parameters['marketingConsentStatus']) == 'true');
 			}
 
-			$result = $this->subscribe_user($direktt_user_id, $display_name, $avatar_url, $admin_subscription, $membership_id, $marketing_consent_status );
+			$result = $this->subscribe_user($direktt_user_id, $display_name, $avatar_url, $admin_subscription, $membership_id, $marketing_consent_status);
 
 			if (is_wp_error($result)) {
 				wp_send_json_error($result, 500);
@@ -150,7 +150,7 @@ class Direktt_Api
 		}
 	}
 
-	public function subscribe_user($direktt_user_id, $direktt_user_title = null, $direktt_user_avatar_url = null, $direktt_admin_subscription = null, $direktt_membership_id = null, $direktt_marketing_consent_status = null )
+	public function subscribe_user($direktt_user_id, $direktt_user_title = null, $direktt_user_avatar_url = null, $direktt_admin_subscription = null, $direktt_membership_id = null, $direktt_marketing_consent_status = null)
 	{
 		$usr_title = $direktt_user_id;
 
@@ -168,7 +168,7 @@ class Direktt_Api
 
 		if (!is_null($direktt_admin_subscription) && $direktt_admin_subscription != '') {
 			$meta_input['direktt_admin_subscription'] = $direktt_admin_subscription;
-			if( $direktt_admin_subscription ){
+			if ($direktt_admin_subscription) {
 				$usr_title = "Channel Admin";
 			}
 		}
@@ -250,10 +250,10 @@ class Direktt_Api
 				$avatar_url = sanitize_text_field($parameters['imageUrl']);
 			} else {
 				$avatar_url = '';
-			}			
+			}
 
 			if ($user) {
-				if ( $avatar_url != ''){
+				if ($avatar_url != '') {
 					update_post_meta($user['ID'], "direktt_avatar_url", $avatar_url);
 				} else {
 					delete_post_meta($user['ID'], "direktt_avatar_url");
@@ -301,6 +301,28 @@ class Direktt_Api
 		}
 	}
 
+	private function append_terms_to_post($post_id, $terms, $taxonomy)
+	{
+		if (empty($post_id) || empty($terms) || empty($taxonomy)) {
+			return false; // Missing parameters.
+		}
+		if (! is_array($terms)) {
+			$terms = array($terms);
+		}
+		return wp_set_object_terms((int)$post_id, $terms, $taxonomy, true);
+	}
+
+	private function remove_terms_from_post($post_id, $terms, $taxonomy)
+	{
+		if (empty($post_id) || empty($terms) || empty($taxonomy)) {
+			return false; // Missing parameters.
+		}
+		if (! is_array($terms)) {
+			$terms = array($terms);
+		}
+		return wp_remove_object_terms((int)$post_id, $terms, $taxonomy);
+	}
+
 	public function do_direktt_action(WP_REST_Request $request)
 	{
 		global $direktt_user;
@@ -318,6 +340,7 @@ class Direktt_Api
 			}
 
 			if (array_key_exists('actionType', $parameters)) {
+
 				$action_type = sanitize_text_field($parameters['actionType']);
 
 				unset($parameters['actionType']);
@@ -325,6 +348,22 @@ class Direktt_Api
 				unset($parameters['subscriptionId']);
 
 				do_action("direktt/action/" . $action_type, $parameters);
+
+				if (array_key_exists('addDirekttUserCategory', $parameters)) {
+					$this->append_terms_to_post( $direktt_user['ID'], json_decode($parameters['addDirekttUserCategory']), 'direkttusercategories' ); 
+				}
+
+				if (array_key_exists('removeDirekttUserCategory', $parameters)) {
+					$this->remove_terms_from_post( $direktt_user['ID'], json_decode($parameters['removeDirekttUserCategory']), 'direkttusercategories' ); 
+				}
+
+				if (array_key_exists('addDirekttUserTag', $parameters)) {
+					$this->append_terms_to_post( $direktt_user['ID'], json_decode($parameters['addDirekttUserTag']), 'direkttusertags' ); 
+				}
+
+				if (array_key_exists('removeDirekttUserTag', $parameters)) {
+					$this->remove_terms_from_post( $direktt_user['ID'], json_decode($parameters['removeDirekttUserTag']), 'direkttusertags' ); 
+				}
 
 				$data = array();
 				wp_send_json_success($data, 200);
