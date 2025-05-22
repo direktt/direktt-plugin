@@ -12,18 +12,24 @@ class Direktt_Message
         $this->version     = $version;
     }
 
-    static function send_message($direktt_user_ids, $message)
+    static function send_message($messages)
     {
         $api_key = get_option('direktt_api_key') ? esc_attr(get_option('direktt_api_key')) : '';
         $url = 'https://sendbulkmessages-lnkonwpiwa-uc.a.run.app';
 
-        $data = array(
-            'subscriptionIds' => $direktt_user_ids,
-            'pushNotificationMessage' => $message
-        );
+        $data = [];
+
+        foreach ($messages as $key => $value) {
+            $obj = new stdClass();
+            $obj->subscriptionId = $key;
+            $obj->pushNotificationMessage = $value;
+            $data[] = $obj;
+        }
 
         $response = wp_remote_post($url, array(
-            'body'    => json_encode($data),
+            'body'    => json_encode(array(
+                "messages" => $data
+            )),
             'headers' => array(
                 'Authorization' => 'Bearer ' . $api_key,
                 'Content-type' => 'application/json',
@@ -49,33 +55,38 @@ class Direktt_Message
 
         $url = 'https://sendbulkmessages-lnkonwpiwa-uc.a.run.app';
 
-        $message = get_post_meta($message_template_id, 'direkttMTJson', true);
+        $message_template = get_post_meta($message_template_id, 'direkttMTJson', true);
 
-        if ($message) {
+        if ($message_template) {
 
-            $message = Direktt_Message::replace_tags_in_template($message, $replacements);
-            $message = json_decode( $message );
-            if (is_array( $message->content ) || is_object( $message->content )) {
-                $message->content = json_encode( $message->content);
+            $data = [];
+
+            foreach ($direktt_user_ids as $key => $value) {
+
+                $message = Direktt_Message::replace_tags_in_template($message_template, $replacements);
+                $message = json_decode($message);
+                if (is_array($message->content) || is_object($message->content)) {
+                    $message->content = json_encode($message->content);
+                }
+                if (!is_null($message)) {
+                    $obj = new stdClass();
+                    $obj->subscriptionId = $value;
+                    $obj->pushNotificationMessage = $message;
+                    $data[] = $obj;
+                }
             }
 
-            if (!is_null($message)) {
+            $response = wp_remote_post($url, array(
+                'body'    => json_encode(array(
+                    "messages" => $data
+                )),
+                'headers' => array(
+                    'Authorization' => 'Bearer ' . $api_key,
+                    'Content-type' => 'application/json',
+                ),
+            ));
 
-                $data = array(
-                    'subscriptionIds' => $direktt_user_ids,
-                    'pushNotificationMessage' => $message
-                );
-
-                $response = wp_remote_post($url, array(
-                    'body'    => json_encode($data),
-                    'headers' => array(
-                        'Authorization' => 'Bearer ' . $api_key,
-                        'Content-type' => 'application/json',
-                    ),
-                ));
-
-                return $message;
-            }
+            return $message;
         }
         return false;
     }
@@ -98,7 +109,7 @@ class Direktt_Message
         ));
     }
 
-    static function send_message_to_admin_template($message_template_id, $replacements = [])
+    static function send_message_template_to_admin($message_template_id, $replacements = [])
     {
         $api_key = get_option('direktt_api_key') ? esc_attr(get_option('direktt_api_key')) : '';
         $url = 'https://sendadminmessage-lnkonwpiwa-uc.a.run.app';
@@ -108,9 +119,9 @@ class Direktt_Message
         if ($message) {
 
             $message = Direktt_Message::replace_tags_in_template($message, $replacements);
-            $message = json_decode( $message );
-            if (is_array( $message->content ) || is_object( $message->content )) {
-                $message->content = json_encode( $message->content);
+            $message = json_decode($message);
+            if (is_array($message->content) || is_object($message->content)) {
+                $message->content = json_encode($message->content);
             }
 
             if (!is_null($message)) {

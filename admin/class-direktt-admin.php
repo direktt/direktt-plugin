@@ -954,7 +954,7 @@ class Direktt_Admin
 							"content" => 'You have been paired'
 						);
 
-						Direktt_Message::send_message(array($event['direktt_user_id']), $pushNotificationMessage);
+						Direktt_Message::send_message( array( $event['direktt_user_id'] => $pushNotificationMessage ) );
 					}
 				}
 			}

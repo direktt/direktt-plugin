@@ -11,6 +11,7 @@ const categories = ref([]);
 const tags = ref([]);
 const selectedCategories = ref([]);
 const selectedTags = ref([]);
+const nonce = ref([]);
 
 const send_message = ref(false)
 const snackbar = ref(false)
@@ -38,34 +39,36 @@ async function getMTemplatesTaxonomies() {
   ret = response.data;
   categories.value = response.data.categories
   tags.value = response.data.tags
+  nonce.value = response.data.nonce
   return ret;
 }
 
 async function clickSendMessage() {
   send_message.value = true
   let ret = {};
-  const response = await doAjax({
-    action: "direktt_send_mtemplates_message", // the action to fire in the server
-    userSet: userSet.value,
-    categories: JSON.stringify(selectedCategories.value),
-    tags: JSON.stringify(selectedTags.value)
-  });
+  try {
+    const response = await doAjax({
+      action: "direktt_send_mtemplates_message", // the action to fire in the server
+      userSet: userSet.value,
+      categories: JSON.stringify(selectedCategories.value),
+      tags: JSON.stringify(selectedTags.value),
+      nonce: nonce.value,
+      postId: document.getElementById('post_ID').value
+    })
 
-  ret = response.data;
-
-  send_message.value = false
-
-  if(ret.succ){
-    snackbar_color.value = 'success'
-    snackbar_text.value = snack_succ_text
-    snackbar.value = true
-  } else {
+    ret = response.data;
+    if (ret.succ) {
+      snackbar_color.value = 'success'
+      snackbar_text.value = snack_succ_text
+      snackbar.value = true
+    } 
+  } catch (error) {
+    
     snackbar_color.value = 'error'
     snackbar_text.value = error.responseJSON.data[0].message
     snackbar.value = true
   }
-
-  
+  send_message.value = false
   return ret;
 }
 
@@ -89,8 +92,8 @@ const openInNewTab = (url) => {
 };
 
 onMounted(() => {
-  console.log('mtemplates')
 });
+
 </script>
 
 <template>
@@ -109,16 +112,17 @@ onMounted(() => {
         <tr>
           <td>
             <v-radio-group inline v-model="userSet">
-              <v-radio label="All Direktt Users" value="all"></v-radio>
-              <v-radio label="Selected Users" value="selected"></v-radio>
+              <v-radio label="All Channel Subscribers" value="all"></v-radio>
+              <v-radio label="Selected Channel Subscribers" value="selected"></v-radio>
+              <v-radio label="Channel Admin" value="admin"></v-radio>
             </v-radio-group>
           </td>
         </tr>
       </tbody>
     </table>
-    <v-card>
+    <v-card variant="flat">
       <v-autocomplete v-model="selectedCategories" :items="categories" color="blue-grey-lighten-2" item-title="name"
-        item-value="name" label="Categories" chips closable-chips multiple v-show="userSet == 'selected'">
+        item-value="value" label="Categories" chips closable-chips multiple v-show="userSet == 'selected'">
         <template v-slot:chip="{ props, item }">
           <v-chip v-bind="props" :prepend-avatar="item.raw.avatar" :text="item.raw.name"></v-chip>
         </template>
@@ -130,7 +134,7 @@ onMounted(() => {
       </v-autocomplete>
 
       <v-autocomplete v-model="selectedTags" :items="tags" color="blue-grey-lighten-2" item-title="name"
-        item-value="name" label="Tags" chips closable-chips multiple v-show="userSet == 'selected'">
+        item-value="value" label="Tags" chips closable-chips multiple v-show="userSet == 'selected'">
         <template v-slot:chip="{ props, item }">
           <v-chip v-bind="props" :prepend-avatar="item.raw.avatar" :text="item.raw.name"></v-chip>
         </template>

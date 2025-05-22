@@ -24,10 +24,12 @@ class Direktt_Ajax
 
 		$categories = Direktt_User::get_all_user_categories();
 		$tags = Direktt_User::get_all_user_tags();
+		$nonce = wp_create_nonce('direkttmtemplates');
 
 		$data = array(
 			'categories' => $categories,
-			'tags' => $tags
+			'tags' => $tags,
+			'nonce' => $nonce
 		);
 
 		wp_send_json_success($data, 200);
@@ -40,17 +42,45 @@ class Direktt_Ajax
 			return;
 		}
 
-		$categories = (isset($_POST['categories'])) ? json_decode(stripslashes($_POST['categories']), true) : false;
-		$tags = (isset($_POST['tags'])) ? json_decode(stripslashes($_POST['tags']), true) : false;
+		$nonce = (isset($_POST['nonce'])) ? sanitize_text_field($_POST['nonce']) : false;
 
-		var_dump($categories);
-		var_dump($tags);
+		if ($nonce && wp_verify_nonce($nonce, 'direkttmtemplates')) {
 
-		$data = array(
-			'succ' => true
-		);
+			$categories = (isset($_POST['categories'])) ? json_decode(stripslashes($_POST['categories']), true) : false;
+			$tags = (isset($_POST['tags'])) ? json_decode(stripslashes($_POST['tags']), true) : false;
 
-		wp_send_json_success($data, 200);
+			$userSet = (isset($_POST['userSet'])) ? sanitize_text_field($_POST['userSet']) : false;
+
+			$message_template_id = (isset($_POST['postId'])) ? sanitize_text_field($_POST['postId']) : false;
+
+			if ($userSet && $message_template_id ) {
+
+				$subscription_ids = array();
+
+				if ($userSet == 'all') {
+					$subscription_ids = $this->get_subscription_ids_from_terms([], []);
+					Direktt_Message::send_message_template($subscription_ids, $message_template_id );
+				}
+
+				if ($userSet == 'selected') {
+					$subscription_ids = $this->get_subscription_ids_from_terms($categories, $tags, false);
+					Direktt_Message::send_message_template($subscription_ids, $message_template_id );
+				}
+
+				if ($userSet == 'admin') {
+					Direktt_Message::send_message_template_to_admin( $message_template_id );
+				}
+			}
+
+			$data = array(
+				'succ' => true
+			);
+
+			wp_send_json_success($data, 200);
+			return;
+		}
+
+		wp_send_json_error(new WP_Error('Unauthorized', 'Access to API is unauthorized.'), 401);
 	}
 
 	public function ajax_get_settings()
@@ -287,7 +317,6 @@ class Direktt_Ajax
 				);
 			}
 		}
-
 	}
 
 	private function delete_user_meta_for_all_users($meta_key)
@@ -312,5 +341,76 @@ class Direktt_Ajax
 		);
 		$query = new WP_Query($args);
 		return ($query->have_posts());
+	}
+
+	private function get_subscription_ids_from_terms($category_ids = array(), $tag_ids = array(), $empty_allowed = true)
+	{
+		// Ensure inputs are arrays
+		$category_ids = (array) $category_ids;
+		$tag_ids      = (array) $tag_ids;
+
+		// Build tax_query
+		$tax_query = array('relation' => 'OR');
+
+		if (! empty($category_ids)) {
+			$tax_query[] = array(
+				'taxonomy' => 'direkttusercategories',
+				'field'    => 'term_id',
+				'terms'    => $category_ids,
+			);
+		}
+		if (! empty($tag_ids)) {
+			$tax_query[] = array(
+				'taxonomy' => 'direkttusertags',
+				'field'    => 'term_id',
+				'terms'    => $tag_ids,
+			);
+		}
+
+		$meta_query = array(
+			'relation' => 'OR',
+			// Case 1: Key doesn't exist (so admin subscription isn't set)
+			array(
+				'key'     => 'direktt_admin_subscription',
+				'compare' => 'NOT EXISTS',
+			),
+			// Case 2: Key exists, but is not true or 1
+			array(
+				'key'     => 'direktt_admin_subscription',
+				'value'   => array('1', 'true'),
+				'compare' => 'NOT IN',
+			),
+		);
+
+		$args = array(
+			'post_type'      => 'direkttusers',
+			'posts_per_page' => -1,
+			'fields'         => 'ids',
+			'tax_query'      => $tax_query,
+			'meta_query'     => $meta_query,
+			'post_status'    => 'any',
+		);
+
+		if (count($tax_query) === 1 && $empty_allowed) {
+			unset($args['tax_query']);
+		} else if (count($tax_query) === 1 && !$empty_allowed) {
+			return array();
+		}
+
+		$query = new WP_Query($args);
+		$post_ids = $query->posts;
+
+		// Get subscriptionId meta values
+		$subscription_ids = array();
+		if (! empty($post_ids)) {
+			foreach ($post_ids as $post_id) {
+				$sub_id = get_post_meta($post_id, 'direktt_user_id', true);
+				if (! empty($sub_id)) {
+					$subscription_ids[] = $sub_id;
+				}
+			}
+		}
+
+		return $subscription_ids;
 	}
 }
