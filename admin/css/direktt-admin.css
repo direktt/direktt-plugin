@@ -5,3 +5,19 @@ select:not(:where(.v-input select)), textarea:not(:where(.v-input textarea)){
 .v-select .v-field .v-field__input>input {
     opacity: 0;
 }
+
+.v-label {
+	font-size: .875rem;
+    line-height: 1.4;
+    color: #3c434a;
+    opacity: 1;
+    letter-spacing: 0;
+}
+
+.v-checkbox .v-input__details {
+    display: none;
+}
+
+.form-table td {
+    padding: 0px 10px;
+}

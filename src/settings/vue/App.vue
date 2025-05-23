@@ -152,7 +152,7 @@ onMounted(() => {
               Not activated
             </div>
             <div v-if="activation_status">
-              <v-icon color="success" icon="mdi-check-bold" size="large" class='rm-4'></v-icon>
+              <v-icon color="info" icon="mdi-check-bold" size="large" class='rm-4'></v-icon>
               Activated
             </div>
           </td>
@@ -235,7 +235,7 @@ onMounted(() => {
 
     <p></p>
 
-    <v-btn variant="flat" class="text-none text-caption" color="#2271b1" @click="clickSaveSettings"
+    <v-btn variant="flat" class="text-none text-caption" color="info" @click="clickSaveSettings"
       :loading="save_loading">
       Save Direktt Settings
     </v-btn>

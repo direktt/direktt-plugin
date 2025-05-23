@@ -104,7 +104,7 @@ onMounted(() => {
               Not activated
             </div>
             <div v-if="activation_status">
-              <v-icon color="success" icon="mdi-check-bold" size="large" class='rm-4'></v-icon>
+              <v-icon color="info" icon="mdi-check-bold" size="large" class='rm-4'></v-icon>
               Activated
             </div>
           </td>
