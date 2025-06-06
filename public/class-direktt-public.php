@@ -399,4 +399,104 @@ class Direktt_Public
 	public function direktt_register_pairing_code_shortcode() {
 		add_shortcode( 'direktt_pairing_code', [$this, 'direktt_pairing_code_shortcode'] );
 	}
+
+	public function direktt_qr_pairing_code_shortcode( $atts ) {
+		$atts = shortcode_atts( array(
+			'size_in_px' => '200', // default size
+		), $atts );
+		$size_in_px = intval( $atts['size_in_px'] );
+		ob_start();
+		if ( ! is_user_logged_in() ) {
+			?>
+			<p><?php echo esc_html__( 'You have to login.', 'direktt' ); ?></p>
+			<?php
+		} else {
+			$wp_user = wp_get_current_user();
+			if ( Direktt_User::get_direktt_user_by_wp_user( $wp_user ) ) {
+				?>
+				<p><?php echo esc_html__( 'You have already been paired.', 'direktt' ); ?></p>
+				<?php
+			} else {
+				$code = get_user_meta( $wp_user->ID, 'direktt_user_pair_code', true );
+				?>
+				<div class="direktt-qr-paring-code" data-pair-code="<?php echo esc_attr( $code ); ?>" data-size-in-px="<?php echo esc_attr( $size_in_px ); ?>">
+					<h2><?php echo esc_html__( 'Direktt Pairing Code', 'direktt' ); ?></h2>
+					<div id="qrcode"></div>
+				</div>
+				<?php
+			}
+		}
+		return ob_get_clean();
+	}
+
+	public function direktt_register_qr_pairing_code_shortcode() {
+		add_shortcode( 'direktt_qr_pairing_code', [$this, 'direktt_qr_pairing_code_shortcode'] );
+	}
+
+	public function direktt_pair_code_action( $pair_code ) {
+		$users = get_users(array(
+			'meta_key' => 'direktt_user_pair_code',
+			'meta_value' => $pair_code,
+			'fields' => 'ID' 
+		));
+
+		if (!empty($users)) {
+			global $direktt_user;
+			$meta_user_post = Direktt_User::get_user_by_subscription_id($direktt_user['direktt_user_id']);
+
+			$users_to_update = get_users(array(
+				'meta_key' => 'direktt_user_id',
+				'meta_value' => $meta_user_post['ID'],
+				'fields' => 'ID' 
+			));
+
+			$pairing_message_template = get_option('direktt_pairing_succ_template', false);
+
+			foreach ($users as $user_id) {
+
+				foreach ($users_to_update as $user_id_to_update) {
+					update_user_meta($user_id_to_update, 'direktt_wp_user_id', $user_id);
+					delete_user_meta($user_id_to_update, 'direktt_user_pair_code');
+				}
+
+				delete_user_meta($user_id, 'direktt_user_pair_code');
+
+				if ($pairing_message_template) {
+
+					Direktt_Message::send_message_template(
+						array($event['direktt_user_id']),
+						$pairing_message_template,
+						[
+							"wp_user" =>  get_user_by('id', $user_id)->user_login
+						]
+					);
+				} else {
+
+					$pushNotificationMessage = array(
+						"type" =>  "text",
+						"content" => 'You have been paired'
+					);
+
+					Direktt_Message::send_message( array( $event['direktt_user_id'] => $pushNotificationMessage ) );
+				}
+			}
+		}
+	}
+
+	public function direktt_register_pairing_code_scripts() {
+		wp_enqueue_script(
+			'qrcode-generator',
+			'https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js',
+			array(), // No dependencies
+			'1.0.0',
+			true // Load in footer
+		);
+		wp_enqueue_script(
+			'direktt-pair-code-qr-js',
+			plugins_url( 'js/direktt-pair-code-qr.js', __FILE__ ),
+			array( 'jquery' ),
+			null,
+			true
+		);
+	}
 }
