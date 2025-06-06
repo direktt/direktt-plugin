@@ -418,6 +418,8 @@ class Direktt_Public
 				<?php
 			} else {
 				$code = get_user_meta( $wp_user->ID, 'direktt_user_pair_code', true );
+				wp_enqueue_script( 'qrcode-generator' );
+				wp_enqueue_script( 'direktt-pair-code-qr-js' );
 				?>
 				<div class="direktt-qr-paring-code" data-pair-code="<?php echo esc_attr( $code ); ?>" data-size-in-px="<?php echo esc_attr( $size_in_px ); ?>">
 					<h2><?php echo esc_html__( 'Direktt Pairing Code', 'direktt' ); ?></h2>
@@ -484,14 +486,14 @@ class Direktt_Public
 	}
 
 	public function direktt_register_pairing_code_scripts() {
-		wp_enqueue_script(
+		wp_register_script(
 			'qrcode-generator',
 			'https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js',
-			array(), // No dependencies
+			array(),
 			'1.0.0',
-			true // Load in footer
+			true
 		);
-		wp_enqueue_script(
+		wp_register_script(
 			'direktt-pair-code-qr-js',
 			plugins_url( 'js/direktt-pair-code-qr.js', __FILE__ ),
 			array( 'jquery' ),
