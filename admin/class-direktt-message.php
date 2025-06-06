@@ -37,7 +37,7 @@ class Direktt_Message
         ));
     }
 
-    static function replace_tags_in_template($string, $replacements)
+    /* static function replace_tags_in_template($string, $replacements)
     {
         if (!is_null($string)) {
             return preg_replace_callback('/#([^#]+)#/', function ($matches) use ($replacements) {
@@ -47,6 +47,26 @@ class Direktt_Message
         }
 
         return null;
+    } */
+
+    static function replace_tags_in_template($string, $replacements, $direktt_user_id = null)
+    {
+        if ($string === null) {
+            return null;
+        }
+
+        return preg_replace_callback('/#([^#]+)#/', function ($matches) use ($replacements, $direktt_user_id) {
+            $tag = $matches[1];
+
+            // Find replacement or default to the tag
+            $value = array_key_exists($tag, $replacements) ? $replacements[$tag] : $tag;
+
+            // Prepare filter name
+            $filter_name = 'direktt/message/template/' . $tag;
+
+            // Apply filter, pass value and user
+            return apply_filters($filter_name, $value, $direktt_user_id);
+        }, $string);
     }
 
     static function send_message_template($direktt_user_ids, $message_template_id, $replacements = [])
@@ -63,7 +83,7 @@ class Direktt_Message
 
             foreach ($direktt_user_ids as $key => $value) {
 
-                $message = Direktt_Message::replace_tags_in_template($message_template, $replacements);
+                $message = Direktt_Message::replace_tags_in_template($message_template, $replacements, $value);
                 $message = json_decode($message);
                 if (is_array($message->content) || is_object($message->content)) {
                     $message->content = json_encode($message->content);
