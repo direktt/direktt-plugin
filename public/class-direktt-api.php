@@ -150,7 +150,7 @@ class Direktt_Api
 		}
 	}
 
-	public function subscribe_user($direktt_user_id, $direktt_user_title = null, $direktt_user_avatar_url = null, $direktt_admin_subscription = null, $direktt_membership_id = null, $direktt_marketing_consent_status = null)
+	public function subscribe_user($direktt_user_id, $direktt_user_title = null, $direktt_user_avatar_url = null, $direktt_admin_subscription = null, $direktt_membership_id = null, $direktt_marketing_consent_status = null, $silent = false)
 	{
 		$usr_title = $direktt_user_id;
 
@@ -201,15 +201,17 @@ class Direktt_Api
 				return $wp_user_id;
 			}
 
-			do_action('direktt/user/subscribe', $direktt_user_id);
+			if (!$silent) {
+				do_action('direktt/user/subscribe', $direktt_user_id);
 
-			Direktt_Event::insert_event(
-				array(
-					"direktt_user_id" => $direktt_user_id,
-					"event_target" => "user",
-					"event_type" => "subscribe"
-				)
-			);
+				Direktt_Event::insert_event(
+					array(
+						"direktt_user_id" => $direktt_user_id,
+						"event_target" => "user",
+						"event_type" => "subscribe"
+					)
+				);
+			}
 
 			return $post_id;
 		}
@@ -350,19 +352,19 @@ class Direktt_Api
 				do_action("direktt/action/" . $action_type, $parameters);
 
 				if (array_key_exists('addDirekttUserCategory', $parameters)) {
-					$this->append_terms_to_post( $direktt_user['ID'], json_decode($parameters['addDirekttUserCategory']), 'direkttusercategories' ); 
+					$this->append_terms_to_post($direktt_user['ID'], json_decode($parameters['addDirekttUserCategory']), 'direkttusercategories');
 				}
 
 				if (array_key_exists('removeDirekttUserCategory', $parameters)) {
-					$this->remove_terms_from_post( $direktt_user['ID'], json_decode($parameters['removeDirekttUserCategory']), 'direkttusercategories' ); 
+					$this->remove_terms_from_post($direktt_user['ID'], json_decode($parameters['removeDirekttUserCategory']), 'direkttusercategories');
 				}
 
 				if (array_key_exists('addDirekttUserTag', $parameters)) {
-					$this->append_terms_to_post( $direktt_user['ID'], json_decode($parameters['addDirekttUserTag']), 'direkttusertags' ); 
+					$this->append_terms_to_post($direktt_user['ID'], json_decode($parameters['addDirekttUserTag']), 'direkttusertags');
 				}
 
 				if (array_key_exists('removeDirekttUserTag', $parameters)) {
-					$this->remove_terms_from_post( $direktt_user['ID'], json_decode($parameters['removeDirekttUserTag']), 'direkttusertags' ); 
+					$this->remove_terms_from_post($direktt_user['ID'], json_decode($parameters['removeDirekttUserTag']), 'direkttusertags');
 				}
 
 				$data = array();

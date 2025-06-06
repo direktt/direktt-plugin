@@ -312,8 +312,8 @@ class Direktt_Ajax
 					$avatarUrl,
 					$adminSubscription,
 					$membershipId,
-					$marketingConsentStatus
-					// Remaining params defaults to null
+					$marketingConsentStatus,
+					true
 				);
 			}
 		}
