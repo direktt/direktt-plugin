@@ -16,6 +16,11 @@ class Direktt_Profile
 		do_action('direktt_setup_profile_tools');
 	}
 
+	public function setup_profile_bar()
+	{
+		do_action('direktt_setup_profile_bar');
+	}
+
 	public function profile_shortcode()
 	{
 		add_shortcode('direktt_user_profile', [$this, 'direktt_user_profile']);
@@ -103,6 +108,31 @@ class Direktt_Profile
 					}
 				}
 			}
+
+			foreach (Direktt::$profile_bar_array as $item) {
+
+				if (isset($item['id']) && $active_tab == $item['id']) {
+					if ($this->direktt_user_has_term_slugs($item, $direktt_user) || Direktt_User::is_direktt_admin()) {
+						call_user_func($item['callback']);
+					}
+
+					if (isset($item['cssEnqueueArray']) && is_array($item['cssEnqueueArray']) && array_is_list($item['cssEnqueueArray'])) {
+						foreach ($item['cssEnqueueArray'] as $cssFile) {
+							if ($cssFile !== [] && array_keys($cssFile) !== range(0, count($cssFile) - 1) && isset($cssFile['handle'])) {
+								wp_enqueue_style($cssFile['handle']);
+							}
+						}
+					}
+
+					if (isset($item['jsEnqueueArray']) && is_array($item['jsEnqueueArray']) && array_is_list($item['jsEnqueueArray'])) {
+						foreach ($item['jsEnqueueArray'] as $jsFile) {
+							if ($jsFile !== [] && array_keys($jsFile) !== range(0, count($jsFile) - 1) && isset($jsFile['handle'])) {
+								wp_enqueue_script($jsFile['handle']);
+							}
+						}
+					}
+				}
+			}
 		}
 
 		$url = $_SERVER['REQUEST_URI'];
@@ -111,16 +141,6 @@ class Direktt_Profile
 		Direktt::$profile_tools_array = array_filter(Direktt::$profile_tools_array, function ($item) use ($direktt_user) {
 			return ($this->direktt_user_has_term_slugs($item, $direktt_user) || Direktt_User::is_direktt_admin());
 		});
-
-		// Print out the Profile label and link
-
-		if (!empty(Direktt::$profile_tools_array)) {
-			parse_str($parts['query'] ?? '', $params);
-			unset($params['subpage']);
-			$newQuery = http_build_query($params);
-			$newUri = $parts['path'] . ($newQuery ? '?' . $newQuery : '');
-			echo ('<p><a href="' . $newUri . '">' . __('Profile', 'direktt') . '</a></p>');
-		}
 
 		// Sort links by priority asc
 
@@ -133,14 +153,37 @@ class Direktt_Profile
 		foreach (Direktt::$profile_tools_array as $item) {
 			if (isset($item['label'])) {
 
-				//!!! TODO provera prava da li smemo da ispisemo
-
 				parse_str($parts['query'] ?? '', $params);
 				$params['subpage'] = $item['id'];
 				$newQuery = http_build_query($params);
 				$newUri = $parts['path'] . ($newQuery ? '?' . $newQuery : '');
 				echo ('<p><a href="' . $newUri . '">' . $item['label'] . '</a></p>');
 			}
+		}
+
+		// Ispisujemo defaultni meni:
+
+		if (Direktt_User::is_direktt_admin()) {
+			echo ('<div class="profileBottomBar"><ul>');
+
+			parse_str($parts['query'] ?? '', $params);
+			unset($params['subpage']);
+			$newQuery = http_build_query($params);
+			$newUri = $parts['path'] . ($newQuery ? '?' . $newQuery : '');
+			echo ('<li><a href="' . $newUri . '">' . __('Profile', 'direktt') . '</a></li>');
+
+			foreach (Direktt::$profile_bar_array as $item) {
+				if (isset($item['label'])) {
+
+					parse_str($parts['query'] ?? '', $params);
+					$params['subpage'] = $item['id'];
+					$newQuery = http_build_query($params);
+					$newUri = $parts['path'] . ($newQuery ? '?' . $newQuery : '');
+					echo ('<li><a href="' . $newUri . '">' . $item['label'] . '</a></li>');
+				}
+			}
+
+			echo ('</ul></div>');
 		}
 
 		return ob_get_clean();
@@ -196,5 +239,10 @@ class Direktt_Profile
 	static function add_profile_tool($params)
 	{
 		Direktt::$profile_tools_array[] = $params;
+	}
+
+	static function add_profile_bar($params)
+	{
+		Direktt::$profile_bar_array[] = $params;
 	}
 }

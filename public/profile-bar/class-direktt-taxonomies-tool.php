@@ -2,7 +2,7 @@
 
 class Direktt_Taxonomies_Tool {
     public function setup_profile_tools_taxonomies() {
-        Direktt_Profile::add_profile_tool(
+        Direktt_Profile::add_profile_bar(
             array(
                 "id" => "edit-user-taxonomies",
                 "label" => esc_html__( 'Edit User Taxonomies', 'direktt' ),

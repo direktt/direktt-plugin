@@ -4,6 +4,7 @@ class Direktt {
 
 	static $settings_array = array();
 	static $profile_tools_array = array();
+	static $profile_bar_array = array();
 
 	protected Direktt_Loader $loader;
 	protected Direktt_Api $direktt_api;
@@ -49,9 +50,9 @@ class Direktt {
 		
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-direktt-profile.php';
 
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/tools_services/class-direktt-taxonomies-tool.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/profile-bar/class-direktt-taxonomies-tool.php';
 
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/tools_services/class-direktt-taxonomies-service.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/tools-services/class-direktt-taxonomies-service.php';
 
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-direktt-admin.php';
 
@@ -102,10 +103,11 @@ class Direktt {
 		
 		$this->loader->add_action( 'init', $plugin_profile, 'profile_shortcode' );
 		$this->loader->add_action( 'init', $plugin_profile, 'setup_profile_tools');
+		$this->loader->add_action( 'init', $plugin_profile, 'setup_profile_bar');
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_profile, 'enqueue_profile_scripts' );
 
 		$taxonomies_tool = new Direktt_Taxonomies_Tool();
-		$this->loader->add_action( 'direktt_setup_profile_tools', $taxonomies_tool, 'setup_profile_tools_taxonomies' );
+		$this->loader->add_action( 'direktt_setup_profile_bar', $taxonomies_tool, 'setup_profile_tools_taxonomies' );
 
 		$taxonomies_service = new Direktt_Taxonomies_Service();
 		$this->loader->add_action( 'direktt_enqueue_public_scripts', $taxonomies_service, 'direktt_register_taxonomies_service_scripts' );
