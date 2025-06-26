@@ -102,6 +102,7 @@ class Direktt {
 		
 		$this->loader->add_action( 'init', $plugin_profile, 'profile_shortcode' );
 		$this->loader->add_action( 'init', $plugin_profile, 'setup_profile_tools');
+		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_profile, 'enqueue_profile_scripts' );
 
 		$taxonomies_tool = new Direktt_Taxonomies_Tool();
 		$this->loader->add_action( 'direktt_setup_profile_tools', $taxonomies_tool, 'setup_profile_tools_taxonomies' );

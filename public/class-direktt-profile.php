@@ -21,6 +21,29 @@ class Direktt_Profile
 		add_shortcode('direktt_user_profile', [$this, 'direktt_user_profile']);
 	}
 
+	public function enqueue_profile_scripts()
+	{
+		// Ovde treba registrovati stilove i css profila
+
+		foreach (Direktt::$profile_tools_array as $item) {
+			if (isset($item['cssEnqueueArray']) && is_array($item['cssEnqueueArray']) && array_is_list($item['cssEnqueueArray'])) {
+				foreach ($item['cssEnqueueArray'] as $cssFile) {
+					if ($cssFile !== [] && array_keys($cssFile) !== range(0, count($cssFile) - 1)) {
+						wp_register_style(...$cssFile);
+					}
+				}
+			}
+
+			if (isset($item['jsEnqueueArray']) && is_array($item['jsEnqueueArray']) && array_is_list($item['jsEnqueueArray'])) {
+				foreach ($item['jsEnqueueArray'] as $jsFile) {
+					if ($jsFile !== [] && array_keys($jsFile) !== range(0, count($jsFile) - 1)) {
+						wp_register_script(...$jsFile);
+					}
+				}
+			}
+		}
+	}
+
 	public function direktt_user_profile($atts)
 	{
 		$atts = shortcode_atts(
@@ -29,7 +52,7 @@ class Direktt_Profile
 				'tags' => ''
 			),
 			$atts,
-			'direktt_user_profile' 
+			'direktt_user_profile'
 		);
 
 		$categories = array_filter(array_map('trim', explode(',', $atts['categories'])));
@@ -57,9 +80,26 @@ class Direktt_Profile
 			}
 		} else {
 			foreach (Direktt::$profile_tools_array as $item) {
+
 				if (isset($item['id']) && $active_tab == $item['id']) {
 					if ($this->direktt_user_has_term_slugs($item, $direktt_user) || Direktt_User::is_direktt_admin()) {
 						call_user_func($item['callback']);
+					}
+
+					if (isset($item['cssEnqueueArray']) && is_array($item['cssEnqueueArray']) && array_is_list($item['cssEnqueueArray'])) {
+						foreach ($item['cssEnqueueArray'] as $cssFile) {
+							if ($cssFile !== [] && array_keys($cssFile) !== range(0, count($cssFile) - 1) && isset($cssFile['handle'])) {
+								wp_enqueue_style($cssFile['handle']);
+							}
+						}
+					}
+
+					if (isset($item['jsEnqueueArray']) && is_array($item['jsEnqueueArray']) && array_is_list($item['jsEnqueueArray'])) {
+						foreach ($item['jsEnqueueArray'] as $jsFile) {
+							if ($jsFile !== [] && array_keys($jsFile) !== range(0, count($jsFile) - 1) && isset($jsFile['handle'])) {
+								wp_enqueue_script($jsFile['handle']);
+							}
+						}
 					}
 				}
 			}
