@@ -189,6 +189,9 @@ class Direktt {
 		// direkttmtemplates
 		$this->loader->add_action( 'wp_ajax_direktt_get_mtemplates_taxonomies', $plugin_ajax, 'ajax_get_mtemplates_taxonomies' );
 		$this->loader->add_action( 'wp_ajax_direktt_send_mtemplates_message', $plugin_ajax, 'ajax_send_mtemplates_message' );
+
+		// messaging on profile
+		$this->loader->add_action( 'wp_ajax_direktt_get_mtemplates_profile_message', $plugin_ajax, 'ajax_get_mtemplates_profile_message' );
 	}
 
 	public function run() {

@@ -65,6 +65,8 @@ class Direktt_Public
 			array(
 				'direktt_user' => $direktt_user,
 				'direktt_post_id' => get_the_ID(),
+				'direktt_ajax_url' => admin_url('admin-ajax.php'),
+				'direktt_rest_base' => get_rest_url(null, 'direktt/v1/'),
 				'direktt_wp_rest_nonce' => wp_create_nonce( 'wp_rest' )
 			)
 		);

@@ -53,22 +53,22 @@ class Direktt_Ajax
 
 			$message_template_id = (isset($_POST['postId'])) ? sanitize_text_field($_POST['postId']) : false;
 
-			if ($userSet && $message_template_id ) {
+			if ($userSet && $message_template_id) {
 
 				$subscription_ids = array();
 
 				if ($userSet == 'all') {
 					$subscription_ids = $this->get_subscription_ids_from_terms([], []);
-					Direktt_Message::send_message_template($subscription_ids, $message_template_id );
+					Direktt_Message::send_message_template($subscription_ids, $message_template_id);
 				}
 
 				if ($userSet == 'selected') {
 					$subscription_ids = $this->get_subscription_ids_from_terms($categories, $tags, false);
-					Direktt_Message::send_message_template($subscription_ids, $message_template_id );
+					Direktt_Message::send_message_template($subscription_ids, $message_template_id);
 				}
 
 				if ($userSet == 'admin') {
-					Direktt_Message::send_message_template_to_admin( $message_template_id );
+					Direktt_Message::send_message_template_to_admin($message_template_id);
 				}
 			}
 
@@ -412,5 +412,39 @@ class Direktt_Ajax
 		}
 
 		return $subscription_ids;
+	}
+
+	public function ajax_get_mtemplates_profile_message()
+	{
+
+		if (!isset($_POST['post_id'])) {
+			wp_send_json(['status' => 'post_id_failed'], 400);
+		}
+
+		$post_id = intval($_POST['post_id']);
+
+		$post = get_post($post_id);
+
+		// Validate that post exists and the current user can perform the action.
+
+
+		if ($post && Direktt_Public::direktt_ajax_check_user($post)) {
+
+			// Verify nonce for security against CSRF attacks.
+
+
+			if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'direktt_msgsend_nonce')) {
+				wp_send_json(['status' => 'nonce_failed'], 401);
+			}
+
+			$templates = Direktt_Message_Template::get_templates(['all', 'individual']);
+
+			wp_send_json_success($templates, 200);
+
+		} else {
+
+			// User not authorized or post not found.
+			wp_send_json(['status' => 'non_authorized'], 401);
+		}
 	}
 }

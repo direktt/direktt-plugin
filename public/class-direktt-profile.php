@@ -51,6 +51,24 @@ class Direktt_Profile
 				}
 			}
 		}
+
+		foreach (Direktt::$profile_bar_array as $item) {
+			if (isset($item['cssEnqueueArray']) && is_array($item['cssEnqueueArray']) && array_is_list($item['cssEnqueueArray'])) {
+				foreach ($item['cssEnqueueArray'] as $cssFile) {
+					if ($cssFile !== [] && array_keys($cssFile) !== range(0, count($cssFile) - 1)) {
+						wp_register_style(...$cssFile);
+					}
+				}
+			}
+
+			if (isset($item['jsEnqueueArray']) && is_array($item['jsEnqueueArray']) && array_is_list($item['jsEnqueueArray'])) {
+				foreach ($item['jsEnqueueArray'] as $jsFile) {
+					if ($jsFile !== [] && array_keys($jsFile) !== range(0, count($jsFile) - 1)) {
+						wp_register_script(...$jsFile);
+					}
+				}
+			}
+		}
 	}
 
 	public function direktt_user_profile($atts)
