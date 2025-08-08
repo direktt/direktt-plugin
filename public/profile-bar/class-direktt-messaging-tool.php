@@ -1,20 +1,20 @@
 <?php
 
-class Direktt_Taxonomies_Tool {
-    public function setup_profile_tools_taxonomies() {
+class Direktt_Messaging_Tool {
+    public function setup_profile_tools_messaging() {
         Direktt_Profile::add_profile_bar(
             array(
-                "id" => "edit-user-taxonomies",
-                "label" => esc_html__( 'Edit User Taxonomies', 'direktt' ),
-                "callback" => [$this, 'render_user_taxonomies'],
+                "id" => "send-user-message",
+                "label" => esc_html__( 'Send Message to User', 'direktt' ),
+                "callback" => [$this, 'render_user_messages'],
                 "categories" => [],
                 "tags" => [],
-                "priority" => 2
+                "priority" => 1
             )
         );
     }
 
-    public function render_user_taxonomies() {
+    public function render_user_messages() {
         $subscriptionId = isset( $_GET['subscriptionId'] ) ? sanitize_text_field( wp_unslash( $_GET['subscriptionId'] ) ) : false;
         $profile_user   = Direktt_User::get_user_by_subscription_id( $subscriptionId );
     

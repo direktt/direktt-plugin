@@ -52,6 +52,8 @@ class Direktt {
 
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/profile-bar/class-direktt-taxonomies-tool.php';
 
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/profile-bar/class-direktt-messaging-tool.php';
+
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/tools-services/class-direktt-taxonomies-service.php';
 
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-direktt-admin.php';
@@ -87,6 +89,8 @@ class Direktt {
 		
 		$this->loader->add_action( 'direktt/action/pair_code', $plugin_public, 'direktt_pair_code_action' );
 		$this->loader->add_action( 'direktt_enqueue_public_scripts', $plugin_public, 'direktt_register_pairing_code_scripts' );
+
+		$this->loader->add_filter( 'body_class', $plugin_public, 'direktt_add_body_class' );
 	}
 
 	private function define_api_hooks() {
@@ -105,6 +109,9 @@ class Direktt {
 		$this->loader->add_action( 'init', $plugin_profile, 'setup_profile_tools');
 		$this->loader->add_action( 'init', $plugin_profile, 'setup_profile_bar');
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_profile, 'enqueue_profile_scripts' );
+
+		$messaging_tool = new Direktt_Messaging_Tool();
+		$this->loader->add_action( 'direktt_setup_profile_bar', $messaging_tool, 'setup_profile_tools_messaging' );
 
 		$taxonomies_tool = new Direktt_Taxonomies_Tool();
 		$this->loader->add_action( 'direktt_setup_profile_bar', $taxonomies_tool, 'setup_profile_tools_taxonomies' );

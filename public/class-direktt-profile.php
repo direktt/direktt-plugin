@@ -28,6 +28,10 @@ class Direktt_Profile
 
 	public function enqueue_profile_scripts()
 	{
+
+		wp_register_script( 'direktt-profile-script', plugins_url( 'js/direktt-profile.js', __FILE__ ), array( 'jquery') );
+		wp_register_style( 'direktt-profile-style', plugins_url( 'css/direktt-profile.css', __FILE__ ), array() );
+
 		// Ovde treba registrovati stilove i css profila
 
 		foreach (Direktt::$profile_tools_array as $item) {
@@ -65,6 +69,9 @@ class Direktt_Profile
 
 		global $direktt_user;
 
+		wp_enqueue_style('direktt-profile-style');
+		wp_enqueue_script('direktt-profile-script');
+
 		ob_start();
 
 		$active_tab = isset($_GET['subpage']) ? $_GET['subpage'] : '';
@@ -77,10 +84,42 @@ class Direktt_Profile
 
 			if ($profile_user) {
 				if ((Direktt_User::has_direktt_taxonomies($direktt_user, $categories, $tags) || Direktt_User::is_direktt_admin()) || ($direktt_user['ID'] == $profile_user['ID'])) {
-					echo ('User ID: ' . $profile_user['ID'] . '<br>');
-					echo ('Direktt User Id: ' . $profile_user['direktt_user_id'] . '<br>');
-					echo ('Admin Subscription: ' . $profile_user['direktt_admin_subscription'] . '<br>');
-					echo ('Direktt User Marketing Consent: ' . $profile_user['direktt_marketing_consent_status'] . '<br><br><br>');
+				?>
+					<div>
+						<div>
+							<img src="<?php echo esc_attr($profile_user['direktt_avatar_url']); ?>" style="width: 100px;">
+						</div>
+						<div>
+							<div>Membership ID:</div>
+							<div><?php echo esc_html($profile_user['direktt_membership_id']); ?></div>
+						</div>
+						<div>
+							<div>Display Name:</div>
+							<div><?php echo esc_html($profile_user['direkt_display_name']); ?></div>
+						</div>
+						<div>
+							<div>Marketing Consent:</div>
+							<div><?php echo $profile_user['direktt_marketing_consent_status'] ? 'true' : 'false' ?></div>
+						</div>
+						<div>
+							<div>Direktt User Categories:</div>
+							<?php
+							foreach ($profile_user['direktt_user_categories'] as $item) {
+								echo '<span class="pill">' . htmlspecialchars($item) . '</span>';
+							}
+							?>
+						</div>
+						<div>
+							<div>Direktt User Tags:</div>
+							<?php
+							foreach ($profile_user['direktt_user_tags'] as $item) {
+								echo '<span class="pill">' . htmlspecialchars($item) . '</span>';
+							}
+							?>
+						</div>
+					</div>
+
+			<?php
 				}
 			}
 		} else {
@@ -162,6 +201,10 @@ class Direktt_Profile
 		}
 
 		// Ispisujemo defaultni meni:
+
+		usort(Direktt::$profile_bar_array, function ($a, $b) {
+			return $a['priority'] <=> $b['priority'];
+		});
 
 		if (Direktt_User::is_direktt_admin()) {
 			echo ('<div class="profileBottomBar"><ul>');

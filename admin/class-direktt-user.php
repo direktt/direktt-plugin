@@ -28,12 +28,21 @@ class Direktt_User
 		if (!empty($posts)) {
 			$post_id = $posts[0];
 
+			$assigned_categories = wp_get_post_terms( $post_id, 'direkttusercategories', array( 'fields' => 'names' ) );
+        	$assigned_tags       = wp_get_post_terms( $post_id, 'direkttusertags', array( 'fields' => 'names' ) );
+
 			$post_obj = array(
 				'ID' => $post_id,
-				'direktt_user_id' => get_post_meta($post_id, 'direktt_user_id', true),
+				'direkt_display_name' => get_the_title( $post_id ),
+				'direktt_membership_id' => get_post_meta($post_id, "direktt_membership_id", true),
+				'direktt_user_id' => get_post_meta($post_id, "direktt_user_id", true),
 				'direktt_admin_subscription' => ( get_post_meta($post_id, 'direktt_admin_subscription', true) == '1' ),
-				'direktt_marketing_consent_status' => ( get_post_meta($post_id, 'direktt_marketing_consent_status', true) == '1')
+				'direktt_marketing_consent_status' => ( get_post_meta($post_id, 'direktt_marketing_consent_status', true) == '1'),
+				'direktt_avatar_url' => get_post_meta($post_id, "direktt_avatar_url", true),
+				'direktt_user_categories' => $assigned_categories,
+				'direktt_user_tags' => $assigned_tags,
 			);
+
 		}
 
 		return $post_obj;
@@ -61,11 +70,20 @@ class Direktt_User
 		if (!empty($posts)) {
 			$post_id = $posts[0];
 
+			$assigned_categories = wp_get_post_terms( $post_id, 'direkttusercategories', array( 'fields' => 'names' ) );
+        	$assigned_tags       = wp_get_post_terms( $post_id, 'direkttusertags', array( 'fields' => 'names' ) );
+
+
 			$post_obj = array(
 				'ID' => $post_id,
+				'direkt_display_name' => get_the_title( $post_id ),
+				'direktt_membership_id' => get_post_meta($post_id, "direktt_membership_id", true),
 				'direktt_user_id' => $direktt_user_id,
 				'direktt_admin_subscription' => ( get_post_meta($post_id, 'direktt_admin_subscription', true) == '1' ),
-				'direktt_marketing_consent_status' => ( get_post_meta($post_id, 'direktt_marketing_consent_status', true) == '1')
+				'direktt_marketing_consent_status' => ( get_post_meta($post_id, 'direktt_marketing_consent_status', true) == '1'),
+				'direktt_avatar_url' => get_post_meta($post_id, "direktt_avatar_url", true),
+				'direktt_user_categories' => $assigned_categories,
+				'direktt_user_tags' => $assigned_tags,
 			);
 		}
 

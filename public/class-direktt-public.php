@@ -114,6 +114,7 @@ class Direktt_Public
 
 	static function validate_direktt_token($token)
 	{
+
 		if (!$token) {
 			return false;
 		}
@@ -133,10 +134,18 @@ class Direktt_Public
 			return false;
 		}
 
-		if (property_exists($decoded_token, 'subscriptionUid')) {
+		if ( property_exists($decoded_token, 'subscriptionUid') || property_exists($decoded_token, 'adminUid') ) {
 
-			$direktt_user_id_tocheck = sanitize_text_field($decoded_token->subscriptionUid);
+			if( property_exists($decoded_token, 'adminUid') ){
+				$direktt_user_id_tocheck = sanitize_text_field($decoded_token->adminUid);
+			}
+
+			if( property_exists($decoded_token, 'subscriptionUid') ){
+				$direktt_user_id_tocheck = sanitize_text_field($decoded_token->subscriptionUid);
+			}
+
 			$user = Direktt_User::get_user_by_subscription_id($direktt_user_id_tocheck);
+
 		//} else if (! property_exists($decoded_token, 'subscriptionUid') && property_exists($decoded_token, 'channelUid') && property_exists($decoded_token, 'adminUid')) {
 
 			//$direktt_admin_id_tocheck = sanitize_text_field($decoded_token->adminUid);
@@ -500,5 +509,13 @@ class Direktt_Public
 			null,
 			true
 		);
+	}
+
+	public function direktt_add_body_class( $classes ) {
+		global $direktt_user;
+		if( $direktt_user ){
+			$classes[] = 'direktt-app';
+		}
+		return $classes;
 	}
 }
