@@ -3,25 +3,16 @@
 document.addEventListener('DOMContentLoaded', function () {
 
     const nonceEl = document.getElementById('templateNonce');
+    let templateIDEl = document.getElementById('templateID');
     const nonce = nonceEl ? nonceEl.value : null;
-    const btn = document.getElementById('sendMessage');
     const inputEl = document.getElementById('autoComplete');
+
+    const sendBtn = document.getElementById('sendMessageBtn');
 
     let selectedTemplate = null;
     let autoCompleteJS = null;
 
-    if (btn) {
-        btn.addEventListener('click', function (e) {
-            e.preventDefault();
-            const typedText = inputEl ? inputEl.value.trim() : '';
-
-            if (selectedTemplate) {
-                console.log('Selected template:', selectedTemplate.value, selectedTemplate.title);
-            } else {
-                console.log('Autocomplete text:', typedText);
-            }
-        });
-    }
+    let availableTemplates = [];
 
     var data = new FormData();
     data.append('action', 'direktt_get_mtemplates_profile_message');
@@ -41,7 +32,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 return;
             }
 
-            const templates = result.data; // [{ value: 192, title: 'First Message Template' }, ...]
+            const templates = result.data;
+            availableTemplates = templates;
 
             const autoCompleteJS = new autoComplete({
                 selector: '#autoComplete',
@@ -63,11 +55,40 @@ document.addEventListener('DOMContentLoaded', function () {
                         selection: (event) => {
                             const selection = event.detail.selection.value;
                             selectedTemplate = selection;
+                            templateIDEl.value = selection.value;
                             autoCompleteJS.input.value = selection.title;
+                            updateSendButtonState();
                         }
                     }
                 }
             });
+
         })
         .catch(err => console.error('Templates fetch error', err));
+
+    function updateSendButtonState() {
+        sendBtn.disabled = (templateIDEl.value === '');
+    }
+
+    inputEl.addEventListener('input', function () {
+        const inputVal = inputEl.value.trim();
+        const match = availableTemplates.find(tpl => tpl.title === inputVal);
+        templateIDEl.value = match ? match.value : "";
+        updateSendButtonState();
+    });
+
+    inputEl.addEventListener('blur', function () {
+        const inputVal = inputEl.value.trim();
+        const match = availableTemplates.find(
+            tpl => tpl.title === inputVal
+        );
+        if (match) {
+            templateIDEl.value = match.value;
+        } else {
+            templateIDEl.value = "";
+        }
+        updateSendButtonState();
+    });
+
+    updateSendButtonState();
 });

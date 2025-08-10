@@ -22,7 +22,7 @@ class Direktt_Taxonomies_Tool {
             if ( ! isset( $_POST['save_user_taxonomies_nonce'] )
                 || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['save_user_taxonomies_nonce'] ) ), 'save_user_taxonomies_nonce' )
             ) {
-                wp_send_json( ['status' => 'nonce_failed'] );
+                return;
             }
     
             $user_id = $profile_user['ID'];
