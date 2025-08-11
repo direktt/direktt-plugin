@@ -100,7 +100,7 @@ class Direktt_Messaging_Tool
                     <p class="send-message-tool-status"><?php echo $status_message; ?></p>
                 </div>
 
-                <input id="autoComplete">
+                <input id="autoComplete" aria-autocomplete="none" autocomplete="off">
                 <input type="hidden" id="templateID" name="templateID">
                 <input type="hidden" id="templateNonce" name="templateNonce" value="<?php echo esc_attr(wp_create_nonce('direktt_msgsend_nonce')); ?>">
 

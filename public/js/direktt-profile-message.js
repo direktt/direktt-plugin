@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const templates = result.data;
             availableTemplates = templates;
 
-            const autoCompleteJS = new autoComplete({
+            autoCompleteJS = new autoComplete({
                 selector: '#autoComplete',
                 placeHolder: 'Search templates...',
                 data: {
@@ -43,9 +43,10 @@ document.addEventListener('DOMContentLoaded', function () {
                     keys: ['title'], // search by title
                     cache: true
                 },
+                threshold: 0,
                 resultsList: {
                     noResults: true,
-                    maxResults: 20
+                    maxResults: undefined
                 },
                 resultItem: {
                     highlight: true // highlights matched text in the title
@@ -58,6 +59,9 @@ document.addEventListener('DOMContentLoaded', function () {
                             templateIDEl.value = selection.value;
                             autoCompleteJS.input.value = selection.title;
                             updateSendButtonState();
+                        },
+                        focus: () => {
+                            autoCompleteJS.start()
                         }
                     }
                 }
@@ -75,6 +79,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const match = availableTemplates.find(tpl => tpl.title === inputVal);
         templateIDEl.value = match ? match.value : "";
         updateSendButtonState();
+            
     });
 
     inputEl.addEventListener('blur', function () {
