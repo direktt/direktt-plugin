@@ -38,6 +38,7 @@
     "qrcode": "^1.5.3",
     "uuid": "^9.0.1",
     "vue": "^3.4.15",
+    "vuedraggable": "^4.1.0",
     "vuetify": "^3.6.9"
   },
   "@parcel/resolver-default": {

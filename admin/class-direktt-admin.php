@@ -398,6 +398,8 @@ class Direktt_Admin
 						'postId' => $post->ID
 					)
 				);
+
+				wp_enqueue_media();
 			}
 		}
 

@@ -2,6 +2,7 @@
 import { useDirekttStore } from "./store.js";
 import { onMounted, computed, ref } from "vue";
 import { useQueryClient, useQuery, useMutation } from "@tanstack/vue-query";
+import Builder from "./Builder.vue";
 
 const store = useDirekttStore();
 const consent = ref(true)
@@ -61,9 +62,9 @@ async function clickSendMessage() {
       snackbar_color.value = 'success'
       snackbar_text.value = snack_succ_text
       snackbar.value = true
-    } 
+    }
   } catch (error) {
-    
+
     snackbar_color.value = 'error'
     snackbar_text.value = error.responseJSON.data[0].message
     snackbar.value = true
@@ -99,6 +100,10 @@ onMounted(() => {
 <template>
 
   <p></p>
+  
+  <Builder></Builder>
+
+  <p></p>
 
   <v-card class="pa-4">
     <h1 class="mt-4">Send Message Template</h1>
@@ -124,7 +129,8 @@ onMounted(() => {
       <v-autocomplete v-model="selectedCategories" :items="categories" color="blue-grey-lighten-2" item-title="name"
         item-value="value" label="Categories" chips closable-chips multiple v-show="userSet == 'selected'">
         <template v-slot:chip="{ props, item }">
-          <v-chip v-bind="props" :prepend-avatar="item.raw.avatar" :text="item.raw.name" color="info" variant="flat"></v-chip>
+          <v-chip v-bind="props" :prepend-avatar="item.raw.avatar" :text="item.raw.name" color="info"
+            variant="flat"></v-chip>
         </template>
 
         <template v-slot:item="{ props, item }">
@@ -136,7 +142,8 @@ onMounted(() => {
       <v-autocomplete v-model="selectedTags" :items="tags" color="blue-grey-lighten-2" item-title="name"
         item-value="value" label="Tags" chips closable-chips multiple v-show="userSet == 'selected'">
         <template v-slot:chip="{ props, item }">
-          <v-chip v-bind="props" :prepend-avatar="item.raw.avatar" :text="item.raw.name" color="green" variant="flat"></v-chip>
+          <v-chip v-bind="props" :prepend-avatar="item.raw.avatar" :text="item.raw.name" color="green"
+            variant="flat"></v-chip>
         </template>
 
         <template v-slot:item="{ props, item }">
