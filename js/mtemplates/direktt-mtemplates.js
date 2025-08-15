@@ -14613,7 +14613,7 @@ exports.default = {
     }
 };
 
-},{"vue":"gCTam","@parcel/transformer-js/src/esmodule-helpers.js":"5oERU","./Editor.vue":"4JgvG"}],"4JgvG":[function(require,module,exports) {
+},{"vue":"gCTam","./Editor.vue":"4JgvG","@parcel/transformer-js/src/esmodule-helpers.js":"5oERU"}],"4JgvG":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 let script;
@@ -14638,13 +14638,17 @@ if (module.hot) {
 }
 exports.default = script;
 
-},{"ffd4024bac65a01c":"cPySv","f235dd181910a7e8":"7tlz3","c7f0b5102cb2059e":"kbDng","@parcel/transformer-js/src/esmodule-helpers.js":"5oERU","3eb2ab869a32cc09":"gFZ9l"}],"cPySv":[function(require,module,exports) {
+},{"ffd4024bac65a01c":"cPySv","f235dd181910a7e8":"7tlz3","3eb2ab869a32cc09":"gFZ9l","c7f0b5102cb2059e":"kbDng","@parcel/transformer-js/src/esmodule-helpers.js":"5oERU"}],"cPySv":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _vue = require("vue");
 var _uuid = require("uuid");
 var _vuedraggable = require("vuedraggable");
 var _vuedraggableDefault = parcelHelpers.interopDefault(_vuedraggable);
+var _itemPreviewVue = require("./ItemPreview.vue");
+var _itemPreviewVueDefault = parcelHelpers.interopDefault(_itemPreviewVue);
+var _singleButtonVue = require("./SingleButton.vue");
+var _singleButtonVueDefault = parcelHelpers.interopDefault(_singleButtonVue);
 exports.default = {
     __name: "Editor",
     setup (__props, { expose: __expose }) {
@@ -14668,14 +14672,15 @@ exports.default = {
                 media: ""
             });
             if (type === "rich") // Default: Buttons rich message with empty button
-            newMsg.content = JSON.stringify({
-                subtype: "buttons",
-                msgObj: [
-                    this.emptyRichButton()
-                ]
+            Object.assign(newMsg, {
+                content: {
+                    subtype: "buttons",
+                    msgObj: [
+                        emptyRichButton()
+                    ]
+                }
             });
             messages.value.push(newMsg);
-            console.log(messages.value);
         }
         function removeMessage(idx) {
             messages.value.splice(idx, 1);
@@ -14688,7 +14693,9 @@ exports.default = {
                     type: "link",
                     params: {
                         url: "",
-                        target: "app"
+                        target: "app",
+                        subscriptionId: "",
+                        actionType: ""
                     },
                     retVars: {}
                 }
@@ -14697,7 +14704,8 @@ exports.default = {
         function getRichButtons(msg) {
             // Returns array for 'msgObj' (buttons)
             try {
-                let val = JSON.parse(msg.content);
+                //let val = JSON.parse(msg.content);
+                let val = msg.content;
                 if (val.subtype === "buttons") // msgObj can be array or object
                 return Array.isArray(val.msgObj) ? val.msgObj : [
                     val.msgObj
@@ -14711,7 +14719,8 @@ exports.default = {
             const msg = this.messages[msgIdx];
             let val;
             try {
-                val = JSON.parse(msg.content);
+                //val = JSON.parse(msg.content);
+                val = msg.content;
             } catch  {
                 // fallback: init new
                 val = {
@@ -14723,13 +14732,14 @@ exports.default = {
                 val.msgObj
             ];
             val.msgObj.push(this.emptyRichButton());
-            msg.content = JSON.stringify(val);
+            msg.content = val;
+        // msg.content = JSON.stringify(val);
         }
         function removeRichButton(msgIdx, btnIdx) {
             const msg = this.messages[msgIdx];
             let val;
             try {
-                val = JSON.parse(msg.content);
+                val = msg.content;
             } catch  {
                 return;
             }
@@ -14737,7 +14747,8 @@ exports.default = {
                 val.msgObj
             ];
             val.msgObj.splice(btnIdx, 1);
-            msg.content = JSON.stringify(val);
+            msg.content = val;
+        // msg.content = JSON.stringify(val);
         }
         // Two-way-binding for rich buttons fields
         function syncRichButton(msg, btnIdx, field, value) {
@@ -14749,16 +14760,31 @@ exports.default = {
             msg.content = JSON.stringify(val);
         }
         // ----------- JSON BUILDERS -------------
+        function keepOnlyProperties(obj, propertiesToKeep) {
+            Object.keys(obj).forEach((key)=>{
+                if (!propertiesToKeep.includes(key)) delete obj[key];
+            });
+        }
         function getMessageJSON(msg) {
             // returns pretty-printed JSON for the UI
-            let base = {
-                ...msg
-            };
+            let base = JSON.parse(JSON.stringify(msg));
             delete base.id;
             // Patch rich content as JSON
-            if (msg.type === "rich") try {
-                base.content = JSON.parse(base.content);
-            } catch  {}
+            if (base.content.msgObj) base.content.msgObj.forEach(function(obj) {
+                if (obj.action.type === "api") keepOnlyProperties(obj.action.params, [
+                    "actionType"
+                ]);
+                if (obj.action.type === "link") keepOnlyProperties(obj.action.params, [
+                    "url",
+                    "target"
+                ]);
+                if (obj.action.type === "chat") keepOnlyProperties(obj.action.params, [
+                    "subscriptionId"
+                ]);
+                if (obj.action.type === "profile") keepOnlyProperties(obj.action.params, [
+                    "subscriptionId"
+                ]);
+            });
             return JSON.stringify(base, null, 2);
         }
         function getFinalTemplate() {
@@ -14769,7 +14795,7 @@ exports.default = {
                 };
                 delete base.id;
                 // Rich type content must be stringified JSON
-                if (base.type === "rich" && typeof base.content !== "string") base.content = JSON.stringify(base.content);
+                base.type;
                 return base;
             }), null, 2);
         }
@@ -14795,14 +14821,64 @@ exports.default = {
                 messages.value[index].width = attachment.width || "";
                 //width.value = attachment.width || ''
                 messages.value[index].height = attachment.height || "";
-                //height.value = attachment.height || ''
-                // Try well-known thumbnail sizes (you can adjust as needed)
-                if (attachment.sizes && attachment.sizes.medium) {
-                    messages.value[index].thumbnail = attachment.sizes.medium.url;
-                    messages.value[index].width = attachment.sizes.medium.width;
-                    messages.value[index].height = attachment.sizes.medium.height;
-                // thumbnailUrl.value = attachment.sizes.medium.url
-                } else messages.value[index].thumbnail = attachment.url;
+            //height.value = attachment.height || ''
+            // Try well-known thumbnail sizes (you can adjust as needed)
+            /*if (attachment.sizes && attachment.sizes.medium) {
+      messages.value[index].thumbnail = attachment.sizes.medium.url
+      messages.value[index].width = attachment.sizes.medium.width
+      messages.value[index].height = attachment.sizes.medium.height
+      // thumbnailUrl.value = attachment.sizes.medium.url
+    } else {
+    messages.value[index].thumbnail = attachment.url
+      //thumbnailUrl.value = attachment.url
+    //}*/ });
+            frame.open();
+        }
+        function openMediaPickerVideo(index) {
+            if (!window.wp || !window.wp.media) {
+                alert("WordPress media library is not available on this page.");
+                return;
+            }
+            const frame = window.wp.media({
+                title: "Select or Upload Image",
+                library: {
+                    type: "image"
+                },
+                button: {
+                    text: "Use this image"
+                },
+                multiple: false
+            });
+            frame.on("select", ()=>{
+                const attachment = frame.state().get("selection").first().toJSON();
+                messages.value[index].thumbnail = attachment.url;
+                messages.value[index].width = attachment.width || "";
+                messages.value[index].height = attachment.height || "";
+            });
+            frame.open();
+        }
+        function openMediaPickerFile(index) {
+            if (!window.wp || !window.wp.media) {
+                alert("WordPress media library is not available on this page.");
+                return;
+            }
+            const frame = window.wp.media({
+                title: "Select or Upload File",
+                library: {
+                    type: [
+                        "application/pdf",
+                        "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                        "audio"
+                    ]
+                },
+                button: {
+                    text: "Use this File"
+                },
+                multiple: false
+            });
+            frame.on("select", ()=>{
+                const attachment = frame.state().get("selection").first().toJSON();
+                messages.value[index].media = attachment.url;
             });
             frame.open();
         }
@@ -14815,9 +14891,12 @@ exports.default = {
             addRichButton,
             removeRichButton,
             syncRichButton,
+            keepOnlyProperties,
             getMessageJSON,
             getFinalTemplate,
             openMediaPicker,
+            openMediaPickerVideo,
+            openMediaPickerFile,
             ref: (0, _vue.ref),
             computed: (0, _vue.computed),
             watch: (0, _vue.watch),
@@ -14830,7 +14909,9 @@ exports.default = {
             },
             get draggable () {
                 return 0, _vuedraggableDefault.default;
-            }
+            },
+            ItemPreview: (0, _itemPreviewVueDefault.default),
+            SingleButton: (0, _singleButtonVueDefault.default)
         };
         Object.defineProperty(__returned__, "__isScriptSetup", {
             enumerable: false,
@@ -14840,7 +14921,7 @@ exports.default = {
     }
 };
 
-},{"vue":"gCTam","@parcel/transformer-js/src/esmodule-helpers.js":"5oERU","uuid":"ggZPL","vuedraggable":"k0iKx"}],"ggZPL":[function(require,module,exports) {
+},{"vue":"gCTam","uuid":"ggZPL","vuedraggable":"k0iKx","./ItemPreview.vue":"6q7jX","./SingleButton.vue":"9O2oR","@parcel/transformer-js/src/esmodule-helpers.js":"5oERU"}],"ggZPL":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "v1", ()=>(0, _v1JsDefault.default));
@@ -26457,6 +26538,942 @@ Sortable.mount(new AutoScrollPlugin());
 Sortable.mount(Remove, Revert);
 exports.default = Sortable;
 
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"5oERU"}],"6q7jX":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+let script;
+let initialize = ()=>{
+    script = require("1e49123099c38610");
+    if (script.__esModule) script = script.default;
+    script.render = require("7f11c9b006ec6e17").render;
+    require("2aa8e0c71169b424").default(script);
+    script.__scopeId = "data-v-974d75";
+    script.__file = "C:\\Users\\macak.OMNICOM\\Local Sites\\direktt-wp-api\\app\\public\\wp-content\\plugins\\direktt-plugin\\src\\mtemplates\\vue\\ItemPreview.vue";
+};
+initialize();
+if (module.hot) {
+    script.__hmrId = "974d75-hmr";
+    module.hot.accept(()=>{
+        setTimeout(()=>{
+            initialize();
+            if (!__VUE_HMR_RUNTIME__.createRecord("974d75-hmr", script)) __VUE_HMR_RUNTIME__.reload("974d75-hmr", script);
+        }, 0);
+    });
+}
+exports.default = script;
+
+},{"1e49123099c38610":"YGwrw","7f11c9b006ec6e17":"hVB4b","2aa8e0c71169b424":"ezrE0","@parcel/transformer-js/src/esmodule-helpers.js":"5oERU"}],"YGwrw":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _vue = require("vue");
+var _utilsJs = require("./utils.js");
+exports.default = {
+    __name: "ItemPreview",
+    props: [
+        "item"
+    ],
+    setup (__props, { expose: __expose }) {
+        __expose();
+        const props = __props;
+        let scrwidth = Math.round(287.5);
+        let scrheight = 0;
+        if (props.item.type == "picture" || props.item.type == "image" || props.item.type == "video") scrheight = Math.round(scrwidth * props.item.height / props.item.width);
+        function tryParseJSONObject(jsonString) {
+            try {
+                var o = JSON.parse(jsonString);
+                if (o && typeof o === "object") return o;
+            } catch (e) {}
+            return false;
+        }
+        (0, _vue.onMounted)(()=>{
+            scrwidth = 300;
+        });
+        const buttonClasses = (0, _vue.computed)(()=>({
+                active: props.actionActive.includes(String(props.item.id))
+            }));
+        const contentType = (0, _vue.computed)(()=>{
+            if (props.item.type == "text") return "text";
+            else if (props.item.type == "picture" || props.item.type == "image") return "picture";
+            else if (props.item.type == "video") return "video";
+            else if (props.item.type == "file") return "file";
+            else if (props.item.type == "rich") return "rich";
+        });
+        const parsedParts = (0, _vue.computed)(()=>{
+            const urlRegex = /https?:\/\/(?:www\.)?[^\s/$.?#].[^\s]*|www\.[^\s/$.?#].[^\s]*/ig;
+            const parts = [];
+            let lastIndex = 0;
+            let match;
+            const content = props.item.content;
+            while((match = urlRegex.exec(content)) !== null){
+                if (match.index > lastIndex) // Non-URL text
+                parts.push({
+                    type: "text",
+                    value: content.slice(lastIndex, match.index)
+                });
+                // URL part
+                parts.push({
+                    type: "url",
+                    value: match[0],
+                    normalized: (0, _utilsJs.normalizeUrl)(match[0])
+                });
+                lastIndex = match.index + match[0].length;
+            }
+            if (lastIndex < content.length) // Remaining text
+            parts.push({
+                type: "text",
+                value: content.slice(lastIndex)
+            });
+            return parts;
+        });
+        function extractFileName(url) {
+            try {
+                if (!url || typeof url !== "string") throw new Error("Invalid URL: URL is empty or not a string.");
+                const urlObj = new URL(url);
+                const pathname = urlObj.pathname;
+                if (!pathname) throw new Error("Invalid URL: Pathname is empty.");
+                const fileName = pathname.split("/").pop();
+                if (!fileName) throw new Error("Invalid URL: File name could not be extracted.");
+                return fileName;
+            } catch (error) {
+                console.error("Error extracting file name:", error.message);
+                return "File";
+            }
+        }
+        const __returned__ = {
+            props,
+            get scrwidth () {
+                return scrwidth;
+            },
+            set scrwidth (v){
+                scrwidth = v;
+            },
+            get scrheight () {
+                return scrheight;
+            },
+            set scrheight (v){
+                scrheight = v;
+            },
+            tryParseJSONObject,
+            buttonClasses,
+            contentType,
+            parsedParts,
+            extractFileName,
+            computed: (0, _vue.computed),
+            onMounted: (0, _vue.onMounted),
+            get getFileExtension () {
+                return 0, _utilsJs.getFileExtension;
+            },
+            get getFilenameFromUrl () {
+                return 0, _utilsJs.getFilenameFromUrl;
+            },
+            get normalizeUrl () {
+                return 0, _utilsJs.normalizeUrl;
+            }
+        };
+        Object.defineProperty(__returned__, "__isScriptSetup", {
+            enumerable: false,
+            value: true
+        });
+        return __returned__;
+    }
+};
+
+},{"vue":"gCTam","./utils.js":"9Vz6p","@parcel/transformer-js/src/esmodule-helpers.js":"5oERU"}],"9Vz6p":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "getFileExtension", ()=>getFileExtension);
+parcelHelpers.export(exports, "getFilenameFromUrl", ()=>getFilenameFromUrl);
+parcelHelpers.export(exports, "extractUpTo50", ()=>extractUpTo50);
+parcelHelpers.export(exports, "getDateSeparatorLabel", ()=>getDateSeparatorLabel);
+parcelHelpers.export(exports, "trimmedIfStartsWithIco", ()=>trimmedIfStartsWithIco);
+parcelHelpers.export(exports, "normalizeUrl", ()=>normalizeUrl);
+function getFileExtension(url) {
+    // Remove query parameters and fragments
+    url = url.split("?")[0].split("#")[0];
+    // Find the part after the last slash
+    const path = url.substring(url.lastIndexOf("/") + 1);
+    // If there's no dot, or dot is the first character, there's no extension
+    if (!path.includes(".") || path.startsWith(".")) return "";
+    // Return the substring after the last dot
+    return path.split(".").pop().toLowerCase();
+}
+function getFilenameFromUrl(url) {
+    // Remove query parameters and fragments
+    url = url.split("?")[0].split("#")[0];
+    // Get the part after the last slash
+    const path = url.substring(url.lastIndexOf("/") + 1);
+    return path;
+}
+function extractUpTo50(str) {
+    if (str.length <= 50) return str;
+    const trimmed = str.slice(0, 50);
+    const lastSpace = trimmed.lastIndexOf(" ");
+    if (lastSpace === -1) // No spaces, just return up to 50 chars
+    return trimmed;
+    return trimmed.slice(0, lastSpace);
+}
+function getDateSeparatorLabel(dateObj) {
+    const now = new Date();
+    // Set both times to midnight for comparison
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const yesterday = new Date(today);
+    yesterday.setDate(today.getDate() - 1);
+    const dateOnly = new Date(dateObj.getFullYear(), dateObj.getMonth(), dateObj.getDate());
+    if (dateOnly.getTime() === today.getTime()) return "Today";
+    else if (dateOnly.getTime() === yesterday.getTime()) return "Yesterday";
+    else // Format as dd MM yyyy e.g. 02 December 2025
+    return dateObj.toLocaleDateString("en-GB", {
+        day: "2-digit",
+        month: "long",
+        year: "numeric"
+    });
+}
+function trimmedIfStartsWithIco(str) {
+    // Left trim (remove spaces only from start)
+    const leftTrimmed = str.replace(/^\s+/, "");
+    if (leftTrimmed.startsWith("ico")) // Fully trim and return
+    return leftTrimmed.trim();
+    return null;
+}
+function normalizeUrl(url) {
+    if (!/^https?:\/\//i.test(url)) return `https://${url}`;
+    return url;
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"5oERU"}],"hVB4b":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "render", ()=>render);
+var _vue = require("vue");
+const _hoisted_1 = {
+    class: "ItemPreview"
+};
+const _hoisted_2 = {
+    class: "itemContent"
+};
+const _hoisted_3 = {
+    class: "item"
+};
+const _hoisted_4 = {
+    class: "contentPieces"
+};
+const _hoisted_5 = {
+    key: 0,
+    class: "text"
+};
+const _hoisted_6 = {
+    key: 0,
+    class: "url"
+};
+const _hoisted_7 = {
+    key: 0
+};
+const _hoisted_8 = {
+    key: 0,
+    class: "buttons"
+};
+const _hoisted_9 = {
+    class: "buttonWrapper"
+};
+const _hoisted_10 = {
+    class: "buttonText"
+};
+const _hoisted_11 = {
+    key: 0
+};
+const _hoisted_12 = {
+    class: "imageWrapper"
+};
+const _hoisted_13 = [
+    "src",
+    "alt",
+    "height",
+    "width"
+];
+const _hoisted_14 = /*#__PURE__*/ (0, _vue.createElementVNode)("div", {
+    class: "loader"
+}, null, -1 /* HOISTED */ );
+const _hoisted_15 = [
+    _hoisted_14
+];
+const _hoisted_16 = {
+    class: "text"
+};
+const _hoisted_17 = [
+    "onClick"
+];
+const _hoisted_18 = {
+    key: 0
+};
+const _hoisted_19 = {
+    class: "videoWrapper"
+};
+const _hoisted_20 = [
+    "src",
+    "height",
+    "width"
+];
+const _hoisted_21 = /*#__PURE__*/ (0, _vue.createElementVNode)("div", {
+    class: "loader"
+}, null, -1 /* HOISTED */ );
+const _hoisted_22 = [
+    _hoisted_21
+];
+const _hoisted_23 = {
+    class: "text"
+};
+const _hoisted_24 = [
+    "onClick"
+];
+const _hoisted_25 = {
+    key: 0
+};
+const _hoisted_26 = {
+    class: "fileWrapper"
+};
+const _hoisted_27 = /*#__PURE__*/ (0, _vue.createElementVNode)("div", {
+    class: "loader"
+}, null, -1 /* HOISTED */ );
+const _hoisted_28 = [
+    _hoisted_27
+];
+const _hoisted_29 = {
+    key: 0,
+    class: "fileMedia"
+};
+const _hoisted_30 = {
+    class: "text"
+};
+const _hoisted_31 = [
+    "onClick"
+];
+const _hoisted_32 = {
+    key: 0
+};
+function render(_ctx, _cache, $props, $setup, $data, $options) {
+    return (0, _vue.openBlock)(), (0, _vue.createElementBlock)("div", _hoisted_1, [
+        (0, _vue.createElementVNode)("div", _hoisted_2, [
+            (0, _vue.createElementVNode)("div", _hoisted_3, [
+                (0, _vue.createElementVNode)("div", _hoisted_4, [
+                    (0, _vue.createElementVNode)("div", null, [
+                        $setup.contentType == "text" ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)("div", _hoisted_5, [
+                            ((0, _vue.openBlock)(true), (0, _vue.createElementBlock)((0, _vue.Fragment), null, (0, _vue.renderList)($setup.parsedParts, (part, idx)=>{
+                                return (0, _vue.openBlock)(), (0, _vue.createElementBlock)("span", {
+                                    key: idx
+                                }, [
+                                    part.type === "url" ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)("span", _hoisted_6, (0, _vue.toDisplayString)(part.value), 1 /* TEXT */ )) : ((0, _vue.openBlock)(true), (0, _vue.createElementBlock)((0, _vue.Fragment), {
+                                        key: 1
+                                    }, (0, _vue.renderList)(part.value.split(/\r?\n/), (line, lineIdx)=>{
+                                        return (0, _vue.openBlock)(), (0, _vue.createElementBlock)((0, _vue.Fragment), {
+                                            key: lineIdx
+                                        }, [
+                                            (0, _vue.createTextVNode)((0, _vue.toDisplayString)(line), 1 /* TEXT */ ),
+                                            lineIdx !== part.value.split(/\r?\n/).length - 1 ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)("br", _hoisted_7)) : (0, _vue.createCommentVNode)("v-if", true)
+                                        ], 64 /* STABLE_FRAGMENT */ );
+                                    }), 128 /* KEYED_FRAGMENT */ ))
+                                ]);
+                            }), 128 /* KEYED_FRAGMENT */ ))
+                        ])) : $setup.contentType == "rich" ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)((0, _vue.Fragment), {
+                            key: 1
+                        }, [
+                            $setup.props.item.content.subtype == "buttons" ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)("div", _hoisted_8, [
+                                ((0, _vue.openBlock)(true), (0, _vue.createElementBlock)((0, _vue.Fragment), null, (0, _vue.renderList)($setup.props.item.content.msgObj, (msgit)=>{
+                                    return (0, _vue.openBlock)(), (0, _vue.createElementBlock)("div", _hoisted_9, [
+                                        (0, _vue.createElementVNode)("div", _hoisted_10, [
+                                            ((0, _vue.openBlock)(true), (0, _vue.createElementBlock)((0, _vue.Fragment), null, (0, _vue.renderList)(msgit.txt.split(/\r?\n/), (line, lineIdx)=>{
+                                                return (0, _vue.openBlock)(), (0, _vue.createElementBlock)((0, _vue.Fragment), {
+                                                    key: lineIdx
+                                                }, [
+                                                    (0, _vue.createTextVNode)((0, _vue.toDisplayString)(line), 1 /* TEXT */ ),
+                                                    lineIdx !== msgit.txt.split(/\r?\n/).length - 1 ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)("br", _hoisted_11)) : (0, _vue.createCommentVNode)("v-if", true)
+                                                ], 64 /* STABLE_FRAGMENT */ );
+                                            }), 128 /* KEYED_FRAGMENT */ ))
+                                        ]),
+                                        (0, _vue.createElementVNode)("button", null, (0, _vue.toDisplayString)(msgit.label), 1 /* TEXT */ )
+                                    ]);
+                                }), 256 /* UNKEYED_FRAGMENT */ ))
+                            ])) : (0, _vue.createCommentVNode)("v-if", true)
+                        ], 64 /* STABLE_FRAGMENT */ )) : $setup.contentType == "picture" ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)((0, _vue.Fragment), {
+                            key: 2
+                        }, [
+                            (0, _vue.createElementVNode)("div", _hoisted_12, [
+                                $setup.props.item.media != null && $setup.props.item.media != "" ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)("img", {
+                                    key: 0,
+                                    src: $setup.props.item.media,
+                                    alt: $setup.props.item.content,
+                                    height: Math.round($setup.scrwidth * $setup.props.item.height / $setup.props.item.width),
+                                    width: $setup.scrwidth
+                                }, null, 8 /* PROPS */ , _hoisted_13)) : ((0, _vue.openBlock)(), (0, _vue.createElementBlock)("div", {
+                                    key: 1,
+                                    class: "skeleton",
+                                    style: (0, _vue.normalizeStyle)({
+                                        height: $setup.scrheight + "px",
+                                        width: $setup.scrwidth + "px"
+                                    })
+                                }, [
+                                    ..._hoisted_15
+                                ], 4 /* STYLE */ ))
+                            ]),
+                            (0, _vue.createElementVNode)("div", _hoisted_16, [
+                                ((0, _vue.openBlock)(true), (0, _vue.createElementBlock)((0, _vue.Fragment), null, (0, _vue.renderList)($setup.parsedParts, (part, idx)=>{
+                                    return (0, _vue.openBlock)(), (0, _vue.createElementBlock)("span", {
+                                        key: idx
+                                    }, [
+                                        part.type === "url" ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)("span", {
+                                            key: 0,
+                                            class: "url",
+                                            onClick: (0, _vue.withModifiers)(($event)=>_ctx.openUrlFromText(part.normalized), [
+                                                "stop"
+                                            ])
+                                        }, (0, _vue.toDisplayString)(part.value), 9 /* TEXT, PROPS */ , _hoisted_17)) : ((0, _vue.openBlock)(true), (0, _vue.createElementBlock)((0, _vue.Fragment), {
+                                            key: 1
+                                        }, (0, _vue.renderList)(part.value.split(/\r?\n/), (line, lineIdx)=>{
+                                            return (0, _vue.openBlock)(), (0, _vue.createElementBlock)((0, _vue.Fragment), {
+                                                key: lineIdx
+                                            }, [
+                                                (0, _vue.createTextVNode)((0, _vue.toDisplayString)(line), 1 /* TEXT */ ),
+                                                lineIdx !== part.value.split(/\r?\n/).length - 1 ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)("br", _hoisted_18)) : (0, _vue.createCommentVNode)("v-if", true)
+                                            ], 64 /* STABLE_FRAGMENT */ );
+                                        }), 128 /* KEYED_FRAGMENT */ ))
+                                    ]);
+                                }), 128 /* KEYED_FRAGMENT */ ))
+                            ])
+                        ], 64 /* STABLE_FRAGMENT */ )) : $setup.contentType == "video" ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)((0, _vue.Fragment), {
+                            key: 3
+                        }, [
+                            (0, _vue.createElementVNode)("div", _hoisted_19, [
+                                $setup.props.item.thumbnail != null && $setup.props.item.thumbnail != "" ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)("img", {
+                                    key: 0,
+                                    src: $setup.props.item.thumbnail,
+                                    height: Math.round($setup.scrwidth * $setup.props.item.height / $setup.props.item.width),
+                                    width: $setup.scrwidth
+                                }, null, 8 /* PROPS */ , _hoisted_20)) : ((0, _vue.openBlock)(), (0, _vue.createElementBlock)("div", {
+                                    key: 1,
+                                    class: "skeleton",
+                                    style: (0, _vue.normalizeStyle)({
+                                        height: $setup.scrheight + "px",
+                                        width: $setup.scrwidth + "px"
+                                    })
+                                }, [
+                                    ..._hoisted_22
+                                ], 4 /* STYLE */ ))
+                            ]),
+                            (0, _vue.createElementVNode)("div", _hoisted_23, [
+                                ((0, _vue.openBlock)(true), (0, _vue.createElementBlock)((0, _vue.Fragment), null, (0, _vue.renderList)($setup.parsedParts, (part, idx)=>{
+                                    return (0, _vue.openBlock)(), (0, _vue.createElementBlock)("span", {
+                                        key: idx
+                                    }, [
+                                        part.type === "url" ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)("span", {
+                                            key: 0,
+                                            class: "url",
+                                            onClick: (0, _vue.withModifiers)(($event)=>_ctx.openUrlFromText(part.normalized), [
+                                                "stop"
+                                            ])
+                                        }, (0, _vue.toDisplayString)(part.value), 9 /* TEXT, PROPS */ , _hoisted_24)) : ((0, _vue.openBlock)(true), (0, _vue.createElementBlock)((0, _vue.Fragment), {
+                                            key: 1
+                                        }, (0, _vue.renderList)(part.value.split(/\r?\n/), (line, lineIdx)=>{
+                                            return (0, _vue.openBlock)(), (0, _vue.createElementBlock)((0, _vue.Fragment), {
+                                                key: lineIdx
+                                            }, [
+                                                (0, _vue.createTextVNode)((0, _vue.toDisplayString)(line), 1 /* TEXT */ ),
+                                                lineIdx !== part.value.split(/\r?\n/).length - 1 ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)("br", _hoisted_25)) : (0, _vue.createCommentVNode)("v-if", true)
+                                            ], 64 /* STABLE_FRAGMENT */ );
+                                        }), 128 /* KEYED_FRAGMENT */ ))
+                                    ]);
+                                }), 128 /* KEYED_FRAGMENT */ ))
+                            ])
+                        ], 64 /* STABLE_FRAGMENT */ )) : $setup.contentType == "file" ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)((0, _vue.Fragment), {
+                            key: 4
+                        }, [
+                            (0, _vue.createElementVNode)("div", _hoisted_26, [
+                                $setup.props.item.media == null || $setup.props.item.media == "" ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)("div", {
+                                    key: 0,
+                                    class: "skeleton",
+                                    style: (0, _vue.normalizeStyle)({
+                                        height: $setup.scrheight + "px",
+                                        width: $setup.scrwidth + "px"
+                                    })
+                                }, [
+                                    ..._hoisted_28
+                                ], 4 /* STYLE */ )) : ((0, _vue.openBlock)(), (0, _vue.createElementBlock)((0, _vue.Fragment), {
+                                    key: 1
+                                }, [
+                                    (0, _vue.createElementVNode)("div", {
+                                        class: (0, _vue.normalizeClass)("icoFile " + $setup.getFileExtension($setup.props.item.media))
+                                    }, null, 2 /* CLASS */ ),
+                                    $setup.props.item.media && $setup.props.item.media != "" ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)("div", _hoisted_29, (0, _vue.toDisplayString)($setup.getFilenameFromUrl($setup.props.item.media)), 1 /* TEXT */ )) : (0, _vue.createCommentVNode)("v-if", true)
+                                ], 64 /* STABLE_FRAGMENT */ ))
+                            ]),
+                            (0, _vue.createElementVNode)("div", _hoisted_30, [
+                                ((0, _vue.openBlock)(true), (0, _vue.createElementBlock)((0, _vue.Fragment), null, (0, _vue.renderList)($setup.parsedParts, (part, idx)=>{
+                                    return (0, _vue.openBlock)(), (0, _vue.createElementBlock)("span", {
+                                        key: idx
+                                    }, [
+                                        part.type === "url" ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)("span", {
+                                            key: 0,
+                                            class: "url",
+                                            onClick: (0, _vue.withModifiers)(($event)=>_ctx.openUrlFromText(part.normalized), [
+                                                "stop"
+                                            ])
+                                        }, (0, _vue.toDisplayString)(part.value), 9 /* TEXT, PROPS */ , _hoisted_31)) : ((0, _vue.openBlock)(true), (0, _vue.createElementBlock)((0, _vue.Fragment), {
+                                            key: 1
+                                        }, (0, _vue.renderList)(part.value.split(/\r?\n/), (line, lineIdx)=>{
+                                            return (0, _vue.openBlock)(), (0, _vue.createElementBlock)((0, _vue.Fragment), {
+                                                key: lineIdx
+                                            }, [
+                                                (0, _vue.createTextVNode)((0, _vue.toDisplayString)(line), 1 /* TEXT */ ),
+                                                lineIdx !== part.value.split(/\r?\n/).length - 1 ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)("br", _hoisted_32)) : (0, _vue.createCommentVNode)("v-if", true)
+                                            ], 64 /* STABLE_FRAGMENT */ );
+                                        }), 128 /* KEYED_FRAGMENT */ ))
+                                    ]);
+                                }), 128 /* KEYED_FRAGMENT */ ))
+                            ])
+                        ], 64 /* STABLE_FRAGMENT */ )) : (0, _vue.createCommentVNode)("v-if", true)
+                    ])
+                ])
+            ])
+        ])
+    ]);
+}
+if (module.hot) module.hot.accept(()=>{
+    __VUE_HMR_RUNTIME__.rerender("974d75-hmr", render);
+});
+
+},{"vue":"gCTam","@parcel/transformer-js/src/esmodule-helpers.js":"5oERU"}],"ezrE0":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+let NOOP = ()=>{};
+exports.default = (script)=>{};
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"5oERU"}],"9O2oR":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+let script;
+let initialize = ()=>{
+    script = require("ebcf514e437126c4");
+    if (script.__esModule) script = script.default;
+    script.render = require("b211173afc94a398").render;
+    require("6458ddf861dd215d").default(script);
+    script.__scopeId = "data-v-b25ae0";
+    script.__file = "C:\\Users\\macak.OMNICOM\\Local Sites\\direktt-wp-api\\app\\public\\wp-content\\plugins\\direktt-plugin\\src\\mtemplates\\vue\\SingleButton.vue";
+};
+initialize();
+if (module.hot) {
+    script.__hmrId = "b25ae0-hmr";
+    module.hot.accept(()=>{
+        setTimeout(()=>{
+            initialize();
+            if (!__VUE_HMR_RUNTIME__.createRecord("b25ae0-hmr", script)) __VUE_HMR_RUNTIME__.reload("b25ae0-hmr", script);
+        }, 0);
+    });
+}
+exports.default = script;
+
+},{"ebcf514e437126c4":"ewm3b","b211173afc94a398":"1mnOx","6458ddf861dd215d":"jSUsx","@parcel/transformer-js/src/esmodule-helpers.js":"5oERU"}],"ewm3b":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _vue = require("vue");
+var _retVarsVue = require("./RetVars.vue");
+var _retVarsVueDefault = parcelHelpers.interopDefault(_retVarsVue);
+exports.default = {
+    __name: "SingleButton",
+    props: [
+        "btn"
+    ],
+    setup (__props, { expose: __expose }) {
+        __expose();
+        const props = __props;
+        const hasRetVars = (0, _vue.ref)(false);
+        function onUpdateObj(newObj) {
+            // Mutate 'data' reactively (replace all keys)
+            Object.keys(props.btn.action.retVars).forEach((k)=>delete props.btn.action.retVars[k]);
+            Object.entries(newObj).forEach(([k, v])=>{
+                props.btn.action.retVars[k] = v;
+            });
+        }
+        const __returned__ = {
+            props,
+            hasRetVars,
+            onUpdateObj,
+            ref: (0, _vue.ref),
+            computed: (0, _vue.computed),
+            onMounted: (0, _vue.onMounted),
+            RetVars: (0, _retVarsVueDefault.default)
+        };
+        Object.defineProperty(__returned__, "__isScriptSetup", {
+            enumerable: false,
+            value: true
+        });
+        return __returned__;
+    }
+};
+
+},{"vue":"gCTam","./RetVars.vue":"ilMBH","@parcel/transformer-js/src/esmodule-helpers.js":"5oERU"}],"ilMBH":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+let script;
+let initialize = ()=>{
+    script = require("75a4bc3ea57d58ee");
+    if (script.__esModule) script = script.default;
+    script.render = require("50ff66ff9ea0f1f8").render;
+    require("15d8b196dc174ce2").default(script);
+    script.__scopeId = "data-v-d66d84";
+    script.__file = "C:\\Users\\macak.OMNICOM\\Local Sites\\direktt-wp-api\\app\\public\\wp-content\\plugins\\direktt-plugin\\src\\mtemplates\\vue\\RetVars.vue";
+};
+initialize();
+if (module.hot) {
+    script.__hmrId = "d66d84-hmr";
+    module.hot.accept(()=>{
+        setTimeout(()=>{
+            initialize();
+            if (!__VUE_HMR_RUNTIME__.createRecord("d66d84-hmr", script)) __VUE_HMR_RUNTIME__.reload("d66d84-hmr", script);
+        }, 0);
+    });
+}
+exports.default = script;
+
+},{"75a4bc3ea57d58ee":"kPMcr","50ff66ff9ea0f1f8":"2x5cK","15d8b196dc174ce2":"33Utf","@parcel/transformer-js/src/esmodule-helpers.js":"5oERU"}],"kPMcr":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _vue = require("vue");
+exports.default = {
+    __name: "RetVars",
+    props: {
+        obj: {
+            type: Object,
+            required: true
+        }
+    },
+    emits: [
+        "update:obj"
+    ],
+    setup (__props, { expose: __expose, emit: __emit }) {
+        __expose();
+        const props = __props;
+        const emit = __emit;
+        // Helper: convert object to pairs
+        function objectToPairs(obj) {
+            return Object.entries(obj).map(([key, value], i)=>({
+                    key,
+                    value,
+                    id: i + "_" + Date.now()
+                }));
+        }
+        // Track if update is coming from internal change
+        let isInternalUpdate = false;
+        // Initial conversion
+        const pairs = (0, _vue.ref)(objectToPairs(props.obj));
+        // Watch ONLY for external changes to props.obj, not on every update
+        (0, _vue.watch)(()=>props.obj, (newObj)=>{
+            if (!isInternalUpdate) pairs.value = objectToPairs(newObj);
+            isInternalUpdate = false;
+        }, {
+            deep: true
+        });
+        function onKeyChange(idx) {
+            const pair = pairs.value[idx];
+            // Check for duplicate key
+            if (pairs.value.some((p, i)=>i !== idx && p.key.trim() && p.key === pair.key)) {
+                alert("Duplicate key! Please use a unique key.");
+                (0, _vue.nextTick)(()=>{
+                    pairs.value[idx].key = "";
+                });
+                return;
+            }
+            updateObj();
+        }
+        function onValueChange(idx) {
+            updateObj();
+        }
+        function updateObj() {
+            // Build a new object from pairs
+            const newObj = {};
+            pairs.value.forEach((pair)=>{
+                if (pair.key) newObj[pair.key] = pair.value;
+            });
+            isInternalUpdate = true; // Prevent re-entry in watcher!
+            emit("update:obj", newObj);
+        }
+        function addPair() {
+            pairs.value.push({
+                key: "",
+                value: "",
+                id: Date.now() + "_" + Math.random()
+            });
+            updateObj();
+        }
+        function removePair(idx) {
+            pairs.value.splice(idx, 1);
+            updateObj();
+        }
+        const __returned__ = {
+            props,
+            emit,
+            objectToPairs,
+            get isInternalUpdate () {
+                return isInternalUpdate;
+            },
+            set isInternalUpdate (v){
+                isInternalUpdate = v;
+            },
+            pairs,
+            onKeyChange,
+            onValueChange,
+            updateObj,
+            addPair,
+            removePair,
+            watch: (0, _vue.watch),
+            ref: (0, _vue.ref),
+            nextTick: (0, _vue.nextTick)
+        };
+        Object.defineProperty(__returned__, "__isScriptSetup", {
+            enumerable: false,
+            value: true
+        });
+        return __returned__;
+    }
+};
+
+},{"vue":"gCTam","@parcel/transformer-js/src/esmodule-helpers.js":"5oERU"}],"2x5cK":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "render", ()=>render);
+var _vue = require("vue");
+const _hoisted_1 = [
+    "onUpdate:modelValue",
+    "onChange"
+];
+const _hoisted_2 = [
+    "onUpdate:modelValue",
+    "onInput"
+];
+function render(_ctx, _cache, $props, $setup, $data, $options) {
+    const _component_v_btn = (0, _vue.resolveComponent)("v-btn");
+    return (0, _vue.openBlock)(), (0, _vue.createElementBlock)("div", null, [
+        ((0, _vue.openBlock)(true), (0, _vue.createElementBlock)((0, _vue.Fragment), null, (0, _vue.renderList)($setup.pairs, (pair, idx)=>{
+            return (0, _vue.openBlock)(), (0, _vue.createElementBlock)("div", {
+                key: pair.id,
+                style: {
+                    "display": "flex",
+                    "gap": "8px",
+                    "margin-bottom": "8px"
+                }
+            }, [
+                (0, _vue.withDirectives)((0, _vue.createElementVNode)("input", {
+                    type: "text",
+                    "onUpdate:modelValue": ($event)=>pair.key = $event,
+                    onChange: ($event)=>$setup.onKeyChange(idx),
+                    placeholder: "Key"
+                }, null, 40 /* PROPS, NEED_HYDRATION */ , _hoisted_1), [
+                    [
+                        (0, _vue.vModelText),
+                        pair.key
+                    ]
+                ]),
+                (0, _vue.withDirectives)((0, _vue.createElementVNode)("input", {
+                    type: "text",
+                    "onUpdate:modelValue": ($event)=>pair.value = $event,
+                    onInput: ($event)=>$setup.onValueChange(idx),
+                    placeholder: "Value"
+                }, null, 40 /* PROPS, NEED_HYDRATION */ , _hoisted_2), [
+                    [
+                        (0, _vue.vModelText),
+                        pair.value
+                    ]
+                ]),
+                (0, _vue.createVNode)(_component_v_btn, {
+                    onClick: ($event)=>$setup.removePair(idx)
+                }, {
+                    default: (0, _vue.withCtx)(()=>[
+                            (0, _vue.createTextVNode)("Remove")
+                        ]),
+                    _: 2 /* DYNAMIC */ 
+                }, 1032 /* PROPS, DYNAMIC_SLOTS */ , [
+                    "onClick"
+                ])
+            ]);
+        }), 128 /* KEYED_FRAGMENT */ )),
+        (0, _vue.createVNode)(_component_v_btn, {
+            onClick: $setup.addPair
+        }, {
+            default: (0, _vue.withCtx)(()=>[
+                    (0, _vue.createTextVNode)("Add property")
+                ]),
+            _: 1 /* STABLE */ 
+        })
+    ]);
+}
+if (module.hot) module.hot.accept(()=>{
+    __VUE_HMR_RUNTIME__.rerender("d66d84-hmr", render);
+});
+
+},{"vue":"gCTam","@parcel/transformer-js/src/esmodule-helpers.js":"5oERU"}],"33Utf":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+let NOOP = ()=>{};
+exports.default = (script)=>{};
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"5oERU"}],"1mnOx":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "render", ()=>render);
+var _vue = require("vue");
+const _hoisted_1 = {
+    key: 0,
+    class: "pb-4"
+};
+const _hoisted_2 = /*#__PURE__*/ (0, _vue.createElementVNode)("option", {
+    value: "app"
+}, "App", -1 /* HOISTED */ );
+const _hoisted_3 = /*#__PURE__*/ (0, _vue.createElementVNode)("option", {
+    value: "browser"
+}, "Browser", -1 /* HOISTED */ );
+const _hoisted_4 = [
+    _hoisted_2,
+    _hoisted_3
+];
+const _hoisted_5 = {
+    key: 1,
+    class: "pb-4"
+};
+const _hoisted_6 = {
+    key: 2,
+    class: "pb-4"
+};
+const _hoisted_7 = {
+    key: 3,
+    class: "pb-4"
+};
+function render(_ctx, _cache, $props, $setup, $data, $options) {
+    const _component_v_textarea = (0, _vue.resolveComponent)("v-textarea");
+    const _component_v_text_field = (0, _vue.resolveComponent)("v-text-field");
+    const _component_v_radio = (0, _vue.resolveComponent)("v-radio");
+    const _component_v_radio_group = (0, _vue.resolveComponent)("v-radio-group");
+    return (0, _vue.openBlock)(), (0, _vue.createElementBlock)((0, _vue.Fragment), null, [
+        (0, _vue.createVNode)(_component_v_textarea, {
+            label: "Text above button",
+            variant: "outlined",
+            modelValue: $setup.props.btn.txt,
+            "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event)=>$setup.props.btn.txt = $event),
+            rows: "2",
+            "no-resize": ""
+        }, null, 8 /* PROPS */ , [
+            "modelValue"
+        ]),
+        (0, _vue.createVNode)(_component_v_text_field, {
+            label: "Button label",
+            modelValue: $setup.props.btn.label,
+            "onUpdate:modelValue": _cache[1] || (_cache[1] = ($event)=>$setup.props.btn.label = $event),
+            variant: "outlined"
+        }, null, 8 /* PROPS */ , [
+            "modelValue"
+        ]),
+        (0, _vue.createVNode)(_component_v_radio_group, {
+            modelValue: $setup.props.btn.action.type,
+            "onUpdate:modelValue": _cache[2] || (_cache[2] = ($event)=>$setup.props.btn.action.type = $event)
+        }, {
+            default: (0, _vue.withCtx)(()=>[
+                    (0, _vue.createVNode)(_component_v_radio, {
+                        label: "Link",
+                        value: "link"
+                    }),
+                    (0, _vue.createVNode)(_component_v_radio, {
+                        label: "Api",
+                        value: "api"
+                    }),
+                    (0, _vue.createVNode)(_component_v_radio, {
+                        label: "Chat",
+                        value: "chat"
+                    }),
+                    (0, _vue.createVNode)(_component_v_radio, {
+                        label: "Profile",
+                        value: "profile"
+                    })
+                ]),
+            _: 1 /* STABLE */ 
+        }, 8 /* PROPS */ , [
+            "modelValue"
+        ]),
+        $setup.props.btn.action.type == "link" ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)("div", _hoisted_1, [
+            (0, _vue.createVNode)(_component_v_text_field, {
+                label: "Link Url",
+                modelValue: $props.btn.action.params.url,
+                "onUpdate:modelValue": _cache[3] || (_cache[3] = ($event)=>$props.btn.action.params.url = $event),
+                variant: "outlined"
+            }, null, 8 /* PROPS */ , [
+                "modelValue"
+            ]),
+            (0, _vue.createTextVNode)(" Target: "),
+            (0, _vue.withDirectives)((0, _vue.createElementVNode)("select", {
+                "onUpdate:modelValue": _cache[4] || (_cache[4] = ($event)=>$props.btn.action.params.target = $event),
+                style: {
+                    "border-style": "solid",
+                    "border-color": "#666",
+                    "width": "200px"
+                }
+            }, [
+                ..._hoisted_4
+            ], 512 /* NEED_PATCH */ ), [
+                [
+                    (0, _vue.vModelSelect),
+                    $props.btn.action.params.target
+                ]
+            ]),
+            (0, _vue.createVNode)($setup["RetVars"], {
+                obj: $props.btn.action.retVars,
+                "onUpdate:obj": $setup.onUpdateObj
+            }, null, 8 /* PROPS */ , [
+                "obj"
+            ])
+        ])) : (0, _vue.createCommentVNode)("v-if", true),
+        $setup.props.btn.action.type == "api" ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)("div", _hoisted_5, [
+            (0, _vue.createVNode)(_component_v_text_field, {
+                label: "Api Action Type",
+                modelValue: $props.btn.action.params.actionType,
+                "onUpdate:modelValue": _cache[5] || (_cache[5] = ($event)=>$props.btn.action.params.actionType = $event),
+                variant: "outlined"
+            }, null, 8 /* PROPS */ , [
+                "modelValue"
+            ]),
+            (0, _vue.createVNode)($setup["RetVars"], {
+                obj: $props.btn.action.retVars,
+                "onUpdate:obj": $setup.onUpdateObj
+            }, null, 8 /* PROPS */ , [
+                "obj"
+            ])
+        ])) : (0, _vue.createCommentVNode)("v-if", true),
+        $setup.props.btn.action.type == "chat" ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)("div", _hoisted_6, [
+            (0, _vue.createVNode)(_component_v_text_field, {
+                label: "User Subscription Id",
+                modelValue: $props.btn.action.params.subscriptionId,
+                "onUpdate:modelValue": _cache[6] || (_cache[6] = ($event)=>$props.btn.action.params.subscriptionId = $event),
+                variant: "outlined"
+            }, null, 8 /* PROPS */ , [
+                "modelValue"
+            ])
+        ])) : (0, _vue.createCommentVNode)("v-if", true),
+        $setup.props.btn.action.type == "profile" ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)("div", _hoisted_7, [
+            (0, _vue.createVNode)(_component_v_text_field, {
+                label: "User Subscription Id",
+                modelValue: $props.btn.action.params.subscriptionId,
+                "onUpdate:modelValue": _cache[7] || (_cache[7] = ($event)=>$props.btn.action.params.subscriptionId = $event),
+                variant: "outlined"
+            }, null, 8 /* PROPS */ , [
+                "modelValue"
+            ])
+        ])) : (0, _vue.createCommentVNode)("v-if", true)
+    ], 64 /* STABLE_FRAGMENT */ );
+}
+if (module.hot) module.hot.accept(()=>{
+    __VUE_HMR_RUNTIME__.rerender("b25ae0-hmr", render);
+});
+
+},{"vue":"gCTam","@parcel/transformer-js/src/esmodule-helpers.js":"5oERU"}],"jSUsx":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+let NOOP = ()=>{};
+exports.default = (script)=>{};
+
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"5oERU"}],"7tlz3":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
@@ -26473,82 +27490,86 @@ const _hoisted_3 = {
     class: "msg-block-inner"
 };
 const _hoisted_4 = {
-    class: "mr-4"
+    key: 0,
+    style: {
+        "width": "100%"
+    },
+    class: "mb-4"
 };
-const _hoisted_5 = [
+const _hoisted_5 = {
+    key: 1,
+    style: {
+        "width": "100%"
+    },
+    class: "mb-4"
+};
+const _hoisted_6 = [
     "src"
 ];
-const _hoisted_6 = {
-    class: "pa-1"
+const _hoisted_7 = {
+    class: "mb-2"
 };
-const _hoisted_7 = /*#__PURE__*/ _withScopeId(()=>/*#__PURE__*/ (0, _vue.createElementVNode)("strong", null, "Image Url:", -1 /* HOISTED */ ));
-const _hoisted_8 = {
-    class: "pa-1"
+const _hoisted_8 = /*#__PURE__*/ _withScopeId(()=>/*#__PURE__*/ (0, _vue.createElementVNode)("strong", null, "Image Url:", -1 /* HOISTED */ ));
+const _hoisted_9 = {
+    class: "mb-2"
 };
-const _hoisted_9 = /*#__PURE__*/ _withScopeId(()=>/*#__PURE__*/ (0, _vue.createElementVNode)("strong", null, "Thumbnail Width:", -1 /* HOISTED */ ));
-const _hoisted_10 = {
-    class: "pa-1"
+const _hoisted_10 = /*#__PURE__*/ _withScopeId(()=>/*#__PURE__*/ (0, _vue.createElementVNode)("strong", null, "Thumbnail Width:", -1 /* HOISTED */ ));
+const _hoisted_11 = {
+    class: "mb-4"
 };
-const _hoisted_11 = /*#__PURE__*/ _withScopeId(()=>/*#__PURE__*/ (0, _vue.createElementVNode)("strong", null, "Thumbnail Height:", -1 /* HOISTED */ ));
-const _hoisted_12 = {
-    class: "pa-1"
+const _hoisted_12 = /*#__PURE__*/ _withScopeId(()=>/*#__PURE__*/ (0, _vue.createElementVNode)("strong", null, "Thumbnail Height:", -1 /* HOISTED */ ));
+const _hoisted_13 = {
+    key: 2,
+    style: {
+        "width": "100%"
+    },
+    class: "mb-4"
 };
-const _hoisted_13 = /*#__PURE__*/ _withScopeId(()=>/*#__PURE__*/ (0, _vue.createElementVNode)("strong", null, "Thumbnail Url:", -1 /* HOISTED */ ));
-const _hoisted_14 = [
-    "onUpdate:modelValue"
-];
-const _hoisted_15 = [
-    "onUpdate:modelValue"
-];
+const _hoisted_14 = {
+    class: "mb-2"
+};
+const _hoisted_15 = /*#__PURE__*/ _withScopeId(()=>/*#__PURE__*/ (0, _vue.createElementVNode)("strong", null, "Video Url:", -1 /* HOISTED */ ));
 const _hoisted_16 = [
-    "onUpdate:modelValue"
+    "src"
 ];
-const _hoisted_17 = [
-    "onUpdate:modelValue"
-];
-const _hoisted_18 = [
-    "onUpdate:modelValue"
-];
-const _hoisted_19 = [
-    "onUpdate:modelValue"
-];
-const _hoisted_20 = [
-    "onUpdate:modelValue"
-];
-const _hoisted_21 = /*#__PURE__*/ _withScopeId(()=>/*#__PURE__*/ (0, _vue.createElementVNode)("strong", null, "Buttons", -1 /* HOISTED */ ));
-const _hoisted_22 = [
-    "onClick"
-];
-const _hoisted_23 = [
-    "onUpdate:modelValue"
-];
-const _hoisted_24 = [
-    "onUpdate:modelValue"
-];
-const _hoisted_25 = [
-    "onUpdate:modelValue"
-];
-const _hoisted_26 = [
-    "onUpdate:modelValue"
-];
-const _hoisted_27 = /*#__PURE__*/ _withScopeId(()=>/*#__PURE__*/ (0, _vue.createElementVNode)("option", {
-        value: "app"
-    }, "app (in-app)", -1 /* HOISTED */ ));
-const _hoisted_28 = /*#__PURE__*/ _withScopeId(()=>/*#__PURE__*/ (0, _vue.createElementVNode)("option", {
-        value: "_blank"
-    }, "Browser/tab (_blank)", -1 /* HOISTED */ ));
-const _hoisted_29 = [
-    _hoisted_27,
-    _hoisted_28
-];
-const _hoisted_30 = [
-    "onClick"
-];
-const _hoisted_31 = {
-    class: "msg-preview"
+const _hoisted_17 = {
+    class: "mb-2"
 };
-const _hoisted_32 = /*#__PURE__*/ _withScopeId(()=>/*#__PURE__*/ (0, _vue.createElementVNode)("h3", null, "Message Template JSON", -1 /* HOISTED */ ));
-const _hoisted_33 = {
+const _hoisted_18 = /*#__PURE__*/ _withScopeId(()=>/*#__PURE__*/ (0, _vue.createElementVNode)("strong", null, "Thumbnail Url:", -1 /* HOISTED */ ));
+const _hoisted_19 = {
+    class: "mb-2"
+};
+const _hoisted_20 = /*#__PURE__*/ _withScopeId(()=>/*#__PURE__*/ (0, _vue.createElementVNode)("strong", null, "Thumbnail Width:", -1 /* HOISTED */ ));
+const _hoisted_21 = {
+    class: "mb-4"
+};
+const _hoisted_22 = /*#__PURE__*/ _withScopeId(()=>/*#__PURE__*/ (0, _vue.createElementVNode)("strong", null, "Thumbnail Height:", -1 /* HOISTED */ ));
+const _hoisted_23 = {
+    key: 3,
+    style: {
+        "width": "100%"
+    },
+    class: "mb-4"
+};
+const _hoisted_24 = {
+    class: "mb-2"
+};
+const _hoisted_25 = /*#__PURE__*/ _withScopeId(()=>/*#__PURE__*/ (0, _vue.createElementVNode)("strong", null, "File Url:", -1 /* HOISTED */ ));
+const _hoisted_26 = {
+    style: {
+        "width": "100%"
+    },
+    class: "mb-4"
+};
+const _hoisted_27 = {
+    class: "msg-preview pa-4",
+    style: {
+        "width": "100%",
+        "overflow-x": "auto"
+    }
+};
+const _hoisted_28 = /*#__PURE__*/ _withScopeId(()=>/*#__PURE__*/ (0, _vue.createElementVNode)("h3", null, "Message Template JSON", -1 /* HOISTED */ ));
+const _hoisted_29 = {
     readonly: "",
     rows: "12",
     style: {
@@ -26561,6 +27582,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     const _component_v_spacer = (0, _vue.resolveComponent)("v-spacer");
     const _component_v_row = (0, _vue.resolveComponent)("v-row");
     const _component_v_textarea = (0, _vue.resolveComponent)("v-textarea");
+    const _component_v_text_field = (0, _vue.resolveComponent)("v-text-field");
+    const _component_v_card = (0, _vue.resolveComponent)("v-card");
+    const _component_v_col = (0, _vue.resolveComponent)("v-col");
     return (0, _vue.openBlock)(), (0, _vue.createElementBlock)("div", _hoisted_1, [
         (0, _vue.createElementVNode)("div", null, [
             (0, _vue.createVNode)(_component_v_btn, {
@@ -26659,18 +27683,17 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
                         }, 1024 /* DYNAMIC_SLOTS */ ),
                         (0, _vue.createElementVNode)("div", _hoisted_3, [
                             (0, _vue.createCommentVNode)(" Message Fields by Type "),
-                            element.type === "text" ? ((0, _vue.openBlock)(), (0, _vue.createBlock)(_component_v_textarea, {
-                                key: 0,
-                                label: "Message content",
-                                variant: "outlined",
-                                modelValue: element.content,
-                                "onUpdate:modelValue": ($event)=>element.content = $event
-                            }, null, 8 /* PROPS */ , [
-                                "modelValue",
-                                "onUpdate:modelValue"
-                            ])) : element.type === "image" ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)((0, _vue.Fragment), {
-                                key: 1
-                            }, [
+                            element.type === "text" ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)("div", _hoisted_4, [
+                                (0, _vue.createVNode)(_component_v_textarea, {
+                                    label: "Message content",
+                                    variant: "outlined",
+                                    modelValue: element.content,
+                                    "onUpdate:modelValue": ($event)=>element.content = $event
+                                }, null, 8 /* PROPS */ , [
+                                    "modelValue",
+                                    "onUpdate:modelValue"
+                                ])
+                            ])) : element.type === "image" ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)("div", _hoisted_5, [
                                 (0, _vue.createVNode)(_component_v_btn, {
                                     variant: "flat",
                                     class: "text-none text-caption mb-4",
@@ -26683,40 +27706,53 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
                                 }, 1032 /* PROPS, DYNAMIC_SLOTS */ , [
                                     "onClick"
                                 ]),
-                                element.thumbnail ? ((0, _vue.openBlock)(), (0, _vue.createBlock)(_component_v_row, {
+                                (0, _vue.createVNode)(_component_v_spacer),
+                                element.media ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)("img", {
                                     key: 0,
-                                    class: "pa-4 mb-3"
-                                }, {
-                                    default: (0, _vue.withCtx)(()=>[
-                                            (0, _vue.createElementVNode)("div", _hoisted_4, [
-                                                (0, _vue.createElementVNode)("img", {
-                                                    src: element.thumbnail,
-                                                    style: {
-                                                        "height": "100px"
-                                                    }
-                                                }, null, 8 /* PROPS */ , _hoisted_5)
-                                            ]),
-                                            (0, _vue.createElementVNode)("div", null, [
-                                                (0, _vue.createElementVNode)("div", _hoisted_6, [
-                                                    _hoisted_7,
-                                                    (0, _vue.createTextVNode)(" " + (0, _vue.toDisplayString)(element.media), 1 /* TEXT */ )
-                                                ]),
-                                                (0, _vue.createElementVNode)("div", _hoisted_8, [
-                                                    _hoisted_9,
-                                                    (0, _vue.createTextVNode)(" " + (0, _vue.toDisplayString)(element.width) + "px", 1 /* TEXT */ )
-                                                ]),
-                                                (0, _vue.createElementVNode)("div", _hoisted_10, [
-                                                    _hoisted_11,
-                                                    (0, _vue.createTextVNode)(" " + (0, _vue.toDisplayString)(element.height) + "px", 1 /* TEXT */ )
-                                                ]),
-                                                (0, _vue.createElementVNode)("div", _hoisted_12, [
-                                                    _hoisted_13,
-                                                    (0, _vue.createTextVNode)(" " + (0, _vue.toDisplayString)(element.thumbnail) + "px", 1 /* TEXT */ )
-                                                ])
-                                            ])
-                                        ]),
-                                    _: 2 /* DYNAMIC */ 
-                                }, 1024 /* DYNAMIC_SLOTS */ )) : (0, _vue.createCommentVNode)("v-if", true),
+                                    src: element.media,
+                                    style: {
+                                        "height": "150px"
+                                    },
+                                    class: "mb-4"
+                                }, null, 8 /* PROPS */ , _hoisted_6)) : (0, _vue.createCommentVNode)("v-if", true),
+                                (0, _vue.createElementVNode)("div", _hoisted_7, [
+                                    _hoisted_8,
+                                    (0, _vue.createTextVNode)(),
+                                    (0, _vue.createVNode)(_component_v_text_field, {
+                                        modelValue: element.media,
+                                        "onUpdate:modelValue": ($event)=>element.media = $event,
+                                        variant: "outlined"
+                                    }, null, 8 /* PROPS */ , [
+                                        "modelValue",
+                                        "onUpdate:modelValue"
+                                    ])
+                                ]),
+                                (0, _vue.createElementVNode)("div", _hoisted_9, [
+                                    _hoisted_10,
+                                    (0, _vue.createTextVNode)(),
+                                    (0, _vue.createVNode)(_component_v_text_field, {
+                                        modelValue: element.width,
+                                        "onUpdate:modelValue": ($event)=>element.width = $event,
+                                        variant: "outlined",
+                                        "max-width": "200"
+                                    }, null, 8 /* PROPS */ , [
+                                        "modelValue",
+                                        "onUpdate:modelValue"
+                                    ])
+                                ]),
+                                (0, _vue.createElementVNode)("div", _hoisted_11, [
+                                    _hoisted_12,
+                                    (0, _vue.createTextVNode)(),
+                                    (0, _vue.createVNode)(_component_v_text_field, {
+                                        modelValue: element.height,
+                                        "onUpdate:modelValue": ($event)=>element.height = $event,
+                                        variant: "outlined",
+                                        "max-width": "200"
+                                    }, null, 8 /* PROPS */ , [
+                                        "modelValue",
+                                        "onUpdate:modelValue"
+                                    ])
+                                ]),
                                 (0, _vue.createVNode)(_component_v_textarea, {
                                     label: "Message content",
                                     variant: "outlined",
@@ -26726,167 +27762,232 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
                                     "modelValue",
                                     "onUpdate:modelValue"
                                 ])
-                            ], 64 /* STABLE_FRAGMENT */ )) : element.type === "video" ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)((0, _vue.Fragment), {
-                                key: 2
-                            }, [
-                                (0, _vue.withDirectives)((0, _vue.createElementVNode)("input", {
-                                    "onUpdate:modelValue": ($event)=>element.content = $event,
-                                    placeholder: "Video description"
-                                }, null, 8 /* PROPS */ , _hoisted_14), [
-                                    [
-                                        (0, _vue.vModelText),
-                                        element.content
-                                    ]
+                            ])) : element.type === "video" ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)("div", _hoisted_13, [
+                                (0, _vue.createElementVNode)("div", _hoisted_14, [
+                                    _hoisted_15,
+                                    (0, _vue.createTextVNode)(),
+                                    (0, _vue.createVNode)(_component_v_text_field, {
+                                        modelValue: element.media,
+                                        "onUpdate:modelValue": ($event)=>element.media = $event,
+                                        variant: "outlined"
+                                    }, null, 8 /* PROPS */ , [
+                                        "modelValue",
+                                        "onUpdate:modelValue"
+                                    ])
                                 ]),
-                                (0, _vue.withDirectives)((0, _vue.createElementVNode)("input", {
-                                    "onUpdate:modelValue": ($event)=>element.media = $event,
-                                    placeholder: "Video URL"
-                                }, null, 8 /* PROPS */ , _hoisted_15), [
-                                    [
-                                        (0, _vue.vModelText),
-                                        element.media
-                                    ]
+                                (0, _vue.createVNode)(_component_v_btn, {
+                                    variant: "flat",
+                                    class: "text-none text-caption mb-4",
+                                    onClick: ($event)=>$setup.openMediaPickerVideo(index)
+                                }, {
+                                    default: (0, _vue.withCtx)(()=>[
+                                            (0, _vue.createTextVNode)((0, _vue.toDisplayString)(element.thumbnail ? "Change Thumbnail" : "Select Thumbnail"), 1 /* TEXT */ )
+                                        ]),
+                                    _: 2 /* DYNAMIC */ 
+                                }, 1032 /* PROPS, DYNAMIC_SLOTS */ , [
+                                    "onClick"
                                 ]),
-                                (0, _vue.withDirectives)((0, _vue.createElementVNode)("input", {
-                                    "onUpdate:modelValue": ($event)=>element.width = $event,
-                                    placeholder: "Width",
-                                    type: "number"
-                                }, null, 8 /* PROPS */ , _hoisted_16), [
-                                    [
-                                        (0, _vue.vModelText),
-                                        element.width,
-                                        void 0,
-                                        {
-                                            number: true
-                                        }
-                                    ]
+                                (0, _vue.createVNode)(_component_v_spacer),
+                                element.thumbnail ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)("img", {
+                                    key: 0,
+                                    src: element.thumbnail,
+                                    style: {
+                                        "height": "150px"
+                                    },
+                                    class: "mb-4"
+                                }, null, 8 /* PROPS */ , _hoisted_16)) : (0, _vue.createCommentVNode)("v-if", true),
+                                (0, _vue.createElementVNode)("div", _hoisted_17, [
+                                    _hoisted_18,
+                                    (0, _vue.createTextVNode)(),
+                                    (0, _vue.createVNode)(_component_v_text_field, {
+                                        modelValue: element.thumbnail,
+                                        "onUpdate:modelValue": ($event)=>element.thumbnail = $event,
+                                        variant: "outlined"
+                                    }, null, 8 /* PROPS */ , [
+                                        "modelValue",
+                                        "onUpdate:modelValue"
+                                    ])
                                 ]),
-                                (0, _vue.withDirectives)((0, _vue.createElementVNode)("input", {
-                                    "onUpdate:modelValue": ($event)=>element.height = $event,
-                                    placeholder: "Height",
-                                    type: "number"
-                                }, null, 8 /* PROPS */ , _hoisted_17), [
-                                    [
-                                        (0, _vue.vModelText),
-                                        element.height,
-                                        void 0,
-                                        {
-                                            number: true
-                                        }
-                                    ]
+                                (0, _vue.createElementVNode)("div", _hoisted_19, [
+                                    _hoisted_20,
+                                    (0, _vue.createTextVNode)(),
+                                    (0, _vue.createVNode)(_component_v_text_field, {
+                                        modelValue: element.width,
+                                        "onUpdate:modelValue": ($event)=>element.width = $event,
+                                        variant: "outlined",
+                                        "max-width": "200"
+                                    }, null, 8 /* PROPS */ , [
+                                        "modelValue",
+                                        "onUpdate:modelValue"
+                                    ])
                                 ]),
-                                (0, _vue.withDirectives)((0, _vue.createElementVNode)("input", {
-                                    "onUpdate:modelValue": ($event)=>element.thumbnail = $event,
-                                    placeholder: "Thumbnail URL (optional)"
-                                }, null, 8 /* PROPS */ , _hoisted_18), [
-                                    [
-                                        (0, _vue.vModelText),
-                                        element.thumbnail
-                                    ]
+                                (0, _vue.createElementVNode)("div", _hoisted_21, [
+                                    _hoisted_22,
+                                    (0, _vue.createTextVNode)(),
+                                    (0, _vue.createVNode)(_component_v_text_field, {
+                                        modelValue: element.height,
+                                        "onUpdate:modelValue": ($event)=>element.height = $event,
+                                        variant: "outlined",
+                                        "max-width": "200"
+                                    }, null, 8 /* PROPS */ , [
+                                        "modelValue",
+                                        "onUpdate:modelValue"
+                                    ])
+                                ]),
+                                (0, _vue.createVNode)(_component_v_textarea, {
+                                    label: "Message content",
+                                    variant: "outlined",
+                                    modelValue: element.content,
+                                    "onUpdate:modelValue": ($event)=>element.content = $event
+                                }, null, 8 /* PROPS */ , [
+                                    "modelValue",
+                                    "onUpdate:modelValue"
                                 ])
-                            ], 64 /* STABLE_FRAGMENT */ )) : element.type === "file" ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)((0, _vue.Fragment), {
-                                key: 3
-                            }, [
-                                (0, _vue.withDirectives)((0, _vue.createElementVNode)("input", {
-                                    "onUpdate:modelValue": ($event)=>element.content = $event,
-                                    placeholder: "File description"
-                                }, null, 8 /* PROPS */ , _hoisted_19), [
-                                    [
-                                        (0, _vue.vModelText),
-                                        element.content
-                                    ]
+                            ])) : element.type === "file" ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)("div", _hoisted_23, [
+                                (0, _vue.createVNode)(_component_v_btn, {
+                                    variant: "flat",
+                                    class: "text-none text-caption mb-4",
+                                    onClick: ($event)=>$setup.openMediaPickerFile(index)
+                                }, {
+                                    default: (0, _vue.withCtx)(()=>[
+                                            (0, _vue.createTextVNode)((0, _vue.toDisplayString)(element.thumbnail ? "Change File" : "Select File"), 1 /* TEXT */ )
+                                        ]),
+                                    _: 2 /* DYNAMIC */ 
+                                }, 1032 /* PROPS, DYNAMIC_SLOTS */ , [
+                                    "onClick"
                                 ]),
-                                (0, _vue.withDirectives)((0, _vue.createElementVNode)("input", {
-                                    "onUpdate:modelValue": ($event)=>element.media = $event,
-                                    placeholder: "File URL"
-                                }, null, 8 /* PROPS */ , _hoisted_20), [
-                                    [
-                                        (0, _vue.vModelText),
-                                        element.media
-                                    ]
+                                (0, _vue.createVNode)(_component_v_spacer),
+                                (0, _vue.createElementVNode)("div", _hoisted_24, [
+                                    _hoisted_25,
+                                    (0, _vue.createTextVNode)(),
+                                    (0, _vue.createVNode)(_component_v_text_field, {
+                                        modelValue: element.media,
+                                        "onUpdate:modelValue": ($event)=>element.media = $event,
+                                        variant: "outlined"
+                                    }, null, 8 /* PROPS */ , [
+                                        "modelValue",
+                                        "onUpdate:modelValue"
+                                    ])
+                                ]),
+                                (0, _vue.createVNode)(_component_v_textarea, {
+                                    label: "Message content",
+                                    variant: "outlined",
+                                    modelValue: element.content,
+                                    "onUpdate:modelValue": ($event)=>element.content = $event
+                                }, null, 8 /* PROPS */ , [
+                                    "modelValue",
+                                    "onUpdate:modelValue"
                                 ])
-                            ], 64 /* STABLE_FRAGMENT */ )) : element.type === "rich" ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)((0, _vue.Fragment), {
+                            ])) : element.type === "rich" ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)((0, _vue.Fragment), {
                                 key: 4
                             }, [
                                 (0, _vue.createCommentVNode)(" Only 'buttons' rich message supported in this v1. Expandable. "),
-                                (0, _vue.createElementVNode)("div", null, [
-                                    _hoisted_21,
-                                    (0, _vue.createElementVNode)("button", {
+                                (0, _vue.createElementVNode)("div", _hoisted_26, [
+                                    (0, _vue.createVNode)(_component_v_btn, {
+                                        variant: "flat",
+                                        class: "text-none text-caption mb-4",
+                                        color: "info",
                                         onClick: ($event)=>$setup.addRichButton(index)
-                                    }, "Add Button", 8 /* PROPS */ , _hoisted_22),
+                                    }, {
+                                        default: (0, _vue.withCtx)(()=>[
+                                                (0, _vue.createTextVNode)(" Add Button ")
+                                            ]),
+                                        _: 2 /* DYNAMIC */ 
+                                    }, 1032 /* PROPS, DYNAMIC_SLOTS */ , [
+                                        "onClick"
+                                    ]),
                                     ((0, _vue.openBlock)(true), (0, _vue.createElementBlock)((0, _vue.Fragment), null, (0, _vue.renderList)($setup.getRichButtons(element), (btn, bidx)=>{
                                         return (0, _vue.openBlock)(), (0, _vue.createElementBlock)("div", {
                                             key: bidx,
-                                            class: "rich-btn-editor"
+                                            class: "rich-btn-editor mb-4"
                                         }, [
-                                            (0, _vue.withDirectives)((0, _vue.createElementVNode)("input", {
-                                                "onUpdate:modelValue": ($event)=>btn.txt = $event,
-                                                placeholder: "Button text (can use #displayName#, ...)"
-                                            }, null, 8 /* PROPS */ , _hoisted_23), [
-                                                [
-                                                    (0, _vue.vModelText),
-                                                    btn.txt
-                                                ]
-                                            ]),
-                                            (0, _vue.withDirectives)((0, _vue.createElementVNode)("input", {
-                                                "onUpdate:modelValue": ($event)=>btn.label = $event,
-                                                placeholder: "Button label"
-                                            }, null, 8 /* PROPS */ , _hoisted_24), [
-                                                [
-                                                    (0, _vue.vModelText),
-                                                    btn.label
-                                                ]
-                                            ]),
-                                            (0, _vue.withDirectives)((0, _vue.createElementVNode)("input", {
-                                                "onUpdate:modelValue": ($event)=>btn.action.params.url = $event,
-                                                placeholder: "Action URL"
-                                            }, null, 8 /* PROPS */ , _hoisted_25), [
-                                                [
-                                                    (0, _vue.vModelText),
-                                                    btn.action.params.url
-                                                ]
-                                            ]),
-                                            (0, _vue.withDirectives)((0, _vue.createElementVNode)("select", {
-                                                "onUpdate:modelValue": ($event)=>btn.action.params.target = $event
-                                            }, [
-                                                ..._hoisted_29
-                                            ], 8 /* PROPS */ , _hoisted_26), [
-                                                [
-                                                    (0, _vue.vModelSelect),
-                                                    btn.action.params.target
-                                                ]
-                                            ]),
-                                            (0, _vue.createElementVNode)("button", {
-                                                onClick: ($event)=>$setup.removeRichButton(index, bidx)
-                                            }, "Remove Button", 8 /* PROPS */ , _hoisted_30)
+                                            (0, _vue.createVNode)(_component_v_card, {
+                                                width: "100%",
+                                                class: "pt-4 pl-4 pr-4"
+                                            }, {
+                                                default: (0, _vue.withCtx)(()=>[
+                                                        (0, _vue.createVNode)(_component_v_row, {
+                                                            class: "pa-4"
+                                                        }, {
+                                                            default: (0, _vue.withCtx)(()=>[
+                                                                    (0, _vue.createVNode)($setup["SingleButton"], {
+                                                                        btn: btn
+                                                                    }, null, 8 /* PROPS */ , [
+                                                                        "btn"
+                                                                    ]),
+                                                                    (0, _vue.createVNode)(_component_v_btn, {
+                                                                        variant: "flat",
+                                                                        class: "text-none text-caption",
+                                                                        color: "info",
+                                                                        onClick: ($event)=>$setup.removeRichButton(index, bidx)
+                                                                    }, {
+                                                                        default: (0, _vue.withCtx)(()=>[
+                                                                                (0, _vue.createTextVNode)(" Remove Button ")
+                                                                            ]),
+                                                                        _: 2 /* DYNAMIC */ 
+                                                                    }, 1032 /* PROPS, DYNAMIC_SLOTS */ , [
+                                                                        "onClick"
+                                                                    ])
+                                                                ]),
+                                                            _: 2 /* DYNAMIC */ 
+                                                        }, 1024 /* DYNAMIC_SLOTS */ )
+                                                    ]),
+                                                _: 2 /* DYNAMIC */ 
+                                            }, 1024 /* DYNAMIC_SLOTS */ )
                                         ]);
                                     }), 128 /* KEYED_FRAGMENT */ ))
                                 ])
                             ], 64 /* STABLE_FRAGMENT */ )) : (0, _vue.createCommentVNode)("v-if", true)
                         ]),
-                        (0, _vue.createCommentVNode)(" Preview JSON for each message "),
-                        (0, _vue.createElementVNode)("pre", _hoisted_31, (0, _vue.toDisplayString)($setup.getMessageJSON(element)), 1 /* TEXT */ )
+                        (0, _vue.createVNode)(_component_v_row, null, {
+                            default: (0, _vue.withCtx)(()=>[
+                                    (0, _vue.createVNode)(_component_v_col, {
+                                        col: "6"
+                                    }, {
+                                        default: (0, _vue.withCtx)(()=>[
+                                                (0, _vue.createVNode)($setup["ItemPreview"], {
+                                                    item: element
+                                                }, null, 8 /* PROPS */ , [
+                                                    "item"
+                                                ])
+                                            ]),
+                                        _: 2 /* DYNAMIC */ 
+                                    }, 1024 /* DYNAMIC_SLOTS */ ),
+                                    (0, _vue.createVNode)(_component_v_col, {
+                                        col: "6",
+                                        style: {
+                                            "max-width": "50%"
+                                        }
+                                    }, {
+                                        default: (0, _vue.withCtx)(()=>[
+                                                (0, _vue.createElementVNode)("pre", _hoisted_27, (0, _vue.toDisplayString)($setup.getMessageJSON(element)), 1 /* TEXT */ )
+                                            ]),
+                                        _: 2 /* DYNAMIC */ 
+                                    }, 1024 /* DYNAMIC_SLOTS */ )
+                                ]),
+                            _: 2 /* DYNAMIC */ 
+                        }, 1024 /* DYNAMIC_SLOTS */ )
                     ])
                 ]),
             _: 1 /* STABLE */ 
         }, 8 /* PROPS */ , [
             "modelValue"
         ]),
-        _hoisted_32,
-        (0, _vue.createElementVNode)("textarea", _hoisted_33, (0, _vue.toDisplayString)($setup.getFinalTemplate()), 1 /* TEXT */ )
+        _hoisted_28,
+        (0, _vue.createElementVNode)("textarea", _hoisted_29, (0, _vue.toDisplayString)($setup.getFinalTemplate()), 1 /* TEXT */ )
     ]);
 }
 if (module.hot) module.hot.accept(()=>{
     __VUE_HMR_RUNTIME__.rerender("e85945-hmr", render);
 });
 
-},{"vue":"gCTam","@parcel/transformer-js/src/esmodule-helpers.js":"5oERU"}],"kbDng":[function(require,module,exports) {
+},{"vue":"gCTam","@parcel/transformer-js/src/esmodule-helpers.js":"5oERU"}],"gFZ9l":[function() {},{}],"kbDng":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 let NOOP = ()=>{};
 exports.default = (script)=>{};
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"5oERU"}],"gFZ9l":[function() {},{}],"jB9R0":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"5oERU"}],"jB9R0":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "render", ()=>render);
@@ -26941,7 +28042,7 @@ if (module.hot) module.hot.accept(()=>{
     __VUE_HMR_RUNTIME__.rerender("434c09-hmr", render);
 });
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"5oERU","vue":"gCTam"}],"lkJdT":[function(require,module,exports) {
+},{"vue":"gCTam","@parcel/transformer-js/src/esmodule-helpers.js":"5oERU"}],"lkJdT":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 let NOOP = ()=>{};

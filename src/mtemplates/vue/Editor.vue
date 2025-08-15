@@ -11,6 +11,9 @@ import {
 import { v4 as uuidv4 } from "uuid";
 import draggable from 'vuedraggable'
 
+import ItemPreview from "./ItemPreview.vue";
+import SingleButton from "./SingleButton.vue";
+
 const messages = ref([]);
 
 function addMessage(type) {
@@ -35,13 +38,20 @@ function addMessage(type) {
   }
   if (type === "rich") {
     // Default: Buttons rich message with empty button
-    newMsg.content = JSON.stringify({
+
+    Object.assign(newMsg, {
+      content: {
+        subtype: "buttons",
+        msgObj: [emptyRichButton()],
+      }
+    });
+
+    /*newMsg.content = JSON.stringify({
       subtype: "buttons",
       msgObj: [this.emptyRichButton()],
-    });
+    });*/
   }
   messages.value.push(newMsg);
-  console.log(messages.value);
 }
 
 function removeMessage(idx) {
@@ -57,6 +67,8 @@ function emptyRichButton() {
       params: {
         url: "",
         target: "app",
+        subscriptionId: "",
+        actionType: ""
       },
       retVars: {},
     },
@@ -66,7 +78,8 @@ function emptyRichButton() {
 function getRichButtons(msg) {
   // Returns array for 'msgObj' (buttons)
   try {
-    let val = JSON.parse(msg.content);
+    //let val = JSON.parse(msg.content);
+    let val = msg.content;
     if (val.subtype === "buttons") {
       // msgObj can be array or object
       return Array.isArray(val.msgObj)
@@ -83,7 +96,8 @@ function addRichButton(msgIdx) {
   const msg = this.messages[msgIdx];
   let val;
   try {
-    val = JSON.parse(msg.content);
+    //val = JSON.parse(msg.content);
+    val = msg.content;
   } catch {
     // fallback: init new
     val = { subtype: "buttons", msgObj: [] };
@@ -92,14 +106,15 @@ function addRichButton(msgIdx) {
     val.msgObj = [val.msgObj];
   }
   val.msgObj.push(this.emptyRichButton());
-  msg.content = JSON.stringify(val);
+  msg.content = val;
+  // msg.content = JSON.stringify(val);
 }
 
 function removeRichButton(msgIdx, btnIdx) {
   const msg = this.messages[msgIdx];
   let val;
   try {
-    val = JSON.parse(msg.content);
+    val = msg.content;
   } catch {
     return;
   }
@@ -107,7 +122,8 @@ function removeRichButton(msgIdx, btnIdx) {
     val.msgObj = [val.msgObj];
   }
   val.msgObj.splice(btnIdx, 1);
-  msg.content = JSON.stringify(val);
+  msg.content = val;
+  // msg.content = JSON.stringify(val);
 }
 
 // Two-way-binding for rich buttons fields
@@ -119,16 +135,39 @@ function syncRichButton(msg, btnIdx, field, value) {
 }
 
 // ----------- JSON BUILDERS -------------
+
+function keepOnlyProperties(obj, propertiesToKeep) {
+  Object.keys(obj).forEach(key => {
+    if (!propertiesToKeep.includes(key)) {
+      delete obj[key];
+    }
+  });
+}
+
 function getMessageJSON(msg) {
   // returns pretty-printed JSON for the UI
-  let base = { ...msg };
+  let base = JSON.parse(JSON.stringify(msg));
   delete base.id;
   // Patch rich content as JSON
-  if (msg.type === "rich") {
-    try {
-      base.content = JSON.parse(base.content);
-    } catch { }
+
+  if (base.content.msgObj) {
+
+    base.content.msgObj.forEach(function (obj) {
+      if (obj.action.type === "api") {
+        keepOnlyProperties(obj.action.params, ["actionType"])
+      }
+      if (obj.action.type === "link") {
+        keepOnlyProperties(obj.action.params, ["url", "target"])
+      }
+      if (obj.action.type === "chat") {
+        keepOnlyProperties(obj.action.params, ["subscriptionId"])
+      }
+      if (obj.action.type === "profile") {
+        keepOnlyProperties(obj.action.params, ["subscriptionId"])
+      }
+    });
   }
+
   return JSON.stringify(base, null, 2);
 }
 
@@ -139,8 +178,8 @@ function getFinalTemplate() {
       let base = { ...msg };
       delete base.id;
       // Rich type content must be stringified JSON
-      if (base.type === "rich" && typeof base.content !== "string") {
-        base.content = JSON.stringify(base.content);
+      if (base.type === "rich") {
+        // TODO Uraditi delete svih propertija u zavisnosti od tipa koji ne trebaju;
       }
       return base;
     }),
@@ -173,15 +212,61 @@ function openMediaPicker(index) {
     //height.value = attachment.height || ''
 
     // Try well-known thumbnail sizes (you can adjust as needed)
-    if (attachment.sizes && attachment.sizes.medium) {
+    /*if (attachment.sizes && attachment.sizes.medium) {
       messages.value[index].thumbnail = attachment.sizes.medium.url
       messages.value[index].width = attachment.sizes.medium.width
       messages.value[index].height = attachment.sizes.medium.height
       // thumbnailUrl.value = attachment.sizes.medium.url
     } else {
-      messages.value[index].thumbnail = attachment.url
+    messages.value[index].thumbnail = attachment.url
       //thumbnailUrl.value = attachment.url
-    }
+    //}*/
+  })
+
+  frame.open()
+}
+
+function openMediaPickerVideo(index) {
+  if (!window.wp || !window.wp.media) {
+    alert('WordPress media library is not available on this page.')
+    return
+  }
+
+  const frame = window.wp.media({
+    title: 'Select or Upload Image',
+    library: { type: 'image' },
+    button: { text: 'Use this image' },
+    multiple: false,
+  })
+
+  frame.on('select', () => {
+    const attachment = frame.state().get('selection').first().toJSON()
+
+    messages.value[index].thumbnail = attachment.url
+    messages.value[index].width = attachment.width || ''
+    messages.value[index].height = attachment.height || ''
+
+  })
+
+  frame.open()
+}
+
+function openMediaPickerFile(index) {
+  if (!window.wp || !window.wp.media) {
+    alert('WordPress media library is not available on this page.')
+    return
+  }
+
+  const frame = window.wp.media({
+    title: 'Select or Upload File',
+    library: { type: ['application/pdf', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'audio'] },
+    button: { text: 'Use this File' },
+    multiple: false,
+  })
+
+  frame.on('select', () => {
+    const attachment = frame.state().get('selection').first().toJSON()
+    messages.value[index].media = attachment.url
   })
 
   frame.open()
@@ -225,61 +310,85 @@ function openMediaPicker(index) {
             <!-- Message Fields by Type -->
 
             <template v-if="element.type === 'text'">
-              <v-textarea label="Message content" variant="outlined" v-model="element.content"></v-textarea>
+              <div style="width: 100%" class="mb-4">
+                <v-textarea label="Message content" variant="outlined" v-model="element.content"></v-textarea>
+              </div>
             </template>
 
             <template v-else-if="element.type === 'image'">
-
-              <v-btn variant="flat" class="text-none text-caption mb-4" @click="openMediaPicker(index)">
-                {{ element.media ? 'Change Image' : 'Select Image' }}</v-btn>
-
-              <v-row class="pa-4 mb-3" v-if="element.thumbnail">
-                <div class="mr-4">
-                  <img :src="element.thumbnail" style="height:100px;">
-                </div>
-                <div>
-                  <div class="pa-1"><strong>Image Url:</strong> {{ element.media }}</div>
-                  <div class="pa-1"><strong>Thumbnail Width:</strong> {{ element.width }}px</div>
-                  <div class="pa-1"><strong>Thumbnail Height:</strong> {{ element.height }}px</div>
-                  <div class="pa-1"><strong>Thumbnail Url:</strong> {{ element.thumbnail }}px</div>
-                </div>
-              </v-row>
-
-              <v-textarea label="Message content" variant="outlined" v-model="element.content"></v-textarea>
-
+              <div style="width: 100%" class="mb-4">
+                <v-btn variant="flat" class="text-none text-caption mb-4" @click="openMediaPicker(index)">
+                  {{ element.media ? 'Change Image' : 'Select Image' }}</v-btn>
+                <v-spacer></v-spacer>
+                <img v-if="element.media" :src="element.media" style="height:150px;" class="mb-4">
+                <div class="mb-2"><strong>Image Url:</strong> <v-text-field v-model="element.media"
+                    variant="outlined"></v-text-field></div>
+                <div class="mb-2"><strong>Thumbnail Width:</strong> <v-text-field v-model="element.width"
+                    variant="outlined" max-width="200"></v-text-field></div>
+                <div class="mb-4"><strong>Thumbnail Height:</strong> <v-text-field v-model="element.height"
+                    variant="outlined" max-width="200"></v-text-field></div>
+                <v-textarea label="Message content" variant="outlined" v-model="element.content"></v-textarea>
+              </div>
             </template>
 
             <template v-else-if="element.type === 'video'">
-              <input v-model="element.content" placeholder="Video description" />
-              <input v-model="element.media" placeholder="Video URL" />
-              <input v-model.number="element.width" placeholder="Width" type="number" />
-              <input v-model.number="element.height" placeholder="Height" type="number" />
-              <input v-model="element.thumbnail" placeholder="Thumbnail URL (optional)" />
+              <div style="width: 100%" class="mb-4">
+                <div class="mb-2"><strong>Video Url:</strong> <v-text-field v-model="element.media"
+                    variant="outlined"></v-text-field></div>
+                <v-btn variant="flat" class="text-none text-caption mb-4" @click="openMediaPickerVideo(index)">
+                  {{ element.thumbnail ? 'Change Thumbnail' : 'Select Thumbnail' }}</v-btn>
+                <v-spacer></v-spacer>
+                <img v-if="element.thumbnail" :src="element.thumbnail" style="height:150px;" class="mb-4">
+                <div class="mb-2"><strong>Thumbnail Url:</strong> <v-text-field v-model="element.thumbnail"
+                    variant="outlined"></v-text-field></div>
+                <div class="mb-2"><strong>Thumbnail Width:</strong> <v-text-field v-model="element.width"
+                    variant="outlined" max-width="200"></v-text-field></div>
+                <div class="mb-4"><strong>Thumbnail Height:</strong> <v-text-field v-model="element.height"
+                    variant="outlined" max-width="200"></v-text-field></div>
+                <v-textarea label="Message content" variant="outlined" v-model="element.content"></v-textarea>
+              </div>
             </template>
+
             <template v-else-if="element.type === 'file'">
-              <input v-model="element.content" placeholder="File description" />
-              <input v-model="element.media" placeholder="File URL" />
+              <div style="width: 100%" class="mb-4">
+                <v-btn variant="flat" class="text-none text-caption mb-4" @click="openMediaPickerFile(index)">
+                  {{ element.thumbnail ? 'Change File' : 'Select File' }}</v-btn>
+                <v-spacer></v-spacer>
+                <div class="mb-2"><strong>File Url:</strong> <v-text-field v-model="element.media"
+                    variant="outlined"></v-text-field></div>
+                <v-textarea label="Message content" variant="outlined" v-model="element.content"></v-textarea>
+              </div>
             </template>
+
             <template v-else-if="element.type === 'rich'">
               <!-- Only 'buttons' rich message supported in this v1. Expandable. -->
-              <div>
-                <strong>Buttons</strong>
-                <button @click="addRichButton(index)">Add Button</button>
-                <div v-for="(btn, bidx) in getRichButtons(element)" :key="bidx" class="rich-btn-editor">
-                  <input v-model="btn.txt" placeholder="Button text (can use #displayName#, ...)" />
-                  <input v-model="btn.label" placeholder="Button label" />
-                  <input v-model="btn.action.params.url" placeholder="Action URL" />
-                  <select v-model="btn.action.params.target">
-                    <option value="app">app (in-app)</option>
-                    <option value="_blank">Browser/tab (_blank)</option>
-                  </select>
-                  <button @click="removeRichButton(index, bidx)">Remove Button</button>
+              <div style="width: 100%" class="mb-4">
+                <v-btn variant="flat" class="text-none text-caption mb-4" color="info" @click="addRichButton(index)">
+                  Add Button
+                </v-btn>
+                <div v-for="(btn, bidx) in getRichButtons(element)" :key="bidx" class="rich-btn-editor mb-4">
+                  <v-card width="100%" class="pt-4 pl-4 pr-4">
+                    <v-row class="pa-4">
+                      <SingleButton :btn="btn"></SingleButton>
+                      <v-btn variant="flat" class="text-none text-caption" color="info"
+                        @click="removeRichButton(index, bidx)">
+                        Remove Button
+                      </v-btn>
+                    </v-row>
+                  </v-card>
                 </div>
               </div>
             </template>
           </div>
-          <!-- Preview JSON for each message -->
-          <pre class="msg-preview">{{ getMessageJSON(element) }}</pre>
+          <v-row>
+            <v-col col="6">
+              <ItemPreview :item="element"></ItemPreview>
+            </v-col>
+            <v-col col="6" style="max-width: 50%;">
+              <pre class="msg-preview pa-4" style="width: 100%; overflow-x: auto;">{{
+                getMessageJSON(element) }}</pre>
+            </v-col>
+          </v-row>
         </div>
       </template>
     </draggable>
