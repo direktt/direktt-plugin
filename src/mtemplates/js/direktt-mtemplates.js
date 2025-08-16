@@ -10,9 +10,15 @@ import * as directives from 'vuetify/directives'
 import 'vuetify/styles'
 import '@mdi/font/css/materialdesignicons.css'
 
+
+(function( $ ) {
+	'use strict';
+
+	 $(function() {
+
 'use strict'
 
-vueapp = createApp(App);
+const vueapp = createApp(App);
 
 const pinia = createPinia()
 
@@ -27,4 +33,6 @@ vueapp.use(VueQueryPlugin)
 
 vueapp.mount("#app")
 
+});
 
+})(jQuery)

@@ -83,16 +83,20 @@ class Direktt_Message
 
             foreach ($direktt_user_ids as $key => $value) {
 
-                $message = Direktt_Message::replace_tags_in_template($message_template, $replacements, $value);
-                $message = json_decode($message);
-                if (is_array($message->content) || is_object($message->content)) {
-                    $message->content = json_encode($message->content);
-                }
-                if (!is_null($message)) {
-                    $obj = new stdClass();
-                    $obj->subscriptionId = $value;
-                    $obj->pushNotificationMessage = $message;
-                    $data[] = $obj;
+                $messages = Direktt_Message::replace_tags_in_template($message_template, $replacements, $value);
+                $messages = json_decode($messages);
+
+                foreach ($messages as $message) {
+
+                    if (is_array($message->content) || is_object($message->content)) {
+                        $message->content = json_encode($message->content);
+                    }
+                    if (!is_null($message)) {
+                        $obj = new stdClass();
+                        $obj->subscriptionId = $value;
+                        $obj->pushNotificationMessage = $message;
+                        $data[] = $obj;
+                    }
                 }
             }
 
@@ -134,32 +138,35 @@ class Direktt_Message
         $api_key = get_option('direktt_api_key') ? esc_attr(get_option('direktt_api_key')) : '';
         $url = 'https://sendadminmessage-lnkonwpiwa-uc.a.run.app';
 
-        $message = get_post_meta($message_template_id, 'direkttMTJson', true);
+        $messages = get_post_meta($message_template_id, 'direkttMTJson', true);
 
-        if ($message) {
+        if ($messages) {
 
-            $message = Direktt_Message::replace_tags_in_template($message, $replacements);
-            $message = json_decode($message);
-            if (is_array($message->content) || is_object($message->content)) {
-                $message->content = json_encode($message->content);
+            $messages = Direktt_Message::replace_tags_in_template($messages, $replacements);
+            $messages = json_decode($messages);
+
+            foreach ($messages as $message) {
+                if (is_array($message->content) || is_object($message->content)) {
+                    $message->content = json_encode($message->content);
+                }
+
+                if (!is_null($message)) {
+
+                    $data = array(
+                        'pushNotificationMessage' => $message
+                    );
+
+                    $response = wp_remote_post($url, array(
+                        'body'    => json_encode($data),
+                        'headers' => array(
+                            'Authorization' => 'Bearer ' . $api_key,
+                            'Content-type' => 'application/json',
+                        ),
+                    ));
+                }
             }
 
-            if (!is_null($message)) {
-
-                $data = array(
-                    'pushNotificationMessage' => $message
-                );
-
-                $response = wp_remote_post($url, array(
-                    'body'    => json_encode($data),
-                    'headers' => array(
-                        'Authorization' => 'Bearer ' . $api_key,
-                        'Content-type' => 'application/json',
-                    ),
-                ));
-
-                return $message;
-            }
+            return true;
         }
         return false;
     }

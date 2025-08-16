@@ -595,17 +595,22 @@ var _components = require("vuetify/components");
 var _directives = require("vuetify/directives");
 var _styles = require("vuetify/styles");
 var _materialdesigniconsCss = require("@mdi/font/css/materialdesignicons.css");
-"use strict";
-vueapp = (0, _vue.createApp)((0, _appVueDefault.default));
-const pinia = (0, _pinia.createPinia)();
-const vuetify = (0, _vuetify.createVuetify)({
-    components: _components,
-    directives: _directives
-});
-vueapp.use(pinia);
-vueapp.use(vuetify);
-vueapp.use((0, _vueQuery.VueQueryPlugin));
-vueapp.mount("#app");
+(function($) {
+    "use strict";
+    $(function() {
+        "use strict";
+        const vueapp = (0, _vue.createApp)((0, _appVueDefault.default));
+        const pinia = (0, _pinia.createPinia)();
+        const vuetify = (0, _vuetify.createVuetify)({
+            components: _components,
+            directives: _directives
+        });
+        vueapp.use(pinia);
+        vueapp.use(vuetify);
+        vueapp.use((0, _vueQuery.VueQueryPlugin));
+        vueapp.mount("#app");
+    });
+})(jQuery);
 
 },{"vue":"gCTam","../vue/App.vue":"9fotC","pinia":"hqc1O","@tanstack/vue-query":"aI0Kc","vuetify":"gcA1H","vuetify/components":"8XgAC","vuetify/directives":"lDmqr","vuetify/styles":"4aEO8","@mdi/font/css/materialdesignicons.css":"6KE1a","@parcel/transformer-js/src/esmodule-helpers.js":"5oERU"}],"gCTam":[function(require,module,exports) {
 /**
@@ -14797,24 +14802,48 @@ exports.default = {
                     "url",
                     "target"
                 ]);
-                if (obj.action.type === "chat") keepOnlyProperties(obj.action.params, [
-                    "subscriptionId"
-                ]);
-                if (obj.action.type === "profile") keepOnlyProperties(obj.action.params, [
-                    "subscriptionId"
-                ]);
+                if (obj.action.type === "chat") {
+                    keepOnlyProperties(obj.action.params, [
+                        "subscriptionId"
+                    ]);
+                    obj.action.retVars = {};
+                }
+                if (obj.action.type === "profile") {
+                    keepOnlyProperties(obj.action.params, [
+                        "subscriptionId"
+                    ]);
+                    obj.action.retVars = {};
+                }
             });
             return JSON.stringify(base, null, 2);
         }
         function getFinalTemplate() {
             // Returns JSON for all messages (array). This is what should be sent/saved.
             return JSON.stringify(this.messages.map((msg)=>{
-                let base = {
-                    ...msg
-                };
+                let base = JSON.parse(JSON.stringify(msg));
                 delete base.id;
                 // Rich type content must be stringified JSON
-                base.type;
+                if (base.content.msgObj) base.content.msgObj.forEach(function(obj) {
+                    if (obj.action.type === "api") keepOnlyProperties(obj.action.params, [
+                        "actionType"
+                    ]);
+                    if (obj.action.type === "link") keepOnlyProperties(obj.action.params, [
+                        "url",
+                        "target"
+                    ]);
+                    if (obj.action.type === "chat") {
+                        keepOnlyProperties(obj.action.params, [
+                            "subscriptionId"
+                        ]);
+                        obj.action.retVars = {};
+                    }
+                    if (obj.action.type === "profile") {
+                        keepOnlyProperties(obj.action.params, [
+                            "subscriptionId"
+                        ]);
+                        obj.action.retVars = {};
+                    }
+                });
                 return base;
             }), null, 2);
         }

@@ -519,4 +519,10 @@
   width:100%;
 }
 
+select {
+  border-style: solid; 
+  border-color: rgb(102, 102, 102); 
+  width: 200px;
+}
+
 /*# sourceMappingURL=style.css.map */

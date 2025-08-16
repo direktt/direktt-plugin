@@ -188,9 +188,11 @@ function getMessageJSON(msg) {
       }
       if (obj.action.type === "chat") {
         keepOnlyProperties(obj.action.params, ["subscriptionId"])
+        obj.action.retVars = {}
       }
       if (obj.action.type === "profile") {
         keepOnlyProperties(obj.action.params, ["subscriptionId"])
+        obj.action.retVars = {}
       }
     });
   }
@@ -202,13 +204,33 @@ function getFinalTemplate() {
   // Returns JSON for all messages (array). This is what should be sent/saved.
   return JSON.stringify(
     this.messages.map((msg) => {
-      let base = { ...msg };
+
+      let base = JSON.parse(JSON.stringify(msg));
+
       delete base.id;
       // Rich type content must be stringified JSON
-      if (base.type === "rich") {
-        // TODO Uraditi delete svih propertija u zavisnosti od tipa koji ne trebaju;
+      if (base.content.msgObj) {
+
+        base.content.msgObj.forEach(function (obj) {
+          if (obj.action.type === "api") {
+            keepOnlyProperties(obj.action.params, ["actionType"])
+          }
+          if (obj.action.type === "link") {
+            keepOnlyProperties(obj.action.params, ["url", "target"])
+          }
+          if (obj.action.type === "chat") {
+            keepOnlyProperties(obj.action.params, ["subscriptionId"])
+            obj.action.retVars = {}
+          }
+          if (obj.action.type === "profile") {
+            keepOnlyProperties(obj.action.params, ["subscriptionId"])
+            obj.action.retVars = {}
+          }
+        });
       }
+
       return base;
+
     }),
     null,
     2
