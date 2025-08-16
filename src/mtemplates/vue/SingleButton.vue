@@ -38,7 +38,7 @@ function onUpdateObj(newObj) {
             </select>
         </div>
 
-        <div v-if="props.btn.action.type == 'link'" class="pb-4">
+        <div v-if="props.btn.action.type == 'link'" class="pb-4 actionDiv">
             <div class="mb-2"><strong>Link Url:</strong> <v-text-field v-model="btn.action.params.url"
                     variant="outlined"></v-text-field></div>
             <div class="mb-4"><strong>Target:</strong> <v-spacer></v-spacer>
@@ -53,7 +53,7 @@ function onUpdateObj(newObj) {
         </div>
     </div>
 
-    <div v-if="props.btn.action.type == 'api'" class="pb-4">
+    <div v-if="props.btn.action.type == 'api'" class="pb-4 actionDiv">
         <div class="mb-4"><strong>Api Action Type:</strong> <v-text-field v-model="btn.action.params.actionType"
                 variant="outlined"></v-text-field></div>
         <div class="mb-2">
@@ -61,11 +61,11 @@ function onUpdateObj(newObj) {
         </div>
     </div>
 
-    <div v-if="props.btn.action.type == 'chat'" class="pb-4">
+    <div v-if="props.btn.action.type == 'chat'" class="pb-4 actionDiv">
          <div class="mb-2"><strong>User Subscription Id:</strong> <v-text-field v-model="btn.action.params.subscriptionId"
                 variant="outlined"></v-text-field></div>
     </div>
-    <div v-if="props.btn.action.type == 'profile'" class="pb-4">
+    <div v-if="props.btn.action.type == 'profile'" class="pb-4 actionDiv">
         <div class="mb-2"><strong>User Subscription Id:</strong> <v-text-field v-model="btn.action.params.subscriptionId"
                 variant="outlined"></v-text-field></div>
     </div>

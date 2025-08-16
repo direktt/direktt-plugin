@@ -24,7 +24,6 @@ const messageTypes = [
 <template>
 
   <v-card class="pa-4">
-    <h1 class="mt-4">Build Message template</h1>
 
     <Editor></Editor>
 

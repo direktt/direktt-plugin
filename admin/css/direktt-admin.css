@@ -101,6 +101,7 @@
 .ItemPreview .itemContent {
   flex: 0 1 480px;
   padding: 0 var(--direktt-item-horizontal-margin);
+  min-width: 450px;
 }
 .ItemPreview .itemContent .item {
   padding: var(--direktt-item-padding);
@@ -493,6 +494,29 @@
   background-color: azure;
   padding: 5px;
   display: none;
+}
+
+.direktt-message-template-builder .bg-primary{
+  background-color: rgb(33, 150, 243) !important;
+}
+
+.direktt-message-template-builder .v-slide-group, .direktt-message-template-builder .v-tab.v-tab.v-btn {
+  height: 36px;
+  text-transform: none;
+  font-size: .75rem !important;
+}
+
+.direktt-message-template-builder .v-window {
+  min-height: 250px;
+}
+
+.direktt-message-template-builder .singleButton {
+  background: #f6f7fa;
+  border: 1px solid #ccf;
+}
+
+.direktt-message-template-builder .actionDiv {
+  width:100%;
 }
 
 /*# sourceMappingURL=style.css.map */

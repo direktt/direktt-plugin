@@ -91,7 +91,7 @@ function removePair(idx) {
       Add Variable
     </v-btn>
     <v-row v-for="(pair, idx) in pairs" :key="pair.id">
-      <v-col cols="5">
+      <v-col cols="4">
         <div><strong>Key:</strong> <v-text-field v-model="pair.key" @change="onKeyChange(idx)"
             variant="outlined"></v-text-field></div>
       </v-col>
@@ -101,7 +101,7 @@ function removePair(idx) {
       </v-col>
       <v-col align-self="end">
         <v-btn variant="flat" class="text-none text-caption" color="info" @click="removePair(idx)">
-          Remove Variable
+          Remove
         </v-btn>
       </v-col>
     </v-row>

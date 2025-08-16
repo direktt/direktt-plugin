@@ -1,3 +1,23 @@
+.preview-item[data-v-e85945] {
+  cursor: pointer;
+  background: #f6f7fa;
+  border: 1px solid #ccf;
+  margin-bottom: 6px;
+  padding: 10px 8px;
+  transition: box-shadow .2s, background .2s;
+}
+
+.preview-item.active[data-v-e85945] {
+  background: #dff2fd;
+  border-color: #42a5f5;
+  box-shadow: 0 0 2px 1px #42a5f577;
+}
+
+.details-panel[data-v-e85945] {
+  flex: 1;
+  min-width: 0;
+}
+
 .direktt-message-template-builder[data-v-e85945] {
   margin: 0 auto;
   font-family: Arial, sans-serif;

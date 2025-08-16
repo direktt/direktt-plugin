@@ -15,11 +15,12 @@ import ItemPreview from "./ItemPreview.vue";
 import SingleButton from "./SingleButton.vue";
 
 const messages = ref([]);
+const activeMessageIndex = ref(0);
 
 function addMessage(type) {
   const newMsg = { id: uuidv4(), type };
   if (type === "text") {
-    newMsg.content = "";
+    newMsg.content = "Hi this is your text message. Change this text!";
   }
   if (type === "image" || type === "video") {
     Object.assign(newMsg, {
@@ -38,25 +39,51 @@ function addMessage(type) {
   }
   if (type === "rich") {
     // Default: Buttons rich message with empty button
-
     Object.assign(newMsg, {
       content: {
         subtype: "buttons",
         msgObj: [emptyRichButton()],
       }
     });
-
-    /*newMsg.content = JSON.stringify({
-      subtype: "buttons",
-      msgObj: [this.emptyRichButton()],
-    });*/
   }
   messages.value.push(newMsg);
+  activeMessageIndex.value = messages.value.length - 1;
 }
 
 function removeMessage(idx) {
+  if (!window.confirm('Are you sure you want to remove this message? This cannot be undone.')) {
+    return;
+  }
   messages.value.splice(idx, 1);
+
+  if (messages.value.length === 0) {
+    activeMessageIndex.value = -1;
+  } else if (idx === messages.value.length) {
+    // Removed last item, select previous
+    activeMessageIndex.value = messages.value.length - 1;
+  } else if (activeMessageIndex.value > idx) {
+    activeMessageIndex.value--;
+  } else if (activeMessageIndex.value === idx) {
+    activeMessageIndex.value = Math.max(0, Math.min(idx, messages.value.length - 1));
+  }
+
 }
+
+// When messages reordered, keep activeMessageIndex in sync with id
+function onMessagesReordered(event) {
+  // Active index will generally still point to the same message obj
+  // Optionally improve this with more robust handling if needed
+}
+
+// Tabs for right-panel
+const editTab = ref('properties');
+
+const activeMessage = computed(() => {
+  if (activeMessageIndex.value >= 0 && activeMessageIndex.value < messages.value.length) {
+    return messages.value[activeMessageIndex.value];
+  }
+  return null;
+});
 
 function emptyRichButton() {
   return {
@@ -277,142 +304,184 @@ function openMediaPickerFile(index) {
 <template>
 
   <div class="direktt-message-template-builder">
-    <div>
-      <v-btn variant="flat" class="text-none text-caption" color="info" @click="addMessage('text')">
-        Add Text
-      </v-btn>
-      <v-btn variant="flat" class="text-none text-caption" color="info" @click="addMessage('image')">
-        Add Image
-      </v-btn>
-      <v-btn variant="flat" class="text-none text-caption" color="info" @click="addMessage('video')">
-        Add Video
-      </v-btn>
-      <v-btn variant="flat" class="text-none text-caption" color="info" @click="addMessage('file')">
-        Add File
-      </v-btn>
-      <v-btn variant="flat" class="text-none text-caption" color="info" @click="addMessage('rich')">
-        Add Interactive Message
-      </v-btn>
-    </div>
-
-    <draggable v-model="messages" handle=".drag-handle" class="msg-list" item-key="id" :animation="300">
-      <template #item="{ element, index }">
-        <div class="msg-block">
-          <v-row class="pa-4" align="center">
-            <v-icon color="info" icon="mdi-arrow-up-down" size="32px" class="drag-handle"></v-icon>
-            <strong>{{ element.type.toUpperCase() }}</strong>
-            <v-spacer></v-spacer>
-            <v-btn variant="flat" class="text-none text-caption" color="info" @click="removeMessage(index)">
-              Remove
-            </v-btn>
-          </v-row>
-          <div class="msg-block-inner">
-            <!-- Message Fields by Type -->
-
-            <template v-if="element.type === 'text'">
-              <div style="width: 100%" class="mb-4">
-                <v-textarea label="Message content" variant="outlined" v-model="element.content"></v-textarea>
+    <v-row>
+      <v-col cols="6">
+        <v-row class="pa-4">
+          <v-btn variant="flat" class="text-none text-caption" color="info" @click="addMessage('text')">
+            Add Text
+          </v-btn>
+          <v-btn variant="flat" class="text-none text-caption" color="info" @click="addMessage('image')">
+            Add Image
+          </v-btn>
+          <v-btn variant="flat" class="text-none text-caption" color="info" @click="addMessage('video')">
+            Add Video
+          </v-btn>
+          <v-btn variant="flat" class="text-none text-caption" color="info" @click="addMessage('file')">
+            Add File
+          </v-btn>
+          <v-btn variant="flat" class="text-none text-caption" color="info" @click="addMessage('rich')">
+            Add Interactive Message
+          </v-btn>
+        </v-row>
+        <v-row justify="center">
+          <draggable v-model="messages" handle=".drag-handle" item-key="id" class="msg-list" :animation="300"
+            @end="onMessagesReordered">
+            <template #item="{ element, index }">
+              <div class="preview-item" :class="{ active: index === activeMessageIndex }"
+                @click="activeMessageIndex = index">
+                <v-row align="center" no-gutters>
+                  <v-icon color="info" icon="mdi-arrow-up-down" size="22" class="drag-handle mr-2"></v-icon>
+                  <ItemPreview :item="element" />
+                </v-row>
               </div>
             </template>
+          </draggable>
+        </v-row>
+      </v-col>
+      <v-col cols="6">
 
-            <template v-else-if="element.type === 'image'">
-              <div style="width: 100%" class="mb-4">
-                <v-btn variant="flat" class="text-none text-caption mb-4" @click="openMediaPicker(index)">
-                  {{ element.media ? 'Change Image' : 'Select Image' }}</v-btn>
-                <v-spacer></v-spacer>
-                <img v-if="element.media" :src="element.media" style="height:150px;" class="mb-4">
-                <div class="mb-2"><strong>Image Url:</strong> <v-text-field v-model="element.media"
-                    variant="outlined"></v-text-field></div>
-                <div class="mb-2"><strong>Thumbnail Width:</strong> <v-text-field v-model="element.width"
-                    variant="outlined" max-width="200"></v-text-field></div>
-                <div class="mb-4"><strong>Thumbnail Height:</strong> <v-text-field v-model="element.height"
-                    variant="outlined" max-width="200"></v-text-field></div>
-                <v-textarea label="Message content" variant="outlined" v-model="element.content"></v-textarea>
-              </div>
-            </template>
+        <div class="details-panel">
+          <template v-if="activeMessage">
+            <v-tabs v-model="editTab" bg-color="primary" class="mb-4">
+              <v-tab value="properties">Properties</v-tab>
+              <v-tab value="json">JSON</v-tab>
+            </v-tabs>
 
-            <template v-else-if="element.type === 'video'">
-              <div style="width: 100%" class="mb-4">
-                <div class="mb-2"><strong>Video Url:</strong> <v-text-field v-model="element.media"
-                    variant="outlined"></v-text-field></div>
-                <v-btn variant="flat" class="text-none text-caption mb-4" @click="openMediaPickerVideo(index)">
-                  {{ element.thumbnail ? 'Change Thumbnail' : 'Select Thumbnail' }}</v-btn>
-                <v-spacer></v-spacer>
-                <img v-if="element.thumbnail" :src="element.thumbnail" style="height:150px;" class="mb-4">
-                <div class="mb-2"><strong>Thumbnail Url:</strong> <v-text-field v-model="element.thumbnail"
-                    variant="outlined"></v-text-field></div>
-                <div class="mb-2"><strong>Thumbnail Width:</strong> <v-text-field v-model="element.width"
-                    variant="outlined" max-width="200"></v-text-field></div>
-                <div class="mb-4"><strong>Thumbnail Height:</strong> <v-text-field v-model="element.height"
-                    variant="outlined" max-width="200"></v-text-field></div>
-                <v-textarea label="Message content" variant="outlined" v-model="element.content"></v-textarea>
-              </div>
-            </template>
-
-            <template v-else-if="element.type === 'file'">
-              <div style="width: 100%" class="mb-4">
-                <v-btn variant="flat" class="text-none text-caption mb-4" @click="openMediaPickerFile(index)">
-                  {{ element.thumbnail ? 'Change File' : 'Select File' }}</v-btn>
-                <v-spacer></v-spacer>
-                <div class="mb-2"><strong>File Url:</strong> <v-text-field v-model="element.media"
-                    variant="outlined"></v-text-field></div>
-                <v-textarea label="Message content" variant="outlined" v-model="element.content"></v-textarea>
-              </div>
-            </template>
-
-            <template v-else-if="element.type === 'rich'">
-              <!-- Only 'buttons' rich message supported in this v1. Expandable. -->
-              <div style="width: 100%" class="mb-4">
-                <v-btn variant="flat" class="text-none text-caption mb-4" color="info" @click="addRichButton(index)">
-                  Add Button
-                </v-btn>
-
-                <draggable v-model="element.content.msgObj" handle=".drag-btn" group="rich-buttons" item-key="key"
-                  :animation="300">
-
-                  <template #item="{ element: btn, index: bidx }">
-
-                    <v-card width="100%" class="pt-4 pl-4 pr-4 mb-4">
-                      <v-row class="pt-4 pl-4 pr-4">
-                        <v-icon color="info" icon="mdi-arrow-up-down" size="20px" class="drag-btn mr-2"></v-icon>
-                        <v-spacer></v-spacer>
-                        <v-btn variant="flat" class="text-none text-caption" color="info"
-                            @click="removeRichButton(index, bidx)">
-                            Remove Button
-                          </v-btn>
-                      </v-row>
-                      <v-row class="pa-4">
-                          <SingleButton :btn="btn"></SingleButton>
-                      </v-row>
-                    </v-card>
+            <v-tabs-window v-model="editTab">
+              <!-- Properties EDIT TAB -->
+              <v-tabs-window-item value="properties">
+                <v-row class="pa-4">
+                  <h2><strong>Message type: {{ activeMessage.type }}</strong></h2>
+                  <v-spacer></v-spacer>
+                  <v-btn variant="flat" color="info" class="text-none text-caption"
+                    @click="removeMessage(activeMessageIndex)">
+                    Remove Message
+                  </v-btn>
+                </v-row>
+                <div class="msg-block-inner" style="padding:0.5em 0;">
+                  <template v-if="activeMessage.type === 'text'">
+                    <v-textarea label="Message content" variant="outlined" v-model="activeMessage.content"></v-textarea>
+                  </template>
+                  <template v-else-if="activeMessage.type === 'image'">
+                    <v-btn variant="flat" color="info" class="text-none text-caption mb-4"
+                      @click="openMediaPicker(activeMessageIndex)">
+                      {{ activeMessage.media ? 'Change Image' : 'Select Image' }}</v-btn>
+                    <v-spacer></v-spacer>
+                    <img v-if="activeMessage.media" :src="activeMessage.media" style="height:150px;" class="mb-4">
+                    <div class="mb-2"><strong>Image Url:</strong> <v-text-field v-model="activeMessage.media"
+                        variant="outlined"></v-text-field></div>
+                    <div class="mb-2"><strong>Thumbnail Width:</strong> <v-text-field v-model="activeMessage.width"
+                        variant="outlined"></v-text-field></div>
+                    <div class="mb-4"><strong>Thumbnail Height:</strong> <v-text-field v-model="activeMessage.height"
+                        variant="outlined"></v-text-field></div>
+                    <v-textarea label="Message content" variant="outlined" v-model="activeMessage.content"></v-textarea>
+                  </template>
+                  <template v-else-if="activeMessage.type === 'video'">
+                    <div class="mb-2"><strong>Video Url:</strong> <v-text-field v-model="activeMessage.media"
+                        variant="outlined"></v-text-field></div>
+                    <v-btn variant="flat" color="info" class="text-none text-caption mb-4"
+                      @click="openMediaPickerVideo(activeMessageIndex)">
+                      {{ activeMessage.thumbnail ? 'Change Thumbnail' : 'Select Thumbnail' }}</v-btn>
+                    <img v-if="activeMessage.thumbnail" :src="activeMessage.thumbnail" style="height:150px;"
+                      class="mb-4">
+                    <div class="mb-2"><strong>Thumbnail Url:</strong> <v-text-field v-model="activeMessage.thumbnail"
+                        variant="outlined"></v-text-field></div>
+                    <div class="mb-2"><strong>Thumbnail Width:</strong> <v-text-field v-model="activeMessage.width"
+                        variant="outlined"></v-text-field></div>
+                    <div class="mb-4"><strong>Thumbnail Height:</strong> <v-text-field v-model="activeMessage.height"
+                        variant="outlined"></v-text-field></div>
+                    <v-textarea label="Message content" variant="outlined" v-model="activeMessage.content"></v-textarea>
+                  </template>
+                  <template v-else-if="activeMessage.type === 'file'">
+                    <v-btn variant="flat" color="info" class="text-none text-caption mb-4"
+                      @click="openMediaPickerFile(activeMessageIndex)">
+                      {{ activeMessage.thumbnail ? 'Change File' : 'Select File' }}</v-btn>
+                    <div class="mb-2"><strong>File Url:</strong> <v-text-field v-model="activeMessage.media"
+                        variant="outlined"></v-text-field></div>
+                    <v-textarea label="Message content" variant="outlined" v-model="activeMessage.content"></v-textarea>
+                  </template>
+                  <!-- RICH MESSAGE -->
+                  <template v-else-if="activeMessage.type === 'rich'">
+                    <v-btn variant="flat" class="text-none text-caption mb-4" color="info"
+                      @click="addRichButton(activeMessageIndex)">
+                      Add Button
+                    </v-btn>
+                    <draggable v-model="activeMessage.content.msgObj" handle=".drag-btn" group="rich-buttons"
+                      item-key="key" :animation="300">
+                      <template #item="{ element: btn, index: bidx }">
+                        <v-card width="100%" class="pt-4 pl-4 pr-4 mb-4 singleButton">
+                          <v-row class="pt-4 pl-4 pr-4">
+                            <v-icon color="info" icon="mdi-arrow-up-down" size="20px" class="drag-btn mr-2"></v-icon>
+                            <v-spacer></v-spacer>
+                            <v-btn variant="flat" class="text-none text-caption" color="info"
+                              @click="removeRichButton(activeMessageIndex, bidx)">
+                              Remove Button
+                            </v-btn>
+                          </v-row>
+                          <v-row class="pa-4">
+                            <SingleButton :btn="btn"></SingleButton>
+                          </v-row>
+                        </v-card>
+                      </template>
+                    </draggable>
                   </template>
 
-                </draggable>
+                </div>
+              </v-tabs-window-item>
 
-              </div>
-            </template>
-          </div>
-          <v-row>
-            <v-col col="6">
-              <ItemPreview :item="element"></ItemPreview>
-            </v-col>
-            <v-col col="6" style="max-width: 50%;">
-              <pre class="msg-preview pa-4" style="width: 100%; overflow-x: auto;">{{
-                getMessageJSON(element) }}</pre>
-            </v-col>
-          </v-row>
+              <!-- JSON TAB -->
+              <v-tabs-window-item value="json">
+                <pre class="msg-preview pa-4" style="width: 100%; max-width: 100%; overflow-x: auto;">{{
+                  getMessageJSON(activeMessage) }}</pre>
+              </v-tabs-window-item>
+            </v-tabs-window>
+
+          </template>
+          <template v-else>
+            <div class="empty-state pa-10" style="text-align: center;">
+              No message selected.<br>
+              Click a message preview to view and edit its details.
+            </div>
+          </template>
         </div>
-      </template>
-    </draggable>
 
-    <h3>Message Template JSON</h3>
-    <textarea readonly rows="12" style="width:100%">{{ getFinalTemplate() }}</textarea>
+      </v-col>
+    </v-row>
+
+    <v-row>
+      <h3>Message Template JSON</h3>
+      <textarea readonly rows="12" style="width:100%">{{ getFinalTemplate() }}</textarea>
+    </v-row>
+
   </div>
-
-
 </template>
 
 <style scoped>
+.preview-item {
+  cursor: pointer;
+  background: #f6f7fa;
+  border: 1px solid #ccf;
+  padding: 10px 8px;
+  margin-bottom: 6px;
+  transition: box-shadow 0.2s, background 0.2s;
+}
+
+.preview-item.active {
+  background: #dff2fd;
+  border-color: #42a5f5;
+  box-shadow: 0 0 2px 1px #42a5f577;
+}
+
+.details-panel {
+  flex: 1;
+  min-width: 0;
+}
+
+.msg-preview {
+  background: #eef5ff;
+}
+
+
 .direktt-message-template-builder {
   margin: 0 auto;
   font-family: Arial, sans-serif;

@@ -14654,12 +14654,13 @@ exports.default = {
     setup (__props, { expose: __expose }) {
         __expose();
         const messages = (0, _vue.ref)([]);
+        const activeMessageIndex = (0, _vue.ref)(0);
         function addMessage(type) {
             const newMsg = {
                 id: (0, _uuid.v4)(),
                 type
             };
-            if (type === "text") newMsg.content = "";
+            if (type === "text") newMsg.content = "Hi this is your text message. Change this text!";
             if (type === "image" || type === "video") Object.assign(newMsg, {
                 content: "",
                 media: "",
@@ -14681,10 +14682,28 @@ exports.default = {
                 }
             });
             messages.value.push(newMsg);
+            activeMessageIndex.value = messages.value.length - 1;
         }
         function removeMessage(idx) {
+            if (!window.confirm("Are you sure you want to remove this message? This cannot be undone.")) return;
             messages.value.splice(idx, 1);
+            if (messages.value.length === 0) activeMessageIndex.value = -1;
+            else if (idx === messages.value.length) // Removed last item, select previous
+            activeMessageIndex.value = messages.value.length - 1;
+            else if (activeMessageIndex.value > idx) activeMessageIndex.value--;
+            else if (activeMessageIndex.value === idx) activeMessageIndex.value = Math.max(0, Math.min(idx, messages.value.length - 1));
         }
+        // When messages reordered, keep activeMessageIndex in sync with id
+        function onMessagesReordered(event) {
+        // Active index will generally still point to the same message obj
+        // Optionally improve this with more robust handling if needed
+        }
+        // Tabs for right-panel
+        const editTab = (0, _vue.ref)("properties");
+        const activeMessage = (0, _vue.computed)(()=>{
+            if (activeMessageIndex.value >= 0 && activeMessageIndex.value < messages.value.length) return messages.value[activeMessageIndex.value];
+            return null;
+        });
         function emptyRichButton() {
             return {
                 txt: "",
@@ -14884,8 +14903,12 @@ exports.default = {
         }
         const __returned__ = {
             messages,
+            activeMessageIndex,
             addMessage,
             removeMessage,
+            onMessagesReordered,
+            editTab,
+            activeMessage,
             emptyRichButton,
             getRichButtons,
             addRichButton,
@@ -27274,7 +27297,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
                     }, {
                         default: (0, _vue.withCtx)(()=>[
                                 (0, _vue.createVNode)(_component_v_col, {
-                                    cols: "5"
+                                    cols: "4"
                                 }, {
                                     default: (0, _vue.withCtx)(()=>[
                                             (0, _vue.createElementVNode)("div", null, [
@@ -27326,7 +27349,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
                                                 onClick: ($event)=>$setup.removePair(idx)
                                             }, {
                                                 default: (0, _vue.withCtx)(()=>[
-                                                        (0, _vue.createTextVNode)(" Remove Variable ")
+                                                        (0, _vue.createTextVNode)(" Remove ")
                                                     ]),
                                                 _: 2 /* DYNAMIC */ 
                                             }, 1032 /* PROPS, DYNAMIC_SLOTS */ , [
@@ -27395,7 +27418,7 @@ const _hoisted_12 = [
 ];
 const _hoisted_13 = {
     key: 0,
-    class: "pb-4"
+    class: "pb-4 actionDiv"
 };
 const _hoisted_14 = {
     class: "mb-2"
@@ -27420,7 +27443,7 @@ const _hoisted_21 = {
 };
 const _hoisted_22 = {
     key: 0,
-    class: "pb-4"
+    class: "pb-4 actionDiv"
 };
 const _hoisted_23 = {
     class: "mb-4"
@@ -27431,7 +27454,7 @@ const _hoisted_25 = {
 };
 const _hoisted_26 = {
     key: 1,
-    class: "pb-4"
+    class: "pb-4 actionDiv"
 };
 const _hoisted_27 = {
     class: "mb-2"
@@ -27439,7 +27462,7 @@ const _hoisted_27 = {
 const _hoisted_28 = /*#__PURE__*/ (0, _vue.createElementVNode)("strong", null, "User Subscription Id:", -1 /* HOISTED */ );
 const _hoisted_29 = {
     key: 2,
-    class: "pb-4"
+    class: "pb-4 actionDiv"
 };
 const _hoisted_30 = {
     class: "mb-2"
@@ -27605,93 +27628,74 @@ const _withScopeId = (n)=>((0, _vue.pushScopeId)("data-v-e85945"), n = n(), (0, 
 const _hoisted_1 = {
     class: "direktt-message-template-builder"
 };
-const _hoisted_2 = {
-    class: "msg-block"
-};
+const _hoisted_2 = [
+    "onClick"
+];
 const _hoisted_3 = {
-    class: "msg-block-inner"
+    class: "details-panel"
 };
 const _hoisted_4 = {
-    key: 0,
+    class: "msg-block-inner",
     style: {
-        "width": "100%"
-    },
-    class: "mb-4"
+        "padding": "0.5em 0"
+    }
 };
-const _hoisted_5 = {
-    key: 1,
-    style: {
-        "width": "100%"
-    },
-    class: "mb-4"
-};
-const _hoisted_6 = [
+const _hoisted_5 = [
     "src"
 ];
-const _hoisted_7 = {
+const _hoisted_6 = {
     class: "mb-2"
 };
-const _hoisted_8 = /*#__PURE__*/ _withScopeId(()=>/*#__PURE__*/ (0, _vue.createElementVNode)("strong", null, "Image Url:", -1 /* HOISTED */ ));
-const _hoisted_9 = {
+const _hoisted_7 = /*#__PURE__*/ _withScopeId(()=>/*#__PURE__*/ (0, _vue.createElementVNode)("strong", null, "Image Url:", -1 /* HOISTED */ ));
+const _hoisted_8 = {
     class: "mb-2"
 };
-const _hoisted_10 = /*#__PURE__*/ _withScopeId(()=>/*#__PURE__*/ (0, _vue.createElementVNode)("strong", null, "Thumbnail Width:", -1 /* HOISTED */ ));
-const _hoisted_11 = {
+const _hoisted_9 = /*#__PURE__*/ _withScopeId(()=>/*#__PURE__*/ (0, _vue.createElementVNode)("strong", null, "Thumbnail Width:", -1 /* HOISTED */ ));
+const _hoisted_10 = {
     class: "mb-4"
 };
-const _hoisted_12 = /*#__PURE__*/ _withScopeId(()=>/*#__PURE__*/ (0, _vue.createElementVNode)("strong", null, "Thumbnail Height:", -1 /* HOISTED */ ));
-const _hoisted_13 = {
-    key: 2,
-    style: {
-        "width": "100%"
-    },
-    class: "mb-4"
-};
-const _hoisted_14 = {
+const _hoisted_11 = /*#__PURE__*/ _withScopeId(()=>/*#__PURE__*/ (0, _vue.createElementVNode)("strong", null, "Thumbnail Height:", -1 /* HOISTED */ ));
+const _hoisted_12 = {
     class: "mb-2"
 };
-const _hoisted_15 = /*#__PURE__*/ _withScopeId(()=>/*#__PURE__*/ (0, _vue.createElementVNode)("strong", null, "Video Url:", -1 /* HOISTED */ ));
-const _hoisted_16 = [
+const _hoisted_13 = /*#__PURE__*/ _withScopeId(()=>/*#__PURE__*/ (0, _vue.createElementVNode)("strong", null, "Video Url:", -1 /* HOISTED */ ));
+const _hoisted_14 = [
     "src"
 ];
+const _hoisted_15 = {
+    class: "mb-2"
+};
+const _hoisted_16 = /*#__PURE__*/ _withScopeId(()=>/*#__PURE__*/ (0, _vue.createElementVNode)("strong", null, "Thumbnail Url:", -1 /* HOISTED */ ));
 const _hoisted_17 = {
     class: "mb-2"
 };
-const _hoisted_18 = /*#__PURE__*/ _withScopeId(()=>/*#__PURE__*/ (0, _vue.createElementVNode)("strong", null, "Thumbnail Url:", -1 /* HOISTED */ ));
+const _hoisted_18 = /*#__PURE__*/ _withScopeId(()=>/*#__PURE__*/ (0, _vue.createElementVNode)("strong", null, "Thumbnail Width:", -1 /* HOISTED */ ));
 const _hoisted_19 = {
-    class: "mb-2"
+    class: "mb-4"
 };
-const _hoisted_20 = /*#__PURE__*/ _withScopeId(()=>/*#__PURE__*/ (0, _vue.createElementVNode)("strong", null, "Thumbnail Width:", -1 /* HOISTED */ ));
+const _hoisted_20 = /*#__PURE__*/ _withScopeId(()=>/*#__PURE__*/ (0, _vue.createElementVNode)("strong", null, "Thumbnail Height:", -1 /* HOISTED */ ));
 const _hoisted_21 = {
-    class: "mb-4"
-};
-const _hoisted_22 = /*#__PURE__*/ _withScopeId(()=>/*#__PURE__*/ (0, _vue.createElementVNode)("strong", null, "Thumbnail Height:", -1 /* HOISTED */ ));
-const _hoisted_23 = {
-    key: 3,
-    style: {
-        "width": "100%"
-    },
-    class: "mb-4"
-};
-const _hoisted_24 = {
     class: "mb-2"
 };
-const _hoisted_25 = /*#__PURE__*/ _withScopeId(()=>/*#__PURE__*/ (0, _vue.createElementVNode)("strong", null, "File Url:", -1 /* HOISTED */ ));
-const _hoisted_26 = {
-    style: {
-        "width": "100%"
-    },
-    class: "mb-4"
-};
-const _hoisted_27 = {
+const _hoisted_22 = /*#__PURE__*/ _withScopeId(()=>/*#__PURE__*/ (0, _vue.createElementVNode)("strong", null, "File Url:", -1 /* HOISTED */ ));
+const _hoisted_23 = {
     class: "msg-preview pa-4",
     style: {
         "width": "100%",
+        "max-width": "100%",
         "overflow-x": "auto"
     }
 };
-const _hoisted_28 = /*#__PURE__*/ _withScopeId(()=>/*#__PURE__*/ (0, _vue.createElementVNode)("h3", null, "Message Template JSON", -1 /* HOISTED */ ));
-const _hoisted_29 = {
+const _hoisted_24 = {
+    key: 1,
+    class: "empty-state pa-10",
+    style: {
+        "text-align": "center"
+    }
+};
+const _hoisted_25 = /*#__PURE__*/ _withScopeId(()=>/*#__PURE__*/ (0, _vue.createElementVNode)("br", null, null, -1 /* HOISTED */ ));
+const _hoisted_26 = /*#__PURE__*/ _withScopeId(()=>/*#__PURE__*/ (0, _vue.createElementVNode)("h3", null, "Message Template JSON", -1 /* HOISTED */ ));
+const _hoisted_27 = {
     readonly: "",
     rows: "12",
     style: {
@@ -27700,426 +27704,502 @@ const _hoisted_29 = {
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
     const _component_v_btn = (0, _vue.resolveComponent)("v-btn");
-    const _component_v_icon = (0, _vue.resolveComponent)("v-icon");
-    const _component_v_spacer = (0, _vue.resolveComponent)("v-spacer");
     const _component_v_row = (0, _vue.resolveComponent)("v-row");
+    const _component_v_icon = (0, _vue.resolveComponent)("v-icon");
+    const _component_v_col = (0, _vue.resolveComponent)("v-col");
+    const _component_v_tab = (0, _vue.resolveComponent)("v-tab");
+    const _component_v_tabs = (0, _vue.resolveComponent)("v-tabs");
+    const _component_v_spacer = (0, _vue.resolveComponent)("v-spacer");
     const _component_v_textarea = (0, _vue.resolveComponent)("v-textarea");
     const _component_v_text_field = (0, _vue.resolveComponent)("v-text-field");
     const _component_v_card = (0, _vue.resolveComponent)("v-card");
-    const _component_v_col = (0, _vue.resolveComponent)("v-col");
+    const _component_v_tabs_window_item = (0, _vue.resolveComponent)("v-tabs-window-item");
+    const _component_v_tabs_window = (0, _vue.resolveComponent)("v-tabs-window");
     return (0, _vue.openBlock)(), (0, _vue.createElementBlock)("div", _hoisted_1, [
-        (0, _vue.createElementVNode)("div", null, [
-            (0, _vue.createVNode)(_component_v_btn, {
-                variant: "flat",
-                class: "text-none text-caption",
-                color: "info",
-                onClick: _cache[0] || (_cache[0] = ($event)=>$setup.addMessage("text"))
-            }, {
-                default: (0, _vue.withCtx)(()=>[
-                        (0, _vue.createTextVNode)(" Add Text ")
-                    ]),
-                _: 1 /* STABLE */ 
-            }),
-            (0, _vue.createVNode)(_component_v_btn, {
-                variant: "flat",
-                class: "text-none text-caption",
-                color: "info",
-                onClick: _cache[1] || (_cache[1] = ($event)=>$setup.addMessage("image"))
-            }, {
-                default: (0, _vue.withCtx)(()=>[
-                        (0, _vue.createTextVNode)(" Add Image ")
-                    ]),
-                _: 1 /* STABLE */ 
-            }),
-            (0, _vue.createVNode)(_component_v_btn, {
-                variant: "flat",
-                class: "text-none text-caption",
-                color: "info",
-                onClick: _cache[2] || (_cache[2] = ($event)=>$setup.addMessage("video"))
-            }, {
-                default: (0, _vue.withCtx)(()=>[
-                        (0, _vue.createTextVNode)(" Add Video ")
-                    ]),
-                _: 1 /* STABLE */ 
-            }),
-            (0, _vue.createVNode)(_component_v_btn, {
-                variant: "flat",
-                class: "text-none text-caption",
-                color: "info",
-                onClick: _cache[3] || (_cache[3] = ($event)=>$setup.addMessage("file"))
-            }, {
-                default: (0, _vue.withCtx)(()=>[
-                        (0, _vue.createTextVNode)(" Add File ")
-                    ]),
-                _: 1 /* STABLE */ 
-            }),
-            (0, _vue.createVNode)(_component_v_btn, {
-                variant: "flat",
-                class: "text-none text-caption",
-                color: "info",
-                onClick: _cache[4] || (_cache[4] = ($event)=>$setup.addMessage("rich"))
-            }, {
-                default: (0, _vue.withCtx)(()=>[
-                        (0, _vue.createTextVNode)(" Add Interactive Message ")
-                    ]),
-                _: 1 /* STABLE */ 
-            })
-        ]),
-        (0, _vue.createVNode)($setup["draggable"], {
-            modelValue: $setup.messages,
-            "onUpdate:modelValue": _cache[5] || (_cache[5] = ($event)=>$setup.messages = $event),
-            handle: ".drag-handle",
-            class: "msg-list",
-            "item-key": "id",
-            animation: 300
-        }, {
-            item: (0, _vue.withCtx)(({ element, index })=>[
-                    (0, _vue.createElementVNode)("div", _hoisted_2, [
-                        (0, _vue.createVNode)(_component_v_row, {
-                            class: "pa-4",
-                            align: "center"
-                        }, {
-                            default: (0, _vue.withCtx)(()=>[
-                                    (0, _vue.createVNode)(_component_v_icon, {
-                                        color: "info",
-                                        icon: "mdi-arrow-up-down",
-                                        size: "32px",
-                                        class: "drag-handle"
-                                    }),
-                                    (0, _vue.createElementVNode)("strong", null, (0, _vue.toDisplayString)(element.type.toUpperCase()), 1 /* TEXT */ ),
-                                    (0, _vue.createVNode)(_component_v_spacer),
-                                    (0, _vue.createVNode)(_component_v_btn, {
-                                        variant: "flat",
-                                        class: "text-none text-caption",
-                                        color: "info",
-                                        onClick: ($event)=>$setup.removeMessage(index)
-                                    }, {
-                                        default: (0, _vue.withCtx)(()=>[
-                                                (0, _vue.createTextVNode)(" Remove ")
-                                            ]),
-                                        _: 2 /* DYNAMIC */ 
-                                    }, 1032 /* PROPS, DYNAMIC_SLOTS */ , [
-                                        "onClick"
-                                    ])
-                                ]),
-                            _: 2 /* DYNAMIC */ 
-                        }, 1024 /* DYNAMIC_SLOTS */ ),
-                        (0, _vue.createElementVNode)("div", _hoisted_3, [
-                            (0, _vue.createCommentVNode)(" Message Fields by Type "),
-                            element.type === "text" ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)("div", _hoisted_4, [
-                                (0, _vue.createVNode)(_component_v_textarea, {
-                                    label: "Message content",
-                                    variant: "outlined",
-                                    modelValue: element.content,
-                                    "onUpdate:modelValue": ($event)=>element.content = $event
-                                }, null, 8 /* PROPS */ , [
-                                    "modelValue",
-                                    "onUpdate:modelValue"
-                                ])
-                            ])) : element.type === "image" ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)("div", _hoisted_5, [
-                                (0, _vue.createVNode)(_component_v_btn, {
-                                    variant: "flat",
-                                    class: "text-none text-caption mb-4",
-                                    onClick: ($event)=>$setup.openMediaPicker(index)
+        (0, _vue.createVNode)(_component_v_row, null, {
+            default: (0, _vue.withCtx)(()=>[
+                    (0, _vue.createVNode)(_component_v_col, {
+                        cols: "6"
+                    }, {
+                        default: (0, _vue.withCtx)(()=>[
+                                (0, _vue.createVNode)(_component_v_row, {
+                                    class: "pa-4"
                                 }, {
                                     default: (0, _vue.withCtx)(()=>[
-                                            (0, _vue.createTextVNode)((0, _vue.toDisplayString)(element.media ? "Change Image" : "Select Image"), 1 /* TEXT */ )
+                                            (0, _vue.createVNode)(_component_v_btn, {
+                                                variant: "flat",
+                                                class: "text-none text-caption",
+                                                color: "info",
+                                                onClick: _cache[0] || (_cache[0] = ($event)=>$setup.addMessage("text"))
+                                            }, {
+                                                default: (0, _vue.withCtx)(()=>[
+                                                        (0, _vue.createTextVNode)(" Add Text ")
+                                                    ]),
+                                                _: 1 /* STABLE */ 
+                                            }),
+                                            (0, _vue.createVNode)(_component_v_btn, {
+                                                variant: "flat",
+                                                class: "text-none text-caption",
+                                                color: "info",
+                                                onClick: _cache[1] || (_cache[1] = ($event)=>$setup.addMessage("image"))
+                                            }, {
+                                                default: (0, _vue.withCtx)(()=>[
+                                                        (0, _vue.createTextVNode)(" Add Image ")
+                                                    ]),
+                                                _: 1 /* STABLE */ 
+                                            }),
+                                            (0, _vue.createVNode)(_component_v_btn, {
+                                                variant: "flat",
+                                                class: "text-none text-caption",
+                                                color: "info",
+                                                onClick: _cache[2] || (_cache[2] = ($event)=>$setup.addMessage("video"))
+                                            }, {
+                                                default: (0, _vue.withCtx)(()=>[
+                                                        (0, _vue.createTextVNode)(" Add Video ")
+                                                    ]),
+                                                _: 1 /* STABLE */ 
+                                            }),
+                                            (0, _vue.createVNode)(_component_v_btn, {
+                                                variant: "flat",
+                                                class: "text-none text-caption",
+                                                color: "info",
+                                                onClick: _cache[3] || (_cache[3] = ($event)=>$setup.addMessage("file"))
+                                            }, {
+                                                default: (0, _vue.withCtx)(()=>[
+                                                        (0, _vue.createTextVNode)(" Add File ")
+                                                    ]),
+                                                _: 1 /* STABLE */ 
+                                            }),
+                                            (0, _vue.createVNode)(_component_v_btn, {
+                                                variant: "flat",
+                                                class: "text-none text-caption",
+                                                color: "info",
+                                                onClick: _cache[4] || (_cache[4] = ($event)=>$setup.addMessage("rich"))
+                                            }, {
+                                                default: (0, _vue.withCtx)(()=>[
+                                                        (0, _vue.createTextVNode)(" Add Interactive Message ")
+                                                    ]),
+                                                _: 1 /* STABLE */ 
+                                            })
                                         ]),
-                                    _: 2 /* DYNAMIC */ 
-                                }, 1032 /* PROPS, DYNAMIC_SLOTS */ , [
-                                    "onClick"
-                                ]),
-                                (0, _vue.createVNode)(_component_v_spacer),
-                                element.media ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)("img", {
-                                    key: 0,
-                                    src: element.media,
-                                    style: {
-                                        "height": "150px"
-                                    },
-                                    class: "mb-4"
-                                }, null, 8 /* PROPS */ , _hoisted_6)) : (0, _vue.createCommentVNode)("v-if", true),
-                                (0, _vue.createElementVNode)("div", _hoisted_7, [
-                                    _hoisted_8,
-                                    (0, _vue.createTextVNode)(),
-                                    (0, _vue.createVNode)(_component_v_text_field, {
-                                        modelValue: element.media,
-                                        "onUpdate:modelValue": ($event)=>element.media = $event,
-                                        variant: "outlined"
-                                    }, null, 8 /* PROPS */ , [
-                                        "modelValue",
-                                        "onUpdate:modelValue"
-                                    ])
-                                ]),
-                                (0, _vue.createElementVNode)("div", _hoisted_9, [
-                                    _hoisted_10,
-                                    (0, _vue.createTextVNode)(),
-                                    (0, _vue.createVNode)(_component_v_text_field, {
-                                        modelValue: element.width,
-                                        "onUpdate:modelValue": ($event)=>element.width = $event,
-                                        variant: "outlined",
-                                        "max-width": "200"
-                                    }, null, 8 /* PROPS */ , [
-                                        "modelValue",
-                                        "onUpdate:modelValue"
-                                    ])
-                                ]),
-                                (0, _vue.createElementVNode)("div", _hoisted_11, [
-                                    _hoisted_12,
-                                    (0, _vue.createTextVNode)(),
-                                    (0, _vue.createVNode)(_component_v_text_field, {
-                                        modelValue: element.height,
-                                        "onUpdate:modelValue": ($event)=>element.height = $event,
-                                        variant: "outlined",
-                                        "max-width": "200"
-                                    }, null, 8 /* PROPS */ , [
-                                        "modelValue",
-                                        "onUpdate:modelValue"
-                                    ])
-                                ]),
-                                (0, _vue.createVNode)(_component_v_textarea, {
-                                    label: "Message content",
-                                    variant: "outlined",
-                                    modelValue: element.content,
-                                    "onUpdate:modelValue": ($event)=>element.content = $event
-                                }, null, 8 /* PROPS */ , [
-                                    "modelValue",
-                                    "onUpdate:modelValue"
-                                ])
-                            ])) : element.type === "video" ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)("div", _hoisted_13, [
-                                (0, _vue.createElementVNode)("div", _hoisted_14, [
-                                    _hoisted_15,
-                                    (0, _vue.createTextVNode)(),
-                                    (0, _vue.createVNode)(_component_v_text_field, {
-                                        modelValue: element.media,
-                                        "onUpdate:modelValue": ($event)=>element.media = $event,
-                                        variant: "outlined"
-                                    }, null, 8 /* PROPS */ , [
-                                        "modelValue",
-                                        "onUpdate:modelValue"
-                                    ])
-                                ]),
-                                (0, _vue.createVNode)(_component_v_btn, {
-                                    variant: "flat",
-                                    class: "text-none text-caption mb-4",
-                                    onClick: ($event)=>$setup.openMediaPickerVideo(index)
+                                    _: 1 /* STABLE */ 
+                                }),
+                                (0, _vue.createVNode)(_component_v_row, {
+                                    justify: "center"
                                 }, {
                                     default: (0, _vue.withCtx)(()=>[
-                                            (0, _vue.createTextVNode)((0, _vue.toDisplayString)(element.thumbnail ? "Change Thumbnail" : "Select Thumbnail"), 1 /* TEXT */ )
-                                        ]),
-                                    _: 2 /* DYNAMIC */ 
-                                }, 1032 /* PROPS, DYNAMIC_SLOTS */ , [
-                                    "onClick"
-                                ]),
-                                (0, _vue.createVNode)(_component_v_spacer),
-                                element.thumbnail ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)("img", {
-                                    key: 0,
-                                    src: element.thumbnail,
-                                    style: {
-                                        "height": "150px"
-                                    },
-                                    class: "mb-4"
-                                }, null, 8 /* PROPS */ , _hoisted_16)) : (0, _vue.createCommentVNode)("v-if", true),
-                                (0, _vue.createElementVNode)("div", _hoisted_17, [
-                                    _hoisted_18,
-                                    (0, _vue.createTextVNode)(),
-                                    (0, _vue.createVNode)(_component_v_text_field, {
-                                        modelValue: element.thumbnail,
-                                        "onUpdate:modelValue": ($event)=>element.thumbnail = $event,
-                                        variant: "outlined"
-                                    }, null, 8 /* PROPS */ , [
-                                        "modelValue",
-                                        "onUpdate:modelValue"
-                                    ])
-                                ]),
-                                (0, _vue.createElementVNode)("div", _hoisted_19, [
-                                    _hoisted_20,
-                                    (0, _vue.createTextVNode)(),
-                                    (0, _vue.createVNode)(_component_v_text_field, {
-                                        modelValue: element.width,
-                                        "onUpdate:modelValue": ($event)=>element.width = $event,
-                                        variant: "outlined",
-                                        "max-width": "200"
-                                    }, null, 8 /* PROPS */ , [
-                                        "modelValue",
-                                        "onUpdate:modelValue"
-                                    ])
-                                ]),
-                                (0, _vue.createElementVNode)("div", _hoisted_21, [
-                                    _hoisted_22,
-                                    (0, _vue.createTextVNode)(),
-                                    (0, _vue.createVNode)(_component_v_text_field, {
-                                        modelValue: element.height,
-                                        "onUpdate:modelValue": ($event)=>element.height = $event,
-                                        variant: "outlined",
-                                        "max-width": "200"
-                                    }, null, 8 /* PROPS */ , [
-                                        "modelValue",
-                                        "onUpdate:modelValue"
-                                    ])
-                                ]),
-                                (0, _vue.createVNode)(_component_v_textarea, {
-                                    label: "Message content",
-                                    variant: "outlined",
-                                    modelValue: element.content,
-                                    "onUpdate:modelValue": ($event)=>element.content = $event
-                                }, null, 8 /* PROPS */ , [
-                                    "modelValue",
-                                    "onUpdate:modelValue"
-                                ])
-                            ])) : element.type === "file" ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)("div", _hoisted_23, [
-                                (0, _vue.createVNode)(_component_v_btn, {
-                                    variant: "flat",
-                                    class: "text-none text-caption mb-4",
-                                    onClick: ($event)=>$setup.openMediaPickerFile(index)
-                                }, {
-                                    default: (0, _vue.withCtx)(()=>[
-                                            (0, _vue.createTextVNode)((0, _vue.toDisplayString)(element.thumbnail ? "Change File" : "Select File"), 1 /* TEXT */ )
-                                        ]),
-                                    _: 2 /* DYNAMIC */ 
-                                }, 1032 /* PROPS, DYNAMIC_SLOTS */ , [
-                                    "onClick"
-                                ]),
-                                (0, _vue.createVNode)(_component_v_spacer),
-                                (0, _vue.createElementVNode)("div", _hoisted_24, [
-                                    _hoisted_25,
-                                    (0, _vue.createTextVNode)(),
-                                    (0, _vue.createVNode)(_component_v_text_field, {
-                                        modelValue: element.media,
-                                        "onUpdate:modelValue": ($event)=>element.media = $event,
-                                        variant: "outlined"
-                                    }, null, 8 /* PROPS */ , [
-                                        "modelValue",
-                                        "onUpdate:modelValue"
-                                    ])
-                                ]),
-                                (0, _vue.createVNode)(_component_v_textarea, {
-                                    label: "Message content",
-                                    variant: "outlined",
-                                    modelValue: element.content,
-                                    "onUpdate:modelValue": ($event)=>element.content = $event
-                                }, null, 8 /* PROPS */ , [
-                                    "modelValue",
-                                    "onUpdate:modelValue"
-                                ])
-                            ])) : element.type === "rich" ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)((0, _vue.Fragment), {
-                                key: 4
-                            }, [
-                                (0, _vue.createCommentVNode)(" Only 'buttons' rich message supported in this v1. Expandable. "),
-                                (0, _vue.createElementVNode)("div", _hoisted_26, [
-                                    (0, _vue.createVNode)(_component_v_btn, {
-                                        variant: "flat",
-                                        class: "text-none text-caption mb-4",
-                                        color: "info",
-                                        onClick: ($event)=>$setup.addRichButton(index)
-                                    }, {
-                                        default: (0, _vue.withCtx)(()=>[
-                                                (0, _vue.createTextVNode)(" Add Button ")
-                                            ]),
-                                        _: 2 /* DYNAMIC */ 
-                                    }, 1032 /* PROPS, DYNAMIC_SLOTS */ , [
-                                        "onClick"
-                                    ]),
-                                    (0, _vue.createVNode)($setup["draggable"], {
-                                        modelValue: element.content.msgObj,
-                                        "onUpdate:modelValue": ($event)=>element.content.msgObj = $event,
-                                        handle: ".drag-btn",
-                                        group: "rich-buttons",
-                                        "item-key": "key",
-                                        animation: 300
-                                    }, {
-                                        item: (0, _vue.withCtx)(({ element: btn, index: bidx })=>[
-                                                (0, _vue.createVNode)(_component_v_card, {
-                                                    width: "100%",
-                                                    class: "pt-4 pl-4 pr-4 mb-4"
-                                                }, {
-                                                    default: (0, _vue.withCtx)(()=>[
+                                            (0, _vue.createVNode)($setup["draggable"], {
+                                                modelValue: $setup.messages,
+                                                "onUpdate:modelValue": _cache[5] || (_cache[5] = ($event)=>$setup.messages = $event),
+                                                handle: ".drag-handle",
+                                                "item-key": "id",
+                                                class: "msg-list",
+                                                animation: 300,
+                                                onEnd: $setup.onMessagesReordered
+                                            }, {
+                                                item: (0, _vue.withCtx)(({ element, index })=>[
+                                                        (0, _vue.createElementVNode)("div", {
+                                                            class: (0, _vue.normalizeClass)([
+                                                                "preview-item",
+                                                                {
+                                                                    active: index === $setup.activeMessageIndex
+                                                                }
+                                                            ]),
+                                                            onClick: ($event)=>$setup.activeMessageIndex = index
+                                                        }, [
                                                             (0, _vue.createVNode)(_component_v_row, {
-                                                                class: "pt-4 pl-4 pr-4"
+                                                                align: "center",
+                                                                "no-gutters": ""
                                                             }, {
                                                                 default: (0, _vue.withCtx)(()=>[
                                                                         (0, _vue.createVNode)(_component_v_icon, {
                                                                             color: "info",
                                                                             icon: "mdi-arrow-up-down",
-                                                                            size: "20px",
-                                                                            class: "drag-btn mr-2"
+                                                                            size: "22",
+                                                                            class: "drag-handle mr-2"
                                                                         }),
-                                                                        (0, _vue.createVNode)(_component_v_spacer),
-                                                                        (0, _vue.createVNode)(_component_v_btn, {
-                                                                            variant: "flat",
-                                                                            class: "text-none text-caption",
-                                                                            color: "info",
-                                                                            onClick: ($event)=>$setup.removeRichButton(index, bidx)
-                                                                        }, {
-                                                                            default: (0, _vue.withCtx)(()=>[
-                                                                                    (0, _vue.createTextVNode)(" Remove Button ")
-                                                                                ]),
-                                                                            _: 2 /* DYNAMIC */ 
-                                                                        }, 1032 /* PROPS, DYNAMIC_SLOTS */ , [
-                                                                            "onClick"
-                                                                        ])
-                                                                    ]),
-                                                                _: 2 /* DYNAMIC */ 
-                                                            }, 1024 /* DYNAMIC_SLOTS */ ),
-                                                            (0, _vue.createVNode)(_component_v_row, {
-                                                                class: "pa-4"
-                                                            }, {
-                                                                default: (0, _vue.withCtx)(()=>[
-                                                                        (0, _vue.createVNode)($setup["SingleButton"], {
-                                                                            btn: btn
+                                                                        (0, _vue.createVNode)($setup["ItemPreview"], {
+                                                                            item: element
                                                                         }, null, 8 /* PROPS */ , [
-                                                                            "btn"
+                                                                            "item"
                                                                         ])
                                                                     ]),
                                                                 _: 2 /* DYNAMIC */ 
                                                             }, 1024 /* DYNAMIC_SLOTS */ )
-                                                        ]),
-                                                    _: 2 /* DYNAMIC */ 
-                                                }, 1024 /* DYNAMIC_SLOTS */ )
-                                            ]),
-                                        _: 2 /* DYNAMIC */ 
-                                    }, 1032 /* PROPS, DYNAMIC_SLOTS */ , [
-                                        "modelValue",
-                                        "onUpdate:modelValue"
-                                    ])
+                                                        ], 10 /* CLASS, PROPS */ , _hoisted_2)
+                                                    ]),
+                                                _: 1 /* STABLE */ 
+                                            }, 8 /* PROPS */ , [
+                                                "modelValue"
+                                            ])
+                                        ]),
+                                    _: 1 /* STABLE */ 
+                                })
+                            ]),
+                        _: 1 /* STABLE */ 
+                    }),
+                    (0, _vue.createVNode)(_component_v_col, {
+                        cols: "6"
+                    }, {
+                        default: (0, _vue.withCtx)(()=>[
+                                (0, _vue.createElementVNode)("div", _hoisted_3, [
+                                    $setup.activeMessage ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)((0, _vue.Fragment), {
+                                        key: 0
+                                    }, [
+                                        (0, _vue.createVNode)(_component_v_tabs, {
+                                            modelValue: $setup.editTab,
+                                            "onUpdate:modelValue": _cache[6] || (_cache[6] = ($event)=>$setup.editTab = $event),
+                                            "bg-color": "primary",
+                                            class: "mb-4"
+                                        }, {
+                                            default: (0, _vue.withCtx)(()=>[
+                                                    (0, _vue.createVNode)(_component_v_tab, {
+                                                        value: "properties"
+                                                    }, {
+                                                        default: (0, _vue.withCtx)(()=>[
+                                                                (0, _vue.createTextVNode)("Properties")
+                                                            ]),
+                                                        _: 1 /* STABLE */ 
+                                                    }),
+                                                    (0, _vue.createVNode)(_component_v_tab, {
+                                                        value: "json"
+                                                    }, {
+                                                        default: (0, _vue.withCtx)(()=>[
+                                                                (0, _vue.createTextVNode)("JSON")
+                                                            ]),
+                                                        _: 1 /* STABLE */ 
+                                                    })
+                                                ]),
+                                            _: 1 /* STABLE */ 
+                                        }, 8 /* PROPS */ , [
+                                            "modelValue"
+                                        ]),
+                                        (0, _vue.createVNode)(_component_v_tabs_window, {
+                                            modelValue: $setup.editTab,
+                                            "onUpdate:modelValue": _cache[25] || (_cache[25] = ($event)=>$setup.editTab = $event)
+                                        }, {
+                                            default: (0, _vue.withCtx)(()=>[
+                                                    (0, _vue.createCommentVNode)(" Properties EDIT TAB "),
+                                                    (0, _vue.createVNode)(_component_v_tabs_window_item, {
+                                                        value: "properties"
+                                                    }, {
+                                                        default: (0, _vue.withCtx)(()=>[
+                                                                (0, _vue.createVNode)(_component_v_row, {
+                                                                    class: "pa-4"
+                                                                }, {
+                                                                    default: (0, _vue.withCtx)(()=>[
+                                                                            (0, _vue.createElementVNode)("h2", null, [
+                                                                                (0, _vue.createElementVNode)("strong", null, "Message type: " + (0, _vue.toDisplayString)($setup.activeMessage.type), 1 /* TEXT */ )
+                                                                            ]),
+                                                                            (0, _vue.createVNode)(_component_v_spacer),
+                                                                            (0, _vue.createVNode)(_component_v_btn, {
+                                                                                variant: "flat",
+                                                                                color: "info",
+                                                                                class: "text-none text-caption",
+                                                                                onClick: _cache[7] || (_cache[7] = ($event)=>$setup.removeMessage($setup.activeMessageIndex))
+                                                                            }, {
+                                                                                default: (0, _vue.withCtx)(()=>[
+                                                                                        (0, _vue.createTextVNode)(" Remove Message ")
+                                                                                    ]),
+                                                                                _: 1 /* STABLE */ 
+                                                                            })
+                                                                        ]),
+                                                                    _: 1 /* STABLE */ 
+                                                                }),
+                                                                (0, _vue.createElementVNode)("div", _hoisted_4, [
+                                                                    $setup.activeMessage.type === "text" ? ((0, _vue.openBlock)(), (0, _vue.createBlock)(_component_v_textarea, {
+                                                                        key: 0,
+                                                                        label: "Message content",
+                                                                        variant: "outlined",
+                                                                        modelValue: $setup.activeMessage.content,
+                                                                        "onUpdate:modelValue": _cache[8] || (_cache[8] = ($event)=>$setup.activeMessage.content = $event)
+                                                                    }, null, 8 /* PROPS */ , [
+                                                                        "modelValue"
+                                                                    ])) : $setup.activeMessage.type === "image" ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)((0, _vue.Fragment), {
+                                                                        key: 1
+                                                                    }, [
+                                                                        (0, _vue.createVNode)(_component_v_btn, {
+                                                                            variant: "flat",
+                                                                            color: "info",
+                                                                            class: "text-none text-caption mb-4",
+                                                                            onClick: _cache[9] || (_cache[9] = ($event)=>$setup.openMediaPicker($setup.activeMessageIndex))
+                                                                        }, {
+                                                                            default: (0, _vue.withCtx)(()=>[
+                                                                                    (0, _vue.createTextVNode)((0, _vue.toDisplayString)($setup.activeMessage.media ? "Change Image" : "Select Image"), 1 /* TEXT */ )
+                                                                                ]),
+                                                                            _: 1 /* STABLE */ 
+                                                                        }),
+                                                                        (0, _vue.createVNode)(_component_v_spacer),
+                                                                        $setup.activeMessage.media ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)("img", {
+                                                                            key: 0,
+                                                                            src: $setup.activeMessage.media,
+                                                                            style: {
+                                                                                "height": "150px"
+                                                                            },
+                                                                            class: "mb-4"
+                                                                        }, null, 8 /* PROPS */ , _hoisted_5)) : (0, _vue.createCommentVNode)("v-if", true),
+                                                                        (0, _vue.createElementVNode)("div", _hoisted_6, [
+                                                                            _hoisted_7,
+                                                                            (0, _vue.createTextVNode)(),
+                                                                            (0, _vue.createVNode)(_component_v_text_field, {
+                                                                                modelValue: $setup.activeMessage.media,
+                                                                                "onUpdate:modelValue": _cache[10] || (_cache[10] = ($event)=>$setup.activeMessage.media = $event),
+                                                                                variant: "outlined"
+                                                                            }, null, 8 /* PROPS */ , [
+                                                                                "modelValue"
+                                                                            ])
+                                                                        ]),
+                                                                        (0, _vue.createElementVNode)("div", _hoisted_8, [
+                                                                            _hoisted_9,
+                                                                            (0, _vue.createTextVNode)(),
+                                                                            (0, _vue.createVNode)(_component_v_text_field, {
+                                                                                modelValue: $setup.activeMessage.width,
+                                                                                "onUpdate:modelValue": _cache[11] || (_cache[11] = ($event)=>$setup.activeMessage.width = $event),
+                                                                                variant: "outlined"
+                                                                            }, null, 8 /* PROPS */ , [
+                                                                                "modelValue"
+                                                                            ])
+                                                                        ]),
+                                                                        (0, _vue.createElementVNode)("div", _hoisted_10, [
+                                                                            _hoisted_11,
+                                                                            (0, _vue.createTextVNode)(),
+                                                                            (0, _vue.createVNode)(_component_v_text_field, {
+                                                                                modelValue: $setup.activeMessage.height,
+                                                                                "onUpdate:modelValue": _cache[12] || (_cache[12] = ($event)=>$setup.activeMessage.height = $event),
+                                                                                variant: "outlined"
+                                                                            }, null, 8 /* PROPS */ , [
+                                                                                "modelValue"
+                                                                            ])
+                                                                        ]),
+                                                                        (0, _vue.createVNode)(_component_v_textarea, {
+                                                                            label: "Message content",
+                                                                            variant: "outlined",
+                                                                            modelValue: $setup.activeMessage.content,
+                                                                            "onUpdate:modelValue": _cache[13] || (_cache[13] = ($event)=>$setup.activeMessage.content = $event)
+                                                                        }, null, 8 /* PROPS */ , [
+                                                                            "modelValue"
+                                                                        ])
+                                                                    ], 64 /* STABLE_FRAGMENT */ )) : $setup.activeMessage.type === "video" ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)((0, _vue.Fragment), {
+                                                                        key: 2
+                                                                    }, [
+                                                                        (0, _vue.createElementVNode)("div", _hoisted_12, [
+                                                                            _hoisted_13,
+                                                                            (0, _vue.createTextVNode)(),
+                                                                            (0, _vue.createVNode)(_component_v_text_field, {
+                                                                                modelValue: $setup.activeMessage.media,
+                                                                                "onUpdate:modelValue": _cache[14] || (_cache[14] = ($event)=>$setup.activeMessage.media = $event),
+                                                                                variant: "outlined"
+                                                                            }, null, 8 /* PROPS */ , [
+                                                                                "modelValue"
+                                                                            ])
+                                                                        ]),
+                                                                        (0, _vue.createVNode)(_component_v_btn, {
+                                                                            variant: "flat",
+                                                                            color: "info",
+                                                                            class: "text-none text-caption mb-4",
+                                                                            onClick: _cache[15] || (_cache[15] = ($event)=>$setup.openMediaPickerVideo($setup.activeMessageIndex))
+                                                                        }, {
+                                                                            default: (0, _vue.withCtx)(()=>[
+                                                                                    (0, _vue.createTextVNode)((0, _vue.toDisplayString)($setup.activeMessage.thumbnail ? "Change Thumbnail" : "Select Thumbnail"), 1 /* TEXT */ )
+                                                                                ]),
+                                                                            _: 1 /* STABLE */ 
+                                                                        }),
+                                                                        $setup.activeMessage.thumbnail ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)("img", {
+                                                                            key: 0,
+                                                                            src: $setup.activeMessage.thumbnail,
+                                                                            style: {
+                                                                                "height": "150px"
+                                                                            },
+                                                                            class: "mb-4"
+                                                                        }, null, 8 /* PROPS */ , _hoisted_14)) : (0, _vue.createCommentVNode)("v-if", true),
+                                                                        (0, _vue.createElementVNode)("div", _hoisted_15, [
+                                                                            _hoisted_16,
+                                                                            (0, _vue.createTextVNode)(),
+                                                                            (0, _vue.createVNode)(_component_v_text_field, {
+                                                                                modelValue: $setup.activeMessage.thumbnail,
+                                                                                "onUpdate:modelValue": _cache[16] || (_cache[16] = ($event)=>$setup.activeMessage.thumbnail = $event),
+                                                                                variant: "outlined"
+                                                                            }, null, 8 /* PROPS */ , [
+                                                                                "modelValue"
+                                                                            ])
+                                                                        ]),
+                                                                        (0, _vue.createElementVNode)("div", _hoisted_17, [
+                                                                            _hoisted_18,
+                                                                            (0, _vue.createTextVNode)(),
+                                                                            (0, _vue.createVNode)(_component_v_text_field, {
+                                                                                modelValue: $setup.activeMessage.width,
+                                                                                "onUpdate:modelValue": _cache[17] || (_cache[17] = ($event)=>$setup.activeMessage.width = $event),
+                                                                                variant: "outlined"
+                                                                            }, null, 8 /* PROPS */ , [
+                                                                                "modelValue"
+                                                                            ])
+                                                                        ]),
+                                                                        (0, _vue.createElementVNode)("div", _hoisted_19, [
+                                                                            _hoisted_20,
+                                                                            (0, _vue.createTextVNode)(),
+                                                                            (0, _vue.createVNode)(_component_v_text_field, {
+                                                                                modelValue: $setup.activeMessage.height,
+                                                                                "onUpdate:modelValue": _cache[18] || (_cache[18] = ($event)=>$setup.activeMessage.height = $event),
+                                                                                variant: "outlined"
+                                                                            }, null, 8 /* PROPS */ , [
+                                                                                "modelValue"
+                                                                            ])
+                                                                        ]),
+                                                                        (0, _vue.createVNode)(_component_v_textarea, {
+                                                                            label: "Message content",
+                                                                            variant: "outlined",
+                                                                            modelValue: $setup.activeMessage.content,
+                                                                            "onUpdate:modelValue": _cache[19] || (_cache[19] = ($event)=>$setup.activeMessage.content = $event)
+                                                                        }, null, 8 /* PROPS */ , [
+                                                                            "modelValue"
+                                                                        ])
+                                                                    ], 64 /* STABLE_FRAGMENT */ )) : $setup.activeMessage.type === "file" ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)((0, _vue.Fragment), {
+                                                                        key: 3
+                                                                    }, [
+                                                                        (0, _vue.createVNode)(_component_v_btn, {
+                                                                            variant: "flat",
+                                                                            color: "info",
+                                                                            class: "text-none text-caption mb-4",
+                                                                            onClick: _cache[20] || (_cache[20] = ($event)=>$setup.openMediaPickerFile($setup.activeMessageIndex))
+                                                                        }, {
+                                                                            default: (0, _vue.withCtx)(()=>[
+                                                                                    (0, _vue.createTextVNode)((0, _vue.toDisplayString)($setup.activeMessage.thumbnail ? "Change File" : "Select File"), 1 /* TEXT */ )
+                                                                                ]),
+                                                                            _: 1 /* STABLE */ 
+                                                                        }),
+                                                                        (0, _vue.createElementVNode)("div", _hoisted_21, [
+                                                                            _hoisted_22,
+                                                                            (0, _vue.createTextVNode)(),
+                                                                            (0, _vue.createVNode)(_component_v_text_field, {
+                                                                                modelValue: $setup.activeMessage.media,
+                                                                                "onUpdate:modelValue": _cache[21] || (_cache[21] = ($event)=>$setup.activeMessage.media = $event),
+                                                                                variant: "outlined"
+                                                                            }, null, 8 /* PROPS */ , [
+                                                                                "modelValue"
+                                                                            ])
+                                                                        ]),
+                                                                        (0, _vue.createVNode)(_component_v_textarea, {
+                                                                            label: "Message content",
+                                                                            variant: "outlined",
+                                                                            modelValue: $setup.activeMessage.content,
+                                                                            "onUpdate:modelValue": _cache[22] || (_cache[22] = ($event)=>$setup.activeMessage.content = $event)
+                                                                        }, null, 8 /* PROPS */ , [
+                                                                            "modelValue"
+                                                                        ])
+                                                                    ], 64 /* STABLE_FRAGMENT */ )) : $setup.activeMessage.type === "rich" ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)((0, _vue.Fragment), {
+                                                                        key: 4
+                                                                    }, [
+                                                                        (0, _vue.createCommentVNode)(" RICH MESSAGE "),
+                                                                        (0, _vue.createVNode)(_component_v_btn, {
+                                                                            variant: "flat",
+                                                                            class: "text-none text-caption mb-4",
+                                                                            color: "info",
+                                                                            onClick: _cache[23] || (_cache[23] = ($event)=>$setup.addRichButton($setup.activeMessageIndex))
+                                                                        }, {
+                                                                            default: (0, _vue.withCtx)(()=>[
+                                                                                    (0, _vue.createTextVNode)(" Add Button ")
+                                                                                ]),
+                                                                            _: 1 /* STABLE */ 
+                                                                        }),
+                                                                        (0, _vue.createVNode)($setup["draggable"], {
+                                                                            modelValue: $setup.activeMessage.content.msgObj,
+                                                                            "onUpdate:modelValue": _cache[24] || (_cache[24] = ($event)=>$setup.activeMessage.content.msgObj = $event),
+                                                                            handle: ".drag-btn",
+                                                                            group: "rich-buttons",
+                                                                            "item-key": "key",
+                                                                            animation: 300
+                                                                        }, {
+                                                                            item: (0, _vue.withCtx)(({ element: btn, index: bidx })=>[
+                                                                                    (0, _vue.createVNode)(_component_v_card, {
+                                                                                        width: "100%",
+                                                                                        class: "pt-4 pl-4 pr-4 mb-4 singleButton"
+                                                                                    }, {
+                                                                                        default: (0, _vue.withCtx)(()=>[
+                                                                                                (0, _vue.createVNode)(_component_v_row, {
+                                                                                                    class: "pt-4 pl-4 pr-4"
+                                                                                                }, {
+                                                                                                    default: (0, _vue.withCtx)(()=>[
+                                                                                                            (0, _vue.createVNode)(_component_v_icon, {
+                                                                                                                color: "info",
+                                                                                                                icon: "mdi-arrow-up-down",
+                                                                                                                size: "20px",
+                                                                                                                class: "drag-btn mr-2"
+                                                                                                            }),
+                                                                                                            (0, _vue.createVNode)(_component_v_spacer),
+                                                                                                            (0, _vue.createVNode)(_component_v_btn, {
+                                                                                                                variant: "flat",
+                                                                                                                class: "text-none text-caption",
+                                                                                                                color: "info",
+                                                                                                                onClick: ($event)=>$setup.removeRichButton($setup.activeMessageIndex, bidx)
+                                                                                                            }, {
+                                                                                                                default: (0, _vue.withCtx)(()=>[
+                                                                                                                        (0, _vue.createTextVNode)(" Remove Button ")
+                                                                                                                    ]),
+                                                                                                                _: 2 /* DYNAMIC */ 
+                                                                                                            }, 1032 /* PROPS, DYNAMIC_SLOTS */ , [
+                                                                                                                "onClick"
+                                                                                                            ])
+                                                                                                        ]),
+                                                                                                    _: 2 /* DYNAMIC */ 
+                                                                                                }, 1024 /* DYNAMIC_SLOTS */ ),
+                                                                                                (0, _vue.createVNode)(_component_v_row, {
+                                                                                                    class: "pa-4"
+                                                                                                }, {
+                                                                                                    default: (0, _vue.withCtx)(()=>[
+                                                                                                            (0, _vue.createVNode)($setup["SingleButton"], {
+                                                                                                                btn: btn
+                                                                                                            }, null, 8 /* PROPS */ , [
+                                                                                                                "btn"
+                                                                                                            ])
+                                                                                                        ]),
+                                                                                                    _: 2 /* DYNAMIC */ 
+                                                                                                }, 1024 /* DYNAMIC_SLOTS */ )
+                                                                                            ]),
+                                                                                        _: 2 /* DYNAMIC */ 
+                                                                                    }, 1024 /* DYNAMIC_SLOTS */ )
+                                                                                ]),
+                                                                            _: 1 /* STABLE */ 
+                                                                        }, 8 /* PROPS */ , [
+                                                                            "modelValue"
+                                                                        ])
+                                                                    ], 64 /* STABLE_FRAGMENT */ )) : (0, _vue.createCommentVNode)("v-if", true)
+                                                                ])
+                                                            ]),
+                                                        _: 1 /* STABLE */ 
+                                                    }),
+                                                    (0, _vue.createCommentVNode)(" JSON TAB "),
+                                                    (0, _vue.createVNode)(_component_v_tabs_window_item, {
+                                                        value: "json"
+                                                    }, {
+                                                        default: (0, _vue.withCtx)(()=>[
+                                                                (0, _vue.createElementVNode)("pre", _hoisted_23, (0, _vue.toDisplayString)($setup.getMessageJSON($setup.activeMessage)), 1 /* TEXT */ )
+                                                            ]),
+                                                        _: 1 /* STABLE */ 
+                                                    })
+                                                ]),
+                                            _: 1 /* STABLE */ 
+                                        }, 8 /* PROPS */ , [
+                                            "modelValue"
+                                        ])
+                                    ], 64 /* STABLE_FRAGMENT */ )) : ((0, _vue.openBlock)(), (0, _vue.createElementBlock)("div", _hoisted_24, [
+                                        (0, _vue.createTextVNode)(" No message selected."),
+                                        _hoisted_25,
+                                        (0, _vue.createTextVNode)(" Click a message preview to view and edit its details. ")
+                                    ]))
                                 ])
-                            ], 64 /* STABLE_FRAGMENT */ )) : (0, _vue.createCommentVNode)("v-if", true)
-                        ]),
-                        (0, _vue.createVNode)(_component_v_row, null, {
-                            default: (0, _vue.withCtx)(()=>[
-                                    (0, _vue.createVNode)(_component_v_col, {
-                                        col: "6"
-                                    }, {
-                                        default: (0, _vue.withCtx)(()=>[
-                                                (0, _vue.createVNode)($setup["ItemPreview"], {
-                                                    item: element
-                                                }, null, 8 /* PROPS */ , [
-                                                    "item"
-                                                ])
-                                            ]),
-                                        _: 2 /* DYNAMIC */ 
-                                    }, 1024 /* DYNAMIC_SLOTS */ ),
-                                    (0, _vue.createVNode)(_component_v_col, {
-                                        col: "6",
-                                        style: {
-                                            "max-width": "50%"
-                                        }
-                                    }, {
-                                        default: (0, _vue.withCtx)(()=>[
-                                                (0, _vue.createElementVNode)("pre", _hoisted_27, (0, _vue.toDisplayString)($setup.getMessageJSON(element)), 1 /* TEXT */ )
-                                            ]),
-                                        _: 2 /* DYNAMIC */ 
-                                    }, 1024 /* DYNAMIC_SLOTS */ )
-                                ]),
-                            _: 2 /* DYNAMIC */ 
-                        }, 1024 /* DYNAMIC_SLOTS */ )
-                    ])
+                            ]),
+                        _: 1 /* STABLE */ 
+                    })
                 ]),
             _: 1 /* STABLE */ 
-        }, 8 /* PROPS */ , [
-            "modelValue"
-        ]),
-        _hoisted_28,
-        (0, _vue.createElementVNode)("textarea", _hoisted_29, (0, _vue.toDisplayString)($setup.getFinalTemplate()), 1 /* TEXT */ )
+        }),
+        (0, _vue.createVNode)(_component_v_row, null, {
+            default: (0, _vue.withCtx)(()=>[
+                    _hoisted_26,
+                    (0, _vue.createElementVNode)("textarea", _hoisted_27, (0, _vue.toDisplayString)($setup.getFinalTemplate()), 1 /* TEXT */ )
+                ]),
+            _: 1 /* STABLE */ 
+        })
     ]);
 }
 if (module.hot) module.hot.accept(()=>{
@@ -28137,14 +28217,11 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "render", ()=>render);
 var _vue = require("vue");
-const _hoisted_1 = /*#__PURE__*/ (0, _vue.createElementVNode)("h1", {
-    class: "mt-4"
-}, "Build Message template", -1 /* HOISTED */ );
-const _hoisted_2 = {
+const _hoisted_1 = {
     class: "form-table",
     role: "presentation"
 };
-const _hoisted_3 = /*#__PURE__*/ (0, _vue.createElementVNode)("th", {
+const _hoisted_2 = /*#__PURE__*/ (0, _vue.createElementVNode)("th", {
     scope: "row"
 }, [
     /*#__PURE__*/ (0, _vue.createElementVNode)("label", {
@@ -28158,12 +28235,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         class: "pa-4"
     }, {
         default: (0, _vue.withCtx)(()=>[
-                _hoisted_1,
                 (0, _vue.createVNode)($setup["Editor"]),
-                (0, _vue.createElementVNode)("table", _hoisted_2, [
+                (0, _vue.createElementVNode)("table", _hoisted_1, [
                     (0, _vue.createElementVNode)("tbody", null, [
                         (0, _vue.createElementVNode)("tr", null, [
-                            _hoisted_3,
+                            _hoisted_2,
                             (0, _vue.createElementVNode)("td", null, [
                                 (0, _vue.createVNode)(_component_v_select, {
                                     items: $setup.messageTypes,
