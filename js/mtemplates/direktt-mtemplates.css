@@ -11,7 +11,7 @@
   position: relative;
 }
 
-.drag-handle[data-v-e85945] {
+.drag-handle[data-v-e85945], .drag-btn[data-v-e85945] {
   cursor: move;
   color: #7090c2;
   vertical-align: middle;

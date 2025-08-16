@@ -27239,69 +27239,109 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "render", ()=>render);
 var _vue = require("vue");
-const _hoisted_1 = [
-    "onUpdate:modelValue",
-    "onChange"
-];
-const _hoisted_2 = [
-    "onUpdate:modelValue",
-    "onInput"
-];
+const _hoisted_1 = /*#__PURE__*/ (0, _vue.createElementVNode)("strong", null, "Return Variables:", -1 /* HOISTED */ );
+const _hoisted_2 = /*#__PURE__*/ (0, _vue.createElementVNode)("strong", null, "Key:", -1 /* HOISTED */ );
+const _hoisted_3 = /*#__PURE__*/ (0, _vue.createElementVNode)("strong", null, "Value:", -1 /* HOISTED */ );
 function render(_ctx, _cache, $props, $setup, $data, $options) {
+    const _component_v_spacer = (0, _vue.resolveComponent)("v-spacer");
     const _component_v_btn = (0, _vue.resolveComponent)("v-btn");
-    return (0, _vue.openBlock)(), (0, _vue.createElementBlock)("div", null, [
-        ((0, _vue.openBlock)(true), (0, _vue.createElementBlock)((0, _vue.Fragment), null, (0, _vue.renderList)($setup.pairs, (pair, idx)=>{
-            return (0, _vue.openBlock)(), (0, _vue.createElementBlock)("div", {
-                key: pair.id,
-                style: {
-                    "display": "flex",
-                    "gap": "8px",
-                    "margin-bottom": "8px"
-                }
-            }, [
-                (0, _vue.withDirectives)((0, _vue.createElementVNode)("input", {
-                    type: "text",
-                    "onUpdate:modelValue": ($event)=>pair.key = $event,
-                    onChange: ($event)=>$setup.onKeyChange(idx),
-                    placeholder: "Key"
-                }, null, 40 /* PROPS, NEED_HYDRATION */ , _hoisted_1), [
-                    [
-                        (0, _vue.vModelText),
-                        pair.key
-                    ]
-                ]),
-                (0, _vue.withDirectives)((0, _vue.createElementVNode)("input", {
-                    type: "text",
-                    "onUpdate:modelValue": ($event)=>pair.value = $event,
-                    onInput: ($event)=>$setup.onValueChange(idx),
-                    placeholder: "Value"
-                }, null, 40 /* PROPS, NEED_HYDRATION */ , _hoisted_2), [
-                    [
-                        (0, _vue.vModelText),
-                        pair.value
-                    ]
-                ]),
+    const _component_v_text_field = (0, _vue.resolveComponent)("v-text-field");
+    const _component_v_col = (0, _vue.resolveComponent)("v-col");
+    const _component_v_row = (0, _vue.resolveComponent)("v-row");
+    const _component_v_card = (0, _vue.resolveComponent)("v-card");
+    return (0, _vue.openBlock)(), (0, _vue.createBlock)(_component_v_card, {
+        width: "100%",
+        class: "pa-4"
+    }, {
+        default: (0, _vue.withCtx)(()=>[
+                _hoisted_1,
+                (0, _vue.createTextVNode)(),
+                (0, _vue.createVNode)(_component_v_spacer),
                 (0, _vue.createVNode)(_component_v_btn, {
-                    onClick: ($event)=>$setup.removePair(idx)
+                    variant: "flat",
+                    class: "text-none text-caption mb-4 mt-4",
+                    color: "info",
+                    onClick: _cache[0] || (_cache[0] = ($event)=>$setup.addPair())
                 }, {
                     default: (0, _vue.withCtx)(()=>[
-                            (0, _vue.createTextVNode)("Remove")
+                            (0, _vue.createTextVNode)(" Add Variable ")
                         ]),
-                    _: 2 /* DYNAMIC */ 
-                }, 1032 /* PROPS, DYNAMIC_SLOTS */ , [
-                    "onClick"
-                ])
-            ]);
-        }), 128 /* KEYED_FRAGMENT */ )),
-        (0, _vue.createVNode)(_component_v_btn, {
-            onClick: $setup.addPair
-        }, {
-            default: (0, _vue.withCtx)(()=>[
-                    (0, _vue.createTextVNode)("Add property")
-                ]),
-            _: 1 /* STABLE */ 
-        })
-    ]);
+                    _: 1 /* STABLE */ 
+                }),
+                ((0, _vue.openBlock)(true), (0, _vue.createElementBlock)((0, _vue.Fragment), null, (0, _vue.renderList)($setup.pairs, (pair, idx)=>{
+                    return (0, _vue.openBlock)(), (0, _vue.createBlock)(_component_v_row, {
+                        key: pair.id
+                    }, {
+                        default: (0, _vue.withCtx)(()=>[
+                                (0, _vue.createVNode)(_component_v_col, {
+                                    cols: "5"
+                                }, {
+                                    default: (0, _vue.withCtx)(()=>[
+                                            (0, _vue.createElementVNode)("div", null, [
+                                                _hoisted_2,
+                                                (0, _vue.createTextVNode)(),
+                                                (0, _vue.createVNode)(_component_v_text_field, {
+                                                    modelValue: pair.key,
+                                                    "onUpdate:modelValue": ($event)=>pair.key = $event,
+                                                    onChange: ($event)=>$setup.onKeyChange(idx),
+                                                    variant: "outlined"
+                                                }, null, 8 /* PROPS */ , [
+                                                    "modelValue",
+                                                    "onUpdate:modelValue",
+                                                    "onChange"
+                                                ])
+                                            ])
+                                        ]),
+                                    _: 2 /* DYNAMIC */ 
+                                }, 1024 /* DYNAMIC_SLOTS */ ),
+                                (0, _vue.createVNode)(_component_v_col, {
+                                    cols: "5"
+                                }, {
+                                    default: (0, _vue.withCtx)(()=>[
+                                            (0, _vue.createElementVNode)("div", null, [
+                                                _hoisted_3,
+                                                (0, _vue.createTextVNode)(),
+                                                (0, _vue.createVNode)(_component_v_text_field, {
+                                                    modelValue: pair.value,
+                                                    "onUpdate:modelValue": ($event)=>pair.value = $event,
+                                                    onChange: ($event)=>$setup.onValueChange(idx),
+                                                    variant: "outlined"
+                                                }, null, 8 /* PROPS */ , [
+                                                    "modelValue",
+                                                    "onUpdate:modelValue",
+                                                    "onChange"
+                                                ])
+                                            ])
+                                        ]),
+                                    _: 2 /* DYNAMIC */ 
+                                }, 1024 /* DYNAMIC_SLOTS */ ),
+                                (0, _vue.createVNode)(_component_v_col, {
+                                    "align-self": "end"
+                                }, {
+                                    default: (0, _vue.withCtx)(()=>[
+                                            (0, _vue.createVNode)(_component_v_btn, {
+                                                variant: "flat",
+                                                class: "text-none text-caption",
+                                                color: "info",
+                                                onClick: ($event)=>$setup.removePair(idx)
+                                            }, {
+                                                default: (0, _vue.withCtx)(()=>[
+                                                        (0, _vue.createTextVNode)(" Remove Variable ")
+                                                    ]),
+                                                _: 2 /* DYNAMIC */ 
+                                            }, 1032 /* PROPS, DYNAMIC_SLOTS */ , [
+                                                "onClick"
+                                            ])
+                                        ]),
+                                    _: 2 /* DYNAMIC */ 
+                                }, 1024 /* DYNAMIC_SLOTS */ )
+                            ]),
+                        _: 2 /* DYNAMIC */ 
+                    }, 1024 /* DYNAMIC_SLOTS */ );
+                }), 128 /* KEYED_FRAGMENT */ ))
+            ]),
+        _: 1 /* STABLE */ 
+    });
 }
 if (module.hot) module.hot.accept(()=>{
     __VUE_HMR_RUNTIME__.rerender("d66d84-hmr", render);
@@ -27319,147 +27359,229 @@ parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "render", ()=>render);
 var _vue = require("vue");
 const _hoisted_1 = {
+    style: {
+        "width": "100%"
+    }
+};
+const _hoisted_2 = {
+    class: "mb-2"
+};
+const _hoisted_3 = /*#__PURE__*/ (0, _vue.createElementVNode)("strong", null, "Button label:", -1 /* HOISTED */ );
+const _hoisted_4 = {
+    class: "mb-2"
+};
+const _hoisted_5 = /*#__PURE__*/ (0, _vue.createElementVNode)("strong", null, "Text above button:", -1 /* HOISTED */ );
+const _hoisted_6 = {
+    class: "mb-4"
+};
+const _hoisted_7 = /*#__PURE__*/ (0, _vue.createElementVNode)("strong", null, "Action Type:", -1 /* HOISTED */ );
+const _hoisted_8 = /*#__PURE__*/ (0, _vue.createElementVNode)("option", {
+    value: "link"
+}, "Link", -1 /* HOISTED */ );
+const _hoisted_9 = /*#__PURE__*/ (0, _vue.createElementVNode)("option", {
+    value: "api"
+}, "Api", -1 /* HOISTED */ );
+const _hoisted_10 = /*#__PURE__*/ (0, _vue.createElementVNode)("option", {
+    value: "chat"
+}, "Chat", -1 /* HOISTED */ );
+const _hoisted_11 = /*#__PURE__*/ (0, _vue.createElementVNode)("option", {
+    value: "profile"
+}, "Profile", -1 /* HOISTED */ );
+const _hoisted_12 = [
+    _hoisted_8,
+    _hoisted_9,
+    _hoisted_10,
+    _hoisted_11
+];
+const _hoisted_13 = {
     key: 0,
     class: "pb-4"
 };
-const _hoisted_2 = /*#__PURE__*/ (0, _vue.createElementVNode)("option", {
+const _hoisted_14 = {
+    class: "mb-2"
+};
+const _hoisted_15 = /*#__PURE__*/ (0, _vue.createElementVNode)("strong", null, "Link Url:", -1 /* HOISTED */ );
+const _hoisted_16 = {
+    class: "mb-4"
+};
+const _hoisted_17 = /*#__PURE__*/ (0, _vue.createElementVNode)("strong", null, "Target:", -1 /* HOISTED */ );
+const _hoisted_18 = /*#__PURE__*/ (0, _vue.createElementVNode)("option", {
     value: "app"
 }, "App", -1 /* HOISTED */ );
-const _hoisted_3 = /*#__PURE__*/ (0, _vue.createElementVNode)("option", {
+const _hoisted_19 = /*#__PURE__*/ (0, _vue.createElementVNode)("option", {
     value: "browser"
 }, "Browser", -1 /* HOISTED */ );
-const _hoisted_4 = [
-    _hoisted_2,
-    _hoisted_3
+const _hoisted_20 = [
+    _hoisted_18,
+    _hoisted_19
 ];
-const _hoisted_5 = {
+const _hoisted_21 = {
+    class: "mb-2"
+};
+const _hoisted_22 = {
+    key: 0,
+    class: "pb-4"
+};
+const _hoisted_23 = {
+    class: "mb-4"
+};
+const _hoisted_24 = /*#__PURE__*/ (0, _vue.createElementVNode)("strong", null, "Api Action Type:", -1 /* HOISTED */ );
+const _hoisted_25 = {
+    class: "mb-2"
+};
+const _hoisted_26 = {
     key: 1,
     class: "pb-4"
 };
-const _hoisted_6 = {
+const _hoisted_27 = {
+    class: "mb-2"
+};
+const _hoisted_28 = /*#__PURE__*/ (0, _vue.createElementVNode)("strong", null, "User Subscription Id:", -1 /* HOISTED */ );
+const _hoisted_29 = {
     key: 2,
     class: "pb-4"
 };
-const _hoisted_7 = {
-    key: 3,
-    class: "pb-4"
+const _hoisted_30 = {
+    class: "mb-2"
 };
+const _hoisted_31 = /*#__PURE__*/ (0, _vue.createElementVNode)("strong", null, "User Subscription Id:", -1 /* HOISTED */ );
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-    const _component_v_textarea = (0, _vue.resolveComponent)("v-textarea");
     const _component_v_text_field = (0, _vue.resolveComponent)("v-text-field");
-    const _component_v_radio = (0, _vue.resolveComponent)("v-radio");
-    const _component_v_radio_group = (0, _vue.resolveComponent)("v-radio-group");
+    const _component_v_textarea = (0, _vue.resolveComponent)("v-textarea");
+    const _component_v_spacer = (0, _vue.resolveComponent)("v-spacer");
     return (0, _vue.openBlock)(), (0, _vue.createElementBlock)((0, _vue.Fragment), null, [
-        (0, _vue.createVNode)(_component_v_textarea, {
-            label: "Text above button",
-            variant: "outlined",
-            modelValue: $setup.props.btn.txt,
-            "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event)=>$setup.props.btn.txt = $event),
-            rows: "2",
-            "no-resize": ""
-        }, null, 8 /* PROPS */ , [
-            "modelValue"
-        ]),
-        (0, _vue.createVNode)(_component_v_text_field, {
-            label: "Button label",
-            modelValue: $setup.props.btn.label,
-            "onUpdate:modelValue": _cache[1] || (_cache[1] = ($event)=>$setup.props.btn.label = $event),
-            variant: "outlined"
-        }, null, 8 /* PROPS */ , [
-            "modelValue"
-        ]),
-        (0, _vue.createVNode)(_component_v_radio_group, {
-            modelValue: $setup.props.btn.action.type,
-            "onUpdate:modelValue": _cache[2] || (_cache[2] = ($event)=>$setup.props.btn.action.type = $event)
-        }, {
-            default: (0, _vue.withCtx)(()=>[
-                    (0, _vue.createVNode)(_component_v_radio, {
-                        label: "Link",
-                        value: "link"
-                    }),
-                    (0, _vue.createVNode)(_component_v_radio, {
-                        label: "Api",
-                        value: "api"
-                    }),
-                    (0, _vue.createVNode)(_component_v_radio, {
-                        label: "Chat",
-                        value: "chat"
-                    }),
-                    (0, _vue.createVNode)(_component_v_radio, {
-                        label: "Profile",
-                        value: "profile"
-                    })
+        (0, _vue.createElementVNode)("div", _hoisted_1, [
+            (0, _vue.createElementVNode)("div", _hoisted_2, [
+                _hoisted_3,
+                (0, _vue.createTextVNode)(),
+                (0, _vue.createVNode)(_component_v_text_field, {
+                    modelValue: $setup.props.btn.label,
+                    "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event)=>$setup.props.btn.label = $event),
+                    variant: "outlined"
+                }, null, 8 /* PROPS */ , [
+                    "modelValue"
+                ])
+            ]),
+            (0, _vue.createElementVNode)("div", _hoisted_4, [
+                _hoisted_5,
+                (0, _vue.createVNode)(_component_v_textarea, {
+                    variant: "outlined",
+                    modelValue: $setup.props.btn.txt,
+                    "onUpdate:modelValue": _cache[1] || (_cache[1] = ($event)=>$setup.props.btn.txt = $event),
+                    rows: "2",
+                    "no-resize": "",
+                    class: "mb-2"
+                }, null, 8 /* PROPS */ , [
+                    "modelValue"
+                ])
+            ]),
+            (0, _vue.createElementVNode)("div", _hoisted_6, [
+                _hoisted_7,
+                (0, _vue.createTextVNode)(),
+                (0, _vue.createVNode)(_component_v_spacer),
+                (0, _vue.withDirectives)((0, _vue.createElementVNode)("select", {
+                    "onUpdate:modelValue": _cache[2] || (_cache[2] = ($event)=>$setup.props.btn.action.type = $event),
+                    style: {
+                        "border-style": "solid",
+                        "border-color": "#666",
+                        "width": "200px"
+                    }
+                }, [
+                    ..._hoisted_12
+                ], 512 /* NEED_PATCH */ ), [
+                    [
+                        (0, _vue.vModelSelect),
+                        $setup.props.btn.action.type
+                    ]
+                ])
+            ]),
+            $setup.props.btn.action.type == "link" ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)("div", _hoisted_13, [
+                (0, _vue.createElementVNode)("div", _hoisted_14, [
+                    _hoisted_15,
+                    (0, _vue.createTextVNode)(),
+                    (0, _vue.createVNode)(_component_v_text_field, {
+                        modelValue: $props.btn.action.params.url,
+                        "onUpdate:modelValue": _cache[3] || (_cache[3] = ($event)=>$props.btn.action.params.url = $event),
+                        variant: "outlined"
+                    }, null, 8 /* PROPS */ , [
+                        "modelValue"
+                    ])
                 ]),
-            _: 1 /* STABLE */ 
-        }, 8 /* PROPS */ , [
-            "modelValue"
+                (0, _vue.createElementVNode)("div", _hoisted_16, [
+                    _hoisted_17,
+                    (0, _vue.createTextVNode)(),
+                    (0, _vue.createVNode)(_component_v_spacer),
+                    (0, _vue.withDirectives)((0, _vue.createElementVNode)("select", {
+                        "onUpdate:modelValue": _cache[4] || (_cache[4] = ($event)=>$props.btn.action.params.target = $event),
+                        style: {
+                            "border-style": "solid",
+                            "border-color": "#666",
+                            "width": "200px"
+                        }
+                    }, [
+                        ..._hoisted_20
+                    ], 512 /* NEED_PATCH */ ), [
+                        [
+                            (0, _vue.vModelSelect),
+                            $props.btn.action.params.target
+                        ]
+                    ])
+                ]),
+                (0, _vue.createElementVNode)("div", _hoisted_21, [
+                    (0, _vue.createVNode)($setup["RetVars"], {
+                        obj: $props.btn.action.retVars,
+                        "onUpdate:obj": $setup.onUpdateObj
+                    }, null, 8 /* PROPS */ , [
+                        "obj"
+                    ])
+                ])
+            ])) : (0, _vue.createCommentVNode)("v-if", true)
         ]),
-        $setup.props.btn.action.type == "link" ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)("div", _hoisted_1, [
-            (0, _vue.createVNode)(_component_v_text_field, {
-                label: "Link Url",
-                modelValue: $props.btn.action.params.url,
-                "onUpdate:modelValue": _cache[3] || (_cache[3] = ($event)=>$props.btn.action.params.url = $event),
-                variant: "outlined"
-            }, null, 8 /* PROPS */ , [
-                "modelValue"
+        $setup.props.btn.action.type == "api" ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)("div", _hoisted_22, [
+            (0, _vue.createElementVNode)("div", _hoisted_23, [
+                _hoisted_24,
+                (0, _vue.createTextVNode)(),
+                (0, _vue.createVNode)(_component_v_text_field, {
+                    modelValue: $props.btn.action.params.actionType,
+                    "onUpdate:modelValue": _cache[5] || (_cache[5] = ($event)=>$props.btn.action.params.actionType = $event),
+                    variant: "outlined"
+                }, null, 8 /* PROPS */ , [
+                    "modelValue"
+                ])
             ]),
-            (0, _vue.createTextVNode)(" Target: "),
-            (0, _vue.withDirectives)((0, _vue.createElementVNode)("select", {
-                "onUpdate:modelValue": _cache[4] || (_cache[4] = ($event)=>$props.btn.action.params.target = $event),
-                style: {
-                    "border-style": "solid",
-                    "border-color": "#666",
-                    "width": "200px"
-                }
-            }, [
-                ..._hoisted_4
-            ], 512 /* NEED_PATCH */ ), [
-                [
-                    (0, _vue.vModelSelect),
-                    $props.btn.action.params.target
-                ]
-            ]),
-            (0, _vue.createVNode)($setup["RetVars"], {
-                obj: $props.btn.action.retVars,
-                "onUpdate:obj": $setup.onUpdateObj
-            }, null, 8 /* PROPS */ , [
-                "obj"
+            (0, _vue.createElementVNode)("div", _hoisted_25, [
+                (0, _vue.createVNode)($setup["RetVars"], {
+                    obj: $props.btn.action.retVars,
+                    "onUpdate:obj": $setup.onUpdateObj
+                }, null, 8 /* PROPS */ , [
+                    "obj"
+                ])
             ])
         ])) : (0, _vue.createCommentVNode)("v-if", true),
-        $setup.props.btn.action.type == "api" ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)("div", _hoisted_5, [
-            (0, _vue.createVNode)(_component_v_text_field, {
-                label: "Api Action Type",
-                modelValue: $props.btn.action.params.actionType,
-                "onUpdate:modelValue": _cache[5] || (_cache[5] = ($event)=>$props.btn.action.params.actionType = $event),
-                variant: "outlined"
-            }, null, 8 /* PROPS */ , [
-                "modelValue"
-            ]),
-            (0, _vue.createVNode)($setup["RetVars"], {
-                obj: $props.btn.action.retVars,
-                "onUpdate:obj": $setup.onUpdateObj
-            }, null, 8 /* PROPS */ , [
-                "obj"
+        $setup.props.btn.action.type == "chat" ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)("div", _hoisted_26, [
+            (0, _vue.createElementVNode)("div", _hoisted_27, [
+                _hoisted_28,
+                (0, _vue.createTextVNode)(),
+                (0, _vue.createVNode)(_component_v_text_field, {
+                    modelValue: $props.btn.action.params.subscriptionId,
+                    "onUpdate:modelValue": _cache[6] || (_cache[6] = ($event)=>$props.btn.action.params.subscriptionId = $event),
+                    variant: "outlined"
+                }, null, 8 /* PROPS */ , [
+                    "modelValue"
+                ])
             ])
         ])) : (0, _vue.createCommentVNode)("v-if", true),
-        $setup.props.btn.action.type == "chat" ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)("div", _hoisted_6, [
-            (0, _vue.createVNode)(_component_v_text_field, {
-                label: "User Subscription Id",
-                modelValue: $props.btn.action.params.subscriptionId,
-                "onUpdate:modelValue": _cache[6] || (_cache[6] = ($event)=>$props.btn.action.params.subscriptionId = $event),
-                variant: "outlined"
-            }, null, 8 /* PROPS */ , [
-                "modelValue"
-            ])
-        ])) : (0, _vue.createCommentVNode)("v-if", true),
-        $setup.props.btn.action.type == "profile" ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)("div", _hoisted_7, [
-            (0, _vue.createVNode)(_component_v_text_field, {
-                label: "User Subscription Id",
-                modelValue: $props.btn.action.params.subscriptionId,
-                "onUpdate:modelValue": _cache[7] || (_cache[7] = ($event)=>$props.btn.action.params.subscriptionId = $event),
-                variant: "outlined"
-            }, null, 8 /* PROPS */ , [
-                "modelValue"
+        $setup.props.btn.action.type == "profile" ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)("div", _hoisted_29, [
+            (0, _vue.createElementVNode)("div", _hoisted_30, [
+                _hoisted_31,
+                (0, _vue.createTextVNode)(),
+                (0, _vue.createVNode)(_component_v_text_field, {
+                    modelValue: $props.btn.action.params.subscriptionId,
+                    "onUpdate:modelValue": _cache[7] || (_cache[7] = ($event)=>$props.btn.action.params.subscriptionId = $event),
+                    variant: "outlined"
+                }, null, 8 /* PROPS */ , [
+                    "modelValue"
+                ])
             ])
         ])) : (0, _vue.createCommentVNode)("v-if", true)
     ], 64 /* STABLE_FRAGMENT */ );
@@ -27648,7 +27770,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             "onUpdate:modelValue": _cache[5] || (_cache[5] = ($event)=>$setup.messages = $event),
             handle: ".drag-handle",
             class: "msg-list",
-            "item-key": "id"
+            "item-key": "id",
+            animation: 300
         }, {
             item: (0, _vue.withCtx)(({ element, index })=>[
                     (0, _vue.createElementVNode)("div", _hoisted_2, [
@@ -27896,46 +28019,68 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
                                     }, 1032 /* PROPS, DYNAMIC_SLOTS */ , [
                                         "onClick"
                                     ]),
-                                    ((0, _vue.openBlock)(true), (0, _vue.createElementBlock)((0, _vue.Fragment), null, (0, _vue.renderList)($setup.getRichButtons(element), (btn, bidx)=>{
-                                        return (0, _vue.openBlock)(), (0, _vue.createElementBlock)("div", {
-                                            key: bidx,
-                                            class: "rich-btn-editor mb-4"
-                                        }, [
-                                            (0, _vue.createVNode)(_component_v_card, {
-                                                width: "100%",
-                                                class: "pt-4 pl-4 pr-4"
-                                            }, {
-                                                default: (0, _vue.withCtx)(()=>[
-                                                        (0, _vue.createVNode)(_component_v_row, {
-                                                            class: "pa-4"
-                                                        }, {
-                                                            default: (0, _vue.withCtx)(()=>[
-                                                                    (0, _vue.createVNode)($setup["SingleButton"], {
-                                                                        btn: btn
-                                                                    }, null, 8 /* PROPS */ , [
-                                                                        "btn"
+                                    (0, _vue.createVNode)($setup["draggable"], {
+                                        modelValue: element.content.msgObj,
+                                        "onUpdate:modelValue": ($event)=>element.content.msgObj = $event,
+                                        handle: ".drag-btn",
+                                        group: "rich-buttons",
+                                        "item-key": "key",
+                                        animation: 300
+                                    }, {
+                                        item: (0, _vue.withCtx)(({ element: btn, index: bidx })=>[
+                                                (0, _vue.createVNode)(_component_v_card, {
+                                                    width: "100%",
+                                                    class: "pt-4 pl-4 pr-4 mb-4"
+                                                }, {
+                                                    default: (0, _vue.withCtx)(()=>[
+                                                            (0, _vue.createVNode)(_component_v_row, {
+                                                                class: "pt-4 pl-4 pr-4"
+                                                            }, {
+                                                                default: (0, _vue.withCtx)(()=>[
+                                                                        (0, _vue.createVNode)(_component_v_icon, {
+                                                                            color: "info",
+                                                                            icon: "mdi-arrow-up-down",
+                                                                            size: "20px",
+                                                                            class: "drag-btn mr-2"
+                                                                        }),
+                                                                        (0, _vue.createVNode)(_component_v_spacer),
+                                                                        (0, _vue.createVNode)(_component_v_btn, {
+                                                                            variant: "flat",
+                                                                            class: "text-none text-caption",
+                                                                            color: "info",
+                                                                            onClick: ($event)=>$setup.removeRichButton(index, bidx)
+                                                                        }, {
+                                                                            default: (0, _vue.withCtx)(()=>[
+                                                                                    (0, _vue.createTextVNode)(" Remove Button ")
+                                                                                ]),
+                                                                            _: 2 /* DYNAMIC */ 
+                                                                        }, 1032 /* PROPS, DYNAMIC_SLOTS */ , [
+                                                                            "onClick"
+                                                                        ])
                                                                     ]),
-                                                                    (0, _vue.createVNode)(_component_v_btn, {
-                                                                        variant: "flat",
-                                                                        class: "text-none text-caption",
-                                                                        color: "info",
-                                                                        onClick: ($event)=>$setup.removeRichButton(index, bidx)
-                                                                    }, {
-                                                                        default: (0, _vue.withCtx)(()=>[
-                                                                                (0, _vue.createTextVNode)(" Remove Button ")
-                                                                            ]),
-                                                                        _: 2 /* DYNAMIC */ 
-                                                                    }, 1032 /* PROPS, DYNAMIC_SLOTS */ , [
-                                                                        "onClick"
-                                                                    ])
-                                                                ]),
-                                                            _: 2 /* DYNAMIC */ 
-                                                        }, 1024 /* DYNAMIC_SLOTS */ )
-                                                    ]),
-                                                _: 2 /* DYNAMIC */ 
-                                            }, 1024 /* DYNAMIC_SLOTS */ )
-                                        ]);
-                                    }), 128 /* KEYED_FRAGMENT */ ))
+                                                                _: 2 /* DYNAMIC */ 
+                                                            }, 1024 /* DYNAMIC_SLOTS */ ),
+                                                            (0, _vue.createVNode)(_component_v_row, {
+                                                                class: "pa-4"
+                                                            }, {
+                                                                default: (0, _vue.withCtx)(()=>[
+                                                                        (0, _vue.createVNode)($setup["SingleButton"], {
+                                                                            btn: btn
+                                                                        }, null, 8 /* PROPS */ , [
+                                                                            "btn"
+                                                                        ])
+                                                                    ]),
+                                                                _: 2 /* DYNAMIC */ 
+                                                            }, 1024 /* DYNAMIC_SLOTS */ )
+                                                        ]),
+                                                    _: 2 /* DYNAMIC */ 
+                                                }, 1024 /* DYNAMIC_SLOTS */ )
+                                            ]),
+                                        _: 2 /* DYNAMIC */ 
+                                    }, 1032 /* PROPS, DYNAMIC_SLOTS */ , [
+                                        "modelValue",
+                                        "onUpdate:modelValue"
+                                    ])
                                 ])
                             ], 64 /* STABLE_FRAGMENT */ )) : (0, _vue.createCommentVNode)("v-if", true)
                         ]),

@@ -295,7 +295,7 @@ function openMediaPickerFile(index) {
       </v-btn>
     </div>
 
-    <draggable v-model="messages" handle=".drag-handle" class="msg-list" item-key="id">
+    <draggable v-model="messages" handle=".drag-handle" class="msg-list" item-key="id" :animation="300">
       <template #item="{ element, index }">
         <div class="msg-block">
           <v-row class="pa-4" align="center">
@@ -366,17 +366,29 @@ function openMediaPickerFile(index) {
                 <v-btn variant="flat" class="text-none text-caption mb-4" color="info" @click="addRichButton(index)">
                   Add Button
                 </v-btn>
-                <div v-for="(btn, bidx) in getRichButtons(element)" :key="bidx" class="rich-btn-editor mb-4">
-                  <v-card width="100%" class="pt-4 pl-4 pr-4">
-                    <v-row class="pa-4">
-                      <SingleButton :btn="btn"></SingleButton>
-                      <v-btn variant="flat" class="text-none text-caption" color="info"
-                        @click="removeRichButton(index, bidx)">
-                        Remove Button
-                      </v-btn>
-                    </v-row>
-                  </v-card>
-                </div>
+
+                <draggable v-model="element.content.msgObj" handle=".drag-btn" group="rich-buttons" item-key="key"
+                  :animation="300">
+
+                  <template #item="{ element: btn, index: bidx }">
+
+                    <v-card width="100%" class="pt-4 pl-4 pr-4 mb-4">
+                      <v-row class="pt-4 pl-4 pr-4">
+                        <v-icon color="info" icon="mdi-arrow-up-down" size="20px" class="drag-btn mr-2"></v-icon>
+                        <v-spacer></v-spacer>
+                        <v-btn variant="flat" class="text-none text-caption" color="info"
+                            @click="removeRichButton(index, bidx)">
+                            Remove Button
+                          </v-btn>
+                      </v-row>
+                      <v-row class="pa-4">
+                          <SingleButton :btn="btn"></SingleButton>
+                      </v-row>
+                    </v-card>
+                  </template>
+
+                </draggable>
+
               </div>
             </template>
           </div>
@@ -414,7 +426,8 @@ function openMediaPickerFile(index) {
   position: relative;
 }
 
-.drag-handle {
+.drag-handle,
+.drag-btn {
   cursor: move;
   margin-right: 0.4em;
   color: #7090c2;

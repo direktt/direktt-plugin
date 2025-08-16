@@ -85,26 +85,25 @@ function removePair(idx) {
 </script>
 
 <template>
-  <div>
-    <div
-      v-for="(pair, idx) in pairs"
-      :key="pair.id"
-      style="display: flex; gap: 8px; margin-bottom: 8px;"
-    >
-      <input
-        type="text"
-        v-model="pair.key"
-        @change="onKeyChange(idx)"
-        placeholder="Key"
-      />
-      <input
-        type="text"
-        v-model="pair.value"
-        @input="onValueChange(idx)"
-        placeholder="Value"
-      />
-      <v-btn @click="removePair(idx)">Remove</v-btn>
-    </div>
-    <v-btn @click="addPair">Add property</v-btn>
-  </div>
+  <v-card width="100%" class="pa-4">
+    <strong>Return Variables:</strong> <v-spacer></v-spacer>
+    <v-btn variant="flat" class="text-none text-caption mb-4 mt-4" color="info" @click="addPair()">
+      Add Variable
+    </v-btn>
+    <v-row v-for="(pair, idx) in pairs" :key="pair.id">
+      <v-col cols="5">
+        <div><strong>Key:</strong> <v-text-field v-model="pair.key" @change="onKeyChange(idx)"
+            variant="outlined"></v-text-field></div>
+      </v-col>
+      <v-col cols="5">
+        <div><strong>Value:</strong> <v-text-field v-model="pair.value" @change="onValueChange(idx)"
+            variant="outlined"></v-text-field></div>
+      </v-col>
+      <v-col align-self="end">
+        <v-btn variant="flat" class="text-none text-caption" color="info" @click="removePair(idx)">
+          Remove Variable
+        </v-btn>
+      </v-col>
+    </v-row>
+  </v-card>
 </template>
