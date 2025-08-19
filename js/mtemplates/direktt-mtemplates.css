@@ -1,61 +1,3 @@
-.preview-item[data-v-e85945] {
-  cursor: pointer;
-  background: #f6f7fa;
-  border: 1px solid #ccf;
-  margin-bottom: 6px;
-  padding: 10px 8px;
-  transition: box-shadow .2s, background .2s;
-}
-
-.preview-item.active[data-v-e85945] {
-  background: #dff2fd;
-  border-color: #42a5f5;
-  box-shadow: 0 0 2px 1px #42a5f577;
-}
-
-.details-panel[data-v-e85945] {
-  flex: 1;
-  min-width: 0;
-}
-
-.direktt-message-template-builder[data-v-e85945] {
-  margin: 0 auto;
-  font-family: Arial, sans-serif;
-}
-
-.msg-block[data-v-e85945] {
-  background: #f6f7fa;
-  border: 1px solid #ccf;
-  margin: 1em 0;
-  padding: .7em;
-  position: relative;
-}
-
-.drag-handle[data-v-e85945], .drag-btn[data-v-e85945] {
-  cursor: move;
-  color: #7090c2;
-  vertical-align: middle;
-  margin-right: .4em;
-  font-size: 1.2em;
-}
-
-.msg-block-inner[data-v-e85945] {
-  margin: .5em 0;
-}
-
-.msg-list[data-v-e85945] {
-  margin: .5em 0 2em;
-}
-
-button[data-v-e85945] {
-  margin-bottom: 5px;
-  margin-right: 10px;
-}
-
-.msg-preview[data-v-e85945] {
-  background: #eef5ff;
-}
-
 .v-application {
   background: rgb(var(--v-theme-background));
   color: rgba(var(--v-theme-on-background), var(--v-high-emphasis-opacity));
@@ -59923,5 +59865,63 @@ html.overflow-y-hidden {
   100% {
     transform: rotate(359deg);
   }
+}
+
+.preview-item[data-v-e85945] {
+  cursor: pointer;
+  background: #f6f7fa;
+  border: 1px solid #ccf;
+  margin-bottom: 6px;
+  padding: 10px 8px;
+  transition: box-shadow .2s, background .2s;
+}
+
+.preview-item.active[data-v-e85945] {
+  background: #dff2fd;
+  border-color: #42a5f5;
+  box-shadow: 0 0 2px 1px #42a5f577;
+}
+
+.details-panel[data-v-e85945] {
+  flex: 1;
+  min-width: 0;
+}
+
+.direktt-message-template-builder[data-v-e85945] {
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
+}
+
+.msg-block[data-v-e85945] {
+  background: #f6f7fa;
+  border: 1px solid #ccf;
+  margin: 1em 0;
+  padding: .7em;
+  position: relative;
+}
+
+.drag-handle[data-v-e85945], .drag-btn[data-v-e85945] {
+  cursor: move;
+  color: #7090c2;
+  vertical-align: middle;
+  margin-right: .4em;
+  font-size: 1.2em;
+}
+
+.msg-block-inner[data-v-e85945] {
+  margin: .5em 0;
+}
+
+.msg-list[data-v-e85945] {
+  margin: .5em 0 2em;
+}
+
+button[data-v-e85945] {
+  margin-bottom: 5px;
+  margin-right: 10px;
+}
+
+.msg-preview[data-v-e85945] {
+  background: #eef5ff;
 }
 /*# sourceMappingURL=direktt-mtemplates.css.map */

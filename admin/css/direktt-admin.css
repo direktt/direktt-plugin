@@ -1,7 +1,3 @@
-.v-text-field .v-input__details {
-  display:none;
-}
-
 .v-textarea.v-text-field .v-field {
     background-color: #fff;
 }
@@ -291,25 +287,25 @@
   font-size: var(--direktt-body-font-size-small);
   color: var(--direktt-item-date-font-color);
 }
-#app .scroller .infiniteScroll .itemWrapper.repliedTo .item {
+#appBuilder .scroller .infiniteScroll .itemWrapper.repliedTo .item {
   filter: brightness(90%);
 }
-#app .scroller .infiniteScroll .itemWrapper.owner, #app .scroller .infiniteScroll .itemWrapper.api {
+#appBuilder .scroller .infiniteScroll .itemWrapper.owner, #appBuilder .scroller .infiniteScroll .itemWrapper.api {
   justify-content: flex-end;
 }
-#app .scroller .infiniteScroll .itemWrapper.owner:has(.postItem), #app .scroller .infiniteScroll .itemWrapper.api:has(.postItem) {
+#appBuilder .scroller .infiniteScroll .itemWrapper.owner:has(.postItem), #appBuilder .scroller .infiniteScroll .itemWrapper.api:has(.postItem) {
   margin-right: calc(-1 * var( --direktt-item-postItem-width));
 }
-#app .scroller .infiniteScroll .itemWrapper:not(.owner):not(.api):has(.preItem) {
+#appBuilder .scroller .infiniteScroll .itemWrapper:not(.owner):not(.api):has(.preItem) {
   margin-left: calc(-1 * var( --direktt-item-preItem-width));
 }
-#app .scroller .infiniteScroll .itemWrapper:not(.owner):not(.api) .postItem:before {
+#appBuilder .scroller .infiniteScroll .itemWrapper:not(.owner):not(.api) .postItem:before {
   display: none;
 }
-#app .scroller .infiniteScroll .itemWrapper.owner .item {
+#appBuilder .scroller .infiniteScroll .itemWrapper.owner .item {
   background-color: var(--direktt-item-owner-background-color);
 }
-#app .scroller .infiniteScroll .itemWrapper.api .item {
+#appBuilder .scroller .infiniteScroll .itemWrapper.api .item {
   background-color: var(--direktt-item-api-background-color);
 }
 .ItemPreview.messageStatus {
@@ -329,33 +325,33 @@
   height: 1.25em;
   background-color: var(--direktt-item-seen-background-color);
 }
-#app .scroller .infiniteScroll .itemWrapper.notSeen .messageStatus:before {
+#appBuilder .scroller .infiniteScroll .itemWrapper.notSeen .messageStatus:before {
   background-color: var(--direktt-item-not-seen-background-color);
 }
-#app .scroller .infiniteScroll .itemWrapper:last-of-type {
+#appBuilder .scroller .infiniteScroll .itemWrapper:last-of-type {
   margin-bottom: var(--direktt-infiniteScroll-normal-gap);
 }
-#app .scroller .infiniteScroll .itemWrapper:not(.owner):not(.api) + .itemWrapper.owner,
-#app .scroller .infiniteScroll .itemWrapper:not(.owner):not(.api) + .itemWrapper.api {
+#appBuilder .scroller .infiniteScroll .itemWrapper:not(.owner):not(.api) + .itemWrapper.owner,
+#appBuilder .scroller .infiniteScroll .itemWrapper:not(.owner):not(.api) + .itemWrapper.api {
   margin-top: var(--direktt-infiniteScroll-large-gap);
 }
-#app .scroller .infiniteScroll .dateSeparator + .itemWrapper.owner .item,
-#app .scroller .infiniteScroll .dateSeparator + .itemWrapper.api .item,
-#app .scroller .infiniteScroll .itemWrapper:not(.owner):not(.api) + .itemWrapper.owner .item,
-#app .scroller .infiniteScroll .itemWrapper:not(.owner):not(.api) + .itemWrapper.api .item {
+#appBuilder .scroller .infiniteScroll .dateSeparator + .itemWrapper.owner .item,
+#appBuilder .scroller .infiniteScroll .dateSeparator + .itemWrapper.api .item,
+#appBuilder .scroller .infiniteScroll .itemWrapper:not(.owner):not(.api) + .itemWrapper.owner .item,
+#appBuilder .scroller .infiniteScroll .itemWrapper:not(.owner):not(.api) + .itemWrapper.api .item {
   border-top-right-radius: 0;
 }
-#app .scroller .infiniteScroll .itemWrapper.owner + .itemWrapper:not(.owner):not(.api),
-#app .scroller .infiniteScroll .itemWrapper.api + .itemWrapper:not(.owner):not(.api) {
+#appBuilder .scroller .infiniteScroll .itemWrapper.owner + .itemWrapper:not(.owner):not(.api),
+#appBuilder .scroller .infiniteScroll .itemWrapper.api + .itemWrapper:not(.owner):not(.api) {
   margin-top: var(--direktt-infiniteScroll-large-gap);
 }
-#app .scroller .infiniteScroll .dateSeparator + .itemWrapper:not(.owner):not(.api) .item,
-#app .scroller .infiniteScroll .dateSeparator + .itemWrapper:not(.owner):not(.api) .item,
-#app .scroller .infiniteScroll .itemWrapper.owner + .itemWrapper:not(.owner):not(.api) .item,
-#app .scroller .infiniteScroll .itemWrapper.api + .itemWrapper:not(.owner):not(.api) .item {
+#appBuilder .scroller .infiniteScroll .dateSeparator + .itemWrapper:not(.owner):not(.api) .item,
+#appBuilder .scroller .infiniteScroll .dateSeparator + .itemWrapper:not(.owner):not(.api) .item,
+#appBuilder .scroller .infiniteScroll .itemWrapper.owner + .itemWrapper:not(.owner):not(.api) .item,
+#appBuilder .scroller .infiniteScroll .itemWrapper.api + .itemWrapper:not(.owner):not(.api) .item {
   border-top-left-radius: 0;
 }
-#app .scroller .infiniteScroll .infiniteScroll__loading {
+#appBuilder .scroller .infiniteScroll .infiniteScroll__loading {
   /* TODO: Camel case nazivi klasa */
   /* TODO: napraviti primer ove situacije */
   height: 50px;
@@ -368,11 +364,11 @@
   z-index: 100;
   background-color: rgba(200, 0, 0, 0.3);
 }
-#app .scroller .infiniteScroll .infiniteScroll__loading p {
+#appBuilder .scroller .infiniteScroll .infiniteScroll__loading p {
   margin-left: auto;
   margin-right: auto;
 }
-#app .bottomButton {
+#appBuilder .bottomButton {
   padding: 0;
   position: absolute;
   right: 20px;
@@ -386,10 +382,10 @@
   transform: translateY(0px);
   transition: transform 200ms ease-out;
 }
-#app .bottomButton.notVisible {
+#appBuilder .bottomButton.notVisible {
   transform: translateY(100px);
 }
-#app .bottomButton .bottomIcon {
+#appBuilder .bottomButton .bottomIcon {
   background-color: var(--direktt-bottom-button-icon-font-color);
   padding: 10px;
   font-size: 1em;
@@ -401,7 +397,7 @@
   mask-repeat: no-repeat;
   mask-position: center;
 }
-#app .bottomButton .numberOfNew {
+#appBuilder .bottomButton .numberOfNew {
   position: absolute;
   top: -5px;
   left: -5px;
@@ -417,19 +413,19 @@
   transform: scale(1);
   transition: transform 200ms ease-out;
 }
-#app .bottomButton .numberOfNew.notVisible {
+#appBuilder .bottomButton .numberOfNew.notVisible {
   transform: scale(0);
 }
-#app:has(.replyWindow) .bottomButton {
+#appBuilder:has(.replyWindow) .bottomButton {
   bottom: 60px;
 }
-#app .replyWindow {
+#appBuilder .replyWindow {
   position: fixed;
   background-color: var(--direktt-item-owner-background-color);
   bottom: 0;
   width: 100%;
 }
-#app .replyWindow .closeButton {
+#appBuilder .replyWindow .closeButton {
   position: absolute;
   right: 0.5em;
   top: 0.5em;
@@ -441,7 +437,7 @@
   line-height: 1;
   background: transparent;
 }
-#app .replyWindow .closeButton:before {
+#appBuilder .replyWindow .closeButton:before {
   content: " ";
   display: block;
   float: left;
@@ -452,7 +448,7 @@
   height: 1.5em;
   background-color: var(--direktt-item-postItem-icon-background-color);
 }
-#app .reply:before, #app .replyWindow:before {
+#appBuilder .reply:before, #appBuilder .replyWindow:before {
   content: " ";
   display: block;
   float: left;
@@ -466,7 +462,7 @@
   margin-left: 0.5em;
   background-color: var(--direktt-item-postItem-icon-background-color);
 }
-#app .reply img, #app .replyWindow img {
+#appBuilder .reply img, #appBuilder .replyWindow img {
   width: var(--direktt-item-reply-image-width);
   height: var(--direktt-item-reply-image-height);
   float: left;
@@ -474,26 +470,30 @@
   display: block;
   object-fit: cover;
 }
-#app .reply .replyQuoteAuthor, #app .replyWindow .replyQuoteAuthor {
+#appBuilder .reply .replyQuoteAuthor, #appBuilder .replyWindow .replyQuoteAuthor {
   font-weight: bold;
   font-size: var(--direktt-body-font-size-small);
   margin-top: 0.5em;
   margin-bottom: 0.25em;
 }
-#app .reply blockquote, #app .replyWindow blockquote {
+#appBuilder .reply blockquote, #appBuilder .replyWindow blockquote {
   font-size: var(--direktt-body-font-size-small);
   margin: 0;
   padding: 0;
   padding-bottom: 0.5em;
   font-style: italic;
 }
-#app .panel {
+#appBuilder .panel {
   position: absolute;
   right: 10px;
   bottom: 10px;
   background-color: azure;
   padding: 5px;
   display: none;
+}
+
+.v-text-field .v-input__details, .v-checkbox .v-input__details, .v-radio-group .v-input__details {
+  display:none;
 }
 
 .direktt-message-template-builder .bg-primary{
@@ -519,10 +519,18 @@
   width:100%;
 }
 
-select {
+select, textarea {
   border-style: solid; 
   border-color: rgb(102, 102, 102); 
-  width: 200px;
+}
+
+.sendMessageCard{
+  background: #f6f7fa;
+  border: 1px solid #ccf;
+}
+
+.text-caption label {
+  font-size: 12px !important;
 }
 
 /*# sourceMappingURL=style.css.map */

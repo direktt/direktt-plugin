@@ -24,20 +24,7 @@ const messageTypes = [
 <template>
 
   <v-card class="pa-4">
-
     <Editor></Editor>
-
-    <table class="form-table" role="presentation">
-      <tbody>
-        <tr>
-          <th scope="row"><label for="blogname">Message Type</label></th>
-          <td>
-            <v-select :items="messageTypes" v-model="selected_template" label="Select Message Type" width="500"
-              return-object></v-select>
-          </td>
-        </tr>
-      </tbody>
-    </table>
   </v-card>
 
 

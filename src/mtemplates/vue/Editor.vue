@@ -17,6 +17,8 @@ import SingleButton from "./SingleButton.vue";
 const messages = ref([]);
 const activeMessageIndex = ref(0);
 
+let externalInputField = null
+
 function addMessage(type) {
   const newMsg = { id: uuidv4(), type };
   if (type === "text") {
@@ -171,9 +173,8 @@ function keepOnlyProperties(obj, propertiesToKeep) {
   });
 }
 
-function getMessageJSON(msg) {
-  // returns pretty-printed JSON for the UI
-  let base = JSON.parse(JSON.stringify(msg));
+const getMessageJSON = computed(() => {
+  let base = JSON.parse(JSON.stringify(activeMessage.value));
   delete base.id;
   // Patch rich content as JSON
 
@@ -198,12 +199,12 @@ function getMessageJSON(msg) {
   }
 
   return JSON.stringify(base, null, 2);
-}
+})
 
-function getFinalTemplate() {
-  // Returns JSON for all messages (array). This is what should be sent/saved.
+const getFinalTemplate = computed(() => {
+
   return JSON.stringify(
-    this.messages.map((msg) => {
+    messages.value.map((msg) => {
 
       let base = JSON.parse(JSON.stringify(msg));
 
@@ -235,7 +236,11 @@ function getFinalTemplate() {
     null,
     2
   );
-}
+})
+
+watch(getFinalTemplate, (newVal, oldVal) => {
+  if (externalInputField) externalInputField.value = newVal
+})
 
 function openMediaPicker(index) {
   if (!window.wp || !window.wp.media) {
@@ -320,6 +325,19 @@ function openMediaPickerFile(index) {
 
   frame.open()
 }
+
+onMounted(() => {
+  externalInputField = document.getElementById('direktt_mt_json')
+
+  console.log(externalInputField.value)
+
+  if (externalInputField) messages.value = JSON.parse(externalInputField.value)
+
+  //if (externalInputField) externalInputField.value = formatted.value
+
+  // Sync INCOMING change: Optionally, listen to manual changes of external field
+  //externalInputField?.addEventListener('input', handleExternalInput)
+})
 
 </script>
 
@@ -454,7 +472,7 @@ function openMediaPickerFile(index) {
               <!-- JSON TAB -->
               <v-tabs-window-item value="json">
                 <pre class="msg-preview pa-4" style="width: 100%; max-width: 100%; overflow-x: auto;">{{
-                  getMessageJSON(activeMessage) }}</pre>
+                  getMessageJSON }}</pre>
               </v-tabs-window-item>
             </v-tabs-window>
 
@@ -468,11 +486,6 @@ function openMediaPickerFile(index) {
         </div>
 
       </v-col>
-    </v-row>
-
-    <v-row>
-      <h3>Message Template JSON</h3>
-      <textarea readonly rows="12" style="width:100%">{{ getFinalTemplate() }}</textarea>
     </v-row>
 
   </div>

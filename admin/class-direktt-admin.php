@@ -330,7 +330,7 @@ class Direktt_Admin
 
 		// CPT direktusers
 
-		if ($suffix == 'post.php') {
+		if ($suffix == 'post.php' || $suffix == 'post-new.php') {
 			global $post;
 
 			if ('direkttusers' === $post->post_type) {
@@ -830,7 +830,7 @@ class Direktt_Admin
 	{
 		add_meta_box(
 			'direkttMTJson_textarea',           // ID
-			__('Message JSON Content', 'direktt'),                       // Title
+			__('Message Template Builder', 'direktt'),                       // Title
 			[$this, 'direkttmtemplates_render_textarea'],    // Callback function
 			'direkttmtemplates',                    // CPT slug
 			'normal',                        // Context
@@ -842,23 +842,33 @@ class Direktt_Admin
 	{
 		$value = get_post_meta($post->ID, 'direkttMTJson', true);
 
-		echo '<textarea style="width:100%" rows="10" name="direktt_mt_json">' . esc_textarea($value) . '</textarea>';
+		if( !$value || $value == ""){
+			$value = "[]";
+		}
 
 		// Get stored value or default
 		$dropdown_value = get_post_meta($post->ID, 'direkttMTType', true);
 
 		if (!$dropdown_value) $dropdown_value = 'all';
 
-		echo '<p><label for="direktt_mt_type"><strong>' . __('Message Type', 'direktt') . '</strong></label> ';
+		echo '<p><label for="direktt_mt_type"><strong>' . __('Where to display template', 'direktt') . '</strong></label> ';
 		echo '<select name="direktt_mt_type" id="direktt_mt_type">';
-		echo '<option value="all"' . selected($dropdown_value, 'all', false) . '>' . __('All Messages', 'direktt') . '</option>';
-		echo '<option value="bulk"' . selected($dropdown_value, 'bulk', false) . '>' . __('Only Bulk Messages', 'direktt') . '</option>';
-		echo '<option value="individual"' . selected($dropdown_value, 'individual', false) . '>' . __('Only Individual Messages', 'direktt') . '</option>';
-		echo '<option value="none"' . selected($dropdown_value, 'none', false) . '>' . __('Use it only via API', 'direktt') . '</option>';
+		echo '<option value="all"' . selected($dropdown_value, 'all', false) . '>' . __('Always display this template', 'direktt') . '</option>';
+		echo '<option value="bulk"' . selected($dropdown_value, 'bulk', false) . '>' . __('Display only when sending Bulk Messages', 'direktt') . '</option>';
+		echo '<option value="individual"' . selected($dropdown_value, 'individual', false) . '>' . __('Display only when sending Individual Messages', 'direktt') . '</option>';
+		echo '<option value="none"' . selected($dropdown_value, 'none', false) . '>' . __('Never, I will use it only via API', 'direktt') . '</option>';
 		echo '</select></p>';
 
 		// Security nonce
 		wp_nonce_field('direktt_mt_json_nonce', 'direktt_mt_json_nonce');
+
+		echo('<div id="appBuilder"></div>');
+
+		echo '<p><label for="direktt_mt_type"><strong>' . __('Template JSON Content', 'direktt') . '</strong></label></p> ';
+		echo '<textarea style="width:100%" rows="15" name="direktt_mt_json" id="direktt_mt_json" readonly>' . esc_textarea($value) . '</textarea>';
+		echo '<input type="hidden" name="direktt_mt_json_hidden" id="direktt_mt_json_hidden" value="'. esc_attr($value) . '">';
+
+		echo '<p><label for="direktt_mt_type"><strong>' . __('Send Message Template', 'direktt') . '</strong></label></p> ';
 
 		echo('<div id="app"></div>');
 	}
