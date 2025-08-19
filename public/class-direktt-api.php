@@ -440,7 +440,7 @@ class Direktt_Api
 
 			$direktt_user_id = sanitize_text_field($parameters['subscriptionId']);
 
-			$marketing_consent_status = (sanitize_text_field($parameters['marketingConsentStatus']) == 'true');
+			$marketing_consent_status = filter_var($parameters['marketingConsentStatus'], FILTER_VALIDATE_BOOLEAN);
 
 			$user = Direktt_User::get_user_by_subscription_id($direktt_user_id);
 

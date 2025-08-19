@@ -20,7 +20,6 @@ const snackbar_text = ref(snack_succ_text)
 const snack_succ_text = 'Message Template Sent'
 
 const postId = ref(direktt_mtemplates_object.postId);
-const marketing_consent = ref(false);
 const direktt_user_id = ref()
 
 const page = ref(0)
@@ -50,6 +49,7 @@ async function clickSendMessage() {
     const response = await doAjax({
       action: "direktt_send_mtemplates_message", // the action to fire in the server
       userSet: userSet.value,
+      consent: consent.value,
       categories: JSON.stringify(selectedCategories.value),
       tags: JSON.stringify(selectedTags.value),
       nonce: nonce.value,

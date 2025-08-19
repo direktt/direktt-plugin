@@ -9062,7 +9062,6 @@ exports.default = {
         const snackbar_color = (0, _vue.ref)("success");
         const snackbar_text = (0, _vue.ref)(snack_succ_text);
         const postId = (0, _vue.ref)(direktt_mtemplates_object.postId);
-        const marketing_consent = (0, _vue.ref)(false);
         const direktt_user_id = (0, _vue.ref)();
         const page = (0, _vue.ref)(0);
         const { isLoading, isError, isFetching, data, error, refetch } = (0, _vueQuery.useQuery)({
@@ -9089,6 +9088,7 @@ exports.default = {
                 const response = await doAjax({
                     action: "direktt_send_mtemplates_message",
                     userSet: userSet.value,
+                    consent: consent.value,
                     categories: JSON.stringify(selectedCategories.value),
                     tags: JSON.stringify(selectedTags.value),
                     nonce: nonce.value,
@@ -9141,7 +9141,6 @@ exports.default = {
             snackbar_text,
             snack_succ_text,
             postId,
-            marketing_consent,
             direktt_user_id,
             page,
             isLoading,

@@ -50,6 +50,7 @@ class Direktt_Ajax
 			$tags = (isset($_POST['tags'])) ? json_decode(stripslashes($_POST['tags']), true) : false;
 
 			$userSet = (isset($_POST['userSet'])) ? sanitize_text_field($_POST['userSet']) : false;
+			$consent = filter_input(INPUT_POST, 'consent', FILTER_VALIDATE_BOOLEAN) ?? false;
 
 			$message_template_id = (isset($_POST['postId'])) ? sanitize_text_field($_POST['postId']) : false;
 
@@ -58,12 +59,12 @@ class Direktt_Ajax
 				$subscription_ids = array();
 
 				if ($userSet == 'all') {
-					$subscription_ids = $this->get_subscription_ids_from_terms([], []);
+					$subscription_ids = $this->get_subscription_ids_from_terms([], [], true, $consent);
 					Direktt_Message::send_message_template($subscription_ids, $message_template_id);
 				}
 
 				if ($userSet == 'selected') {
-					$subscription_ids = $this->get_subscription_ids_from_terms($categories, $tags, false);
+					$subscription_ids = $this->get_subscription_ids_from_terms($categories, $tags, false, $consent);
 					Direktt_Message::send_message_template($subscription_ids, $message_template_id);
 				}
 
@@ -343,7 +344,7 @@ class Direktt_Ajax
 		return ($query->have_posts());
 	}
 
-	private function get_subscription_ids_from_terms($category_ids = array(), $tag_ids = array(), $empty_allowed = true)
+	private function get_subscription_ids_from_terms($category_ids = array(), $tag_ids = array(), $empty_allowed = true, $marketing_consent = false)
 	{
 		// Ensure inputs are arrays
 		$category_ids = (array) $category_ids;
@@ -381,6 +382,32 @@ class Direktt_Ajax
 				'compare' => 'NOT IN',
 			),
 		);
+
+		// If marketing consent is required, add it to the meta_query
+		if ($marketing_consent) {
+			$meta_query = array(
+				'relation' => 'AND',
+				// Admin subscription rules (wrap previous OR in its own array)
+				array(
+					'relation' => 'OR',
+					array(
+						'key'     => 'direktt_admin_subscription',
+						'compare' => 'NOT EXISTS',
+					),
+					array(
+						'key'     => 'direktt_admin_subscription',
+						'value'   => array('1', 'true'),
+						'compare' => 'NOT IN',
+					),
+				),
+				// Must have marketing consent set to '1' (true)
+				array(
+					'key'     => 'direktt_marketing_consent_status',
+					'value'   => '1',
+					'compare' => '=',
+				),
+			);
+		}
 
 		$args = array(
 			'post_type'      => 'direkttusers',
@@ -440,7 +467,6 @@ class Direktt_Ajax
 			$templates = Direktt_Message_Template::get_templates(['all', 'individual']);
 
 			wp_send_json_success($templates, 200);
-
 		} else {
 
 			// User not authorized or post not found.
