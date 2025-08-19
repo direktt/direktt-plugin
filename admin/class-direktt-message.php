@@ -69,6 +69,8 @@ class Direktt_Message
         }, $string);
     }
 
+
+
     static function send_message_template($direktt_user_ids, $message_template_id, $replacements = [])
     {
         $api_key = get_option('direktt_api_key') ? esc_attr(get_option('direktt_api_key')) : '';
@@ -114,6 +116,17 @@ class Direktt_Message
         }
         return false;
     }
+
+    public function direktt_display_name_filter( $value, $direktt_user_id ) {
+
+
+        if ($direktt_user_id){
+            $direktt_user = Direktt_User::get_user_by_subscription_id( $direktt_user_id );
+            $value = $direktt_user['direkt_display_name'];
+        }
+		
+		return $value;
+	}
 
     static function send_message_to_admin($message)
     {

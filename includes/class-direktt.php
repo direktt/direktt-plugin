@@ -174,6 +174,10 @@ class Direktt {
 	private function define_message_hooks() {
 
 		$plugin_message = new Direktt_Message( $this->get_plugin_name(), $this->get_version() );
+
+		//Filters for default template tags:
+		
+			$this->loader->add_filter( 'direktt/message/template/direktt_display_name', $plugin_message, 'direktt_display_name_filter', 10, 2 );
 	}
 
 	private function define_ajax_hooks() {
