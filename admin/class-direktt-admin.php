@@ -63,14 +63,6 @@ class Direktt_Admin
 			[$this, 'render_admin_settings']
 		);
 
-		/*add_submenu_page(
-			'direktt-dashboard',
-			__('Hello', 'direktt'),
-			__('Hello', 'direktt'),
-			'manage_options',
-			'direktt-hello',
-			[$this, 'render_hello']
-		);*/
 	}
 
 	public function setup_settings_pages()
@@ -80,14 +72,9 @@ class Direktt_Admin
 
 	public function on_setup_settings_pages()
 	{
-		Direktt::add_settings_page(
-			array(
-				"id" => "bulk-message",
-				"label" => __('Bulk Messaging Settings', 'direktt'),
-				"callback" => [$this, 'render_bulk_message_settings'],
-				"priority" => 0
-			)
-		);
+	
+		// Here come additional settings pages
+
 	}
 
 	public function highlight_direktt_submenu($parent_file)
@@ -467,13 +454,6 @@ class Direktt_Admin
 				echo ('<p><a href="' . $newUri . '">' . $item['label'] . '</a></p>');
 			}
 		}
-	}
-
-	public function render_bulk_message_settings()
-	{
-		?>
-		Hello
-	<?php
 	}
 
 	public function render_meta_panel($post)
