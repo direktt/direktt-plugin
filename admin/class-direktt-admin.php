@@ -237,11 +237,7 @@ class Direktt_Admin
 			'exclude_from_search' => false,
 			'publicly_queryable'  => false,
 			'capability_type'     => 'post',
-			'capabilities'          => array(
-				// todo Srediti prava za new i edit ako ikako moze, ako ne, ostaviti new
-				//'create_posts' => 'do_not_allow', 
-				//'edit_posts' => 'allow' 
-			),
+			'capabilities'          => array(),
 			'show_in_rest'	=> false,
 		);
 		register_post_type('direkttmtemplates', $args);
