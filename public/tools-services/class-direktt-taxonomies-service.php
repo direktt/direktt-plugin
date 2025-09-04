@@ -224,7 +224,6 @@ class Direktt_Taxonomies_Service {
                                         var autoCompleteList = availableUsers.filter(function(user) {
                                             return !usersInList.includes(user);
                                         });
-                                        console.log(autoCompleteList);
     
                                         $("#direktt-user-search").autocomplete({
                                             source: autoCompleteList
