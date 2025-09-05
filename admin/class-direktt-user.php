@@ -33,7 +33,7 @@ class Direktt_User
 
 			$post_obj = array(
 				'ID' => $post_id,
-				'direkt_display_name' => get_the_title( $post_id ),
+				'direktt_display_name' => get_the_title( $post_id ),
 				'direktt_membership_id' => get_post_meta($post_id, "direktt_membership_id", true),
 				'direktt_user_id' => get_post_meta($post_id, "direktt_user_id", true),
 				'direktt_admin_subscription' => ( get_post_meta($post_id, 'direktt_admin_subscription', true) == '1' ),
@@ -76,7 +76,7 @@ class Direktt_User
 
 			$post_obj = array(
 				'ID' => $post_id,
-				'direkt_display_name' => get_the_title( $post_id ),
+				'direktt_display_name' => get_the_title( $post_id ),
 				'direktt_membership_id' => get_post_meta($post_id, "direktt_membership_id", true),
 				'direktt_user_id' => $direktt_user_id,
 				'direktt_admin_subscription' => ( get_post_meta($post_id, 'direktt_admin_subscription', true) == '1' ),
@@ -118,7 +118,7 @@ class Direktt_User
 
 			$post_obj = array(
 				'ID' => $post_id,
-				'direkt_display_name' => get_the_title( $post_id ),
+				'direktt_display_name' => get_the_title( $post_id ),
 				'direktt_membership_id' => $direktt_membership_id,
 				'direktt_user_id' => get_post_meta( $post_id, 'direktt_user_id', true ),
 				'direktt_admin_subscription' => ( get_post_meta($post_id, 'direktt_admin_subscription', true) == '1' ),

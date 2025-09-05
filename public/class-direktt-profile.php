@@ -113,7 +113,7 @@ class Direktt_Profile
 						</div>
 						<div>
 							<div>Display Name:</div>
-							<div><?php echo esc_html($profile_user['direkt_display_name']); ?></div>
+							<div><?php echo esc_html($profile_user['direktt_display_name']); ?></div>
 						</div>
 						<div>
 							<div>Marketing Consent:</div>

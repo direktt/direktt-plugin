@@ -122,7 +122,7 @@ class Direktt_Message
 
         if ($direktt_user_id){
             $direktt_user = Direktt_User::get_user_by_subscription_id( $direktt_user_id );
-            $value = $direktt_user['direkt_display_name'];
+            $value = $direktt_user['direktt_display_name'];
         }
 		
 		return $value;
