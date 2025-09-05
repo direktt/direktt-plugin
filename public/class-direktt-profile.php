@@ -37,7 +37,7 @@ class Direktt_Profile
 		foreach (Direktt::$profile_tools_array as $item) {
 			if (isset($item['cssEnqueueArray']) && is_array($item['cssEnqueueArray']) && array_is_list($item['cssEnqueueArray'])) {
 				foreach ($item['cssEnqueueArray'] as $cssFile) {
-					if ($cssFile !== [] && array_keys($cssFile) !== range(0, count($cssFile) - 1)) {
+					if ($cssFile !== [] && array_keys($cssFile) !== range(0, count($cssFile) - 1) && ! wp_style_is($cssFile['handle'], 'registered')) {
 						wp_register_style(...$cssFile);
 					}
 				}
@@ -45,7 +45,7 @@ class Direktt_Profile
 
 			if (isset($item['jsEnqueueArray']) && is_array($item['jsEnqueueArray']) && array_is_list($item['jsEnqueueArray'])) {
 				foreach ($item['jsEnqueueArray'] as $jsFile) {
-					if ($jsFile !== [] && array_keys($jsFile) !== range(0, count($jsFile) - 1)) {
+					if ($jsFile !== [] && array_keys($jsFile) !== range(0, count($jsFile) - 1) && ! wp_script_is($jsFile['handle'], 'registered')) {
 						wp_register_script(...$jsFile);
 					}
 				}
@@ -55,7 +55,7 @@ class Direktt_Profile
 		foreach (Direktt::$profile_bar_array as $item) {
 			if (isset($item['cssEnqueueArray']) && is_array($item['cssEnqueueArray']) && array_is_list($item['cssEnqueueArray'])) {
 				foreach ($item['cssEnqueueArray'] as $cssFile) {
-					if ($cssFile !== [] && array_keys($cssFile) !== range(0, count($cssFile) - 1)) {
+					if ($cssFile !== [] && array_keys($cssFile) !== range(0, count($cssFile) - 1) && ! wp_style_is($cssFile['handle'], 'registered')) {
 						wp_register_style(...$cssFile);
 					}
 				}
@@ -63,7 +63,7 @@ class Direktt_Profile
 
 			if (isset($item['jsEnqueueArray']) && is_array($item['jsEnqueueArray']) && array_is_list($item['jsEnqueueArray'])) {
 				foreach ($item['jsEnqueueArray'] as $jsFile) {
-					if ($jsFile !== [] && array_keys($jsFile) !== range(0, count($jsFile) - 1)) {
+					if ($jsFile !== [] && array_keys($jsFile) !== range(0, count($jsFile) - 1) && ! wp_script_is($jsFile['handle'], 'registered')) {
 						wp_register_script(...$jsFile);
 					}
 				}
