@@ -93,50 +93,60 @@ class Direktt_Profile
 		ob_start();
 
 		$active_tab = isset($_GET['subpage']) ? $_GET['subpage'] : '';
-
-		if ($active_tab == '') {
-
 			$subscriptionId   = isset($_GET['subscriptionId']) ? sanitize_text_field(wp_unslash($_GET['subscriptionId'])) : false;
+		$profile_user = Direktt_User::get_user_by_subscription_id($subscriptionId);
+		?>
+		<div class="direktt-profile profile-tab-<?= $active_tab ?>">
+			<div class="direktt-profile-photo">
+				<img src="<?php echo esc_attr($profile_user['direktt_avatar_url']); ?>">
+			</div><!-- direktt-profile-photo -->
+		<?php
+		if ( $active_tab == '' ) {
 
-			$profile_user = Direktt_User::get_user_by_subscription_id($subscriptionId);
-
-			if ($profile_user) {
+			if ( $profile_user ) {
 				if ((Direktt_User::has_direktt_taxonomies($direktt_user, $categories, $tags) || Direktt_User::is_direktt_admin()) || ($direktt_user['ID'] == $profile_user['ID'])) {
 				?>
-					<div>
-						<div>
-							<img src="<?php echo esc_attr($profile_user['direktt_avatar_url']); ?>" style="width: 100px;">
-						</div>
-						<div>
+					<div class="direktt-profile-data">
+						<div class="direktt-profile-basic-data">
 							<div>Membership ID:</div>
 							<div><?php echo esc_html($profile_user['direktt_membership_id']); ?></div>
-						</div>
-						<div>
 							<div>Display Name:</div>
 							<div><?php echo esc_html($profile_user['direktt_display_name']); ?></div>
-						</div>
-						<div>
 							<div>Marketing Consent:</div>
 							<div><?php echo $profile_user['direktt_marketing_consent_status'] ? 'true' : 'false' ?></div>
-						</div>
-						<div>
-							<div>Direktt User Categories:</div>
-							<?php
-							foreach ($profile_user['direktt_user_categories'] as $item) {
-								echo '<span class="pill">' . htmlspecialchars($item) . '</span>';
-							}
-							?>
-						</div>
-						<div>
-							<div>Direktt User Tags:</div>
-							<?php
-							foreach ($profile_user['direktt_user_tags'] as $item) {
-								echo '<span class="pill">' . htmlspecialchars($item) . '</span>';
-							}
-							?>
-						</div>
-					</div>
+						</div><!-- direktt-profile-basic-data -->
+						<div class="direktt-profile-meta-data">
+							<div class="direktt-profile-meta-data-categories">
+								<div>Direktt User Categories:</div>
+								<div>
+									<?php
+									if( $profile_user['direktt_user_categories'] ) {
+										foreach ( $profile_user['direktt_user_categories'] as $item) {
+											echo '<span class="pill">' . htmlspecialchars($item) . '</span>';
+										}										
+									} else {
+										echo '<span class="pill empty">---</span>';
+									}
 
+									?>
+								</div>
+							</div><!-- direktt-profile-meta-data-categories -->
+							<div class="direktt-profile-meta-data-tags">
+								<div>Direktt User Tags:</div>
+								<div>
+									<?php
+									if ($profile_user['direktt_user_tags'] ) {
+										foreach ($profile_user['direktt_user_tags'] as $item) {
+											echo '<span class="pill">' . htmlspecialchars($item) . '</span>';
+										}
+									} else {
+										echo '<span class="pill empty">---</span>';
+									}
+									?>
+								</div>
+							</div><!-- direktt-profile-meta-data-tags -->
+						</div><!-- direktt-profile-meta-data -->
+					</div><!-- direktt-profile-data -->
 			<?php
 				}
 			}
@@ -206,7 +216,8 @@ class Direktt_Profile
 		});
 
 		// Print out all other labels and links
-
+		
+		echo ('<div class="direktt-profile-tools"><ul>');
 		foreach (Direktt::$profile_tools_array as $item) {
 			if (isset($item['label'])) {
 
@@ -214,9 +225,10 @@ class Direktt_Profile
 				$params['subpage'] = $item['id'];
 				$newQuery = http_build_query($params);
 				$newUri = $parts['path'] . ($newQuery ? '?' . $newQuery : '');
-				echo ('<p><a href="' . $newUri . '">' . $item['label'] . '</a></p>');
+				echo ('<li><a href="' . $newUri . '">' . $item['label'] . '</a></li>');
 			}
 		}
+		echo ('</ul></div><!-- direktt-profile-tools -->');
 
 		// Ispisujemo defaultni meni:
 
@@ -225,7 +237,7 @@ class Direktt_Profile
 		});
 
 		if (Direktt_User::is_direktt_admin()) {
-			echo ('<div class="profileBottomBar"><ul>');
+			echo ('<div class="direktt-profile-menu-bar"><ul>');
 
 			parse_str($parts['query'] ?? '', $params);
 			unset($params['subpage']);
@@ -244,8 +256,9 @@ class Direktt_Profile
 				}
 			}
 
-			echo ('</ul></div>');
+			echo ('</ul></div><!-- direktt-profile-menu-bar -->');
 		}
+		echo( '</div><!-- direktt-profile -->' );
 
 		return ob_get_clean();
 	}

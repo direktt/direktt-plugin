@@ -30,6 +30,11 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 /**
+ * TMP: scss to css compiler
+ */
+require plugin_dir_path( __FILE__ ) . 'bt-sass.php';
+
+/**
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.
  */

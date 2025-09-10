@@ -1,4 +1,82 @@
-.direktt-app span.pill {
-    background-color: #f00;
-    margin-left: 20px;
+.direktt-profile {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  grid-column-gap: 1em;
+  grid-row-gap: 1em;
 }
+.direktt-profile .direktt-profile-photo {
+  grid-area: 2/1/3/2;
+}
+.direktt-profile .direktt-profile-photo img {
+  max-width: 100%;
+}
+.direktt-profile .direktt-profile-data {
+  grid-area: 2/2/3/3;
+}
+.direktt-profile .direktt-profile-data .direktt-profile-basic-data {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.direktt-profile .direktt-profile-data .direktt-profile-basic-data div:nth-child(2n+1) {
+  opacity: 0.6;
+}
+.direktt-profile .direktt-profile-meta-data {
+  border-top: 1px solid gray;
+  padding-top: 1em;
+  margin-top: 1em;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+.direktt-profile .direktt-profile-meta-data div div:nth-child(2n+1) {
+  opacity: 0.6;
+}
+.direktt-profile .direktt-profile-meta-data span.pill {
+  padding: 0.5em 1.5em;
+  border-radius: 10px;
+  display: inline-block;
+  background-color: #0f0;
+}
+.direktt-profile .direktt-profile-meta-data span.pill.empty {
+  background-color: transparent;
+  opacity: 0.3;
+  padding: 0;
+}
+.direktt-profile .direktt-profile-meta-data .direktt-profile-meta-data-categories div:nth-child(2),
+.direktt-profile .direktt-profile-meta-data .direktt-profile-meta-data-tags div:nth-child(2) {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5em;
+}
+.direktt-profile .direktt-profile-tools {
+  grid-area: 3/2/4/3;
+  border-top: 1px solid gray;
+  padding-top: 1em;
+  margin-top: 1em;
+}
+.direktt-profile .direktt-profile-tools ul {
+  margin: 0 1em;
+  padding: 0;
+}
+.direktt-profile .direktt-profile-tools ul li {
+  margin: 0;
+  padding: 0;
+}
+.direktt-profile .direktt-profile-menu-bar {
+  border-top: 1px solid gray;
+  padding-top: 1em;
+  margin-top: 1em;
+  grid-area: 1/1/2/3;
+  border-bottom: 1px solid gray;
+  padding-bottom: 1em;
+  margin-bottom: 1em;
+}
+.direktt-profile .direktt-profile-menu-bar ul {
+  display: flex;
+  gap: 2em;
+}
+.direktt-profile .direktt-profile-menu-bar ul li {
+  display: block;
+}
+
+/*# sourceMappingURL=direktt-profile.css.map */
