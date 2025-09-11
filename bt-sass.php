@@ -5,7 +5,7 @@
  */
 
 // https://sass-lang.com/documentation/cli/dart-sass
-// admin show sass version
+// admin show sass version 
 
 add_action( 'init', 'bt_direktt_sass' );
 
