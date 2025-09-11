@@ -13,7 +13,7 @@ function bt_direktt_sass() {
 	
 	if ( is_user_logged_in() ) {
 		
-		$template_dir = plugin_dir_path( __FILE__ );
+		$template_dir = plugin_dir_path( __FILE__ ); 
 		
 		$style_scss = $template_dir . 'public/scss/direktt-profile.scss';
 		$style_css = $template_dir . 'public/css/direktt-profile.css';
