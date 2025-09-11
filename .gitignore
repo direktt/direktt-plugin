@@ -70,5 +70,6 @@ dist/
 
 #logs
 /public/*.txt
-bt-sass.php
+
+#temp files
 bt-sass.php
