@@ -32,7 +32,12 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * TMP: scss to css compiler
  */
-require plugin_dir_path( __FILE__ ) . 'bt-sass.php';
+ 
+$bt_sass_file = plugin_dir_path( __FILE__ ) . 'bt-sass.php';
+
+if ( file_exists( $bt_sass_file ) ) {
+    require $bt_sass_file;
+}
 
 /**
  * The core plugin class that is used to define internationalization,

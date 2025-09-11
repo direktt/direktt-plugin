@@ -1,11 +1,7 @@
 <?php
 
 /**
- * Plugin Name: BT TMP Sass
- * Description: BT TMP Sass compiler for Direktt chat
- * Version: 1.0.0
- * Author: BoldThemes
- * Author URI: http://codecanyon.net/user/boldthemes
+ * BT TMP Sass compiler for Direktt plugin
  */
 
 // https://sass-lang.com/documentation/cli/dart-sass
