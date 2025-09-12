@@ -7,7 +7,8 @@
 	--direktt-profile-light-gray-color: #dddddd;
 	--direktt-profile-dark-color: black;
 	--direktt-profile-light-color: white;
-	--direktt-profile-default-font-size: 16px;
+	--direktt-profile-default-font-family: "Noto Sans", Helvetica, Arial, sans-serif;
+	--direktt-profile-default-font-size: 14px;
 	--direktt-profile-default-line-height: 1.6;
 }
 
@@ -39,6 +40,7 @@
 /* Functionalities and Styling */
 
 .direktt-profile {
+	font-family: var(--direktt-profile-default-font-family);
 	font-size: var(--direktt-profile-default-font-size);
 	line-height: var(--direktt-profile-default-line-height);
 	.direktt-profile-photo { 
