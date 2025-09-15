@@ -103,7 +103,7 @@ class Direktt_Profile
 		<?php
 		if ( $active_tab == '' ) {
 
-			if ( $profile_user ) {
+			if ( $profile_user && $direktt_user ) {
 				if ((Direktt_User::has_direktt_taxonomies($direktt_user, $categories, $tags) || Direktt_User::is_direktt_admin()) || ($direktt_user['ID'] == $profile_user['ID'])) {
 				?>
 					<div class="direktt-profile-data">
@@ -285,7 +285,9 @@ class Direktt_Profile
 
 	function direktt_user_has_term_slugs($item, $direktt_user)
 	{
-
+		if (empty($direktt_user) || ! isset($direktt_user['ID'])) {
+			return false;
+		}
 		$categories = $this->arrCategories($item);
 		$tags = $this->arrTags($item);
 

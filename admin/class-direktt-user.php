@@ -274,6 +274,10 @@ class Direktt_User
 
 	static function has_direktt_taxonomies($direktt_user, $categories, $tags)
 	{
+		if (empty($direktt_user) || ! isset($direktt_user['ID'])) {
+			return false;
+		}
+
 		// Get assigned category and tag slugs
 		$assigned_categories = wp_get_post_terms($direktt_user['ID'], 'direkttusercategories', array('fields' => 'slugs'));
 		$assigned_tags       = wp_get_post_terms($direktt_user['ID'], 'direkttusertags', array('fields' => 'slugs'));
