@@ -280,7 +280,7 @@ function openMediaPicker(index) {
   frame.open()
 }
 
-function openMediaPickerVideo(index) {
+function openMediaPickerVideoThumb(index) {
   if (!window.wp || !window.wp.media) {
     alert('WordPress media library is not available on this page.')
     return
@@ -300,6 +300,27 @@ function openMediaPickerVideo(index) {
     messages.value[index].width = attachment.width || ''
     messages.value[index].height = attachment.height || ''
 
+  })
+
+  frame.open()
+}
+
+function openMediaPickerVideo(index) {
+  if (!window.wp || !window.wp.media) {
+    alert('WordPress media library is not available on this page.')
+    return
+  }
+
+  const frame = window.wp.media({
+    title: 'Select or Upload Video',
+    library: { type: ['video'] },
+    button: { text: 'Use this Video' },
+    multiple: false,
+  })
+
+  frame.on('select', () => {
+    const attachment = frame.state().get('selection').first().toJSON()
+    messages.value[index].media = attachment.url
   })
 
   frame.open()
@@ -417,11 +438,17 @@ onMounted(() => {
                     <v-textarea label="Message content" variant="outlined" v-model="activeMessage.content"></v-textarea>
                   </template>
                   <template v-else-if="activeMessage.type === 'video'">
-                    <div class="mb-2"><strong>Video Url:</strong> <v-text-field v-model="activeMessage.media"
+                    <v-row class="pl-4 pb-4 pr-4" align="end">
+                      <div class="mr-4" style="width:75%"><strong>Video Url:</strong> <v-text-field v-model="activeMessage.media" 
                         variant="outlined"></v-text-field></div>
-                    <v-btn variant="flat" color="info" class="text-none text-caption mb-4"
-                      @click="openMediaPickerVideo(activeMessageIndex)">
+                      <v-btn variant="flat" color="info" class="text-none text-caption mb-0"
+                        @click="openMediaPickerVideo(activeMessageIndex)">
+                        {{ activeMessage.media ? 'Change Video' : 'Select Video' }}</v-btn>
+                    </v-row>
+                    <v-btn variant="flat" color="info" class="text-none text-caption mb-4 mt-4"
+                      @click="openMediaPickerVideoThumb(activeMessageIndex)">
                       {{ activeMessage.thumbnail ? 'Change Thumbnail' : 'Select Thumbnail' }}</v-btn>
+                    <v-spacer></v-spacer>
                     <img v-if="activeMessage.thumbnail" :src="activeMessage.thumbnail" style="height:150px;"
                       class="mb-4">
                     <div class="mb-2"><strong>Thumbnail Url:</strong> <v-text-field v-model="activeMessage.thumbnail"
@@ -433,12 +460,16 @@ onMounted(() => {
                     <v-textarea label="Message content" variant="outlined" v-model="activeMessage.content"></v-textarea>
                   </template>
                   <template v-else-if="activeMessage.type === 'file'">
-                    <v-btn variant="flat" color="info" class="text-none text-caption mb-4"
-                      @click="openMediaPickerFile(activeMessageIndex)">
-                      {{ activeMessage.thumbnail ? 'Change File' : 'Select File' }}</v-btn>
-                    <div class="mb-2"><strong>File Url:</strong> <v-text-field v-model="activeMessage.media"
-                        variant="outlined"></v-text-field></div>
-                    <v-textarea label="Message content" variant="outlined" v-model="activeMessage.content"></v-textarea>
+                    <v-row class="pl-4 pb-4 pr-4" align="end">
+                      <div class="mr-4" style="width:75%"><strong>File Url:</strong> <v-text-field
+                          v-model="activeMessage.media" variant="outlined"></v-text-field></div>
+
+                      <v-btn variant="flat" color="info" class="text-none text-caption mb-0"
+                        @click="openMediaPickerFile(activeMessageIndex)">
+                        {{ activeMessage.thumbnail ? 'Change File' : 'Select File' }}</v-btn>
+                    </v-row>
+                    <v-textarea class="mt-4" label="Message content" variant="outlined"
+                      v-model="activeMessage.content"></v-textarea>
                   </template>
                   <!-- RICH MESSAGE -->
                   <template v-else-if="activeMessage.type === 'rich'">
