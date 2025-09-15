@@ -96,10 +96,11 @@ class Direktt_Profile
 			$subscriptionId   = isset($_GET['subscriptionId']) ? sanitize_text_field(wp_unslash($_GET['subscriptionId'])) : false;
 		$profile_user = Direktt_User::get_user_by_subscription_id($subscriptionId);
 		?>
-		<div class="direktt-profile profile-tab-<?= $active_tab ?>">
-			<div class="direktt-profile-photo">
-				<img src="<?php echo esc_attr($profile_user['direktt_avatar_url']); ?>">
-			</div><!-- direktt-profile-photo -->
+		<div class="direktt-profile-wrapper" id="direktt-profile-wrapper">
+			<div class="direktt-profile profile-tab-<?= $active_tab ?>" id="direktt-profile">
+				<div class="direktt-profile-photo">
+					<img src="<?php echo esc_attr($profile_user['direktt_avatar_url']); ?>">
+				</div><!-- direktt-profile-photo -->
 		<?php
 		if ( $active_tab == '' ) {
 
@@ -259,6 +260,7 @@ class Direktt_Profile
 			echo ('</ul></div><!-- direktt-profile-menu-bar -->');
 		}
 		echo( '</div><!-- direktt-profile -->' );
+		echo( '</div><!-- direktt-profile-wrapper -->' );
 
 		return ob_get_clean();
 	}
