@@ -98,7 +98,7 @@ class Direktt_Profile
 ?>
 		<div id="direktt-profile-wrapper">
 			<div class="profile-tab-<?= $active_tab ?>" id="direktt-profile">
-				<div id="direktt-profile-data" class="direktt-profile-data-<?php echo($active_tab?$active_tab:'profile') ?>">
+				<div id="direktt-profile-data" class="direktt-profile-data-<?php echo ($active_tab ? $active_tab : 'profile') ?>">
 					<?php
 					if ($active_tab == '') {
 						if ($profile_user && $direktt_user) {
@@ -219,19 +219,25 @@ class Direktt_Profile
 					// Print out all other labels and links
 					?>
 				</div><!-- direktt-profile-data -->
-		<?php
-		echo ('<div id="direktt-profile-tools"><ul>');
-		foreach (Direktt::$profile_tools_array as $item) {
-			if (isset($item['label'])) {
 
-				parse_str($parts['query'] ?? '', $params);
-				$params['subpage'] = $item['id'];
-				$newQuery = http_build_query($params);
-				$newUri = $parts['path'] . ($newQuery ? '?' . $newQuery : '');
-				echo ('<li><a href="' . $newUri . '">' . $item['label'] . '</a></li>');
-			}
-		}
-		echo ('</ul></div><!-- direktt-profile-tools -->');
+				<div id="direktt-profile-tools">
+					<div id="direktt-profile-tools-toggler"></div>
+					<ul>
+						<?php
+						foreach (Direktt::$profile_tools_array as $item) {
+							if (isset($item['label'])) {
+
+								parse_str($parts['query'] ?? '', $params);
+								$params['subpage'] = $item['id'];
+								$newQuery = http_build_query($params);
+								$newUri = $parts['path'] . ($newQuery ? '?' . $newQuery : '');
+								echo ('<li><a href="' . $newUri . '">' . $item['label'] . '</a></li>');
+							}
+						}
+						?>
+					</ul>
+				</div><!-- direktt-profile-tools -->
+		<?php
 
 		// Ispisujemo defaultni meni:
 
