@@ -29,8 +29,8 @@ class Direktt_Profile
 	public function enqueue_profile_scripts()
 	{
 
-		wp_register_script( 'direktt-profile-script', plugins_url( 'js/direktt-profile.js', __FILE__ ), array( 'jquery') );
-		wp_register_style( 'direktt-profile-style', plugins_url( 'css/direktt-profile.css', __FILE__ ), array() );
+		wp_register_script('direktt-profile-script', plugins_url('js/direktt-profile.js', __FILE__), array('jquery'));
+		wp_register_style('direktt-profile-style', plugins_url('css/direktt-profile.css', __FILE__), array());
 
 		// Ovde treba registrovati stilove i css profila
 
@@ -95,128 +95,131 @@ class Direktt_Profile
 		$active_tab = isset($_GET['subpage']) ? $_GET['subpage'] : '';
 		$subscriptionId   = isset($_GET['subscriptionId']) ? sanitize_text_field(wp_unslash($_GET['subscriptionId'])) : false;
 		$profile_user = Direktt_User::get_user_by_subscription_id($subscriptionId);
-		?>
+?>
 		<div id="direktt-profile-wrapper">
 			<div class="profile-tab-<?= $active_tab ?>" id="direktt-profile">
-		<?php
-		if ( $active_tab == '' ) {
-			if ( $profile_user && $direktt_user ) {
-				if ((Direktt_User::has_direktt_taxonomies($direktt_user, $categories, $tags) || Direktt_User::is_direktt_admin()) || ($direktt_user['ID'] == $profile_user['ID'])) {
-				?>
-					<div id="direktt-profile-data" class="direktt-profile-data-profile">
-						<div class="direktt-profile-photo">
-							<img src="<?php echo esc_attr($profile_user['direktt_avatar_url']); ?>">
-						</div><!-- direktt-profile-photo -->
-						<div class="direktt-profile-basic-data">
-							<div>Membership ID:</div>
-							<div><?php echo esc_html($profile_user['direktt_membership_id']); ?></div>
-							<div>Display Name:</div>
-							<div><?php echo esc_html($profile_user['direktt_display_name']); ?></div>
-							<div>Marketing Consent:</div>
-							<div><?php echo $profile_user['direktt_marketing_consent_status'] ? 'true' : 'false' ?></div>
-						</div><!-- direktt-profile-basic-data -->
-						<div class="direktt-profile-meta-data">
-							<div class="direktt-profile-meta-data-categories">
-								<div>Direktt User Categories:</div>
-								<div>
-									<?php
-									if( $profile_user['direktt_user_categories'] ) {
-										foreach ( $profile_user['direktt_user_categories'] as $item) {
-											echo '<span class="pill">' . htmlspecialchars($item) . '</span>';
-										}										
-									} else {
-										echo '<span class="pill empty">---</span>';
-									}
+				<div id="direktt-profile-data" class="direktt-profile-data-<?php echo($active_tab?$active_tab:'profile') ?>">
+					<?php
+					if ($active_tab == '') {
+						if ($profile_user && $direktt_user) {
+							if ((Direktt_User::has_direktt_taxonomies($direktt_user, $categories, $tags) || Direktt_User::is_direktt_admin()) || ($direktt_user['ID'] == $profile_user['ID'])) {
+					?>
 
-									?>
-								</div>
-							</div><!-- direktt-profile-meta-data-categories -->
-							<div class="direktt-profile-meta-data-tags">
-								<div>Direktt User Tags:</div>
-								<div>
-									<?php
-									if ($profile_user['direktt_user_tags'] ) {
-										foreach ($profile_user['direktt_user_tags'] as $item) {
-											echo '<span class="pill">' . htmlspecialchars($item) . '</span>';
+								<div class="direktt-profile-photo">
+									<img src="<?php echo esc_attr($profile_user['direktt_avatar_url']); ?>">
+								</div><!-- direktt-profile-photo -->
+								<div class="direktt-profile-basic-data">
+									<div>Membership ID:</div>
+									<div><?php echo esc_html($profile_user['direktt_membership_id']); ?></div>
+									<div>Display Name:</div>
+									<div><?php echo esc_html($profile_user['direktt_display_name']); ?></div>
+									<div>Marketing Consent:</div>
+									<div><?php echo $profile_user['direktt_marketing_consent_status'] ? 'true' : 'false' ?></div>
+								</div><!-- direktt-profile-basic-data -->
+								<div class="direktt-profile-meta-data">
+									<div class="direktt-profile-meta-data-categories">
+										<div>Direktt User Categories:</div>
+										<div>
+											<?php
+											if ($profile_user['direktt_user_categories']) {
+												foreach ($profile_user['direktt_user_categories'] as $item) {
+													echo '<span class="pill">' . htmlspecialchars($item) . '</span>';
+												}
+											} else {
+												echo '<span class="pill empty">---</span>';
+											}
+
+											?>
+										</div>
+									</div><!-- direktt-profile-meta-data-categories -->
+									<div class="direktt-profile-meta-data-tags">
+										<div>Direktt User Tags:</div>
+										<div>
+											<?php
+											if ($profile_user['direktt_user_tags']) {
+												foreach ($profile_user['direktt_user_tags'] as $item) {
+													echo '<span class="pill">' . htmlspecialchars($item) . '</span>';
+												}
+											} else {
+												echo '<span class="pill empty">---</span>';
+											}
+											?>
+										</div>
+									</div><!-- direktt-profile-meta-data-tags -->
+								</div><!-- direktt-profile-meta-data -->
+
+					<?php
+							}
+						}
+					} else {
+						foreach (Direktt::$profile_tools_array as $item) {
+
+							if (isset($item['id']) && $active_tab == $item['id']) {
+								if ($this->direktt_user_has_term_slugs($item, $direktt_user) || Direktt_User::is_direktt_admin()) {
+									call_user_func($item['callback']);
+								}
+
+								if (isset($item['cssEnqueueArray']) && is_array($item['cssEnqueueArray']) && array_is_list($item['cssEnqueueArray'])) {
+									foreach ($item['cssEnqueueArray'] as $cssFile) {
+										if ($cssFile !== [] && array_keys($cssFile) !== range(0, count($cssFile) - 1) && isset($cssFile['handle'])) {
+											wp_enqueue_style($cssFile['handle']);
 										}
-									} else {
-										echo '<span class="pill empty">---</span>';
 									}
-									?>
-								</div>
-							</div><!-- direktt-profile-meta-data-tags -->
-						</div><!-- direktt-profile-meta-data -->
-					</div><!-- direktt-profile-data -->
-			<?php
-				}
-			}
-		} else {
-			foreach (Direktt::$profile_tools_array as $item) {
+								}
 
-				if (isset($item['id']) && $active_tab == $item['id']) {
-					if ($this->direktt_user_has_term_slugs($item, $direktt_user) || Direktt_User::is_direktt_admin()) {
-						call_user_func($item['callback']);
-					}
+								if (isset($item['jsEnqueueArray']) && is_array($item['jsEnqueueArray']) && array_is_list($item['jsEnqueueArray'])) {
+									foreach ($item['jsEnqueueArray'] as $jsFile) {
+										if ($jsFile !== [] && array_keys($jsFile) !== range(0, count($jsFile) - 1) && isset($jsFile['handle'])) {
+											wp_enqueue_script($jsFile['handle']);
+										}
+									}
+								}
+							}
+						}
 
-					if (isset($item['cssEnqueueArray']) && is_array($item['cssEnqueueArray']) && array_is_list($item['cssEnqueueArray'])) {
-						foreach ($item['cssEnqueueArray'] as $cssFile) {
-							if ($cssFile !== [] && array_keys($cssFile) !== range(0, count($cssFile) - 1) && isset($cssFile['handle'])) {
-								wp_enqueue_style($cssFile['handle']);
+						foreach (Direktt::$profile_bar_array as $item) {
+
+							if (isset($item['id']) && $active_tab == $item['id']) {
+								if ($this->direktt_user_has_term_slugs($item, $direktt_user) || Direktt_User::is_direktt_admin()) {
+									call_user_func($item['callback']);
+								}
+
+								if (isset($item['cssEnqueueArray']) && is_array($item['cssEnqueueArray']) && array_is_list($item['cssEnqueueArray'])) {
+									foreach ($item['cssEnqueueArray'] as $cssFile) {
+										if ($cssFile !== [] && array_keys($cssFile) !== range(0, count($cssFile) - 1) && isset($cssFile['handle'])) {
+											wp_enqueue_style($cssFile['handle']);
+										}
+									}
+								}
+
+								if (isset($item['jsEnqueueArray']) && is_array($item['jsEnqueueArray']) && array_is_list($item['jsEnqueueArray'])) {
+									foreach ($item['jsEnqueueArray'] as $jsFile) {
+										if ($jsFile !== [] && array_keys($jsFile) !== range(0, count($jsFile) - 1) && isset($jsFile['handle'])) {
+											wp_enqueue_script($jsFile['handle']);
+										}
+									}
+								}
 							}
 						}
 					}
 
-					if (isset($item['jsEnqueueArray']) && is_array($item['jsEnqueueArray']) && array_is_list($item['jsEnqueueArray'])) {
-						foreach ($item['jsEnqueueArray'] as $jsFile) {
-							if ($jsFile !== [] && array_keys($jsFile) !== range(0, count($jsFile) - 1) && isset($jsFile['handle'])) {
-								wp_enqueue_script($jsFile['handle']);
-							}
-						}
-					}
-				}
-			}
+					$url = $_SERVER['REQUEST_URI'];
+					$parts = parse_url($url);
 
-			foreach (Direktt::$profile_bar_array as $item) {
+					Direktt::$profile_tools_array = array_filter(Direktt::$profile_tools_array, function ($item) use ($direktt_user) {
+						return ($this->direktt_user_has_term_slugs($item, $direktt_user) || Direktt_User::is_direktt_admin());
+					});
 
-				if (isset($item['id']) && $active_tab == $item['id']) {
-					if ($this->direktt_user_has_term_slugs($item, $direktt_user) || Direktt_User::is_direktt_admin()) {
-						call_user_func($item['callback']);
-					}
+					// Sort links by priority asc
 
-					if (isset($item['cssEnqueueArray']) && is_array($item['cssEnqueueArray']) && array_is_list($item['cssEnqueueArray'])) {
-						foreach ($item['cssEnqueueArray'] as $cssFile) {
-							if ($cssFile !== [] && array_keys($cssFile) !== range(0, count($cssFile) - 1) && isset($cssFile['handle'])) {
-								wp_enqueue_style($cssFile['handle']);
-							}
-						}
-					}
+					usort(Direktt::$profile_tools_array, function ($a, $b) {
+						return $a['priority'] <=> $b['priority'];
+					});
 
-					if (isset($item['jsEnqueueArray']) && is_array($item['jsEnqueueArray']) && array_is_list($item['jsEnqueueArray'])) {
-						foreach ($item['jsEnqueueArray'] as $jsFile) {
-							if ($jsFile !== [] && array_keys($jsFile) !== range(0, count($jsFile) - 1) && isset($jsFile['handle'])) {
-								wp_enqueue_script($jsFile['handle']);
-							}
-						}
-					}
-				}
-			}
-		}
-
-		$url = $_SERVER['REQUEST_URI'];
-		$parts = parse_url($url);
-
-		Direktt::$profile_tools_array = array_filter(Direktt::$profile_tools_array, function ($item) use ($direktt_user) {
-			return ($this->direktt_user_has_term_slugs($item, $direktt_user) || Direktt_User::is_direktt_admin());
-		});
-
-		// Sort links by priority asc
-
-		usort(Direktt::$profile_tools_array, function ($a, $b) {
-			return $a['priority'] <=> $b['priority'];
-		});
-
-		// Print out all other labels and links
-		
+					// Print out all other labels and links
+					?>
+				</div><!-- direktt-profile-data -->
+		<?php
 		echo ('<div id="direktt-profile-tools"><ul>');
 		foreach (Direktt::$profile_tools_array as $item) {
 			if (isset($item['label'])) {
@@ -258,8 +261,8 @@ class Direktt_Profile
 
 			echo ('</ul></div><!-- direktt-profile-menu-bar -->');
 		}
-		echo( '</div><!-- direktt-profile -->' );
-		echo( '</div><!-- direktt-profile-wrapper -->' );
+		echo ('</div><!-- direktt-profile -->');
+		echo ('</div><!-- direktt-profile-wrapper -->');
 
 		return ob_get_clean();
 	}
