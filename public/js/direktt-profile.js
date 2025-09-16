@@ -17,3 +17,9 @@
 
 	console.log( 'Profile' );
 });*/
+
+jQuery( document ).ready( function( $ ) { "use strict";
+	$( '#direktt-profile-tools-toggler' ).on( 'click', function() {
+		$(this).parent().toggleClass('on');
+	});
+});

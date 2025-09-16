@@ -30,7 +30,7 @@
 		grid-area: tools;
 	}
 	#direktt-profile-menu-bar {
-		grid-area: header;
+		grid-area: footer;
 	}
 }
 
@@ -41,8 +41,21 @@
 	font-size: var(--direktt-profile-default-font-size);
 	line-height: var(--direktt-profile-default-line-height);
 	#direktt-profile-tools  {
-		border-top: 1px solid var(--direktt-profile-light-gray-color);
-		padding-top: 1em;
+		position: relative;
+		width: 0px;
+		&.on {
+			width: 200px;
+		}
+		#direktt-profile-tools-toggler:before {
+			content: "X";
+			background-color: red;
+			color: white;
+			width: 1em;
+			height: 1em;
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
 		margin-top: 1em;
 		ul {
 			margin: 0;
@@ -126,7 +139,7 @@
 				max-width: 100%;
 			}
 		} 
-		.direktt-profile- { 
+		.direktt-profile-basic-data { 
 			grid-area: basic-data;
 			display: grid;
 			grid-template-columns: 1fr 1fr;	
@@ -134,12 +147,10 @@
 				opacity: 0.6;
 			}
 		}
-
 		.direktt-profile-meta-data {  
 			grid-area: meta-data;
 			border-top: 1px solid var(--direktt-profile-light-gray-color);
 			padding-top: 1em;
-			margin-top: 1em;
 			display: flex;
 			flex-direction: column;
 			gap: 1em;		
