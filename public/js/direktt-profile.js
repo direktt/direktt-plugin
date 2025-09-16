@@ -1,6 +1,6 @@
 'use strict'
 
-document.addEventListener( "DOMContentLoaded", () => {
+/*document.addEventListener( "DOMContentLoaded", () => {
 	const host = document.querySelector( '#direktt-profile-wrapper' );
 	const shadow = host.attachShadow( { mode: "open" } );
 	const css = document.querySelector( '#direktt-profile-style-css' );
@@ -16,4 +16,4 @@ document.addEventListener( "DOMContentLoaded", () => {
 	}
 
 	console.log( 'Profile' );
-});
+});*/

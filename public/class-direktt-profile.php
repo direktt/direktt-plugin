@@ -93,21 +93,20 @@ class Direktt_Profile
 		ob_start();
 
 		$active_tab = isset($_GET['subpage']) ? $_GET['subpage'] : '';
-			$subscriptionId   = isset($_GET['subscriptionId']) ? sanitize_text_field(wp_unslash($_GET['subscriptionId'])) : false;
+		$subscriptionId   = isset($_GET['subscriptionId']) ? sanitize_text_field(wp_unslash($_GET['subscriptionId'])) : false;
 		$profile_user = Direktt_User::get_user_by_subscription_id($subscriptionId);
 		?>
-		<div class="direktt-profile-wrapper" id="direktt-profile-wrapper">
-			<div class="direktt-profile profile-tab-<?= $active_tab ?>" id="direktt-profile">
-				<div class="direktt-profile-photo">
-					<img src="<?php echo esc_attr($profile_user['direktt_avatar_url']); ?>">
-				</div><!-- direktt-profile-photo -->
+		<div id="direktt-profile-wrapper">
+			<div class="profile-tab-<?= $active_tab ?>" id="direktt-profile">
 		<?php
 		if ( $active_tab == '' ) {
-
 			if ( $profile_user && $direktt_user ) {
 				if ((Direktt_User::has_direktt_taxonomies($direktt_user, $categories, $tags) || Direktt_User::is_direktt_admin()) || ($direktt_user['ID'] == $profile_user['ID'])) {
 				?>
-					<div class="direktt-profile-data">
+					<div id="direktt-profile-data" class="direktt-profile-data-profile">
+						<div class="direktt-profile-photo">
+							<img src="<?php echo esc_attr($profile_user['direktt_avatar_url']); ?>">
+						</div><!-- direktt-profile-photo -->
 						<div class="direktt-profile-basic-data">
 							<div>Membership ID:</div>
 							<div><?php echo esc_html($profile_user['direktt_membership_id']); ?></div>
@@ -218,7 +217,7 @@ class Direktt_Profile
 
 		// Print out all other labels and links
 		
-		echo ('<div class="direktt-profile-tools"><ul>');
+		echo ('<div id="direktt-profile-tools"><ul>');
 		foreach (Direktt::$profile_tools_array as $item) {
 			if (isset($item['label'])) {
 
@@ -238,7 +237,7 @@ class Direktt_Profile
 		});
 
 		if (Direktt_User::is_direktt_admin()) {
-			echo ('<div class="direktt-profile-menu-bar"><ul>');
+			echo ('<div id="direktt-profile-menu-bar"><ul>');
 
 			parse_str($parts['query'] ?? '', $params);
 			unset($params['subpage']);

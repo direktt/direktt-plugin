@@ -1,5 +1,5 @@
 /* Variables */
-.direktt-profile {
+#direktt-profile {
   --direktt-profile-border-radius: 8px;
   --direktt-profile-accent-color: red;
   --direktt-profile-alternate-color: green;
@@ -12,87 +12,58 @@
 }
 
 /* Grid definition */
-.direktt-profile {
+#direktt-profile {
   display: grid;
   grid-template-columns: 1fr 3fr;
   grid-column-gap: 1em;
   grid-row-gap: 1em;
-  grid-template-areas: "header header" "photo data" ". footer";
+  grid-template-areas: "tools header" "tools data" "tools footer";
 }
-.direktt-profile .direktt-profile-photo {
-  grid-area: photo;
-}
-.direktt-profile .direktt-profile-data {
+#direktt-profile #direktt-profile-data {
   grid-area: data;
 }
-.direktt-profile .direktt-profile-tools {
-  grid-area: footer;
+#direktt-profile #direktt-profile-tools {
+  grid-area: tools;
 }
-.direktt-profile .direktt-profile-menu-bar {
+#direktt-profile #direktt-profile-menu-bar {
   grid-area: header;
 }
 
 /* Functionalities and Styling */
-.direktt-profile {
+#direktt-profile {
   font-family: var(--direktt-profile-default-font-family);
   font-size: var(--direktt-profile-default-font-size);
   line-height: var(--direktt-profile-default-line-height);
   /* General */
+  /* Tabs */
+  /* Profile tab */
 }
-.direktt-profile .direktt-profile-photo img {
-  max-width: 100%;
-}
-.direktt-profile .direktt-profile-data .direktt-profile-basic-data {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-}
-.direktt-profile .direktt-profile-data .direktt-profile-basic-data div:nth-child(2n+1) {
-  opacity: 0.6;
-}
-.direktt-profile .direktt-profile-meta-data {
-  border-top: 1px solid var(--direktt-profile-light-gray-color);
-  padding-top: 1em;
-  margin-top: 1em;
-  display: flex;
-  flex-direction: column;
-  gap: 1em;
-}
-.direktt-profile .direktt-profile-meta-data div div:nth-child(2n+1) {
-  opacity: 0.6;
-  margin-bottom: 0.25em;
-}
-.direktt-profile .direktt-profile-meta-data .direktt-profile-meta-data-categories div:nth-child(2),
-.direktt-profile .direktt-profile-meta-data .direktt-profile-meta-data-tags div:nth-child(2) {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5em;
-}
-.direktt-profile .direktt-profile-tools {
+#direktt-profile #direktt-profile-tools {
   border-top: 1px solid var(--direktt-profile-light-gray-color);
   padding-top: 1em;
   margin-top: 1em;
 }
-.direktt-profile .direktt-profile-tools ul {
+#direktt-profile #direktt-profile-tools ul {
   margin: 0;
   padding: 0;
   display: flex;
   flex-direction: column;
   gap: 0.5em;
 }
-.direktt-profile .direktt-profile-tools ul li {
+#direktt-profile #direktt-profile-tools ul li {
   margin: 0;
   padding: 0;
   display: block;
   text-align: center;
 }
-.direktt-profile .direktt-profile-tools ul li a {
+#direktt-profile #direktt-profile-tools ul li a {
   padding: 10px;
   display: block;
   background: var(--direktt-profile-alternate-color);
   color: var(--direktt-profile-light-color);
   border-radius: var(--direktt-profile-border-radius);
 }
-.direktt-profile .direktt-profile-menu-bar {
+#direktt-profile #direktt-profile-menu-bar {
   border-top: 1px solid var(--direktt-profile-light-gray-color);
   padding-top: 1em;
   margin-top: 1em;
@@ -100,37 +71,77 @@
   padding-bottom: 1em;
   margin-bottom: 1em;
 }
-.direktt-profile .direktt-profile-menu-bar ul {
+#direktt-profile #direktt-profile-menu-bar ul {
   margin: 0;
   padding: 0;
   display: flex;
   gap: 2em;
 }
-.direktt-profile .direktt-profile-menu-bar ul li {
+#direktt-profile #direktt-profile-menu-bar ul li {
   margin: 0;
   padding: 0;
   display: block;
 }
-.direktt-profile .button {
+#direktt-profile .button {
   border: 1px solid var(--direktt-profile-light-gray-color);
   color: var(--direktt-profile-light-color);
   background-color: var(--direktt-profile-accent-color);
   padding: 20px;
   font-size: inherit;
 }
-.direktt-profile .button.button-primary {
+#direktt-profile .button.button-primary {
   background-color: green;
 }
-.direktt-profile span.pill {
+#direktt-profile span.pill {
   padding: 0.5em 1.5em;
   border-radius: var(--direktt-profile-border-radius);
   display: inline-block;
   background-color: var(--direktt-profile-accent-color);
 }
-.direktt-profile span.pill.empty {
+#direktt-profile span.pill.empty {
   background-color: transparent;
   opacity: 0.3;
   padding: 0;
+}
+#direktt-profile .direktt-profile-data-profile {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  grid-column-gap: 1em;
+  grid-row-gap: 1em;
+  grid-template-areas: "photo basic-data" "photo meta-data";
+}
+#direktt-profile .direktt-profile-data-profile .direktt-profile-photo {
+  grid-area: photo;
+}
+#direktt-profile .direktt-profile-data-profile .direktt-profile-photo img {
+  max-width: 100%;
+}
+#direktt-profile .direktt-profile-data-profile .direktt-profile- {
+  grid-area: basic-data;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+#direktt-profile .direktt-profile-data-profile .direktt-profile- div:nth-child(2n+1) {
+  opacity: 0.6;
+}
+#direktt-profile .direktt-profile-data-profile .direktt-profile-meta-data {
+  grid-area: meta-data;
+  border-top: 1px solid var(--direktt-profile-light-gray-color);
+  padding-top: 1em;
+  margin-top: 1em;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+#direktt-profile .direktt-profile-data-profile .direktt-profile-meta-data div div:nth-child(2n+1) {
+  opacity: 0.6;
+  margin-bottom: 0.25em;
+}
+#direktt-profile .direktt-profile-data-profile .direktt-profile-meta-data .direktt-profile-meta-data-categories div:nth-child(2),
+#direktt-profile .direktt-profile-data-profile .direktt-profile-meta-data .direktt-profile-meta-data-tags div:nth-child(2) {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5em;
 }
 
 /*# sourceMappingURL=direktt-profile.css.map */

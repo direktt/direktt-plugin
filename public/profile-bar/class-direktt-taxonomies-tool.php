@@ -69,49 +69,47 @@ class Direktt_Taxonomies_Tool {
             }
         });
         </script>
-		<div class="direktt-profile-data">
-			<form method="post" action="">
-				<div class="direktt-taxonomies-tool-wrapper">
-					<div class="direktt-taxonomies-tool-info">
-						<!-- TODO Mozda neki text editing taxonomies for user... -->
-						<!-- <p class="direktt-taxonomies-tool-user-info -->
-						<p class="direktt-taxonomies-tool-status"><?php echo $status_message; ?></p>
-					</div>
-					<div class="direktt-taxonomies-tool-categories">
-						<h3><?php echo esc_html__( 'Categories', 'direktt' ); ?></h3>
-						<?php
-						foreach ( $all_categories as $category ) {
-							$is_checked = in_array( $category['name'], $assigned_categories ) ? 'checked' : '';
-							?>
-							<label>
-							<input type="checkbox" name="user_categories[]" value="<?php echo esc_attr( $category['name'] ); ?>" <?php echo esc_attr( $is_checked ); ?>>
-							<?php echo ' ' . esc_html( $category['name'] ); ?>
-							</label>
-							<?php
-						}
-						?>
-					</div>
-					<div class="direktt-taxonomies-tool-tags">
-						<h3><?php echo esc_html__( 'Tags', 'direktt' ); ?></h3>
-						<?php
-						foreach ( $all_tags as $tag ) {
-							$is_checked = in_array( $tag['name'], $assigned_tags ) ? 'checked' : '';
-							?>
-							<label>
-							<input type="checkbox" name="user_tags[]" value="<?php echo esc_attr( $tag['name'] ); ?>" <?php echo esc_attr( $is_checked ); ?>>
-							<?php echo ' ' . esc_html( $tag['name'] ); ?>
-							</label>
-							<?php
-						}
-						?>
-					</div>
-					<div class="direktt-taxonomies-tool-submit">
-						<input type="submit" name="save_user_taxonomies" value="<?php echo esc_html__( 'Save', 'direktt' ); ?>" class="button button-primary">
-						<input type="hidden" name="save_user_taxonomies_nonce" value="<?php echo esc_attr( wp_create_nonce( 'save_user_taxonomies_nonce' ) ); ?>">
-					</div>
-				</div>
-			</form>
-		</div>
+        <form method="post" action="">
+            <div class="direktt-taxonomies-tool-wrapper">
+                <div class="direktt-taxonomies-tool-info">
+                    <!-- TODO Mozda neki text editing taxonomies for user... -->
+                    <!-- <p class="direktt-taxonomies-tool-user-info -->
+                    <p class="direktt-taxonomies-tool-status"><?php echo $status_message; ?></p>
+                </div>
+                <div class="direktt-taxonomies-tool-categories">
+                    <h3><?php echo esc_html__( 'Categories', 'direktt' ); ?></h3>
+                    <?php
+                    foreach ( $all_categories as $category ) {
+                        $is_checked = in_array( $category['name'], $assigned_categories ) ? 'checked' : '';
+                        ?>
+                        <label>
+                        <input type="checkbox" name="user_categories[]" value="<?php echo esc_attr( $category['name'] ); ?>" <?php echo esc_attr( $is_checked ); ?>>
+                        <?php echo ' ' . esc_html( $category['name'] ); ?>
+                        </label>
+                        <?php
+                    }
+                    ?>
+                </div>
+                <div class="direktt-taxonomies-tool-tags">
+                    <h3><?php echo esc_html__( 'Tags', 'direktt' ); ?></h3>
+                    <?php
+                    foreach ( $all_tags as $tag ) {
+                        $is_checked = in_array( $tag['name'], $assigned_tags ) ? 'checked' : '';
+                        ?>
+                        <label>
+                        <input type="checkbox" name="user_tags[]" value="<?php echo esc_attr( $tag['name'] ); ?>" <?php echo esc_attr( $is_checked ); ?>>
+                        <?php echo ' ' . esc_html( $tag['name'] ); ?>
+                        </label>
+                        <?php
+                    }
+                    ?>
+                </div>
+                <div class="direktt-taxonomies-tool-submit">
+                    <input type="submit" name="save_user_taxonomies" value="<?php echo esc_html__( 'Save', 'direktt' ); ?>" class="button button-primary">
+                    <input type="hidden" name="save_user_taxonomies_nonce" value="<?php echo esc_attr( wp_create_nonce( 'save_user_taxonomies_nonce' ) ); ?>">
+                </div>
+            </div>
+        </form>
         <?php
     }
 }
