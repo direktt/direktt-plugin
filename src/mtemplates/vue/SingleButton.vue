@@ -56,6 +56,8 @@ function onUpdateObj(newObj) {
     <div v-if="props.btn.action.type == 'api'" class="pb-4 actionDiv">
         <div class="mb-4"><strong>Api Action Type:</strong> <v-text-field v-model="btn.action.params.actionType"
                 variant="outlined"></v-text-field></div>
+        <div class="mb-4"><strong>Success Message:</strong> <v-text-field v-model="btn.action.params.successMessage"
+                variant="outlined"></v-text-field></div>
         <div class="mb-2">
             <RetVars :obj="btn.action.retVars" @update:obj="onUpdateObj"></RetVars>
         </div>

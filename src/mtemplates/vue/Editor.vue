@@ -182,7 +182,7 @@ const getMessageJSON = computed(() => {
 
     base.content.msgObj.forEach(function (obj) {
       if (obj.action.type === "api") {
-        keepOnlyProperties(obj.action.params, ["actionType"])
+        keepOnlyProperties(obj.action.params, ["actionType", "successMessage"])
       }
       if (obj.action.type === "link") {
         keepOnlyProperties(obj.action.params, ["url", "target"])
@@ -214,7 +214,7 @@ const getFinalTemplate = computed(() => {
 
         base.content.msgObj.forEach(function (obj) {
           if (obj.action.type === "api") {
-            keepOnlyProperties(obj.action.params, ["actionType"])
+            keepOnlyProperties(obj.action.params, ["actionType", "successMessage"])
           }
           if (obj.action.type === "link") {
             keepOnlyProperties(obj.action.params, ["url", "target"])
