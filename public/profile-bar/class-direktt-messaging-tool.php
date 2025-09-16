@@ -92,7 +92,7 @@ class Direktt_Messaging_Tool
                 }
             });
         </script>
-		<div class="direktt-profile-data">
+		<div id="direktt-profile-data" class="direktt-profile-data-messaging-tool">
 			<form method="post" action="">
 				<div class="send-message-tool-wrapper">
 					<div class="send-message-tool-info">
