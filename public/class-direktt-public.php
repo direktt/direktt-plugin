@@ -521,7 +521,7 @@ class Direktt_Public
 		return $classes;
 	}
 
-	public function direktt_render_alert_popup($id, $text) {
+	static function direktt_render_alert_popup($id, $text) {
 		ob_start();
 		?>
 		<div class="direktt-alert-popup" <?php echo $id ? 'id="' . esc_attr($id) . '"' : ''; ?>>
@@ -541,7 +541,7 @@ class Direktt_Public
 		return ob_get_clean();
 	}
 
-	public function direktt_render_confirm_popup($id, $text) {
+	static function direktt_render_confirm_popup($id, $text) {
 		ob_start();
 		?>
 		<div class="direktt-confirm-popup" <?php echo $id ? 'id="' . esc_attr($id) . '"' : ''; ?>>
@@ -562,7 +562,7 @@ class Direktt_Public
 		return ob_get_clean();
 	}
 
-	public function direktt_render_loader($text = '') {
+	static function direktt_render_loader($text = '') {
 		ob_start();
 		?>
 		<div class="direktt-loader-overlay">
