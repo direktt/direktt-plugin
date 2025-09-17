@@ -5,7 +5,7 @@ class Direktt_Taxonomies_Tool {
         Direktt_Profile::add_profile_bar(
             array(
                 "id" => "edit-user-taxonomies",
-                "label" => esc_html__( 'Edit User Taxonomies', 'direktt' ),
+                "label" => esc_html__( 'Edit Taxonomies', 'direktt' ),
                 "callback" => [$this, 'render_user_taxonomies'],
                 "categories" => [],
                 "tags" => [],

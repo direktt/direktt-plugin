@@ -524,16 +524,16 @@ class Direktt_Public
 	static function direktt_render_alert_popup($id, $text) {
 		ob_start();
 		?>
-		<div class="direktt-alert-popup" <?php echo $id ? 'id="' . esc_attr($id) . '"' : ''; ?>>
-			<div class="direktt-alert-popup-content">
-				<div class="direktt-alert-header">
+		<div class="direktt-popup direktt-alert-popup" <?php echo $id ? 'id="' . esc_attr($id) . '"' : ''; ?>>
+			<div class="direktt-popup-content">
+				<div class="direktt-popup-header">
 					<h3><?php echo esc_html__( 'Alert', 'direktt-plugin' ); ?></h3>    
 				</div>
-				<div class="direktt-alert-text">
+				<div class="direktt-popup-text">
 					<p><?php echo esc_html($text); ?></p>
 				</div>
-				<div class="direktt-alert-actions">
-					<button class="direktt-alert-ok"><?php echo esc_html__( 'OK', 'direktt-plugin' ); ?></button>
+				<div class="direktt-popup-actions">
+					<button class="direktt-popup-ok"><?php echo esc_html__( 'OK', 'direktt-plugin' ); ?></button>
 				</div>
 			</div>
 		</div>
@@ -544,17 +544,17 @@ class Direktt_Public
 	static function direktt_render_confirm_popup($id, $text) {
 		ob_start();
 		?>
-		<div class="direktt-confirm-popup" <?php echo $id ? 'id="' . esc_attr($id) . '"' : ''; ?>>
-			<div class="direktt-confirm-popup-content">
-				<div class="direktt-confirm-header">
+		<div class="direktt-popup direktt-confirm-popup" <?php echo $id ? 'id="' . esc_attr($id) . '"' : ''; ?>>
+			<div class="direktt-popup-content">
+				<div class="direktt-popup-header">
 					<h3><?php echo esc_html__( 'Confirm', 'direktt-plugin' ); ?></h3>    
 				</div>
-				<div class="direktt-confirm-text">
+				<div class="direktt-popup-text">
 					<p><?php echo esc_html($text); ?></p>
 				</div>
-				<div class="direktt-confirm-actions">
-					<button class="direktt-confirm-yes"><?php echo esc_html__( 'Yes', 'direktt-plugin' ); ?></button>
-					<button class="direktt-confirm-no"><?php echo esc_html__( 'No', 'direktt-plugin' ); ?></button>
+				<div class="direktt-popup-actions">
+					<button class="direktt-popup-yes"><?php echo esc_html__( 'Yes', 'direktt-plugin' ); ?></button>
+					<button class="direktt-popup-no"><?php echo esc_html__( 'No', 'direktt-plugin' ); ?></button>
 				</div>
 			</div>
 		</div>
