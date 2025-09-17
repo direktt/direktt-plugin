@@ -1,4 +1,64 @@
-/* Import theme resets */
+/* General reset */
+/* Reset */
+#direktt-profile {
+  all: unset;
+  display: block;
+  box-sizing: border-box;
+}
+#direktt-profile *, #direktt-profile *::before, #direktt-profile *::after {
+  box-sizing: inherit;
+  /*margin: 0;
+  padding: 0;*/
+  border: 0;
+  font: inherit;
+  vertical-align: baseline;
+}
+#direktt-profile h1, #direktt-profile h2, #direktt-profile h3, #direktt-profile h4, #direktt-profile h5, #direktt-profile h6 {
+  font-weight: 600;
+  line-height: 1.25;
+  margin-bottom: 0.5em;
+}
+#direktt-profile p {
+  margin-bottom: 1em;
+}
+#direktt-profile ul, #direktt-profile ol {
+  /* list-style: none; */
+  margin: initial;
+  padding: initial;
+}
+#direktt-profile a {
+  color: inherit;
+  text-decoration: none;
+}
+#direktt-profile a:hover {
+  text-decoration: underline;
+}
+#direktt-profile img, #direktt-profile picture, #direktt-profile video, #direktt-profile canvas, #direktt-profile svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+#direktt-profile button, #direktt-profile input, #direktt-profile select, #direktt-profile textarea {
+  background: none;
+  border: 1px solid var(--direktt-profile-light-gray-color);
+  border-radius: 4px;
+  padding: 0.5em 0.75em;
+  font: inherit;
+  color: inherit;
+  /*&:focus {
+    outline: 2px solid var(--direktt-profile-accent-color);
+    outline-offset: 2px;
+  }*/
+}
+#direktt-profile input[type=submit] {
+  cursor: pointer;
+}
+#direktt-profile table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* Themes override */
 /* Variables */
 body.wp-theme-twentytwentyfive.direktt-app :where(.wp-site-blocks) > * {
   margin-block-start: 0;
@@ -11,7 +71,7 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
 
 /* Popup */
 /* Popup */
-.loyalty-program-popup {
+.direktt-popup {
   position: fixed;
   top: 0;
   left: 0;
@@ -22,8 +82,7 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
   z-index: 9998;
   margin-block: 0 !important;
 }
-
-.loyalty-program-popup .loyalty-program-popup-content {
+.direktt-popup .direktt-popup-content {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -47,7 +106,6 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
   display: none;
   z-index: 9999;
 }
-
 #direktt-loader-overlay #direktt-loader-container {
   position: absolute;
   top: 50%;
@@ -56,7 +114,6 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
   text-align: center;
   z-index: 10000;
 }
-
 #direktt-loader-overlay #direktt-loader-container #direktt-loader {
   border: 8px solid #f3f3f3;
   border-top: 8px solid #3498db;
@@ -66,7 +123,6 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
   animation: spin 2s linear infinite;
   display: inline-block;
 }
-
 #direktt-loader-overlay #direktt-loader-container #direktt-loader-text {
   margin-top: 20px;
   color: white;
@@ -99,63 +155,6 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
   --direktt-profile-default-line-height: 1.6;
   --direktt-profile-tools-width: 200px;
   --direktt-profile-tools-negative-width: -200px;
-}
-
-/* Reset */
-#direktt-profile {
-  all: unset;
-  display: block;
-  box-sizing: border-box;
-}
-#direktt-profile *, #direktt-profile *::before, #direktt-profile *::after {
-  box-sizing: inherit;
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font: inherit;
-  vertical-align: baseline;
-}
-#direktt-profile h1, #direktt-profile h2, #direktt-profile h3, #direktt-profile h4, #direktt-profile h5, #direktt-profile h6 {
-  font-weight: 600;
-  line-height: 1.25;
-  margin-bottom: 0.5em;
-}
-#direktt-profile p {
-  margin-bottom: 1em;
-}
-#direktt-profile ul, #direktt-profile ol {
-  list-style: none;
-}
-#direktt-profile a {
-  color: inherit;
-  text-decoration: none;
-}
-#direktt-profile a:hover {
-  text-decoration: underline;
-}
-#direktt-profile img, #direktt-profile picture, #direktt-profile video, #direktt-profile canvas, #direktt-profile svg {
-  display: block;
-  max-width: 100%;
-  height: auto;
-}
-#direktt-profile button, #direktt-profile input, #direktt-profile select, #direktt-profile textarea {
-  background: none;
-  border: 1px solid var(--direktt-profile-light-gray-color);
-  border-radius: 4px;
-  padding: 0.5em 0.75em;
-  font: inherit;
-  color: inherit;
-  /*&:focus {
-    outline: 2px solid var(--direktt-profile-accent-color);
-    outline-offset: 2px;
-  }*/
-}
-#direktt-profile input[type=submit] {
-  cursor: pointer;
-}
-#direktt-profile table {
-  border-collapse: collapse;
-  border-spacing: 0;
 }
 
 /* Functionalities and Styling */
@@ -262,7 +261,7 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
   border-top: 1px solid var(--direktt-profile-light-gray-color);
   padding: 1em;
   margin-top: 1em;
-  position: absolute;
+  position: fixed;
   bottom: 0;
   left: 0;
   right: 0;

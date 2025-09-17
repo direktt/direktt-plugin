@@ -1,6 +1,10 @@
-/* Import theme resets */
+/* General reset */
 
-@import "direktt-theme-reset.scss"; 
+@import "direktt-reset.scss"; 
+
+/* Themes override */
+
+@import "direktt-themes-reset.scss"; 
 
 /* Popup */
 
@@ -25,81 +29,6 @@
 	--direktt-profile-default-line-height: 1.6;
 	--direktt-profile-tools-width: 200px;
 	--direktt-profile-tools-negative-width: -200px;
-}
-
-/* Reset */
-
-#direktt-profile {
-	// Base reset
-	all: unset;
-	display: block;
-	box-sizing: border-box;
-
-	// Reset all children
-	*, *::before, *::after {
-		box-sizing: inherit;
-		margin: 0;
-		padding: 0;
-		border: 0;
-		font: inherit;
-		vertical-align: baseline;
-	}
-	
-	// Headings
-	h1, h2, h3, h4, h5, h6 {
-		font-weight: 600;
-		line-height: 1.25;
-		margin-bottom: 0.5em;
-	}
-	
-	// Paragraphs
-	p {
-		margin-bottom: 1em;
-	}
-
-	// Lists
-	ul,	ol {
-		list-style: none;
-	}
-
-	// Anchors
-	a {
-		color: inherit;
-		text-decoration: none;
-		&:hover {
-			text-decoration: underline;
-		}
-	}
-
-	// Images
-	img, picture, video, canvas, svg {
-		display: block;
-		max-width: 100%;
-		height: auto;
-	}
-
-	// Forms
-	button, input, select, textarea {
-		background: none;
-		border: 1px solid var(--direktt-profile-light-gray-color);
-		border-radius: 4px;
-		padding: 0.5em 0.75em;
-		font: inherit;
-		color: inherit;
-		/*&:focus {
-		  outline: 2px solid var(--direktt-profile-accent-color);
-		  outline-offset: 2px;
-		}*/
-	}
-	input[type="submit"] {
-		cursor: pointer;
-	}
-
-	// Tables
-	table {
-		border-collapse: collapse;
-		border-spacing: 0;
-	}
 }
 
 /* Functionalities and Styling */
@@ -208,7 +137,7 @@
 		border-top: 1px solid var(--direktt-profile-light-gray-color);
 		padding: 1em;
 		margin-top: 1em;
-		position: absolute;
+		position: fixed;
 		bottom: 0;
 		left: 0;
 		right: 0;
