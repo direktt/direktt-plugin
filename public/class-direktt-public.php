@@ -386,19 +386,19 @@ class Direktt_Public
 		ob_start();
 		if ( ! is_user_logged_in() ) {
 			?>
-			<p><?php echo esc_html__( 'You have to login.', 'direktt' ); ?></p>
+			<p><?php echo esc_html__( 'You have to login.', 'direktt-plugin' ); ?></p>
 			<?php
 		} else {
 			$wp_user = wp_get_current_user();
 			if ( Direktt_User::get_direktt_user_by_wp_user( $wp_user ) ) {
 				?>
-				<p><?php echo esc_html__( 'You have already been paired.', 'direktt' ); ?></p>
+				<p><?php echo esc_html__( 'You have already been paired.', 'direktt-plugin' ); ?></p>
 				<?php
 			} else {
 				$code = get_user_meta( $wp_user->ID, 'direktt_user_pair_code', true );
 				?>
 				<div class="direktt-paring-code">
-					<h2><?php echo esc_html__( 'Direktt Pairing Code', 'direktt' ); ?></h2>
+					<h2><?php echo esc_html__( 'Direktt Pairing Code', 'direktt-plugin' ); ?></h2>
 					<p><?php echo esc_html( $code ); ?></p>
 				</div>
 				<?php
@@ -419,13 +419,13 @@ class Direktt_Public
 		ob_start();
 		if ( ! is_user_logged_in() ) {
 			?>
-			<p><?php echo esc_html__( 'You have to login.', 'direktt' ); ?></p>
+			<p><?php echo esc_html__( 'You have to login.', 'direktt-plugin' ); ?></p>
 			<?php
 		} else {
 			$wp_user = wp_get_current_user();
 			if ( Direktt_User::get_direktt_user_by_wp_user( $wp_user ) ) {
 				?>
-				<p><?php echo esc_html__( 'You have already been paired.', 'direktt' ); ?></p>
+				<p><?php echo esc_html__( 'You have already been paired.', 'direktt-plugin' ); ?></p>
 				<?php
 			} else {
 				$code = get_user_meta( $wp_user->ID, 'direktt_user_pair_code', true );
@@ -433,7 +433,7 @@ class Direktt_Public
 				wp_enqueue_script( 'direktt-pair-code-qr-js' );
 				?>
 				<div class="direktt-qr-paring-code" data-pair-code="<?php echo esc_attr( $code ); ?>" data-size-in-px="<?php echo esc_attr( $size_in_px ); ?>">
-					<h2><?php echo esc_html__( 'Direktt Pairing Code', 'direktt' ); ?></h2>
+					<h2><?php echo esc_html__( 'Direktt Pairing Code', 'direktt-plugin' ); ?></h2>
 					<div id="qrcode"></div>
 				</div>
 				<?php
@@ -519,5 +519,59 @@ class Direktt_Public
 			$classes[] = 'direktt-app';
 		}
 		return $classes;
+	}
+
+	public function direktt_render_alert_popup($id, $text) {
+		ob_start();
+		?>
+		<div class="direktt-alert-popup" <?php echo $id ? 'id="' . esc_attr($id) . '"' : ''; ?>>
+			<div class="direktt-alert-popup-content">
+				<div class="direktt-alert-header">
+					<h3><?php echo esc_html__( 'Alert', 'direktt-plugin' ); ?></h3>    
+				</div>
+				<div class="direktt-alert-text">
+					<p><?php echo esc_html($text); ?></p>
+				</div>
+				<div class="direktt-alert-actions">
+					<button class="direktt-alert-ok"><?php echo esc_html__( 'OK', 'direktt-plugin' ); ?></button>
+				</div>
+			</div>
+		</div>
+		<?php
+		return ob_get_clean();
+	}
+
+	public function direktt_render_confirm_popup($id, $text) {
+		ob_start();
+		?>
+		<div class="direktt-confirm-popup" <?php echo $id ? 'id="' . esc_attr($id) . '"' : ''; ?>>
+			<div class="direktt-confirm-popup-content">
+				<div class="direktt-confirm-header">
+					<h3><?php echo esc_html__( 'Confirm', 'direktt-plugin' ); ?></h3>    
+				</div>
+				<div class="direktt-confirm-text">
+					<p><?php echo esc_html($text); ?></p>
+				</div>
+				<div class="direktt-confirm-actions">
+					<button class="direktt-confirm-yes"><?php echo esc_html__( 'Yes', 'direktt-plugin' ); ?></button>
+					<button class="direktt-confirm-no"><?php echo esc_html__( 'No', 'direktt-plugin' ); ?></button>
+				</div>
+			</div>
+		</div>
+		<?php
+		return ob_get_clean();
+	}
+
+	public function direktt_render_loader($text = '') {
+		ob_start();
+		?>
+		<div class="direktt-loader-overlay">
+			<div class="direktt-loader-container">
+				<p class="direktt-loader-text"><?php echo $text ? esc_html($text) : esc_html__( 'Don\'t refresh the page', 'direktt-plugin' ); ?></p>
+				<div class="direktt-loader"></div>
+			</div>
+		</div>
+		<?php
+		return ob_get_clean();
 	}
 }
