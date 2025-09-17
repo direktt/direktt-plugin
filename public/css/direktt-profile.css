@@ -4,64 +4,155 @@
   --direktt-profile-accent-color: red;
   --direktt-profile-alternate-color: green;
   --direktt-profile-light-gray-color: #dddddd;
+  --direktt-profile-dark-gray-color: #cccccc;
   --direktt-profile-dark-color: black;
   --direktt-profile-light-color: white;
   --direktt-profile-default-font-family: "Noto Sans", Helvetica, Arial, sans-serif;
-  --direktt-profile-default-font-size: 14px;
+  --direktt-profile-default-font-size-normal: 14px;
+  --direktt-profile-default-font-size-small: 11px;
   --direktt-profile-default-line-height: 1.6;
+  --direktt-profile-tools-width: 200px;
+  --direktt-profile-tools-negative-width: -200px;
 }
 
-/* Grid definition */
+/* Reset */
 #direktt-profile {
-  display: grid;
-  grid-template-columns: 1fr 3fr;
-  grid-column-gap: 1em;
-  grid-row-gap: 1em;
-  grid-template-areas: "tools header" "tools data" "tools footer";
+  all: unset;
+  display: block;
+  box-sizing: border-box;
 }
-#direktt-profile #direktt-profile-data {
-  grid-area: data;
+#direktt-profile *, #direktt-profile *::before, #direktt-profile *::after {
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  vertical-align: baseline;
 }
-#direktt-profile #direktt-profile-tools {
-  grid-area: tools;
+#direktt-profile h1, #direktt-profile h2, #direktt-profile h3, #direktt-profile h4, #direktt-profile h5, #direktt-profile h6 {
+  font-weight: 600;
+  line-height: 1.25;
+  margin-bottom: 0.5em;
 }
-#direktt-profile #direktt-profile-menu-bar {
-  grid-area: footer;
+#direktt-profile p {
+  margin-bottom: 1em;
+}
+#direktt-profile ul, #direktt-profile ol {
+  list-style: none;
+}
+#direktt-profile a {
+  color: inherit;
+  text-decoration: none;
+}
+#direktt-profile a:hover {
+  text-decoration: underline;
+}
+#direktt-profile img, #direktt-profile picture, #direktt-profile video, #direktt-profile canvas, #direktt-profile svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+#direktt-profile button, #direktt-profile input, #direktt-profile select, #direktt-profile textarea {
+  background: none;
+  border: 1px solid var(--direktt-profile-light-gray-color);
+  border-radius: 4px;
+  padding: 0.5em 0.75em;
+  font: inherit;
+  color: inherit;
+  /*&:focus {
+    outline: 2px solid var(--direktt-profile-accent-color);
+    outline-offset: 2px;
+  }*/
+}
+#direktt-profile input[type=submit] {
+  cursor: pointer;
+}
+#direktt-profile table {
+  border-collapse: collapse;
+  border-spacing: 0;
 }
 
 /* Functionalities and Styling */
+#direktt-profile-wrapper {
+  overflow: hidden;
+}
+
 #direktt-profile {
+  position: relative;
+  overflow: hidden;
   font-family: var(--direktt-profile-default-font-family);
-  font-size: var(--direktt-profile-default-font-size);
+  font-size: var(--direktt-profile-default-font-size-normal);
   line-height: var(--direktt-profile-default-line-height);
+  padding-left: 0;
+  padding-bottom: 7em;
+  margin-right: 0;
   /* General */
   /* Tabs */
   /* Profile tab */
 }
-#direktt-profile #direktt-profile-tools {
+#direktt-profile #direktt-profile-data {
+  opacity: 1;
+  transition: all 300ms, opacity 900ms;
+}
+.direktt-profile-tools-open #direktt-profile #direktt-profile-data, .direktt-profile-tools-open #direktt-profile #direktt-profile-header {
+  padding-left: calc(var(--direktt-profile-tools-width) + 1em);
+  margin-right: calc(var(--direktt-profile-tools-negative-width) - 1em);
+}
+.direktt-profile-tools-open #direktt-profile #direktt-profile-data {
+  opacity: 0.5;
+}
+.direktt-profile-tools-open #direktt-profile #direktt-profile-header #direktt-profile-tools-toggler:before {
+  background-color: var(--direktt-profile-accent-color);
+}
+#direktt-profile #direktt-profile-header {
   position: relative;
-  width: 0px;
-  margin-top: 1em;
+  padding-top: 1em;
+  border-bottom: 1px solid var(--direktt-profile-light-gray-color);
+  padding-bottom: 1em;
+  margin-bottom: 1em;
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  transition: all 300ms;
 }
-#direktt-profile #direktt-profile-tools.on {
-  width: 200px;
+#direktt-profile #direktt-profile-header #direktt-profile-tools-toggler {
+  flex-basis: 2rem;
 }
-#direktt-profile #direktt-profile-tools #direktt-profile-tools-toggler:before {
+#direktt-profile #direktt-profile-header #direktt-profile-tools-toggler:before {
+  cursor: pointer;
   content: "X";
-  background-color: red;
+  background-color: var(--direktt-profile-dark-gray-color);
   color: white;
-  width: 1em;
-  height: 1em;
+  width: 2rem;
+  height: 2rem;
+  line-height: 2rem;
+  text-align: center;
+  pointer-events: all;
+  display: block;
+}
+#direktt-profile #direktt-profile-header #direktt-profile-tools-toggler:hover:before {
+  background-color: var(--direktt-profile-accent-color);
+}
+#direktt-profile #direktt-profile-tools {
+  border-right: 1px solid var(--direktt-profile-dark-gray-color);
+  box-sizing: border-box;
+  width: var(--direktt-profile-tools-width);
   position: absolute;
   top: 0;
+  bottom: 0;
   left: 0;
+  pointer-events: none;
+  margin-left: var(--direktt-profile-tools-negative-width);
+  transition: all 300ms;
 }
 #direktt-profile #direktt-profile-tools ul {
   margin: 0;
-  padding: 0;
+  padding: 1em;
   display: flex;
   flex-direction: column;
   gap: 0.5em;
+  background-color: white;
+  height: 100%;
 }
 #direktt-profile #direktt-profile-tools ul li {
   margin: 0;
@@ -70,46 +161,70 @@
   text-align: center;
 }
 #direktt-profile #direktt-profile-tools ul li a {
+  pointer-events: all;
   padding: 10px;
   display: block;
-  background: var(--direktt-profile-alternate-color);
+  background: var(--direktt-profile-accent-color);
   color: var(--direktt-profile-light-color);
   border-radius: var(--direktt-profile-border-radius);
+}
+.direktt-profile-tools-open #direktt-profile #direktt-profile-tools {
+  margin-left: 0px;
 }
 #direktt-profile #direktt-profile-menu-bar {
   border-top: 1px solid var(--direktt-profile-light-gray-color);
   padding-top: 1em;
   margin-top: 1em;
-  border-bottom: 1px solid gray;
   padding-bottom: 1em;
-  margin-bottom: 1em;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: white;
 }
 #direktt-profile #direktt-profile-menu-bar ul {
   margin: 0;
   padding: 0;
   display: flex;
+  justify-content: space-around;
   gap: 2em;
+  font-size: var(--direktt-profile-default-font-size-small);
 }
 #direktt-profile #direktt-profile-menu-bar ul li {
   margin: 0;
   padding: 0;
   display: block;
 }
+#direktt-profile #direktt-profile-menu-bar ul li a:before {
+  content: " ";
+  display: block;
+  border-radius: 50%;
+  background-color: var(--direktt-profile-dark-gray-color);
+  width: 2rem;
+  height: 2rem;
+  margin: auto;
+}
+#direktt-profile[data-subpage=profile-tab-] #direktt-profile-menu-bar ul li[data-subpage=direktt-menu-profile] a:before, #direktt-profile[data-subpage=profile-tab-send-user-message] #direktt-profile-menu-bar ul li[data-subpage=direktt-menu-send-user-message] a:before, #direktt-profile[data-subpage=profile-tab-edit-user-taxonomies] #direktt-profile-menu-bar ul li[data-subpage=direktt-menu-edit-user-taxonomies] a:before {
+  background-color: var(--direktt-profile-accent-color);
+}
+#direktt-profile:not([data-subpage=profile-tab-]):not([data-subpage=profile-tab-send-user-message]):not([data-subpage=profile-tab-edit-user-taxonomies]) #direktt-profile-header #direktt-profile-tools-toggler:before {
+  background-color: var(--direktt-profile-accent-color);
+}
 #direktt-profile .button {
   border: 1px solid var(--direktt-profile-light-gray-color);
   color: var(--direktt-profile-light-color);
   background-color: var(--direktt-profile-accent-color);
-  padding: 20px;
+  padding: 1em 2em;
   font-size: inherit;
 }
 #direktt-profile .button.button-primary {
   background-color: green;
 }
 #direktt-profile span.pill {
-  padding: 0.5em 1.5em;
+  padding: 0.125em 1em;
   border-radius: var(--direktt-profile-border-radius);
   display: inline-block;
-  background-color: var(--direktt-profile-accent-color);
+  background-color: var(--direktt-profile-light-gray-color);
 }
 #direktt-profile span.pill.empty {
   background-color: transparent;

@@ -97,7 +97,13 @@ class Direktt_Profile
 		$profile_user = Direktt_User::get_user_by_subscription_id($subscriptionId);
 ?>
 		<div id="direktt-profile-wrapper">
-			<div class="profile-tab-<?= $active_tab ?>" id="direktt-profile">
+			<div data-subpage="profile-tab-<?= $active_tab ?>" id="direktt-profile">
+				<div id="direktt-profile-header">
+					<div id="direktt-profile-tools-toggler"></div>
+					<div class="direktt-profile-header-data">
+						<?php if ( $profile_user && $direktt_user ) echo( $profile_user['direktt_display_name'] ); ?>
+					</div>
+				</div>
 				<div id="direktt-profile-data" class="direktt-profile-data-<?php echo ($active_tab ? $active_tab : 'profile') ?>">
 					<?php
 					if ($active_tab == '') {
@@ -219,7 +225,6 @@ class Direktt_Profile
 					// Print out all other labels and links
 					?>
 				</div><!-- direktt-profile-data -->
-
 				<div id="direktt-profile-tools">
 					<div id="direktt-profile-tools-toggler"></div>
 					<ul>
@@ -252,7 +257,7 @@ class Direktt_Profile
 			unset($params['subpage']);
 			$newQuery = http_build_query($params);
 			$newUri = $parts['path'] . ($newQuery ? '?' . $newQuery : '');
-			echo ('<li><a href="' . $newUri . '">' . __('Profile', 'direktt') . '</a></li>');
+			echo ('<li data-subpage="direktt-menu-profile"><a href="' . $newUri . '">' . __('Profile', 'direktt') . '</a></li>');
 
 			foreach (Direktt::$profile_bar_array as $item) {
 				if (isset($item['label'])) {
@@ -261,7 +266,7 @@ class Direktt_Profile
 					$params['subpage'] = $item['id'];
 					$newQuery = http_build_query($params);
 					$newUri = $parts['path'] . ($newQuery ? '?' . $newQuery : '');
-					echo ('<li><a href="' . $newUri . '">' . $item['label'] . '</a></li>');
+					echo ('<li data-subpage="direktt-menu-' . $params['subpage'] . '"><a href="' . $newUri . '">' . $item['label'] . '</a></li>');
 				}
 			}
 

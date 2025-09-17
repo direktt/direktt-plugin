@@ -104,9 +104,10 @@ class Direktt_Messaging_Tool
 					<input type="hidden" id="templateNonce" name="templateNonce" value="<?php echo esc_attr(wp_create_nonce('direktt_msgsend_nonce')); ?>">
 
 					<div class="send-message-tool-submit">
-						<input type="submit" name="send_user_message" id="sendMessageBtn" value="<?php echo esc_html__('Send the message', 'direktt'); ?>" class="button button-primary">
-						<input type="hidden" name="send_user_message_nonce" value="<?php echo esc_attr(wp_create_nonce('send_user_message_nonce')); ?>">
-
+						<p>
+							<input type="submit" name="send_user_message" id="sendMessageBtn" value="<?php echo esc_html__('Send the message', 'direktt'); ?>" class="button button-primary">
+							<input type="hidden" name="send_user_message_nonce" value="<?php echo esc_attr(wp_create_nonce('send_user_message_nonce')); ?>">
+						</p>
 					</div>
 				</div>
 
