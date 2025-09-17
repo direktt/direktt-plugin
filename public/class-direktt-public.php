@@ -520,4 +520,58 @@ class Direktt_Public
 		}
 		return $classes;
 	}
+
+	function direktt_render_alert_popup($id, $text) {
+		ob_start();
+		?>
+		<div class="direktt-alert-popup" <?php echo $id ? 'id="' . esc_attr($id) . '"' : ''; ?>>
+			<div class="direktt-alert-popup-content">
+				<div class="direktt-alert-header">
+					<h3><?php echo esc_html__( 'Alert', 'direktt' ); ?></h3>    
+				</div>
+				<div class="direktt-alert-text">
+					<p><?php echo esc_html($text); ?></p>
+				</div>
+				<div class="direktt-alert-actions">
+					<button class="direktt-alert-ok"><?php echo esc_html__( 'OK', 'direktt' ); ?></button>
+				</div>
+			</div>
+		</div>
+		<?php
+		return ob_get_clean();
+	}
+
+	function direktt_render_confirm_popup($id, $text) {
+		ob_start();
+		?>
+		<div class="direktt-confirm-popup" <?php echo $id ? 'id="' . esc_attr($id) . '"' : ''; ?>>
+			<div class="direktt-confirm-popup-content">
+				<div class="direktt-confirm-header">
+					<h3><?php echo esc_html__( 'Confirm', 'direktt' ); ?></h3>    
+				</div>
+				<div class="direktt-confirm-text">
+					<p><?php echo esc_html($text); ?></p>
+				</div>
+				<div class="direktt-confirm-actions">
+					<button class="direktt-confirm-yes"><?php echo esc_html__( 'Yes', 'direktt' ); ?></button>
+					<button class="direktt-confirm-no"><?php echo esc_html__( 'No', 'direktt' ); ?></button>
+				</div>
+			</div>
+		</div>
+		<?php
+		return ob_get_clean();
+	}
+
+	function direktt_render_loader($text) {
+		ob_start();
+		?>
+		<div class="direktt-loader-overlay">
+			<div class="direktt-loader-container">
+				<p class="direktt-loader-text"><?php echo esc_html($text); ?></p>
+				<div class="direktt-loader"></div>
+			</div>
+		</div>
+		<?php
+		return ob_get_clean();
+	}
 }
