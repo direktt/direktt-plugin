@@ -229,6 +229,7 @@ class Direktt_Profile
 					<div id="direktt-profile-tools-toggler"></div>
 					<ul>
 						<?php
+						$temp_css = "";
 						foreach (Direktt::$profile_tools_array as $item) {
 							if (isset($item['label'])) {
 
@@ -236,11 +237,13 @@ class Direktt_Profile
 								$params['subpage'] = $item['id'];
 								$newQuery = http_build_query($params);
 								$newUri = $parts['path'] . ($newQuery ? '?' . $newQuery : '');
-								echo ('<li><a href="' . $newUri . '">' . $item['label'] . '</a></li>');
+								echo ('<li data-subpage="direktt-tool-' . $params['subpage'] . '"><a href="' . $newUri . '">' . $item['label'] . '</a></li>');
+								$temp_css .= '#direktt-profile[data-subpage="profile-tab-' . $params['subpage'] . '"] #direktt-profile-tools ul li[data-subpage="direktt-tool-' . $params['subpage'] . '"] a, ';
 							}
 						}
 						?>
 					</ul>
+					<?php echo(  '<style>' . $temp_css . ' .dummy { background-color: var(--direktt-profile-accent-color); }</style>' ); ?>
 				</div><!-- direktt-profile-tools -->
 		<?php
 

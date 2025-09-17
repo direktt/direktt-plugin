@@ -1,10 +1,21 @@
+/* Import theme resets */
+/* Variables */
+body.wp-theme-twentytwentyfive.direktt-app :where(.wp-site-blocks) > * {
+  margin-block-start: 0;
+  margin-block-end: 0;
+}
+body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
+  padding-right: 0;
+  padding-left: 0;
+}
+
 /* Variables */
 #direktt-profile {
   --direktt-profile-border-radius: 8px;
   --direktt-profile-accent-color: red;
   --direktt-profile-alternate-color: green;
   --direktt-profile-light-gray-color: #dddddd;
-  --direktt-profile-dark-gray-color: #cccccc;
+  --direktt-profile-dark-gray-color: #999999;
   --direktt-profile-dark-color: black;
   --direktt-profile-light-color: white;
   --direktt-profile-default-font-family: "Noto Sans", Helvetica, Arial, sans-serif;
@@ -86,6 +97,7 @@
   padding-left: 0;
   padding-bottom: 7em;
   margin-right: 0;
+  min-height: 99.9vh;
   /* General */
   /* Tabs */
   /* Profile tab */
@@ -93,6 +105,7 @@
 #direktt-profile #direktt-profile-data {
   opacity: 1;
   transition: all 300ms, opacity 900ms;
+  padding: 0 1em;
 }
 .direktt-profile-tools-open #direktt-profile #direktt-profile-data, .direktt-profile-tools-open #direktt-profile #direktt-profile-header {
   padding-left: calc(var(--direktt-profile-tools-width) + 1em);
@@ -106,9 +119,8 @@
 }
 #direktt-profile #direktt-profile-header {
   position: relative;
-  padding-top: 1em;
+  padding: 1em;
   border-bottom: 1px solid var(--direktt-profile-light-gray-color);
-  padding-bottom: 1em;
   margin-bottom: 1em;
   display: flex;
   align-items: center;
@@ -164,7 +176,7 @@
   pointer-events: all;
   padding: 10px;
   display: block;
-  background: var(--direktt-profile-accent-color);
+  background: var(--direktt-profile-dark-gray-color);
   color: var(--direktt-profile-light-color);
   border-radius: var(--direktt-profile-border-radius);
 }
@@ -173,9 +185,8 @@
 }
 #direktt-profile #direktt-profile-menu-bar {
   border-top: 1px solid var(--direktt-profile-light-gray-color);
-  padding-top: 1em;
+  padding: 1em;
   margin-top: 1em;
-  padding-bottom: 1em;
   position: absolute;
   bottom: 0;
   left: 0;
@@ -186,7 +197,7 @@
   margin: 0;
   padding: 0;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   gap: 2em;
   font-size: var(--direktt-profile-default-font-size-small);
 }

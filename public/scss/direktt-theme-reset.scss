@@ -1,0 +1,12 @@
+/* Variables */
+
+body.wp-theme-twentytwentyfive.direktt-app {
+	:where(.wp-site-blocks) > * {
+		margin-block-start: 0;
+		margin-block-end: 0; 
+	}
+	.entry-content.has-global-padding {
+		padding-right: 0;
+		padding-left: 0;
+	}	
+}
