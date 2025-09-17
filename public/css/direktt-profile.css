@@ -9,6 +9,78 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
   padding-left: 0;
 }
 
+/* Popup */
+/* Popup */
+.loyalty-program-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: none;
+  z-index: 9998;
+  margin-block: 0 !important;
+}
+
+.loyalty-program-popup .loyalty-program-popup-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Loader */
+#direktt-loader-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: none;
+  z-index: 9999;
+}
+
+#direktt-loader-overlay #direktt-loader-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 10000;
+}
+
+#direktt-loader-overlay #direktt-loader-container #direktt-loader {
+  border: 8px solid #f3f3f3;
+  border-top: 8px solid #3498db;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 2s linear infinite;
+  display: inline-block;
+}
+
+#direktt-loader-overlay #direktt-loader-container #direktt-loader-text {
+  margin-top: 20px;
+  color: white;
+  font-size: 16px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 /* Variables */
 #direktt-profile {
   --direktt-profile-border-radius: 8px;
@@ -17,6 +89,9 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
   --direktt-profile-light-gray-color: #dddddd;
   --direktt-profile-dark-gray-color: #999999;
   --direktt-profile-dark-color: black;
+  --direktt-profile-light-color: white;
+  --direktt-profile-button-default-background-color: var(--direktt-profile-dark-gray-color);
+  --direktt-profile-button-active-background-color: var(--direktt-profile-accent-color);
   --direktt-profile-light-color: white;
   --direktt-profile-default-font-family: "Noto Sans", Helvetica, Arial, sans-serif;
   --direktt-profile-default-font-size-normal: 14px;
@@ -115,7 +190,7 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
   opacity: 0.5;
 }
 .direktt-profile-tools-open #direktt-profile #direktt-profile-header #direktt-profile-tools-toggler:before {
-  background-color: var(--direktt-profile-accent-color);
+  background-color: var(--direktt-profile-button-active-background-color);
 }
 #direktt-profile #direktt-profile-header {
   position: relative;
@@ -133,7 +208,7 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
 #direktt-profile #direktt-profile-header #direktt-profile-tools-toggler:before {
   cursor: pointer;
   content: "X";
-  background-color: var(--direktt-profile-dark-gray-color);
+  background-color: var(--direktt-profile-button-default-background-color);
   color: white;
   width: 2rem;
   height: 2rem;
@@ -176,7 +251,7 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
   pointer-events: all;
   padding: 10px;
   display: block;
-  background: var(--direktt-profile-dark-gray-color);
+  background-color: var(--direktt-profile-button-default-background-color);
   color: var(--direktt-profile-light-color);
   border-radius: var(--direktt-profile-border-radius);
 }
@@ -210,16 +285,16 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
   content: " ";
   display: block;
   border-radius: 50%;
-  background-color: var(--direktt-profile-dark-gray-color);
+  background-color: var(--direktt-profile-button-default-background-color);
   width: 2rem;
   height: 2rem;
   margin: auto;
 }
 #direktt-profile[data-subpage=profile-tab-] #direktt-profile-menu-bar ul li[data-subpage=direktt-menu-profile] a:before, #direktt-profile[data-subpage=profile-tab-send-user-message] #direktt-profile-menu-bar ul li[data-subpage=direktt-menu-send-user-message] a:before, #direktt-profile[data-subpage=profile-tab-edit-user-taxonomies] #direktt-profile-menu-bar ul li[data-subpage=direktt-menu-edit-user-taxonomies] a:before {
-  background-color: var(--direktt-profile-accent-color);
+  background-color: var(--direktt-profile-button-active-background-color);
 }
 #direktt-profile:not([data-subpage=profile-tab-]):not([data-subpage=profile-tab-send-user-message]):not([data-subpage=profile-tab-edit-user-taxonomies]) #direktt-profile-header #direktt-profile-tools-toggler:before {
-  background-color: var(--direktt-profile-accent-color);
+  background-color: var(--direktt-profile-button-active-background-color);
 }
 #direktt-profile .button {
   border: 1px solid var(--direktt-profile-light-gray-color);

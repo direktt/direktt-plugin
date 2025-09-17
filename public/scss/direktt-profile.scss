@@ -2,6 +2,10 @@
 
 @import "direktt-theme-reset.scss"; 
 
+/* Popup */
+
+@import "direktt-popup.scss"; 
+
 /* Variables */
 
 #direktt-profile {
@@ -12,6 +16,9 @@
 	--direktt-profile-dark-gray-color: #999999;
 	--direktt-profile-dark-color: black;
 	--direktt-profile-light-color: white;
+	--direktt-profile-button-default-background-color: var(--direktt-profile-dark-gray-color);
+	--direktt-profile-button-active-background-color: var(--direktt-profile-accent-color);
+	--direktt-profile-light-color: white;	
 	--direktt-profile-default-font-family: "Noto Sans", Helvetica, Arial, sans-serif;
 	--direktt-profile-default-font-size-normal: 14px;
 	--direktt-profile-default-font-size-small: 11px;
@@ -125,7 +132,7 @@
 			opacity: 0.5;	
 		}
 		#direktt-profile-header #direktt-profile-tools-toggler:before {
-			background-color: var(--direktt-profile-accent-color)
+			background-color: var(--direktt-profile-button-active-background-color)
 		}
 		
 	}
@@ -143,7 +150,7 @@
 			&:before {
 				cursor: pointer;
 				content: "X";
-				background-color: var(--direktt-profile-dark-gray-color);
+				background-color: var(--direktt-profile-button-default-background-color);
 				color: white;
 				width: 2rem;
 				height: 2rem;
@@ -185,7 +192,7 @@
 					pointer-events: all;
 					padding: 10px;
 					display: block;
-					background: var(--direktt-profile-dark-gray-color);
+					background-color: var(--direktt-profile-button-default-background-color);
 					color: var(--direktt-profile-light-color);
 					border-radius: var(--direktt-profile-border-radius);
 				}
@@ -222,7 +229,7 @@
 						content: " ";
 						display: block;
 						border-radius: 50%;
-						background-color: var(--direktt-profile-dark-gray-color);
+						background-color: var(--direktt-profile-button-default-background-color);
 						width: 2rem;
 						height: 2rem;
 						margin: auto;
@@ -234,11 +241,11 @@
 	&[data-subpage="profile-tab-"] #direktt-profile-menu-bar ul li[data-subpage="direktt-menu-profile"] a:before,
 	&[data-subpage="profile-tab-send-user-message"] #direktt-profile-menu-bar ul li[data-subpage="direktt-menu-send-user-message"] a:before,
 	&[data-subpage="profile-tab-edit-user-taxonomies"] #direktt-profile-menu-bar ul li[data-subpage="direktt-menu-edit-user-taxonomies"] a:before {
-		background-color: var(--direktt-profile-accent-color);
+		background-color: var(--direktt-profile-button-active-background-color);
 	}
 	&:not([data-subpage="profile-tab-"]):not([data-subpage="profile-tab-send-user-message"]):not([data-subpage="profile-tab-edit-user-taxonomies"]) {
 		#direktt-profile-header #direktt-profile-tools-toggler:before {
-			background-color: var(--direktt-profile-accent-color);
+			background-color: var(--direktt-profile-button-active-background-color);
 		}	
 	} 
 	/* General */
