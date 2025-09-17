@@ -7,7 +7,7 @@ class Direktt_Messaging_Tool
         Direktt_Profile::add_profile_bar(
             array(
                 "id" => "send-user-message",
-                "label" => esc_html__('Send Message to User', 'direktt'),
+                "label" => esc_html__('Send Message', 'direktt'),
                 "callback" => [$this, 'render_user_messages'],
                 "categories" => [],
                 "tags" => [],

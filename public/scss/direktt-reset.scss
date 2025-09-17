@@ -33,8 +33,8 @@
 	// Lists
 	ul,	ol {
 		/* list-style: none; */
-		margin: initial;
-		padding: initial;
+		margin: 0 0 1em 0;
+		padding: 0 0 0 2em;;
 	}
 
 	// Anchors
@@ -43,6 +43,9 @@
 		text-decoration: none;
 		&:hover {
 			text-decoration: underline;
+		}
+		&:focus {
+			outline: none;
 		}
 	}
 
@@ -68,6 +71,9 @@
 	}
 	input[type="submit"] {
 		cursor: pointer;
+	}
+	form {
+		margin-bottom: 1em;
 	}
 
 	// Tables
