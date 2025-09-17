@@ -562,7 +562,7 @@ class Direktt_Public
 		return ob_get_clean();
 	}
 
-	public function direktt_render_loader($text) {
+	public function direktt_render_loader($text = '') {
 		ob_start();
 		?>
 		<div class="direktt-loader-overlay">
