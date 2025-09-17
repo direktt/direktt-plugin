@@ -69,8 +69,14 @@
 		  outline-offset: 2px;
 		}*/
 	}
-	input[type="submit"] {
+	input[type="submit"], button {
 		cursor: pointer;
+		border: 1px solid var(--direktt-profile-alternate-color);
+		color: var(--direktt-profile-alternate-color);
+		line-height: 1;
+		&:focus {
+		  outline: none;
+		}
 	}
 	form {
 		margin-bottom: 1em;
