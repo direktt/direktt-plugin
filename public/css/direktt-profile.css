@@ -75,42 +75,40 @@
 }
 
 @font-face {
-  font-family: "remixicon";
-  src: url("public\css\fonts\direktt-profile-icons.eot?t=1758201785209");
+  font-family: "direktt-profile-icons";
+  src: url("fonts/direktt-profile-icons.eot?t=1758201785209");
   /* IE9*/
-  src: url("public\css\fonts\direktt-profile-icons.eot?t=1758201785209#iefix") format("embedded-opentype"), url("public\css\fonts\direktt-profile-icons.woff2?t=1758201785209") format("woff2"), url("public\css\fonts\direktt-profile-icons.woff?t=1758201785209") format("woff"), url("public\css\fonts\direktt-profile-icons.ttf?t=1758201785209") format("truetype"), url("public\css\fonts\direktt-profile-icons.svg?t=1758201785209#direktt-profile-icons") format("svg");
+  src: url("fonts/direktt-profile-icons.eot?t=1758201785209#iefix") format("embedded-opentype"), url("fonts/direktt-profile-icons.woff2?t=1758201785209") format("woff2"), url("fonts/direktt-profile-icons.woff?t=1758201785209") format("woff"), url("fonts/direktt-profile-icons.ttf?t=1758201785209") format("truetype"), url("fonts/direktt-profile-icons.svg?t=1758201785209#direktt-profile-icons") format("svg");
   /* iOS 4.1- */
   font-display: swap;
 }
-[class^=dpi-], [class*=dpi-] {
+[class^=dpi-]:before, [class*=dpi-]:before {
   font-family: "direktt-profile-icons" !important;
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-.dpi-price-tag:before {
-  content: "";
+#direktt-profile .dpi-menu:before {
+  content: "" !important;
 }
-
-.dpi-menu:before {
-  content: "";
+#direktt-profile .dpi-close:before {
+  content: "" !important;
 }
-
-.dpi-arrow-left:before {
-  content: "";
+#direktt-profile .dpi-arrow-left:before {
+  content: "" !important;
 }
-
-.dpi-chat-1:before {
-  content: "";
+#direktt-profile .dpi-send-user-message:before {
+  content: "" !important;
 }
-
-.dpi-user:before {
-  content: "";
+#direktt-profile .dpi-profile:before {
+  content: "" !important;
 }
-
-.dpi-information:before {
-  content: "";
+#direktt-profile .dpi-information:before {
+  content: "" !important;
+}
+#direktt-profile .dpi-edit-user-taxonomies:before {
+  content: "" !important;
 }
 
 /* Themes override */
@@ -215,7 +213,7 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
 #direktt-profile {
   --direktt-profile-border-radius: 50px;
   --direktt-profile-accent-color: #5DB075;
-  --direktt-profile-alternate-color: green;
+  --direktt-profile-alternate-color: #387248;
   --direktt-profile-light-gray-color: #dddddd;
   --direktt-profile-dark-gray-color: #999999;
   --direktt-profile-dark-color: black;
@@ -276,7 +274,8 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
   opacity: 0.25;
 }
 .direktt-profile-tools-open #direktt-profile #direktt-profile-header #direktt-profile-tools-toggler:before {
-  background-color: var(--direktt-profile-button-active-background-color);
+  /* background-color: var(--direktt-profile-button-active-background-color); */
+  content: "" !important;
 }
 #direktt-profile #direktt-profile-header {
   position: relative;
@@ -290,13 +289,14 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
 }
 #direktt-profile #direktt-profile-header #direktt-profile-tools-toggler:before {
   cursor: pointer;
-  content: "X";
-  background-color: var(--direktt-profile-alternate-color);
+  content: " ";
+  /* background-color: var(--direktt-profile-alternate-color); */
   color: var(--direktt-profile-light-color);
   flex-basis: 2rem;
   width: 2rem;
   height: 2rem;
   line-height: 2rem;
+  font-size: 1.25rem;
   text-align: center;
   pointer-events: all;
   display: block;
@@ -373,21 +373,31 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
 }
 #direktt-profile #direktt-profile-menu-bar ul li a {
   color: var(--direktt-profile-dark-gray-color);
+  text-align: center;
+}
+#direktt-profile #direktt-profile-menu-bar ul li a:hover {
+  text-decoration: none;
 }
 #direktt-profile #direktt-profile-menu-bar ul li a:before {
+  text-align: center;
   content: " ";
   display: block;
   border-radius: 50%;
   background-color: var(--direktt-profile-button-default-background-color);
-  width: 2rem;
-  height: 2rem;
+  color: white;
   margin: 0 auto 0.5em;
+  width: 2.5rem;
+  height: 2.5rem;
+  line-height: 2.5rem;
+  margin: 0 auto 0.5em;
+  font-size: 1.75em;
 }
 #direktt-profile[data-subpage=profile-tab-] #direktt-profile-menu-bar ul li[data-subpage=direktt-menu-profile] a:before, #direktt-profile[data-subpage=profile-tab-send-user-message] #direktt-profile-menu-bar ul li[data-subpage=direktt-menu-send-user-message] a:before, #direktt-profile[data-subpage=profile-tab-edit-user-taxonomies] #direktt-profile-menu-bar ul li[data-subpage=direktt-menu-edit-user-taxonomies] a:before {
   background-color: var(--direktt-profile-button-active-background-color);
 }
 #direktt-profile:not([data-subpage=profile-tab-]):not([data-subpage=profile-tab-send-user-message]):not([data-subpage=profile-tab-edit-user-taxonomies]) #direktt-profile-header #direktt-profile-tools-toggler:before {
   background-color: var(--direktt-profile-button-active-background-color);
+  content: "" !important;
 }
 #direktt-profile span.pill {
   padding: 0.5em 1em;

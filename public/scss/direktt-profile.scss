@@ -4,29 +4,30 @@
 @import url( 'https://fonts.googleapis.com/css?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap' );
 
 @font-face {
-    font-family: "remixicon";
-    src: url('public\css\fonts\direktt-profile-icons.eot?t=1758201785209'); /* IE9*/
-    src: url('public\css\fonts\direktt-profile-icons.eot?t=1758201785209#iefix') format('embedded-opentype'), /* IE6-IE8 */
-    url("public\css\fonts\direktt-profile-icons.woff2?t=1758201785209") format("woff2"),
-    url("public\css\fonts\direktt-profile-icons.woff?t=1758201785209") format("woff"),
-    url('public\css\fonts\direktt-profile-icons.ttf?t=1758201785209') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
-    url('public\css\fonts\direktt-profile-icons.svg?t=1758201785209#direktt-profile-icons') format('svg'); /* iOS 4.1- */
+    font-family: "direktt-profile-icons";
+    src: url('fonts/direktt-profile-icons.eot?t=1758201785209'); /* IE9*/
+    src: url('fonts/direktt-profile-icons.eot?t=1758201785209#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url("fonts/direktt-profile-icons.woff2?t=1758201785209") format("woff2"),
+    url("fonts/direktt-profile-icons.woff?t=1758201785209") format("woff"),
+    url('fonts/direktt-profile-icons.ttf?t=1758201785209') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+    url('fonts/direktt-profile-icons.svg?t=1758201785209#direktt-profile-icons') format('svg'); /* iOS 4.1- */
     font-display: swap;
 }
 
-[class^="dpi-"], [class*="dpi-"] {
+[class^="dpi-"]:before, [class*="dpi-"]:before {
     font-family: 'direktt-profile-icons' !important;
     font-style: normal;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
 #direktt-profile { 
-	.dpi-price-tag:before { content: "\f025"; }
-	.dpi-menu:before { content: "\ef3e"; }
-	.dpi-arrow-left:before { content: "\ea60"; }
-	.dpi-chat-1:before { content: "\eb4d"; }
-	.dpi-user:before { content: "\f264"; }
-	.dpi-information:before { content: "\ee59"; }
+	.dpi-menu:before { content: "\ef3e" !important; }
+	.dpi-close:before { content: "\f4c8" !important; }
+	.dpi-arrow-left:before { content: "\ea60" !important; }
+	.dpi-send-user-message:before { content: "\eb4d" !important; }
+	.dpi-profile:before { content: "\f264" !important; }
+	.dpi-information:before { content: "\ee59" !important; }
+	.dpi-edit-user-taxonomies:before { content: "\f025" !important; }
 }
 
 
@@ -44,7 +45,7 @@
 #direktt-profile { 
 	--direktt-profile-border-radius: 50px; 
 	--direktt-profile-accent-color: #5DB075;
-	--direktt-profile-alternate-color: green;
+	--direktt-profile-alternate-color: #387248;
 	--direktt-profile-light-gray-color: #dddddd;
 	--direktt-profile-dark-gray-color: #999999; 
 	--direktt-profile-dark-color: black;
@@ -107,7 +108,8 @@
 			opacity: 0.25;	
 		}
 		#direktt-profile-header #direktt-profile-tools-toggler:before {
-			background-color: var(--direktt-profile-button-active-background-color)
+			/* background-color: var(--direktt-profile-button-active-background-color); */
+			content: "\f4c8" !important;
 		}
 		
 	}
@@ -123,13 +125,14 @@
 		#direktt-profile-tools-toggler {
 			&:before {
 				cursor: pointer;
-				content: "X";
-				background-color: var(--direktt-profile-alternate-color);
+				content: " "; 
+				/* background-color: var(--direktt-profile-alternate-color); */
 				color: var(--direktt-profile-light-color);
 				flex-basis: 2rem;
 				width: 2rem;
 				height: 2rem;
 				line-height: 2rem;
+				font-size: 1.25rem;
 				text-align: center;
 				pointer-events: all;
 				display: block;
@@ -207,14 +210,23 @@
 				text-align: center;
 				a {
 					color: var(--direktt-profile-dark-gray-color);
+					text-align: center;
+					&:hover {
+						text-decoration: none;
+					}
 					&:before {
+						text-align: center;
 						content: " ";
 						display: block;
 						border-radius: 50%;
 						background-color: var(--direktt-profile-button-default-background-color);
-						width: 2rem;
-						height: 2rem;
+						color: white;
 						margin: 0 auto 0.5em;
+						width: 2.5rem;
+						height: 2.5rem;
+						line-height: 2.5rem;
+						margin: 0 auto 0.5em;
+						font-size: 1.75em;
 					}
 				}
 			}
@@ -228,6 +240,7 @@
 	&:not([data-subpage="profile-tab-"]):not([data-subpage="profile-tab-send-user-message"]):not([data-subpage="profile-tab-edit-user-taxonomies"]) {
 		#direktt-profile-header #direktt-profile-tools-toggler:before {
 			background-color: var(--direktt-profile-button-active-background-color);
+			content: "\ea60" !important; 
 		}	
 	}
 	span.pill {

@@ -237,7 +237,7 @@ class Direktt_Profile
 								$params['subpage'] = $item['id'];
 								$newQuery = http_build_query($params);
 								$newUri = $parts['path'] . ($newQuery ? '?' . $newQuery : '');
-								echo ('<li data-subpage="direktt-tool-' . $params['subpage'] . '"><a href="' . $newUri . '">' . $item['label'] . '</a></li>');
+								echo ('<li data-subpage="direktt-tool-' . $params['subpage'] . '"><a href="' . $newUri . '" class="dpi-' . $params['subpage'] . '">' . $item['label'] . '</a></li>');
 								$temp_css .= '#direktt-profile[data-subpage="profile-tab-' . $params['subpage'] . '"] #direktt-profile-tools ul li[data-subpage="direktt-tool-' . $params['subpage'] . '"] a, ';
 							}
 						}
@@ -260,7 +260,7 @@ class Direktt_Profile
 			unset($params['subpage']);
 			$newQuery = http_build_query($params);
 			$newUri = $parts['path'] . ($newQuery ? '?' . $newQuery : '');
-			echo ('<li data-subpage="direktt-menu-profile"><a href="' . $newUri . '">' . __('Profile', 'direktt') . '</a></li>');
+			echo ('<li data-subpage="direktt-menu-profile"><a href="' . $newUri . '" class="dpi-profile">' . __('Profile', 'direktt') . '</a></li>');
 
 			foreach (Direktt::$profile_bar_array as $item) {
 				if (isset($item['label'])) {
@@ -269,7 +269,7 @@ class Direktt_Profile
 					$params['subpage'] = $item['id'];
 					$newQuery = http_build_query($params);
 					$newUri = $parts['path'] . ($newQuery ? '?' . $newQuery : '');
-					echo ('<li data-subpage="direktt-menu-' . $params['subpage'] . '"><a href="' . $newUri . '">' . $item['label'] . '</a></li>');
+					echo ('<li data-subpage="direktt-menu-' . $params['subpage'] . '"><a href="' . $newUri . '" class="dpi-' . $params['subpage'] . '">' . $item['label'] . '</a></li>');
 				}
 			}
 
