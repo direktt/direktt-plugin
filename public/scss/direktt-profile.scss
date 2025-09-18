@@ -159,6 +159,7 @@
 		pointer-events: none;
 		margin-left: var(--direktt-profile-tools-negative-width);
 		transition: all 300ms;
+		box-shadow: 0 0 0 var(--direktt-profile-dark-gray-color);
 		ul {
 			margin: 0;
 			padding: 1em;
@@ -189,6 +190,7 @@
 	.direktt-profile-tools-open & {
 		#direktt-profile-tools {
 			margin-left: 0px;
+			box-shadow: -5px 0 10px var(--direktt-profile-dark-color);
 		}
 	}
 	#direktt-profile-menu-bar {
