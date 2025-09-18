@@ -23,6 +23,7 @@
 #direktt-profile { 
 	.dpi-menu:before { content: "\ef3e" !important; }
 	.dpi-close:before { content: "\f4c8" !important; }
+	.dpi-check:before { content: "\eb7b" !important; }
 	.dpi-arrow-left:before { content: "\ea60" !important; }
 	.dpi-send-user-message:before { content: "\eb4d" !important; padding-top: 0.05em !important; }
 	.dpi-profile:before { content: "\f264" !important; }
@@ -36,7 +37,7 @@
 
 @import "direktt-themes-reset.scss"; 
 
-/* Popup */   
+/* Popup */    
 
 @import "direktt-popup.scss";   
 

@@ -81,6 +81,30 @@
 		  outline: none;
 		}
 	}
+	input[type="checkbox"] {
+      -webkit-appearance: none; 
+      appearance: none; 
+    }
+	input[type="checkbox"] {
+		width: 20px;
+		height: 20px;
+		border: 2px solid #ccc;
+		border-radius: 4px;
+		background-color: #fff;
+		cursor: pointer;
+		&:checked {
+			background-color: var(--direktt-profile-accent-color);
+			border-color: var(--direktt-profile-alternate-color);
+			&::after {
+				content: '\2713'; /* Unicode checkmark */
+				display: block;
+				color: #fff;
+				font-size: 14px;
+				text-align: center;
+				line-height: 18px; /* Adjust based on height */
+			}
+		}
+    }
 	form {
 		margin-bottom: 1em;
 	}
