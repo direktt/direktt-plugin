@@ -100,6 +100,7 @@
 }
 #direktt-profile .dpi-send-user-message:before {
   content: "" !important;
+  padding-top: 0.05em !important;
 }
 #direktt-profile .dpi-profile:before {
   content: "" !important;
@@ -300,6 +301,7 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
   text-align: center;
   pointer-events: all;
   display: block;
+  border-radius: 50%;
 }
 #direktt-profile #direktt-profile-header #direktt-profile-tools-toggler:hover:before {
   background-color: var(--direktt-profile-accent-color);
@@ -342,6 +344,9 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
   background-color: var(--direktt-profile-button-default-background-color);
   color: var(--direktt-profile-light-color);
   border-radius: var(--direktt-profile-border-radius);
+}
+#direktt-profile #direktt-profile-tools ul li a:hover {
+  text-decoration: none;
 }
 .direktt-profile-tools-open #direktt-profile #direktt-profile-tools {
   margin-left: 0px;
