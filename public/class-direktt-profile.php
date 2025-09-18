@@ -99,7 +99,7 @@ class Direktt_Profile
 		<div id="direktt-profile-wrapper">
 			<div data-subpage="profile-tab-<?= $active_tab ?>" id="direktt-profile">
 				<div id="direktt-profile-header">
-					<div id="direktt-profile-tools-toggler"></div>
+					<div id="direktt-profile-tools-toggler" class="dpi-menu"></div>
 					<div class="direktt-profile-header-data">
 						<?php if ( $profile_user && $direktt_user ) echo( $profile_user['direktt_display_name'] ); ?>
 					</div>
@@ -243,7 +243,7 @@ class Direktt_Profile
 						}
 						?>
 					</ul>
-					<?php echo(  '<style>' . $temp_css . ' .dummy { background-color: var(--direktt-profile-accent-color); }</style>' ); ?>
+					<?php echo(  '<style>' . $temp_css . ' .dummy { background-color: var(--direktt-profile-button-active-background-color); }</style>' ); ?>
 				</div><!-- direktt-profile-tools -->
 		<?php
 

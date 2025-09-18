@@ -16,28 +16,31 @@
     justify-content: center;
     align-items: center;
 	.direktt-popup-content {
+		box-shadow: 0px 0px 1em var(--direktt-profile-dark-color);
 		background: white;
-		padding: 1em;
-		border-radius: 0.5em;
+		padding: 2em;
+		border-radius: 1em;
 		z-index: 10000;
 		display: flex;
+		width: 100%;
 		flex-direction: column;
 		max-width: 360px;
-		width: 100%;
+		text-align: center;
 		.direktt-popup-header h3 {
-			border-bottom: 1px solid var(--direktt-profile-light-gray-color);
-			margin-bottom: 1em;
-			padding-bottom: 1em;
-			font-size: 1.125em;
+			margin-bottom: 0.5em;
+			font-size: 1.375em;
 		}
 	}
 	.direktt-popup-actions {
-		border-top: 1px solid #ccc;
-		/* margin-top: 0.5em; */
-		padding-top: 1em;
+		margin-top: 0.25em;
+		display: flex;
+		gap: 1em;
+		flex-direction: column;
 		button.direktt-popup-no {
-			border-color: var(--direktt-profile-dark-gray-color);
+			/* border: 1px solid var(--direktt-profile-dark-gray-color); */
 			color: var(--direktt-profile-dark-gray-color);
+			background: none;
+			padding: 0;
 		}
 	}
 }

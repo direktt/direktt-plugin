@@ -1,5 +1,6 @@
-/* General reset */
+/* General */
 /* Reset */
+@import url("https://fonts.googleapis.com/css?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap");
 #direktt-profile {
   all: unset;
   display: block;
@@ -44,8 +45,8 @@
 #direktt-profile button, #direktt-profile input, #direktt-profile select, #direktt-profile textarea {
   background: none;
   border: 1px solid var(--direktt-profile-light-gray-color);
-  border-radius: 4px;
-  padding: 0.5em 0.75em;
+  border-radius: 50px;
+  padding: 1em 2em;
   font: inherit;
   color: inherit;
   /*&:focus {
@@ -55,9 +56,12 @@
 }
 #direktt-profile input[type=submit], #direktt-profile button {
   cursor: pointer;
-  border: 1px solid var(--direktt-profile-alternate-color);
-  color: var(--direktt-profile-alternate-color);
+  border: none;
   line-height: 1;
+  width: 100%;
+  background: var(--direktt-profile-accent-color);
+  color: white;
+  font-weight: 600;
 }
 #direktt-profile input[type=submit]:focus, #direktt-profile button:focus {
   outline: none;
@@ -68,6 +72,45 @@
 #direktt-profile table {
   border-collapse: collapse;
   border-spacing: 0;
+}
+
+@font-face {
+  font-family: "remixicon";
+  src: url("public\css\fonts\direktt-profile-icons.eot?t=1758201785209");
+  /* IE9*/
+  src: url("public\css\fonts\direktt-profile-icons.eot?t=1758201785209#iefix") format("embedded-opentype"), url("public\css\fonts\direktt-profile-icons.woff2?t=1758201785209") format("woff2"), url("public\css\fonts\direktt-profile-icons.woff?t=1758201785209") format("woff"), url("public\css\fonts\direktt-profile-icons.ttf?t=1758201785209") format("truetype"), url("public\css\fonts\direktt-profile-icons.svg?t=1758201785209#direktt-profile-icons") format("svg");
+  /* iOS 4.1- */
+  font-display: swap;
+}
+[class^=dpi-], [class*=dpi-] {
+  font-family: "direktt-profile-icons" !important;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.dpi-price-tag:before {
+  content: "";
+}
+
+.dpi-menu:before {
+  content: "";
+}
+
+.dpi-arrow-left:before {
+  content: "";
+}
+
+.dpi-chat-1:before {
+  content: "";
+}
+
+.dpi-user:before {
+  content: "";
+}
+
+.dpi-information:before {
+  content: "";
 }
 
 /* Themes override */
@@ -100,29 +143,32 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
   align-items: center;
 }
 #direktt-profile .direktt-popup .direktt-popup-content {
+  box-shadow: 0px 0px 1em var(--direktt-profile-dark-color);
   background: white;
-  padding: 1em;
-  border-radius: 0.5em;
+  padding: 2em;
+  border-radius: 1em;
   z-index: 10000;
   display: flex;
+  width: 100%;
   flex-direction: column;
   max-width: 360px;
-  width: 100%;
+  text-align: center;
 }
 #direktt-profile .direktt-popup .direktt-popup-content .direktt-popup-header h3 {
-  border-bottom: 1px solid var(--direktt-profile-light-gray-color);
-  margin-bottom: 1em;
-  padding-bottom: 1em;
-  font-size: 1.125em;
+  margin-bottom: 0.5em;
+  font-size: 1.375em;
 }
 #direktt-profile .direktt-popup .direktt-popup-actions {
-  border-top: 1px solid #ccc;
-  /* margin-top: 0.5em; */
-  padding-top: 1em;
+  margin-top: 0.25em;
+  display: flex;
+  gap: 1em;
+  flex-direction: column;
 }
 #direktt-profile .direktt-popup .direktt-popup-actions button.direktt-popup-no {
-  border-color: var(--direktt-profile-dark-gray-color);
+  /* border: 1px solid var(--direktt-profile-dark-gray-color); */
   color: var(--direktt-profile-dark-gray-color);
+  background: none;
+  padding: 0;
 }
 
 /* Loader */
@@ -167,15 +213,15 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
 }
 /* Variables */
 #direktt-profile {
-  --direktt-profile-border-radius: 8px;
-  --direktt-profile-accent-color: red;
+  --direktt-profile-border-radius: 50px;
+  --direktt-profile-accent-color: #5DB075;
   --direktt-profile-alternate-color: green;
   --direktt-profile-light-gray-color: #dddddd;
   --direktt-profile-dark-gray-color: #999999;
   --direktt-profile-dark-color: black;
   --direktt-profile-light-color: white;
-  --direktt-profile-button-default-background-color: var(--direktt-profile-dark-gray-color);
-  --direktt-profile-button-active-background-color: var(--direktt-profile-accent-color);
+  --direktt-profile-button-default-background-color: var(--direktt-profile-accent-color);
+  --direktt-profile-button-active-background-color: var(--direktt-profile-alternate-color);
   --direktt-profile-light-color: white;
   --direktt-profile-default-font-family: "Noto Sans", Helvetica, Arial, sans-serif;
   --direktt-profile-default-font-size-normal: 14px;
@@ -189,9 +235,11 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
 /* Functionalities and Styling */
 #direktt-profile-wrapper {
   overflow: hidden;
+  font-weight: 400;
 }
 
 #direktt-profile {
+  /* General */
   position: relative;
   overflow: hidden;
   font-family: var(--direktt-profile-default-font-family);
@@ -201,9 +249,19 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
   padding-bottom: 7em;
   margin-right: 0;
   min-height: 99.9vh;
-  /* General */
   /* Tabs */
   /* Profile tab */
+  /* Send message tab */
+}
+#direktt-profile .button {
+  border: 1px solid var(--direktt-profile-light-gray-color);
+  color: var(--direktt-profile-light-color);
+  background-color: var(--direktt-profile-accent-color);
+  padding: 1em 2em;
+  font-size: inherit;
+}
+#direktt-profile .button.button-primary {
+  background-color: var(--direktt-profile-alternate-color);
 }
 #direktt-profile #direktt-profile-data {
   opacity: 1;
@@ -211,11 +269,11 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
   padding: 0 1em;
 }
 .direktt-profile-tools-open #direktt-profile #direktt-profile-data, .direktt-profile-tools-open #direktt-profile #direktt-profile-header {
-  padding-left: calc(var(--direktt-profile-tools-width) + 1em);
-  margin-right: calc(var(--direktt-profile-tools-negative-width) - 1em);
+  margin-left: var(--direktt-profile-tools-width);
+  margin-right: var(--direktt-profile-tools-negative-width);
 }
 .direktt-profile-tools-open #direktt-profile #direktt-profile-data {
-  opacity: 0.5;
+  opacity: 0.25;
 }
 .direktt-profile-tools-open #direktt-profile #direktt-profile-header #direktt-profile-tools-toggler:before {
   background-color: var(--direktt-profile-button-active-background-color);
@@ -223,21 +281,19 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
 #direktt-profile #direktt-profile-header {
   position: relative;
   padding: 1em;
-  border-bottom: 1px solid var(--direktt-profile-light-gray-color);
-  margin-bottom: 1em;
-  display: flex;
-  align-items: center;
-  gap: 1em;
+  text-align: center;
   transition: all 300ms;
-}
-#direktt-profile #direktt-profile-header #direktt-profile-tools-toggler {
-  flex-basis: 2rem;
+  background-color: var(--direktt-profile-accent-color);
+  display: flex;
+  gap: 1em;
+  align-items: center;
 }
 #direktt-profile #direktt-profile-header #direktt-profile-tools-toggler:before {
   cursor: pointer;
   content: "X";
-  background-color: var(--direktt-profile-button-default-background-color);
-  color: white;
+  background-color: var(--direktt-profile-alternate-color);
+  color: var(--direktt-profile-light-color);
+  flex-basis: 2rem;
   width: 2rem;
   height: 2rem;
   line-height: 2rem;
@@ -247,6 +303,10 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
 }
 #direktt-profile #direktt-profile-header #direktt-profile-tools-toggler:hover:before {
   background-color: var(--direktt-profile-accent-color);
+}
+#direktt-profile #direktt-profile-header .direktt-profile-header-data {
+  font-weight: 600;
+  color: var(--direktt-profile-light-color);
 }
 #direktt-profile #direktt-profile-tools {
   border-right: 1px solid var(--direktt-profile-dark-gray-color);
@@ -308,6 +368,11 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
   margin: 0;
   padding: 0;
   display: block;
+  flex-basis: 100%;
+  text-align: center;
+}
+#direktt-profile #direktt-profile-menu-bar ul li a {
+  color: var(--direktt-profile-dark-gray-color);
 }
 #direktt-profile #direktt-profile-menu-bar ul li a:before {
   content: " ";
@@ -316,7 +381,7 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
   background-color: var(--direktt-profile-button-default-background-color);
   width: 2rem;
   height: 2rem;
-  margin: 0 auto 0.25em;
+  margin: 0 auto 0.5em;
 }
 #direktt-profile[data-subpage=profile-tab-] #direktt-profile-menu-bar ul li[data-subpage=direktt-menu-profile] a:before, #direktt-profile[data-subpage=profile-tab-send-user-message] #direktt-profile-menu-bar ul li[data-subpage=direktt-menu-send-user-message] a:before, #direktt-profile[data-subpage=profile-tab-edit-user-taxonomies] #direktt-profile-menu-bar ul li[data-subpage=direktt-menu-edit-user-taxonomies] a:before {
   background-color: var(--direktt-profile-button-active-background-color);
@@ -324,18 +389,8 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
 #direktt-profile:not([data-subpage=profile-tab-]):not([data-subpage=profile-tab-send-user-message]):not([data-subpage=profile-tab-edit-user-taxonomies]) #direktt-profile-header #direktt-profile-tools-toggler:before {
   background-color: var(--direktt-profile-button-active-background-color);
 }
-#direktt-profile .button {
-  border: 1px solid var(--direktt-profile-light-gray-color);
-  color: var(--direktt-profile-light-color);
-  background-color: var(--direktt-profile-accent-color);
-  padding: 1em 2em;
-  font-size: inherit;
-}
-#direktt-profile .button.button-primary {
-  background-color: green;
-}
 #direktt-profile span.pill {
-  padding: 0.125em 1em;
+  padding: 0.5em 1em;
   border-radius: var(--direktt-profile-border-radius);
   display: inline-block;
   background-color: var(--direktt-profile-light-gray-color);
@@ -346,34 +401,49 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
   opacity: 0.3;
   padding: 0;
 }
-#direktt-profile .direktt-profile-data-profile {
-  display: grid;
-  grid-template-columns: 1fr 3fr;
-  grid-column-gap: 1em;
-  grid-row-gap: 1em;
-  grid-template-areas: "photo basic-data" "photo meta-data";
-}
 #direktt-profile .direktt-profile-data-profile .direktt-profile-photo {
-  grid-area: photo;
+  position: relative;
+  padding-top: 1em;
+  margin: 0 -1em;
+}
+#direktt-profile .direktt-profile-data-profile .direktt-profile-photo:before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  bottom: 3em;
+  width: 100%;
+  z-index: -1;
+  background-color: var(--direktt-profile-accent-color);
 }
 #direktt-profile .direktt-profile-data-profile .direktt-profile-photo img {
-  max-width: 100%;
+  max-width: 10em;
+  aspect-ratio: 1/1;
+  margin: auto;
+  border-radius: 50%;
+  overflow: hidden;
+  object-fit: cover;
+  border: 3px solid var(--direktt-profile-light-color);
 }
 #direktt-profile .direktt-profile-data-profile .direktt-profile-basic-data {
-  grid-area: basic-data;
+  margin-top: 1em;
   display: grid;
   grid-template-columns: 1fr 1fr;
+  grid-column-gap: 1em;
 }
 #direktt-profile .direktt-profile-data-profile .direktt-profile-basic-data div:nth-child(2n+1) {
-  opacity: 0.6;
+  color: var(--direktt-profile-dark-gray-color);
+  text-align: right;
 }
 #direktt-profile .direktt-profile-data-profile .direktt-profile-meta-data {
   grid-area: meta-data;
   border-top: 1px solid var(--direktt-profile-light-gray-color);
+  margin-top: 1em;
   padding-top: 1em;
   display: flex;
   flex-direction: column;
   gap: 1em;
+  text-align: center;
 }
 #direktt-profile .direktt-profile-data-profile .direktt-profile-meta-data div div:nth-child(2n+1) {
   opacity: 0.6;
@@ -384,6 +454,57 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5em;
+  justify-content: center;
+}
+#direktt-profile .send-message-tool-wrapper {
+  padding: 1em 0;
+}
+#direktt-profile .send-message-tool-wrapper .send-message-tool-info p.send-message-tool-status {
+  text-align: center;
+  font-weight: 600;
+  border: 2px solid var(--direktt-profile-accent-color);
+  border-radius: 50px;
+  margin: 1em 0;
+  padding: 1em;
+}
+#direktt-profile .send-message-tool-wrapper .autoComplete_wrapper {
+  width: 100%;
+  margin-bottom: 1em;
+}
+#direktt-profile .send-message-tool-wrapper .autoComplete_wrapper input#autoComplete {
+  width: 100%;
+}
+#direktt-profile .send-message-tool-wrapper .autoComplete_wrapper ul {
+  padding-top: 1em;
+}
+#direktt-profile .send-message-tool-wrapper .autoComplete_wrapper ul li {
+  margin-bottom: 1em;
+}
+#direktt-profile .direktt-taxonomies-tool-wrapper {
+  padding: 1em 0;
+  text-align: center;
+}
+#direktt-profile .direktt-taxonomies-tool-wrapper .direktt-taxonomies-tool-categories p,
+#direktt-profile .direktt-taxonomies-tool-wrapper .direktt-taxonomies-tool-tags p {
+  display: flex;
+  justify-content: center;
+  gap: 1em;
+  flex-wrap: wrap;
+}
+#direktt-profile .direktt-taxonomies-tool-wrapper .direktt-taxonomies-tool-categories p label input,
+#direktt-profile .direktt-taxonomies-tool-wrapper .direktt-taxonomies-tool-tags p label input {
+  margin-right: 0.2em;
+}
+#direktt-profile .direktt-taxonomies-tool-wrapper .direktt-taxonomies-tool-status {
+  text-align: center;
+  font-weight: 600;
+  border: 2px solid var(--direktt-profile-accent-color);
+  border-radius: 50px;
+  margin: 1em 0;
+  padding: 1em;
+}
+#direktt-profile #direktt-profile-data.direktt-profile-data-cross-sell-tool {
+  padding: 1em;
 }
 
 /*# sourceMappingURL=direktt-profile.css.map */

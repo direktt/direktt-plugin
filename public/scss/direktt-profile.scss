@@ -1,27 +1,56 @@
-/* General reset */
+/* General */
 
 @import "direktt-reset.scss"; 
+@import url( 'https://fonts.googleapis.com/css?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap' );
+
+@font-face {
+    font-family: "remixicon";
+    src: url('public\css\fonts\direktt-profile-icons.eot?t=1758201785209'); /* IE9*/
+    src: url('public\css\fonts\direktt-profile-icons.eot?t=1758201785209#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url("public\css\fonts\direktt-profile-icons.woff2?t=1758201785209") format("woff2"),
+    url("public\css\fonts\direktt-profile-icons.woff?t=1758201785209") format("woff"),
+    url('public\css\fonts\direktt-profile-icons.ttf?t=1758201785209') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+    url('public\css\fonts\direktt-profile-icons.svg?t=1758201785209#direktt-profile-icons') format('svg'); /* iOS 4.1- */
+    font-display: swap;
+}
+
+[class^="dpi-"], [class*="dpi-"] {
+    font-family: 'direktt-profile-icons' !important;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+#direktt-profile { 
+	.dpi-price-tag:before { content: "\f025"; }
+	.dpi-menu:before { content: "\ef3e"; }
+	.dpi-arrow-left:before { content: "\ea60"; }
+	.dpi-chat-1:before { content: "\eb4d"; }
+	.dpi-user:before { content: "\f264"; }
+	.dpi-information:before { content: "\ee59"; }
+}
+
+
 
 /* Themes override */
 
 @import "direktt-themes-reset.scss"; 
 
-/* Popup */
+/* Popup */   
 
 @import "direktt-popup.scss";   
 
-/* Variables */  
+/* Variables */   
 
 #direktt-profile { 
-	--direktt-profile-border-radius: 8px; 
-	--direktt-profile-accent-color: red;
+	--direktt-profile-border-radius: 50px; 
+	--direktt-profile-accent-color: #5DB075;
 	--direktt-profile-alternate-color: green;
 	--direktt-profile-light-gray-color: #dddddd;
 	--direktt-profile-dark-gray-color: #999999; 
 	--direktt-profile-dark-color: black;
 	--direktt-profile-light-color: white;
-	--direktt-profile-button-default-background-color: var(--direktt-profile-dark-gray-color);
-	--direktt-profile-button-active-background-color: var(--direktt-profile-accent-color);
+	--direktt-profile-button-default-background-color: var(--direktt-profile-accent-color);
+	--direktt-profile-button-active-background-color: var(--direktt-profile-alternate-color);
 	--direktt-profile-light-color: white;	
 	--direktt-profile-default-font-family: "Noto Sans", Helvetica, Arial, sans-serif;
 	--direktt-profile-default-font-size-normal: 14px;
@@ -35,10 +64,26 @@
 /* Functionalities and Styling */
 
 #direktt-profile-wrapper {
-	overflow:hidden;
+	overflow: hidden;
+	font-weight: 400;
 }
 
 #direktt-profile { 
+ 
+	/* General */
+	
+	.button {
+		border: 1px solid var(--direktt-profile-light-gray-color);
+		color: var(--direktt-profile-light-color);
+		background-color: var(--direktt-profile-accent-color);
+		padding: 1em 2em;
+		font-size: inherit;
+		&.button-primary {
+			background-color: var(--direktt-profile-alternate-color);
+		}
+	}
+	
+	
 	position: relative; 
 	overflow: hidden;
 	font-family: var(--direktt-profile-default-font-family);
@@ -55,11 +100,11 @@
 	}
 	.direktt-profile-tools-open & {
 		#direktt-profile-data, #direktt-profile-header {
-			padding-left: calc(var(--direktt-profile-tools-width) + 1em);
-			margin-right: calc(var(--direktt-profile-tools-negative-width) - 1em);			
+			margin-left: var(--direktt-profile-tools-width);
+			margin-right: var(--direktt-profile-tools-negative-width);			
 		}
 		#direktt-profile-data {
-			opacity: 0.5;	
+			opacity: 0.25;	
 		}
 		#direktt-profile-header #direktt-profile-tools-toggler:before {
 			background-color: var(--direktt-profile-button-active-background-color)
@@ -69,19 +114,19 @@
 	#direktt-profile-header  {
 		position: relative;
 		padding: 1em;
-		border-bottom: 1px solid var(--direktt-profile-light-gray-color);
-		margin-bottom: 1em;
-		display: flex;
-		align-items: center;
-		gap: 1em;
+		text-align: center;
 		transition: all 300ms;
+		background-color: var(--direktt-profile-accent-color);
+		display: flex;
+		gap: 1em;
+		align-items: center;
 		#direktt-profile-tools-toggler {
-			flex-basis: 2rem;
 			&:before {
 				cursor: pointer;
 				content: "X";
-				background-color: var(--direktt-profile-button-default-background-color);
-				color: white;
+				background-color: var(--direktt-profile-alternate-color);
+				color: var(--direktt-profile-light-color);
+				flex-basis: 2rem;
 				width: 2rem;
 				height: 2rem;
 				line-height: 2rem;
@@ -92,6 +137,10 @@
 			&:hover:before {
 				background-color: var(--direktt-profile-accent-color);
 			}	
+		}
+		.direktt-profile-header-data {
+			font-weight: 600;
+			color: var(--direktt-profile-light-color);
 		}	
 	}
 	#direktt-profile-tools  {
@@ -154,7 +203,10 @@
 				margin: 0; 
 				padding: 0;
 				display: block;
+				flex-basis: 100%;
+				text-align: center;
 				a {
+					color: var(--direktt-profile-dark-gray-color);
 					&:before {
 						content: " ";
 						display: block;
@@ -162,7 +214,7 @@
 						background-color: var(--direktt-profile-button-default-background-color);
 						width: 2rem;
 						height: 2rem;
-						margin: 0 auto 0.25em;
+						margin: 0 auto 0.5em;
 					}
 				}
 			}
@@ -177,21 +229,9 @@
 		#direktt-profile-header #direktt-profile-tools-toggler:before {
 			background-color: var(--direktt-profile-button-active-background-color);
 		}	
-	} 
-	/* General */
-	
-	.button {
-		border: 1px solid var(--direktt-profile-light-gray-color);
-		color: var(--direktt-profile-light-color);
-		background-color: var(--direktt-profile-accent-color);
-		padding: 1em 2em;;
-		font-size: inherit;
-		&.button-primary {
-			background-color: green;
-		}
 	}
 	span.pill {
-		padding: 0.125em 1em;
+		padding: 0.5em 1em;
 		border-radius: var(--direktt-profile-border-radius);
 		display: inline-block;
 		background-color: var(--direktt-profile-light-gray-color);
@@ -209,34 +249,50 @@
 	/* Profile tab */
 	
 	.direktt-profile-data-profile {
-		display: grid;
-		grid-template-columns: 1fr 3fr;
-		grid-column-gap: 1em;
-		grid-row-gap: 1em;
-		grid-template-areas:
-			"photo basic-data"
-			"photo meta-data";
 		.direktt-profile-photo { 
-			grid-area: photo;
+			position: relative;
+			padding-top: 1em;
+			margin: 0 -1em;
+			&:before {
+				content: "";
+				display: block;
+				position: absolute;
+				top: 0;
+				bottom: 3em;
+				width: 100%;
+				z-index: -1;
+				background-color: var(--direktt-profile-accent-color);	
+			} 
+			
 			img {
-				max-width: 100%;
+				max-width: 10em;
+				aspect-ratio: 1 / 1;
+				margin: auto;
+				border-radius: 50%;
+				overflow: hidden;
+				object-fit: cover;
+				border: 3px solid var(--direktt-profile-light-color);
 			}
 		} 
 		.direktt-profile-basic-data { 
-			grid-area: basic-data;
+			margin-top: 1em;
 			display: grid;
 			grid-template-columns: 1fr 1fr;	
+			grid-column-gap: 1em;
 			div:nth-child(2n+1) {
-				opacity: 0.6;
+				color: var(--direktt-profile-dark-gray-color);
+				text-align: right
 			}
 		}
 		.direktt-profile-meta-data {  
 			grid-area: meta-data;
 			border-top: 1px solid var(--direktt-profile-light-gray-color);
+			margin-top: 1em;
 			padding-top: 1em;
 			display: flex;
 			flex-direction: column;
-			gap: 1em;		
+			gap: 1em;	
+			text-align: center;			
 			div div:nth-child(2n+1) {
 				opacity: 0.6;
 				margin-bottom: 0.25em;
@@ -246,9 +302,71 @@
 				div:nth-child(2) {
 					display: flex;
 					flex-wrap: wrap;
-					gap: 0.5em;				
+					gap: 0.5em;
+					justify-content: center;					
 				}
 			}
 		}
+	}
+	
+	/* Send message tab */
+	
+	.send-message-tool-wrapper {
+		padding: 1em 0;
+		.send-message-tool-info {
+			p.send-message-tool-status {
+				text-align: center;
+				font-weight: 600;
+				border: 2px solid var(--direktt-profile-accent-color);
+				border-radius: 50px;
+				margin: 1em 0;
+				padding: 1em;
+			}
+		}
+		.autoComplete_wrapper {
+			width: 100%;
+			margin-bottom: 1em;
+			input#autoComplete {
+				width: 100%;
+			}	
+			ul {
+				padding-top: 1em;
+				li {
+					margin-bottom: 1em;
+				}	
+			}
+		}	
+	}
+	
+	.direktt-taxonomies-tool-wrapper {
+		padding: 1em 0;
+		text-align: center;
+		.direktt-taxonomies-tool-categories,
+		.direktt-taxonomies-tool-tags {
+			p {
+				display: flex;
+				justify-content: center;
+				gap: 1em;
+				flex-wrap: wrap;
+				label {
+					input {
+						margin-right: 0.2em;
+					}
+				}
+			}
+	
+		}
+		.direktt-taxonomies-tool-status {
+			text-align: center;
+			font-weight: 600;
+			border: 2px solid var(--direktt-profile-accent-color);
+			border-radius: 50px;
+			margin: 1em 0;
+			padding: 1em;			
+		}
+	}
+	
+	#direktt-profile-data.direktt-profile-data-cross-sell-tool {
+		padding: 1em;
 	}
 }
