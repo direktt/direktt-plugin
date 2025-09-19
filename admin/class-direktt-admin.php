@@ -62,7 +62,6 @@ class Direktt_Admin
 			'direktt-settings',
 			[$this, 'render_admin_settings']
 		);
-
 	}
 
 	public function setup_settings_pages()
@@ -72,7 +71,7 @@ class Direktt_Admin
 
 	public function on_setup_settings_pages()
 	{
-	
+
 		// Here come additional settings pages
 
 	}
@@ -396,43 +395,33 @@ class Direktt_Admin
 
 	public function render_admin_dashboard()
 	{
-		
-		?>
-			<div id="app"></div>
+
+?>
+		<div id="app"></div>
 		<?php
-		
+
 	}
 
 	public function render_admin_settings()
 	{
 		$active_tab = isset($_GET['subpage']) ? $_GET['subpage'] : '';
 
-		if ($active_tab == '') {
-		?>
-			<div id="app"></div>
-		<?php
-		} else {
-			foreach (Direktt::$settings_array as $item) {
-				if (isset($item['id']) && $active_tab == $item['id']) {
-					echo ('<h1>' . $item['label'] . '</h1>');
-					call_user_func($item['callback']);
-				}
-			}
-		}
-
 		$url = $_SERVER['REQUEST_URI'];
 		$parts = parse_url($url);
 
 		// Print out the Direktt Settings label and link
-		
-		echo( '<nav class="nav-tab-wrapper">' );
+
+		echo ('<nav class="nav-tab-wrapper">');
 
 		if (!empty(Direktt::$settings_array)) {
 			parse_str($parts['query'] ?? '', $params);
 			unset($params['subpage']);
 			$newQuery = http_build_query($params);
 			$newUri = $parts['path'] . ($newQuery ? '?' . $newQuery : '');
-			echo ('<a href="' . $newUri . '" class="nav-tab nav-tab-active">' . __('Direktt Settings', 'direktt') . '</a>');
+			// Only apply 'nav-tab-active' when active_tab is empty
+
+			$active_class = ($active_tab == '') ? ' nav-tab-active' : '';
+			echo ('<a href="' . esc_url($newUri) . '" class="nav-tab' . $active_class . '">' . esc_html__('Direktt Settings', 'direktt') . '</a>');
 		}
 
 		// Sort links by priority asc
@@ -449,16 +438,32 @@ class Direktt_Admin
 				$params['subpage'] = $item['id'];
 				$newQuery = http_build_query($params);
 				$newUri = $parts['path'] . ($newQuery ? '?' . $newQuery : '');
-				echo ('<a href="' . $newUri . '" class="nav-tab">' . $item['label'] . '</a>');
+
+				// Use nav-tab-active if active_tab matches this item's id
+				$active_class = ($active_tab === $item['id']) ? ' nav-tab-active' : '';
+				echo ('<a href="' . esc_url($newUri) . '" class="nav-tab' . $active_class . '">' . esc_html($item['label']) . '</a>');
 			}
 		}
-		echo( '</nav>' );
+		echo ('</nav>');
+
+		if ($active_tab == '') {
+		?>
+			<div id="app"></div>
+		<?php
+		} else {
+			foreach (Direktt::$settings_array as $item) {
+				if (isset($item['id']) && $active_tab == $item['id']) {
+					echo ('<h1>' . $item['label'] . '</h1>');
+					call_user_func($item['callback']);
+				}
+			}
+		}
 	}
 
 	public function render_meta_panel($post)
 	{
 		if ($post->post_type != 'direkttusers') return;
-	?>
+		?>
 		<div id="app"></div>
 		<?php
 	}
@@ -821,7 +826,7 @@ class Direktt_Admin
 	{
 		$value = get_post_meta($post->ID, 'direkttMTJson', true);
 
-		if( !$value || $value == ""){
+		if (!$value || $value == "") {
 			$value = "[]";
 		}
 
@@ -841,15 +846,15 @@ class Direktt_Admin
 		// Security nonce
 		wp_nonce_field('direktt_mt_json_nonce', 'direktt_mt_json_nonce');
 
-		echo('<div id="appBuilder"></div>');
+		echo ('<div id="appBuilder"></div>');
 
 		echo '<p><label for="direktt_mt_type"><strong>' . __('Template JSON Content', 'direktt') . '</strong></label></p> ';
 		echo '<textarea style="width:100%" rows="15" name="direktt_mt_json" id="direktt_mt_json" readonly>' . esc_textarea($value) . '</textarea>';
-		echo '<input type="hidden" name="direktt_mt_json_hidden" id="direktt_mt_json_hidden" value="'. esc_attr($value) . '">';
+		echo '<input type="hidden" name="direktt_mt_json_hidden" id="direktt_mt_json_hidden" value="' . esc_attr($value) . '">';
 
 		echo '<p><label for="direktt_mt_type"><strong>' . __('Send Message Template', 'direktt') . '</strong></label></p> ';
 
-		echo('<div id="app"></div>');
+		echo ('<div id="app"></div>');
 	}
 
 	function direkttmtemplates_save_meta_box_data($post_id)
@@ -874,7 +879,7 @@ class Direktt_Admin
 
 	public function pair_wp_user_by_code($event)
 	{
-		
+
 		function strip_special_chars($input)
 		{
 			return preg_replace('/[^a-zA-Z0-9]/', '', $input);
@@ -905,7 +910,7 @@ class Direktt_Admin
 			$users = get_users(array(
 				'meta_key' => 'direktt_user_pair_code',
 				'meta_value' => $pair_code,
-				'fields' => 'ID' 
+				'fields' => 'ID'
 			));
 
 			if (!empty($users)) {
@@ -915,7 +920,7 @@ class Direktt_Admin
 				$users_to_update = get_users(array(
 					'meta_key' => 'direktt_user_id',
 					'meta_value' => $meta_user_post['ID'],
-					'fields' => 'ID' 
+					'fields' => 'ID'
 				));
 
 				$pairing_message_template = get_option('direktt_pairing_succ_template', false);
@@ -945,7 +950,7 @@ class Direktt_Admin
 							"content" => 'You have been paired'
 						);
 
-						Direktt_Message::send_message( array( $event['direktt_user_id'] => $pushNotificationMessage ) );
+						Direktt_Message::send_message(array($event['direktt_user_id'] => $pushNotificationMessage));
 					}
 				}
 			}
