@@ -4,8 +4,31 @@ body.direktt_page_direktt-settings .v-theme--light {
 body.direktt_page_direktt-settings .v-card {
   padding: 0 !important;
 }
+body.direktt_page_direktt-settings #app, body.direktt_page_direktt-settings .wrap, body.direktt_page_direktt-settings #wpbody-content > h2 {
+  padding: 0 1em;
+}
 body.direktt_page_direktt-settings select {
   border: 1px solid #8c8f94;
+}
+body.direktt_page_direktt-settings h3 {
+  /* font-size: 1.5em; */
+  font-weight: 400;
+}
+body.direktt_page_direktt-settings .direktt-greet-days-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5em;
+  opacity: 0.5;
+}
+body.direktt_page_direktt-settings .direktt-greet-days-row:has(div:has(input)) {
+  opacity: 1;
+}
+body.direktt_page_direktt-settings .direktt-greet-days-row:has(input[type=checkbox]:checked) {
+  opacity: 1;
+}
+body.direktt_page_direktt-settings .direktt-greet-days-row .direktt-greet-day {
+  flex-basis: 100px;
+  font-weight: 600;
 }
 
 /*# sourceMappingURL=direktt-admin.css.map */

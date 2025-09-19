@@ -5,7 +5,30 @@ body.direktt_page_direktt-settings {
 	.v-card {
 		padding: 0 !important;
 	}
+	#app, .wrap, #wpbody-content > h2 {
+		padding: 0 1em;
+	}
 	select {
 		border: 1px solid #8c8f94;
-	}	
+	}
+	h3 {
+		/* font-size: 1.5em; */
+		font-weight: 400;
+	}
+	.direktt-greet-days-row {
+		display: flex;
+		align-items: center;
+		margin-bottom: 0.5em;
+		opacity: 0.5;
+		&:has(div:has(input)) {
+		  opacity: 1;
+		}
+		&:has(input[type="checkbox"]:checked) {
+		  opacity: 1;
+		}	
+		.direktt-greet-day {
+			flex-basis: 100px;
+			font-weight: 600;
+		}
+	}
 }
