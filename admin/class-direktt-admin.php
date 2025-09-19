@@ -411,6 +411,8 @@ class Direktt_Admin
 
 		// Print out the Direktt Settings label and link
 
+		echo('<h1>' . esc_html__('Direktt Settings', 'direktt') . '</h1>');
+
 		echo ('<nav class="nav-tab-wrapper">');
 
 		if (!empty(Direktt::$settings_array)) {
@@ -421,7 +423,7 @@ class Direktt_Admin
 			// Only apply 'nav-tab-active' when active_tab is empty
 
 			$active_class = ($active_tab == '') ? ' nav-tab-active' : '';
-			echo ('<a href="' . esc_url($newUri) . '" class="nav-tab' . $active_class . '">' . esc_html__('Direktt Settings', 'direktt') . '</a>');
+			echo ('<a href="' . esc_url($newUri) . '" class="nav-tab' . $active_class . '">' . esc_html__('General Settings', 'direktt') . '</a>');
 		}
 
 		// Sort links by priority asc
@@ -453,7 +455,7 @@ class Direktt_Admin
 		} else {
 			foreach (Direktt::$settings_array as $item) {
 				if (isset($item['id']) && $active_tab == $item['id']) {
-					echo ('<h1>' . $item['label'] . '</h1>');
+					echo ('<h2>' .  esc_html__($item['label']) . '</h2>');
 					call_user_func($item['callback']);
 				}
 			}

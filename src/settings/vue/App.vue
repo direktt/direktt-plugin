@@ -23,7 +23,7 @@ const reset_pairings = ref(false)
 const snackbar = ref(false)
 const snackbar_color = ref('success')
 const snackbar_text = ref(snack_succ_text)
-const snack_succ_text = 'Direktt Settings Saved'
+const snack_succ_text = 'Settings Saved'
 
 
 const { isLoading, isError, isFetching, data, error, refetch } = useQuery({
@@ -130,7 +130,7 @@ onMounted(() => {
 
 <template>
 
-  <h1>Direktt Settings</h1>
+  <h2>General Settings</h2>
 
   <v-card class="pa-4 mr-4" variant="text">
 
@@ -237,7 +237,7 @@ onMounted(() => {
 
     <v-btn variant="flat" class="text-none text-caption" color="info" @click="clickSaveSettings"
       :loading="save_loading">
-      Save Direktt Settings
+      Save Settings
     </v-btn>
 
     <v-snackbar v-model="snackbar" :timeout="3000" :color="snackbar_color">
