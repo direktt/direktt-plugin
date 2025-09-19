@@ -33,47 +33,64 @@ class Direktt_Admin
 		);
 	}
 
+	public function register_cpt_menus(){
+		add_submenu_page(
+			'direktt-dashboard',
+			__('Direktt Users', 'direktt'),
+			__('Direktt Users', 'direktt'),
+			'edit_posts',
+			'edit.php?post_type=direkttusers',
+			null,
+			2
+		);
+
+		add_submenu_page(
+			'direktt-dashboard',
+			__('User Categories', 'direktt'),
+			__('User Categories', 'direktt'),
+			'edit_posts',
+			'edit-tags.php?taxonomy=direkttusercategories',
+			null,
+			3
+		);
+
+		add_submenu_page(
+			'direktt-dashboard',
+			__('User Tags', 'direktt'),
+			__('User Tags', 'direktt'),
+			'edit_posts',
+			'edit-tags.php?taxonomy=direkttusertags',
+			null,
+			4
+		);
+
+		add_submenu_page(
+			'direktt-dashboard',
+			__('Message Templates', 'direktt'),
+			__('Message Templates', 'direktt'),
+			'edit_posts',
+			'edit.php?post_type=direkttmtemplates',
+			null,
+			5
+		);
+	}
+
 	public function register_menu_page_end()
 	{
-
-		add_submenu_page(
-			'direktt-dashboard',
-			__('User Categories', 'direktt'),
-			__('User Categories', 'direktt'),
-			'manage_options',
-			'edit-tags.php?taxonomy=direkttusercategories',
-			false
-		);
-
-		add_submenu_page(
-			'direktt-dashboard',
-			__('User Tags', 'direktt'),
-			__('User Tags', 'direktt'),
-			'manage_options',
-			'edit-tags.php?taxonomy=direkttusertags',
-			false
-		);
-
 		add_submenu_page(
 			'direktt-dashboard',
 			__('Settings', 'direktt'),
 			__('Settings', 'direktt'),
 			'manage_options',
 			'direktt-settings',
-			[$this, 'render_admin_settings']
+			[$this, 'render_admin_settings'],
+			100
 		);
 	}
 
-	public function setup_settings_pages()
+	public function setup_admin_menu()
 	{
-		do_action('direktt_setup_settings_pages');
-	}
-
-	public function on_setup_settings_pages()
-	{
-
-		// Here come additional settings pages
-
+		do_action('direktt_setup_admin_menu');
 	}
 
 	public function highlight_direktt_submenu($parent_file)
@@ -119,10 +136,10 @@ class Direktt_Admin
 			'hierarchical'        => false,
 			'public'              => false,
 			'show_ui'             => true,
-			'show_in_menu'        => 'direktt-dashboard',
+			'show_in_menu'        => false,
 			'show_in_nav_menus'   => true,
 			'show_in_admin_bar'   => true,
-			'menu_position'       => 5,
+			'menu_position'       => 2,
 			'can_export'          => true,
 			'has_archive'         => false,
 			'exclude_from_search' => false,
@@ -227,7 +244,7 @@ class Direktt_Admin
 			'hierarchical'        => false,
 			'public'              => false,
 			'show_ui'             => true,
-			'show_in_menu'        => 'direktt-dashboard',
+			'show_in_menu'        => false,
 			'show_in_nav_menus'   => true,
 			'show_in_admin_bar'   => true,
 			'menu_position'       => 5,
@@ -411,7 +428,7 @@ class Direktt_Admin
 
 		// Print out the Direktt Settings label and link
 
-		echo('<h1>' . esc_html__('Direktt Settings', 'direktt') . '</h1>');
+		echo ('<h1>' . esc_html__('Direktt Settings', 'direktt') . '</h1>');
 
 		echo ('<nav class="nav-tab-wrapper">');
 

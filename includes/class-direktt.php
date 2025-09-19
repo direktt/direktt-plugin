@@ -126,10 +126,10 @@ class Direktt {
 		$plugin_admin = new Direktt_Admin( $this->get_plugin_name(), $this->get_version() );
 		
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'register_menu_page', 9 );
-		$this->loader->add_action( 'admin_menu', $plugin_admin, 'register_menu_page_end');
-		$this->loader->add_action( 'admin_menu', $plugin_admin, 'setup_settings_pages');
-
-		$this->loader->add_action( 'direktt_setup_settings_pages', $plugin_admin, 'on_setup_settings_pages');
+		$this->loader->add_action( 'admin_menu', $plugin_admin, 'setup_admin_menu', 10);
+		$this->loader->add_action( 'admin_menu', $plugin_admin, 'register_menu_page_end', 20);
+		
+		$this->loader->add_action( 'direktt_setup_admin_menu', $plugin_admin, 'register_cpt_menus', 9);
 
 		$this->loader->add_action( 'parent_file', $plugin_admin, 'highlight_direktt_submenu');
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_plugin_assets' );
