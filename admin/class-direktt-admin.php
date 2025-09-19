@@ -86,6 +86,9 @@ class Direktt_Admin
 			[$this, 'render_admin_settings'],
 			100
 		);
+
+		//Setup Settings Tabs
+		do_action('direktt_setup_settings_pages');
 	}
 
 	public function setup_admin_menu()
