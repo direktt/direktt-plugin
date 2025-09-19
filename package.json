@@ -1,9 +1,9 @@
 {
   "devDependencies": {
-    "@parcel/transformer-sass": "latest",
-    "@parcel/transformer-vue": "latest",
+    "@parcel/transformer-sass": "^2.16.0",
+    "@parcel/transformer-vue": "^2.16.0",
     "buffer": "^6.0.3",
-    "parcel": "^2.12.0",
+    "parcel": "^2.16.0",
     "process": "^0.11.10"
   },
   "browserslist": "> 0.5%, last 2 versions, not dead",
