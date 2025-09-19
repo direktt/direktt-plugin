@@ -424,13 +424,15 @@ class Direktt_Admin
 		$parts = parse_url($url);
 
 		// Print out the Direktt Settings label and link
+		
+		echo( '<nav class="nav-tab-wrapper">' );
 
 		if (!empty(Direktt::$settings_array)) {
 			parse_str($parts['query'] ?? '', $params);
 			unset($params['subpage']);
 			$newQuery = http_build_query($params);
 			$newUri = $parts['path'] . ($newQuery ? '?' . $newQuery : '');
-			echo ('<p><a href="' . $newUri . '">' . __('Direktt Settings', 'direktt') . '</a></p>');
+			echo ('<a href="' . $newUri . '" class="nav-tab nav-tab-active">' . __('Direktt Settings', 'direktt') . '</a>');
 		}
 
 		// Sort links by priority asc
@@ -447,9 +449,10 @@ class Direktt_Admin
 				$params['subpage'] = $item['id'];
 				$newQuery = http_build_query($params);
 				$newUri = $parts['path'] . ($newQuery ? '?' . $newQuery : '');
-				echo ('<p><a href="' . $newUri . '">' . $item['label'] . '</a></p>');
+				echo ('<a href="' . $newUri . '" class="nav-tab">' . $item['label'] . '</a>');
 			}
 		}
+		echo( '</nav>' );
 	}
 
 	public function render_meta_panel($post)

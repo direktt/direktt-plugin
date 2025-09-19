@@ -591,8 +591,8 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
 #direktt-profile #direktt-profile-data.direktt-profile-data-loyalty-program-tool .direktt-loyalty-program-wrap > p > strong {
   border-radius: 50px;
   padding: 0 0.5em;
-  background: var(--direktt-profile-accent-color);
-  color: white;
+  border: 2px solid var(--direktt-profile-accent-color);
+  color: var(--direktt-profile-accent-color);
   font-weight: 600;
   display: inline-block;
   text-align: center;
