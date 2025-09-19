@@ -73,7 +73,7 @@ onMounted(() => {
 <template>
   <h1>Direktt Dashboard</h1>
 
-  <v-card class="pa-4 mr-4">
+  <v-card class="pa-4 mr-4" variant="text">
 
     <table class="form-table" role="presentation">
 
