@@ -95,13 +95,20 @@
 		&.button-primary {
 			background-color: var(--direktt-profile-alternate-color);
 		}
+		&.button-red {
+			background-color: var(--direktt-profile-warning-color);
+		}
 		&.button-invert {
 			background-color: white;
-			border: 2px solid var(--direktt-profile-button-default-background-color);
+			box-shadow: 0 0 0 2px var(--direktt-profile-button-default-background-color);
 			color: var(--direktt-profile-button-default-background-color);
 			&.button-primary {
-				border-color: var(--direktt-profile-alternate-color);
+				box-shadow: 0 0 0 2px var(--direktt-profile-alternate-color);
 				color: var(--direktt-profile-alternate-color);
+			}
+			&.button-red {
+				box-shadow: 0 0 0 2px var(--direktt-profile-warning-color);
+				color: var(--direktt-profile-warning-color);
 			}
 		}
 	}
@@ -170,6 +177,7 @@
 				line-height: 2rem;
 				font-size: 1.25rem;
 				text-align: center;
+				vertical-align: middle;
 				pointer-events: all;
 				display: block;
 				border-radius: 50%;
@@ -422,7 +430,8 @@
 			display: flex;
 			flex-direction: column; 
 			gap: 0.5em; 
-			margin-bottom: 4em;
+			margin-bottom: 3em;
+			margin-top: 1em;
 			li {			
 				margin: 0;
 				padding: 0;
@@ -472,7 +481,7 @@
 			tr.direktt-cross-sell-actions {
 				border-bottom: 1px solid var(--direktt-profile-light-gray-color);
 				td {
-					padding: 0.5rem 0;
+					padding: 0 0 0.5rem;
 					.button {
 						    text-align: center;
 					}
@@ -527,9 +536,6 @@
 				padding: 1em;
 				flex-basis: fit-content;
 				flex-grow: 1;
-				&.button-red {
-					background-color: var(--direktt-profile-warning-color);
-				}
 			}		
 		}
 		#reset_points_btn {
@@ -546,6 +552,13 @@
 				th, td {
 					text-align: left;
 					padding: 0.5rem;
+					&:last-child {
+						text-align: right;
+					}
+					&:first-child {
+						text-align: center;
+						/* font-weight: 600; */
+					}
 				}
 				th {
 					font-weight: 600;

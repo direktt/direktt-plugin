@@ -11,7 +11,7 @@
   margin: 0;
   padding: 0;
   border: 0;
-  font: inherit;
+  font-size: inherit;
   vertical-align: baseline;
 }
 #direktt-profile h1, #direktt-profile h2, #direktt-profile h3, #direktt-profile h4, #direktt-profile h5, #direktt-profile h6 {
@@ -63,7 +63,7 @@
   border: none;
   line-height: 1;
   width: 100%;
-  background: var(--direktt-profile-accent-color);
+  background-color: var(--direktt-profile-accent-color);
   color: white;
   font-weight: 600;
 }
@@ -323,14 +323,21 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
 #direktt-profile button.button-primary, #direktt-profile .button.button-primary, #direktt-profile .direktt-button.button-primary {
   background-color: var(--direktt-profile-alternate-color);
 }
+#direktt-profile button.button-red, #direktt-profile .button.button-red, #direktt-profile .direktt-button.button-red {
+  background-color: var(--direktt-profile-warning-color);
+}
 #direktt-profile button.button-invert, #direktt-profile .button.button-invert, #direktt-profile .direktt-button.button-invert {
   background-color: white;
-  border: 2px solid var(--direktt-profile-button-default-background-color);
+  box-shadow: 0 0 0 2px var(--direktt-profile-button-default-background-color);
   color: var(--direktt-profile-button-default-background-color);
 }
 #direktt-profile button.button-invert.button-primary, #direktt-profile .button.button-invert.button-primary, #direktt-profile .direktt-button.button-invert.button-primary {
-  border-color: var(--direktt-profile-alternate-color);
+  box-shadow: 0 0 0 2px var(--direktt-profile-alternate-color);
   color: var(--direktt-profile-alternate-color);
+}
+#direktt-profile button.button-invert.button-red, #direktt-profile .button.button-invert.button-red, #direktt-profile .direktt-button.button-invert.button-red {
+  box-shadow: 0 0 0 2px var(--direktt-profile-warning-color);
+  color: var(--direktt-profile-warning-color);
 }
 #direktt-profile .notice {
   text-align: center;
@@ -380,6 +387,7 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
   line-height: 2rem;
   font-size: 1.25rem;
   text-align: center;
+  vertical-align: middle;
   pointer-events: all;
   display: block;
   border-radius: 50%;
@@ -600,7 +608,8 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
   display: flex;
   flex-direction: column;
   gap: 0.5em;
-  margin-bottom: 4em;
+  margin-bottom: 3em;
+  margin-top: 1em;
 }
 #direktt-profile #direktt-profile-data.direktt-profile-data-cross-sell-tool ul li {
   margin: 0;
@@ -652,7 +661,7 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
   border-bottom: 1px solid var(--direktt-profile-light-gray-color);
 }
 #direktt-profile #direktt-profile-data.direktt-profile-data-cross-sell-tool table.direktt-cross-sell-issued-coupos-table tr.direktt-cross-sell-actions td {
-  padding: 0.5rem 0;
+  padding: 0 0 0.5rem;
 }
 #direktt-profile #direktt-profile-data.direktt-profile-data-cross-sell-tool table.direktt-cross-sell-issued-coupos-table tr.direktt-cross-sell-actions td .button {
   text-align: center;
@@ -704,9 +713,6 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
   flex-basis: fit-content;
   flex-grow: 1;
 }
-#direktt-profile #direktt-profile-data.direktt-profile-data-loyalty-program-tool .direktt-loyalty-program-rules button.button-red {
-  background-color: var(--direktt-profile-warning-color);
-}
 #direktt-profile #direktt-profile-data.direktt-profile-data-loyalty-program-tool #reset_points_btn {
   background-color: var(--direktt-profile-alternate-color);
 }
@@ -723,6 +729,13 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
 #direktt-profile #direktt-profile-data.direktt-profile-data-loyalty-program-tool .direktt-loyalty-program-transactions table th, #direktt-profile #direktt-profile-data.direktt-profile-data-loyalty-program-tool .direktt-loyalty-program-transactions table td {
   text-align: left;
   padding: 0.5rem;
+}
+#direktt-profile #direktt-profile-data.direktt-profile-data-loyalty-program-tool .direktt-loyalty-program-transactions table th:last-child, #direktt-profile #direktt-profile-data.direktt-profile-data-loyalty-program-tool .direktt-loyalty-program-transactions table td:last-child {
+  text-align: right;
+}
+#direktt-profile #direktt-profile-data.direktt-profile-data-loyalty-program-tool .direktt-loyalty-program-transactions table th:first-child, #direktt-profile #direktt-profile-data.direktt-profile-data-loyalty-program-tool .direktt-loyalty-program-transactions table td:first-child {
+  text-align: center;
+  /* font-weight: 600; */
 }
 #direktt-profile #direktt-profile-data.direktt-profile-data-loyalty-program-tool .direktt-loyalty-program-transactions table th {
   font-weight: 600;

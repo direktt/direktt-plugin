@@ -14,7 +14,7 @@
 		margin: 0;
 		padding: 0;
 		border: 0;
-		font: inherit;
+		font-size: inherit;
 		vertical-align: baseline;
 	}
 	
@@ -81,7 +81,7 @@
 		border: none;
 		line-height: 1;
 		width: 100%;
-		background: var(--direktt-profile-accent-color);
+		background-color: var(--direktt-profile-accent-color);
 		color: white;
 		font-weight: 600;
 		&:focus {
