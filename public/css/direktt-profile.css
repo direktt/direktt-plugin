@@ -20,6 +20,9 @@
   line-height: 1.25;
   margin-bottom: 0.5em;
 }
+#direktt-profile strong, #direktt-profile b {
+  font-weight: 600;
+}
 #direktt-profile p {
   margin-bottom: 1em;
 }
@@ -279,10 +282,12 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
 #direktt-profile-wrapper {
   overflow: hidden;
   font-weight: 400;
+  max-width: 100%;
 }
 
 #direktt-profile {
   /* General */
+  /* End general */
   position: relative;
   overflow: hidden;
   font-family: var(--direktt-profile-default-font-family);
@@ -295,17 +300,48 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
   /* Tabs */
   /* Profile tab */
   /* Send message tab */
+  /* Cross sell */
   /* Loyalty */
 }
-#direktt-profile .button {
-  border: 1px solid var(--direktt-profile-light-gray-color);
-  color: var(--direktt-profile-light-color);
-  background-color: var(--direktt-profile-accent-color);
+#direktt-profile button, #direktt-profile .button, #direktt-profile .direktt-button {
+  pointer-events: all;
   padding: 1em 2em;
   font-size: inherit;
+  display: block;
+  border: none;
+  background-color: var(--direktt-profile-button-default-background-color);
+  color: var(--direktt-profile-light-color);
+  border-radius: var(--direktt-profile-border-radius);
+  line-height: 1;
 }
-#direktt-profile .button.button-primary {
+#direktt-profile button:hover, #direktt-profile .button:hover, #direktt-profile .direktt-button:hover {
+  text-decoration: none;
+}
+#direktt-profile button.button-large, #direktt-profile .button.button-large, #direktt-profile .direktt-button.button-large {
+  padding: 1.5em 2em;
+}
+#direktt-profile button.button-primary, #direktt-profile .button.button-primary, #direktt-profile .direktt-button.button-primary {
   background-color: var(--direktt-profile-alternate-color);
+}
+#direktt-profile button.button-invert, #direktt-profile .button.button-invert, #direktt-profile .direktt-button.button-invert {
+  background-color: white;
+  border: 2px solid var(--direktt-profile-button-default-background-color);
+  color: var(--direktt-profile-button-default-background-color);
+}
+#direktt-profile button.button-invert.button-primary, #direktt-profile .button.button-invert.button-primary, #direktt-profile .direktt-button.button-invert.button-primary {
+  border-color: var(--direktt-profile-alternate-color);
+  color: var(--direktt-profile-alternate-color);
+}
+#direktt-profile .notice {
+  text-align: center;
+  font-weight: 600;
+  border: 2px solid var(--direktt-profile-accent-color);
+  border-radius: 50px;
+  margin: 1em 0;
+  padding: 1em;
+}
+#direktt-profile .notice p {
+  margin: 0;
 }
 #direktt-profile #direktt-profile-data {
   opacity: 1;
@@ -382,17 +418,6 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
   padding: 0;
   display: block;
   text-align: center;
-}
-#direktt-profile #direktt-profile-tools ul li a {
-  pointer-events: all;
-  padding: 10px;
-  display: block;
-  background-color: var(--direktt-profile-button-default-background-color);
-  color: var(--direktt-profile-light-color);
-  border-radius: var(--direktt-profile-border-radius);
-}
-#direktt-profile #direktt-profile-tools ul li a:hover {
-  text-decoration: none;
 }
 .direktt-profile-tools-open #direktt-profile #direktt-profile-tools {
   margin-left: 0px;
@@ -569,6 +594,75 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
 #direktt-profile #direktt-profile-data.direktt-profile-data-cross-sell-tool {
   padding: 1em;
 }
+#direktt-profile #direktt-profile-data.direktt-profile-data-cross-sell-tool ul {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  margin-bottom: 4em;
+}
+#direktt-profile #direktt-profile-data.direktt-profile-data-cross-sell-tool ul li {
+  margin: 0;
+  padding: 0;
+  display: block;
+  text-align: center;
+}
+#direktt-profile #direktt-profile-data.direktt-profile-data-cross-sell-tool ul li .direktt-cross-sell-title-area {
+  display: flex;
+  justify-content: space-between;
+  margin: 1em 0em 0.5em;
+  gap: 1em;
+}
+#direktt-profile #direktt-profile-data.direktt-profile-data-cross-sell-tool ul li .direktt-cross-sell-title-area .direktt-cross-sell-title {
+  font-weight: 600;
+}
+#direktt-profile #direktt-profile-data.direktt-profile-data-cross-sell-tool ul li .direktt-cross-sell-title-area .direktt-cross-sell-data {
+  text-align: right;
+}
+#direktt-profile #direktt-profile-data.direktt-profile-data-cross-sell-tool ul li .direktt-cross-sell-title-area .direktt-cross-sell-data > span {
+  border-radius: 50%;
+  padding: 0 0.5rem;
+  box-shadow: 0 0 0 2px var(--direktt-profile-accent-color);
+  color: var(--direktt-profile-accent-color);
+  font-weight: 600;
+  display: inline-block;
+  text-align: center;
+  min-width: 2rem;
+  line-height: 2rem;
+}
+#direktt-profile #direktt-profile-data.direktt-profile-data-cross-sell-tool ul li a.direktt-button {
+  /* text-align: left; */
+}
+#direktt-profile #direktt-profile-data.direktt-profile-data-cross-sell-tool table.direktt-cross-sell-issued-coupos-table {
+  border-spacing: 0.5rem;
+  width: 100%;
+}
+#direktt-profile #direktt-profile-data.direktt-profile-data-cross-sell-tool table.direktt-cross-sell-issued-coupos-table thead {
+  border-bottom: 1px solid var(--direktt-profile-dark-gray-color);
+}
+#direktt-profile #direktt-profile-data.direktt-profile-data-cross-sell-tool table.direktt-cross-sell-issued-coupos-table th, #direktt-profile #direktt-profile-data.direktt-profile-data-cross-sell-tool table.direktt-cross-sell-issued-coupos-table td {
+  text-align: left;
+  padding: 0.5rem;
+}
+#direktt-profile #direktt-profile-data.direktt-profile-data-cross-sell-tool table.direktt-cross-sell-issued-coupos-table th {
+  font-weight: 600;
+}
+#direktt-profile #direktt-profile-data.direktt-profile-data-cross-sell-tool table.direktt-cross-sell-issued-coupos-table tr.direktt-cross-sell-actions {
+  border-bottom: 1px solid var(--direktt-profile-light-gray-color);
+}
+#direktt-profile #direktt-profile-data.direktt-profile-data-cross-sell-tool table.direktt-cross-sell-issued-coupos-table tr.direktt-cross-sell-actions td {
+  padding: 0.5rem 0;
+}
+#direktt-profile #direktt-profile-data.direktt-profile-data-cross-sell-tool table.direktt-cross-sell-issued-coupos-table tr.direktt-cross-sell-actions td .button {
+  text-align: center;
+}
+#direktt-profile #direktt-profile-data.direktt-profile-data-cross-sell-tool table.direktt-cross-sell-issued-coupos-table tr.direktt-cross-sell-actions td form {
+  margin-bottom: 0em;
+}
+#direktt-profile #direktt-profile-data.direktt-profile-data-cross-sell-tool table.direktt-cross-sell-issued-coupos-table tr.direktt-cross-sell-actions td form .button {
+  margin-left: 0.5rem;
+}
 #direktt-profile #direktt-profile-data.direktt-profile-data-loyalty-program-tool {
   padding: 1em;
 }
@@ -589,9 +683,9 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
   text-align: right;
 }
 #direktt-profile #direktt-profile-data.direktt-profile-data-loyalty-program-tool .direktt-loyalty-program-wrap > p > strong {
-  border-radius: 50px;
-  padding: 0 0.5em;
-  border: 2px solid var(--direktt-profile-accent-color);
+  border-radius: 50%;
+  padding: 0 0.5rem;
+  box-shadow: 0 0 0 2px var(--direktt-profile-accent-color);
   color: var(--direktt-profile-accent-color);
   font-weight: 600;
   display: inline-block;
@@ -616,33 +710,25 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
 #direktt-profile #direktt-profile-data.direktt-profile-data-loyalty-program-tool #reset_points_btn {
   background-color: var(--direktt-profile-alternate-color);
 }
-#direktt-profile #direktt-profile-data.direktt-profile-data-loyalty-program-tool .direktt-loyalty-program-transactions ul {
-  display: flex;
-  margin: 0;
-  padding: 0;
-  flex-direction: column;
-  gap: 1em;
+#direktt-profile #direktt-profile-data.direktt-profile-data-loyalty-program-tool .direktt-loyalty-program-transactions {
+  width: 100%;
 }
-#direktt-profile #direktt-profile-data.direktt-profile-data-loyalty-program-tool .direktt-loyalty-program-transactions ul li {
-  display: block;
-  margin: 0;
-  border-top: 1px solid var(--direktt-profile-light-gray-color);
-  padding-top: 1em;
-  /*color: var(--direktt-profile-dark-gray-color);
-  &:hover, &:focus {
-  	color: var(--direktt-profile-dark-color);
-  }*/
+#direktt-profile #direktt-profile-data.direktt-profile-data-loyalty-program-tool .direktt-loyalty-program-transactions table {
+  border-spacing: 0.5rem;
+  width: 100%;
 }
-#direktt-profile #direktt-profile-data.direktt-profile-data-loyalty-program-tool .notice {
-  text-align: center;
+#direktt-profile #direktt-profile-data.direktt-profile-data-loyalty-program-tool .direktt-loyalty-program-transactions table thead {
+  border-bottom: 1px solid var(--direktt-profile-dark-gray-color);
+}
+#direktt-profile #direktt-profile-data.direktt-profile-data-loyalty-program-tool .direktt-loyalty-program-transactions table th, #direktt-profile #direktt-profile-data.direktt-profile-data-loyalty-program-tool .direktt-loyalty-program-transactions table td {
+  text-align: left;
+  padding: 0.5rem;
+}
+#direktt-profile #direktt-profile-data.direktt-profile-data-loyalty-program-tool .direktt-loyalty-program-transactions table th {
   font-weight: 600;
-  border: 2px solid var(--direktt-profile-accent-color);
-  border-radius: 50px;
-  margin: 1em 0;
-  padding: 1em;
 }
-#direktt-profile #direktt-profile-data.direktt-profile-data-loyalty-program-tool .notice p {
-  margin: 0;
+#direktt-profile #direktt-profile-data.direktt-profile-data-loyalty-program-tool .direktt-loyalty-program-transactions table tbody tr {
+  border-bottom: 1px solid var(--direktt-profile-light-gray-color);
 }
 
 /*# sourceMappingURL=direktt-profile.css.map */
