@@ -26,6 +26,16 @@
 		margin-bottom: 0.5em;
 	}
 	
+	h3 {
+		font-size: 1.125em;
+		margin-bottom: 0.25em;
+	}
+	
+	h4, h5, h6 {
+		font-size: 1em;
+		margin-bottom: 0.25em;
+	}
+	
 	// Texts
 	
 	strong, b {
@@ -67,32 +77,50 @@
 	button, input, select, textarea {
 		background: none;
 		border: 1px solid var(--direktt-profile-light-gray-color);
-		border-radius: 50px;
+		border-radius: 10px;
 		padding: 1em 2em;
-		font: inherit;
+		font-family: inherit;
+		font-size: inherit;
+		/* font: inherit; */
 		color: inherit;
+		width: 100%;
 		/*&:focus {
 		  outline: 2px solid var(--direktt-profile-accent-color);
 		  outline-offset: 2px;
 		}*/
 	}
-	input[type="submit"], button {
+	input[type="submit"], button, .button, .direktt-button {
+		pointer-events: all;
 		cursor: pointer;
-		border: none;
-		line-height: 1;
+		border-radius: 50px;
 		width: 100%;
-		background-color: var(--direktt-profile-accent-color);
-		color: white;
 		font-weight: 600;
+		padding: 1em 2em;
+		font-size: inherit;
+		display: block;
+		border: none;
+		background-color: var(--direktt-profile-button-default-background-color);
+		color: var(--direktt-profile-light-color);
+		line-height: 1;
+		&:hover {
+			text-decoration: none;
+		}
 		&:focus {
 		  outline: none;
 		}
 	}
+	input[type="text"] {
+		padding: 0.5em 1em;
+	}
+	select {
+		padding: 1em;
+	}
+	textarea {
+		padding: 1em;
+	}
 	input[type="checkbox"] {
-      -webkit-appearance: none; 
-      appearance: none; 
-    }
-	input[type="checkbox"] {
+		-webkit-appearance: none; 
+		appearance: none; 
 		width: 1.5rem;
 		height: 1.5rem;
 		border: 2px solid #ccc;

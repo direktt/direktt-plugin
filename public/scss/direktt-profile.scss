@@ -12,13 +12,13 @@
     url('fonts/direktt-profile-icons.ttf?t=1758201785209') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
     url('fonts/direktt-profile-icons.svg?t=1758201785209#direktt-profile-icons') format('svg'); /* iOS 4.1- */
     font-display: swap;
-}
-
+} 
+ 
 [class^="dpi-"]:before, [class*="dpi-"]:before {
     font-family: 'direktt-profile-icons' !important;
     font-style: normal;
     -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    -moz-osx-font-smoothing: grayscale; 
 }
 #direktt-profile { 
 	.dpi-menu:before { content: "\ef3e" !important; }
@@ -35,7 +35,7 @@
 
 /* Themes override */
 
-@import "direktt-themes-reset.scss"; 
+@import "direktt-themes-reset.scss";  
 
 /* Popup */    
 
@@ -44,7 +44,7 @@
 /* Variables */   
 
 #direktt-profile { 
-	--direktt-profile-border-radius: 50px; 
+	--direktt-profile-border-radius: 50px;  
 	--direktt-profile-accent-color: #5DB075;
 	--direktt-profile-alternate-color: #387248;
 	--direktt-profile-warning-color: #d91515;
@@ -77,20 +77,8 @@
 	/* General */
 	
 	button, .button, .direktt-button {
-		pointer-events: all;
-		padding: 1em 2em;
-		font-size: inherit;
-		display: block;
-		border: none;
-		background-color: var(--direktt-profile-button-default-background-color);
-		color: var(--direktt-profile-light-color);
-		border-radius: var(--direktt-profile-border-radius); 
-		line-height: 1;
-		&:hover {
-			text-decoration: none;
-		}
 		&.button-large {
-			padding: 1.5em 2em;
+			padding: 1.5em 2em; 
 		}
 		&.button-primary {
 			background-color: var(--direktt-profile-alternate-color);
@@ -139,7 +127,7 @@
 	
 	table {
 		border-spacing: 0.5rem;
-		width: 100%;
+		width: 100%; 
 		thead {
 			border-bottom: 1px solid var(--direktt-profile-dark-gray-color);
 		}
@@ -150,7 +138,7 @@
 		th {
 			font-weight: 600;
 		}
-		tbody tr {
+		tbody tr:not(:last-child) {
 			border-bottom: 1px solid var(--direktt-profile-light-gray-color);
 		}
 	}
@@ -547,7 +535,7 @@
 					display: inline-block;
 					text-align: center;
 					min-width: 2rem;
-					line-height: 2rem;
+					line-height: 2rem; 
 				}	
 			}
 		}
@@ -560,7 +548,7 @@
 				padding: 1em;
 				flex-basis: fit-content;
 				flex-grow: 1;
-			}		
+			}		 
 		}
 		#reset_points_btn {
 			background-color: var(--direktt-profile-alternate-color);
@@ -568,29 +556,77 @@
 		.direktt-loyalty-program-transactions {
 			width: 100%;
 			table {
-				border-spacing: 0.5rem;
-				width: 100%;
-				thead {
-					border-bottom: 1px solid var(--direktt-profile-dark-gray-color);
-				}
 				th, td {
-					text-align: left;
-					padding: 0.5rem;
 					&:last-child {
 						text-align: right;
 					}
 					&:first-child {
 						text-align: center;
-						/* font-weight: 600; */
-					}
-				}
-				th {
-					font-weight: 600;
-				}
-				tbody tr {
-					border-bottom: 1px solid var(--direktt-profile-light-gray-color);
+					} 
 				}
 			}	
+		}
+	}
+	
+	/* Reviews */
+	
+	#direktt-profile-data.direktt-profile-data-review-profile-tool {
+		padding: 1em;
+		.direktt-review-profile-tool-table {
+			th:last-child,
+			td:last-child {
+				text-align: center;
+			}
+		}
+	}
+	
+	/* Service status */
+	
+	#direktt-profile-data.direktt-profile-data-service-status-tool {
+		padding: 1em;
+		
+		.direktt-service-status-add-new {
+			margin-bottom: 1em;
+		}
+		.direktt-service-status-search {
+			display: flex;
+			gap: 1em;
+		}
+		.direktt-service-status-cases-list {
+			margin-top: 2em;
+			border-top: 1px solid var(--direktt-profile-dark-gray-color);
+			.case-item {
+				padding: 1em 0;
+				&:not(:last-child) {
+					border-bottom: 1px solid var(--direktt-profile-light-gray-color);	
+				}
+				.direktt-service-status-description, 
+				.direktt-service-status-status { 
+					color: var(--direktt-profile-dark-gray-color);
+					strong {
+						    min-width: 7em;
+							display: inline-block;
+					} 
+				}
+				.direktt-service-status-log {
+					padding-top: 0.5em;					
+				}
+			}
+		}
+		.direktt-service-status-case-form-wrapper {
+			form {
+				display: flex;
+				flex-direction: column;
+				gap: 0.5em;
+				label {
+					display: block;	
+				} 
+				.form-buttons {
+					display: flex;
+					flex-direction: column;
+					gap: 0.5em;					
+				}
+			}
 		}
 	}
 }

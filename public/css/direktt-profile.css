@@ -20,6 +20,14 @@
   line-height: 1.25;
   margin-bottom: 0.5em;
 }
+#direktt-profile h3 {
+  font-size: 1.125em;
+  margin-bottom: 0.25em;
+}
+#direktt-profile h4, #direktt-profile h5, #direktt-profile h6 {
+  font-size: 1em;
+  margin-bottom: 0.25em;
+}
 #direktt-profile strong, #direktt-profile b {
   font-weight: 600;
 }
@@ -49,32 +57,50 @@
 #direktt-profile button, #direktt-profile input, #direktt-profile select, #direktt-profile textarea {
   background: none;
   border: 1px solid var(--direktt-profile-light-gray-color);
-  border-radius: 50px;
+  border-radius: 10px;
   padding: 1em 2em;
-  font: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  /* font: inherit; */
   color: inherit;
+  width: 100%;
   /*&:focus {
     outline: 2px solid var(--direktt-profile-accent-color);
     outline-offset: 2px;
   }*/
 }
-#direktt-profile input[type=submit], #direktt-profile button {
+#direktt-profile input[type=submit], #direktt-profile button, #direktt-profile .button, #direktt-profile .direktt-button {
+  pointer-events: all;
   cursor: pointer;
-  border: none;
-  line-height: 1;
+  border-radius: 50px;
   width: 100%;
-  background-color: var(--direktt-profile-accent-color);
-  color: white;
   font-weight: 600;
+  padding: 1em 2em;
+  font-size: inherit;
+  display: block;
+  border: none;
+  background-color: var(--direktt-profile-button-default-background-color);
+  color: var(--direktt-profile-light-color);
+  line-height: 1;
 }
-#direktt-profile input[type=submit]:focus, #direktt-profile button:focus {
+#direktt-profile input[type=submit]:hover, #direktt-profile button:hover, #direktt-profile .button:hover, #direktt-profile .direktt-button:hover {
+  text-decoration: none;
+}
+#direktt-profile input[type=submit]:focus, #direktt-profile button:focus, #direktt-profile .button:focus, #direktt-profile .direktt-button:focus {
   outline: none;
+}
+#direktt-profile input[type=text] {
+  padding: 0.5em 1em;
+}
+#direktt-profile select {
+  padding: 1em;
+}
+#direktt-profile textarea {
+  padding: 1em;
 }
 #direktt-profile input[type=checkbox] {
   -webkit-appearance: none;
   appearance: none;
-}
-#direktt-profile input[type=checkbox] {
   width: 1.5rem;
   height: 1.5rem;
   border: 2px solid #ccc;
@@ -302,20 +328,8 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
   /* Send message tab */
   /* Cross sell */
   /* Loyalty */
-}
-#direktt-profile button, #direktt-profile .button, #direktt-profile .direktt-button {
-  pointer-events: all;
-  padding: 1em 2em;
-  font-size: inherit;
-  display: block;
-  border: none;
-  background-color: var(--direktt-profile-button-default-background-color);
-  color: var(--direktt-profile-light-color);
-  border-radius: var(--direktt-profile-border-radius);
-  line-height: 1;
-}
-#direktt-profile button:hover, #direktt-profile .button:hover, #direktt-profile .direktt-button:hover {
-  text-decoration: none;
+  /* Reviews */
+  /* Service status */
 }
 #direktt-profile button.button-large, #direktt-profile .button.button-large, #direktt-profile .direktt-button.button-large {
   padding: 1.5em 2em;
@@ -376,7 +390,7 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
 #direktt-profile table th {
   font-weight: 600;
 }
-#direktt-profile table tbody tr {
+#direktt-profile table tbody tr:not(:last-child) {
   border-bottom: 1px solid var(--direktt-profile-light-gray-color);
 }
 #direktt-profile #direktt-profile-data {
@@ -740,29 +754,63 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
 #direktt-profile #direktt-profile-data.direktt-profile-data-loyalty-program-tool .direktt-loyalty-program-transactions {
   width: 100%;
 }
-#direktt-profile #direktt-profile-data.direktt-profile-data-loyalty-program-tool .direktt-loyalty-program-transactions table {
-  border-spacing: 0.5rem;
-  width: 100%;
-}
-#direktt-profile #direktt-profile-data.direktt-profile-data-loyalty-program-tool .direktt-loyalty-program-transactions table thead {
-  border-bottom: 1px solid var(--direktt-profile-dark-gray-color);
-}
-#direktt-profile #direktt-profile-data.direktt-profile-data-loyalty-program-tool .direktt-loyalty-program-transactions table th, #direktt-profile #direktt-profile-data.direktt-profile-data-loyalty-program-tool .direktt-loyalty-program-transactions table td {
-  text-align: left;
-  padding: 0.5rem;
-}
 #direktt-profile #direktt-profile-data.direktt-profile-data-loyalty-program-tool .direktt-loyalty-program-transactions table th:last-child, #direktt-profile #direktt-profile-data.direktt-profile-data-loyalty-program-tool .direktt-loyalty-program-transactions table td:last-child {
   text-align: right;
 }
 #direktt-profile #direktt-profile-data.direktt-profile-data-loyalty-program-tool .direktt-loyalty-program-transactions table th:first-child, #direktt-profile #direktt-profile-data.direktt-profile-data-loyalty-program-tool .direktt-loyalty-program-transactions table td:first-child {
   text-align: center;
-  /* font-weight: 600; */
 }
-#direktt-profile #direktt-profile-data.direktt-profile-data-loyalty-program-tool .direktt-loyalty-program-transactions table th {
-  font-weight: 600;
+#direktt-profile #direktt-profile-data.direktt-profile-data-review-profile-tool {
+  padding: 1em;
 }
-#direktt-profile #direktt-profile-data.direktt-profile-data-loyalty-program-tool .direktt-loyalty-program-transactions table tbody tr {
+#direktt-profile #direktt-profile-data.direktt-profile-data-review-profile-tool .direktt-review-profile-tool-table th:last-child,
+#direktt-profile #direktt-profile-data.direktt-profile-data-review-profile-tool .direktt-review-profile-tool-table td:last-child {
+  text-align: center;
+}
+#direktt-profile #direktt-profile-data.direktt-profile-data-service-status-tool {
+  padding: 1em;
+}
+#direktt-profile #direktt-profile-data.direktt-profile-data-service-status-tool .direktt-service-status-add-new {
+  margin-bottom: 1em;
+}
+#direktt-profile #direktt-profile-data.direktt-profile-data-service-status-tool .direktt-service-status-search {
+  display: flex;
+  gap: 1em;
+}
+#direktt-profile #direktt-profile-data.direktt-profile-data-service-status-tool .direktt-service-status-cases-list {
+  margin-top: 2em;
+  border-top: 1px solid var(--direktt-profile-dark-gray-color);
+}
+#direktt-profile #direktt-profile-data.direktt-profile-data-service-status-tool .direktt-service-status-cases-list .case-item {
+  padding: 1em 0;
+}
+#direktt-profile #direktt-profile-data.direktt-profile-data-service-status-tool .direktt-service-status-cases-list .case-item:not(:last-child) {
   border-bottom: 1px solid var(--direktt-profile-light-gray-color);
+}
+#direktt-profile #direktt-profile-data.direktt-profile-data-service-status-tool .direktt-service-status-cases-list .case-item .direktt-service-status-description,
+#direktt-profile #direktt-profile-data.direktt-profile-data-service-status-tool .direktt-service-status-cases-list .case-item .direktt-service-status-status {
+  color: var(--direktt-profile-dark-gray-color);
+}
+#direktt-profile #direktt-profile-data.direktt-profile-data-service-status-tool .direktt-service-status-cases-list .case-item .direktt-service-status-description strong,
+#direktt-profile #direktt-profile-data.direktt-profile-data-service-status-tool .direktt-service-status-cases-list .case-item .direktt-service-status-status strong {
+  min-width: 7em;
+  display: inline-block;
+}
+#direktt-profile #direktt-profile-data.direktt-profile-data-service-status-tool .direktt-service-status-cases-list .case-item .direktt-service-status-log {
+  padding-top: 0.5em;
+}
+#direktt-profile #direktt-profile-data.direktt-profile-data-service-status-tool .direktt-service-status-case-form-wrapper form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}
+#direktt-profile #direktt-profile-data.direktt-profile-data-service-status-tool .direktt-service-status-case-form-wrapper form label {
+  display: block;
+}
+#direktt-profile #direktt-profile-data.direktt-profile-data-service-status-tool .direktt-service-status-case-form-wrapper form .form-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
 }
 
 /*# sourceMappingURL=direktt-profile.css.map */
