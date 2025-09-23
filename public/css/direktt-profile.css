@@ -339,6 +339,18 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
   box-shadow: 0 0 0 2px var(--direktt-profile-warning-color);
   color: var(--direktt-profile-warning-color);
 }
+#direktt-profile button.button-clean, #direktt-profile .button.button-clean, #direktt-profile .direktt-button.button-clean {
+  padding: 0.5em 0em;
+  background-color: transparent;
+  box-shadow: none;
+  color: var(--direktt-profile-button-default-background-color);
+}
+#direktt-profile button.button-clean.button-primary, #direktt-profile .button.button-clean.button-primary, #direktt-profile .direktt-button.button-clean.button-primary {
+  color: var(--direktt-profile-alternate-color);
+}
+#direktt-profile button.button-clean.button-red, #direktt-profile .button.button-clean.button-red, #direktt-profile .direktt-button.button-clean.button-red {
+  color: var(--direktt-profile-warning-color);
+}
 #direktt-profile .notice {
   text-align: center;
   font-weight: 600;
@@ -349,6 +361,23 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
 }
 #direktt-profile .notice p {
   margin: 0;
+}
+#direktt-profile table {
+  border-spacing: 0.5rem;
+  width: 100%;
+}
+#direktt-profile table thead {
+  border-bottom: 1px solid var(--direktt-profile-dark-gray-color);
+}
+#direktt-profile table th, #direktt-profile table td {
+  text-align: left;
+  padding: 0.5rem;
+}
+#direktt-profile table th {
+  font-weight: 600;
+}
+#direktt-profile table tbody tr {
+  border-bottom: 1px solid var(--direktt-profile-light-gray-color);
 }
 #direktt-profile #direktt-profile-data {
   opacity: 1;
@@ -607,7 +636,7 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.5em;
+  gap: 1em;
   margin-bottom: 3em;
   margin-top: 1em;
 }
@@ -643,19 +672,11 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
 #direktt-profile #direktt-profile-data.direktt-profile-data-cross-sell-tool ul li a.direktt-button {
   /* text-align: left; */
 }
-#direktt-profile #direktt-profile-data.direktt-profile-data-cross-sell-tool table.direktt-cross-sell-issued-coupos-table {
-  border-spacing: 0.5rem;
-  width: 100%;
+#direktt-profile #direktt-profile-data.direktt-profile-data-cross-sell-tool .button.direktt-cross-sell-back {
+  text-align: center;
 }
-#direktt-profile #direktt-profile-data.direktt-profile-data-cross-sell-tool table.direktt-cross-sell-issued-coupos-table thead {
-  border-bottom: 1px solid var(--direktt-profile-dark-gray-color);
-}
-#direktt-profile #direktt-profile-data.direktt-profile-data-cross-sell-tool table.direktt-cross-sell-issued-coupos-table th, #direktt-profile #direktt-profile-data.direktt-profile-data-cross-sell-tool table.direktt-cross-sell-issued-coupos-table td {
-  text-align: left;
-  padding: 0.5rem;
-}
-#direktt-profile #direktt-profile-data.direktt-profile-data-cross-sell-tool table.direktt-cross-sell-issued-coupos-table th {
-  font-weight: 600;
+#direktt-profile #direktt-profile-data.direktt-profile-data-cross-sell-tool table.direktt-cross-sell-issued-coupos-table tr {
+  border-bottom: none;
 }
 #direktt-profile #direktt-profile-data.direktt-profile-data-cross-sell-tool table.direktt-cross-sell-issued-coupos-table tr.direktt-cross-sell-actions {
   border-bottom: 1px solid var(--direktt-profile-light-gray-color);

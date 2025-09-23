@@ -111,6 +111,18 @@
 				color: var(--direktt-profile-warning-color);
 			}
 		}
+		&.button-clean {
+			padding: 0.5em 0em;
+			background-color: transparent;
+			box-shadow: none;
+			color: var(--direktt-profile-button-default-background-color);
+			&.button-primary {
+				color: var(--direktt-profile-alternate-color);
+			}
+			&.button-red {
+				color: var(--direktt-profile-warning-color);
+			}
+		}
 	}
 	
 	.notice  {
@@ -122,6 +134,24 @@
 		padding: 1em;	
 		p {
 			margin: 0;
+		}
+	}
+	
+	table {
+		border-spacing: 0.5rem;
+		width: 100%;
+		thead {
+			border-bottom: 1px solid var(--direktt-profile-dark-gray-color);
+		}
+		th, td {
+			text-align: left;
+			padding: 0.5rem;
+		}
+		th {
+			font-weight: 600;
+		}
+		tbody tr {
+			border-bottom: 1px solid var(--direktt-profile-light-gray-color);
 		}
 	}
 	
@@ -429,7 +459,7 @@
 			padding: 0;
 			display: flex;
 			flex-direction: column; 
-			gap: 0.5em; 
+			gap: 1em; 
 			margin-bottom: 3em;
 			margin-top: 1em;
 			li {			
@@ -465,33 +495,27 @@
 				}
 			}
 		}
+		.button.direktt-cross-sell-back {
+			text-align: center;
+		}
 		table.direktt-cross-sell-issued-coupos-table {
-			border-spacing: 0.5rem;
-			width: 100%;
-			thead {
-				border-bottom: 1px solid var(--direktt-profile-dark-gray-color);
-			}
-			th, td {
-				text-align: left;
-				padding: 0.5rem;
-			}
-			th {
-				font-weight: 600;
-			}
-			tr.direktt-cross-sell-actions {
-				border-bottom: 1px solid var(--direktt-profile-light-gray-color);
-				td {
-					padding: 0 0 0.5rem;
-					.button {
-						    text-align: center;
-					}
-					form {
-						margin-bottom: 0em;
+			tr {
+				border-bottom: none;
+				&.direktt-cross-sell-actions {
+					border-bottom: 1px solid var(--direktt-profile-light-gray-color);
+					td {
+						padding: 0 0 0.5rem;
 						.button {
-							margin-left: 0.5rem; 
+								text-align: center;
+						}
+						form {
+							margin-bottom: 0em;
+							.button {
+								margin-left: 0.5rem; 
+							}
 						}
 					}
-				}
+				}	
 			}
 		}
 	}
