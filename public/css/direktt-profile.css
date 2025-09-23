@@ -18,11 +18,11 @@
   font-weight: 600;
   font-size: 1.25em;
   line-height: 1.25;
-  margin-bottom: 0.5em;
+  margin-bottom: 1em;
 }
 #direktt-profile h3 {
   font-size: 1.125em;
-  margin-bottom: 0.25em;
+  margin-bottom: 0.5em;
 }
 #direktt-profile h4, #direktt-profile h5, #direktt-profile h6 {
   font-size: 1em;
@@ -386,6 +386,12 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
 #direktt-profile table th, #direktt-profile table td {
   text-align: left;
   padding: 0.5rem;
+}
+#direktt-profile table th:first-child, #direktt-profile table td:first-child {
+  padding-left: 0;
+}
+#direktt-profile table th:last-child, #direktt-profile table td:last-child {
+  padding-right: 0;
 }
 #direktt-profile table th {
   font-weight: 600;
@@ -765,7 +771,7 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
 }
 #direktt-profile #direktt-profile-data.direktt-profile-data-review-profile-tool .direktt-review-profile-tool-table th:last-child,
 #direktt-profile #direktt-profile-data.direktt-profile-data-review-profile-tool .direktt-review-profile-tool-table td:last-child {
-  text-align: center;
+  text-align: right;
 }
 #direktt-profile #direktt-profile-data.direktt-profile-data-service-status-tool {
   padding: 1em;

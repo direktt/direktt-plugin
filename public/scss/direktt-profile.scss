@@ -134,6 +134,12 @@
 		th, td {
 			text-align: left;
 			padding: 0.5rem;
+			&:first-child {
+				padding-left: 0;
+			}
+			&:last-child {
+				padding-right: 0;
+			}
 		}
 		th {
 			font-weight: 600;
@@ -568,14 +574,14 @@
 		}
 	}
 	
-	/* Reviews */
+	/* Reviews */ 
 	
 	#direktt-profile-data.direktt-profile-data-review-profile-tool {
 		padding: 1em;
 		.direktt-review-profile-tool-table {
 			th:last-child,
 			td:last-child {
-				text-align: center;
+				text-align: right;
 			}
 		}
 	}
