@@ -500,11 +500,8 @@
 				}
 			}
 		}
-		h3 {
+		.direktt-cross-sell-issued-coupons-div {
 			margin-top: 3em;
-		}
-		.direktt-cross-sell-title-area h3 {
-			margin-top: 0em;
 		}
 		.button.direktt-cross-sell-back {
 			text-align: center;
@@ -532,8 +529,16 @@
 							}
 						}
 					}
-				}	
+				}
+				td.direktt-cross-sell-name {
+					i {
+						color: var(--direktt-profile-dark-gray-color);
+					}
+				}
 			}
+		}
+		table.direktt-profile-data-cross-sell-tool-single-coupon-table {
+			border-top: 1px solid var(--direktt-profile-light-gray-color);
 		}
 	}
 	

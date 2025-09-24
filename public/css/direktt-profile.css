@@ -703,11 +703,8 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
 #direktt-profile #direktt-profile-data.direktt-profile-data-cross-sell-tool ul li a.direktt-button {
   /* text-align: left; */
 }
-#direktt-profile #direktt-profile-data.direktt-profile-data-cross-sell-tool h3 {
+#direktt-profile #direktt-profile-data.direktt-profile-data-cross-sell-tool .direktt-cross-sell-issued-coupons-div {
   margin-top: 3em;
-}
-#direktt-profile #direktt-profile-data.direktt-profile-data-cross-sell-tool .direktt-cross-sell-title-area h3 {
-  margin-top: 0em;
 }
 #direktt-profile #direktt-profile-data.direktt-profile-data-cross-sell-tool .button.direktt-cross-sell-back {
   text-align: center;
@@ -735,6 +732,12 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
 }
 #direktt-profile #direktt-profile-data.direktt-profile-data-cross-sell-tool table.direktt-cross-sell-issued-coupons-table tr.direktt-cross-sell-actions td form .button {
   margin-left: 0.5rem;
+}
+#direktt-profile #direktt-profile-data.direktt-profile-data-cross-sell-tool table.direktt-cross-sell-issued-coupons-table tr td.direktt-cross-sell-name i {
+  color: var(--direktt-profile-dark-gray-color);
+}
+#direktt-profile #direktt-profile-data.direktt-profile-data-cross-sell-tool table.direktt-profile-data-cross-sell-tool-single-coupon-table {
+  border-top: 1px solid var(--direktt-profile-light-gray-color);
 }
 #direktt-profile #direktt-profile-data.direktt-profile-data-loyalty-program-tool {
   padding: 1em;
