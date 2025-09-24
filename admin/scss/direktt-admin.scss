@@ -608,15 +608,12 @@ body.post-type-direkttmtemplates {
 
 	/* Template builder */
 	.direktt-message-template-builder {
-	  .bg-primary {
-		background-color: rgb(33, 150, 243) !important;
-	  }
-
 	  .v-slide-group,
 	  .v-tab.v-tab.v-btn {
 		height: 36px;
 		text-transform: none;
 		font-size: 0.75rem !important;
+		border-radius: 5px;
 	  }
 
 	  .v-window {
@@ -662,9 +659,55 @@ body.post-type-direkttmtemplates {
 		background-position: right -40px top 0;
 	  }
 	}
+}
 
-	
-	
+/* Various */
+
+.direktt-review-meta-box {
+	.button.direktt-send-review {
+		width: 100%;
+	}
+	h4 {
+		margin-bottom: 0.5em;
+	}
+	table {
+		td:last-child {
+			text-align: right;
+		}
+	}	
+}
+
+.direktt-loyalty-program-meta-box {
+
+	h3 {
+		margin-bottom: 0.5em;
+	}
+	table {
+		th, td {
+			&:last-child {
+				text-align: right;
+			}
+			&:first-child {
+				text-align: center;
+			}
+			
+		}
+	}
+}
+
+body.post-type-direkttmtemplates {
+	.v-theme--light {
+		--v-theme-info: 34, 113, 177;	
+	}
+	.text-caption {
+		font-family: inherit;
+	}
+	.preview-item.active {
+		box-shadow: none !important;
+	}
+	.v-tab--selected .v-tab__slider {
+		opacity: 0.5; 
+	}
 }
 
 

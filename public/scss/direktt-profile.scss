@@ -538,7 +538,9 @@
 			}
 		}
 		table.direktt-profile-data-cross-sell-tool-single-coupon-table {
-			border-top: 1px solid var(--direktt-profile-light-gray-color);
+			h3 {
+				margin-bottom: 0;
+			}
 		}
 	}
 	
@@ -642,10 +644,13 @@
 							display: inline-block;
 					} 
 				}
-				.direktt-service-status-log {
-					padding-top: 0.5em;					
-				}
 			}
+		}
+		.direktt-service-status-log {
+			padding-top: 0.5em;	
+			td:first-child i {
+				color: var(--direktt-profile-dark-gray-color);
+			}					
 		}
 		.direktt-service-status-case-form-wrapper {
 			form {
