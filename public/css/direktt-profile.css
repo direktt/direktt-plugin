@@ -340,6 +340,9 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
 #direktt-profile button.button-red, #direktt-profile .button.button-red, #direktt-profile .direktt-button.button-red {
   background-color: var(--direktt-profile-warning-color);
 }
+#direktt-profile button.button-dark-gray, #direktt-profile .button.button-dark-gray, #direktt-profile .direktt-button.button-dark-gray {
+  background-color: var(--direktt-profile-dark-gray-color);
+}
 #direktt-profile button.button-invert, #direktt-profile .button.button-invert, #direktt-profile .direktt-button.button-invert {
   background-color: white;
   box-shadow: 0 0 0 2px var(--direktt-profile-button-default-background-color);
@@ -353,6 +356,10 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
   box-shadow: 0 0 0 2px var(--direktt-profile-warning-color);
   color: var(--direktt-profile-warning-color);
 }
+#direktt-profile button.button-invert.button-dark-gray, #direktt-profile .button.button-invert.button-dark-gray, #direktt-profile .direktt-button.button-invert.button-dark-gray {
+  box-shadow: 0 0 0 2px var(--direktt-profile-dark-gray-color);
+  color: var(--direktt-profile-dark-gray-color);
+}
 #direktt-profile button.button-clean, #direktt-profile .button.button-clean, #direktt-profile .direktt-button.button-clean {
   padding: 0.5em 0em;
   background-color: transparent;
@@ -364,6 +371,9 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
 }
 #direktt-profile button.button-clean.button-red, #direktt-profile .button.button-clean.button-red, #direktt-profile .direktt-button.button-clean.button-red {
   color: var(--direktt-profile-warning-color);
+}
+#direktt-profile button.button-clean.button-dark-gray, #direktt-profile .button.button-clean.button-dark-gray, #direktt-profile .direktt-button.button-clean.button-dark-gray {
+  color: var(--direktt-profile-dark-gray-color);
 }
 #direktt-profile .notice {
   text-align: center;
@@ -657,7 +667,7 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
   display: flex;
   flex-direction: column;
   gap: 1em;
-  margin-bottom: 3em;
+  margin-bottom: 1em;
   margin-top: 1em;
 }
 #direktt-profile #direktt-profile-data.direktt-profile-data-cross-sell-tool ul li {
@@ -669,7 +679,8 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
 #direktt-profile #direktt-profile-data.direktt-profile-data-cross-sell-tool ul li .direktt-cross-sell-title-area {
   display: flex;
   justify-content: space-between;
-  margin: 1em 0em 0.5em;
+  margin: 1em 0em 1em;
+  align-items: end;
   gap: 1em;
 }
 #direktt-profile #direktt-profile-data.direktt-profile-data-cross-sell-tool ul li .direktt-cross-sell-title-area .direktt-cross-sell-title {
@@ -692,25 +703,37 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
 #direktt-profile #direktt-profile-data.direktt-profile-data-cross-sell-tool ul li a.direktt-button {
   /* text-align: left; */
 }
+#direktt-profile #direktt-profile-data.direktt-profile-data-cross-sell-tool h3 {
+  margin-top: 3em;
+}
+#direktt-profile #direktt-profile-data.direktt-profile-data-cross-sell-tool .direktt-cross-sell-title-area h3 {
+  margin-top: 0em;
+}
 #direktt-profile #direktt-profile-data.direktt-profile-data-cross-sell-tool .button.direktt-cross-sell-back {
   text-align: center;
 }
-#direktt-profile #direktt-profile-data.direktt-profile-data-cross-sell-tool table.direktt-cross-sell-issued-coupos-table tr {
+#direktt-profile #direktt-profile-data.direktt-profile-data-cross-sell-tool table.direktt-profile-data-cross-sell-tool-single-coupon-table {
+  margin-bottom: 2em;
+}
+#direktt-profile #direktt-profile-data.direktt-profile-data-cross-sell-tool table.direktt-profile-data-cross-sell-tool-single-coupon-table th {
+  white-space: nowrap;
+}
+#direktt-profile #direktt-profile-data.direktt-profile-data-cross-sell-tool table.direktt-cross-sell-issued-coupons-table tr {
   border-bottom: none;
 }
-#direktt-profile #direktt-profile-data.direktt-profile-data-cross-sell-tool table.direktt-cross-sell-issued-coupos-table tr.direktt-cross-sell-actions {
+#direktt-profile #direktt-profile-data.direktt-profile-data-cross-sell-tool table.direktt-cross-sell-issued-coupons-table tr.direktt-cross-sell-actions {
   border-bottom: 1px solid var(--direktt-profile-light-gray-color);
 }
-#direktt-profile #direktt-profile-data.direktt-profile-data-cross-sell-tool table.direktt-cross-sell-issued-coupos-table tr.direktt-cross-sell-actions td {
+#direktt-profile #direktt-profile-data.direktt-profile-data-cross-sell-tool table.direktt-cross-sell-issued-coupons-table tr.direktt-cross-sell-actions td {
   padding: 0 0 0.5rem;
 }
-#direktt-profile #direktt-profile-data.direktt-profile-data-cross-sell-tool table.direktt-cross-sell-issued-coupos-table tr.direktt-cross-sell-actions td .button {
+#direktt-profile #direktt-profile-data.direktt-profile-data-cross-sell-tool table.direktt-cross-sell-issued-coupons-table tr.direktt-cross-sell-actions td .button {
   text-align: center;
 }
-#direktt-profile #direktt-profile-data.direktt-profile-data-cross-sell-tool table.direktt-cross-sell-issued-coupos-table tr.direktt-cross-sell-actions td form {
+#direktt-profile #direktt-profile-data.direktt-profile-data-cross-sell-tool table.direktt-cross-sell-issued-coupons-table tr.direktt-cross-sell-actions td form {
   margin-bottom: 0em;
 }
-#direktt-profile #direktt-profile-data.direktt-profile-data-cross-sell-tool table.direktt-cross-sell-issued-coupos-table tr.direktt-cross-sell-actions td form .button {
+#direktt-profile #direktt-profile-data.direktt-profile-data-cross-sell-tool table.direktt-cross-sell-issued-coupons-table tr.direktt-cross-sell-actions td form .button {
   margin-left: 0.5rem;
 }
 #direktt-profile #direktt-profile-data.direktt-profile-data-loyalty-program-tool {
@@ -817,6 +840,7 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
   display: flex;
   flex-direction: column;
   gap: 0.5em;
+  margin-bottom: 2em;
 }
 
 /*# sourceMappingURL=direktt-profile.css.map */

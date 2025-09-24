@@ -86,6 +86,9 @@
 		&.button-red {
 			background-color: var(--direktt-profile-warning-color);
 		}
+		&.button-dark-gray {
+			background-color: var(--direktt-profile-dark-gray-color);
+		}
 		&.button-invert {
 			background-color: white;
 			box-shadow: 0 0 0 2px var(--direktt-profile-button-default-background-color);
@@ -98,6 +101,10 @@
 				box-shadow: 0 0 0 2px var(--direktt-profile-warning-color);
 				color: var(--direktt-profile-warning-color);
 			}
+			&.button-dark-gray {
+				box-shadow: 0 0 0 2px var(--direktt-profile-dark-gray-color);
+				color: var(--direktt-profile-dark-gray-color);
+			}
 		}
 		&.button-clean {
 			padding: 0.5em 0em;
@@ -109,6 +116,9 @@
 			}
 			&.button-red {
 				color: var(--direktt-profile-warning-color);
+			}
+			&.button-dark-gray {
+				color: var(--direktt-profile-dark-gray-color);
 			}
 		}
 	}
@@ -454,7 +464,7 @@
 			display: flex;
 			flex-direction: column; 
 			gap: 1em; 
-			margin-bottom: 3em;
+			margin-bottom: 1em;
 			margin-top: 1em;
 			li {			
 				margin: 0;
@@ -464,7 +474,8 @@
 				.direktt-cross-sell-title-area {
 					display: flex;
 					justify-content: space-between;
-					margin: 1em 0em 0.5em;
+					margin: 1em 0em 1em;
+					align-items: end;
 					gap: 1em;
 					.direktt-cross-sell-title {
 						font-weight: 600;
@@ -489,10 +500,22 @@
 				}
 			}
 		}
+		h3 {
+			margin-top: 3em;
+		}
+		.direktt-cross-sell-title-area h3 {
+			margin-top: 0em;
+		}
 		.button.direktt-cross-sell-back {
 			text-align: center;
 		}
-		table.direktt-cross-sell-issued-coupos-table {
+		table.direktt-profile-data-cross-sell-tool-single-coupon-table {
+			margin-bottom: 2em;
+			th {
+				white-space: nowrap;
+			}
+		}
+		table.direktt-cross-sell-issued-coupons-table {
 			tr {
 				border-bottom: none;
 				&.direktt-cross-sell-actions {
@@ -630,7 +653,8 @@
 				.form-buttons {
 					display: flex;
 					flex-direction: column;
-					gap: 0.5em;					
+					gap: 0.5em;	
+					margin-bottom: 2em;					
 				}
 			}
 		}
