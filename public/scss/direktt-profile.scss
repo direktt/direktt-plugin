@@ -669,4 +669,18 @@
 			}
 		}
 	}
+	
+	/* Tools */
+	
+	/* Taxonomy tool */
+	
+	&.direktt-edit-taxonomies-service-wrapper {
+		padding: 1em;
+		display: flex;
+		flex-direction: column;
+		gap: 1em;
+		.direktt-button {
+			text-align: center;	
+		}
+	}
 }

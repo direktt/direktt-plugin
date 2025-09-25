@@ -22,7 +22,7 @@
 }
 #direktt-profile h3 {
   font-size: 1.125em;
-  margin-bottom: 0.5em;
+  margin-bottom: 0.25em;
 }
 #direktt-profile h4, #direktt-profile h5, #direktt-profile h6 {
   font-size: 1em;
@@ -330,6 +330,8 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
   /* Loyalty */
   /* Reviews */
   /* Service status */
+  /* Tools */
+  /* Taxonomy tool */
 }
 #direktt-profile button.button-large, #direktt-profile .button.button-large, #direktt-profile .direktt-button.button-large {
   padding: 1.5em 2em;
@@ -847,6 +849,15 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
   flex-direction: column;
   gap: 0.5em;
   margin-bottom: 2em;
+}
+#direktt-profile.direktt-edit-taxonomies-service-wrapper {
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+#direktt-profile.direktt-edit-taxonomies-service-wrapper .direktt-button {
+  text-align: center;
 }
 
 /*# sourceMappingURL=direktt-profile.css.map */
