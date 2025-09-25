@@ -105,8 +105,38 @@ class Direktt_Admin
 			$parent_file = 'direktt-dashboard';
 		}
 
+		if ($pagenow == 'term.php' && $current_screen->taxonomy == 'direkttusercategories') {
+			$submenu_file = 'edit-tags.php?taxonomy=direkttusercategories';
+			$parent_file = 'direktt-dashboard';
+		}
+
 		if ($pagenow == 'edit-tags.php' && $current_screen->taxonomy == 'direkttusertags') {
 			$submenu_file = 'edit-tags.php?taxonomy=direkttusertags';
+			$parent_file = 'direktt-dashboard';
+		}
+
+		if ($pagenow == 'term.php' && $current_screen->taxonomy == 'direkttusertags') {
+			$submenu_file = 'edit-tags.php?taxonomy=direkttusertags';
+			$parent_file = 'direktt-dashboard';
+		}
+
+		if ($pagenow == 'post.php' && $current_screen->post_type == 'direkttusers') {
+			$submenu_file = 'edit.php?post_type=direkttusers';
+			$parent_file = 'direktt-dashboard';
+		}
+
+		if ($pagenow == 'post-new.php' && $current_screen->post_type == 'direkttusers') {
+			$submenu_file = 'edit.php?post_type=direkttusers';
+			$parent_file = 'direktt-dashboard';
+		}
+
+		if ($pagenow == 'post.php' && $current_screen->post_type == 'direkttmtemplates') {
+			$submenu_file = 'edit.php?post_type=direkttmtemplates';
+			$parent_file = 'direktt-dashboard';
+		}
+
+		if ($pagenow == 'post-new.php' && $current_screen->post_type == 'direkttmtemplates') {
+			$submenu_file = 'edit.php?post_type=direkttmtemplates';
 			$parent_file = 'direktt-dashboard';
 		}
 
