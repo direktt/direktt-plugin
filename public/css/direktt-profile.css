@@ -333,6 +333,7 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
   /* Tools */
   /* Taxonomy tool */
   /* Loyalty program */
+  /* Auto greet */
 }
 #direktt-profile button.button-large, #direktt-profile .button.button-large, #direktt-profile .direktt-button.button-large {
   padding: 1.5em 2em;
@@ -920,6 +921,9 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
   min-width: 2rem;
   line-height: 2rem;
   margin-left: 0.25em;
+}
+#direktt-profile.direktt-auto-greet {
+  padding: 1em;
 }
 
 /*# sourceMappingURL=direktt-profile.css.map */
