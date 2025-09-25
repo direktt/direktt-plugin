@@ -456,8 +456,8 @@
 	
 	/* Cross sell */
 	
-	#direktt-profile-data.direktt-profile-data-cross-sell-tool {
-		padding: 1em;
+	.direktt-profile-data-cross-sell-tool {
+		padding: 1em !important;
 		ul {
 			margin: 0;
 			padding: 0;
@@ -475,7 +475,7 @@
 					display: flex;
 					justify-content: space-between;
 					margin: 1em 0em 1em;
-					align-items: end;
+					align-items: center;
 					gap: 1em;
 					.direktt-cross-sell-title {
 						font-weight: 600;
@@ -494,9 +494,6 @@
 							line-height: 2rem;							
 						}
 					}
-				}
-				a.direktt-button {
-					/* text-align: left; */
 				}
 			}
 		}
@@ -546,7 +543,7 @@
 	
 	/* Loyalty */
 	
-	#direktt-profile-data.direktt-profile-data-loyalty-program-tool {
+	.direktt-profile-data-loyalty-program-tool {
 		padding: 1em;
 		.direktt-loyalty-program-wrap {
 			display: flex;
@@ -606,7 +603,7 @@
 	
 	/* Reviews */ 
 	
-	#direktt-profile-data.direktt-profile-data-review-profile-tool {
+	.direktt-profile-data-review-profile-tool {
 		padding: 1em;
 		.direktt-review-profile-tool-table {
 			th:last-child,
@@ -618,7 +615,7 @@
 	
 	/* Service status */
 	
-	#direktt-profile-data.direktt-profile-data-service-status-tool {
+	.direktt-profile-data-service-status-tool {
 		padding: 1em;
 		
 		.direktt-service-status-add-new {
@@ -759,6 +756,19 @@
 	
 	&.direktt-auto-greet {
 		padding: 1em;
+	}
+	
+	/* Cross sell */
+	
+	.direktt-cross-sell-tool-service {
+		#direktt-cross-sell-qr-canvas {
+			svg {
+				margin: auto;
+			}
+		}
+		#direktt-cross-sell-share {
+			margin-bottom: 1em;
+		}
 	}
 	
 }

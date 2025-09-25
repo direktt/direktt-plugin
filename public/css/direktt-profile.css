@@ -334,6 +334,7 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
   /* Taxonomy tool */
   /* Loyalty program */
   /* Auto greet */
+  /* Cross sell */
 }
 #direktt-profile button.button-large, #direktt-profile .button.button-large, #direktt-profile .direktt-button.button-large {
   padding: 1.5em 2em;
@@ -662,10 +663,10 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
   margin: 1em 0;
   padding: 1em;
 }
-#direktt-profile #direktt-profile-data.direktt-profile-data-cross-sell-tool {
-  padding: 1em;
+#direktt-profile .direktt-profile-data-cross-sell-tool {
+  padding: 1em !important;
 }
-#direktt-profile #direktt-profile-data.direktt-profile-data-cross-sell-tool ul {
+#direktt-profile .direktt-profile-data-cross-sell-tool ul {
   margin: 0;
   padding: 0;
   display: flex;
@@ -674,26 +675,26 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
   margin-bottom: 1em;
   margin-top: 1em;
 }
-#direktt-profile #direktt-profile-data.direktt-profile-data-cross-sell-tool ul li {
+#direktt-profile .direktt-profile-data-cross-sell-tool ul li {
   margin: 0;
   padding: 0;
   display: block;
   text-align: center;
 }
-#direktt-profile #direktt-profile-data.direktt-profile-data-cross-sell-tool ul li .direktt-cross-sell-title-area {
+#direktt-profile .direktt-profile-data-cross-sell-tool ul li .direktt-cross-sell-title-area {
   display: flex;
   justify-content: space-between;
   margin: 1em 0em 1em;
-  align-items: end;
+  align-items: center;
   gap: 1em;
 }
-#direktt-profile #direktt-profile-data.direktt-profile-data-cross-sell-tool ul li .direktt-cross-sell-title-area .direktt-cross-sell-title {
+#direktt-profile .direktt-profile-data-cross-sell-tool ul li .direktt-cross-sell-title-area .direktt-cross-sell-title {
   font-weight: 600;
 }
-#direktt-profile #direktt-profile-data.direktt-profile-data-cross-sell-tool ul li .direktt-cross-sell-title-area .direktt-cross-sell-data {
+#direktt-profile .direktt-profile-data-cross-sell-tool ul li .direktt-cross-sell-title-area .direktt-cross-sell-data {
   text-align: right;
 }
-#direktt-profile #direktt-profile-data.direktt-profile-data-cross-sell-tool ul li .direktt-cross-sell-title-area .direktt-cross-sell-data > span {
+#direktt-profile .direktt-profile-data-cross-sell-tool ul li .direktt-cross-sell-title-area .direktt-cross-sell-data > span {
   border-radius: 50%;
   padding: 0 0.5rem;
   box-shadow: 0 0 0 2px var(--direktt-profile-accent-color);
@@ -704,65 +705,62 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
   min-width: 2rem;
   line-height: 2rem;
 }
-#direktt-profile #direktt-profile-data.direktt-profile-data-cross-sell-tool ul li a.direktt-button {
-  /* text-align: left; */
-}
-#direktt-profile #direktt-profile-data.direktt-profile-data-cross-sell-tool .direktt-cross-sell-issued-coupons-div {
+#direktt-profile .direktt-profile-data-cross-sell-tool .direktt-cross-sell-issued-coupons-div {
   margin-top: 3em;
 }
-#direktt-profile #direktt-profile-data.direktt-profile-data-cross-sell-tool .button.direktt-cross-sell-back {
+#direktt-profile .direktt-profile-data-cross-sell-tool .button.direktt-cross-sell-back {
   text-align: center;
 }
-#direktt-profile #direktt-profile-data.direktt-profile-data-cross-sell-tool table.direktt-profile-data-cross-sell-tool-single-coupon-table {
+#direktt-profile .direktt-profile-data-cross-sell-tool table.direktt-profile-data-cross-sell-tool-single-coupon-table {
   margin-bottom: 2em;
 }
-#direktt-profile #direktt-profile-data.direktt-profile-data-cross-sell-tool table.direktt-profile-data-cross-sell-tool-single-coupon-table th {
+#direktt-profile .direktt-profile-data-cross-sell-tool table.direktt-profile-data-cross-sell-tool-single-coupon-table th {
   white-space: nowrap;
 }
-#direktt-profile #direktt-profile-data.direktt-profile-data-cross-sell-tool table.direktt-cross-sell-issued-coupons-table tr {
+#direktt-profile .direktt-profile-data-cross-sell-tool table.direktt-cross-sell-issued-coupons-table tr {
   border-bottom: none;
 }
-#direktt-profile #direktt-profile-data.direktt-profile-data-cross-sell-tool table.direktt-cross-sell-issued-coupons-table tr.direktt-cross-sell-actions {
+#direktt-profile .direktt-profile-data-cross-sell-tool table.direktt-cross-sell-issued-coupons-table tr.direktt-cross-sell-actions {
   border-bottom: 1px solid var(--direktt-profile-light-gray-color);
 }
-#direktt-profile #direktt-profile-data.direktt-profile-data-cross-sell-tool table.direktt-cross-sell-issued-coupons-table tr.direktt-cross-sell-actions td {
+#direktt-profile .direktt-profile-data-cross-sell-tool table.direktt-cross-sell-issued-coupons-table tr.direktt-cross-sell-actions td {
   padding: 0 0 0.5rem;
 }
-#direktt-profile #direktt-profile-data.direktt-profile-data-cross-sell-tool table.direktt-cross-sell-issued-coupons-table tr.direktt-cross-sell-actions td .button {
+#direktt-profile .direktt-profile-data-cross-sell-tool table.direktt-cross-sell-issued-coupons-table tr.direktt-cross-sell-actions td .button {
   text-align: center;
 }
-#direktt-profile #direktt-profile-data.direktt-profile-data-cross-sell-tool table.direktt-cross-sell-issued-coupons-table tr.direktt-cross-sell-actions td form {
+#direktt-profile .direktt-profile-data-cross-sell-tool table.direktt-cross-sell-issued-coupons-table tr.direktt-cross-sell-actions td form {
   margin-bottom: 0em;
 }
-#direktt-profile #direktt-profile-data.direktt-profile-data-cross-sell-tool table.direktt-cross-sell-issued-coupons-table tr.direktt-cross-sell-actions td form .button {
+#direktt-profile .direktt-profile-data-cross-sell-tool table.direktt-cross-sell-issued-coupons-table tr.direktt-cross-sell-actions td form .button {
   margin-left: 0.5rem;
 }
-#direktt-profile #direktt-profile-data.direktt-profile-data-cross-sell-tool table.direktt-cross-sell-issued-coupons-table tr td.direktt-cross-sell-name i {
+#direktt-profile .direktt-profile-data-cross-sell-tool table.direktt-cross-sell-issued-coupons-table tr td.direktt-cross-sell-name i {
   color: var(--direktt-profile-dark-gray-color);
 }
-#direktt-profile #direktt-profile-data.direktt-profile-data-cross-sell-tool table.direktt-profile-data-cross-sell-tool-single-coupon-table h3 {
+#direktt-profile .direktt-profile-data-cross-sell-tool table.direktt-profile-data-cross-sell-tool-single-coupon-table h3 {
   margin-bottom: 0;
 }
-#direktt-profile #direktt-profile-data.direktt-profile-data-loyalty-program-tool {
+#direktt-profile .direktt-profile-data-loyalty-program-tool {
   padding: 1em;
 }
-#direktt-profile #direktt-profile-data.direktt-profile-data-loyalty-program-tool .direktt-loyalty-program-wrap {
+#direktt-profile .direktt-profile-data-loyalty-program-tool .direktt-loyalty-program-wrap {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 1em;
 }
-#direktt-profile #direktt-profile-data.direktt-profile-data-loyalty-program-tool .direktt-loyalty-program-wrap > h2, #direktt-profile #direktt-profile-data.direktt-profile-data-loyalty-program-tool .direktt-loyalty-program-wrap > p {
+#direktt-profile .direktt-profile-data-loyalty-program-tool .direktt-loyalty-program-wrap > h2, #direktt-profile .direktt-profile-data-loyalty-program-tool .direktt-loyalty-program-wrap > p {
   flex-basis: fit-content;
   flex-grow: 1;
 }
-#direktt-profile #direktt-profile-data.direktt-profile-data-loyalty-program-tool .direktt-loyalty-program-wrap > form {
+#direktt-profile .direktt-profile-data-loyalty-program-tool .direktt-loyalty-program-wrap > form {
   flex-basis: 100%;
 }
-#direktt-profile #direktt-profile-data.direktt-profile-data-loyalty-program-tool .direktt-loyalty-program-wrap > p {
+#direktt-profile .direktt-profile-data-loyalty-program-tool .direktt-loyalty-program-wrap > p {
   text-align: right;
 }
-#direktt-profile #direktt-profile-data.direktt-profile-data-loyalty-program-tool .direktt-loyalty-program-wrap > p > strong {
+#direktt-profile .direktt-profile-data-loyalty-program-tool .direktt-loyalty-program-wrap > p > strong {
   border-radius: 50%;
   padding: 0 0.5rem;
   box-shadow: 0 0 0 2px var(--direktt-profile-accent-color);
@@ -773,80 +771,80 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
   min-width: 2rem;
   line-height: 2rem;
 }
-#direktt-profile #direktt-profile-data.direktt-profile-data-loyalty-program-tool .direktt-loyalty-program-rules {
+#direktt-profile .direktt-profile-data-loyalty-program-tool .direktt-loyalty-program-rules {
   display: flex;
   gap: 1em;
   margin-bottom: 1em;
   flex-wrap: wrap;
 }
-#direktt-profile #direktt-profile-data.direktt-profile-data-loyalty-program-tool .direktt-loyalty-program-rules button {
+#direktt-profile .direktt-profile-data-loyalty-program-tool .direktt-loyalty-program-rules button {
   padding: 1em;
   flex-basis: fit-content;
   flex-grow: 1;
 }
-#direktt-profile #direktt-profile-data.direktt-profile-data-loyalty-program-tool #reset_points_btn {
+#direktt-profile .direktt-profile-data-loyalty-program-tool #reset_points_btn {
   background-color: var(--direktt-profile-alternate-color);
 }
-#direktt-profile #direktt-profile-data.direktt-profile-data-loyalty-program-tool .direktt-loyalty-program-transactions {
+#direktt-profile .direktt-profile-data-loyalty-program-tool .direktt-loyalty-program-transactions {
   width: 100%;
 }
-#direktt-profile #direktt-profile-data.direktt-profile-data-loyalty-program-tool .direktt-loyalty-program-transactions table th:last-child, #direktt-profile #direktt-profile-data.direktt-profile-data-loyalty-program-tool .direktt-loyalty-program-transactions table td:last-child {
+#direktt-profile .direktt-profile-data-loyalty-program-tool .direktt-loyalty-program-transactions table th:last-child, #direktt-profile .direktt-profile-data-loyalty-program-tool .direktt-loyalty-program-transactions table td:last-child {
   text-align: right;
 }
-#direktt-profile #direktt-profile-data.direktt-profile-data-loyalty-program-tool .direktt-loyalty-program-transactions table th:first-child, #direktt-profile #direktt-profile-data.direktt-profile-data-loyalty-program-tool .direktt-loyalty-program-transactions table td:first-child {
+#direktt-profile .direktt-profile-data-loyalty-program-tool .direktt-loyalty-program-transactions table th:first-child, #direktt-profile .direktt-profile-data-loyalty-program-tool .direktt-loyalty-program-transactions table td:first-child {
   text-align: center;
 }
-#direktt-profile #direktt-profile-data.direktt-profile-data-review-profile-tool {
+#direktt-profile .direktt-profile-data-review-profile-tool {
   padding: 1em;
 }
-#direktt-profile #direktt-profile-data.direktt-profile-data-review-profile-tool .direktt-review-profile-tool-table th:last-child,
-#direktt-profile #direktt-profile-data.direktt-profile-data-review-profile-tool .direktt-review-profile-tool-table td:last-child {
+#direktt-profile .direktt-profile-data-review-profile-tool .direktt-review-profile-tool-table th:last-child,
+#direktt-profile .direktt-profile-data-review-profile-tool .direktt-review-profile-tool-table td:last-child {
   text-align: right;
 }
-#direktt-profile #direktt-profile-data.direktt-profile-data-service-status-tool {
+#direktt-profile .direktt-profile-data-service-status-tool {
   padding: 1em;
 }
-#direktt-profile #direktt-profile-data.direktt-profile-data-service-status-tool .direktt-service-status-add-new {
+#direktt-profile .direktt-profile-data-service-status-tool .direktt-service-status-add-new {
   margin-bottom: 1em;
 }
-#direktt-profile #direktt-profile-data.direktt-profile-data-service-status-tool .direktt-service-status-search {
+#direktt-profile .direktt-profile-data-service-status-tool .direktt-service-status-search {
   display: flex;
   gap: 1em;
 }
-#direktt-profile #direktt-profile-data.direktt-profile-data-service-status-tool .direktt-service-status-cases-list {
+#direktt-profile .direktt-profile-data-service-status-tool .direktt-service-status-cases-list {
   margin-top: 2em;
   border-top: 1px solid var(--direktt-profile-dark-gray-color);
 }
-#direktt-profile #direktt-profile-data.direktt-profile-data-service-status-tool .direktt-service-status-cases-list .case-item {
+#direktt-profile .direktt-profile-data-service-status-tool .direktt-service-status-cases-list .case-item {
   padding: 1em 0;
 }
-#direktt-profile #direktt-profile-data.direktt-profile-data-service-status-tool .direktt-service-status-cases-list .case-item:not(:last-child) {
+#direktt-profile .direktt-profile-data-service-status-tool .direktt-service-status-cases-list .case-item:not(:last-child) {
   border-bottom: 1px solid var(--direktt-profile-light-gray-color);
 }
-#direktt-profile #direktt-profile-data.direktt-profile-data-service-status-tool .direktt-service-status-cases-list .case-item .direktt-service-status-description,
-#direktt-profile #direktt-profile-data.direktt-profile-data-service-status-tool .direktt-service-status-cases-list .case-item .direktt-service-status-status {
+#direktt-profile .direktt-profile-data-service-status-tool .direktt-service-status-cases-list .case-item .direktt-service-status-description,
+#direktt-profile .direktt-profile-data-service-status-tool .direktt-service-status-cases-list .case-item .direktt-service-status-status {
   color: var(--direktt-profile-dark-gray-color);
 }
-#direktt-profile #direktt-profile-data.direktt-profile-data-service-status-tool .direktt-service-status-cases-list .case-item .direktt-service-status-description strong,
-#direktt-profile #direktt-profile-data.direktt-profile-data-service-status-tool .direktt-service-status-cases-list .case-item .direktt-service-status-status strong {
+#direktt-profile .direktt-profile-data-service-status-tool .direktt-service-status-cases-list .case-item .direktt-service-status-description strong,
+#direktt-profile .direktt-profile-data-service-status-tool .direktt-service-status-cases-list .case-item .direktt-service-status-status strong {
   min-width: 7em;
   display: inline-block;
 }
-#direktt-profile #direktt-profile-data.direktt-profile-data-service-status-tool .direktt-service-status-log {
+#direktt-profile .direktt-profile-data-service-status-tool .direktt-service-status-log {
   padding-top: 0.5em;
 }
-#direktt-profile #direktt-profile-data.direktt-profile-data-service-status-tool .direktt-service-status-log td:first-child i {
+#direktt-profile .direktt-profile-data-service-status-tool .direktt-service-status-log td:first-child i {
   color: var(--direktt-profile-dark-gray-color);
 }
-#direktt-profile #direktt-profile-data.direktt-profile-data-service-status-tool .direktt-service-status-case-form-wrapper form {
+#direktt-profile .direktt-profile-data-service-status-tool .direktt-service-status-case-form-wrapper form {
   display: flex;
   flex-direction: column;
   gap: 0.5em;
 }
-#direktt-profile #direktt-profile-data.direktt-profile-data-service-status-tool .direktt-service-status-case-form-wrapper form label {
+#direktt-profile .direktt-profile-data-service-status-tool .direktt-service-status-case-form-wrapper form label {
   display: block;
 }
-#direktt-profile #direktt-profile-data.direktt-profile-data-service-status-tool .direktt-service-status-case-form-wrapper form .form-buttons {
+#direktt-profile .direktt-profile-data-service-status-tool .direktt-service-status-case-form-wrapper form .form-buttons {
   display: flex;
   flex-direction: column;
   gap: 0.5em;
@@ -924,6 +922,12 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
 }
 #direktt-profile.direktt-auto-greet {
   padding: 1em;
+}
+#direktt-profile .direktt-cross-sell-tool-service #direktt-cross-sell-qr-canvas svg {
+  margin: auto;
+}
+#direktt-profile .direktt-cross-sell-tool-service #direktt-cross-sell-share {
+  margin-bottom: 1em;
 }
 
 /*# sourceMappingURL=direktt-profile.css.map */
