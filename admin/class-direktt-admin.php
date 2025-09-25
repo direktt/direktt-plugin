@@ -100,14 +100,22 @@ class Direktt_Admin
 	{
 		global $submenu_file, $current_screen, $pagenow;
 
-		if ($pagenow == 'edit-tags.php' && $current_screen->taxonomy == 'direkttusercategories') {
-			$submenu_file = 'edit-tags.php?taxonomy=direkttusercategories';
-			$parent_file = 'direktt-dashboard';
-		}
-
-		if ($pagenow == 'edit-tags.php' && $current_screen->taxonomy == 'direkttusertags') {
-			$submenu_file = 'edit-tags.php?taxonomy=direkttusertags';
-			$parent_file = 'direktt-dashboard';
+		if ($pagenow === 'edit-tags.php' || $pagenow === 'term.php') {
+			if ($current_screen->taxonomy === 'direkttusercategories') {
+				$submenu_file = 'edit-tags.php?taxonomy=direkttusercategories';
+				$parent_file = 'direktt-dashboard';
+			} else if ($current_screen->taxonomy === 'direkttusertags') {
+				$submenu_file = 'edit-tags.php?taxonomy=direkttusertags';
+				$parent_file = 'direktt-dashboard';
+			}
+		} else if ($pagenow === 'post.php' || $pagenow === 'post-new.php') {
+			if ($current_screen->post_type === 'direkttusers') {
+				$submenu_file = 'edit.php?post_type=direkttusers';
+				$parent_file = 'direktt-dashboard';
+			} else if ($current_screen->post_type === 'direkttmtemplates') {
+				$submenu_file = 'edit.php?post_type=direkttmtemplates';
+				$parent_file = 'direktt-dashboard';
+			}
 		}
 
 		return $parent_file;
