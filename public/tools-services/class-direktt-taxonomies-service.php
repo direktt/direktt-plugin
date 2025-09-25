@@ -136,8 +136,8 @@ class Direktt_Taxonomies_Service {
 			
 						?>
 						<p class="direktt-edit-taxonomies-service-status"><?php echo $status_message; ?></p>
-						<p><?php echo 'edit-category' === $subpage ? esc_html__( 'Category Name:', 'direktt' ) : esc_html__( 'Tag Name:', 'direktt' ); ?> <?php echo esc_html( $_GET['tax_name'] ); ?></p>
-						<p><?php echo esc_html__( 'Users:', 'direktt' ); ?></p>
+						<h2><?php echo 'edit-category' === $subpage ? esc_html__( 'Category Name:', 'direktt' ) : esc_html__( 'Tag Name:', 'direktt' ); ?> <?php echo esc_html( $_GET['tax_name'] ); ?></h2>
+						<h3><?php echo esc_html__( 'Users:', 'direktt' ); ?></h3>
 						<div class="direktt-edit-taxonomies-service-users">
 							<form method="post" action="">
 								<?php
@@ -238,7 +238,7 @@ class Direktt_Taxonomies_Service {
 												<div class="direktt-edit-taxonomies-service-user-item">
 													<p><?php echo esc_html( get_the_title( $user_id ) ); ?></p>
 													<input type="hidden" name="<?php echo esc_attr( 'edit-category' === $subpage ? 'user_id_category' : 'user_id_tag' ); ?>" value="<?php echo esc_attr( $user_id ); ?>">
-													<button type="button" class="remove-user-btn" data-id="<?php echo esc_attr( $user_id ); ?>">
+													<button type="button" class="direktt-button button-invert remove-user-btn" data-id="<?php echo esc_attr( $user_id ); ?>">
 														<?php echo esc_html__( 'Remove', 'direktt' ); ?>
 													</button>
 												</div>
@@ -251,12 +251,13 @@ class Direktt_Taxonomies_Service {
 										}
 										?>
 									</div>
-									<label for="direktt-user-search"><?php echo esc_html__( 'Search users:', 'direktt' ); ?></label>
-									<input type="text" id="direktt-user-search" placeholder="<?php echo esc_attr__( 'Enter display name', 'direktt' ); ?>" />
-									<!-- <input type="submit" id="add-user" name="<?php /* echo esc_attr( 'edit-category' === $subpage ? 'save_user_categories' : 'save_user_tags' ); */ ?>" value="<?php /* echo esc_attr__( 'Add User', 'direktt' ); */ ?>" /> -->
-									<button id="add-user"><?php echo esc_html__( 'Add User', 'direktt' ); ?></button>
-									<input type="hidden" name="<?php echo esc_attr( 'edit-category' === $subpage ? 'category' : 'tag' ); ?>" value="<?php echo esc_attr( $tax_name ); ?>">
-									<input type="hidden" name="<?php echo esc_attr( 'edit-category' === $subpage ? 'save_user_categories_nonce' : 'save_user_tags_nonce' ); ?>" value="<?php echo 'edit-category' === $subpage ? esc_attr( wp_create_nonce( 'save_user_categories_nonce' ) ) : esc_attr( wp_create_nonce( 'save_user_tags_nonce' ) ); ?>">
+									<div class="direktt-edit-taxonomies-service-users-search">
+										<input type="text" id="direktt-user-search" placeholder="<?php echo esc_attr__( 'Search users (enter display name)', 'direktt' ); ?>" />
+										<!-- <input type="submit" id="add-user" name="<?php /* echo esc_attr( 'edit-category' === $subpage ? 'save_user_categories' : 'save_user_tags' ); */ ?>" value="<?php /* echo esc_attr__( 'Add User', 'direktt' ); */ ?>" /> -->
+										<button id="add-user" class="direktt-button"><?php echo esc_html__( 'Add User', 'direktt' ); ?></button>
+										<input type="hidden" name="<?php echo esc_attr( 'edit-category' === $subpage ? 'category' : 'tag' ); ?>" value="<?php echo esc_attr( $tax_name ); ?>">
+										<input type="hidden" name="<?php echo esc_attr( 'edit-category' === $subpage ? 'save_user_categories_nonce' : 'save_user_tags_nonce' ); ?>" value="<?php echo 'edit-category' === $subpage ? esc_attr( wp_create_nonce( 'save_user_categories_nonce' ) ) : esc_attr( wp_create_nonce( 'save_user_tags_nonce' ) ); ?>">
+									</div>
 									<div class="direktt-edit-taxonomies-alert direktt-edit-taxonomies-popup">
 										<div class="direktt-edit-taxonomies-alert-content direktt-edit-taxonomies-popup-content">
 											<div class="direktt-edit-taxonomies-alert-header">
@@ -411,7 +412,7 @@ class Direktt_Taxonomies_Service {
 								?>
 							</form>
 						</div>
-						<p><a href="<?php echo esc_url( $backUri ); ?>" class="direktt-button button-invert button-dark-gray"><?php echo esc_html__( 'All Taxonomies', 'direktt' ); ?></a></p>
+						<p><a href="<?php echo esc_url( $backUri ); ?>" class="direktt-button button-invert button-dark-gray"><?php echo esc_html__( 'Show All Taxonomies', 'direktt' ); ?></a></p>
 					</div>
                 </div>
                 <?php

@@ -675,12 +675,51 @@
 	/* Taxonomy tool */
 	
 	&.direktt-edit-taxonomies-service-wrapper {
+		min-height: auto;
 		padding: 1em;
 		display: flex;
 		flex-direction: column;
 		gap: 1em;
 		.direktt-button {
 			text-align: center;	
+		}
+		.direktt-edit-taxonomies-service-users form {
+			display: flex;
+			flex-direction: column;
+			gap: 2em;
+			.direktt-edit-taxonomies-service-users-list {
+				display: flex;
+				flex-direction: column;
+				gap: 1em;
+				.direktt-edit-taxonomies-service-user-item {
+					display: flex;
+					gap: 1em;
+					align-items: center;
+					p {
+						margin: 0;
+						flex: 1 1 auto;
+					}
+					.direktt-button {
+						flex: 0 0 120px;
+							
+					}
+				}
+			}			
+		}
+
+		.direktt-edit-taxonomies-service-users-search {
+			display: flex;
+			gap: 1em;
+			align-items: center;
+			border-top: 1px solid var(--direktt-profile-light-gray-color);
+			border-bottom: 1px solid var(--direktt-profile-light-gray-color);
+			padding: 1em 0;
+			input#direktt-user-search {
+				flex: 1 1 auto;
+			}
+			.direktt-button {
+				flex: 0 0 120px;
+			}
 		}
 	}
 }
