@@ -722,4 +722,36 @@
 			}
 		}
 	}
+	
+	/* Loyalty program */
+	
+	&.direktt-loyalty-program-service {
+		padding: 1em;
+		table {
+			th, td {
+				&:last-child {
+					text-align: right;
+				}
+				&:first-child {
+					text-align: center;
+				} 
+			}
+		}
+
+		.direktt-loyalty-program-points {
+			text-align: right;
+			strong {
+				border-radius: 50%;
+				padding: 0 0.5rem;
+				box-shadow: 0 0 0 2px var(--direktt-profile-accent-color);
+				color: var(--direktt-profile-accent-color);
+				font-weight: 600;
+				display: inline-block;
+				text-align: center;
+				min-width: 2rem;
+				line-height: 2rem;
+				margin-left: 0.25em;
+			}
+		}		
+	}
 }
