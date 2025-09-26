@@ -741,9 +741,22 @@
 	/* Cross sell */
 	
 	.direktt-cross-sell-tool-service {
-		#direktt-cross-sell-qr-canvas {
-			svg {
-				margin: auto;
+	
+	
+		.direktt-cross-sell-qr-canvas-wrapper {
+			border: 1px solid var(--direktt-profile-light-gray-color);
+			border-radius: 10px;
+			padding: 2em;
+			text-align: center;
+			margin-bottom: 1em;
+			#direktt-cross-sell-qr-canvas {
+				svg {
+					margin: auto;
+				}
+			}
+			p.direktt-cross-sell-content {
+				margin: 1em 0 0;
+				color: var(--direktt-profile-dark-gray-color);
 			}
 		}
 		#direktt-cross-sell-share {
