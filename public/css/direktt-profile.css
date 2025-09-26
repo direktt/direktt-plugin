@@ -899,21 +899,28 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
 #direktt-profile .direktt-auto-greet .direktt-button {
   margin-top: 1em;
 }
-#direktt-profile .direktt-cross-sell-tool-service .direktt-cross-sell-qr-canvas-wrapper {
+#direktt-profile .direktt-profile-data-cross-sell-tool.direktt-service .direktt-cross-sell-qr-canvas-wrapper {
   border: 1px solid var(--direktt-profile-light-gray-color);
   border-radius: 10px;
   padding: 2em;
   text-align: center;
   margin-bottom: 1em;
 }
-#direktt-profile .direktt-cross-sell-tool-service .direktt-cross-sell-qr-canvas-wrapper #direktt-cross-sell-qr-canvas svg {
+#direktt-profile .direktt-profile-data-cross-sell-tool.direktt-service .direktt-cross-sell-qr-canvas-wrapper #direktt-cross-sell-qr-canvas svg {
   margin: auto;
 }
-#direktt-profile .direktt-cross-sell-tool-service .direktt-cross-sell-qr-canvas-wrapper p.direktt-cross-sell-content {
+#direktt-profile .direktt-profile-data-cross-sell-tool.direktt-service .direktt-cross-sell-qr-canvas-wrapper p.direktt-cross-sell-content {
   margin: 1em 0 0;
   color: var(--direktt-profile-dark-gray-color);
 }
-#direktt-profile .direktt-cross-sell-tool-service #direktt-cross-sell-share {
+#direktt-profile .direktt-profile-data-cross-sell-tool.direktt-service table {
+  margin-bottom: 2em;
+}
+#direktt-profile .direktt-profile-data-cross-sell-tool.direktt-service table th:last-child,
+#direktt-profile .direktt-profile-data-cross-sell-tool.direktt-service table td:last-child {
+  text-align: center;
+}
+#direktt-profile .direktt-profile-data-cross-sell-tool.direktt-service #direktt-cross-sell-share {
   margin-bottom: 1em;
 }
 
