@@ -414,10 +414,13 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
 #direktt-profile table tbody tr:not(:last-child) {
   border-bottom: 1px solid var(--direktt-profile-light-gray-color);
 }
+#direktt-profile:has(.direktt-service) {
+  padding-bottom: 1em;
+}
 #direktt-profile #direktt-profile-data {
   opacity: 1;
   transition: all 300ms, opacity 900ms;
-  padding: 0 1em;
+  padding: 1em;
 }
 .direktt-profile-tools-open #direktt-profile #direktt-profile-data, .direktt-profile-tools-open #direktt-profile #direktt-profile-header {
   margin-left: var(--direktt-profile-tools-width);
@@ -615,7 +618,7 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
   justify-content: center;
 }
 #direktt-profile .send-message-tool-wrapper {
-  padding: 1em 0;
+  /* padding: 1em 0; */
 }
 #direktt-profile .send-message-tool-wrapper .send-message-tool-info p.send-message-tool-status {
   text-align: center;
@@ -639,7 +642,7 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
   margin-bottom: 1em;
 }
 #direktt-profile .direktt-taxonomies-tool-wrapper {
-  padding: 1em 0;
+  /* padding: 1em 0; */
   text-align: center;
 }
 #direktt-profile .direktt-taxonomies-tool-wrapper .direktt-taxonomies-tool-categories p,
@@ -660,7 +663,7 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
   font-weight: 600;
   border: 2px solid var(--direktt-profile-accent-color);
   border-radius: 50px;
-  margin: 1em 0;
+  /* margin: 1em 0; */
   padding: 1em;
 }
 #direktt-profile .direktt-profile-data-cross-sell-tool {
@@ -742,7 +745,7 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
   margin-bottom: 0;
 }
 #direktt-profile .direktt-profile-data-loyalty-program-tool {
-  padding: 1em;
+  /* padding: 1em; */
 }
 #direktt-profile .direktt-profile-data-loyalty-program-tool .direktt-loyalty-program-wrap {
   display: flex;
@@ -896,32 +899,8 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
 #direktt-profile.direktt-edit-taxonomies-service-wrapper .direktt-edit-taxonomies-service-users-search .direktt-button {
   flex: 0 0 120px;
 }
-#direktt-profile.direktt-loyalty-program-service {
-  padding: 1em;
-}
-#direktt-profile.direktt-loyalty-program-service table th:last-child, #direktt-profile.direktt-loyalty-program-service table td:last-child {
-  text-align: right;
-}
-#direktt-profile.direktt-loyalty-program-service table th:first-child, #direktt-profile.direktt-loyalty-program-service table td:first-child {
-  text-align: center;
-}
-#direktt-profile.direktt-loyalty-program-service .direktt-loyalty-program-points {
-  text-align: right;
-}
-#direktt-profile.direktt-loyalty-program-service .direktt-loyalty-program-points strong {
-  border-radius: 50%;
-  padding: 0 0.5rem;
-  box-shadow: 0 0 0 2px var(--direktt-profile-accent-color);
-  color: var(--direktt-profile-accent-color);
-  font-weight: 600;
-  display: inline-block;
-  text-align: center;
-  min-width: 2rem;
-  line-height: 2rem;
-  margin-left: 0.25em;
-}
-#direktt-profile.direktt-auto-greet {
-  padding: 1em;
+#direktt-profile .direktt-auto-greet .direktt-button {
+  margin-top: 1em;
 }
 #direktt-profile .direktt-cross-sell-tool-service #direktt-cross-sell-qr-canvas svg {
   margin: auto;
