@@ -19,7 +19,8 @@
   font-weight: 600;
   font-size: 1.5em;
   line-height: 1.25;
-  margin-top: 1em;
+  /* margin-top: 1em; */
+  margin-top: 0;
   margin-bottom: 0.5em;
 }
 #direktt-profile h3 {
@@ -848,7 +849,7 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
   border-top: 1px solid var(--direktt-profile-dark-gray-color);
 }
 #direktt-profile .direktt-profile-data-service-status-tool .direktt-service-status-cases-list .case-item {
-  padding: 0 0 1em 0;
+  padding: 1em 0 1em 0;
 }
 #direktt-profile .direktt-profile-data-service-status-tool .direktt-service-status-cases-list .case-item:not(:last-child) {
   border-bottom: 1px solid var(--direktt-profile-light-gray-color);
@@ -903,6 +904,8 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
   gap: 1em;
 }
 #direktt-profile.direktt-edit-taxonomies-service-wrapper .direktt-edit-taxonomies-service-users form .direktt-edit-taxonomies-service-users-list .direktt-edit-taxonomies-service-user-item {
+  border-top: 1px solid var(--direktt-profile-light-gray-color);
+  padding-top: 1em;
   display: flex;
   gap: 1em;
   align-items: center;
@@ -918,8 +921,8 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
   display: flex;
   gap: 1em;
   align-items: stretch;
-  border-top: 1px solid var(--direktt-profile-light-gray-color);
-  border-bottom: 1px solid var(--direktt-profile-light-gray-color);
+  border-top: 1px solid var(--direktt-profile-dark-gray-color);
+  border-bottom: 1px solid var(--direktt-profile-dark-gray-color);
   padding: 1em 0;
 }
 #direktt-profile.direktt-edit-taxonomies-service-wrapper .direktt-edit-taxonomies-service-users-search input#direktt-user-search {

@@ -639,7 +639,7 @@
 			margin-top: 2em;
 			border-top: 1px solid var(--direktt-profile-dark-gray-color);
 			.case-item {
-				padding: 0 0 1em 0;
+				padding: 1em 0 1em 0;
 				&:not(:last-child) {
 					border-bottom: 1px solid var(--direktt-profile-light-gray-color);	
 				}
@@ -691,7 +691,7 @@
 			text-align: center;	
 		}
 		.direktt-edit-taxonomies-service-users form {
-			display: flex;
+			display: flex; 
 			flex-direction: column;
 			gap: 2em;
 			.direktt-edit-taxonomies-service-users-list {
@@ -699,6 +699,8 @@
 				flex-direction: column;
 				gap: 1em;
 				.direktt-edit-taxonomies-service-user-item {
+					border-top: 1px solid var(--direktt-profile-light-gray-color);
+					padding-top: 1em;
 					display: flex;
 					gap: 1em;
 					align-items: center;
@@ -718,8 +720,8 @@
 			display: flex;
 			gap: 1em;
 			align-items: stretch;
-			border-top: 1px solid var(--direktt-profile-light-gray-color);
-			border-bottom: 1px solid var(--direktt-profile-light-gray-color);
+			border-top: 1px solid var(--direktt-profile-dark-gray-color);
+			border-bottom: 1px solid var(--direktt-profile-dark-gray-color);
 			padding: 1em 0;
 			input#direktt-user-search {
 				flex: 1 1 auto;
