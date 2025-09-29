@@ -1,5 +1,6 @@
 /* General */
 /* Reset */
+/* Reset */
 @import url("https://fonts.googleapis.com/css?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap");
 #direktt-profile {
   all: unset;
@@ -16,17 +17,17 @@
 }
 #direktt-profile h1, #direktt-profile h2, #direktt-profile h3, #direktt-profile h4, #direktt-profile h5, #direktt-profile h6 {
   font-weight: 600;
-  font-size: 1.25em;
+  font-size: 1.5em;
   line-height: 1.25;
-  margin-bottom: 1em;
+  margin-top: 1em;
+  margin-bottom: 0.5em;
 }
 #direktt-profile h3 {
-  font-size: 1.125em;
-  margin-bottom: 0.25em;
+  font-size: 1.25em;
 }
 #direktt-profile h4, #direktt-profile h5, #direktt-profile h6 {
   font-size: 1em;
-  margin-bottom: 0.25em;
+  margin-bottom: 0.5em;
 }
 #direktt-profile strong, #direktt-profile b {
   font-weight: 600;
@@ -100,7 +101,9 @@
   appearance: none;
   width: 1.5rem;
   height: 1.5rem;
-  border: 2px solid #ccc;
+  /* border: 2px solid #ccc; */
+  border: none;
+  box-shadow: 0 0 0 2px var(--direktt-profile-light-gray-color);
   border-radius: 50%;
   background-color: transparent;
   cursor: pointer;
@@ -120,15 +123,17 @@
   height: 1.5rem;
   width: 1.5rem;
   position: absolute;
-  top: -2px;
-  left: -2px;
+  top: 1px;
 }
 #direktt-profile input[type=checkbox]:checked {
-  border-color: var(--direktt-profile-alternate-color);
+  box-shadow: 0 0 0 2px var(--direktt-profile-alternate-color);
 }
 #direktt-profile input[type=checkbox]:checked::after {
   color: var(--direktt-profile-alternate-color);
   content: "";
+}
+#direktt-profile label input[type=checkbox] {
+  margin-right: 2px;
 }
 #direktt-profile form {
   margin-bottom: 1em;
@@ -138,6 +143,42 @@
   border-spacing: 0;
 }
 
+/* Autocomplete */
+body.direktt-app .ui-autocomplete {
+  font: inherit;
+  font-size: var(--direktt-profile-default-font-size-normal);
+  font-family: var(--direktt-profile-default-font-family);
+  font-weight: 400;
+}
+
+/* Variables */
+:root {
+  /* Fonts */
+  --direktt-profile-default-font-family: "Noto Sans", Helvetica, Arial, sans-serif;
+  --direktt-profile-default-font-size-normal: 14px;
+  --direktt-profile-default-font-size-small: 12px;
+  --direktt-profile-default-font-size-xsmall: 11px;
+  --direktt-profile-default-line-height: 1.6;
+  --direktt-profile-default-font-weight: 400;
+  /* Colors */
+  --direktt-profile-accent-color: #5DB075;
+  --direktt-profile-alternate-color: #387248;
+  --direktt-profile-warning-color: #d91515;
+  --direktt-profile-light-gray-color: #dddddd;
+  --direktt-profile-dark-gray-color: #999999;
+  --direktt-profile-dark-color: black;
+  --direktt-profile-light-color: white;
+  --direktt-profile-button-default-background-color: var(--direktt-profile-accent-color);
+  --direktt-profile-button-active-background-color: var(--direktt-profile-alternate-color);
+  --direktt-profile-light-color: white;
+  /* Various */
+  --direktt-profile-border-radius: 50px;
+  --direktt-profile-tools-width: 200px;
+  --direktt-profile-tools-negative-width: -200px;
+}
+
+/* Fonts */
+/* Icons */
 @font-face {
   font-family: "direktt-profile-icons";
   src: url("fonts/direktt-profile-icons.eot?t=1758201785209");
@@ -190,7 +231,7 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
   padding-left: 0;
 }
 
-/* Popup */
+/* Popups and notices */
 /* Popup */
 #direktt-profile .direktt-popup {
   position: fixed;
@@ -239,6 +280,23 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
   padding: 0;
 }
 
+/* Notices */
+body.direktt-app .notice {
+  text-align: center;
+  font-weight: 600;
+  border-radius: 50px;
+  margin: 1em 0;
+  padding: 1em;
+  border: 2px solid var(--direktt-profile-accent-color);
+}
+body.direktt-app .notice.notice-error {
+  border-color: var(--direktt-profile-warning-color);
+  color: var(--direktt-profile-warning-color);
+}
+body.direktt-app .notice p {
+  margin: 0;
+}
+
 /* Loader */
 #direktt-profile .direktt-loader-overlay {
   position: fixed;
@@ -279,42 +337,21 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
     transform: rotate(360deg);
   }
 }
-/* Variables */
-#direktt-profile {
-  --direktt-profile-border-radius: 50px;
-  --direktt-profile-accent-color: #5DB075;
-  --direktt-profile-alternate-color: #387248;
-  --direktt-profile-warning-color: #d91515;
-  --direktt-profile-light-gray-color: #dddddd;
-  --direktt-profile-dark-gray-color: #999999;
-  --direktt-profile-dark-color: black;
-  --direktt-profile-light-color: white;
-  --direktt-profile-button-default-background-color: var(--direktt-profile-accent-color);
-  --direktt-profile-button-active-background-color: var(--direktt-profile-alternate-color);
-  --direktt-profile-light-color: white;
-  --direktt-profile-default-font-family: "Noto Sans", Helvetica, Arial, sans-serif;
-  --direktt-profile-default-font-size-normal: 14px;
-  --direktt-profile-default-font-size-small: 12px;
-  --direktt-profile-default-font-size-xsmall: 11px;
-  --direktt-profile-default-line-height: 1.6;
-  --direktt-profile-tools-width: 200px;
-  --direktt-profile-tools-negative-width: -200px;
-}
-
 /* Functionalities and Styling */
 #direktt-profile-wrapper {
   overflow: hidden;
-  font-weight: 400;
   max-width: 100%;
 }
 
 #direktt-profile {
-  /* General */
+  /* Buttons */
+  /* Tables */
   /* End general */
   position: relative;
   overflow: hidden;
   font-family: var(--direktt-profile-default-font-family);
   font-size: var(--direktt-profile-default-font-size-normal);
+  font-weight: var(--direktt-profile-default-font-weight);
   line-height: var(--direktt-profile-default-line-height);
   padding-left: 0;
   padding-bottom: 7em;
@@ -376,17 +413,6 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
 }
 #direktt-profile button.button-clean.button-dark-gray, #direktt-profile .button.button-clean.button-dark-gray, #direktt-profile .direktt-button.button-clean.button-dark-gray {
   color: var(--direktt-profile-dark-gray-color);
-}
-#direktt-profile .notice {
-  text-align: center;
-  font-weight: 600;
-  border: 2px solid var(--direktt-profile-accent-color);
-  border-radius: 50px;
-  margin: 1em 0;
-  padding: 1em;
-}
-#direktt-profile .notice p {
-  margin: 0;
 }
 #direktt-profile table {
   border-spacing: 0.5rem;
@@ -663,6 +689,9 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
   /* margin: 1em 0; */
   padding: 1em;
 }
+#direktt-profile .direktt-taxonomies-tool-wrapper .direktt-taxonomies-tool-submit {
+  margin-top: 1em;
+}
 #direktt-profile .direktt-profile-data-cross-sell-tool {
   padding: 1em !important;
 }
@@ -807,6 +836,9 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
 #direktt-profile .direktt-profile-data-service-status-tool .direktt-service-status-add-new {
   margin-bottom: 1em;
 }
+#direktt-profile .direktt-profile-data-service-status-tool .direktt-service-status-case-my-cases {
+  margin-bottom: 1em;
+}
 #direktt-profile .direktt-profile-data-service-status-tool .direktt-service-status-search {
   display: flex;
   gap: 1em;
@@ -816,7 +848,7 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
   border-top: 1px solid var(--direktt-profile-dark-gray-color);
 }
 #direktt-profile .direktt-profile-data-service-status-tool .direktt-service-status-cases-list .case-item {
-  padding: 1em 0;
+  padding: 0 0 1em 0;
 }
 #direktt-profile .direktt-profile-data-service-status-tool .direktt-service-status-cases-list .case-item:not(:last-child) {
   border-bottom: 1px solid var(--direktt-profile-light-gray-color);
@@ -885,7 +917,7 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
 #direktt-profile.direktt-edit-taxonomies-service-wrapper .direktt-edit-taxonomies-service-users-search {
   display: flex;
   gap: 1em;
-  align-items: center;
+  align-items: stretch;
   border-top: 1px solid var(--direktt-profile-light-gray-color);
   border-bottom: 1px solid var(--direktt-profile-light-gray-color);
   padding: 1em 0;

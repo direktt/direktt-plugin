@@ -105,7 +105,7 @@ class Direktt_Messaging_Tool
 
 					<div class="send-message-tool-submit">
 						<p>
-							<input type="submit" name="send_user_message" id="sendMessageBtn" value="<?php echo esc_html__('Send the message', 'direktt'); ?>" class="button button-primary">
+							<input type="submit" name="send_user_message" id="sendMessageBtn" value="<?php echo esc_html__('Send the message', 'direktt'); ?>" class="button button-primary button-large">
 							<input type="hidden" name="send_user_message_nonce" value="<?php echo esc_attr(wp_create_nonce('send_user_message_nonce')); ?>">
 						</p>
 					</div>

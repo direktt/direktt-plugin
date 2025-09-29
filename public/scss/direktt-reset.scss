@@ -21,19 +21,19 @@
 	// Headings
 	h1, h2, h3, h4, h5, h6 {
 		font-weight: 600;
-		font-size: 1.25em;
+		font-size: 1.5em;
 		line-height: 1.25;
-		margin-bottom: 1em;
+		margin-top: 1em;
+		margin-bottom: 0.5em;
 	}
 	
 	h3 {
-		font-size: 1.125em;
-		margin-bottom: 0.25em;
+		font-size: 1.25em;
 	}
 	
 	h4, h5, h6 {
 		font-size: 1em;
-		margin-bottom: 0.25em;
+		margin-bottom: 0.5em;
 	}
 	
 	// Texts
@@ -120,7 +120,9 @@
 		appearance: none; 
 		width: 1.5rem;
 		height: 1.5rem;
-		border: 2px solid #ccc;
+		/* border: 2px solid #ccc; */
+		border: none;
+		box-shadow: 0 0 0 2px var(--direktt-profile-light-gray-color);
 		border-radius: 50%;
 		background-color: transparent;
 		cursor: pointer;
@@ -139,17 +141,19 @@
 			height: 1.5rem; 
 			width: 1.5rem; 
 			position: absolute;
-			top: -2px;
-			left: -2px;
+			top: 1px;
 		}
 		&:checked {
-			border-color: var(--direktt-profile-alternate-color);
+			box-shadow: 0 0 0 2px var(--direktt-profile-alternate-color);
 			&::after {
 				color: var(--direktt-profile-alternate-color);
 				content: '\eb7b';
 			}
 		}
     }
+	label input[type="checkbox"] {
+		margin-right: 2px;
+	}
 	form {
 		margin-bottom: 1em;
 	}
@@ -159,4 +163,13 @@
 		border-collapse: collapse;
 		border-spacing: 0;
 	}
+}
+ 
+/* Autocomplete */
+
+body.direktt-app .ui-autocomplete {
+	font: inherit;
+	font-size: var(--direktt-profile-default-font-size-normal);
+	font-family: var(--direktt-profile-default-font-family);
+	font-weight: 400;
 }

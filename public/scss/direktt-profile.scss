@@ -1,7 +1,41 @@
 /* General */
 
+/* Reset */
+
 @import "direktt-reset.scss"; 
+
+/* Variables */   
+
+:root { 	
+	/* Fonts */
+	--direktt-profile-default-font-family: "Noto Sans", Helvetica, Arial, sans-serif;
+	--direktt-profile-default-font-size-normal: 14px;
+	--direktt-profile-default-font-size-small: 12px;
+	--direktt-profile-default-font-size-xsmall: 11px;
+	--direktt-profile-default-line-height: 1.6;
+	--direktt-profile-default-font-weight: 400;
+	/* Colors */
+	--direktt-profile-accent-color: #5DB075;
+	--direktt-profile-alternate-color: #387248;
+	--direktt-profile-warning-color: #d91515;
+	--direktt-profile-light-gray-color: #dddddd;
+	--direktt-profile-dark-gray-color: #999999; 
+	--direktt-profile-dark-color: black;
+	--direktt-profile-light-color: white;
+	--direktt-profile-button-default-background-color: var(--direktt-profile-accent-color);
+	--direktt-profile-button-active-background-color: var(--direktt-profile-alternate-color);
+	--direktt-profile-light-color: white;
+	/* Various */
+	--direktt-profile-border-radius: 50px;  
+	--direktt-profile-tools-width: 200px;
+	--direktt-profile-tools-negative-width: -200px;  
+} 
+
+/* Fonts */
+
 @import url( 'https://fonts.googleapis.com/css?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap' );
+
+/* Icons */
 
 @font-face {
     font-family: "direktt-profile-icons";
@@ -20,6 +54,7 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale; 
 }
+
 #direktt-profile { 
 	.dpi-menu:before { content: "\ef3e" !important; }
 	.dpi-close:before { content: "\f4c8" !important; }
@@ -31,50 +66,25 @@
 	.dpi-edit-user-taxonomies:before { content: "\f025" !important; }
 }
 
-
-
 /* Themes override */
 
 @import "direktt-themes-reset.scss";  
 
-/* Popup */    
+/* Popups and notices */    
 
 @import "direktt-popup.scss";   
 
-/* Variables */   
-
-#direktt-profile { 
-	--direktt-profile-border-radius: 50px;  
-	--direktt-profile-accent-color: #5DB075;
-	--direktt-profile-alternate-color: #387248;
-	--direktt-profile-warning-color: #d91515;
-	--direktt-profile-light-gray-color: #dddddd;
-	--direktt-profile-dark-gray-color: #999999; 
-	--direktt-profile-dark-color: black;
-	--direktt-profile-light-color: white;
-	--direktt-profile-button-default-background-color: var(--direktt-profile-accent-color);
-	--direktt-profile-button-active-background-color: var(--direktt-profile-alternate-color);
-	--direktt-profile-light-color: white;	
-	--direktt-profile-default-font-family: "Noto Sans", Helvetica, Arial, sans-serif;
-	--direktt-profile-default-font-size-normal: 14px;
-	--direktt-profile-default-font-size-small: 12px;
-	--direktt-profile-default-font-size-xsmall: 11px;
-	--direktt-profile-default-line-height: 1.6;
-	--direktt-profile-tools-width: 200px;
-	--direktt-profile-tools-negative-width: -200px;  
-}
 
 /* Functionalities and Styling */
 
 #direktt-profile-wrapper {
 	overflow: hidden;
-	font-weight: 400;
 	max-width: 100%;
 }
 
 #direktt-profile { 
  
-	/* General */
+	/* Buttons */
 	
 	button, .button, .direktt-button {
 		&.button-large {
@@ -121,22 +131,12 @@
 				color: var(--direktt-profile-dark-gray-color);
 			}
 		}
-	}
+	} 
 	
-	.notice  {
-		text-align: center;
-		font-weight: 600;
-		border: 2px solid var(--direktt-profile-accent-color);
-		border-radius: 50px;
-		margin: 1em 0;
-		padding: 1em;	
-		p {
-			margin: 0;
-		}
-	}
+	/* Tables */
 	
 	table {
-		border-spacing: 0.5rem;
+		border-spacing: 0.5rem; 
 		width: 100%; 
 		thead {
 			border-bottom: 1px solid var(--direktt-profile-dark-gray-color);
@@ -145,14 +145,14 @@
 			text-align: left;
 			padding: 0.5rem;
 			&:first-child {
-				padding-left: 0;
+				padding-left: 0; 
 			}
 			&:last-child {
 				padding-right: 0;
 			}
 		}
 		th {
-			font-weight: 600;
+			font-weight: 600; 
 		}
 		tbody tr:not(:last-child) {
 			border-bottom: 1px solid var(--direktt-profile-light-gray-color);
@@ -166,6 +166,7 @@
 	overflow: hidden;
 	font-family: var(--direktt-profile-default-font-family);
 	font-size: var(--direktt-profile-default-font-size-normal);
+	font-weight: var(--direktt-profile-default-font-weight);
 	line-height: var(--direktt-profile-default-line-height);
 	padding-left: 0;
 	padding-bottom: 7em;
@@ -455,6 +456,9 @@
 			/* margin: 1em 0; */
 			padding: 1em;			
 		}
+		.direktt-taxonomies-tool-submit {
+			margin-top: 1em;
+		}
 	}
 	
 	/* Cross sell */
@@ -624,6 +628,9 @@
 		.direktt-service-status-add-new {
 			margin-bottom: 1em;
 		}
+		.direktt-service-status-case-my-cases {
+			margin-bottom: 1em;
+		}
 		.direktt-service-status-search {
 			display: flex;
 			gap: 1em;
@@ -632,7 +639,7 @@
 			margin-top: 2em;
 			border-top: 1px solid var(--direktt-profile-dark-gray-color);
 			.case-item {
-				padding: 1em 0;
+				padding: 0 0 1em 0;
 				&:not(:last-child) {
 					border-bottom: 1px solid var(--direktt-profile-light-gray-color);	
 				}
@@ -710,7 +717,7 @@
 		.direktt-edit-taxonomies-service-users-search {
 			display: flex;
 			gap: 1em;
-			align-items: center;
+			align-items: stretch;
 			border-top: 1px solid var(--direktt-profile-light-gray-color);
 			border-bottom: 1px solid var(--direktt-profile-light-gray-color);
 			padding: 1em 0;
