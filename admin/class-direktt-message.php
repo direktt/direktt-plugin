@@ -37,6 +37,27 @@ class Direktt_Message
         ));
     }
 
+    static function update_message($subscriptionUid, $messageUid, $content)
+    {
+        $api_key = get_option('direktt_api_key') ? esc_attr(get_option('direktt_api_key')) : '';
+        $url = 'https://updateMessage-lnkonwpiwa-uc.a.run.app';
+
+        $data = array(
+            'subscriptionUid' => $subscriptionUid,
+            'messageUid' => $messageUid,
+            'content' => $content,
+        );
+
+        $response = wp_remote_post($url, array(
+            'body'    => json_encode($data),
+            'headers' => array(
+                'Authorization' => 'Bearer ' . $api_key,
+                'Content-type' => 'application/json',
+            ),
+        ));
+
+    }
+
     /* static function replace_tags_in_template($string, $replacements)
     {
         if (!is_null($string)) {
