@@ -235,7 +235,10 @@ class Direktt_Profile
 
 								parse_str($parts['query'] ?? '', $params);
 								$params['subpage'] = $item['id'];
-								$newQuery = http_build_query($params);
+								$newParams = array();
+								$newParams['subscriptionId'] = $subscriptionId;
+								$newParams['subpage'] = $params['subpage'];
+								$newQuery = http_build_query($newParams);
 								$newUri = $parts['path'] . ($newQuery ? '?' . $newQuery : '');
 								echo ('<li data-subpage="direktt-tool-' . $params['subpage'] . '"><a href="' . $newUri . '" class="dpi-' . $params['subpage'] . ' direktt-button">' . $item['label'] . '</a></li>');
 								$temp_css .= '#direktt-profile[data-subpage="profile-tab-' . $params['subpage'] . '"] #direktt-profile-tools ul li[data-subpage="direktt-tool-' . $params['subpage'] . '"] a, ';
