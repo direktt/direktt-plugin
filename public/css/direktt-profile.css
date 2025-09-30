@@ -948,11 +948,11 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
   margin: 1em 0 0;
   color: var(--direktt-profile-dark-gray-color);
 }
-#direktt-profile .direktt-profile-data-cross-sell-tool.direktt-service table {
+#direktt-profile .direktt-profile-data-cross-sell-tool.direktt-service table:not(.direktt-cross-sell-issued-coupon-table) {
   margin-bottom: 2em;
 }
-#direktt-profile .direktt-profile-data-cross-sell-tool.direktt-service table th:last-child,
-#direktt-profile .direktt-profile-data-cross-sell-tool.direktt-service table td:last-child {
+#direktt-profile .direktt-profile-data-cross-sell-tool.direktt-service table:not(.direktt-cross-sell-issued-coupon-table) th:last-child,
+#direktt-profile .direktt-profile-data-cross-sell-tool.direktt-service table:not(.direktt-cross-sell-issued-coupon-table) td:last-child {
   text-align: center;
 }
 #direktt-profile .direktt-profile-data-cross-sell-tool.direktt-service #direktt-cross-sell-share {

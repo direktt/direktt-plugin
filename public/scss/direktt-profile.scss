@@ -766,7 +766,7 @@
 				color: var(--direktt-profile-dark-gray-color);
 			}
 		}
-		table {
+		table:not(.direktt-cross-sell-issued-coupon-table) {
 			margin-bottom: 2em;
 			th:last-child,
 			td:last-child {
