@@ -261,7 +261,9 @@ class Direktt_Profile
 
 			parse_str($parts['query'] ?? '', $params);
 			unset($params['subpage']);
-			$newQuery = http_build_query($params);
+			$newParams = array();
+			$newParams['subscriptionId'] = $subscriptionId;
+			$newQuery = http_build_query($newParams);
 			$newUri = $parts['path'] . ($newQuery ? '?' . $newQuery : '');
 			echo ('<li data-subpage="direktt-menu-profile"><a href="' . $newUri . '" class="dpi-profile">' . __('Profile', 'direktt') . '</a></li>');
 
@@ -269,10 +271,12 @@ class Direktt_Profile
 				if (isset($item['label'])) {
 
 					parse_str($parts['query'] ?? '', $params);
-					$params['subpage'] = $item['id'];
-					$newQuery = http_build_query($params);
+					$newParams = array();
+					$newParams['subscriptionId'] = $subscriptionId;
+					$newParams['subpage'] = $item['id'];
+					$newQuery = http_build_query($newParams);
 					$newUri = $parts['path'] . ($newQuery ? '?' . $newQuery : '');
-					echo ('<li data-subpage="direktt-menu-' . $params['subpage'] . '"><a href="' . $newUri . '" class="dpi-' . $params['subpage'] . '">' . $item['label'] . '</a></li>');
+					echo ('<li data-subpage="direktt-menu-' . $newParams['subpage'] . '"><a href="' . $newUri . '" class="dpi-' . $newParams['subpage'] . '">' . $item['label'] . '</a></li>');
 				}
 			}
 
