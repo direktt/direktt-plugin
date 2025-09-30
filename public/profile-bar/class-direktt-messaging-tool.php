@@ -95,9 +95,11 @@ class Direktt_Messaging_Tool
 		
 			<form method="post" action="">
 				<div class="send-message-tool-wrapper">
-					<div class="send-message-tool-info">
-						<p class="send-message-tool-status"><?php echo $status_message; ?></p>
-					</div>
+                    <?php if ( $status_message ) : ?>
+                        <div class="send-message-tool-info">
+                            <p class="send-message-tool-status"><?php echo $status_message; ?></p>
+                        </div>
+                    <?php endif; ?>
 
 					<input id="autoComplete" aria-autocomplete="none" autocomplete="off">
 					<input type="hidden" id="templateID" name="templateID">

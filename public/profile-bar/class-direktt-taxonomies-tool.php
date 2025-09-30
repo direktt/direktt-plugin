@@ -71,11 +71,13 @@ class Direktt_Taxonomies_Tool {
         </script>
         <form method="post" action="">
             <div class="direktt-taxonomies-tool-wrapper">
-                <div class="direktt-taxonomies-tool-info">
-                    <!-- TODO Mozda neki text editing taxonomies for user... -->
-                    <!-- <p class="direktt-taxonomies-tool-user-info -->
-                    <p class="direktt-taxonomies-tool-status"><?php echo $status_message; ?></p>
-                </div>
+                <?php if ( $status_message ) : ?>
+                    <div class="direktt-taxonomies-tool-info">
+                        <!-- TODO Mozda neki text editing taxonomies for user... -->
+                        <!-- <p class="direktt-taxonomies-tool-user-info -->
+                        <p class="direktt-taxonomies-tool-status"><?php echo $status_message; ?></p>
+                    </div>
+                <?php endif; ?>
                 <div class="direktt-taxonomies-tool-categories">
                     <h3><?php echo esc_html__( 'Categories', 'direktt' ); ?></h3>
                     <p>
