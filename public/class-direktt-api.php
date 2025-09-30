@@ -490,7 +490,7 @@ class Direktt_Api
 			}
 
 			if (array_key_exists('eventValue', $parameters)) {
-				$event['event_value'] = sanitize_text_field($parameters['eventValue']);
+				$event['event_value'] = $parameters['eventValue'];
 			}
 
 			Direktt_Event::insert_event($event);

@@ -68,6 +68,11 @@ class Direktt_Event
 			}
 		}
 
+		if (array_key_exists('event_value', $event_fil)) {
+			$event_value = json_encode($event_fil["event_value"]);
+			$event_fil["event_value"] = $event_value;
+		}
+
 		$wpdb->insert(
 			$table_name,
 			$event_fil
