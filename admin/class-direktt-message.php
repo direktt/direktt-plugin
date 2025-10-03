@@ -140,13 +140,19 @@ class Direktt_Message
 
     public function direktt_display_name_filter( $value, $direktt_user_id ) {
 
-
         if ($direktt_user_id){
             $direktt_user = Direktt_User::get_user_by_subscription_id( $direktt_user_id );
             $value = $direktt_user['direktt_display_name'];
         }
 		
 		return $value;
+	}
+
+     public function direktt_channel_name_filter( $value, $direktt_user_id ) {
+		
+        $direktt_channel_title = get_option('direktt_channel_title') ? esc_attr(get_option('direktt_channel_title')) : $value;
+		return $direktt_channel_title;
+
 	}
 
     static function send_message_to_admin($message)

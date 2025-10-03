@@ -178,6 +178,7 @@ class Direktt {
 		//Filters for default template tags:
 		
 			$this->loader->add_filter( 'direktt/message/template/direktt_display_name', $plugin_message, 'direktt_display_name_filter', 10, 2 );
+			$this->loader->add_filter( 'direktt/message/template/direktt_channel_name', $plugin_message, 'direktt_channel_name_filter', 10, 2 );
 	}
 
 	private function define_ajax_hooks() {

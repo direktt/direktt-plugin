@@ -24,6 +24,13 @@ class Direktt_Api
 			'permission_callback' => array($this, 'api_validate_api_key')
 		));
 
+		register_rest_route('direktt/v1', '/onChannelNameChange/', array(
+			'methods' => 'POST',
+			'callback' => array($this, 'change_channel_name'),
+			'args' => array(),
+			'permission_callback' => array($this, 'api_validate_api_key')
+		));
+
 		register_rest_route('direktt/v1', '/onNewSubscription/', array(
 			'methods' => 'POST',
 			'callback' => array($this, 'on_new_subscription'),
@@ -101,6 +108,22 @@ class Direktt_Api
 			wp_send_json_success($data, 200);
 		} else {
 			wp_send_json_error(new WP_Error('Missing param', 'Either domain or title or uid missing'), 400);
+		}
+	}
+
+	public function change_channel_name(WP_REST_Request $request)
+	{
+		$parameters = json_decode($request->get_body(), true);
+
+		if (array_key_exists('title', $parameters)) {
+
+			$direktt_channel_title = sanitize_text_field($parameters['title']);
+			update_option('direktt_channel_title', $direktt_channel_title);
+
+			$data = array();
+			wp_send_json_success($data, 200);
+		} else {
+			wp_send_json_error(new WP_Error('Missing param', 'Title missing'), 400);
 		}
 	}
 

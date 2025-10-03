@@ -203,13 +203,13 @@ class Direktt_Ajax
 
 					update_option('direktt_api_key',  $choice);
 
-					// Ovde treba poslati poziv
-
 					$url = 'https://activatechannel-lnkonwpiwa-uc.a.run.app';
 
 					$data = array(
 						'domain' => get_site_url(null, '')
 					);
+
+					// TODO Check if site url is https. If not, should generate error upfront both on dashboard and settings
 
 					$response = wp_remote_post($url, array(
 						'body'    => json_encode($data),
@@ -306,6 +306,9 @@ class Direktt_Ajax
 				$adminSubscription = $subscription['adminSubscription'] == 'true' ?? null;
 				$membershipId         = $subscription['membershipId']        ?? null;
 				$marketingConsentStatus         = $subscription['marketingConsentStatus'] == 'true'  ?? null;
+
+				// TODO Proveriti da li postoji. Ako postoji treba uraditi update tog posta. 
+				// TODO subscriptionId je kriterijum pretrage 
 
 				$this->direktt_api->subscribe_user(
 					$subscriptionId,
