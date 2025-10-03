@@ -9169,7 +9169,8 @@ exports.default = {
         const queryClient = (0, _vueQuery.useQueryClient)();
         const store = (0, _storeJs.useDirekttStore)();
         const nonce = (0, _vue.ref)(direktt_dashboard_object.nonce);
-        const activation_status = (0, _vue.ref)(false);
+        const activation_status = (0, _vue.ref)(null);
+        const channel_data = (0, _vue.ref)(null);
         const { isLoading, isError, isFetching, data, error, refetch } = (0, _vueQuery.useQuery)({
             queryKey: [
                 'direktt-dashboard'
@@ -9195,8 +9196,6 @@ exports.default = {
                 action: "direktt_get_dashboard"
             });
             ret = response.data;
-            //api_key.value = response.data.api_key
-            activation_status.value = response.data.activation_status === 'true';
             return ret;
         }
         function createSubscribeQRCode(channelId, channelTitle) {
@@ -9216,12 +9215,33 @@ exports.default = {
             const newWindow = window.open(url, '_blank', 'noopener,noreferrer');
             if (newWindow) newWindow.opener = null;
         };
+        async function getActivationData(channelId) {
+            const response = await doAjax({
+                action: "direktt_get_activation_data",
+                channel_id: channelId
+            });
+            return response.data; // adjust if response structure is different
+        }
+        (0, _vue.watch)(data, async (val)=>{
+            if (val && val.direktt_channel_id) // Optionally, you could set a "loading" state for activation
+            try {
+                const activationData = await getActivationData(val.direktt_channel_id);
+                if (activationData && activationData.hasOwnProperty("activatedAt") && activationData.hasOwnProperty("domain") && activationData.domain !== "") {
+                    activation_status.value = true;
+                    channel_data.value = activationData;
+                } else activation_status.value = false;
+            } catch (e) {
+                activation_status.value = null // or null/error if you want
+                ;
+            }
+        });
         (0, _vue.onMounted)(()=>{});
         const __returned__ = {
             queryClient,
             store,
             nonce,
             activation_status,
+            channel_data,
             isLoading,
             isError,
             isFetching,
@@ -9232,12 +9252,14 @@ exports.default = {
             getDashboard,
             createSubscribeQRCode,
             openInNewTab,
+            getActivationData,
             get useDirekttStore () {
                 return 0, _storeJs.useDirekttStore;
             },
             onMounted: (0, _vue.onMounted),
             computed: (0, _vue.computed),
             ref: (0, _vue.ref),
+            watch: (0, _vue.watch),
             get useQueryClient () {
                 return 0, _vueQuery.useQueryClient;
             },
@@ -14641,68 +14663,117 @@ const _hoisted_2 = {
 const _hoisted_3 = {
     key: 0
 };
-const _hoisted_4 = /*#__PURE__*/ (0, _vue.createElementVNode)("th", {
-    scope: "row"
-}, [
-    /*#__PURE__*/ (0, _vue.createElementVNode)("label", {
-        for: "blogname"
-    }, "QR Code for subscription:")
-], -1 /* HOISTED */ );
+const _hoisted_4 = {
+    key: 0
+};
 const _hoisted_5 = /*#__PURE__*/ (0, _vue.createElementVNode)("th", {
-    scope: "row"
+    scope: " row"
 }, [
     /*#__PURE__*/ (0, _vue.createElementVNode)("label", {
         for: "blogname"
-    }, "Activation status:")
+    }, "SSL Status:")
 ], -1 /* HOISTED */ );
-const _hoisted_6 = {
-    key: 0
-};
-const _hoisted_7 = {
-    key: 1
-};
+const _hoisted_6 = /*#__PURE__*/ (0, _vue.createElementVNode)("br", null, null, -1 /* HOISTED */ );
+const _hoisted_7 = /*#__PURE__*/ (0, _vue.createElementVNode)("strong", null, "Direktt requires that your site is served via secured https connection", -1 /* HOISTED */ );
 const _hoisted_8 = {
-    key: 0
+    key: 1
 };
 const _hoisted_9 = /*#__PURE__*/ (0, _vue.createElementVNode)("th", {
-    scope: "row"
+    scope: " row"
 }, [
     /*#__PURE__*/ (0, _vue.createElementVNode)("label", {
         for: "blogname"
-    }, "Registered domain:")
+    }, "Channel title:")
 ], -1 /* HOISTED */ );
 const _hoisted_10 = {
-    key: 0
+    key: 2
 };
-const _hoisted_11 = {
-    key: 1
-};
-const _hoisted_12 = /*#__PURE__*/ (0, _vue.createElementVNode)("th", {
+const _hoisted_11 = /*#__PURE__*/ (0, _vue.createElementVNode)("th", {
     scope: "row"
 }, [
     /*#__PURE__*/ (0, _vue.createElementVNode)("label", {
         for: "blogname"
     }, "Channel Id:")
 ], -1 /* HOISTED */ );
-const _hoisted_13 = {
-    key: 0
+const _hoisted_12 = {
+    key: 3
 };
-const _hoisted_14 = {
-    key: 2
-};
-const _hoisted_15 = /*#__PURE__*/ (0, _vue.createElementVNode)("th", {
+const _hoisted_13 = /*#__PURE__*/ (0, _vue.createElementVNode)("th", {
     scope: "row"
 }, [
     /*#__PURE__*/ (0, _vue.createElementVNode)("label", {
         for: "blogname"
-    }, "Channel title:")
+    }, "QR Code for subscription:")
 ], -1 /* HOISTED */ );
+const _hoisted_14 = /*#__PURE__*/ (0, _vue.createElementVNode)("th", {
+    scope: "row"
+}, [
+    /*#__PURE__*/ (0, _vue.createElementVNode)("label", {
+        for: "blogname"
+    }, "Activation status:")
+], -1 /* HOISTED */ );
+const _hoisted_15 = {
+    key: 0
+};
 const _hoisted_16 = {
     key: 0
 };
+const _hoisted_17 = {
+    key: 1
+};
+const _hoisted_18 = /*#__PURE__*/ (0, _vue.createElementVNode)("br", null, null, -1 /* HOISTED */ );
+const _hoisted_19 = /*#__PURE__*/ (0, _vue.createElementVNode)("strong", null, [
+    /*#__PURE__*/ (0, _vue.createTextVNode)("Note: Your WordPress Instance is not activated."),
+    /*#__PURE__*/ (0, _vue.createElementVNode)("br"),
+    /*#__PURE__*/ (0, _vue.createTextVNode)("You should activate your WordPress instance on the Settings Panel.")
+], -1 /* HOISTED */ );
+const _hoisted_20 = {
+    key: 2
+};
+const _hoisted_21 = {
+    key: 1
+};
+const _hoisted_22 = /*#__PURE__*/ (0, _vue.createElementVNode)("br", null, null, -1 /* HOISTED */ );
+const _hoisted_23 = /*#__PURE__*/ (0, _vue.createElementVNode)("strong", null, [
+    /*#__PURE__*/ (0, _vue.createTextVNode)("Note: Your WordPress Instance has not yet been activated."),
+    /*#__PURE__*/ (0, _vue.createElementVNode)("br"),
+    /*#__PURE__*/ (0, _vue.createTextVNode)("You should activate your WordPress instance on the Settings Panel.")
+], -1 /* HOISTED */ );
+const _hoisted_24 = {
+    key: 0
+};
+const _hoisted_25 = /*#__PURE__*/ (0, _vue.createElementVNode)("th", {
+    scope: "row"
+}, [
+    /*#__PURE__*/ (0, _vue.createElementVNode)("label", {
+        for: "blogname"
+    }, "Registered domain:")
+], -1 /* HOISTED */ );
+const _hoisted_26 = {
+    key: 0
+};
+const _hoisted_27 = {
+    key: 1
+};
+const _hoisted_28 = /*#__PURE__*/ (0, _vue.createElementVNode)("th", {
+    scope: "row"
+}, [
+    /*#__PURE__*/ (0, _vue.createElementVNode)("label", {
+        for: "blogname"
+    }, "Number of Subscribers:")
+], -1 /* HOISTED */ );
+const _hoisted_29 = {
+    key: 0
+};
+const _hoisted_30 = {
+    key: 2
+};
+const _hoisted_31 = /*#__PURE__*/ (0, _vue.createElementVNode)("br", null, null, -1 /* HOISTED */ );
+const _hoisted_32 = /*#__PURE__*/ (0, _vue.createElementVNode)("br", null, null, -1 /* HOISTED */ );
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-    const _component_vue_qrcode = (0, _vue.resolveComponent)("vue-qrcode");
     const _component_v_icon = (0, _vue.resolveComponent)("v-icon");
+    const _component_vue_qrcode = (0, _vue.resolveComponent)("vue-qrcode");
+    const _component_v_progress_circular = (0, _vue.resolveComponent)("v-progress-circular");
     const _component_v_card = (0, _vue.resolveComponent)("v-card");
     return (0, _vue.openBlock)(), (0, _vue.createElementBlock)((0, _vue.Fragment), null, [
         _hoisted_1,
@@ -14713,10 +14784,37 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             default: (0, _vue.withCtx)(()=>[
                     (0, _vue.createElementVNode)("table", _hoisted_2, [
                         $setup.data ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)("tbody", _hoisted_3, [
-                            (0, _vue.createElementVNode)("tr", null, [
-                                _hoisted_4,
+                            $setup.data.isSSL !== true ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)("tr", _hoisted_4, [
+                                _hoisted_5,
                                 (0, _vue.createElementVNode)("td", null, [
-                                    (0, _vue.createCommentVNode)("<div>\r\n              <vue-qrcode\r\n                :value=\"'https://direktt.io/?site=' + data.direktt_channel_id + '&name=' + encodeURIComponent(data.direktt_channel_title)\"\r\n                :options=\"{ width: 300 }\"></vue-qrcode>\r\n            </div>"),
+                                    (0, _vue.createElementVNode)("div", null, [
+                                        (0, _vue.createVNode)(_component_v_icon, {
+                                            color: "error",
+                                            icon: "mdi-alert-outline",
+                                            size: "large",
+                                            class: "rm-4"
+                                        }),
+                                        (0, _vue.createTextVNode)(" Your site url in your WordPress' General Settings not set to use https protocol. "),
+                                        _hoisted_6,
+                                        _hoisted_7
+                                    ])
+                                ])
+                            ])) : (0, _vue.createCommentVNode)("v-if", true),
+                            $setup.data.direktt_channel_title != '' ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)("tr", _hoisted_8, [
+                                _hoisted_9,
+                                (0, _vue.createElementVNode)("td", null, [
+                                    (0, _vue.createElementVNode)("div", null, (0, _vue.toDisplayString)($setup.channel_data?.title ? $setup.channel_data.title : $setup.data.direktt_channel_title), 1 /* TEXT */ )
+                                ])
+                            ])) : (0, _vue.createCommentVNode)("v-if", true),
+                            $setup.data.direktt_channel_id != '' ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)("tr", _hoisted_10, [
+                                _hoisted_11,
+                                (0, _vue.createElementVNode)("td", null, [
+                                    (0, _vue.createElementVNode)("div", null, (0, _vue.toDisplayString)($setup.channel_data?.id ? $setup.channel_data.id : $setup.data.direktt_channel_id), 1 /* TEXT */ )
+                                ])
+                            ])) : (0, _vue.createCommentVNode)("v-if", true),
+                            $setup.data.direktt_channel_title != '' && $setup.data.direktt_channel_id != '' ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)("tr", _hoisted_12, [
+                                _hoisted_13,
+                                (0, _vue.createElementVNode)("td", null, [
                                     (0, _vue.createElementVNode)("div", null, [
                                         (0, _vue.createVNode)(_component_vue_qrcode, {
                                             value: $setup.createSubscribeQRCode($setup.data.direktt_channel_id, $setup.data.direktt_channel_title),
@@ -14728,20 +14826,31 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
                                         ])
                                     ])
                                 ])
-                            ]),
+                            ])) : (0, _vue.createCommentVNode)("v-if", true),
                             (0, _vue.createElementVNode)("tr", null, [
-                                _hoisted_5,
-                                (0, _vue.createElementVNode)("td", null, [
-                                    !$setup.activation_status ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)("div", _hoisted_6, [
+                                _hoisted_14,
+                                $setup.data.direktt_channel_title != '' && $setup.data.direktt_channel_id != '' ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)("td", _hoisted_15, [
+                                    $setup.activation_status === null ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)("div", _hoisted_16, [
+                                        (0, _vue.createVNode)(_component_v_progress_circular, {
+                                            size: 30,
+                                            width: 4,
+                                            color: "info",
+                                            indeterminate: ""
+                                        })
+                                    ])) : (0, _vue.createCommentVNode)("v-if", true),
+                                    $setup.activation_status === false ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)("div", _hoisted_17, [
                                         (0, _vue.createVNode)(_component_v_icon, {
                                             color: "error",
                                             icon: "mdi-alert-outline",
                                             size: "large",
                                             class: "rm-4"
                                         }),
-                                        (0, _vue.createTextVNode)(" Not activated ")
+                                        (0, _vue.createTextVNode)(" Not activated "),
+                                        _hoisted_18,
+                                        (0, _vue.createTextVNode)(),
+                                        _hoisted_19
                                     ])) : (0, _vue.createCommentVNode)("v-if", true),
-                                    $setup.activation_status ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)("div", _hoisted_7, [
+                                    $setup.activation_status === true ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)("div", _hoisted_20, [
                                         (0, _vue.createVNode)(_component_v_icon, {
                                             color: "info",
                                             icon: "mdi-check-bold",
@@ -14750,26 +14859,58 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
                                         }),
                                         (0, _vue.createTextVNode)(" Activated ")
                                     ])) : (0, _vue.createCommentVNode)("v-if", true)
-                                ])
+                                ])) : ((0, _vue.openBlock)(), (0, _vue.createElementBlock)("td", _hoisted_21, [
+                                    (0, _vue.createElementVNode)("div", null, [
+                                        (0, _vue.createVNode)(_component_v_icon, {
+                                            color: "error",
+                                            icon: "mdi-alert-outline",
+                                            size: "large",
+                                            class: "rm-4"
+                                        }),
+                                        (0, _vue.createTextVNode)(" Not activated "),
+                                        _hoisted_22,
+                                        (0, _vue.createTextVNode)(),
+                                        _hoisted_23
+                                    ])
+                                ]))
                             ]),
-                            $setup.activation_status ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)("tr", _hoisted_8, [
-                                _hoisted_9,
-                                (0, _vue.createElementVNode)("td", null, [
-                                    $setup.activation_status ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)("div", _hoisted_10, (0, _vue.toDisplayString)($setup.data.direktt_registered_domain), 1 /* TEXT */ )) : (0, _vue.createCommentVNode)("v-if", true)
-                                ])
-                            ])) : (0, _vue.createCommentVNode)("v-if", true),
-                            $setup.activation_status ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)("tr", _hoisted_11, [
-                                _hoisted_12,
-                                (0, _vue.createElementVNode)("td", null, [
-                                    $setup.activation_status ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)("div", _hoisted_13, (0, _vue.toDisplayString)($setup.data.direktt_channel_id), 1 /* TEXT */ )) : (0, _vue.createCommentVNode)("v-if", true)
-                                ])
-                            ])) : (0, _vue.createCommentVNode)("v-if", true),
-                            $setup.activation_status ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)("tr", _hoisted_14, [
-                                _hoisted_15,
-                                (0, _vue.createElementVNode)("td", null, [
-                                    $setup.activation_status ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)("div", _hoisted_16, (0, _vue.toDisplayString)($setup.data.direktt_channel_title), 1 /* TEXT */ )) : (0, _vue.createCommentVNode)("v-if", true)
-                                ])
-                            ])) : (0, _vue.createCommentVNode)("v-if", true)
+                            $setup.data.direktt_channel_title != '' && $setup.data.direktt_channel_id != '' ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)((0, _vue.Fragment), {
+                                key: 4
+                            }, [
+                                $setup.activation_status ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)("tr", _hoisted_24, [
+                                    _hoisted_25,
+                                    (0, _vue.createElementVNode)("td", null, [
+                                        $setup.activation_status ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)("div", _hoisted_26, (0, _vue.toDisplayString)($setup.channel_data.domain), 1 /* TEXT */ )) : (0, _vue.createCommentVNode)("v-if", true)
+                                    ])
+                                ])) : (0, _vue.createCommentVNode)("v-if", true),
+                                $setup.activation_status ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)("tr", _hoisted_27, [
+                                    _hoisted_28,
+                                    (0, _vue.createElementVNode)("td", null, [
+                                        $setup.activation_status ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)("div", _hoisted_29, [
+                                            $setup.channel_data.count == $setup.channel_data.localCount ? ((0, _vue.openBlock)(), (0, _vue.createBlock)(_component_v_icon, {
+                                                key: 0,
+                                                color: "info",
+                                                icon: "mdi-check-bold",
+                                                size: "large",
+                                                class: "rm-4"
+                                            })) : ((0, _vue.openBlock)(), (0, _vue.createBlock)(_component_v_icon, {
+                                                key: 1,
+                                                color: "error",
+                                                icon: "mdi-alert-outline",
+                                                size: "large",
+                                                class: "rm-4"
+                                            })),
+                                            (0, _vue.createTextVNode)(" Direktt API: " + (0, _vue.toDisplayString)($setup.channel_data.count) + " / WordPress: " + (0, _vue.toDisplayString)($setup.channel_data.localCount) + " ", 1 /* TEXT */ ),
+                                            $setup.channel_data.count != $setup.channel_data.localCount ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)("strong", _hoisted_30, [
+                                                _hoisted_31,
+                                                (0, _vue.createTextVNode)("Note: Number of Subscribers in your local database and Direktt API do not match."),
+                                                _hoisted_32,
+                                                (0, _vue.createTextVNode)("You should synchronize the Direktt Users' database on Settings Panel.")
+                                            ])) : (0, _vue.createCommentVNode)("v-if", true)
+                                        ])) : (0, _vue.createCommentVNode)("v-if", true)
+                                    ])
+                                ])) : (0, _vue.createCommentVNode)("v-if", true)
+                            ], 64 /* STABLE_FRAGMENT */ )) : (0, _vue.createCommentVNode)("v-if", true)
                         ])) : (0, _vue.createCommentVNode)("v-if", true)
                     ])
                 ]),

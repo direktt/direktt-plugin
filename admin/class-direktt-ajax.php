@@ -117,13 +117,83 @@ class Direktt_Ajax
 		}
 
 		$data = array(
-			'activation_status' => get_option('direktt_activation_status') ? esc_attr(get_option('direktt_activation_status')) : 'false',
-			'direktt_registered_domain' => get_option('direktt_registered_domain') ? esc_attr(get_option('direktt_registered_domain')) : '',
 			'direktt_channel_title' => get_option('direktt_channel_title') ? esc_attr(get_option('direktt_channel_title')) : '',
-			'direktt_channel_id' => get_option('direktt_channel_id') ? esc_attr(get_option('direktt_channel_id')) : ''
+			'direktt_channel_id' => get_option('direktt_channel_id') ? esc_attr(get_option('direktt_channel_id')) : '',
+			'isSSL' => stripos(get_site_url(), 'https://') === 0
 		);
 
 		wp_send_json_success($data, 200);
+	}
+
+	public function ajax_get_activation_data()
+	{
+		if (!current_user_can('manage_options')) {
+			wp_send_json_error(new WP_Error('Unauthorized', 'Access to API is unauthorized.'), 401);
+			return;
+		}
+
+		$api_key = get_option('direktt_api_key') ? esc_attr(get_option('direktt_api_key')) : '';
+
+		$url = 'https://getDataForChannel-lnkonwpiwa-uc.a.run.app';
+
+		$data = array();
+
+		$response = wp_remote_post($url, array(
+			'body'    => json_encode($data),
+			'timeout'     => 30,
+			'headers' => array(
+				'Authorization' => 'Bearer ' . $api_key,
+				'Content-type' => 'application/json',
+			),
+		));
+
+		if (is_wp_error($response)) {
+			return;
+		}
+
+		$body = wp_remote_retrieve_body($response);
+		$data = json_decode($body, true);
+
+		if (isset($data['success']) && $data['success'] && !empty($data['data'])) {
+
+			$id = $data['data']['id'] ?? null;
+			$title = $data['data']['title'] ?? null;
+			$domain = $data['data']['domain'] ?? null;
+			$activatedAt = $data['data']['activatedAt'] ?? null;
+			$image = $data['data']['image'] ?? null;
+			$color = $data['data']['color'] ?? null;
+			$handle = $data['data']['handle'] ?? null;
+			$defaultSubscriptionUid = $data['data']['defaultSubscriptionUid'] ?? null;
+			$count = $data['data']['count'] ?? null;
+
+			if (!is_null($domain) && !is_null($activatedAt)) {
+				$existing_title = get_option('direktt_channel_title');
+				if (!is_null($title) && $title !== $existing_title) {
+					update_option('direktt_channel_title', $title);
+				}
+
+				$existing_id = get_option('direktt_channel_id');
+				if (!is_null($id) && $id !== $existing_id) {
+					update_option('direktt_channel_id', $id);
+				}
+			}
+		}
+
+		$localPostCount = wp_count_posts('direkttusers');
+		$localCount = intval($localPostCount->publish);
+
+
+		$ret_data = array(
+			'localCount' => $localCount
+		);
+
+		if (!is_null($activatedAt)) $ret_data['activatedAt'] = $activatedAt;
+		if (!is_null($domain)) $ret_data['domain'] = $domain;
+		if (!is_null($count)) $ret_data['count'] = $count;
+		if (!is_null($title)) $ret_data['title'] = $title;
+		if (!is_null($id)) $ret_data['id'] = $id;
+
+		wp_send_json_success($ret_data, 200);
 	}
 
 	public function ajax_get_marketing_consent()
