@@ -75,6 +75,7 @@ watch(data, async (val) => {
   if (val && val.direktt_channel_id) {
     // Optionally, you could set a "loading" state for activation
     try {
+      activation_status.value = null
       const activationData = await getActivationData(val.direktt_channel_id)
       if (activationData && activationData.hasOwnProperty("activatedAt") && activationData.hasOwnProperty("domain") && activationData.domain !== "") {
         activation_status.value = true
@@ -188,14 +189,12 @@ onMounted(() => {
             <th scope="row"><label for="blogname">Number of Subscribers:</label></th>
             <td>
               <div v-if="activation_status">
-                <v-icon color="info" icon="mdi-check-bold" size="large" class='rm-4'
-                  v-if="channel_data.count == channel_data.localCount"></v-icon>
                 <v-icon color="error" icon="mdi-alert-outline" size="large" class='rm-4'
-                  v-else="channel_data.count == channel_data.localCount"></v-icon>
+                  v-if="channel_data.count != channel_data.localCount"></v-icon>
                 Direktt API: {{ channel_data.count }} / WordPress: {{ channel_data.localCount }}
-                <strong v-if="channel_data.count != channel_data.localCount"><br></br>Note: Number of Subscribers in
+                <strong v-if="channel_data.count != channel_data.localCount"><br></br>Number of Subscribers in
                   your
-                  local database and Direktt API do not match.<br></br>You should synchronize the Direktt Users'
+                  local database and Direktt API do not match.<br></br>You should synchronize the Subscribers'
                   database
                   on Settings Panel.</strong>
               </div>

@@ -175,67 +175,109 @@ class Direktt_Api
 
 	public function subscribe_user($direktt_user_id, $direktt_user_title = null, $direktt_user_avatar_url = null, $direktt_admin_subscription = null, $direktt_membership_id = null, $direktt_marketing_consent_status = null, $silent = false)
 	{
-		$usr_title = $direktt_user_id;
+		// STEP 1: Check if Direktt User already exists (by meta)
+		$existing_query = new WP_Query(array(
+			'post_type'      => 'direkttusers',
+			'meta_key'       => 'direktt_user_id',
+			'meta_value'     => $direktt_user_id,
+			'post_status'    => array('publish', 'draft', 'pending', 'private', 'future', 'trash'),
+			'fields'         => 'ids',
+			'posts_per_page' => 1,
+		));
 
+		$usr_title = $direktt_user_id;
 		if (!is_null($direktt_user_title) && $direktt_user_title != '') {
 			$usr_title = $direktt_user_title;
 		}
-
-		$meta_input = array(
-			'direktt_user_id'	=> $direktt_user_id,
-		);
-
-		if (!is_null($direktt_user_avatar_url) && $direktt_user_avatar_url != '') {
-			$meta_input['direktt_avatar_url'] = $direktt_user_avatar_url;
-		}
-
 		if (!is_null($direktt_admin_subscription) && $direktt_admin_subscription != '') {
-			$meta_input['direktt_admin_subscription'] = $direktt_admin_subscription;
 			if ($direktt_admin_subscription) {
 				$usr_title = "Channel Admin";
 			}
 		}
 
+		$meta_input = array(
+			'direktt_user_id' => $direktt_user_id,
+		);
+		if (!is_null($direktt_user_avatar_url) && $direktt_user_avatar_url != '') {
+			$meta_input['direktt_avatar_url'] = $direktt_user_avatar_url;
+		}
+		if (!is_null($direktt_admin_subscription) && $direktt_admin_subscription != '') {
+			$meta_input['direktt_admin_subscription'] = $direktt_admin_subscription;
+		}
 		if (!is_null($direktt_membership_id) && $direktt_membership_id != '') {
 			$meta_input['direktt_membership_id'] = $direktt_membership_id;
 		}
-
 		if (!is_null($direktt_marketing_consent_status) && $direktt_marketing_consent_status != '') {
 			$meta_input['direktt_marketing_consent_status'] = $direktt_marketing_consent_status;
 		}
 
+		// STEP 2: If exists, update it
+		if ($existing_query->have_posts()) {
+			$post_id = $existing_query->posts[0];
+
+			// Get old status for comparison
+			$cur_status = get_post_status($post_id);
+
+			// Prepare update array
+			$post_arr = array(
+				'ID'          => $post_id,
+				'post_title'  => $usr_title
+			);
+
+			// If trashed or not published, publish it!
+			if ($cur_status !== 'publish') {
+				$post_arr['post_status'] = 'publish';
+			}
+
+			// Update post title/status if needed
+			wp_update_post($post_arr);
+
+			// Update meta fields
+			foreach ($meta_input as $meta_key => $meta_value) {
+				update_post_meta($post_id, $meta_key, $meta_value);
+			}
+
+			// Trigger action
+			do_action('direktt/user/subscribe', $direktt_user_id);
+
+			// Insert event if not silent
+			if (!$silent) {
+				Direktt_Event::insert_event(array(
+					"direktt_user_id" => $direktt_user_id,
+					"event_target"    => "user",
+					"event_type"      => "subscribe"
+				));
+			}
+			return $post_id;
+		}
+
+		// STEP 3: Else, proceed with current creation logic
 		$post_arr = array(
-			'post_type'		=>	'direkttusers',
-			'post_title'   	=> 	$usr_title,
-			'post_status'  	=> 	'publish',
-			'meta_input'	=>	$meta_input,
+			'post_type'   => 'direkttusers',
+			'post_title'  => $usr_title,
+			'post_status' => 'publish',
+			'meta_input'  => $meta_input,
 		);
-
 		$wp_error = false;
-
 		$post_id = wp_insert_post($post_arr, $wp_error);
 
 		if ($wp_error) {
 			return $wp_error;
 		} else {
-
 			$wp_user_id = $this->create_wp_direktt_user($post_id);
 			if (is_wp_error($wp_user_id)) {
 				return $wp_user_id;
 			}
 
+			do_action('direktt/user/subscribe', $direktt_user_id);
+
 			if (!$silent) {
-				do_action('direktt/user/subscribe', $direktt_user_id);
-
-				Direktt_Event::insert_event(
-					array(
-						"direktt_user_id" => $direktt_user_id,
-						"event_target" => "user",
-						"event_type" => "subscribe"
-					)
-				);
+				Direktt_Event::insert_event(array(
+					"direktt_user_id" => $direktt_user_id,
+					"event_target"    => "user",
+					"event_type"      => "subscribe"
+				));
 			}
-
 			return $post_id;
 		}
 	}
@@ -417,14 +459,15 @@ class Direktt_Api
 		}
 	}
 
-	private function unsubscribe_user($direktt_user_id)
+	public function unsubscribe_user($direktt_user_id)
 	{
 		$user = Direktt_User::get_user_by_subscription_id($direktt_user_id);
 
 		if ($user) {
 
 			$this->delete_wp_direktt_user($user['ID']);
-			wp_trash_post($user['ID']);
+			//wp_trash_post($user['ID']);
+			wp_delete_post($user['ID'], true);
 
 			Direktt_Event::insert_event(
 				array(

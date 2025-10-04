@@ -483,7 +483,7 @@ class Direktt_Admin
 		} else {
 			foreach (Direktt::$settings_array as $item) {
 				if (isset($item['id']) && $active_tab == $item['id']) {
-					echo ('<h2>' .  esc_html__($item['label']) . '</h2>');
+					// echo ('<h2>' .  esc_html__($item['label']) . '</h2>');
 					call_user_func($item['callback']);
 				}
 			}

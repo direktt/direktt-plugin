@@ -9225,6 +9225,7 @@ exports.default = {
         (0, _vue.watch)(data, async (val)=>{
             if (val && val.direktt_channel_id) // Optionally, you could set a "loading" state for activation
             try {
+                activation_status.value = null;
                 const activationData = await getActivationData(val.direktt_channel_id);
                 if (activationData && activationData.hasOwnProperty("activatedAt") && activationData.hasOwnProperty("domain") && activationData.domain !== "") {
                     activation_status.value = true;
@@ -14766,7 +14767,7 @@ const _hoisted_29 = {
     key: 0
 };
 const _hoisted_30 = {
-    key: 2
+    key: 1
 };
 const _hoisted_31 = /*#__PURE__*/ (0, _vue.createElementVNode)("br", null, null, -1 /* HOISTED */ );
 const _hoisted_32 = /*#__PURE__*/ (0, _vue.createElementVNode)("br", null, null, -1 /* HOISTED */ );
@@ -14887,25 +14888,19 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
                                     _hoisted_28,
                                     (0, _vue.createElementVNode)("td", null, [
                                         $setup.activation_status ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)("div", _hoisted_29, [
-                                            $setup.channel_data.count == $setup.channel_data.localCount ? ((0, _vue.openBlock)(), (0, _vue.createBlock)(_component_v_icon, {
+                                            $setup.channel_data.count != $setup.channel_data.localCount ? ((0, _vue.openBlock)(), (0, _vue.createBlock)(_component_v_icon, {
                                                 key: 0,
-                                                color: "info",
-                                                icon: "mdi-check-bold",
-                                                size: "large",
-                                                class: "rm-4"
-                                            })) : ((0, _vue.openBlock)(), (0, _vue.createBlock)(_component_v_icon, {
-                                                key: 1,
                                                 color: "error",
                                                 icon: "mdi-alert-outline",
                                                 size: "large",
                                                 class: "rm-4"
-                                            })),
+                                            })) : (0, _vue.createCommentVNode)("v-if", true),
                                             (0, _vue.createTextVNode)(" Direktt API: " + (0, _vue.toDisplayString)($setup.channel_data.count) + " / WordPress: " + (0, _vue.toDisplayString)($setup.channel_data.localCount) + " ", 1 /* TEXT */ ),
                                             $setup.channel_data.count != $setup.channel_data.localCount ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)("strong", _hoisted_30, [
                                                 _hoisted_31,
-                                                (0, _vue.createTextVNode)("Note: Number of Subscribers in your local database and Direktt API do not match."),
+                                                (0, _vue.createTextVNode)("Number of Subscribers in your local database and Direktt API do not match."),
                                                 _hoisted_32,
-                                                (0, _vue.createTextVNode)("You should synchronize the Direktt Users' database on Settings Panel.")
+                                                (0, _vue.createTextVNode)("You should synchronize the Subscribers' database on Settings Panel.")
                                             ])) : (0, _vue.createCommentVNode)("v-if", true)
                                         ])) : (0, _vue.createCommentVNode)("v-if", true)
                                     ])

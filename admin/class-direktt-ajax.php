@@ -95,12 +95,13 @@ class Direktt_Ajax
 
 		$data = array(
 			'api_key' => get_option('direktt_api_key') ? esc_attr(get_option('direktt_api_key')) : '',
-			'activation_status' => get_option('direktt_activation_status') ? esc_attr(get_option('direktt_activation_status')) : 'false',
-			'direktt_registered_domain' => get_option('direktt_registered_domain') ? esc_attr(get_option('direktt_registered_domain')) : '',
 			'direktt_channel_title' => get_option('direktt_channel_title') ? esc_attr(get_option('direktt_channel_title')) : '',
 			'direktt_channel_id' => get_option('direktt_channel_id') ? esc_attr(get_option('direktt_channel_id')) : '',
+			'forceReload' => rand(1, 100000),
 
+			'isSSL' => stripos(get_site_url(), 'https://') === 0,
 			'redirect_url' => get_option('unauthorized_redirect_url') ? esc_attr(get_option('unauthorized_redirect_url')) : '',
+
 			'pairing_prefix' => get_option('direktt_pairing_prefix') ? esc_attr(get_option('direktt_pairing_prefix')) : '',
 			'pairing_succ_template' => get_option('direktt_pairing_succ_template') ? esc_attr(get_option('direktt_pairing_succ_template')) : '',
 			'templates' => $templates
@@ -119,7 +120,8 @@ class Direktt_Ajax
 		$data = array(
 			'direktt_channel_title' => get_option('direktt_channel_title') ? esc_attr(get_option('direktt_channel_title')) : '',
 			'direktt_channel_id' => get_option('direktt_channel_id') ? esc_attr(get_option('direktt_channel_id')) : '',
-			'isSSL' => stripos(get_site_url(), 'https://') === 0
+			'isSSL' => stripos(get_site_url(), 'https://') === 0,
+			'forceReload' => rand(1, 100000)
 		);
 
 		wp_send_json_success($data, 200);
@@ -254,6 +256,8 @@ class Direktt_Ajax
 
 		$url_choice = (isset($_POST['redirect_url'])) ? sanitize_text_field($_POST['redirect_url']) : false;
 
+		$activation_status = filter_var($_POST['activation_status'], FILTER_VALIDATE_BOOLEAN);
+
 		$pairing_prefix = (isset($_POST['pairing_prefix'])) ? sanitize_text_field($_POST['pairing_prefix']) : false;
 
 		$pairing_succ_template = (isset($_POST['pairing_succ_template'])) ? sanitize_text_field($_POST['pairing_succ_template']) : false;
@@ -269,7 +273,7 @@ class Direktt_Ajax
 
 				$current_api = get_option('direktt_api_key');
 
-				if ($current_api != $choice) {
+				if ($current_api != $choice || !$activation_status) {
 
 					update_option('direktt_api_key',  $choice);
 
@@ -278,8 +282,6 @@ class Direktt_Ajax
 					$data = array(
 						'domain' => get_site_url(null, '')
 					);
-
-					// TODO Check if site url is https. If not, should generate error upfront both on dashboard and settings
 
 					$response = wp_remote_post($url, array(
 						'body'    => json_encode($data),
@@ -297,23 +299,12 @@ class Direktt_Ajax
 
 					if ($response['response']['code'] != '200' && $response['response']['code'] != '201') {
 
-						delete_option('direktt_activation_status');
-
 						wp_send_json_error(new WP_Error('Unauthorized', 'API Key validation failed'), 401);
 						return;
-					}
-
-					update_option('direktt_activation_status', 'true');
-
-					// ovde treba da ide poziv za dovlacenje subscription-a
-
-					if (!$this->has_published_direkttusers_posts()) {
-						$this->get_all_existing_subscriptions();
 					}
 				}
 			} else {
 				delete_option('direktt_api_key');
-				delete_option('direktt_activation_status');
 			}
 
 			if ($url_choice) {
@@ -338,6 +329,25 @@ class Direktt_Ajax
 				$this->delete_user_meta_for_all_users('direktt_user_pair_code');
 			}
 		}
+
+		$data = array();
+		wp_send_json_success($data, 200);
+	}
+
+	public function ajax_sync_users()
+	{
+		if (!current_user_can('manage_options')) {
+			wp_send_json_error(new WP_Error('Unauthorized', 'Access to API is unauthorized.'), 401);
+			return;
+		}
+
+		if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], $this->plugin_name . '-settings')) {
+
+			wp_send_json_error(new WP_Error('Unauthorized', 'Nonce is not valid'), 401);
+			exit;
+		}
+
+		$this->get_all_existing_subscriptions();
 
 		$data = array();
 		wp_send_json_success($data, 200);
@@ -368,6 +378,43 @@ class Direktt_Ajax
 		$body = wp_remote_retrieve_body($response);
 		$data = json_decode($body, true);
 
+		// Clean up unsubscribed users
+		$args = array(
+			'post_type'      => 'direkttusers',
+			'posts_per_page' => -1,
+			'post_status'    => array('publish', 'draft', 'pending', 'private', 'future'),
+			'fields'         => 'ids'
+		);
+		$user_query = new WP_Query($args);
+
+		$local_user_ids = array();
+		if ($user_query->have_posts()) {
+			foreach ($user_query->posts as $post_id) {
+				$user_id = get_post_meta($post_id, 'direktt_user_id', true);
+				if ($user_id) {
+					$local_user_ids[] = $user_id;
+				}
+			}
+		}
+
+		// Build array of remote user IDs from API
+		$remote_user_ids = array();
+		if (isset($data['subscriptions']) && is_array($data['subscriptions'])) {
+			foreach ($data['subscriptions'] as $subscription) {
+				$subscriptionId = $subscription['subscriptionId'] ?? null;
+				if ($subscriptionId) {
+					$remote_user_ids[] = $subscriptionId;
+				}
+			}
+		}
+
+		// Unsubscribe users not present remotely
+		$to_unsubscribe = array_diff($local_user_ids, $remote_user_ids);
+		foreach ($to_unsubscribe as $direktt_user_id) {
+			$this->direktt_api->unsubscribe_user($direktt_user_id);
+		}
+		// --- END NEW CODE ---
+
 		if (isset($data['success']) && $data['success'] && !empty($data['subscriptions'])) {
 			foreach ($data['subscriptions'] as $subscription) {
 				$subscriptionId    = $subscription['subscriptionId']   ?? null;
@@ -376,9 +423,6 @@ class Direktt_Ajax
 				$adminSubscription = $subscription['adminSubscription'] == 'true' ?? null;
 				$membershipId         = $subscription['membershipId']        ?? null;
 				$marketingConsentStatus         = $subscription['marketingConsentStatus'] == 'true'  ?? null;
-
-				// TODO Proveriti da li postoji. Ako postoji treba uraditi update tog posta. 
-				// TODO subscriptionId je kriterijum pretrage 
 
 				$this->direktt_api->subscribe_user(
 					$subscriptionId,
