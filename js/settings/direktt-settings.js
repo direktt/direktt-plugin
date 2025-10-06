@@ -9159,6 +9159,7 @@ var _storeJs = require("./store.js");
 var _vue = require("vue");
 var _vueQuery = require("@tanstack/vue-query");
 const snack_succ_text = 'Settings Saved';
+// Sync progress bar controles
 exports.default = {
     __name: 'App',
     setup (__props, { expose: __expose }) {
@@ -9180,11 +9181,18 @@ exports.default = {
         const snackbar = (0, _vue.ref)(false);
         const snackbar_color = (0, _vue.ref)('success');
         const snackbar_text = (0, _vue.ref)(snack_succ_text);
+        const syncing = (0, _vue.ref)(false);
+        const sync_progress = (0, _vue.ref)(0);
+        const sync_total = (0, _vue.ref)(1);
+        const sync_current = (0, _vue.ref)(0);
+        const sync_bar_visible = (0, _vue.ref)(false);
+        const sync_message = (0, _vue.ref)('');
         const { isLoading, isError, isFetching, data, error, refetch } = (0, _vueQuery.useQuery)({
             queryKey: [
                 'direktt-settings'
             ],
-            queryFn: getSettings
+            queryFn: getSettings,
+            refetchOnWindowFocus: false
         });
         const mutation = (0, _vueQuery.useMutation)({
             mutationFn: saveSettings,
@@ -9254,28 +9262,56 @@ exports.default = {
             reset_pairings.value = false;
         }
         async function clickSyncUsers() {
-            let response;
-            let obj = {};
-            sync_loading.value = true;
-            obj.action = "direktt_sync_users";
-            obj.nonce = nonce.value;
+            sync_bar_visible.value = true;
+            sync_progress.value = 0;
+            sync_current.value = 0;
+            sync_total.value = 1;
+            syncing.value = true;
+            sync_message.value = "Preparing to sync...";
+            let offset = 0;
+            const batchSize = 5;
             try {
-                response = await doAjax(obj);
+                let finished = false;
+                while(!finished){
+                    let response = await doAjax({
+                        action: 'direktt_sync_users',
+                        nonce: nonce.value,
+                        offset: offset,
+                        batch_size: batchSize
+                    });
+                    if (response.success) {
+                        const resp = response.data;
+                        sync_total.value = resp.total > 0 ? resp.total : 1;
+                        sync_current.value = resp.current ?? 0;
+                        sync_progress.value = sync_current.value / sync_total.value * 100;
+                        // Optionally show per-batch user details
+                        if (resp.details && Array.isArray(resp.details) && resp.details.length) sync_message.value = `Processing: ${resp.details.join(', ')}`;
+                        else sync_message.value = `Syncing: ${sync_current.value} / ${sync_total.value}`;
+                        finished = resp.finished;
+                        offset = sync_current.value;
+                    } else throw response;
+                    sync_message.value = `Syncing users... (${sync_current.value} / ${sync_total.value})`;
+                }
+                sync_message.value = "Subscribers' Database Successfully Synced";
                 snackbar_color.value = 'success';
-                snackbar_text.value = "Subscribers' Database Successfully Synced";
+                snackbar_text.value = sync_message.value;
                 snackbar.value = true;
+                queryClient.invalidateQueries({
+                    queryKey: [
+                        'direktt-settings'
+                    ]
+                });
             } catch (error) {
+                let errMsg = error?.responseJSON?.data?.[0]?.message || "An error occurred";
                 snackbar_color.value = 'error';
-                snackbar_text.value = error.responseJSON.data[0].message;
+                snackbar_text.value = errMsg;
                 snackbar.value = true;
+                sync_message.value = "Error during syncing.";
             }
-            console.log(response);
-            sync_loading.value = false;
-            queryClient.invalidateQueries({
-                queryKey: [
-                    'direktt-settings'
-                ]
-            });
+            syncing.value = false;
+            setTimeout(()=>{
+                sync_bar_visible.value = false;
+            }, 1000);
         }
         async function saveSettings(obj) {
             obj.action = "direktt_save_settings";
@@ -9328,6 +9364,12 @@ exports.default = {
             snackbar_color,
             snackbar_text,
             snack_succ_text,
+            syncing,
+            sync_progress,
+            sync_total,
+            sync_current,
+            sync_bar_visible,
+            sync_message,
             isLoading,
             isError,
             isFetching,
@@ -14861,57 +14903,63 @@ const _hoisted_31 = {
 const _hoisted_32 = /*#__PURE__*/ (0, _vue.createElementVNode)("th", {
     scope: "row"
 }, null, -1 /* HOISTED */ );
-const _hoisted_33 = /*#__PURE__*/ (0, _vue.createElementVNode)("p", null, null, -1 /* HOISTED */ );
+const _hoisted_33 = {
+    style: {
+        "color": "#fff"
+    }
+};
 const _hoisted_34 = /*#__PURE__*/ (0, _vue.createElementVNode)("p", null, null, -1 /* HOISTED */ );
-const _hoisted_35 = {
+const _hoisted_35 = /*#__PURE__*/ (0, _vue.createElementVNode)("p", null, null, -1 /* HOISTED */ );
+const _hoisted_36 = {
     class: "form-table",
     role: "presentation"
 };
-const _hoisted_36 = {
+const _hoisted_37 = {
     key: 0
 };
-const _hoisted_37 = /*#__PURE__*/ (0, _vue.createElementVNode)("th", {
+const _hoisted_38 = /*#__PURE__*/ (0, _vue.createElementVNode)("th", {
     scope: "row"
 }, [
     /*#__PURE__*/ (0, _vue.createElementVNode)("label", {
         for: "blogname"
     }, "Optional redirect url upon unaturhorized access")
 ], -1 /* HOISTED */ );
-const _hoisted_38 = /*#__PURE__*/ (0, _vue.createElementVNode)("p", null, null, -1 /* HOISTED */ );
 const _hoisted_39 = /*#__PURE__*/ (0, _vue.createElementVNode)("p", null, null, -1 /* HOISTED */ );
-const _hoisted_40 = {
+const _hoisted_40 = /*#__PURE__*/ (0, _vue.createElementVNode)("p", null, null, -1 /* HOISTED */ );
+const _hoisted_41 = {
     class: "form-table",
     role: "presentation"
 };
-const _hoisted_41 = {
+const _hoisted_42 = {
     key: 0
 };
-const _hoisted_42 = /*#__PURE__*/ (0, _vue.createElementVNode)("th", {
+const _hoisted_43 = /*#__PURE__*/ (0, _vue.createElementVNode)("th", {
     scope: "row"
 }, [
     /*#__PURE__*/ (0, _vue.createElementVNode)("label", {
         for: "pairing_prefix"
     }, "Prefix for pairing message")
 ], -1 /* HOISTED */ );
-const _hoisted_43 = /*#__PURE__*/ (0, _vue.createElementVNode)("th", {
+const _hoisted_44 = /*#__PURE__*/ (0, _vue.createElementVNode)("th", {
     scope: "row"
 }, [
     /*#__PURE__*/ (0, _vue.createElementVNode)("label", {
         for: "blogname"
     }, "Message template for successful pairing (you can use placeholder #wp_user# in the template to display WP username just paired with)")
 ], -1 /* HOISTED */ );
-const _hoisted_44 = /*#__PURE__*/ (0, _vue.createElementVNode)("th", {
+const _hoisted_45 = /*#__PURE__*/ (0, _vue.createElementVNode)("th", {
     scope: "row"
 }, [
     /*#__PURE__*/ (0, _vue.createElementVNode)("label", {
         for: "blogname"
     }, "Reset all pairing codes (Check this box if you want to do so)")
 ], -1 /* HOISTED */ );
-const _hoisted_45 = /*#__PURE__*/ (0, _vue.createElementVNode)("p", null, null, -1 /* HOISTED */ );
+const _hoisted_46 = /*#__PURE__*/ (0, _vue.createElementVNode)("p", null, null, -1 /* HOISTED */ );
 function render(_ctx, _cache, $props, $setup, $data, $options) {
     const _component_v_icon = (0, _vue.resolveComponent)("v-icon");
     const _component_v_progress_circular = (0, _vue.resolveComponent)("v-progress-circular");
     const _component_v_btn = (0, _vue.resolveComponent)("v-btn");
+    const _component_v_progress_linear = (0, _vue.resolveComponent)("v-progress-linear");
     const _component_v_divider = (0, _vue.resolveComponent)("v-divider");
     const _component_v_select = (0, _vue.resolveComponent)("v-select");
     const _component_v_snackbar = (0, _vue.resolveComponent)("v-snackbar");
@@ -15054,15 +15102,34 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
                                         class: "text-none text-caption",
                                         color: "info",
                                         onClick: $setup.clickSyncUsers,
-                                        loading: $setup.sync_loading
+                                        loading: $setup.syncing,
+                                        disabled: $setup.syncing
                                     }, {
                                         default: (0, _vue.withCtx)(()=>[
                                                 (0, _vue.createTextVNode)(" Sync Subscribers' Database ")
                                             ]),
                                         _: 1 /* STABLE */ 
                                     }, 8 /* PROPS */ , [
-                                        "loading"
-                                    ])
+                                        "loading",
+                                        "disabled"
+                                    ]),
+                                    $setup.sync_bar_visible ? ((0, _vue.openBlock)(), (0, _vue.createBlock)(_component_v_progress_linear, {
+                                        key: 0,
+                                        value: $setup.sync_progress,
+                                        color: "info",
+                                        height: "24",
+                                        striped: "",
+                                        active: $setup.syncing,
+                                        class: "my-4"
+                                    }, {
+                                        default: (0, _vue.withCtx)(()=>[
+                                                (0, _vue.createElementVNode)("strong", _hoisted_33, (0, _vue.toDisplayString)($setup.sync_message), 1 /* TEXT */ )
+                                            ]),
+                                        _: 1 /* STABLE */ 
+                                    }, 8 /* PROPS */ , [
+                                        "value",
+                                        "active"
+                                    ])) : (0, _vue.createCommentVNode)("v-if", true)
                                 ])
                             ])) : (0, _vue.createCommentVNode)("v-if", true)
                         ], 64 /* STABLE_FRAGMENT */ )) : (0, _vue.createCommentVNode)("v-if", true)
@@ -15071,15 +15138,15 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
                 $setup.data && $setup.data.direktt_channel_title != '' && $setup.data.direktt_channel_id != '' && $setup.activation_status ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)((0, _vue.Fragment), {
                     key: 0
                 }, [
-                    _hoisted_33,
+                    _hoisted_34,
                     (0, _vue.createVNode)(_component_v_divider, {
                         class: "border-opacity-100"
                     }),
-                    _hoisted_34,
-                    (0, _vue.createElementVNode)("table", _hoisted_35, [
-                        $setup.data ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)("tbody", _hoisted_36, [
+                    _hoisted_35,
+                    (0, _vue.createElementVNode)("table", _hoisted_36, [
+                        $setup.data ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)("tbody", _hoisted_37, [
                             (0, _vue.createElementVNode)("tr", null, [
-                                _hoisted_37,
+                                _hoisted_38,
                                 (0, _vue.createElementVNode)("td", null, [
                                     (0, _vue.withDirectives)((0, _vue.createElementVNode)("input", {
                                         type: "text",
@@ -15099,66 +15166,70 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
                         ])) : (0, _vue.createCommentVNode)("v-if", true)
                     ])
                 ], 64 /* STABLE_FRAGMENT */ )) : (0, _vue.createCommentVNode)("v-if", true),
-                _hoisted_38,
-                (0, _vue.createVNode)(_component_v_divider, {
-                    class: "border-opacity-100"
-                }),
-                _hoisted_39,
-                (0, _vue.createElementVNode)("table", _hoisted_40, [
-                    $setup.data ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)("tbody", _hoisted_41, [
-                        (0, _vue.createElementVNode)("tr", null, [
-                            _hoisted_42,
-                            (0, _vue.createElementVNode)("td", null, [
-                                (0, _vue.withDirectives)((0, _vue.createElementVNode)("input", {
-                                    type: "text",
-                                    name: "pairing_prefix",
-                                    id: "pairing_prefix",
-                                    size: "50",
-                                    placeholder: "pair",
-                                    "onUpdate:modelValue": _cache[2] || (_cache[2] = ($event)=>$setup.pairing_prefix = $event)
-                                }, null, 512 /* NEED_PATCH */ ), [
-                                    [
-                                        (0, _vue.vModelText),
-                                        $setup.pairing_prefix
-                                    ]
+                $setup.data && $setup.data.direktt_channel_title != '' && $setup.data.direktt_channel_id != '' && $setup.activation_status ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)((0, _vue.Fragment), {
+                    key: 1
+                }, [
+                    _hoisted_39,
+                    (0, _vue.createVNode)(_component_v_divider, {
+                        class: "border-opacity-100"
+                    }),
+                    _hoisted_40,
+                    (0, _vue.createElementVNode)("table", _hoisted_41, [
+                        $setup.data ? ((0, _vue.openBlock)(), (0, _vue.createElementBlock)("tbody", _hoisted_42, [
+                            (0, _vue.createElementVNode)("tr", null, [
+                                _hoisted_43,
+                                (0, _vue.createElementVNode)("td", null, [
+                                    (0, _vue.withDirectives)((0, _vue.createElementVNode)("input", {
+                                        type: "text",
+                                        name: "pairing_prefix",
+                                        id: "pairing_prefix",
+                                        size: "50",
+                                        placeholder: "pair",
+                                        "onUpdate:modelValue": _cache[2] || (_cache[2] = ($event)=>$setup.pairing_prefix = $event)
+                                    }, null, 512 /* NEED_PATCH */ ), [
+                                        [
+                                            (0, _vue.vModelText),
+                                            $setup.pairing_prefix
+                                        ]
+                                    ])
+                                ])
+                            ]),
+                            (0, _vue.createElementVNode)("tr", null, [
+                                _hoisted_44,
+                                (0, _vue.createElementVNode)("td", null, [
+                                    (0, _vue.createVNode)(_component_v_select, {
+                                        items: $setup.templates,
+                                        modelValue: $setup.selected_template,
+                                        "onUpdate:modelValue": _cache[3] || (_cache[3] = ($event)=>$setup.selected_template = $event),
+                                        label: "Select Message Template",
+                                        width: "500",
+                                        "return-object": ""
+                                    }, null, 8 /* PROPS */ , [
+                                        "items",
+                                        "modelValue"
+                                    ])
+                                ])
+                            ]),
+                            (0, _vue.createElementVNode)("tr", null, [
+                                _hoisted_45,
+                                (0, _vue.createElementVNode)("td", null, [
+                                    (0, _vue.withDirectives)((0, _vue.createElementVNode)("input", {
+                                        type: "checkbox",
+                                        name: "pairing_reset",
+                                        id: "pairing_reset",
+                                        "onUpdate:modelValue": _cache[4] || (_cache[4] = ($event)=>$setup.reset_pairings = $event)
+                                    }, null, 512 /* NEED_PATCH */ ), [
+                                        [
+                                            (0, _vue.vModelCheckbox),
+                                            $setup.reset_pairings
+                                        ]
+                                    ])
                                 ])
                             ])
-                        ]),
-                        (0, _vue.createElementVNode)("tr", null, [
-                            _hoisted_43,
-                            (0, _vue.createElementVNode)("td", null, [
-                                (0, _vue.createVNode)(_component_v_select, {
-                                    items: $setup.templates,
-                                    modelValue: $setup.selected_template,
-                                    "onUpdate:modelValue": _cache[3] || (_cache[3] = ($event)=>$setup.selected_template = $event),
-                                    label: "Select Message Template",
-                                    width: "500",
-                                    "return-object": ""
-                                }, null, 8 /* PROPS */ , [
-                                    "items",
-                                    "modelValue"
-                                ])
-                            ])
-                        ]),
-                        (0, _vue.createElementVNode)("tr", null, [
-                            _hoisted_44,
-                            (0, _vue.createElementVNode)("td", null, [
-                                (0, _vue.withDirectives)((0, _vue.createElementVNode)("input", {
-                                    type: "checkbox",
-                                    name: "pairing_reset",
-                                    id: "pairing_reset",
-                                    "onUpdate:modelValue": _cache[4] || (_cache[4] = ($event)=>$setup.reset_pairings = $event)
-                                }, null, 512 /* NEED_PATCH */ ), [
-                                    [
-                                        (0, _vue.vModelCheckbox),
-                                        $setup.reset_pairings
-                                    ]
-                                ])
-                            ])
-                        ])
-                    ])) : (0, _vue.createCommentVNode)("v-if", true)
-                ]),
-                _hoisted_45,
+                        ])) : (0, _vue.createCommentVNode)("v-if", true)
+                    ])
+                ], 64 /* STABLE_FRAGMENT */ )) : (0, _vue.createCommentVNode)("v-if", true),
+                _hoisted_46,
                 (0, _vue.createVNode)(_component_v_btn, {
                     variant: "flat",
                     class: "text-none text-caption",

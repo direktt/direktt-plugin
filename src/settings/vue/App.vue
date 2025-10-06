@@ -29,10 +29,20 @@ const snackbar_color = ref('success')
 const snackbar_text = ref(snack_succ_text)
 const snack_succ_text = 'Settings Saved'
 
+// Sync progress bar controles
+
+const syncing = ref(false);
+const sync_progress = ref(0);
+const sync_total = ref(1);
+const sync_current = ref(0);
+const sync_bar_visible = ref(false);
+const sync_message = ref('');
+
 
 const { isLoading, isError, isFetching, data, error, refetch } = useQuery({
   queryKey: ['direktt-settings'],
-  queryFn: getSettings
+  queryFn: getSettings,
+  refetchOnWindowFocus: false
 })
 
 const mutation = useMutation({
@@ -113,32 +123,67 @@ function clickSaveSettings() {
   reset_pairings.value = false
 }
 
-async function clickSyncUsers(){
+async function clickSyncUsers() {
 
-  let response
-  let obj={}
+  sync_bar_visible.value = true;
+  sync_progress.value = 0;
+  sync_current.value = 0;
+  sync_total.value = 1;
+  syncing.value = true;
+  sync_message.value = "Preparing to sync...";
 
-  sync_loading.value = true
-  obj.action = "direktt_sync_users"
-  obj.nonce = nonce.value
+  let offset = 0;
+  const batchSize = 5;
 
   try {
-    response = await doAjax(obj)
+    let finished = false;
 
-    snackbar_color.value = 'success'
-    snackbar_text.value = "Subscribers' Database Successfully Synced"
-    snackbar.value = true
+    while (!finished) {
 
+      let response = await doAjax({
+        action: 'direktt_sync_users',
+        nonce: nonce.value,
+        offset: offset,
+        batch_size: batchSize
+      });
+
+      if (response.success) {
+        const resp = response.data;
+
+        sync_total.value = resp.total > 0 ? resp.total : 1;
+        sync_current.value = resp.current ?? 0;
+        sync_progress.value = (sync_current.value / sync_total.value) * 100;
+
+        // Optionally show per-batch user details
+        if (resp.details && Array.isArray(resp.details) && resp.details.length) {
+          sync_message.value = `Processing: ${resp.details.join(', ')}`;
+        } else {
+          sync_message.value = `Syncing: ${sync_current.value} / ${sync_total.value}`;
+        }
+
+        finished = resp.finished;
+        offset = sync_current.value;
+      } else {
+        throw response;
+      }
+
+      sync_message.value = `Syncing users... (${sync_current.value} / ${sync_total.value})`;
+    }
+
+    sync_message.value = "Subscribers' Database Successfully Synced";
+    snackbar_color.value = 'success';
+    snackbar_text.value = sync_message.value;
+    snackbar.value = true;
+    queryClient.invalidateQueries({ queryKey: ['direktt-settings'] });
   } catch (error) {
-    snackbar_color.value = 'error'
-    snackbar_text.value = error.responseJSON.data[0].message
-    snackbar.value = true
-
+    let errMsg = error?.responseJSON?.data?.[0]?.message || "An error occurred";
+    snackbar_color.value = 'error';
+    snackbar_text.value = errMsg;
+    snackbar.value = true;
+    sync_message.value = "Error during syncing.";
   }
-
-  console.log(response)
-  sync_loading.value = false
-  queryClient.invalidateQueries({ queryKey: ['direktt-settings'] })
+  syncing.value = false;
+  setTimeout(() => { sync_bar_visible.value = false; }, 1000);
 }
 
 async function saveSettings(obj) {
@@ -277,7 +322,7 @@ onMounted(() => {
             <td>
               <div v-if="activation_status">
                 <v-icon color="error" icon="mdi-alert-outline" size="large" class='rm-4'
-                   v-if="channel_data.count != channel_data.localCount"></v-icon>
+                  v-if="channel_data.count != channel_data.localCount"></v-icon>
                 Direktt API: {{ channel_data.count }} / WordPress: {{ channel_data.localCount }}
                 <strong v-if="channel_data.count != channel_data.localCount"><br></br>Number of Subscribers in
                   your
@@ -291,10 +336,15 @@ onMounted(() => {
           <tr v-if="activation_status">
             <th scope="row"></th>
             <td>
-                <v-btn variant="flat" class="text-none text-caption" color="info" @click="clickSyncUsers"
-                  :loading="sync_loading">
-                  Sync Subscribers' Database
-                </v-btn>
+              <v-btn variant="flat" class="text-none text-caption" color="info" @click="clickSyncUsers"
+                :loading="syncing" :disabled="syncing">
+                Sync Subscribers' Database
+              </v-btn>
+
+              <v-progress-linear v-if="sync_bar_visible" :value="sync_progress" color="info" height="24" striped
+                :active="syncing" class="my-4">
+                <strong style="color:#fff;">{{ sync_message }}</strong>
+              </v-progress-linear>
             </td>
           </tr>
 
@@ -319,38 +369,41 @@ onMounted(() => {
         </tbody>
       </table>
     </template>
+    <template v-if="data && data.direktt_channel_title != '' && data.direktt_channel_id != '' && activation_status">
 
-    <p></p>
-    <v-divider class="border-opacity-100"></v-divider>
-    <p></p>
-    <table class="form-table" role="presentation">
+      <p></p>
+      <v-divider class="border-opacity-100"></v-divider>
+      <p></p>
+      <table class="form-table" role="presentation">
 
-      <tbody v-if="data">
-        <tr>
-          <th scope="row"><label for="pairing_prefix">Prefix for pairing message</label></th>
-          <td>
-            <input type="text" name="pairing_prefix" id="pairing_prefix" size="50" placeholder="pair"
-              v-model="pairing_prefix">
-          </td>
-        </tr>
-        <tr>
-          <th scope="row"><label for="blogname">Message template for successful pairing (you can use placeholder
-              #wp_user#
-              in the template to display WP username just paired with)</label></th>
-          <td>
-            <v-select :items="templates" v-model="selected_template" label="Select Message Template" width="500"
-              return-object></v-select>
-          </td>
-        </tr>
-        <tr>
-          <th scope="row"><label for="blogname">Reset all pairing codes (Check this box if you want to do so)</label>
-          </th>
-          <td>
-            <input type="checkbox" name="pairing_reset" id="pairing_reset" v-model="reset_pairings">
-          </td>
-        </tr>
-      </tbody>
-    </table>
+        <tbody v-if="data">
+          <tr>
+            <th scope="row"><label for="pairing_prefix">Prefix for pairing message</label></th>
+            <td>
+              <input type="text" name="pairing_prefix" id="pairing_prefix" size="50" placeholder="pair"
+                v-model="pairing_prefix">
+            </td>
+          </tr>
+          <tr>
+            <th scope="row"><label for="blogname">Message template for successful pairing (you can use placeholder
+                #wp_user#
+                in the template to display WP username just paired with)</label></th>
+            <td>
+              <v-select :items="templates" v-model="selected_template" label="Select Message Template" width="500"
+                return-object></v-select>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row"><label for="blogname">Reset all pairing codes (Check this box if you want to do so)</label>
+            </th>
+            <td>
+              <input type="checkbox" name="pairing_reset" id="pairing_reset" v-model="reset_pairings">
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+    </template>
 
     <p></p>
 

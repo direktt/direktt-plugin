@@ -342,41 +342,114 @@ class Direktt_Ajax
 		}
 
 		if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], $this->plugin_name . '-settings')) {
-
 			wp_send_json_error(new WP_Error('Unauthorized', 'Nonce is not valid'), 401);
 			exit;
 		}
 
-		$this->get_all_existing_subscriptions();
+		// Default: 20 per batch
+		$batch_size = isset($_POST['batch_size']) ? intval($_POST['batch_size']) : 1;
+		$offset = isset($_POST['offset']) ? intval($_POST['offset']) : 0;
 
-		$data = array();
-		wp_send_json_success($data, 200);
-	}
+		// Fetch subscriptions list only once, cache in transient for this session
+		$transient_key = 'direktt_sync_subscriptions_' . get_current_user_id();
+		if ($offset === 0 || false === ($subscriptions_data = get_transient($transient_key))) {
+			$subscriptions_data = $this->get_remote_subscriptions_full();
+			if (!$subscriptions_data) {
+				wp_send_json_error('Unable to fetch subscriptions data', 500);
+				return;
+			}
+			// cache for 5 mins; enough for a sync session
+			set_transient($transient_key, $subscriptions_data, 1 * MINUTE_IN_SECONDS);
+			$this->cleanup_unsubscribed_users($subscriptions_data['subscriptions']);
+		}
 
-	private function get_all_existing_subscriptions()
-	{
+		$all_subscriptions = isset($subscriptions_data['subscriptions']) ? $subscriptions_data['subscriptions'] : [];
+		$total = count($all_subscriptions);
 
-		$api_key = (isset($_POST['api_key'])) ? sanitize_text_field($_POST['api_key']) : false;
-
-		$url = 'https://getsubscriptionsforchannel-lnkonwpiwa-uc.a.run.app';
-
-		$data = array();
-
-		$response = wp_remote_post($url, array(
-			'body'    => json_encode($data),
-			'timeout'     => 30,
-			'headers' => array(
-				'Authorization' => 'Bearer ' . $api_key,
-				'Content-type' => 'application/json',
-			),
-		));
-
-		if (is_wp_error($response)) {
+		// Safety net
+		if ($offset >= $total) {
+			// clean up transient
+			delete_transient($transient_key);
+			wp_send_json_success(['finished' => true, 'current' => $total, 'total' => $total]);
 			return;
 		}
 
+		// Slice out one batch
+		$batch = array_slice($all_subscriptions, $offset, $batch_size);
+
+		foreach ($batch as $subscription) {
+			$subscriptionId    = $subscription['subscriptionId']   ?? null;
+			$displayName       = $subscription['displayName']      ?? null;
+			$avatarUrl         = $subscription['avatarUrl']        ?? null;
+			$adminSubscription = $subscription['adminSubscription'] == 'true' ?? null;
+			$membershipId         = $subscription['membershipId']        ?? null;
+			$marketingConsentStatus         = $subscription['marketingConsentStatus'] == 'true'  ?? null;
+
+			$this->direktt_api->subscribe_user(
+				$subscriptionId,
+				$displayName,
+				$avatarUrl,
+				$adminSubscription,
+				$membershipId,
+				$marketingConsentStatus,
+				true
+			);
+		}
+
+		$current = min($offset + $batch_size, $total);
+		$finished = ($current >= $total);
+
+		if ($finished) {
+			delete_transient($transient_key);
+		}
+
+		wp_send_json_success([
+			'finished' => $finished,
+			'current' => $current,
+			'total' => $total,
+			'batchDone' => count($batch),
+			'details' => array_map(fn($s) => $s['displayName'] ?? null, $batch),
+		]);
+	}
+
+	/**
+	 * Helper to fetch subscriptions and return full response as array
+	 */
+	private function get_remote_subscriptions_full()
+	{
+		$api_key = get_option('direktt_api_key');
+		if (!$api_key) return false;
+
+		$url = 'https://getsubscriptionsforchannel-lnkonwpiwa-uc.a.run.app';
+
+		$response = wp_remote_post($url, [
+			'body'    => json_encode([]),
+			'timeout' => 30,
+			'headers' => [
+				'Authorization' => 'Bearer ' . $api_key,
+				'Content-type'  => 'application/json',
+			],
+		]);
+
+		if (is_wp_error($response)) {
+			return false;
+		}
 		$body = wp_remote_retrieve_body($response);
 		$data = json_decode($body, true);
+
+		return $data;
+	}
+
+
+	private function cleanup_unsubscribed_users($all_remote_subscriptions)
+	{
+		$remote_user_ids_lookup = [];
+
+		foreach ($all_remote_subscriptions as $subscription) {
+			if (!empty($subscription['subscriptionId'])) {
+				$remote_user_ids_lookup[$subscription['subscriptionId']] = true;
+			}
+		}
 
 		// Clean up unsubscribed users
 		$args = array(
@@ -387,52 +460,13 @@ class Direktt_Ajax
 		);
 		$user_query = new WP_Query($args);
 
-		$local_user_ids = array();
-		if ($user_query->have_posts()) {
-			foreach ($user_query->posts as $post_id) {
-				$user_id = get_post_meta($post_id, 'direktt_user_id', true);
-				if ($user_id) {
-					$local_user_ids[] = $user_id;
-				}
-			}
-		}
+		if (!$user_query->have_posts()) return;
 
-		// Build array of remote user IDs from API
-		$remote_user_ids = array();
-		if (isset($data['subscriptions']) && is_array($data['subscriptions'])) {
-			foreach ($data['subscriptions'] as $subscription) {
-				$subscriptionId = $subscription['subscriptionId'] ?? null;
-				if ($subscriptionId) {
-					$remote_user_ids[] = $subscriptionId;
-				}
-			}
-		}
-
-		// Unsubscribe users not present remotely
-		$to_unsubscribe = array_diff($local_user_ids, $remote_user_ids);
-		foreach ($to_unsubscribe as $direktt_user_id) {
-			$this->direktt_api->unsubscribe_user($direktt_user_id);
-		}
-		// --- END NEW CODE ---
-
-		if (isset($data['success']) && $data['success'] && !empty($data['subscriptions'])) {
-			foreach ($data['subscriptions'] as $subscription) {
-				$subscriptionId    = $subscription['subscriptionId']   ?? null;
-				$displayName       = $subscription['displayName']      ?? null;
-				$avatarUrl         = $subscription['avatarUrl']        ?? null;
-				$adminSubscription = $subscription['adminSubscription'] == 'true' ?? null;
-				$membershipId         = $subscription['membershipId']        ?? null;
-				$marketingConsentStatus         = $subscription['marketingConsentStatus'] == 'true'  ?? null;
-
-				$this->direktt_api->subscribe_user(
-					$subscriptionId,
-					$displayName,
-					$avatarUrl,
-					$adminSubscription,
-					$membershipId,
-					$marketingConsentStatus,
-					true
-				);
+		// 3. Unsubscribe locals not found remotely
+		foreach ($user_query->posts as $post_id) {
+			$local_id = get_post_meta($post_id, 'direktt_user_id', true);
+			if ($local_id && !isset($remote_user_ids_lookup[$local_id])) {
+				$this->direktt_api->unsubscribe_user($local_id);
 			}
 		}
 	}

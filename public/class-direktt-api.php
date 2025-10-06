@@ -236,18 +236,6 @@ class Direktt_Api
 			foreach ($meta_input as $meta_key => $meta_value) {
 				update_post_meta($post_id, $meta_key, $meta_value);
 			}
-
-			// Trigger action
-			do_action('direktt/user/subscribe', $direktt_user_id);
-
-			// Insert event if not silent
-			if (!$silent) {
-				Direktt_Event::insert_event(array(
-					"direktt_user_id" => $direktt_user_id,
-					"event_target"    => "user",
-					"event_type"      => "subscribe"
-				));
-			}
 			return $post_id;
 		}
 
