@@ -21,6 +21,8 @@ const { isLoading, isError, isFetching, data, error, refetch } = useQuery({
 });
 
 
+
+
 /* const { isLoadingEv, isErrorEv, isFetchingEv, dataEv, errorEv, refetchEv, isPreviousDataEv } = useQuery({
   queryKey: ["user-events", postId.value, page.value],
   queryFn: () => getUserEvents(),
@@ -60,14 +62,14 @@ async function getUserEvents() {
 
 async function load({ done }) {
   // Perform API call
-    const res = await getUserEvents();
-    if (res.length == 0) {
-      done("empty");
-    } else {
-      items.value.push(...res);
-      page.value = items.value[items.value.length - 1].ID
-      done("ok");
-    }
+  const res = await getUserEvents();
+  if (res.length == 0) {
+    done("empty");
+  } else {
+    items.value.push(...res);
+    page.value = items.value[items.value.length - 1].ID
+    done("ok");
+  }
 }
 
 async function doAjax(args) {
@@ -89,58 +91,80 @@ const openInNewTab = (url) => {
   if (newWindow) newWindow.opener = null;
 };
 
-onMounted(() => {});
+function createChatQRCode(subscriptionId) {
+  const actionObject = {
+    action: {
+      type: "chat",
+      params: {
+        subscriptionId: subscriptionId
+      },
+      retVars: {}
+    }
+  }
+  return JSON.stringify(actionObject)
+}
+
+onMounted(() => { });
 </script>
 
 <template>
 
-<h1 class="mt-4">Direktt User Properties</h1>
+  <h1 class="mt-4">Direktt User Properties</h1>
 
-<v-card class="pa-4">
+  <v-card class="pa-4">
 
-  <table class="form-table" role="presentation">
+    <table class="form-table" role="presentation">
 
-    <tbody v-if="data">
-      <tr>
-        <th scope="row"><label for="blogname">Direktt Subscription ID:</label></th>
-        <td>
-          {{ direktt_user_id }}
-        </td>
-      </tr>
-      <tr>
-        <th scope="row"><label for="blogname">Admin Subscription:</label></th>
-        <td>
-          {{ direktt_admin_subscription }}
-        </td>
-      </tr>
-      <tr>
-        <th scope="row"><label for="blogname">Avatar URL:</label></th>
-        <td>
-          {{ direktt_avatar_url }}
-        </td>
-      </tr>
-      <tr>
-        <th scope="row"><label for="blogname">Memebrship ID:</label></th>
-        <td>
-          {{ direktt_membership_id }}
-        </td>
-      </tr>
-      <tr>
-        <th scope="row"><label for="blogname">Marketing consent:</label></th>
-        <td>
-          <div v-if="!marketing_consent">
-              <v-icon color="error" icon="mdi-alert-outline" size="large"class='rm-4'></v-icon>
+      <tbody v-if="data">
+        <tr>
+          <th scope="row"><label for="blogname">Direktt Subscription ID:</label></th>
+          <td>
+            {{ direktt_user_id }}
+          </td>
+        </tr>
+        <tr>
+          <th scope="row"><label for="blogname">Admin Subscription:</label></th>
+          <td>
+            {{ direktt_admin_subscription }}
+          </td>
+        </tr>
+        <tr>
+          <th scope="row"><label for="blogname">Avatar URL:</label></th>
+          <td>
+            {{ direktt_avatar_url }}
+          </td>
+        </tr>
+        <tr>
+          <th scope="row"><label for="blogname">Memebrship ID:</label></th>
+          <td>
+            {{ direktt_membership_id }}
+          </td>
+        </tr>
+        <tr>
+          <th scope="row"><label for="blogname">Marketing consent:</label></th>
+          <td>
+            <div v-if="!marketing_consent">
+              <v-icon color="error" icon="mdi-alert-outline" size="large" class='rm-4'></v-icon>
               Consent not given!
             </div>
             <div v-if="marketing_consent">
-              <v-icon color="info" icon="mdi-check-bold" size="large"class='rm-4'></v-icon>
+              <v-icon color="info" icon="mdi-check-bold" size="large" class='rm-4'></v-icon>
               Consent given
             </div>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  <p></p>
+          </td>
+        </tr>
+        <tr v-if="data.direktt_channel_title != '' && data.direktt_channel_id != ''">
+          <th scope="row"><label for="blogname">QR Code for subscription:</label></th>
+          <td>
+            <div>
+              <vue-qrcode :value="createChatQRCode( direktt_user_id )"
+                :options="{ width: 300 }"></vue-qrcode>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <p></p>
 
   </v-card>
 
