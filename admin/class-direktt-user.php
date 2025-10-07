@@ -28,21 +28,20 @@ class Direktt_User
 		if (!empty($posts)) {
 			$post_id = $posts[0];
 
-			$assigned_categories = wp_get_post_terms( $post_id, 'direkttusercategories', array( 'fields' => 'names' ) );
-        	$assigned_tags       = wp_get_post_terms( $post_id, 'direkttusertags', array( 'fields' => 'names' ) );
+			$assigned_categories = wp_get_post_terms($post_id, 'direkttusercategories', array('fields' => 'names'));
+			$assigned_tags       = wp_get_post_terms($post_id, 'direkttusertags', array('fields' => 'names'));
 
 			$post_obj = array(
 				'ID' => $post_id,
-				'direktt_display_name' => get_the_title( $post_id ),
+				'direktt_display_name' => get_the_title($post_id),
 				'direktt_membership_id' => get_post_meta($post_id, "direktt_membership_id", true),
 				'direktt_user_id' => get_post_meta($post_id, "direktt_user_id", true),
-				'direktt_admin_subscription' => ( get_post_meta($post_id, 'direktt_admin_subscription', true) == '1' ),
-				'direktt_marketing_consent_status' => ( get_post_meta($post_id, 'direktt_marketing_consent_status', true) == '1'),
+				'direktt_admin_subscription' => (get_post_meta($post_id, 'direktt_admin_subscription', true) == '1'),
+				'direktt_marketing_consent_status' => (get_post_meta($post_id, 'direktt_marketing_consent_status', true) == '1'),
 				'direktt_avatar_url' => get_post_meta($post_id, "direktt_avatar_url", true),
 				'direktt_user_categories' => $assigned_categories,
 				'direktt_user_tags' => $assigned_tags,
 			);
-
 		}
 
 		return $post_obj;
@@ -70,17 +69,17 @@ class Direktt_User
 		if (!empty($posts)) {
 			$post_id = $posts[0];
 
-			$assigned_categories = wp_get_post_terms( $post_id, 'direkttusercategories', array( 'fields' => 'names' ) );
-        	$assigned_tags       = wp_get_post_terms( $post_id, 'direkttusertags', array( 'fields' => 'names' ) );
+			$assigned_categories = wp_get_post_terms($post_id, 'direkttusercategories', array('fields' => 'names'));
+			$assigned_tags       = wp_get_post_terms($post_id, 'direkttusertags', array('fields' => 'names'));
 
 
 			$post_obj = array(
 				'ID' => $post_id,
-				'direktt_display_name' => get_the_title( $post_id ),
+				'direktt_display_name' => get_the_title($post_id),
 				'direktt_membership_id' => get_post_meta($post_id, "direktt_membership_id", true),
 				'direktt_user_id' => $direktt_user_id,
-				'direktt_admin_subscription' => ( get_post_meta($post_id, 'direktt_admin_subscription', true) == '1' ),
-				'direktt_marketing_consent_status' => ( get_post_meta($post_id, 'direktt_marketing_consent_status', true) == '1'),
+				'direktt_admin_subscription' => (get_post_meta($post_id, 'direktt_admin_subscription', true) == '1'),
+				'direktt_marketing_consent_status' => (get_post_meta($post_id, 'direktt_marketing_consent_status', true) == '1'),
 				'direktt_avatar_url' => get_post_meta($post_id, "direktt_avatar_url", true),
 				'direktt_user_categories' => $assigned_categories,
 				'direktt_user_tags' => $assigned_tags,
@@ -112,17 +111,17 @@ class Direktt_User
 		if (!empty($posts)) {
 			$post_id = $posts[0];
 
-			$assigned_categories = wp_get_post_terms( $post_id, 'direkttusercategories', array( 'fields' => 'names' ) );
-        	$assigned_tags       = wp_get_post_terms( $post_id, 'direkttusertags', array( 'fields' => 'names' ) );
+			$assigned_categories = wp_get_post_terms($post_id, 'direkttusercategories', array('fields' => 'names'));
+			$assigned_tags       = wp_get_post_terms($post_id, 'direkttusertags', array('fields' => 'names'));
 
 
 			$post_obj = array(
 				'ID' => $post_id,
-				'direktt_display_name' => get_the_title( $post_id ),
+				'direktt_display_name' => get_the_title($post_id),
 				'direktt_membership_id' => $direktt_membership_id,
-				'direktt_user_id' => get_post_meta( $post_id, 'direktt_user_id', true ),
-				'direktt_admin_subscription' => ( get_post_meta($post_id, 'direktt_admin_subscription', true) == '1' ),
-				'direktt_marketing_consent_status' => ( get_post_meta($post_id, 'direktt_marketing_consent_status', true) == '1'),
+				'direktt_user_id' => get_post_meta($post_id, 'direktt_user_id', true),
+				'direktt_admin_subscription' => (get_post_meta($post_id, 'direktt_admin_subscription', true) == '1'),
+				'direktt_marketing_consent_status' => (get_post_meta($post_id, 'direktt_marketing_consent_status', true) == '1'),
 				'direktt_avatar_url' => get_post_meta($post_id, "direktt_avatar_url", true),
 				'direktt_user_categories' => $assigned_categories,
 				'direktt_user_tags' => $assigned_tags,
@@ -137,7 +136,7 @@ class Direktt_User
 
 		global $direktt_user;
 
-		if ( isset($direktt_user['direktt_admin_subscription']) && $direktt_user['direktt_admin_subscription'] ) {
+		if (isset($direktt_user['direktt_admin_subscription']) && $direktt_user['direktt_admin_subscription']) {
 			return true;
 		}
 
@@ -169,7 +168,8 @@ class Direktt_User
 		}
 	}
 
-	static function get_all_user_categories(){
+	static function get_all_user_categories()
+	{
 
 		$category_terms = get_terms(array(
 			'taxonomy' => 'direkttusercategories',
@@ -177,7 +177,7 @@ class Direktt_User
 		));
 
 		$all_categories = [];
-		
+
 		foreach ($category_terms as $term) {
 			$all_categories[] = [
 				'value' => $term->term_id,
@@ -186,10 +186,10 @@ class Direktt_User
 		}
 
 		return $all_categories;
-
 	}
 
-	static function get_user_categories($direktt_user_post_id){
+	static function get_user_categories($direktt_user_post_id)
+	{
 
 		$term_ids = [];
 		$term_objects = get_the_terms($direktt_user_post_id, 'direkttusercategories');
@@ -200,7 +200,8 @@ class Direktt_User
 		return $term_ids;
 	}
 
-	static function get_all_user_tags(){
+	static function get_all_user_tags()
+	{
 
 		$tag_terms = get_terms(array(
 			'taxonomy' => 'direkttusertags',
@@ -218,7 +219,8 @@ class Direktt_User
 		return $all_tags;
 	}
 
-	static function get_user_tags($direktt_user_post_id){
+	static function get_user_tags($direktt_user_post_id)
+	{
 
 		$term_ids = [];
 		$term_objects = get_the_terms($direktt_user_post_id, 'direkttusertags');
@@ -246,7 +248,7 @@ class Direktt_User
 					'role__in' => array('direktt'),
 					'meta_key' => 'direktt_wp_user_id',
 					'meta_value' => $wp_user->ID,
-					'fields' => 'ID' 
+					'fields' => 'ID'
 				));
 
 				if (!empty($related_users)) {
@@ -297,5 +299,44 @@ class Direktt_User
 		}
 
 		return false;
+	}
+
+	static function get_users($include_admin = false)
+	{
+		$user_args = [
+			'post_type'      => 'direkttusers',
+			'post_status'    => 'publish',
+			'posts_per_page' => -1,
+			'orderby'        => 'title',
+			'order'          => 'ASC',
+		];
+
+		if (!$include_admin) {
+			$user_args['meta_query'] = [
+				'relation' => 'OR', // so posts with no meta or meta not 1 are included
+				[
+					'key'     => 'direktt_admin_subscription',
+					'compare' => 'NOT EXISTS',
+				],
+				[
+					'key'     => 'direktt_admin_subscription',
+					'value'   => '1',
+					'compare' => '!=',
+				]
+			];
+		}
+
+		$user_posts = get_posts($user_args);
+
+		$users = [];
+
+		foreach ($user_posts as $post) {
+			$users[] = array(
+				"value" => $post->ID,
+				"title" => 	$post->post_title
+			);
+		}
+
+		return $users;
 	}
 }

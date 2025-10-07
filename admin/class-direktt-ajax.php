@@ -624,4 +624,31 @@ class Direktt_Ajax
 			wp_send_json(['status' => 'non_authorized'], 401);
 		}
 	}
+
+	public function ajax_get_users_taxonomy_service()
+	{
+
+		if (!isset($_POST['post_id'])) {
+			wp_send_json(['status' => 'post_id_failed'], 400);
+		}
+
+		$post_id = intval($_POST['post_id']);
+
+		$post = get_post($post_id);
+
+		if ($post && Direktt_Public::direktt_ajax_check_user($post)) {
+
+			if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'user_list_nonce')) {
+				wp_send_json(['status' => 'nonce_failed'], 401);
+			}
+
+			$users = Direktt_User::get_users();
+
+			wp_send_json_success($users, 200);
+		} else {
+
+			// User not authorized or post not found.
+			wp_send_json(['status' => 'non_authorized'], 401);
+		}
+	}
 }
