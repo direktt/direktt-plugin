@@ -30,7 +30,7 @@ class Direktt_Messaging_Tool
                     array(
                         "handle" => "direktt-profile-message-script",
                         "src" => plugins_url('../js/direktt-profile-message.js', __FILE__),
-                        "deps" => array("direktt-profile-autocomplete-script")
+                        "deps" => array("direktt-profile-autocomplete-script", "jquery")
                     )
                 ]
             )
@@ -80,18 +80,10 @@ class Direktt_Messaging_Tool
             $status_message = esc_html__('There was an error while sending the message.', 'direktt');
         }
 
+        echo Direktt_Public::direktt_render_confirm_popup( 'send-message-tool-confirm',  __( "Are you sure that you want to send the message?", 'direktt' ));
+        echo Direktt_Public::direktt_render_loader( __( 'Sending message', 'direktt' ) );
+
 ?>
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                var statusEl = document.querySelector('.send-message-tool-status');
-                var submitBtn = document.querySelector('.direktt-taxonomies-tool-submit input[type="submit"]');
-                if (submitBtn && statusEl) {
-                    submitBtn.addEventListener('click', function() {
-                        statusEl.textContent = '<?php echo esc_js(__('Saving...', 'direktt')); ?>';
-                    });
-                }
-            });
-        </script>
 		
 			<form method="post" action="">
 				<div class="send-message-tool-wrapper">
@@ -104,10 +96,11 @@ class Direktt_Messaging_Tool
 					<input id="autoComplete" aria-autocomplete="none" autocomplete="off">
 					<input type="hidden" id="templateID" name="templateID">
 					<input type="hidden" id="templateNonce" name="templateNonce" value="<?php echo esc_attr(wp_create_nonce('direktt_msgsend_nonce')); ?>">
+                    <input type="hidden" name="send_user_message" id="send_user_message" value="true">
 
 					<div class="send-message-tool-submit">
 						<p>
-							<input type="submit" name="send_user_message" id="sendMessageBtn" value="<?php echo esc_html__('Send the message', 'direktt'); ?>" class="button button-primary button-large">
+							<input type="submit" id="sendMessageBtn" value="<?php echo esc_html__('Send the message', 'direktt'); ?>" class="button button-primary button-large">
 							<input type="hidden" name="send_user_message_nonce" value="<?php echo esc_attr(wp_create_nonce('send_user_message_nonce')); ?>">
 						</p>
 					</div>

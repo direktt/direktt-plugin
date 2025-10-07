@@ -9,7 +9,14 @@ class Direktt_Taxonomies_Tool {
                 "callback" => [$this, 'render_user_taxonomies'],
                 "categories" => [],
                 "tags" => [],
-                "priority" => 2
+                "priority" => 2,
+                "jsEnqueueArray" => [
+                    array(
+                        "handle" => "direktt-profile-taxonomies-script",
+                        "src" => plugins_url('../js/direktt-profile-taxonomies.js', __FILE__),
+                        "deps" => array("jquery")
+                    )
+                ]
             )
         );
     }
@@ -56,25 +63,15 @@ class Direktt_Taxonomies_Tool {
         if ( $status_flag === 1 ) {
             $status_message = esc_html__( 'Saved successfully.', 'direktt' );
         }
+
+         echo Direktt_Public::direktt_render_loader( __( 'Saving Categories & Tags', 'direktt' ) );
     
         ?>
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-            var statusEl = document.querySelector('.direktt-taxonomies-tool-status');
-            var submitBtn = document.querySelector('.direktt-taxonomies-tool-submit input[type="submit"]');
-            if ( submitBtn && statusEl ) {
-                submitBtn.addEventListener('click', function() {
-                    statusEl.textContent = '<?php echo esc_js( __( 'Saving...', 'direktt' ) ); ?>';
-                });
-            }
-        });
-        </script>
+
         <form method="post" action="">
             <div class="direktt-taxonomies-tool-wrapper">
                 <?php if ( $status_message ) : ?>
                     <div class="direktt-taxonomies-tool-info">
-                        <!-- TODO Mozda neki text editing taxonomies for user... -->
-                        <!-- <p class="direktt-taxonomies-tool-user-info -->
                         <p class="direktt-taxonomies-tool-status"><?php echo $status_message; ?></p>
                     </div>
                 <?php endif; ?>
@@ -110,8 +107,9 @@ class Direktt_Taxonomies_Tool {
 						?>
 					</p>
                 </div>
+                <input type="hidden" name="save_user_taxonomies" value="true">
                 <div class="direktt-taxonomies-tool-submit">
-                    <input type="submit" name="save_user_taxonomies" value="<?php echo esc_html__( 'Save', 'direktt' ); ?>" class="button button-primary button-large">
+                    <input type="submit" name="save_user_taxonomies" id="saveTaxonomiesBtn" value="<?php echo esc_html__( 'Save', 'direktt' ); ?>" class="button button-primary button-large">
                     <input type="hidden" name="save_user_taxonomies_nonce" value="<?php echo esc_attr( wp_create_nonce( 'save_user_taxonomies_nonce' ) ); ?>">
                 </div>
             </div>

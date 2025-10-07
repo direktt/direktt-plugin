@@ -19,6 +19,34 @@ document.addEventListener('DOMContentLoaded', function () {
     data.append('nonce', nonce);
     data.append('post_id', direktt_public.direktt_post_id);
 
+    autoCompleteJS = new autoComplete({
+        selector: '#autoComplete',
+        placeHolder: 'Search templates...',
+        threshold: 0,
+        data: {},
+        resultsList: {
+            noResults: true,
+            maxResults: undefined
+        },
+        resultItem: {
+            highlight: true // highlights matched text in the title
+        },
+        events: {
+            input: {
+                selection: (event) => {
+                    const selection = event.detail.selection.value;
+                    selectedTemplate = selection;
+                    templateIDEl.value = selection.value;
+                    autoCompleteJS.input.value = selection.title;
+                    updateSendButtonState();
+                },
+                focus: () => {
+                    autoCompleteJS.start()
+                }
+            }
+        }
+    });
+
     fetch(direktt_public.direktt_ajax_url, {
         method: 'POST',
         credentials: 'same-origin',
@@ -35,37 +63,10 @@ document.addEventListener('DOMContentLoaded', function () {
             const templates = result.data;
             availableTemplates = templates;
 
-            autoCompleteJS = new autoComplete({
-                selector: '#autoComplete',
-                placeHolder: 'Search templates...',
-                data: {
-                    src: templates,
-                    keys: ['title'], // search by title
-                    cache: true
-                },
-                threshold: 0,
-                resultsList: {
-                    noResults: true,
-                    maxResults: undefined
-                },
-                resultItem: {
-                    highlight: true // highlights matched text in the title
-                },
-                events: {
-                    input: {
-                        selection: (event) => {
-                            const selection = event.detail.selection.value;
-                            selectedTemplate = selection;
-                            templateIDEl.value = selection.value;
-                            autoCompleteJS.input.value = selection.title;
-                            updateSendButtonState();
-                        },
-                        focus: () => {
-                            autoCompleteJS.start()
-                        }
-                    }
-                }
-            });
+            autoCompleteJS.data = {
+                src: templates,
+                keys: ['title']
+            }
 
         })
         .catch(err => console.error('Templates fetch error', err));
@@ -79,7 +80,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const match = availableTemplates.find(tpl => tpl.title === inputVal);
         templateIDEl.value = match ? match.value : "";
         updateSendButtonState();
-            
+
     });
 
     inputEl.addEventListener('blur', function () {
@@ -96,4 +97,25 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     updateSendButtonState();
+});
+
+
+jQuery(document).ready(function ($) {
+    // Show confirmation popup
+    $('#sendMessageBtn').off('click').on('click', function (e) {
+        e.preventDefault();
+        $('#send-message-tool-confirm').addClass('direktt-popup-on');
+    });
+
+    $('#send-message-tool-confirm .direktt-popup-no').off('click').on('click', function () {
+        $('#send-message-tool-confirm').removeClass('direktt-popup-on');
+    });
+
+    $('#send-message-tool-confirm .direktt-popup-yes').off('click').on('click', function () {
+        $('#send-message-tool-confirm').removeClass('direktt-popup-on');
+        $('.direktt-loader-overlay').fadeIn();
+        setTimeout(function () {
+            $('form').submit();
+        }, 500);
+    });
 });

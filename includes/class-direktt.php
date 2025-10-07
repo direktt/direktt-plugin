@@ -55,6 +55,8 @@ class Direktt {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/profile-bar/class-direktt-messaging-tool.php';
 
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/tools-services/class-direktt-taxonomies-service.php';
+		
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/tools-services/class-direktt-bulk-messaging-service.php';
 
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-direktt-admin.php';
 
@@ -119,6 +121,10 @@ class Direktt {
 		$taxonomies_service = new Direktt_Taxonomies_Service();
 		$this->loader->add_action( 'direktt_enqueue_public_scripts', $taxonomies_service, 'direktt_register_taxonomies_service_scripts' );
 		$this->loader->add_action( 'init', $taxonomies_service, 'direktt_taxonomies_service_add_shortcode' );
+
+		$bulk_messaging_service = new Direktt_Bulk_Messaging_Service();
+		$this->loader->add_action( 'direktt_enqueue_public_scripts', $bulk_messaging_service, 'direktt_register_bulk_messaging_service_scripts' );
+		$this->loader->add_action( 'init', $bulk_messaging_service, 'direktt_bulk_messaging_service_add_shortcode' );
 	}
 	
 	private function define_admin_hooks() {
