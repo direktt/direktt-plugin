@@ -103,7 +103,7 @@ jQuery(document).ready(function ($) {
     $('#addUserBtn').off('click').on('click', function (e) {
         e.preventDefault();
 
-        const form = $(this).closest('form');
+        form = $(this).closest('form');
 
         var actionInput = document.createElement('input');
         actionInput.type = 'hidden';
@@ -127,7 +127,8 @@ jQuery(document).ready(function ($) {
     $('.remove-user-btn').off('click').on('click', function (e) {
         e.preventDefault();
         console.log($(this).data('id'))
-        idToRemoveId = $(this).data('id');  
+        idToRemoveId = $(this).data('id');
+        form = $(this).closest('form');  
         $('#edit-taxonomies-service-confirm').addClass('direktt-popup-on');
     });
 
@@ -137,8 +138,6 @@ jQuery(document).ready(function ($) {
 
     $('#edit-taxonomies-service-confirm .direktt-popup-yes').off('click').on('click', function () {
         $('#edit-taxonomies-service-confirm').removeClass('direktt-popup-on');
-
-        const form = $(this).closest('form');
 
         var idToRemove = document.createElement('input');
         idToRemove.type = 'hidden';

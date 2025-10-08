@@ -21,8 +21,6 @@ class Direktt_Taxonomies_Service
 
 		$subpage = isset($_GET['subpage']) ? sanitize_text_field(wp_unslash($_GET['subpage'])) : '';
 
-
-
 		if ($subpage) {
 			$args = array(
 				'post_type' => 'direkttusers',
@@ -40,6 +38,8 @@ class Direktt_Taxonomies_Service
 				}
 				wp_reset_postdata();
 			}
+
+			$post_sub = $_POST;
 
 			if (isset($_POST['save_user_categories'])) {
 				if (
@@ -150,7 +150,7 @@ class Direktt_Taxonomies_Service
 					echo Direktt_Public::direktt_render_confirm_popup('edit-taxonomies-service-confirm',  __("Are you sure that you want to remove the user?", 'direktt'));
 					echo Direktt_Public::direktt_render_loader(__('Saving data', 'direktt'));
 
-					if ('edit-category' === $subpage || 'edit-tag' === $subpage) {
+					if (('edit-category' === $subpage || 'edit-tag' === $subpage) && isset($_GET['tax_name'])) {
 						$taxonomy = 'edit-category' === $subpage ? 'direkttusercategories' : 'direkttusertags';
 						$term = get_term_by('name', sanitize_text_field($_GET['tax_name']), $taxonomy);
 						$tax_name = sanitize_text_field($_GET['tax_name']);
@@ -215,8 +215,9 @@ class Direktt_Taxonomies_Service
 										actionInputName = '<?php echo esc_attr('edit-category' === $subpage ? 'save_user_categories' : 'save_user_tags'); ?>';
 										actionInputDeleteName = '<?php echo esc_attr('edit-category' === $subpage ? 'remove_user_categories' : 'remove_user_tags'); ?>';
 										idToAddName = '<?php echo esc_attr('edit-category' === $subpage ? 'id_to_add_category' : 'id_to_add_tag'); ?>';
-										idToRemoveName = '<?php echo esc_attr('edit - category' === $subpage ? 'id_to_remove_category' : 'id_to_remove_tag'); ?>';
+										idToRemoveName = '<?php echo esc_attr('edit-category' === $subpage ? 'id_to_remove_category' : 'id_to_remove_tag'); ?>';
 										idToRemoveId = ''
+										form = null
 									</script>
 								<?php
 								} else {
