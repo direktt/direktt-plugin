@@ -89,7 +89,7 @@ class Direktt_Messaging_Tool
 
 ?>
 
-        <form method="post" action="">
+        <form method="post" >
             <div class="send-message-tool-wrapper">
                 <?php if ($status_message) : ?>
                     <div class="send-message-tool-info">
@@ -109,7 +109,6 @@ class Direktt_Messaging_Tool
                     </p>
                 </div>
             </div>
-
         </form>
 
 <?php

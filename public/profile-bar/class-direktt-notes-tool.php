@@ -26,7 +26,7 @@ class Direktt_Notes_Tool
                     array(
                         "handle" => "direktt-profile-notes-script",
                         "src" => plugins_url('../js/direktt-profile-notes.js', __FILE__),
-                        "deps" => array("direktt-quill")
+                        "deps" => array("direktt-quill", "jquery")
                     )
                 ],
                 "cssEnqueueArray" => [
@@ -61,8 +61,9 @@ class Direktt_Notes_Tool
                 'post_content' => $notes
             ]);
 
-            // Optionally, add admin_notice or a query arg to confirm success
-            wp_redirect(add_query_arg(['notes_updated' => 1]));
+            $redirect_url = add_query_arg('status_flag', '1', $_SERVER['REQUEST_URI']);
+
+            wp_safe_redirect(esc_url_raw($redirect_url));
             exit;
         }
 
@@ -77,6 +78,15 @@ class Direktt_Notes_Tool
         $notes = $profile_user['direktt_notes'] ?? '';
         $post_id = $profile_user['ID'];
 
+        $status_flag    = isset($_GET['status_flag']) ? intval($_GET['status_flag']) : 0;
+        $status_message = '';
+        if ($status_flag === 1) {
+            $status_message = esc_html__('Note saved successfully.', 'direktt');
+        }
+        if ($status_flag === 2) {
+            $status_message = esc_html__('There was an error while saving the note.', 'direktt');
+        }
+
 ?>
         <style>
             #editor,
@@ -87,20 +97,32 @@ class Direktt_Notes_Tool
             }
         </style>
 
-        <div id="direktt-notes-view">
-            <div id="editor">
-                <?php echo wpautop($notes);
-                ?>
+        <div class="direktt-notes-tool-wrapper">
+
+            <?php if ($status_message) : ?>
+                <div class="send-message-tool-info">
+                    <p class="send-message-tool-status"><?php echo $status_message; ?></p>
+                </div>
+            <?php endif; ?>
+
+            <div id="direktt-notes-view">
+                <div id="editor">
+                    <?php echo wpautop($notes);
+                    ?>
+                </div>
             </div>
+
+            <form id="direktt-notes-edit-form" method="post">
+                <?php wp_nonce_field('direktt_save_user_notes_' . $post_id, 'direktt_user_notes_nonce'); ?>
+                <input type="hidden" id="direktt_notes_post_id" name="direktt_notes_post_id" value="<?php echo esc_attr($post_id); ?>">
+                <textarea id="direkttNotes" name="direktt_notes" rows="10" cols="40" style="display: none;">
+            </textarea>
+            </form>
+
         </div>
 
-        <form id="direktt-notes-edit-form" method="post">
-            <?php wp_nonce_field('direktt_save_user_notes_' . $post_id, 'direktt_user_notes_nonce'); ?>
-            <input type="hidden" id="direktt_notes_post_id" name="direktt_notes_post_id" value="<?php echo esc_attr($post_id); ?>">
-            <textarea id="direkttNotes" name="direktt_notes" rows="10" cols="40" style="display: none;">
-            </textarea>
-        </form>
 <?php
+        echo Direktt_Public::direktt_render_loader(__('Saving note', 'direktt'));
     }
 
     public function direktt_quill_upload_image_handler()
@@ -117,7 +139,7 @@ class Direktt_Notes_Tool
             wp_send_json_error(array('message' => 'Invalid nonce.'), 403);
         }
 
-        if (! Direktt_User::is_direktt_admin() ) {
+        if (! Direktt_User::is_direktt_admin()) {
             wp_send_json_error(array('message' => 'Not authorized'), 403);
         }
 

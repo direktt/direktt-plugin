@@ -51,6 +51,7 @@ document.addEventListener('DOMContentLoaded', function () {
         // Event handler for saving
         newBtn.addEventListener('click', function (e) {
             e.preventDefault();
+            jQuery('.direktt-loader-overlay').fadeIn();
             document.getElementById('direktt-notes-edit-form').submit();
         });
     }
