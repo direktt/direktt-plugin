@@ -7,11 +7,11 @@
 /* Variables */   
 
 :root { 	
-	/* Fonts */
+	/* Fonts */ 
 	--direktt-profile-default-font-family: "Noto Sans", Helvetica, Arial, sans-serif;
 	--direktt-profile-default-font-size-normal: 14px;
 	--direktt-profile-default-font-size-small: 12px;
-	--direktt-profile-default-font-size-xsmall: 11px;
+	--direktt-profile-default-font-size-xsmall: 11px; 
 	--direktt-profile-default-line-height: 1.6;
 	--direktt-profile-default-font-weight: 400;
 	/* Colors */
@@ -341,7 +341,7 @@
 		.direktt-profile-photo { 
 			position: relative;
 			padding-top: 1em;
-			margin: 0 -1em;
+			margin: -1em -1em 0;
 			&:before {
 				content: "";
 				display: block;
@@ -417,15 +417,21 @@
 			margin-bottom: 1em;
 			input#autoComplete {
 				width: 100%;
+				box-sizing: border-box;
 			}	
 			ul {
-				padding-top: 1em;
+				padding: 0;
+				margin: 0;
 				li {
-					margin-bottom: 1em;
+					font-size: inherit;
+					padding: 0.5em;
+					margin: 0;
 				}	
 			}
 		}	
 	}
+	
+	/* Edit taxonomies */
 	
 	.direktt-taxonomies-tool-wrapper {
 		/* padding: 1em 0; */ 
@@ -454,10 +460,20 @@
 			border: 2px solid var(--direktt-profile-accent-color);
 			border-radius: 50px;
 			/* margin: 1em 0; */
-			padding: 1em;			
+			padding: 1em;		 	
 		}
 		.direktt-taxonomies-tool-submit {
 			margin-top: 1em;
+		}
+	}
+	
+	/* Notes */
+	
+	.direktt-notes-view {
+		.ql-toolbar {
+			border-bottom: 1px solid var(--direktt-profile-light-gray-color);
+			padding-bottom: 1em;
+			margin-bottom: 1em;
 		}
 	}
 	
@@ -612,6 +628,11 @@
 	
 	.direktt-profile-data-review-profile-tool {
 		padding: 1em;
+		.direktt-review-header {
+			.button.direktt-send-review {
+				margin-bottom: 1em;
+			}
+		}
 		.direktt-review-profile-tool-table {
 			th:last-child,
 			td:last-child {

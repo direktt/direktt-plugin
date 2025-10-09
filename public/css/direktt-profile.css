@@ -6,14 +6,16 @@
   all: unset;
   display: block;
   box-sizing: border-box;
-}
-#direktt-profile *, #direktt-profile *::before, #direktt-profile *::after {
-  box-sizing: inherit;
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font-size: inherit;
-  vertical-align: baseline;
+  /*
+  *, *::before, *::after {
+  	box-sizing: inherit;
+  	margin: 0;
+  	padding: 0;
+  	border: 0;
+  	font-size: inherit;
+  	vertical-align: baseline;
+  }
+  */
 }
 #direktt-profile h1, #direktt-profile h2, #direktt-profile h3, #direktt-profile h4, #direktt-profile h5, #direktt-profile h6 {
   font-weight: 600;
@@ -75,7 +77,7 @@
   pointer-events: all;
   cursor: pointer;
   border-radius: 50px;
-  width: 100%;
+  /* width: 100%; */
   font-weight: 600;
   padding: 1em 2em;
   font-size: inherit;
@@ -361,6 +363,8 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
   /* Tabs */
   /* Profile tab */
   /* Send message tab */
+  /* Edit taxonomies */
+  /* Notes */
   /* Cross sell */
   /* Loyalty */
   /* Reviews */
@@ -589,7 +593,7 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
 #direktt-profile .direktt-profile-data-profile .direktt-profile-photo {
   position: relative;
   padding-top: 1em;
-  margin: 0 -1em;
+  margin: -1em -1em 0;
 }
 #direktt-profile .direktt-profile-data-profile .direktt-profile-photo:before {
   content: "";
@@ -658,12 +662,16 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
 }
 #direktt-profile .send-message-tool-wrapper .autoComplete_wrapper input#autoComplete {
   width: 100%;
+  box-sizing: border-box;
 }
 #direktt-profile .send-message-tool-wrapper .autoComplete_wrapper ul {
-  padding-top: 1em;
+  padding: 0;
+  margin: 0;
 }
 #direktt-profile .send-message-tool-wrapper .autoComplete_wrapper ul li {
-  margin-bottom: 1em;
+  font-size: inherit;
+  padding: 0.5em;
+  margin: 0;
 }
 #direktt-profile .direktt-taxonomies-tool-wrapper {
   /* padding: 1em 0; */
@@ -692,6 +700,11 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
 }
 #direktt-profile .direktt-taxonomies-tool-wrapper .direktt-taxonomies-tool-submit {
   margin-top: 1em;
+}
+#direktt-profile .direktt-notes-view .ql-toolbar {
+  border-bottom: 1px solid var(--direktt-profile-light-gray-color);
+  padding-bottom: 1em;
+  margin-bottom: 1em;
 }
 #direktt-profile .direktt-profile-data-cross-sell-tool {
   padding: 1em !important;
@@ -826,6 +839,9 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
 }
 #direktt-profile .direktt-profile-data-review-profile-tool {
   padding: 1em;
+}
+#direktt-profile .direktt-profile-data-review-profile-tool .direktt-review-header .button.direktt-send-review {
+  margin-bottom: 1em;
 }
 #direktt-profile .direktt-profile-data-review-profile-tool .direktt-review-profile-tool-table th:last-child,
 #direktt-profile .direktt-profile-data-review-profile-tool .direktt-review-profile-tool-table td:last-child {

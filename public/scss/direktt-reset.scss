@@ -9,6 +9,7 @@
 	box-sizing: border-box;
 
 	// Reset all children
+	/*
 	*, *::before, *::after {
 		box-sizing: inherit;
 		margin: 0;
@@ -17,6 +18,7 @@
 		font-size: inherit;
 		vertical-align: baseline;
 	}
+	*/	
 	
 	// Headings
 	h1, h2, h3, h4, h5, h6 {
@@ -94,7 +96,7 @@
 		pointer-events: all;
 		cursor: pointer;
 		border-radius: 50px;
-		width: 100%;
+		/* width: 100%; */
 		font-weight: 600;
 		padding: 1em 2em;
 		font-size: inherit;
