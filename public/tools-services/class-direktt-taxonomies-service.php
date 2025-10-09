@@ -203,13 +203,6 @@ class Direktt_Taxonomies_Service
 										?>
 									</div>
 
-
-									<?php
-									$messages = array(
-										'user_already_exists' => 'edit-category' === $subpage ? esc_html__('User already exists in this category.', 'direktt') : esc_html__('User already exists in this tag.', 'direktt'),
-										'user_not_found'      => esc_html__('User not found.', 'direktt'),
-									);
-									?>
 									<script>
 										usersInList = <?php echo json_encode($user_ids); ?>;
 										actionInputName = '<?php echo esc_attr('edit-category' === $subpage ? 'save_user_categories' : 'save_user_tags'); ?>';

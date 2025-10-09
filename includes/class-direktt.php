@@ -53,6 +53,8 @@ class Direktt {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/profile-bar/class-direktt-taxonomies-tool.php';
 
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/profile-bar/class-direktt-messaging-tool.php';
+		
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/profile-bar/class-direktt-notes-tool.php';
 
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/tools-services/class-direktt-taxonomies-service.php';
 		
@@ -117,6 +119,9 @@ class Direktt {
 
 		$taxonomies_tool = new Direktt_Taxonomies_Tool();
 		$this->loader->add_action( 'direktt_setup_profile_bar', $taxonomies_tool, 'setup_profile_tools_taxonomies' );
+
+		$notes_tool = new Direktt_Notes_Tool();
+		$this->loader->add_action( 'direktt_setup_profile_bar', $notes_tool, 'setup_profile_tools_notes' );
 
 		$taxonomies_service = new Direktt_Taxonomies_Service();
 		$this->loader->add_action( 'direktt_enqueue_public_scripts', $taxonomies_service, 'direktt_register_taxonomies_service_scripts' );

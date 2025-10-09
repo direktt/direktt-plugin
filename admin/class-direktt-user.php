@@ -41,6 +41,7 @@ class Direktt_User
 				'direktt_avatar_url' => get_post_meta($post_id, "direktt_avatar_url", true),
 				'direktt_user_categories' => $assigned_categories,
 				'direktt_user_tags' => $assigned_tags,
+				'direktt_notes' => get_post_field('post_content', $post_id),
 			);
 		}
 
@@ -83,6 +84,7 @@ class Direktt_User
 				'direktt_avatar_url' => get_post_meta($post_id, "direktt_avatar_url", true),
 				'direktt_user_categories' => $assigned_categories,
 				'direktt_user_tags' => $assigned_tags,
+				'direktt_notes' => get_post_field('post_content', $post_id),
 			);
 		}
 
@@ -125,6 +127,7 @@ class Direktt_User
 				'direktt_avatar_url' => get_post_meta($post_id, "direktt_avatar_url", true),
 				'direktt_user_categories' => $assigned_categories,
 				'direktt_user_tags' => $assigned_tags,
+				'direktt_notes' => get_post_field('post_content', $post_id),
 			);
 		}
 
