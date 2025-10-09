@@ -75,7 +75,7 @@
 @import "direktt-popup.scss";   
 
 
-/* Functionalities and Styling */
+/* Functionalities and Styling */ 
 
 #direktt-profile-wrapper {
 	overflow: hidden;
@@ -86,7 +86,7 @@
  
 	/* Buttons */
 	
-	button, .button, .direktt-button {
+	button:not([class^='ql-']), .button, .direktt-button {
 		&.button-large {
 			padding: 1.5em 2em; 
 		}

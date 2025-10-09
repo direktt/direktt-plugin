@@ -75,7 +75,7 @@
 	}
 
 	// Forms
-	button, input, select, textarea {
+	button:not([class^='ql-']), input, select, textarea {
 		background: none;
 		border: 1px solid var(--direktt-profile-light-gray-color);
 		border-radius: 10px;
@@ -90,7 +90,7 @@
 		  outline-offset: 2px;
 		}*/
 	}
-	input[type="submit"], button, .button, .direktt-button {
+	input[type="submit"], button:not([class^='ql-']), .button, .direktt-button {
 		pointer-events: all;
 		cursor: pointer;
 		border-radius: 50px;

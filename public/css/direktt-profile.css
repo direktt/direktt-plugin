@@ -56,7 +56,7 @@
   max-width: 100%;
   height: auto;
 }
-#direktt-profile button, #direktt-profile input, #direktt-profile select, #direktt-profile textarea {
+#direktt-profile button:not([class^=ql-]), #direktt-profile input, #direktt-profile select, #direktt-profile textarea {
   background: none;
   border: 1px solid var(--direktt-profile-light-gray-color);
   border-radius: 10px;
@@ -71,7 +71,7 @@
     outline-offset: 2px;
   }*/
 }
-#direktt-profile input[type=submit], #direktt-profile button, #direktt-profile .button, #direktt-profile .direktt-button {
+#direktt-profile input[type=submit], #direktt-profile button:not([class^=ql-]), #direktt-profile .button, #direktt-profile .direktt-button {
   pointer-events: all;
   cursor: pointer;
   border-radius: 50px;
@@ -85,10 +85,10 @@
   color: var(--direktt-profile-light-color);
   line-height: 1;
 }
-#direktt-profile input[type=submit]:hover, #direktt-profile button:hover, #direktt-profile .button:hover, #direktt-profile .direktt-button:hover {
+#direktt-profile input[type=submit]:hover, #direktt-profile button:not([class^=ql-]):hover, #direktt-profile .button:hover, #direktt-profile .direktt-button:hover {
   text-decoration: none;
 }
-#direktt-profile input[type=submit]:focus, #direktt-profile button:focus, #direktt-profile .button:focus, #direktt-profile .direktt-button:focus {
+#direktt-profile input[type=submit]:focus, #direktt-profile button:not([class^=ql-]):focus, #direktt-profile .button:focus, #direktt-profile .direktt-button:focus {
   outline: none;
 }
 #direktt-profile input[type=text] {
@@ -371,48 +371,48 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
   /* Auto greet */
   /* Cross sell */
 }
-#direktt-profile button.button-large, #direktt-profile .button.button-large, #direktt-profile .direktt-button.button-large {
+#direktt-profile button:not([class^=ql-]).button-large, #direktt-profile .button.button-large, #direktt-profile .direktt-button.button-large {
   padding: 1.5em 2em;
 }
-#direktt-profile button.button-primary, #direktt-profile .button.button-primary, #direktt-profile .direktt-button.button-primary {
+#direktt-profile button:not([class^=ql-]).button-primary, #direktt-profile .button.button-primary, #direktt-profile .direktt-button.button-primary {
   background-color: var(--direktt-profile-alternate-color);
 }
-#direktt-profile button.button-red, #direktt-profile .button.button-red, #direktt-profile .direktt-button.button-red {
+#direktt-profile button:not([class^=ql-]).button-red, #direktt-profile .button.button-red, #direktt-profile .direktt-button.button-red {
   background-color: var(--direktt-profile-warning-color);
 }
-#direktt-profile button.button-dark-gray, #direktt-profile .button.button-dark-gray, #direktt-profile .direktt-button.button-dark-gray {
+#direktt-profile button:not([class^=ql-]).button-dark-gray, #direktt-profile .button.button-dark-gray, #direktt-profile .direktt-button.button-dark-gray {
   background-color: var(--direktt-profile-dark-gray-color);
 }
-#direktt-profile button.button-invert, #direktt-profile .button.button-invert, #direktt-profile .direktt-button.button-invert {
+#direktt-profile button:not([class^=ql-]).button-invert, #direktt-profile .button.button-invert, #direktt-profile .direktt-button.button-invert {
   background-color: white;
   box-shadow: 0 0 0 2px var(--direktt-profile-button-default-background-color);
   color: var(--direktt-profile-button-default-background-color);
 }
-#direktt-profile button.button-invert.button-primary, #direktt-profile .button.button-invert.button-primary, #direktt-profile .direktt-button.button-invert.button-primary {
+#direktt-profile button:not([class^=ql-]).button-invert.button-primary, #direktt-profile .button.button-invert.button-primary, #direktt-profile .direktt-button.button-invert.button-primary {
   box-shadow: 0 0 0 2px var(--direktt-profile-alternate-color);
   color: var(--direktt-profile-alternate-color);
 }
-#direktt-profile button.button-invert.button-red, #direktt-profile .button.button-invert.button-red, #direktt-profile .direktt-button.button-invert.button-red {
+#direktt-profile button:not([class^=ql-]).button-invert.button-red, #direktt-profile .button.button-invert.button-red, #direktt-profile .direktt-button.button-invert.button-red {
   box-shadow: 0 0 0 2px var(--direktt-profile-warning-color);
   color: var(--direktt-profile-warning-color);
 }
-#direktt-profile button.button-invert.button-dark-gray, #direktt-profile .button.button-invert.button-dark-gray, #direktt-profile .direktt-button.button-invert.button-dark-gray {
+#direktt-profile button:not([class^=ql-]).button-invert.button-dark-gray, #direktt-profile .button.button-invert.button-dark-gray, #direktt-profile .direktt-button.button-invert.button-dark-gray {
   box-shadow: 0 0 0 2px var(--direktt-profile-dark-gray-color);
   color: var(--direktt-profile-dark-gray-color);
 }
-#direktt-profile button.button-clean, #direktt-profile .button.button-clean, #direktt-profile .direktt-button.button-clean {
+#direktt-profile button:not([class^=ql-]).button-clean, #direktt-profile .button.button-clean, #direktt-profile .direktt-button.button-clean {
   padding: 0.5em 0em;
   background-color: transparent;
   box-shadow: none;
   color: var(--direktt-profile-button-default-background-color);
 }
-#direktt-profile button.button-clean.button-primary, #direktt-profile .button.button-clean.button-primary, #direktt-profile .direktt-button.button-clean.button-primary {
+#direktt-profile button:not([class^=ql-]).button-clean.button-primary, #direktt-profile .button.button-clean.button-primary, #direktt-profile .direktt-button.button-clean.button-primary {
   color: var(--direktt-profile-alternate-color);
 }
-#direktt-profile button.button-clean.button-red, #direktt-profile .button.button-clean.button-red, #direktt-profile .direktt-button.button-clean.button-red {
+#direktt-profile button:not([class^=ql-]).button-clean.button-red, #direktt-profile .button.button-clean.button-red, #direktt-profile .direktt-button.button-clean.button-red {
   color: var(--direktt-profile-warning-color);
 }
-#direktt-profile button.button-clean.button-dark-gray, #direktt-profile .button.button-clean.button-dark-gray, #direktt-profile .direktt-button.button-clean.button-dark-gray {
+#direktt-profile button:not([class^=ql-]).button-clean.button-dark-gray, #direktt-profile .button.button-clean.button-dark-gray, #direktt-profile .direktt-button.button-clean.button-dark-gray {
   color: var(--direktt-profile-dark-gray-color);
 }
 #direktt-profile table {
