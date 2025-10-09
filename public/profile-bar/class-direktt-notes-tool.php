@@ -85,14 +85,12 @@ class Direktt_Notes_Tool
                 ?>
             </div>
         </div>
-        
-        <form id="direktt-notes-edit-form" method="post"">
+
+        <form id="direktt-notes-edit-form" method="post">
             <?php wp_nonce_field('direktt_save_user_notes_' . $post_id, 'direktt_user_notes_nonce'); ?>
             <input type="hidden" name="direktt_notes_post_id" value="<?php echo esc_attr($post_id); ?>">
-            <textarea id="direkttNotes" name="direktt_notes" rows="10" cols="40" style="display: none;"></textarea>
-            <div class="direktt-tinymce-footer" style="margin-top:10px;">
-                <button id="notes_save" class="button button-primary">Save</button>
-            </div>
+            <textarea id="direkttNotes" name="direktt_notes" rows="10" cols="40" style="display: none;">
+            </textarea>
         </form>
 <?php
     }
