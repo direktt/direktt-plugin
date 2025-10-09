@@ -90,18 +90,35 @@ class Direktt_Profile
 		wp_enqueue_style('direktt-profile-style');
 		wp_enqueue_script('direktt-profile-script');
 
+		add_action('wp_head', function () {
+?>
+			<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+			<style>
+				:root {
+					touch-action: pan-x pan-y;
+					height: 100%
+				}
+
+				html {
+					touch-action: pan-x pan-y;
+					height: 100%
+				}
+			</style>
+		<?php
+		}, -1);
+
 		ob_start();
 
 		$active_tab = isset($_GET['subpage']) ? $_GET['subpage'] : '';
 		$subscriptionId   = isset($_GET['subscriptionId']) ? sanitize_text_field(wp_unslash($_GET['subscriptionId'])) : false;
 		$profile_user = Direktt_User::get_user_by_subscription_id($subscriptionId);
-?>
+		?>
 		<div id="direktt-profile-wrapper">
 			<div data-subpage="profile-tab-<?= $active_tab ?>" id="direktt-profile">
 				<div id="direktt-profile-header">
 					<div id="direktt-profile-tools-toggler" class="dpi-menu"></div>
 					<div class="direktt-profile-header-data">
-						<?php if ( $profile_user && $direktt_user ) echo( $profile_user['direktt_display_name'] ); ?>
+						<?php if ($profile_user && $direktt_user) echo ($profile_user['direktt_display_name']); ?>
 					</div>
 				</div>
 				<div id="direktt-profile-data" class="direktt-profile-data-<?php echo ($active_tab ? $active_tab : 'profile') ?>">
@@ -246,7 +263,7 @@ class Direktt_Profile
 						}
 						?>
 					</ul>
-					<?php echo(  '<style>' . $temp_css . ' .dummy { background-color: var(--direktt-profile-button-active-background-color); }</style>' ); ?>
+					<?php echo ('<style>' . $temp_css . ' .dummy { background-color: var(--direktt-profile-button-active-background-color); }</style>'); ?>
 				</div><!-- direktt-profile-tools -->
 		<?php
 

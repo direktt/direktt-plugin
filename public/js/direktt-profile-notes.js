@@ -56,7 +56,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 
-
     function imageHandler(dataUrl, type, imageData) {
         imageData
             .minify({
@@ -66,17 +65,42 @@ document.addEventListener('DOMContentLoaded', function () {
             })
             .then((miniImageData) => {
                 var blob = miniImageData.toBlob()
-                var file = miniImageData.toFile('my_cool_image.png')
+                var file = miniImageData.toFile()
 
-                console.log(`type: ${type}`)
-                console.log(`dataUrl: ${dataUrl}`)
-                console.log(`blob: ${blob}`)
-                console.log(`file: ${file}`)
+                // generate a form data
+                const formData = new FormData()
 
-                let index = (quill.getSelection() || {}).index
-                if (index === undefined || index < 0) index = quill.getLength()
-                //quill.insertEmbed(index, 'image', res.data.image_url, 'user')
-                quill.insertEmbed(index, 'image', URL.createObjectURL(blob), 'user')
+                // or just append the file
+                formData.append('file', file)
+
+                // Append required params for WP AJAX
+                formData.append('action', 'direktt_quill_upload_image');
+                formData.append('nonce', document.getElementById('direktt_user_notes_nonce').value);
+                formData.append('direktt_notes_post_id', document.getElementById('direktt_notes_post_id').value);
+                formData.append('post_id', direktt_public.direktt_post_id);
+
+                // Upload via Fetch API
+                fetch(direktt_public.direktt_ajax_url, {
+                    method: 'POST',
+                    credentials: 'same-origin',
+                    body: formData,
+                    headers: { 'X-Requested-With': 'XMLHttpRequest' }
+                })
+                    .then(response => response.json())
+                    .then(res => {
+                        if (!res.success) {
+                            // Handle error if needed: show error to user, etc.
+                            alert(res.data && res.data.message ? res.data.message : 'Upload failed');
+                            return;
+                        }
+                        // Insert uploaded image URL into Quill editor
+                        let index = (quill.getSelection() || {}).index
+                        if (index === undefined || index < 0) index = quill.getLength()
+                        quill.insertEmbed(index, 'image', res.data.image_url, 'user')
+                    })
+                    .catch(err => {
+                        alert('Image upload failed.');
+                    });
             })
     }
 

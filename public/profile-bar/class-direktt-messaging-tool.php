@@ -54,7 +54,11 @@ class Direktt_Messaging_Tool
             ) {
                 return;
             }
-            
+
+            if (! Direktt_User::is_direktt_admin()) {
+                return;
+            }
+
             $template_id = sanitize_text_field($_POST['templateID']);
 
             if (Direktt_Message::send_message_template(
@@ -64,7 +68,7 @@ class Direktt_Messaging_Tool
             )) {
                 $redirect_url = add_query_arg('status_flag', '1', $_SERVER['REQUEST_URI']);
             } else {
-                 $redirect_url = add_query_arg('status_flag', '2', $_SERVER['REQUEST_URI']);
+                $redirect_url = add_query_arg('status_flag', '2', $_SERVER['REQUEST_URI']);
             }
 
             wp_safe_redirect(esc_url_raw($redirect_url));
@@ -80,33 +84,33 @@ class Direktt_Messaging_Tool
             $status_message = esc_html__('There was an error while sending the message.', 'direktt');
         }
 
-        echo Direktt_Public::direktt_render_confirm_popup( 'send-message-tool-confirm',  __( "Are you sure that you want to send the message?", 'direktt' ));
-        echo Direktt_Public::direktt_render_loader( __( 'Sending message', 'direktt' ) );
+        echo Direktt_Public::direktt_render_confirm_popup('send-message-tool-confirm',  __("Are you sure that you want to send the message?", 'direktt'));
+        echo Direktt_Public::direktt_render_loader(__('Sending message', 'direktt'));
 
 ?>
-		
-			<form method="post" action="">
-				<div class="send-message-tool-wrapper">
-                    <?php if ( $status_message ) : ?>
-                        <div class="send-message-tool-info">
-                            <p class="send-message-tool-status"><?php echo $status_message; ?></p>
-                        </div>
-                    <?php endif; ?>
 
-					<input id="autoComplete" aria-autocomplete="none" autocomplete="off">
-					<input type="hidden" id="templateID" name="templateID">
-					<input type="hidden" id="templateNonce" name="templateNonce" value="<?php echo esc_attr(wp_create_nonce('direktt_msgsend_nonce')); ?>">
-                    <input type="hidden" name="send_user_message" id="send_user_message" value="true">
+        <form method="post" action="">
+            <div class="send-message-tool-wrapper">
+                <?php if ($status_message) : ?>
+                    <div class="send-message-tool-info">
+                        <p class="send-message-tool-status"><?php echo $status_message; ?></p>
+                    </div>
+                <?php endif; ?>
 
-					<div class="send-message-tool-submit">
-						<p>
-							<input type="submit" id="sendMessageBtn" value="<?php echo esc_html__('Send the message', 'direktt'); ?>" class="button button-primary button-large">
-							<input type="hidden" name="send_user_message_nonce" value="<?php echo esc_attr(wp_create_nonce('send_user_message_nonce')); ?>">
-						</p>
-					</div>
-				</div>
+                <input id="autoComplete" aria-autocomplete="none" autocomplete="off">
+                <input type="hidden" id="templateID" name="templateID">
+                <input type="hidden" id="templateNonce" name="templateNonce" value="<?php echo esc_attr(wp_create_nonce('direktt_msgsend_nonce')); ?>">
+                <input type="hidden" name="send_user_message" id="send_user_message" value="true">
 
-			</form>	
+                <div class="send-message-tool-submit">
+                    <p>
+                        <input type="submit" id="sendMessageBtn" value="<?php echo esc_html__('Send the message', 'direktt'); ?>" class="button button-primary button-large">
+                        <input type="hidden" name="send_user_message_nonce" value="<?php echo esc_attr(wp_create_nonce('send_user_message_nonce')); ?>">
+                    </p>
+                </div>
+            </div>
+
+        </form>
 
 <?php
     }

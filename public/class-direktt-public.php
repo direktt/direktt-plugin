@@ -252,12 +252,35 @@ class Direktt_Public
 		}
 	}
 
+	public function direktt_check_user_ajax()
+	{
+		global $post;
+		
+		global $direktt_user;
+		$direktt_user = false;
+
+		if( wp_doing_ajax() ){
+			$current_user = wp_get_current_user();
+			if($current_user){
+				$direktt_user = Direktt_User::get_direktt_user_by_wp_user($current_user);
+			} 
+		}
+	}
+
 	public function direktt_check_user()
 	{
 		global $post;
 		
 		global $direktt_user;
 		$direktt_user = false;
+
+		if( wp_doing_ajax() ){
+			$current_user = wp_get_current_user();
+			if($current_user){
+				$direktt_user = Direktt_User::get_direktt_user_by_wp_user($current_user);
+			} 
+			return;
+		}
 
 		if (!$post) {
 			return;
@@ -279,11 +302,9 @@ class Direktt_Public
 		}
 
 		$current_user = wp_get_current_user();
-
 		$direktt_user = Direktt_User::get_direktt_user_by_wp_user($current_user);
 
 		if ($direktt_user && Direktt_Public::check_user_access_rights($direktt_user, $post)) {
-
 			show_admin_bar(false);
 			wp_enqueue_style('direktt-profile-style');
 			
