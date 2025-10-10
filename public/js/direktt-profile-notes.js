@@ -1,14 +1,28 @@
 document.addEventListener('DOMContentLoaded', function () {
 
+    var icons = Quill.import("ui/icons");
+    icons["undo"] = '<svg viewbox="0 0 18 18"><polygon class="ql-fill ql-stroke" points="6 10 4 12 2 10 6 10"></polygon><path class="ql-stroke" d="M8.09,13.91A4.6,4.6,0,0,0,9,14,5,5,0,1,0,4,9"></path></svg>'
+
+    const quillUndo = function(){
+        quill.history.undo()
+    }
+
     const quill = new Quill('#editor', {
         modules: {
-            toolbar:
-                [
+            history: {
+                delay: 1000,
+                maxStack: 100,
+                userOnly: true
+            },
+            toolbar:{
+                container: [
                     [{ header: [1, 2, false] }],
-                    ['bold', 'italic', 'underline'],
-                    ['image'],
-                    ['save']
+                    ['bold', 'italic', 'underline', 'image', 'undo'],
                 ],
+                handlers: {
+                    'undo': quillUndo
+                }
+            },
             imageDropAndPaste: {
                 // add an custom image handler
                 handler: imageHandler,
@@ -35,26 +49,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const toolbar = quill.getModule('toolbar').container;
 
-    // Find where Quill placed <button class="ql-save">
-    let saveBtn = toolbar.querySelector('button.ql-save');
-    if (saveBtn) {
-        const newBtn = document.createElement('button');
-        newBtn.id = 'notesSave';
-        newBtn.type = 'button';
-        newBtn.className = 'button button-primary'; // For WP and Quill styling
-        newBtn.innerHTML = 'Save';
-        newBtn.title = 'Save'; // Optional, for tooltip
+    const newBtn = document.createElement('button');
+    newBtn.id = 'notesSave';
+    newBtn.className = 'button button-primary'; // For WP and Quill styling
+    newBtn.innerHTML = 'Save';
+    newBtn.title = 'Save'; // Optional, for tooltip
 
-        // Replace old with new
-        saveBtn.parentNode.replaceChild(newBtn, saveBtn);
+    toolbar.append(newBtn);
 
-        // Event handler for saving
-        newBtn.addEventListener('click', function (e) {
-            e.preventDefault();
-            jQuery('.direktt-loader-overlay').fadeIn();
-            document.getElementById('direktt-notes-edit-form').submit();
-        });
-    }
 
 
     function imageHandler(dataUrl, type, imageData) {
@@ -126,9 +128,6 @@ document.addEventListener('DOMContentLoaded', function () {
                         reader.onload = (e) => {
                             // handle the inserted image
                             const dataUrl = e.target.result
-                            console.log(dataUrl)
-                            console.log(type)
-                            console.log(file.name)
                             imageHandler(dataUrl, type, new QuillImageData(dataUrl, type, file.name))
                             fileInput.value = ''
                         }
@@ -139,5 +138,15 @@ document.addEventListener('DOMContentLoaded', function () {
             fileInput.click()
         }
     })
+
+});
+
+jQuery(document).ready(function ($) {
+    $('#notesSave').off('click').on('click', function () {
+        $('.direktt-loader-overlay').fadeIn();
+        setTimeout(function () {
+            $('form').submit();
+        }, 500);
+    });
 
 });
