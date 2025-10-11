@@ -33,7 +33,8 @@ class Direktt_Admin
 		);
 	}
 
-	public function register_cpt_menus(){
+	public function register_cpt_menus()
+	{
 		add_submenu_page(
 			'direktt-dashboard',
 			__('Direktt Users', 'direktt'),
@@ -87,7 +88,6 @@ class Direktt_Admin
 			100
 		);
 
-		//Setup Settings Tabs
 		do_action('direktt_setup_settings_pages');
 	}
 
@@ -212,7 +212,7 @@ class Direktt_Admin
 			'menu_name'         => __('Tag', 'direktt'),
 		);
 		$args   = array(
-			'hierarchical'      => true, // make it hierarchical (like categories)
+			'hierarchical'      => true,
 			'public'			=> false,
 			'labels'            => $labels,
 			'show_ui'           => true,
@@ -470,6 +470,7 @@ class Direktt_Admin
 				$newUri = $parts['path'] . ($newQuery ? '?' . $newQuery : '');
 
 				// Use nav-tab-active if active_tab matches this item's id
+				
 				$active_class = ($active_tab === $item['id']) ? ' nav-tab-active' : '';
 				echo ('<a href="' . esc_url($newUri) . '" class="nav-tab' . $active_class . '">' . esc_html($item['label']) . '</a>');
 			}
@@ -483,7 +484,6 @@ class Direktt_Admin
 		} else {
 			foreach (Direktt::$settings_array as $item) {
 				if (isset($item['id']) && $active_tab == $item['id']) {
-					// echo ('<h2>' .  esc_html__($item['label']) . '</h2>');
 					call_user_func($item['callback']);
 				}
 			}
@@ -508,7 +508,7 @@ class Direktt_Admin
 			$direktt_user_pair_code = $this->get_or_generate_user_pair_code($user->ID);
 
 		?>
-			<h2>Direktt User Properties</h2>
+			<h2> <?php echo esc_html__('Direktt User Properties', 'direktt') ?></h2>
 			<table class="form-table" role="presentation">
 				<tbody v-if="data">
 					<?php
@@ -523,18 +523,14 @@ class Direktt_Admin
 
 						<?php
 
-						// Treba proveriti da li postoji user sa rolom direktt i meta-om direktt_wp_user_is kao trenutni user
 						$related_users = get_users(array(
 							'role__in' => array('direktt'),
 							'meta_key' => 'direktt_wp_user_id',
 							'meta_value' => $user->ID,
-							'fields' => 'ID' // Return only user IDs
+							'fields' => 'ID'
 						));
 
 						if (!empty($related_users)) {
-
-
-							// Ako postoji ispisati mogucnost brisanja veze
 
 						?>
 
