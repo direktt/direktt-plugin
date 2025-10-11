@@ -84,16 +84,16 @@ class Direktt_Messaging_Tool
             $status_message = esc_html__('There was an error while sending the message.', 'direktt');
         }
 
-        echo Direktt_Public::direktt_render_confirm_popup('send-message-tool-confirm',  __("Are you sure that you want to send the message?", 'direktt'));
-        echo Direktt_Public::direktt_render_loader(__('Sending message', 'direktt'));
+        echo Direktt_Public::direktt_render_confirm_popup('send-message-tool-confirm',  esc_html__("Are you sure that you want to send the message?", 'direktt'));
+        echo Direktt_Public::direktt_render_loader(esc_html__('Sending message', 'direktt'));
 
 ?>
 
-        <form method="post" >
+        <form method="post">
             <div class="send-message-tool-wrapper">
                 <?php if ($status_message) : ?>
                     <div class="send-message-tool-info">
-                        <p class="send-message-tool-status"><?php echo $status_message; ?></p>
+                        <p class="send-message-tool-status"><?php echo esc_html($status_message); ?></p>
                     </div>
                 <?php endif; ?>
 

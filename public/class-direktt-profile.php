@@ -32,8 +32,6 @@ class Direktt_Profile
 		wp_register_script('direktt-profile-script', plugins_url('js/direktt-profile.js', __FILE__), array('jquery'));
 		wp_register_style('direktt-profile-style', plugins_url('css/direktt-profile.css', __FILE__), array());
 
-		// Ovde treba registrovati stilove i css profila
-
 		foreach (Direktt::$profile_tools_array as $item) {
 			if (isset($item['cssEnqueueArray']) && is_array($item['cssEnqueueArray']) && array_is_list($item['cssEnqueueArray'])) {
 				foreach ($item['cssEnqueueArray'] as $cssFile) {
@@ -114,14 +112,14 @@ class Direktt_Profile
 		$profile_user = Direktt_User::get_user_by_subscription_id($subscriptionId);
 		?>
 		<div id="direktt-profile-wrapper">
-			<div data-subpage="profile-tab-<?= $active_tab ?>" id="direktt-profile">
+			<div data-subpage="profile-tab-<?= esc_attr($active_tab) ?>" id="direktt-profile">
 				<div id="direktt-profile-header">
 					<div id="direktt-profile-tools-toggler" class="dpi-menu"></div>
 					<div class="direktt-profile-header-data">
-						<?php if ($profile_user && $direktt_user) echo ($profile_user['direktt_display_name']); ?>
+						<?php if ($profile_user && $direktt_user) echo esc_html($profile_user['direktt_display_name']); ?>
 					</div>
 				</div>
-				<div id="direktt-profile-data" class="direktt-profile-data-<?php echo ($active_tab ? $active_tab : 'profile') ?>">
+				<div id="direktt-profile-data" class="direktt-profile-data-<?php echo esc_html($active_tab ? $active_tab : 'profile') ?>">
 					<?php
 					if ($active_tab == '') {
 						if ($profile_user && $direktt_user) {
@@ -132,21 +130,21 @@ class Direktt_Profile
 									<img src="<?php echo esc_attr($profile_user['direktt_avatar_url']); ?>">
 								</div><!-- direktt-profile-photo -->
 								<div class="direktt-profile-basic-data">
-									<div>Membership ID:</div>
+									<div><?php echo esc_html__('Membership ID:', 'direktt') ?></div>
 									<div><?php echo esc_html($profile_user['direktt_membership_id']); ?></div>
-									<div>Display Name:</div>
+									<div><?php echo esc_html__('Display Name:', 'direktt') ?></div>
 									<div><?php echo esc_html($profile_user['direktt_display_name']); ?></div>
-									<div>Marketing Consent:</div>
+									<div><?php echo esc_html__('Marketing Consent:', 'direktt') ?></div>
 									<div><?php echo $profile_user['direktt_marketing_consent_status'] ? 'true' : 'false' ?></div>
 								</div><!-- direktt-profile-basic-data -->
 								<div class="direktt-profile-meta-data">
 									<div class="direktt-profile-meta-data-categories">
-										<div>Direktt User Categories:</div>
+										<div><?php echo esc_html__('Direktt User Categories:', 'direktt') ?></div>
 										<div>
 											<?php
 											if ($profile_user['direktt_user_categories']) {
 												foreach ($profile_user['direktt_user_categories'] as $item) {
-													echo '<span class="pill">' . htmlspecialchars($item) . '</span>';
+													echo '<span class="pill">' . esc_html(htmlspecialchars($item)) . '</span>';
 												}
 											} else {
 												echo '<span class="pill empty">---</span>';
@@ -156,12 +154,12 @@ class Direktt_Profile
 										</div>
 									</div><!-- direktt-profile-meta-data-categories -->
 									<div class="direktt-profile-meta-data-tags">
-										<div>Direktt User Tags:</div>
+										<div><?php echo esc_html__('Direktt User Tags:', 'direktt') ?></div>
 										<div>
 											<?php
 											if ($profile_user['direktt_user_tags']) {
 												foreach ($profile_user['direktt_user_tags'] as $item) {
-													echo '<span class="pill">' . htmlspecialchars($item) . '</span>';
+													echo '<span class="pill">' . esc_html(htmlspecialchars($item)) . '</span>';
 												}
 											} else {
 												echo '<span class="pill empty">---</span>';
@@ -257,17 +255,15 @@ class Direktt_Profile
 								$newParams['subpage'] = $params['subpage'];
 								$newQuery = http_build_query($newParams);
 								$newUri = $parts['path'] . ($newQuery ? '?' . $newQuery : '');
-								echo ('<li data-subpage="direktt-tool-' . $params['subpage'] . '"><a href="' . $newUri . '" class="dpi-' . $params['subpage'] . ' direktt-button">' . $item['label'] . '</a></li>');
-								$temp_css .= '#direktt-profile[data-subpage="profile-tab-' . $params['subpage'] . '"] #direktt-profile-tools ul li[data-subpage="direktt-tool-' . $params['subpage'] . '"] a, ';
+								echo ('<li data-subpage="direktt-tool-' . esc_attr($params['subpage']) . '"><a href="' . esc_attr($newUri) . '" class="dpi-' . esc_attr($params['subpage']) . ' direktt-button">' . esc_html($item['label']) . '</a></li>');
+								$temp_css .= '#direktt-profile[data-subpage="profile-tab-' .  esc_attr($params['subpage']) . '"] #direktt-profile-tools ul li[data-subpage="direktt-tool-' .  esc_attr($params['subpage']) . '"] a, ';
 							}
 						}
 						?>
 					</ul>
-					<?php echo ('<style>' . $temp_css . ' .dummy { background-color: var(--direktt-profile-button-active-background-color); }</style>'); ?>
+					<?php echo ('<style>' . esc_html($temp_css) . ' .dummy { background-color: var(--direktt-profile-button-active-background-color); }</style>'); ?>
 				</div><!-- direktt-profile-tools -->
 		<?php
-
-		// Ispisujemo defaultni meni:
 
 		usort(Direktt::$profile_bar_array, function ($a, $b) {
 			return $a['priority'] <=> $b['priority'];
@@ -282,7 +278,7 @@ class Direktt_Profile
 			$newParams['subscriptionId'] = $subscriptionId;
 			$newQuery = http_build_query($newParams);
 			$newUri = $parts['path'] . ($newQuery ? '?' . $newQuery : '');
-			echo ('<li data-subpage="direktt-menu-profile"><a href="' . $newUri . '" class="dpi-profile">' . __('Profile', 'direktt') . '</a></li>');
+			echo ('<li data-subpage="direktt-menu-profile"><a href="' . esc_attr($newUri) . '" class="dpi-profile">' . esc_html__('Profile', 'direktt') . '</a></li>');
 
 			foreach (Direktt::$profile_bar_array as $item) {
 				if (isset($item['label'])) {
@@ -293,7 +289,7 @@ class Direktt_Profile
 					$newParams['subpage'] = $item['id'];
 					$newQuery = http_build_query($newParams);
 					$newUri = $parts['path'] . ($newQuery ? '?' . $newQuery : '');
-					echo ('<li data-subpage="direktt-menu-' . $newParams['subpage'] . '"><a href="' . $newUri . '" class="dpi-' . $newParams['subpage'] . '">' . $item['label'] . '</a></li>');
+					echo ('<li data-subpage="direktt-menu-' . esc_attr($newParams['subpage']) . '"><a href="' . esc_attr($newUri) . '" class="dpi-' . esc_attr($newParams['subpage']) . '">' . esc_html($item['label']) . '</a></li>');
 				}
 			}
 

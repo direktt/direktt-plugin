@@ -472,7 +472,7 @@ class Direktt_Admin
 				// Use nav-tab-active if active_tab matches this item's id
 				
 				$active_class = ($active_tab === $item['id']) ? ' nav-tab-active' : '';
-				echo ('<a href="' . esc_url($newUri) . '" class="nav-tab' . $active_class . '">' . esc_html($item['label']) . '</a>');
+				echo ('<a href="' . esc_url($newUri) . '" class="nav-tab' . esc_attr($active_class) . '">' . esc_html($item['label']) . '</a>');
 			}
 		}
 		echo ('</nav>');
@@ -716,20 +716,20 @@ class Direktt_Admin
 
 		?>
 		<p>
-			<input id="direktt_custom_box" name="direktt_custom_box" type="checkbox" <?php echo $box_checked ?>>
-			<label><?php echo __('Allow access to Direktt users', 'direktt') ?></label>
+			<input id="direktt_custom_box" name="direktt_custom_box" type="checkbox" <?php echo esc_attr($box_checked) ?>>
+			<label><?php echo esc_html__('Allow access to Direktt users', 'direktt') ?></label>
 		</p>
 		<p>
-			<input id="direktt_custom_admin_box" name="direktt_custom_admin_box" type="checkbox" <?php echo $box_admin_checked ?>>
-			<label><?php echo __('Allow access to Direktt admin', 'direktt') ?></label>
+			<input id="direktt_custom_admin_box" name="direktt_custom_admin_box" type="checkbox" <?php echo esc_attr($box_admin_checked) ?>>
+			<label><?php echo esc_html__('Allow access to Direktt admin', 'direktt') ?></label>
 		</p>
 		<p>
-			<strong><?php echo __('Allow access to Direktt User Categories:', 'direktt') ?></strong>
+			<strong><?php echo esc_html__('Allow access to Direktt User Categories:', 'direktt') ?></strong>
 		</p>
 		<p>
 			<?php
 			if (empty($category_terms) || is_wp_error($category_terms)) {
-				echo '<em>' . __('No Direktt User Categories Found', 'direktt') . '</em>';
+				echo '<em>' . esc_html__('No Direktt User Categories Found', 'direktt') . '</em>';
 				return;
 			}
 
@@ -754,7 +754,7 @@ class Direktt_Admin
 
 		?>
 		<p>
-			<strong><?php echo __('Allow access to Direktt User Tags:', 'direktt') ?></strong>
+			<strong><?php echo esc_html__('Allow access to Direktt User Tags:', 'direktt') ?></strong>
 		</p>
 		<p>
 			<input
@@ -765,7 +765,7 @@ class Direktt_Admin
 				style="width:100%;"
 				data-available-tags='<?php echo json_encode($all_tags); ?>' />
 		</p>
-		<p class="description"><?php echo __('Enter tags separated by commas. Existing tags: ', 'direktt') ?><?php echo implode(', ', $all_tags); ?></p>
+		<p class="description"><?php echo esc_html__('Enter tags separated by commas. Existing tags: ', 'direktt') ?><?php echo esc_html(implode(', ', $all_tags)); ?></p>
 		<script>
 			jQuery(function($) {
 				var tags = <?php echo json_encode($all_tags); ?>;
@@ -861,12 +861,12 @@ class Direktt_Admin
 
 		if (!$dropdown_value) $dropdown_value = 'all';
 
-		echo '<p><label for="direktt_mt_type"><strong>' . __('Where to display template', 'direktt') . '</strong></label> ';
+		echo '<p><label for="direktt_mt_type"><strong>' . esc_html__('Where to display template', 'direktt') . '</strong></label> ';
 		echo '<select name="direktt_mt_type" id="direktt_mt_type">';
-		echo '<option value="all"' . selected($dropdown_value, 'all', false) . '>' . __('Always display this template', 'direktt') . '</option>';
-		echo '<option value="bulk"' . selected($dropdown_value, 'bulk', false) . '>' . __('Display only when sending Bulk Messages', 'direktt') . '</option>';
-		echo '<option value="individual"' . selected($dropdown_value, 'individual', false) . '>' . __('Display only when sending Individual Messages', 'direktt') . '</option>';
-		echo '<option value="none"' . selected($dropdown_value, 'none', false) . '>' . __('Never, I will use it only via API', 'direktt') . '</option>';
+		echo '<option value="all"' . selected($dropdown_value, 'all', false) . '>' . esc_html__('Always display this template', 'direktt') . '</option>';
+		echo '<option value="bulk"' . selected($dropdown_value, 'bulk', false) . '>' . esc_html__('Display only when sending Bulk Messages', 'direktt') . '</option>';
+		echo '<option value="individual"' . selected($dropdown_value, 'individual', false) . '>' . esc_html__('Display only when sending Individual Messages', 'direktt') . '</option>';
+		echo '<option value="none"' . selected($dropdown_value, 'none', false) . '>' . esc_html__('Never, I will use it only via API', 'direktt') . '</option>';
 		echo '</select></p>';
 
 		// Security nonce
@@ -874,11 +874,11 @@ class Direktt_Admin
 
 		echo ('<div id="appBuilder"></div>');
 
-		echo '<p><label for="direktt_mt_type"><strong>' . __('Template JSON Content', 'direktt') . '</strong></label></p> ';
+		echo '<p><label for="direktt_mt_type"><strong>' . esc_html__('Template JSON Content', 'direktt') . '</strong></label></p> ';
 		echo '<textarea style="width:100%" rows="15" name="direktt_mt_json" id="direktt_mt_json" readonly>' . esc_textarea($value) . '</textarea>';
 		echo '<input type="hidden" name="direktt_mt_json_hidden" id="direktt_mt_json_hidden" value="' . esc_attr($value) . '">';
 
-		echo '<p><label for="direktt_mt_type"><strong>' . __('Send Message Template', 'direktt') . '</strong></label></p> ';
+		echo '<p><label for="direktt_mt_type"><strong>' . esc_html__('Send Message Template', 'direktt') . '</strong></label></p> ';
 
 		echo ('<div id="app"></div>');
 	}

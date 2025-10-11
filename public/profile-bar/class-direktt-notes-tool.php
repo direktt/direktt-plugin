@@ -71,7 +71,7 @@ class Direktt_Notes_Tool
         $profile_user   = Direktt_User::get_user_by_subscription_id($subscriptionId);
 
         if (!$profile_user) {
-            echo "<p>No notes found.</p>";
+            echo "<p>" . esc_html__("No notes found.", "direktt") . "</p>";
             return;
         }
 
@@ -89,6 +89,8 @@ class Direktt_Notes_Tool
 
         echo Direktt_Public::direktt_render_loader(__('Saving note', 'direktt'));
 
+        $allowed_html = wp_kses_allowed_html( 'post' );
+
 ?>
         <style>
             #editor,
@@ -103,13 +105,13 @@ class Direktt_Notes_Tool
 
             <?php if ($status_message) : ?>
                 <div class="send-message-tool-info">
-                    <p class="send-message-tool-status"><?php echo $status_message; ?></p>
+                    <p class="send-message-tool-status"><?php echo esc_html($status_message); ?></p>
                 </div>
             <?php endif; ?>
 
             <div id="direktt-notes-view">
                 <div id="editor">
-                    <?php echo wpautop($notes);
+                    <?php echo wp_kses(wpautop($notes),  $allowed_html);
                     ?>
                 </div>
             </div>
