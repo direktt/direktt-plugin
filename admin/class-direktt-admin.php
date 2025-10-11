@@ -451,7 +451,7 @@ class Direktt_Admin
 			// Only apply 'nav-tab-active' when active_tab is empty
 
 			$active_class = ($active_tab == '') ? ' nav-tab-active' : '';
-			echo ('<a href="' . esc_url($newUri) . '" class="nav-tab' . $active_class . '">' . esc_html__('General Settings', 'direktt') . '</a>');
+			echo ('<a href="' . esc_url($newUri) . '" class="nav-tab' . esc_attr($active_class) . '">' . esc_html__('General Settings', 'direktt') . '</a>');
 		}
 
 		// Sort links by priority asc

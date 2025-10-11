@@ -415,19 +415,19 @@ class Direktt_Public
 		ob_start();
 		if ( ! is_user_logged_in() ) {
 			?>
-			<p><?php echo esc_html__( 'You have to login.', 'direktt-plugin' ); ?></p>
+			<p><?php echo esc_html__( 'You have to login.', 'direktt' ); ?></p>
 			<?php
 		} else {
 			$wp_user = wp_get_current_user();
 			if ( Direktt_User::get_direktt_user_by_wp_user( $wp_user ) ) {
 				?>
-				<p><?php echo esc_html__( 'You have already been paired.', 'direktt-plugin' ); ?></p>
+				<p><?php echo esc_html__( 'You have already been paired.', 'direktt' ); ?></p>
 				<?php
 			} else {
 				$code = get_user_meta( $wp_user->ID, 'direktt_user_pair_code', true );
 				?>
 				<div class="direktt-paring-code">
-					<h2><?php echo esc_html__( 'Direktt Pairing Code', 'direktt-plugin' ); ?></h2>
+					<h2><?php echo esc_html__( 'Direktt Pairing Code', 'direktt' ); ?></h2>
 					<p><?php echo esc_html( $code ); ?></p>
 				</div>
 				<?php
@@ -448,13 +448,13 @@ class Direktt_Public
 		ob_start();
 		if ( ! is_user_logged_in() ) {
 			?>
-			<p><?php echo esc_html__( 'You have to login.', 'direktt-plugin' ); ?></p>
+			<p><?php echo esc_html__( 'You have to login.', 'direktt' ); ?></p>
 			<?php
 		} else {
 			$wp_user = wp_get_current_user();
 			if ( Direktt_User::get_direktt_user_by_wp_user( $wp_user ) ) {
 				?>
-				<p><?php echo esc_html__( 'You have already been paired.', 'direktt-plugin' ); ?></p>
+				<p><?php echo esc_html__( 'You have already been paired.', 'direktt' ); ?></p>
 				<?php
 			} else {
 				$code = get_user_meta( $wp_user->ID, 'direktt_user_pair_code', true );
@@ -462,7 +462,7 @@ class Direktt_Public
 				wp_enqueue_script( 'direktt-pair-code-qr-js' );
 				?>
 				<div class="direktt-qr-paring-code" data-pair-code="<?php echo esc_attr( $code ); ?>" data-size-in-px="<?php echo esc_attr( $size_in_px ); ?>">
-					<h2><?php echo esc_html__( 'Direktt Pairing Code', 'direktt-plugin' ); ?></h2>
+					<h2><?php echo esc_html__( 'Direktt Pairing Code', 'direktt' ); ?></h2>
 					<div id="qrcode"></div>
 				</div>
 				<?php
@@ -556,13 +556,13 @@ class Direktt_Public
 		<div class="direktt-popup direktt-alert-popup" <?php echo $id ? 'id="' . esc_attr($id) . '"' : ''; ?>>
 			<div class="direktt-popup-content">
 				<div class="direktt-popup-header">
-					<h3><?php echo esc_html__( 'Alert', 'direktt-plugin' ); ?></h3>    
+					<h3><?php echo esc_html__( 'Alert', 'direktt' ); ?></h3>    
 				</div>
 				<div class="direktt-popup-text">
 					<p><?php echo esc_html($text); ?></p>
 				</div>
 				<div class="direktt-popup-actions">
-					<button class="direktt-popup-ok"><?php echo esc_html__( 'OK', 'direktt-plugin' ); ?></button>
+					<button class="direktt-popup-ok"><?php echo esc_html__( 'OK', 'direktt' ); ?></button>
 				</div>
 			</div>
 		</div>
@@ -576,14 +576,14 @@ class Direktt_Public
 		<div class="direktt-popup direktt-confirm-popup" <?php echo $id ? 'id="' . esc_attr($id) . '"' : ''; ?>>
 			<div class="direktt-popup-content">
 				<div class="direktt-popup-header">
-					<h3><?php echo esc_html__( 'Confirm', 'direktt-plugin' ); ?></h3>    
+					<h3><?php echo esc_html__( 'Confirm', 'direktt' ); ?></h3>    
 				</div>
 				<div class="direktt-popup-text">
 					<p><?php echo esc_html($text); ?></p>
 				</div>
 				<div class="direktt-popup-actions">
-					<button class="direktt-popup-yes"><?php echo esc_html__( 'Yes', 'direktt-plugin' ); ?></button>
-					<button class="direktt-popup-no"><?php echo esc_html__( 'No', 'direktt-plugin' ); ?></button>
+					<button class="direktt-popup-yes"><?php echo esc_html__( 'Yes', 'direktt' ); ?></button>
+					<button class="direktt-popup-no"><?php echo esc_html__( 'No', 'direktt' ); ?></button>
 				</div>
 			</div>
 		</div>
@@ -596,7 +596,7 @@ class Direktt_Public
 		?>
 		<div class="direktt-loader-overlay">
 			<div class="direktt-loader-container">
-				<p class="direktt-loader-text"><?php echo $text ? esc_html($text) : esc_html__( 'Don\'t refresh the page', 'direktt-plugin' ); ?></p>
+				<p class="direktt-loader-text"><?php echo $text ? esc_html($text) : esc_html__( 'Don\'t refresh the page', 'direktt' ); ?></p>
 				<div class="direktt-loader"></div>
 			</div>
 		</div>

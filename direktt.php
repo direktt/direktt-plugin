@@ -8,16 +8,16 @@
  * registers the activation and deactivation functions, and defines a function
  * that starts the plugin.
  *
- * @link              https://bold-themes.com
+ * @link              https://direktt.com
  * @since             1.0.0
  *
  * @wordpress-plugin
- * Plugin Name:       Direktt WordPress plugin
- * Plugin URI:        https://bold-themes.com
+ * Plugin Name:       Direktt
+ * Plugin URI:        https://direktt.com
  * Description:       Implements the WordPress functionality of the Direktt mobile platform
  * Version:           1.0.0
- * Author:            BoldThemes
- * Author URI:        https://bold-themes.com
+ * Author:            Direktt
+ * Author URI:        https://direktt.com
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       direktt
