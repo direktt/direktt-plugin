@@ -112,7 +112,7 @@ class Direktt_Profile
 		$profile_user = Direktt_User::get_user_by_subscription_id($subscriptionId);
 		?>
 		<div id="direktt-profile-wrapper">
-			<div data-subpage="profile-tab-<?= esc_attr($active_tab) ?>" id="direktt-profile">
+			<div data-subpage="profile-tab-<?php echo esc_attr($active_tab) ?>" id="direktt-profile">
 				<div id="direktt-profile-header">
 					<div id="direktt-profile-tools-toggler" class="dpi-menu"></div>
 					<div class="direktt-profile-header-data">
@@ -225,7 +225,7 @@ class Direktt_Profile
 					}
 
 					$url = $_SERVER['REQUEST_URI'];
-					$parts = parse_url($url);
+					$parts = wp_parse_url($url);
 
 					Direktt::$profile_tools_array = array_filter(Direktt::$profile_tools_array, function ($item) use ($direktt_user) {
 						return ($this->direktt_user_has_term_slugs($item, $direktt_user) || Direktt_User::is_direktt_admin());

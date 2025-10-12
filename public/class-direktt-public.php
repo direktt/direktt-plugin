@@ -53,7 +53,7 @@ class Direktt_Public
 			'direktt_public',
 			plugin_dir_url(__FILE__) . 'js/direktt-public.js',
 			[],
-			'',
+			$this->version,
 			[
 				'in_footer' => true,
 			]
@@ -71,7 +71,7 @@ class Direktt_Public
 			)
 		);
 
-		wp_register_style('direktt-profile-style', plugins_url('css/direktt-profile.css', __FILE__), array());
+		wp_register_style('direktt-profile-style', plugins_url('css/direktt-profile.css', __FILE__), array(), $this->version);
 
 		do_action('direktt_enqueue_public_scripts');
 	}
@@ -82,7 +82,7 @@ class Direktt_Public
 		$arr_cookie_options = array(
 			'expires' => 0, // session cookie
 			'path' => '/',
-			'domain' => parse_url(get_site_url(), PHP_URL_HOST),
+			'domain' => wp_parse_url(get_site_url(), PHP_URL_HOST),
 			'secure' => is_ssl(),
 			'httponly' => true,
 			'samesite' => 'Strict'
@@ -528,16 +528,16 @@ class Direktt_Public
 	public function direktt_register_pairing_code_scripts() {
 		wp_register_script(
 			'qrcode-generator',
-			'https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js',
+			plugin_dir_url(__FILE__) . 'js/qrcode.min.js',
 			array(),
 			'1.0.0',
 			true
 		);
 		wp_register_script(
 			'direktt-pair-code-qr-js',
-			plugins_url( 'js/direktt-pair-code-qr.js', __FILE__ ),
+			plugin_dir_url(__FILE__) . 'js/direktt-pair-code-qr.js',
 			array( 'jquery' ),
-			null,
+			$this->version,
 			true
 		);
 	}

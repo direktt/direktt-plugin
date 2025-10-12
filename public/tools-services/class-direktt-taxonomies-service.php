@@ -133,7 +133,7 @@ class Direktt_Taxonomies_Service
 				$status_message = esc_html__('Saved successfully.', 'direktt');
 			}
 
-			$uriParts = parse_url($_SERVER['REQUEST_URI']);
+			$uriParts = wp_parse_url($_SERVER['REQUEST_URI']);
 			$backUri = isset($uriParts['path']) ? $uriParts['path'] : '';
 
 			wp_enqueue_script('direktt-taxonomies-service-autocomplete-script');
@@ -237,7 +237,7 @@ class Direktt_Taxonomies_Service
 					<?php
 					foreach ($all_categories as $category) {
 						$url = $_SERVER['REQUEST_URI'];
-						$parts = parse_url($url);
+						$parts = wp_parse_url($url);
 						parse_str($parts['query'] ?? '', $params);
 						$params['subpage'] = 'edit-category';
 						$params['tax_name'] = $category['name'];
@@ -262,7 +262,7 @@ class Direktt_Taxonomies_Service
 					<?php
 					foreach ($all_tags as $tag) {
 						$url = $_SERVER['REQUEST_URI'];
-						$parts = parse_url($url);
+						$parts = wp_parse_url($url);
 						parse_str($parts['query'] ?? '', $params);
 						$params['subpage'] = 'edit-tag';
 						$params['tax_name'] = $tag['name'];

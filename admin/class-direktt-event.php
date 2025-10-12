@@ -40,7 +40,7 @@ class Direktt_Event
 
 		$the_default_timestamp_query = "ALTER TABLE $table_name MODIFY COLUMN event_time timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP;";
 
-		$wpdb->query($the_default_timestamp_query);
+		$wpdb->query($the_default_timestamp_query); 	// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 	}
 
 	static function insert_event($event)

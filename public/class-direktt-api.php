@@ -593,21 +593,9 @@ class Direktt_Api
 		$randomString = '';
 
 		for ($i = 0; $i < $length; $i++) {
-			$randomString .= $characters[rand(0, $charactersLength - 1)];
+			$randomString .= $characters[wp_rand(0, $charactersLength - 1)];
 		}
 
 		return $randomString;
-	}
-
-	private function api_log($request)
-	{
-		$location = $_SERVER['REQUEST_URI'];
-		$time = date("F jS Y, H:i", time() + 25200);
-		$debug_info = var_export($request, true);
-		$ban = "#$time\r\n$location\r\n$debug_info\r\n";
-		$file = plugin_dir_path(__FILE__) . '/errors.txt';
-		$open = fopen($file, "a");
-		$write = fputs($open, $ban);
-		fclose($open);
 	}
 }

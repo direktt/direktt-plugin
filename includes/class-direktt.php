@@ -120,7 +120,7 @@ class Direktt {
 		$this->loader->add_action( 'direktt_enqueue_public_scripts', $taxonomies_service, 'direktt_register_taxonomies_service_scripts' );
 		$this->loader->add_action( 'init', $taxonomies_service, 'direktt_taxonomies_service_add_shortcode' );
 
-		$bulk_messaging_service = new Direktt_Bulk_Messaging_Service();
+		$bulk_messaging_service = new Direktt_Bulk_Messaging_Service( $this->get_plugin_name(), $this->get_version() );
 		$this->loader->add_action( 'direktt_enqueue_public_scripts', $bulk_messaging_service, 'direktt_register_bulk_messaging_service_scripts' );
 		$this->loader->add_action( 'init', $bulk_messaging_service, 'direktt_bulk_messaging_service_add_shortcode' );
 	}

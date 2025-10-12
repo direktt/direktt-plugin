@@ -89,7 +89,7 @@ class Direktt_Notes_Tool
 
         echo Direktt_Public::direktt_render_loader(__('Saving note', 'direktt'));
 
-        $allowed_html = wp_kses_allowed_html( 'post' );
+        $allowed_html = wp_kses_allowed_html('post');
 
 ?>
         <style>
@@ -155,28 +155,44 @@ class Direktt_Notes_Tool
         }
         $file = $_FILES['file'];
 
-        $upload_dir = wp_upload_dir();
-        $custom_subdir = '/direktt-notes';
-        $target_dir = $upload_dir['basedir'] . $custom_subdir;
-        if (! file_exists($target_dir)) {
-            if (! wp_mkdir_p($target_dir)) {
-                wp_send_json_error(array('message' => 'Failed to create upload folder.'), 500);
-            }
-        }
-
+        // Allowed extensions
         $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
-        if (! in_array($ext, array('png', 'jpg', 'jpeg', 'gif', 'bmp', 'ico', 'webp'))) {
+        if (!in_array($ext, array('png', 'jpg', 'jpeg', 'gif', 'bmp', 'ico', 'webp'))) {
             wp_send_json_error(array('message' => 'Invalid file type.'), 400);
         }
-        $rand_filename = wp_generate_password(8, false, false) . '.' . $ext;
-        $target_path = trailingslashit($target_dir) . $rand_filename;
 
-        if (! move_uploaded_file($file['tmp_name'], $target_path)) {
-            wp_send_json_error(array('message' => 'Upload failed.'), 500);
+        // 1. Set up a filter to alter the upload directory
+        $custom_subdir = '/direktt-notes';
+        $upload_dir_filter = function ($dirs) use ($custom_subdir) {
+            $dirs['subdir'] = $custom_subdir;
+            $dirs['path'] = $dirs['basedir'] . $custom_subdir;
+            $dirs['url'] = $dirs['baseurl'] . $custom_subdir;
+            return $dirs;
+        };
+        add_filter('upload_dir', $upload_dir_filter);
+
+        // 2. Set up a filter to use a custom filename
+        $custom_filename = wp_generate_password(8, false, false) . '.' . $ext;
+        $prefilter = function ($file_array) use ($custom_filename) {
+            $file_array['name'] = $custom_filename;
+            return $file_array;
+        };
+        add_filter('wp_handle_upload_prefilter', $prefilter);
+
+        $upload_overrides = array('test_form' => false);
+
+        // 3. Handle the upload
+        $movefile = wp_handle_upload($file, $upload_overrides);
+
+        // 4. Remove filters
+        remove_filter('upload_dir', $upload_dir_filter);
+        remove_filter('wp_handle_upload_prefilter', $prefilter);
+
+        // 5. Handle result
+        if (isset($movefile['error'])) {
+            wp_send_json_error(array('message' => 'Upload failed: ' . $movefile['error']), 500);
         }
 
-        $image_url = $upload_dir['baseurl'] . $custom_subdir . '/' . $rand_filename;
-
-        wp_send_json_success(array('image_url' => $image_url));
+        wp_send_json_success(array('image_url' => $movefile['url']));
     }
 }

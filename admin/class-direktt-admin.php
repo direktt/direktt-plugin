@@ -280,7 +280,7 @@ class Direktt_Admin
 				$this->plugin_name . '-settings',
 				plugin_dir_url(__DIR__) . 'js/settings/direktt-settings.js',
 				array('jquery'),
-				'',
+				$this->version,
 				[
 					'in_footer' => true,
 				]
@@ -290,7 +290,7 @@ class Direktt_Admin
 				$this->plugin_name . '-settings',
 				plugin_dir_url(__DIR__) . 'js/settings/direktt-settings.css',
 				[],
-				''
+				$this->version
 			);
 
 			$nonce = wp_create_nonce($this->plugin_name . '-settings');
@@ -312,7 +312,7 @@ class Direktt_Admin
 				$this->plugin_name . '-dashboard',
 				plugin_dir_url(__DIR__) . 'js/dashboard/direktt-dashboard.js',
 				[],
-				'',
+				$this->version,
 				[
 					'in_footer' => true,
 				]
@@ -323,7 +323,7 @@ class Direktt_Admin
 				$this->plugin_name . '-dashboard',
 				plugin_dir_url(__DIR__) . 'js/dashboard/direktt-dashboard.css',
 				[],
-				''
+				$this->version
 			);
 
 			$nonce = wp_create_nonce($this->plugin_name . '-dashboard');
@@ -349,7 +349,7 @@ class Direktt_Admin
 					$this->plugin_name . '-users',
 					plugin_dir_url(__DIR__) . 'js/users/direktt-users.js',
 					[],
-					'',
+					$this->version,
 					[
 						'in_footer' => true,
 					]
@@ -360,7 +360,7 @@ class Direktt_Admin
 					$this->plugin_name . '-users',
 					plugin_dir_url(__DIR__) . 'js/users/direktt-users.css',
 					[],
-					''
+					$this->version
 				);
 
 				$nonce = wp_create_nonce($this->plugin_name . '-direktt-users');
@@ -382,14 +382,14 @@ class Direktt_Admin
 					$this->plugin_name . '-admin-reset',
 					plugin_dir_url(__DIR__) . 'admin/css/direktt-admin-reset.css',
 					[],
-					''
+					$this->version
 				);
 
 				wp_enqueue_script(
 					$this->plugin_name . '-mtemplates',
 					plugin_dir_url(__DIR__) . 'js/mtemplates/direktt-mtemplates.js',
 					[],
-					'',
+					$this->version,
 					[
 						'in_footer' => true,
 					]
@@ -400,7 +400,7 @@ class Direktt_Admin
 					$this->plugin_name . '-mtemplates',
 					plugin_dir_url(__DIR__) . 'js/mtemplates/direktt-mtemplates.css',
 					[],
-					''
+					$this->version
 				);
 
 				wp_localize_script(
@@ -420,7 +420,7 @@ class Direktt_Admin
 			$this->plugin_name . '-admin',
 			plugin_dir_url(__DIR__) . 'admin/css/direktt-admin.css',
 			[],
-			''
+			$this->version
 		);
 	}
 
@@ -531,8 +531,8 @@ class Direktt_Admin
 
 						$related_users = get_users(array(
 							'role__in' => array('direktt'),
-							'meta_key' => 'direktt_wp_user_id',
-							'meta_value' => $user->ID,
+							'meta_key' => 'direktt_wp_user_id',	// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
+							'meta_value' => $user->ID,			// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value
 							'fields' => 'ID'
 						));
 
@@ -672,8 +672,8 @@ class Direktt_Admin
 
 			$related_users = get_users(array(
 				'role__in' => array('direktt'),
-				'meta_key' => 'direktt_wp_user_id',
-				'meta_value' => $userId,
+				'meta_key' => 'direktt_wp_user_id',				// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
+				'meta_value' => $userId,						// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value
 				'fields' => 'ID' // Return only user IDs
 			));
 
@@ -949,8 +949,8 @@ class Direktt_Admin
 		if ($pair_code) {
 
 			$users = get_users(array(
-				'meta_key' => 'direktt_user_pair_code',
-				'meta_value' => $pair_code,
+				'meta_key' => 'direktt_user_pair_code',			// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
+				'meta_value' => $pair_code,						// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value
 				'fields' => 'ID'
 			));
 
@@ -959,8 +959,8 @@ class Direktt_Admin
 				$meta_user_post = Direktt_User::get_user_by_subscription_id($event['direktt_user_id']);
 
 				$users_to_update = get_users(array(
-					'meta_key' => 'direktt_user_id',
-					'meta_value' => $meta_user_post['ID'],
+					'meta_key' => 'direktt_user_id',		// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
+					'meta_value' => $meta_user_post['ID'],	// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value
 					'fields' => 'ID'
 				));
 
