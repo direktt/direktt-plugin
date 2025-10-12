@@ -107,8 +107,8 @@ class Direktt_Profile
 
 		ob_start();
 
-		$active_tab = isset($_GET['subpage']) ? $_GET['subpage'] : '';
-		$subscriptionId   = isset($_GET['subscriptionId']) ? sanitize_text_field(wp_unslash($_GET['subscriptionId'])) : false;
+		$active_tab = isset($_GET['subpage']) ? sanitize_text_field(wp_unslash($_GET['subpage'])) : '';	//phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$subscriptionId   = isset($_GET['subscriptionId']) ? sanitize_text_field(wp_unslash($_GET['subscriptionId'])) : false; //phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		$profile_user = Direktt_User::get_user_by_subscription_id($subscriptionId);
 		?>
 		<div id="direktt-profile-wrapper">
@@ -224,7 +224,9 @@ class Direktt_Profile
 						}
 					}
 
-					$url = $_SERVER['REQUEST_URI'];
+					if (!isset($_SERVER['REQUEST_URI'])) return;
+
+					$url = sanitize_text_field(wp_unslash($_SERVER['REQUEST_URI']));
 					$parts = wp_parse_url($url);
 
 					Direktt::$profile_tools_array = array_filter(Direktt::$profile_tools_array, function ($item) use ($direktt_user) {
