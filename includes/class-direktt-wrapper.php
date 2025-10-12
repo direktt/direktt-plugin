@@ -1,13 +1,4 @@
 <?php
-/**
- * Define a `wrapper namespace` to load the Firebase's JWT & Key classes
- * and prevent conflicts with other plugins using the same library
- * with different versions.
- *
- * @link       https://enriquechavez.co
- * @since      1.0.0
- * @author     marioshtika https://github.com/marioshtika
- */
 
 namespace Direktt\Firebase\JWT;
 

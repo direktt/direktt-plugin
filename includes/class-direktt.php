@@ -19,7 +19,6 @@ class Direktt {
 		$this->version     = '1.0.0';
 
 		$this->load_dependencies();
-		$this->set_locale();
 		$this->define_public_hooks();
 		$this->define_admin_hooks();
 
@@ -39,8 +38,6 @@ class Direktt {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/vendor/autoload.php';
 
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-direktt-loader.php';
-
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-direktt-i18n.php';
 
 		require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-direktt-wrapper.php';
 
@@ -74,12 +71,6 @@ class Direktt {
 
 		$this->loader = new Direktt_Loader();
 		$this->direktt_api = new Direktt_Api( $this->get_plugin_name(), $this->get_version() );
-	}
-
-	private function set_locale() {
-		$plugin_i18n = new Direktt_i18n();
-		$plugin_i18n->set_domain( $this->get_plugin_name() );
-		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
 	}
 
 	private function define_public_hooks() {
