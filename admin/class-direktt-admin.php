@@ -432,10 +432,12 @@ class Direktt_Admin
 
 	public function render_admin_settings()
 	{
-		$active_tab = isset($_GET['subpage']) ? $_GET['subpage'] : '';
+		$active_tab = isset($_GET['subpage']) ? sanitize_text_field(wp_unslash($_GET['subpage'])) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 
-		$url = $_SERVER['REQUEST_URI'];
-		$parts = parse_url($url);
+		if (!isset($_SERVER['REQUEST_URI'])) return;
+
+		$url = sanitize_text_field(wp_unslash($_SERVER['REQUEST_URI']));
+		$parts = wp_parse_url($url);
 
 		// Print out the Direktt Settings label and link
 
@@ -470,7 +472,7 @@ class Direktt_Admin
 				$newUri = $parts['path'] . ($newQuery ? '?' . $newQuery : '');
 
 				// Use nav-tab-active if active_tab matches this item's id
-				
+
 				$active_class = ($active_tab === $item['id']) ? ' nav-tab-active' : '';
 				echo ('<a href="' . esc_url($newUri) . '" class="nav-tab' . esc_attr($active_class) . '">' . esc_html($item['label']) . '</a>');
 			}
@@ -509,13 +511,14 @@ class Direktt_Admin
 
 		?>
 			<h2> <?php echo esc_html__('Direktt User Properties', 'direktt') ?></h2>
+			<?php wp_nonce_field('direktt_user_meta_nonce', 'user_meta_nonce_field'); ?>
 			<table class="form-table" role="presentation">
 				<tbody v-if="data">
 					<?php
 					if (!Direktt_User::is_wp_user_direktt_role($user)) {
 					?>
 						<tr>
-							<th scope="row"><label for="direktt_test_user_id">Post Id of Test Direktt User <p class="description">Post id of Direktt User which will be used on Direktt pages</p></label></th>
+							<th scope="row"><label for="direktt_test_user_id"><?php echo esc_html__('Post Id of Test Direktt User ', 'direktt') ?><p class="description"><?php echo esc_html__('Post id of Direktt User which will be used on Direktt pages', 'direktt') ?></p></label></th>
 							<td>
 								<input type="text" name="direktt_test_user_id" id="direktt_test_user_id" size="50" placeholder="Enter Direktt User Id here" value="<?php echo esc_attr(get_user_meta($user->ID, 'direktt_test_user_id', true)); ?>">
 							</td>
@@ -535,7 +538,7 @@ class Direktt_Admin
 						?>
 
 							<tr>
-								<th scope="row"><label for="direktt_test_user_id">Post Id of related Direktt User:</label></th>
+								<th scope="row"><label for="direktt_test_user_id"><?php echo esc_html__('Post Id of related Direktt User:', 'direktt') ?></label></th>
 								<td>
 									<b><?php echo esc_attr(get_user_meta($related_users[0], 'direktt_user_id', true)); ?> - <?php echo '<a href="' . esc_url(get_edit_post_link(get_user_meta($related_users[0], 'direktt_user_id', true))) . '">View Post</a>' ?></b>
 								</td>
@@ -543,11 +546,11 @@ class Direktt_Admin
 
 
 							<tr>
-								<th scope="row"><label for="direktt_test_user_id">Delete Relation with Direktt User</label></th>
+								<th scope="row"><label for="direktt_test_user_id"><?php echo esc_html__('Delete Relation with Direktt User', 'direktt') ?></label></th>
 								<td>
 									<label for="direktt_delete_relation">
 										<input name="direktt_delete_relation" type="checkbox" id="direktt_delete_relation" value="1">
-										Check to delete relation with Direktt User and click Update Profile </label>
+										<?php echo esc_html__('Check to delete relation with Direktt User and click Update Profile', 'direktt') ?></label>
 								</td>
 							</tr>
 
@@ -559,18 +562,18 @@ class Direktt_Admin
 							?>
 
 								<tr>
-									<th scope="row"><label for="direktt_test_user_id">Code for pairing with related Direktt User:</label></th>
+									<th scope="row"><label for="direktt_test_user_id"><?php echo esc_html__('Code for pairing with related Direktt User:', 'direktt') ?></label></th>
 									<td>
 										<b><?php echo esc_html($direktt_user_pair_code);  ?></b>
 									</td>
 								</tr>
 
 								<tr>
-									<th scope="row"><label for="direktt_test_user_id">Reset Pairing Code</label></th>
+									<th scope="row"><label for="direktt_test_user_id"><?php echo esc_html__('Reset Pairing Code', 'direktt') ?></label></th>
 									<td>
 										<label for="direktt_update_code">
 											<input name="direktt_update_code" type="checkbox" id="direktt_update_code" value="1">
-											Check to update pairing code and click Update Profile </label>
+											<?php echo esc_html__('Check to update pairing code and click Update Profile ', 'direktt') ?></label>
 									</td>
 								</tr>
 
@@ -581,22 +584,22 @@ class Direktt_Admin
 						// onda ide else (role == direkt)
 						?>
 						<tr>
-							<th scope="row"><label for="direktt_test_user_id">Post Id of related Direktt User:</label></th>
+							<th scope="row"><label for="direktt_test_user_id"><?php echo esc_html__('Post Id of related Direktt User:', 'direktt') ?></label></th>
 							<td>
-								<b><?php echo esc_attr($direktt_user_id); ?> - <?php echo '<a href="' . esc_url(get_edit_post_link($direktt_user_id)) . '">View Post</a>' ?></b>
+								<b><?php echo esc_attr($direktt_user_id); ?> - <?php echo '<a href="' . esc_url(get_edit_post_link($direktt_user_id)) . '">' . esc_html__('View Post', 'direktt') . '</a>' ?></b>
 							</td>
 						</tr>
 						<tr>
-							<th scope="row"><label for="direktt_wp_user_id">User Id of related WordPress User:</label></th>
+							<th scope="row"><label for="direktt_wp_user_id"><?php echo esc_html__('User Id of related WordPress User:', 'direktt') ?></label></th>
 							<td>
 								<?php
 								if ($direktt_wp_user_id) {
 								?>
-									<b><?php echo esc_attr($direktt_wp_user_id); ?> - <?php echo '<a href="' . esc_url(get_edit_user_link($direktt_wp_user_id)) . '">View User</a>' ?></b>
+									<b><?php echo esc_attr($direktt_wp_user_id); ?> - <?php echo '<a href="' . esc_url(get_edit_user_link($direktt_wp_user_id)) . '">' . esc_html__('View User', 'direktt') . '</a>' ?></b>
 								<?php
 								} else {
 								?>
-									<b>There is no associated WP User</b>
+									<b><?php echo esc_html__('There is no associated WP User', 'direktt') ?></b>
 								<?php
 								}
 								?>
@@ -629,7 +632,7 @@ class Direktt_Admin
 				$par_code_prefix = 'pair';
 			}
 
-			$pair_code = $par_code_prefix . str_pad(mt_rand(0, 999999), 6, '0', STR_PAD_LEFT);
+			$pair_code = $par_code_prefix . str_pad(wp_rand(1, 999999), 6, '0', STR_PAD_LEFT);
 
 			// Save the new code to the user's meta field
 			update_user_meta($user_id, $meta_key, $pair_code);
@@ -645,8 +648,15 @@ class Direktt_Admin
 			return;
 		}
 
+		if (
+			! isset($_POST['user_meta_nonce_field'])
+			|| ! wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['user_meta_nonce_field'])), 'direktt_user_meta_nonce')
+		) {
+			return;
+		}
+
 		if (isset($_POST['direktt_test_user_id'])) {
-			update_user_meta($userId, 'direktt_test_user_id', sanitize_text_field($_POST['direktt_test_user_id']));
+			update_user_meta($userId, 'direktt_test_user_id', sanitize_text_field(wp_unslash($_POST['direktt_test_user_id'])));
 		} else {
 			delete_user_meta($userId, 'direktt_test_user_id');
 		}
@@ -785,7 +795,7 @@ class Direktt_Admin
 	{
 
 		// nonce check
-		if (!isset($_POST['direktt_custom_box_nonce']) || !wp_verify_nonce($_POST['direktt_custom_box_nonce'], 'direktt_custom_box_nonce')) {
+		if (!isset($_POST['direktt_custom_box_nonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['direktt_custom_box_nonce'])), 'direktt_custom_box_nonce')) {
 			return $post_id;
 		}
 
@@ -805,13 +815,13 @@ class Direktt_Admin
 			return $post_id;
 		}
 
-		if (isset($_POST['direktt_custom_box']) && sanitize_text_field($_POST['direktt_custom_box']) == 'on') {
+		if (isset($_POST['direktt_custom_box']) && sanitize_text_field(wp_unslash($_POST['direktt_custom_box'])) == 'on') {
 			update_post_meta($post_id, 'direktt_custom_box', true);
 		} else {
 			delete_post_meta($post_id, 'direktt_custom_box');
 		}
 
-		if (isset($_POST['direktt_custom_admin_box']) && sanitize_text_field($_POST['direktt_custom_admin_box']) == 'on') {
+		if (isset($_POST['direktt_custom_admin_box']) && sanitize_text_field(wp_unslash($_POST['direktt_custom_admin_box'])) == 'on') {
 			update_post_meta($post_id, 'direktt_custom_admin_box', true);
 		} else {
 			delete_post_meta($post_id, 'direktt_custom_admin_box');
@@ -821,7 +831,7 @@ class Direktt_Admin
 			? array_map('intval', $_POST['direktt_user_categories']) : array();
 		update_post_meta($post_id, 'direktt_user_categories', $term_ids);
 
-		$tags_input = isset($_POST['direktt_user_tags']) ? sanitize_text_field($_POST['direktt_user_tags']) : '';
+		$tags_input = isset($_POST['direktt_user_tags']) ? sanitize_text_field(wp_unslash($_POST['direktt_user_tags'])) : '';
 		$tag_names = array_filter(array_map('trim', explode(',', $tags_input)));
 
 		$tag_ids = [];
@@ -887,18 +897,20 @@ class Direktt_Admin
 	{
 		if (
 			!isset($_POST['direktt_mt_json_nonce']) ||
-			!wp_verify_nonce($_POST['direktt_mt_json_nonce'], 'direktt_mt_json_nonce')
+			!wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['direktt_mt_json_nonce'])), 'direktt_mt_json_nonce')
 		) {
 			return;
 		}
 		if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
 		if (isset($_POST['post_type']) && 'direkttmtemplates' === $_POST['post_type']) {
-			$content = sanitize_textarea_field($_POST['direktt_mt_json']);
-			update_post_meta($post_id, 'direkttMTJson', $content);
+			if (isset($_POST['direktt_mt_json'])) {
+				$content = sanitize_textarea_field(wp_unslash($_POST['direktt_mt_json']));
+				update_post_meta($post_id, 'direkttMTJson', $content);
+			}
 		}
 
 		if (isset($_POST['direktt_mt_type'])) {
-			$dropdown_value = sanitize_text_field($_POST['direktt_mt_type']);
+			$dropdown_value = sanitize_text_field(wp_unslash($_POST['direktt_mt_type']));
 			update_post_meta($post_id, 'direkttMTType', $dropdown_value);
 		}
 	}

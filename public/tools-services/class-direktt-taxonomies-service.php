@@ -147,7 +147,7 @@ class Direktt_Taxonomies_Service
 				<div class="direktt-edit-taxonomies-service-wrapper direktt-edit-taxonomies-service-editor" id="direktt-profile">
 					<?php
 
-					echo Direktt_Public::direktt_render_confirm_popup('edit-taxonomies-service-confirm',  __("Are you sure that you want to remove the user?", 'direktt'));
+					echo Direktt_Public::direktt_render_confirm_popup('edit-taxonomies-service-confirm', esc_html__("Are you sure that you want to remove the user?", 'direktt'));
 					echo Direktt_Public::direktt_render_loader(__('Saving data', 'direktt'));
 
 					if (('edit-category' === $subpage || 'edit-tag' === $subpage) && isset($_GET['tax_name'])) {
@@ -156,7 +156,7 @@ class Direktt_Taxonomies_Service
 						$tax_name = sanitize_text_field($_GET['tax_name']);
 
 					?>
-						<p class="direktt-edit-taxonomies-service-status"><?php echo $status_message; ?></p>
+						<p class="direktt-edit-taxonomies-service-status"><?php echo esc_html($status_message); ?></p>
 						<h2><?php echo 'edit-category' === $subpage ? esc_html__('Category Name:', 'direktt') : esc_html__('Tag Name:', 'direktt'); ?> <?php echo esc_html($_GET['tax_name']); ?></h2>
 						<div class="direktt-edit-taxonomies-service-users">
 							<form method="post" action="">

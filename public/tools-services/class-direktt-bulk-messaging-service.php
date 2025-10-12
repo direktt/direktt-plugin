@@ -135,7 +135,7 @@ class Direktt_Bulk_Messaging_Service {
 						$term = get_term_by( 'name', sanitize_text_field( $_GET['tax_name'] ), $taxonomy );
 			
 						?>
-						<p class="direktt-bulk-messaging-service-status"><?php echo $status_message; ?></p>
+						<p class="direktt-bulk-messaging-service-status"><?php echo esc_html($status_message); ?></p>
 						<h2><?php echo 'edit-category' === $subpage ? esc_html__( 'Category Name:', 'direktt' ) : esc_html__( 'Tag Name:', 'direktt' ); ?> <?php echo esc_html( $_GET['tax_name'] ); ?></h2>
 						<h3><?php echo esc_html__( 'Users:', 'direktt' ); ?></h3>
 						<div class="direktt-edit-taxonomies-service-users">
