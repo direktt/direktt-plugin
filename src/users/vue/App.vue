@@ -20,20 +20,12 @@ const { isLoading, isError, isFetching, data, error, refetch } = useQuery({
   queryFn: getMarketingConsent,
 });
 
-
-
-
-/* const { isLoadingEv, isErrorEv, isFetchingEv, dataEv, errorEv, refetchEv, isPreviousDataEv } = useQuery({
-  queryKey: ["user-events", postId.value, page.value],
-  queryFn: () => getUserEvents(),
-  keepPreviousData: true,
-}); */
-
 async function getMarketingConsent() {
   let ret = {};
   const response = await doAjax({
     action: "direktt_get_marketing_consent", // the action to fire in the server
-    postId: postId.value
+    postId: postId.value,
+    nonce: direktt_users_object.nonce
   });
 
   ret = response.data;
@@ -48,12 +40,11 @@ async function getMarketingConsent() {
 
 async function getUserEvents() {
   let ret = {};
-  console.log('Ucitavam');
-  console.log(page.value);
   const response = await doAjax({
     action: "direktt_get_user_events", // the action to fire in the server
     postId: postId.value,
-    page: page.value
+    page: page.value,
+    nonce: direktt_users_object.nonce
   });
 
   ret = response.data;

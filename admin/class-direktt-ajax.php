@@ -42,17 +42,17 @@ class Direktt_Ajax
 			return;
 		}
 
-		$nonce = (isset($_POST['nonce'])) ? sanitize_text_field($_POST['nonce']) : false;
+		$nonce = (isset($_POST['nonce'])) ? sanitize_text_field(wp_unslash($_POST['nonce'])) : false;
 
 		if ($nonce && wp_verify_nonce($nonce, 'direkttmtemplates')) {
 
-			$categories = (isset($_POST['categories'])) ? json_decode(stripslashes($_POST['categories']), true) : false;
-			$tags = (isset($_POST['tags'])) ? json_decode(stripslashes($_POST['tags']), true) : false;
+			$categories = (isset($_POST['categories'])) ? json_decode(sanitize_text_field(wp_unslash($_POST['categories'])), true) : false;
+			$tags = (isset($_POST['tags'])) ? json_decode(sanitize_text_field(wp_unslash($_POST['tags'])), true) : false;
 
-			$userSet = (isset($_POST['userSet'])) ? sanitize_text_field($_POST['userSet']) : false;
+			$userSet = (isset($_POST['userSet'])) ? sanitize_text_field(wp_unslash($_POST['userSet'])) : false;
 			$consent = filter_input(INPUT_POST, 'consent', FILTER_VALIDATE_BOOLEAN) ?? false;
 
-			$message_template_id = (isset($_POST['postId'])) ? sanitize_text_field($_POST['postId']) : false;
+			$message_template_id = (isset($_POST['postId'])) ? sanitize_text_field(wp_unslash($_POST['postId'])) : false;
 
 			if ($userSet && $message_template_id) {
 
@@ -97,7 +97,7 @@ class Direktt_Ajax
 			'api_key' => get_option('direktt_api_key') ? esc_attr(get_option('direktt_api_key')) : '',
 			'direktt_channel_title' => get_option('direktt_channel_title') ? esc_attr(get_option('direktt_channel_title')) : '',
 			'direktt_channel_id' => get_option('direktt_channel_id') ? esc_attr(get_option('direktt_channel_id')) : '',
-			'forceReload' => rand(1, 100000),
+			'forceReload' => wp_rand(1, 100000),
 
 			'isSSL' => stripos(get_site_url(), 'https://') === 0,
 			'redirect_url' => get_option('unauthorized_redirect_url') ? esc_attr(get_option('unauthorized_redirect_url')) : '',
@@ -121,7 +121,7 @@ class Direktt_Ajax
 			'direktt_channel_title' => get_option('direktt_channel_title') ? esc_attr(get_option('direktt_channel_title')) : '',
 			'direktt_channel_id' => get_option('direktt_channel_id') ? esc_attr(get_option('direktt_channel_id')) : '',
 			'isSSL' => stripos(get_site_url(), 'https://') === 0,
-			'forceReload' => rand(1, 100000)
+			'forceReload' => wp_rand(1, 100000)
 		);
 
 		wp_send_json_success($data, 200);
@@ -205,7 +205,11 @@ class Direktt_Ajax
 			return;
 		}
 
-		$post_id = (isset($_POST['postId'])) ? sanitize_text_field($_POST['postId']) : false;
+		$nonce = (isset($_POST['nonce'])) ? sanitize_text_field(wp_unslash($_POST['nonce'])) : false;
+
+		if (!$nonce || !wp_verify_nonce($nonce, $this->plugin_name . '-direktt-users')) return;
+
+		$post_id = (isset($_POST['postId'])) ? sanitize_text_field(wp_unslash($_POST['postId'])) : false;
 
 		$data = array(
 			'direktt_user_id' => get_post_meta($post_id, "direktt_user_id", true),
@@ -225,19 +229,29 @@ class Direktt_Ajax
 			return;
 		}
 
-		$post_id = (isset($_POST['postId'])) ? sanitize_text_field($_POST['postId']) : false;
-		$page = (isset($_POST['page'])) ? sanitize_text_field($_POST['page']) : false;
+		$nonce = (isset($_POST['nonce'])) ? sanitize_text_field(wp_unslash($_POST['nonce'])) : false;
+
+		if (!$nonce || !wp_verify_nonce($nonce, $this->plugin_name . '-direktt-users')) return;
+
+		$post_id = (isset($_POST['postId'])) ? sanitize_text_field(wp_unslash($_POST['postId'])) : false;
+		$page = (isset($_POST['page'])) ? sanitize_text_field(wp_unslash($_POST['page'])) : false;
 
 		$direktt_user_id = get_post_meta($post_id, 'direktt_user_id', true);
 
 		global $wpdb;
-
 		$table_name = $wpdb->prefix . 'direktt_events';
 
 		if (intval($page) == 0) {
-			$results = $wpdb->get_results("SELECT * FROM $table_name WHERE direktt_user_id = '" . $direktt_user_id . "' ORDER BY ID DESC LIMIT 20");
+			$results = $wpdb->get_results($wpdb->prepare(
+				"SELECT * FROM {$table_name} WHERE direktt_user_id = %s ORDER BY ID DESC LIMIT 20", // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+				$direktt_user_id
+			));
 		} else {
-			$results = $wpdb->get_results("SELECT * FROM $table_name WHERE direktt_user_id = '" . $direktt_user_id . "' AND ID < " . intval($page) . " ORDER BY ID DESC LIMIT 20");
+			$results = $wpdb->get_results($wpdb->prepare(
+				"SELECT * FROM {$table_name} WHERE direktt_user_id = %s AND ID < %d ORDER BY ID DESC LIMIT 20", // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+				$direktt_user_id,
+				intval($page)
+			));
 		}
 
 		$data = $results;
@@ -252,19 +266,19 @@ class Direktt_Ajax
 			return;
 		}
 
-		$choice = (isset($_POST['api_key'])) ? sanitize_text_field($_POST['api_key']) : false;
+		$choice = (isset($_POST['api_key'])) ? sanitize_text_field(wp_unslash($_POST['api_key'])) : false;
 
-		$url_choice = (isset($_POST['redirect_url'])) ? sanitize_text_field($_POST['redirect_url']) : false;
+		$url_choice = (isset($_POST['redirect_url'])) ? sanitize_text_field(wp_unslash($_POST['redirect_url'])) : false;
 
-		$activation_status = filter_var($_POST['activation_status'], FILTER_VALIDATE_BOOLEAN);
+		$activation_status = isset($_POST['activation_status']) ? filter_var(wp_unslash($_POST['activation_status']), FILTER_VALIDATE_BOOLEAN) : false;
 
-		$pairing_prefix = (isset($_POST['pairing_prefix'])) ? sanitize_text_field($_POST['pairing_prefix']) : false;
+		$pairing_prefix = (isset($_POST['pairing_prefix'])) ? sanitize_text_field(wp_unslash($_POST['pairing_prefix'])) : false;
 
-		$pairing_succ_template = (isset($_POST['pairing_succ_template'])) ? sanitize_text_field($_POST['pairing_succ_template']) : false;
+		$pairing_succ_template = (isset($_POST['pairing_succ_template'])) ? sanitize_text_field(wp_unslash($_POST['pairing_succ_template'])) : false;
 
-		$reset_pairings = (isset($_POST['reset_pairings'])) ? sanitize_text_field($_POST['reset_pairings']) : false;
+		$reset_pairings = (isset($_POST['reset_pairings'])) ? sanitize_text_field(wp_unslash($_POST['reset_pairings'])) : false;
 
-		if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], $this->plugin_name . '-settings')) {
+		if (!isset($_POST['nonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['nonce'])), $this->plugin_name . '-settings')) {
 
 			wp_send_json_error(new WP_Error('Unauthorized', 'Nonce is not valid'), 401);
 			exit;
@@ -341,7 +355,7 @@ class Direktt_Ajax
 			return;
 		}
 
-		if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], $this->plugin_name . '-settings')) {
+		if (!isset($_POST['nonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['nonce'])), $this->plugin_name . '-settings')) {
 			wp_send_json_error(new WP_Error('Unauthorized', 'Nonce is not valid'), 401);
 			exit;
 		}
@@ -475,12 +489,10 @@ class Direktt_Ajax
 	{
 		global $wpdb;
 
-		$sql = $wpdb->prepare(
+		$wpdb->query($wpdb->prepare(
 			"DELETE FROM {$wpdb->usermeta} WHERE meta_key = %s",
 			$meta_key
-		);
-
-		$wpdb->query($sql);
+		));
 	}
 
 	private function has_published_direkttusers_posts()
@@ -611,7 +623,7 @@ class Direktt_Ajax
 			// Verify nonce for security against CSRF attacks.
 
 
-			if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'direktt_msgsend_nonce')) {
+			if (!isset($_POST['nonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['nonce'])), 'direktt_msgsend_nonce')) {
 				wp_send_json(['status' => 'nonce_failed'], 401);
 			}
 
@@ -638,7 +650,7 @@ class Direktt_Ajax
 
 		if ($post && Direktt_Public::direktt_ajax_check_user($post)) {
 
-			if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'user_list_nonce')) {
+			if (!isset($_POST['nonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['nonce'])), 'user_list_nonce')) {
 				wp_send_json(['status' => 'nonce_failed'], 401);
 			}
 

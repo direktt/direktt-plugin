@@ -363,12 +363,15 @@ class Direktt_Admin
 					''
 				);
 
+				$nonce = wp_create_nonce($this->plugin_name . '-direktt-users');
+
 				wp_localize_script(
 					$this->plugin_name . '-users',
 					$this->plugin_name . '_users_object',
 					array(
 						'ajaxurl' => admin_url('admin-ajax.php'),
-						'postId' => $post->ID
+						'postId' => $post->ID,
+						'nonce' => $nonce
 					)
 				);
 			}
