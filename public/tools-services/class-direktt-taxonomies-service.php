@@ -2,18 +2,27 @@
 
 class Direktt_Taxonomies_Service
 {
+	private string $plugin_name;
+	private string $version;
+
+	public function __construct(string $plugin_name, string $version)
+	{
+		$this->plugin_name = $plugin_name;
+		$this->version     = $version;
+	}
+
 	public function direktt_taxonomies_service_add_shortcode()
 	{
 		add_shortcode('direktt_edit_taxonomies_service', [$this, 'direktt_taxonomies_service_shortcode']);
 	}
-	static function direktt_register_taxonomies_service_scripts()
+	public function direktt_register_taxonomies_service_scripts()
 	{
-		wp_register_script("direktt-taxonomies-service-autocomplete-script", plugins_url('../js/autoComplete.min.js', __FILE__), array());
-		wp_register_script("direktt-taxonomies-service-script", plugins_url('../js/direktt-service-taxonomies.js', __FILE__), array("direktt-taxonomies-service-autocomplete-script", "jquery"));
-		wp_register_style("direktt-taxonomies-service-autocomplete-style", plugins_url('../css/autoComplete.01.css', __FILE__));
+		wp_register_script("direktt-taxonomies-service-autocomplete-script", plugins_url('../js/autoComplete.min.js', __FILE__), array(), "10.2.9", true);
+		wp_register_script("direktt-taxonomies-service-script", plugins_url('../js/direktt-service-taxonomies.js', __FILE__), array("direktt-taxonomies-service-autocomplete-script", "jquery"), $this->version, true);
+		wp_register_style("direktt-taxonomies-service-autocomplete-style", plugins_url('../css/autoComplete.01.css', __FILE__), array(), $this->version);
 	}
 
-	static function direktt_taxonomies_service_shortcode()
+	public function direktt_taxonomies_service_shortcode()
 	{
 		if (! Direktt_User::is_direktt_admin()) {
 			return;

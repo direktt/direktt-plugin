@@ -2,6 +2,16 @@
 
 class Direktt_Notes_Tool
 {
+
+    private string $plugin_name;
+	private string $version;
+
+	public function __construct(string $plugin_name, string $version)
+	{
+		$this->plugin_name = $plugin_name;
+		$this->version     = $version;
+	}
+    
     public function setup_profile_tools_notes()
     {
         Direktt_Profile::add_profile_bar(
@@ -16,23 +26,27 @@ class Direktt_Notes_Tool
                     array(
                         "handle" => "direktt-quill",
                         "src" => plugins_url('../js/quill.js', __FILE__),
-                        "deps" => array()
+                        "deps" => array(),
+                        "ver" => "2.0.3"
                     ),
                     array(
                         "handle" => "direktt-quill-image-drag-drop",
                         "src" => plugins_url('../js/quill-image-drop-and-paste.min.js', __FILE__),
-                        "deps" => array()
+                        "deps" => array(),
+                        "ver" => "2.0.1"
                     ),
                     array(
                         "handle" => "direktt-profile-notes-script",
                         "src" => plugins_url('../js/direktt-profile-notes.js', __FILE__),
-                        "deps" => array("direktt-quill", "jquery")
+                        "deps" => array("direktt-quill", "jquery"),
+                        "ver" => $this->version
                     )
                 ],
                 "cssEnqueueArray" => [
                     array(
                         "handle" => "direktt-quill-style",
-                        "src" => plugins_url('../css/quill.snow.css', __FILE__)
+                        "src" => plugins_url('../css/quill.snow.css', __FILE__),
+                        "ver" => "2.0.3"
                     ),
                 ],
             )

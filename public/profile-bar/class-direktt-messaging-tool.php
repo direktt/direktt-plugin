@@ -2,6 +2,16 @@
 
 class Direktt_Messaging_Tool
 {
+
+    private string $plugin_name;
+	private string $version;
+
+	public function __construct(string $plugin_name, string $version)
+	{
+		$this->plugin_name = $plugin_name;
+		$this->version     = $version;
+	}
+
     public function setup_profile_tools_messaging()
     {
         Direktt_Profile::add_profile_bar(
@@ -15,22 +25,26 @@ class Direktt_Messaging_Tool
                 "cssEnqueueArray" => [
                     array(
                         "handle" => "direktt-profile-autocomplete-style",
-                        "src" => plugins_url('../css/autoComplete.01.css', __FILE__)
+                        "src" => plugins_url('../css/autoComplete.01.css', __FILE__),
+                        "ver" => "10.2.9"
                     ),
                     array(
                         "handle" => "direktt-profile-message-style",
-                        "src" => plugins_url('../css/direktt-profile-message.css', __FILE__)
+                        "src" => plugins_url('../css/direktt-profile-message.css', __FILE__),
+                        "ver" => $this->version
                     )
                 ],
                 "jsEnqueueArray" => [
                     array(
                         "handle" => "direktt-profile-autocomplete-script",
-                        "src" => plugins_url('../js/autoComplete.min.js', __FILE__)
+                        "src" => plugins_url('../js/autoComplete.min.js', __FILE__),
+                        "ver" => "10.2.9"
                     ),
                     array(
                         "handle" => "direktt-profile-message-script",
                         "src" => plugins_url('../js/direktt-profile-message.js', __FILE__),
-                        "deps" => array("direktt-profile-autocomplete-script", "jquery")
+                        "deps" => array("direktt-profile-autocomplete-script", "jquery"),
+                        "ver" => $this->version
                     )
                 ]
             )

@@ -29,8 +29,8 @@ class Direktt_Profile
 	public function enqueue_profile_scripts()
 	{
 
-		wp_register_script('direktt-profile-script', plugins_url('js/direktt-profile.js', __FILE__), array('jquery'));
-		wp_register_style('direktt-profile-style', plugins_url('css/direktt-profile.css', __FILE__), array());
+		wp_register_script('direktt-profile-script', plugins_url('js/direktt-profile.js', __FILE__), array('jquery'), $this->version, true);
+		wp_register_style('direktt-profile-style', plugins_url('css/direktt-profile.css', __FILE__), array(), $this->version);
 
 		foreach (Direktt::$profile_tools_array as $item) {
 			if (isset($item['cssEnqueueArray']) && is_array($item['cssEnqueueArray']) && array_is_list($item['cssEnqueueArray'])) {

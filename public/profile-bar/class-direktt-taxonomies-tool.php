@@ -1,6 +1,16 @@
 <?php
 
 class Direktt_Taxonomies_Tool {
+
+    private string $plugin_name;
+	private string $version;
+
+	public function __construct(string $plugin_name, string $version)
+	{
+		$this->plugin_name = $plugin_name;
+		$this->version     = $version;
+	}
+
     public function setup_profile_tools_taxonomies() {
         Direktt_Profile::add_profile_bar(
             array(
@@ -14,7 +24,8 @@ class Direktt_Taxonomies_Tool {
                     array(
                         "handle" => "direktt-profile-taxonomies-script",
                         "src" => plugins_url('../js/direktt-profile-taxonomies.js', __FILE__),
-                        "deps" => array("jquery")
+                        "deps" => array("jquery"),
+                        "ver" => $this->version
                     )
                 ]
             )
@@ -42,9 +53,11 @@ class Direktt_Taxonomies_Tool {
                 ? array_map( 'sanitize_text_field', wp_unslash( $_POST['user_tags'] ) )
                 : [];
             wp_set_object_terms( $user_id, $tags, 'direkttusertags' );
-    
-            $redirect_url = add_query_arg( 'status_flag', '1', $_SERVER['REQUEST_URI'] );
-            wp_safe_redirect( esc_url_raw( $redirect_url ) );
+
+            if( isset($_SERVER['REQUEST_URI']) ) {
+                $redirect_url = add_query_arg( 'status_flag', '1', sanitize_text_field(wp_unslash($_SERVER['REQUEST_URI'])) );
+                wp_safe_redirect( esc_url_raw( $redirect_url ) );
+            }
             exit;
         }
     
