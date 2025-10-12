@@ -150,10 +150,6 @@ class Direktt_Public
 
 			$user = Direktt_User::get_user_by_subscription_id($direktt_user_id_tocheck);
 
-		//} else if (! property_exists($decoded_token, 'subscriptionUid') && property_exists($decoded_token, 'channelUid') && property_exists($decoded_token, 'adminUid')) {
-
-			//$direktt_admin_id_tocheck = sanitize_text_field($decoded_token->adminUid);
-			//$user = Direktt_User::get_user_by_admin_id($direktt_admin_id_tocheck);
 		} else {
 			return false;
 		}
@@ -162,8 +158,6 @@ class Direktt_Public
 		if (time() > intval($decoded_token->exp)) {
 			return false;
 		}
-
-		// todo sta se desava ukoliko ga nemamo u bazi - treba poslati zahtev api-ju da proverimo usera i da nam on posalje zahtev da ga registruje i ako sve prodje kako treba ponovo ga validiramo
 
 		if ($user) {
 			return $user;
@@ -175,7 +169,7 @@ class Direktt_Public
 	public function direktt_check_token()
 	{
 
-		$token = (isset($_GET['token'])) ? sanitize_text_field($_GET['token']) : false;
+		$token = (isset($_GET['token'])) ? sanitize_text_field(wp_unslash($_GET['token'])) : false;		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 
 		if ($token) {
 
@@ -196,11 +190,9 @@ class Direktt_Public
 				return;
 			}
 
-			//nadji usera koji je direktt user i koji je i uloguj ga
 			$direktt_wp_user = Direktt_User::get_wp_direktt_user_by_post_id($direktt_user['ID']);
 
 			if ($direktt_wp_user) {
-				// Log the user in
 				wp_set_current_user($direktt_wp_user->ID);
 				wp_set_auth_cookie($direktt_wp_user->ID);
 				do_action('wp_login', $direktt_wp_user->login, $direktt_wp_user);
@@ -212,9 +204,13 @@ class Direktt_Public
 
 	private function redirect_without_token()
 	{
-		// Get current URL
 		$current_url  = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http");
-		$current_url .= "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+		if( !isset($_SERVER['HTTP_HOST']) || !isset($_SERVER['REQUEST_URI'])) return;
+		
+		$http_host = sanitize_text_field(wp_unslash($_SERVER['HTTP_HOST']));
+		$request_uri = sanitize_text_field(wp_unslash($_SERVER['REQUEST_URI']));
+		
+		$current_url .= "://$http_host$request_uri";
 
 		$new_url = $current_url;
 
