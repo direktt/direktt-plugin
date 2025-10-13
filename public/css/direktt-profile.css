@@ -23,14 +23,17 @@
   line-height: 1.25;
   /* margin-top: 1em; */
   margin-top: 0;
-  margin-bottom: 0.5em;
+  margin-bottom: 1em;
+  margin-top: 1.5em;
+}
+#direktt-profile h1:first-child, #direktt-profile h2:first-child, #direktt-profile h3:first-child, #direktt-profile h4:first-child, #direktt-profile h5:first-child, #direktt-profile h6:first-child {
+  margin-top: 0;
 }
 #direktt-profile h3 {
   font-size: 1.25em;
 }
 #direktt-profile h4, #direktt-profile h5, #direktt-profile h6 {
   font-size: 1em;
-  margin-bottom: 0.5em;
 }
 #direktt-profile strong, #direktt-profile b {
   font-weight: 600;
@@ -80,6 +83,7 @@
   /* width: 100%; */
   font-weight: 600;
   padding: 1em 2em;
+  margin-bottom: 1em;
   font-size: inherit;
   display: block;
   border: none;
@@ -146,12 +150,16 @@
   border-spacing: 0;
 }
 
+/* Imported */
 /* Autocomplete */
 body.direktt-app .ui-autocomplete {
   font: inherit;
   font-size: var(--direktt-profile-default-font-size-normal);
   font-family: var(--direktt-profile-default-font-family);
   font-weight: 400;
+}
+body.direktt-app .ui-menu .ui-menu-item-wrapper {
+  padding: 1em;
 }
 
 /* Variables */
@@ -442,6 +450,10 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
 #direktt-profile table tbody tr:not(:last-child) {
   border-bottom: 1px solid var(--direktt-profile-light-gray-color);
 }
+#direktt-profile table.direktt-table-last-column-align-right th:last-child,
+#direktt-profile table.direktt-table-last-column-align-right td:last-child {
+  text-align: right;
+}
 #direktt-profile:has(.direktt-service) {
   padding-bottom: 1em;
 }
@@ -701,10 +713,12 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
 #direktt-profile .direktt-taxonomies-tool-wrapper .direktt-taxonomies-tool-submit {
   margin-top: 1em;
 }
-#direktt-profile .direktt-notes-view .ql-toolbar {
-  border-bottom: 1px solid var(--direktt-profile-light-gray-color);
-  padding-bottom: 1em;
-  margin-bottom: 1em;
+#direktt-profile #direktt-notes-view .ql-toolbar {
+  /* margin-bottom: 1em; */
+}
+#direktt-profile #direktt-notes-view .ql-editor {
+  height: auto;
+  min-height: 50%;
 }
 #direktt-profile .direktt-profile-data-cross-sell-tool {
   padding: 1em !important;
@@ -837,31 +851,16 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
 #direktt-profile .direktt-profile-data-loyalty-program-tool .direktt-loyalty-program-transactions table th:first-child, #direktt-profile .direktt-profile-data-loyalty-program-tool .direktt-loyalty-program-transactions table td:first-child {
   text-align: center;
 }
-#direktt-profile .direktt-profile-data-review-profile-tool {
-  padding: 1em;
-}
-#direktt-profile .direktt-profile-data-review-profile-tool .direktt-review-header .button.direktt-send-review {
-  margin-bottom: 1em;
-}
-#direktt-profile .direktt-profile-data-review-profile-tool .direktt-review-profile-tool-table th:last-child,
-#direktt-profile .direktt-profile-data-review-profile-tool .direktt-review-profile-tool-table td:last-child {
-  text-align: right;
-}
 #direktt-profile .direktt-profile-data-service-status-tool {
   padding: 1em;
-}
-#direktt-profile .direktt-profile-data-service-status-tool .direktt-service-status-add-new {
-  margin-bottom: 1em;
-}
-#direktt-profile .direktt-profile-data-service-status-tool .direktt-service-status-case-my-cases {
-  margin-bottom: 1em;
 }
 #direktt-profile .direktt-profile-data-service-status-tool .direktt-service-status-search {
   display: flex;
   gap: 1em;
+  margin-bottom: 2em;
+  align-items: stretch;
 }
 #direktt-profile .direktt-profile-data-service-status-tool .direktt-service-status-cases-list {
-  margin-top: 2em;
   border-top: 1px solid var(--direktt-profile-dark-gray-color);
 }
 #direktt-profile .direktt-profile-data-service-status-tool .direktt-service-status-cases-list .case-item {
@@ -879,25 +878,11 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
   min-width: 7em;
   display: inline-block;
 }
-#direktt-profile .direktt-profile-data-service-status-tool .direktt-service-status-log {
-  padding-top: 0.5em;
-}
 #direktt-profile .direktt-profile-data-service-status-tool .direktt-service-status-log td:first-child i {
   color: var(--direktt-profile-dark-gray-color);
 }
-#direktt-profile .direktt-profile-data-service-status-tool .direktt-service-status-case-form-wrapper form {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5em;
-}
-#direktt-profile .direktt-profile-data-service-status-tool .direktt-service-status-case-form-wrapper form label {
-  display: block;
-}
-#direktt-profile .direktt-profile-data-service-status-tool .direktt-service-status-case-form-wrapper form .form-buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5em;
-  margin-bottom: 2em;
+#direktt-profile .direktt-profile-data-service-status-tool .direktt-service-status-case-form-wrapper form > div {
+  margin-bottom: 1em;
 }
 #direktt-profile.direktt-edit-taxonomies-service-wrapper {
   min-height: auto;

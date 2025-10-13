@@ -157,6 +157,12 @@
 		tbody tr:not(:last-child) {
 			border-bottom: 1px solid var(--direktt-profile-light-gray-color);
 		}
+		&.direktt-table-last-column-align-right  {
+			th:last-child,
+			td:last-child {
+				text-align: right;
+			}
+		}
 	}
 	
 	/* End general */
@@ -469,11 +475,13 @@
 	
 	/* Notes */
 	
-	.direktt-notes-view {
+	#direktt-notes-view {
 		.ql-toolbar {
-			border-bottom: 1px solid var(--direktt-profile-light-gray-color);
-			padding-bottom: 1em;
-			margin-bottom: 1em;
+			/* margin-bottom: 1em; */
+		}
+		.ql-editor {
+			height: auto;
+			min-height: 50%;
 		}
 	}
 	
@@ -626,38 +634,19 @@
 	
 	/* Reviews */ 
 	
-	.direktt-profile-data-review-profile-tool {
-		padding: 1em;
-		.direktt-review-header {
-			.button.direktt-send-review {
-				margin-bottom: 1em;
-			}
-		}
-		.direktt-review-profile-tool-table {
-			th:last-child,
-			td:last-child {
-				text-align: right;
-			}
-		}
-	}
+	
 	
 	/* Service status */
 	
 	.direktt-profile-data-service-status-tool {
 		padding: 1em;
-		
-		.direktt-service-status-add-new {
-			margin-bottom: 1em;
-		}
-		.direktt-service-status-case-my-cases {
-			margin-bottom: 1em;
-		}
 		.direktt-service-status-search {
 			display: flex;
 			gap: 1em;
+			margin-bottom: 2em;
+			align-items: stretch;
 		}
 		.direktt-service-status-cases-list {
-			margin-top: 2em;
 			border-top: 1px solid var(--direktt-profile-dark-gray-color);
 			.case-item {
 				padding: 1em 0 1em 0;
@@ -675,25 +664,13 @@
 			}
 		}
 		.direktt-service-status-log {
-			padding-top: 0.5em;	
 			td:first-child i {
 				color: var(--direktt-profile-dark-gray-color);
 			}					
 		}
 		.direktt-service-status-case-form-wrapper {
-			form {
-				display: flex;
-				flex-direction: column;
-				gap: 0.5em;
-				label {
-					display: block;	
-				} 
-				.form-buttons {
-					display: flex;
-					flex-direction: column;
-					gap: 0.5em;	
-					margin-bottom: 2em;					
-				}
+			form > div {
+				margin-bottom: 1em; 
 			}
 		}
 	}

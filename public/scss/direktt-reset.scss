@@ -27,7 +27,11 @@
 		line-height: 1.25;
 		/* margin-top: 1em; */
 		margin-top: 0;
-		margin-bottom: 0.5em;
+		margin-bottom: 1em;
+		margin-top: 1.5em;
+		&:first-child {
+			margin-top: 0;
+		}
 	}
 	
 	h3 {
@@ -36,7 +40,6 @@
 	
 	h4, h5, h6 {
 		font-size: 1em;
-		margin-bottom: 0.5em;
 	}
 	
 	// Texts
@@ -99,6 +102,7 @@
 		/* width: 100%; */
 		font-weight: 600;
 		padding: 1em 2em;
+		margin-bottom: 1em;
 		font-size: inherit;
 		display: block;
 		border: none;
@@ -167,12 +171,21 @@
 		border-spacing: 0;
 	}
 }
+
+/* Imported */
  
 /* Autocomplete */
 
-body.direktt-app .ui-autocomplete {
-	font: inherit;
-	font-size: var(--direktt-profile-default-font-size-normal);
-	font-family: var(--direktt-profile-default-font-family);
-	font-weight: 400;
+body.direktt-app {
+	.ui-autocomplete {
+		font: inherit;
+		font-size: var(--direktt-profile-default-font-size-normal);
+		font-family: var(--direktt-profile-default-font-family);
+		font-weight: 400;
+	}	
+	.ui-menu {
+		.ui-menu-item-wrapper {
+			padding: 1em;
+		}	
+	}
 }
