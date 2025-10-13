@@ -14,7 +14,6 @@ class Direktt_Ajax
 		$this->direktt_api     = $direktt_api;
 	}
 
-
 	public function ajax_get_mtemplates_taxonomies()
 	{
 		if (!current_user_can('manage_options')) {
@@ -241,6 +240,9 @@ class Direktt_Ajax
 		global $wpdb;
 		$table_name = $wpdb->prefix . 'direktt_events';
 
+		// phpcs:disable WordPress.DB.DirectDatabaseQuery.NoCaching
+		// phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery
+
 		if (intval($page) == 0) {
 			$results = $wpdb->get_results($wpdb->prepare(
 				"SELECT * FROM {$table_name} WHERE direktt_user_id = %s ORDER BY ID DESC LIMIT 20", // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
@@ -253,6 +255,8 @@ class Direktt_Ajax
 				intval($page)
 			));
 		}
+
+		// phpcs:enable
 
 		$data = $results;
 
@@ -487,12 +491,7 @@ class Direktt_Ajax
 
 	private function delete_user_meta_for_all_users($meta_key)
 	{
-		global $wpdb;
-
-		$wpdb->query($wpdb->prepare(
-			"DELETE FROM {$wpdb->usermeta} WHERE meta_key = %s",
-			$meta_key
-		));
+		delete_metadata('user', 0, $meta_key, '', true);
 	}
 
 	private function has_published_direkttusers_posts()

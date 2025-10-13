@@ -40,7 +40,13 @@ class Direktt_Event
 
 		$the_default_timestamp_query = "ALTER TABLE $table_name MODIFY COLUMN event_time timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP;";
 
-		$wpdb->query($the_default_timestamp_query); 	// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+		// phpcs:disable WordPress.DB.PreparedSQL.NotPrepared
+		// phpcs:disable WordPress.DB.DirectDatabaseQuery.NoCaching
+		// phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery
+
+		$wpdb->query($the_default_timestamp_query);
+
+		// phpcs:enable 	
 	}
 
 	static function insert_event($event)
@@ -73,6 +79,7 @@ class Direktt_Event
 			$event_fil["event_value"] = $event_value;
 		}
 
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
 		$wpdb->insert(
 			$table_name,
 			$event_fil
