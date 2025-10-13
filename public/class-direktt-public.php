@@ -478,35 +478,11 @@ class Direktt_Public
 	}
 
 	public function direktt_pair_code_action( $pair_code ) {
+
+		global $direktt_user;
+
+		Direktt_User::pair_wp_user_by_code( $pair_code, $direktt_user['direktt_user_id'] );
 		
-		$wp_user = get_users(array(
-			'meta_key' => 'direktt_user_pair_code',				// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key -- Justification: bounded, selective query on small dataset
-			'meta_value' => $pair_code,							// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value -- Justification: bounded, selective query on small dataset
-			'posts_per_page' => 1, 
-			'fields' => 'ID' 
-		));
-
-		if (!empty($wp_user)) {
-			global $direktt_user;
-			
-			$direktt_user_post = Direktt_User::get_user_by_subscription_id($direktt_user['direktt_user_id']);
-
-			$direktt_wp_user = get_users(array(
-				'meta_key' => 'direktt_user_id',						// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key -- Justification: bounded, selective query on small dataset
-				'meta_value' => $direktt_user_post['ID'],		// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value -- Justification: bounded, selective query on small dataset
-				'posts_per_page' => 1, 
-				'fields' => 'ID' 
-			));
-
-			$related_users = Direktt_User::get_related_users($wp_user[0]);
-
-			if ( empty($related_users) && !empty($direktt_wp_user) ){
-				update_user_meta($direktt_wp_user[0], 'direktt_wp_user_id', $wp_user[0]);
-				delete_user_meta($wp_user[0], 'direktt_user_pair_code');
-				
-				$pairing_message_template = get_option('direktt_pairing_succ_template', false);
-			}
-		}
 	}
 
 	public function direktt_register_pairing_code_scripts() {

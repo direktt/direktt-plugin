@@ -926,53 +926,8 @@ class Direktt_Admin
 
 		if ($pair_code) {
 
-			$users = get_users(array(
-				'meta_key' => 'direktt_user_pair_code',			// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key -- Justification: selective query on small dataset
-				'meta_value' => $pair_code,						// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value -- Justification: selective query on small dataset
-				'fields' => 'ID'
-			));
+			Direktt_User::pair_wp_user_by_code( $pair_code, $event['direktt_user_id'] );
 
-			if (!empty($users)) {
-
-				$meta_user_post = Direktt_User::get_user_by_subscription_id($event['direktt_user_id']);
-
-				$users_to_update = get_users(array(
-					'meta_key' => 'direktt_user_id',		// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key -- Justification: selective query on small dataset
-					'meta_value' => $meta_user_post['ID'],	// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value -- Justification: selective query on small dataset
-					'fields' => 'ID'
-				));
-
-				$pairing_message_template = get_option('direktt_pairing_succ_template', false);
-
-				foreach ($users as $user_id) {
-
-					foreach ($users_to_update as $user_id_to_update) {
-						update_user_meta($user_id_to_update, 'direktt_wp_user_id', $user_id);
-						delete_user_meta($user_id_to_update, 'direktt_user_pair_code');
-					}
-
-					delete_user_meta($user_id, 'direktt_user_pair_code');
-
-					if ($pairing_message_template) {
-
-						Direktt_Message::send_message_template(
-							array($event['direktt_user_id']),
-							$pairing_message_template,
-							[
-								"wp_user" =>  get_user_by('id', $user_id)->user_login
-							]
-						);
-					} else {
-
-						$pushNotificationMessage = array(
-							"type" =>  "text",
-							"content" => 'You have been paired'
-						);
-
-						Direktt_Message::send_message(array($event['direktt_user_id'] => $pushNotificationMessage));
-					}
-				}
-			}
 		}
 	}
 }
