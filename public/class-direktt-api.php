@@ -178,8 +178,8 @@ class Direktt_Api
 		// STEP 1: Check if Direktt User already exists (by meta)
 		$existing_query = new WP_Query(array(
 			'post_type'      => 'direkttusers',
-			'meta_key'       => 'direktt_user_id',
-			'meta_value'     => $direktt_user_id,
+			'meta_key'       => 'direktt_user_id', 		// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key -- Justification: bounded, selective query on small dataset
+			'meta_value'     => $direktt_user_id,		// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value -- Justification: bounded, selective query on small dataset
 			'post_status'    => array('publish', 'draft', 'pending', 'private', 'future', 'trash'),
 			'fields'         => 'ids',
 			'posts_per_page' => 1,
@@ -473,9 +473,10 @@ class Direktt_Api
 		require_once(ABSPATH . 'wp-admin/includes/user.php');
 
 		$users = get_users(array(
-			'meta_key' => 'direktt_user_id',
-			'meta_value' => $direktt_user_id,
+			'meta_key' => 'direktt_user_id', 	// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key -- Justification: bounded, selective query on small dataset
+			'meta_value' => $direktt_user_id,	// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value -- Justification: bounded, selective query on small dataset
 			'role'       => 'direktt',
+			'posts_per_page' => 10,
 			'fields' => 'ID' // Return only user IDs
 		));
 

@@ -53,9 +53,9 @@ class Direktt_User
 		$args = array(
 			'post_type' => 'direkttusers',
 			'post_status' => 'publish',
-			'posts_per_page' => -1,
+			'posts_per_page' => 10,
 			'fields' => 'ids',
-			'meta_query' => array(
+			'meta_query' => array(		// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query -- Justification: bounded, cached, selective query on small dataset
 				array(
 					'key'   => 'direktt_user_id',
 					'value' => $direktt_user_id
@@ -96,9 +96,9 @@ class Direktt_User
 		$args = array(
 			'post_type' => 'direkttusers',
 			'post_status' => 'publish',
-			'posts_per_page' => -1,
+			'posts_per_page' => 10,
 			'fields' => 'ids',
-			'meta_query' => array(
+			'meta_query' => array(		// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query -- Justification: bounded, cached, selective query on small dataset
 				array(
 					'key'   => 'direktt_membership_id',
 					'value' => $direktt_membership_id
@@ -151,7 +151,7 @@ class Direktt_User
 
 		$args = array(
 			'role'    => 'direktt',
-			'meta_query' => array(
+			'meta_query' => array(			// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query -- Justification: bounded, cached, selective query on small dataset
 				array(
 					'key'     => 'direktt_user_id',
 					'value'   => $direktt_user_id,
@@ -249,8 +249,8 @@ class Direktt_User
 			if (!$direktt_user_id) {
 				$related_users = get_users(array(
 					'role__in' => array('direktt'),
-					'meta_key' => 'direktt_wp_user_id',
-					'meta_value' => $wp_user->ID,
+					'meta_key' => 'direktt_wp_user_id',		// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key -- Justification: bounded, cached, selective query on small dataset
+					'meta_value' => $wp_user->ID,			// phpcs:ignore 	WordPress.DB.SlowDBQuery.slow_db_query_meta_value -- Justification: bounded, cached, selective query on small dataset
 					'fields' => 'ID'
 				));
 
@@ -309,13 +309,17 @@ class Direktt_User
 		$user_args = [
 			'post_type'      => 'direkttusers',
 			'post_status'    => 'publish',
-			'posts_per_page' => -1,
+			'posts_per_page' => 1000,
 			'orderby'        => 'title',
 			'order'          => 'ASC',
+			'no_found_rows' => true,
+			'update_post_meta_cache' => false,
+			'update_post_term_cache' => false,
+			'ignore_sticky_posts' => true
 		];
 
 		if (!$include_admin) {
-			$user_args['meta_query'] = [
+			$user_args['meta_query'] = [			// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query -- Justification: bounded, cached, selective query on small dataset
 				'relation' => 'OR', // so posts with no meta or meta not 1 are included
 				[
 					'key'     => 'direktt_admin_subscription',

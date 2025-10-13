@@ -581,7 +581,7 @@ class Direktt_Ajax
 			'ignore_sticky_posts' => true,
 			'tax_query'      => $tax_query,		// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query -- Justification: bounded, cached, selective query on small dataset
 			'meta_query'     => $meta_query,	// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query -- - Justification: bounded, cached, selective query on small dataset
-			'post_status'    => 'any',
+			'post_status'    => 'publish',
 		);
 
 		if (count($tax_query) === 1 && $empty_allowed) {

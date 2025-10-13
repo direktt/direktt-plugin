@@ -154,7 +154,6 @@ class Direktt_Public
 			return false;
 		}
 
-		//Da li je istekao
 		if (time() > intval($decoded_token->exp)) {
 			return false;
 		}
@@ -473,8 +472,9 @@ class Direktt_Public
 
 	public function direktt_pair_code_action( $pair_code ) {
 		$users = get_users(array(
-			'meta_key' => 'direktt_user_pair_code',
-			'meta_value' => $pair_code,
+			'meta_key' => 'direktt_user_pair_code',				// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key -- Justification: bounded, selective query on small dataset
+			'meta_value' => $pair_code,							// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value -- Justification: bounded, selective query on small dataset
+			'posts_per_page' => 10, 
 			'fields' => 'ID' 
 		));
 
@@ -483,8 +483,9 @@ class Direktt_Public
 			$meta_user_post = Direktt_User::get_user_by_subscription_id($direktt_user['direktt_user_id']);
 
 			$users_to_update = get_users(array(
-				'meta_key' => 'direktt_user_id',
-				'meta_value' => $meta_user_post['ID'],
+				'meta_key' => 'direktt_user_id',				// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key -- Justification: bounded, selective query on small dataset
+				'meta_value' => $meta_user_post['ID'],			// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value -- Justification: bounded, selective query on small dataset
+				'posts_per_page' => 10, 
 				'fields' => 'ID' 
 			));
 

@@ -11,18 +11,22 @@ class Direktt_Message_Template
 		$this->version     = $version;
 	}
 
-	static function get_templates( $event_types = [] )
+	static function get_templates($event_types = [])
 	{
 		$template_args = [
 			'post_type'      => 'direkttmtemplates',
 			'post_status'    => 'publish',
-			'posts_per_page' => -1,
+			'posts_per_page' => 500,
 			'orderby'        => 'title',
 			'order'          => 'ASC',
+			'no_found_rows' => true,
+			'update_post_meta_cache' => false,
+			'update_post_term_cache' => false,
+			'ignore_sticky_posts' => true,
 		];
 
-		if( $event_types ){
-			$template_args['meta_query'] = [
+		if ($event_types) {
+			$template_args['meta_query'] = [		//	phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query -- Justification: bounded, cached, selective query on small dataset
 				[
 					'key'     => 'direkttMTType',
 					'value'   => $event_types,
@@ -30,7 +34,7 @@ class Direktt_Message_Template
 				]
 			];
 		}
-		
+
 		$template_posts = get_posts($template_args);
 
 		$templates = [];
