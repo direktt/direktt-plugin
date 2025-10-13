@@ -278,7 +278,7 @@ class Direktt_Admin
 		if ($suffix == 'direktt_page_direktt-settings') {
 			wp_enqueue_script(
 				$this->plugin_name . '-settings',
-				plugin_dir_url(__DIR__) . 'js/settings/direktt-settings.js',
+				plugin_dir_url(__DIR__) . 'admin/js/settings/direktt-settings.js',
 				array('jquery'),
 				$this->version,
 				[
@@ -288,7 +288,7 @@ class Direktt_Admin
 
 			wp_enqueue_style(
 				$this->plugin_name . '-settings',
-				plugin_dir_url(__DIR__) . 'js/settings/direktt-settings.css',
+				plugin_dir_url(__DIR__) . 'admin/js/settings/direktt-settings.css',
 				[],
 				$this->version
 			);
@@ -310,7 +310,7 @@ class Direktt_Admin
 		if ($suffix == 'toplevel_page_direktt-dashboard') {
 			wp_enqueue_script(
 				$this->plugin_name . '-dashboard',
-				plugin_dir_url(__DIR__) . 'js/dashboard/direktt-dashboard.js',
+				plugin_dir_url(__DIR__) . 'admin/js/dashboard/direktt-dashboard.js',
 				[],
 				$this->version,
 				[
@@ -321,7 +321,7 @@ class Direktt_Admin
 			// Enqueue the style file
 			wp_enqueue_style(
 				$this->plugin_name . '-dashboard',
-				plugin_dir_url(__DIR__) . 'js/dashboard/direktt-dashboard.css',
+				plugin_dir_url(__DIR__) . 'admin/js/dashboard/direktt-dashboard.css',
 				[],
 				$this->version
 			);
@@ -347,7 +347,7 @@ class Direktt_Admin
 
 				wp_enqueue_script(
 					$this->plugin_name . '-users',
-					plugin_dir_url(__DIR__) . 'js/users/direktt-users.js',
+					plugin_dir_url(__DIR__) . 'admin/js/users/direktt-users.js',
 					[],
 					$this->version,
 					[
@@ -358,7 +358,7 @@ class Direktt_Admin
 				// Enqueue the style file
 				wp_enqueue_style(
 					$this->plugin_name . '-users',
-					plugin_dir_url(__DIR__) . 'js/users/direktt-users.css',
+					plugin_dir_url(__DIR__) . 'admin/js/users/direktt-users.css',
 					[],
 					$this->version
 				);
@@ -387,7 +387,7 @@ class Direktt_Admin
 
 				wp_enqueue_script(
 					$this->plugin_name . '-mtemplates',
-					plugin_dir_url(__DIR__) . 'js/mtemplates/direktt-mtemplates.js',
+					plugin_dir_url(__DIR__) . 'admin/js/mtemplates/direktt-mtemplates.js',
 					[],
 					$this->version,
 					[
@@ -398,7 +398,7 @@ class Direktt_Admin
 				// Enqueue the style file
 				wp_enqueue_style(
 					$this->plugin_name . '-mtemplates',
-					plugin_dir_url(__DIR__) . 'js/mtemplates/direktt-mtemplates.css',
+					plugin_dir_url(__DIR__) . 'admin/js/mtemplates/direktt-mtemplates.css',
 					[],
 					$this->version
 				);

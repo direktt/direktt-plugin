@@ -13,20 +13,20 @@
   },
   "targets": {
     "settings": {
-      "source": "./src/settings/js/direktt-settings.js",
-      "distDir": "./js/settings"
+      "source": "./admin/src/settings/js/direktt-settings.js",
+      "distDir": "./admin/js/settings"
     },
     "dashboard": {
-      "source": "./src/dashboard/js/direktt-dashboard.js",
-      "distDir": "./js/dashboard"
+      "source": "./admin/src/dashboard/js/direktt-dashboard.js",
+      "distDir": "./admin/js/dashboard"
     },
     "users": {
-      "source": "./src/users/js/direktt-users.js",
-      "distDir": "./js/users"
+      "source": "./admin/src/users/js/direktt-users.js",
+      "distDir": "./admin/js/users"
     },
     "mtemplates": {
-      "source": "./src/mtemplates/js/direktt-mtemplates.js",
-      "distDir": "./js/mtemplates"
+      "source": "./admin/src/mtemplates/js/direktt-mtemplates.js",
+      "distDir": "./admin/js/mtemplates"
     }
   },
   "dependencies": {
