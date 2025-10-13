@@ -157,9 +157,6 @@ class Direktt_Admin
 			'publicly_queryable'  => false,
 			'capability_type'     => 'post',
 			'capabilities'          => array(
-				// todo Srediti prava za new i edit ako ikako moze, ako ne, ostaviti new
-				//'create_posts' => 'do_not_allow', 
-				//'edit_posts' => 'allow' 
 			),
 			'show_in_rest'	=> false,
 		);
@@ -530,14 +527,9 @@ class Direktt_Admin
 
 						<?php
 
-						$related_users = get_users(array(
-							'role__in' => array('direktt'),
-							'meta_key' => 'direktt_wp_user_id',	// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key -- Justification: selective query on small dataset
-							'meta_value' => $user->ID,			// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value -- Justification: selective query on small dataset
-							'fields' => 'ID'
-						));
-
-						if (!empty($related_users)) {
+						$related_users = Direktt_User::get_related_users($user->ID);
+					
+						if ( !empty($related_users) ) {
 
 						?>
 
@@ -560,8 +552,6 @@ class Direktt_Admin
 
 							<?php
 						} else {
-
-							// Ako ne postoji ispisati upar kod
 							if (! empty($direktt_user_pair_code)) {
 							?>
 
@@ -585,7 +575,6 @@ class Direktt_Admin
 							}
 						}
 					} else {
-						// onda ide else (role == direkt)
 						?>
 						<tr>
 							<th scope="row"><label for="direktt_test_user_id"><?php echo esc_html__('Post Id of related Direktt User:', 'direktt') ?></label></th>
@@ -621,13 +610,9 @@ class Direktt_Admin
 
 	private function get_or_generate_user_pair_code($user_id)
 	{
-		// Define the meta key
 		$meta_key = 'direktt_user_pair_code';
-
-		// Check if the user already has the meta field set
 		$pair_code = get_user_meta($user_id, $meta_key, true);
 
-		// If the meta field is not set or is empty, generate a new 6-digit code
 		if (empty($pair_code)) {
 
 			$par_code_prefix = get_option('direktt_pairing_prefix', false);
@@ -637,12 +622,9 @@ class Direktt_Admin
 			}
 
 			$pair_code = $par_code_prefix . str_pad(wp_rand(1, 999999), 6, '0', STR_PAD_LEFT);
-
-			// Save the new code to the user's meta field
 			update_user_meta($user_id, $meta_key, $pair_code);
 		}
 
-		// Return the existing or newly generated code
 		return $pair_code;
 	}
 
@@ -675,7 +657,7 @@ class Direktt_Admin
 				'role__in' => array('direktt'),
 				'meta_key' => 'direktt_wp_user_id',				// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key -- Justification: selective query on small dataset
 				'meta_value' => $userId,						// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value -- Justification: selective query on small dataset
-				'fields' => 'ID' // Return only user IDs
+				'fields' => 'ID' 
 			));
 
 			if (!empty($related_users)) {
@@ -689,10 +671,10 @@ class Direktt_Admin
 		$screens = ['page'];
 		foreach ($screens as $screen) {
 			add_meta_box(
-				'direktt_features',                 // Unique ID
-				'Direktt',      // Box title
-				array($this, 'render_direktt_custom_box'),  // Content callback, must be of type callable
-				$screen,                            // Post type
+				'direktt_features',                 
+				'Direktt',      
+				array($this, 'render_direktt_custom_box'),  
+				$screen,      
 				'side',
 				'low'
 			);
@@ -707,7 +689,7 @@ class Direktt_Admin
 		$box_admin_value = intval(get_post_meta($post->ID, 'direktt_custom_admin_box', true)) === 1;
 		$box_admin_checked = $box_admin_value ? 'checked' : 0;
 
-		$direktt_user_categories = get_post_meta($post->ID, 'direktt_user_categories', true); // array
+		$direktt_user_categories = get_post_meta($post->ID, 'direktt_user_categories', true); 
 		if (!is_array($direktt_user_categories)) $direktt_user_categories = array();
 
 		$category_terms = get_terms(array(
@@ -715,7 +697,7 @@ class Direktt_Admin
 			'hide_empty' => false,
 		));
 
-		$direktt_user_tags = get_post_meta($post->ID, 'direktt_user_tags', true); // array
+		$direktt_user_tags = get_post_meta($post->ID, 'direktt_user_tags', true); 
 		if (!is_array($direktt_user_tags)) $direktt_user_tags = array();
 
 		$tag_terms = get_terms(array(
@@ -798,19 +780,16 @@ class Direktt_Admin
 	function save_direktt_custom_box($post_id, $post)
 	{
 
-		// nonce check
 		if (!isset($_POST['direktt_custom_box_nonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['direktt_custom_box_nonce'])), 'direktt_custom_box_nonce')) {
 			return $post_id;
 		}
 
-		// check current user permissions
 		$post_type = get_post_type_object($post->post_type);
 
 		if (!current_user_can($post_type->cap->edit_post, $post_id)) {
 			return $post_id;
 		}
 
-		// Do not save the data if autosave
 		if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
 			return $post_id;
 		}
@@ -853,12 +832,12 @@ class Direktt_Admin
 	function direkttmtemplates_add_custom_box()
 	{
 		add_meta_box(
-			'direkttMTJson_textarea',           // ID
-			__('Message Template Builder', 'direktt'),                       // Title
-			[$this, 'direkttmtemplates_render_textarea'],    // Callback function
-			'direkttmtemplates',                    // CPT slug
-			'normal',                        // Context
-			'high'                           // Priority
+			'direkttMTJson_textarea',
+			__('Message Template Builder', 'direktt'), 
+			[$this, 'direkttmtemplates_render_textarea'], 
+			'direkttmtemplates',   
+			'normal',  
+			'high'   
 		);
 	}
 
@@ -870,7 +849,6 @@ class Direktt_Admin
 			$value = "[]";
 		}
 
-		// Get stored value or default
 		$dropdown_value = get_post_meta($post->ID, 'direkttMTType', true);
 
 		if (!$dropdown_value) $dropdown_value = 'all';
@@ -883,7 +861,6 @@ class Direktt_Admin
 		echo '<option value="none"' . selected($dropdown_value, 'none', false) . '>' . esc_html__('Never, I will use it only via API', 'direktt') . '</option>';
 		echo '</select></p>';
 
-		// Security nonce
 		wp_nonce_field('direktt_mt_json_nonce', 'direktt_mt_json_nonce');
 
 		echo ('<div id="appBuilder"></div>');

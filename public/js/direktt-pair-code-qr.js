@@ -10,7 +10,8 @@ document.addEventListener('DOMContentLoaded', function () {
         action: {
             type: "api",
             params: {
-                actionType: "pair_code"
+                actionType: "pair_code",
+                successMessage: "Your WP user have been successfuly paired with your Direktt user"
             },
             retVars: {
                 pairCode: pairCode

@@ -346,4 +346,13 @@ class Direktt_User
 
 		return $users;
 	}
+
+	static function get_related_users( $user_id ) {
+		return get_users( array(
+							'role__in' => array('direktt'),
+							'meta_key' => 'direktt_wp_user_id',	// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key -- Justification: selective query on small dataset
+							'meta_value' => $user_id,			// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value -- Justification: selective query on small dataset
+							'fields' => 'ID'
+						));
+	}
 }
