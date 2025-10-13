@@ -4,14 +4,14 @@ class Direktt_Notes_Tool
 {
 
     private string $plugin_name;
-	private string $version;
+    private string $version;
 
-	public function __construct(string $plugin_name, string $version)
-	{
-		$this->plugin_name = $plugin_name;
-		$this->version     = $version;
-	}
-    
+    public function __construct(string $plugin_name, string $version)
+    {
+        $this->plugin_name = $plugin_name;
+        $this->version     = $version;
+    }
+
     public function setup_profile_tools_notes()
     {
         Direktt_Profile::add_profile_bar(
@@ -55,6 +55,8 @@ class Direktt_Notes_Tool
 
     public function render_user_notes()
     {
+        $allowed_html = wp_kses_allowed_html('post');
+
         if (
             !empty($_POST['direktt_notes_post_id']) &&
             !empty($_POST['direktt_user_notes_nonce'])
@@ -62,12 +64,11 @@ class Direktt_Notes_Tool
             $post_id = intval($_POST['direktt_notes_post_id']);
 
             // Check nonce
-            if (!wp_verify_nonce($_POST['direktt_user_notes_nonce'], 'direktt_save_user_notes_' . $post_id)) {
+            if (!wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['direktt_user_notes_nonce'])), 'direktt_save_user_notes_' . $post_id)) {
                 wp_die('Invalid nonce. Please refresh and try again.');
             }
 
-
-            $notes = isset($_POST['direktt_notes']) ? wp_unslash($_POST['direktt_notes']) : '';
+            $notes = isset($_POST['direktt_notes']) ? wp_kses( wp_unslash($_POST['direktt_notes']), $allowed_html ) : '';
 
             // Save as post_content
             wp_update_post([
@@ -75,9 +76,10 @@ class Direktt_Notes_Tool
                 'post_content' => $notes
             ]);
 
-            $redirect_url = add_query_arg('status_flag', '1', $_SERVER['REQUEST_URI']);
-
-            wp_safe_redirect(esc_url_raw($redirect_url));
+            if (isset($_SERVER['REQUEST_URI'])) {
+                $redirect_url = add_query_arg('status_flag', '1', sanitize_text_field(wp_unslash($_SERVER['REQUEST_URI'])));
+                wp_safe_redirect(esc_url_raw($redirect_url));
+            }
             exit;
         }
 
@@ -102,8 +104,6 @@ class Direktt_Notes_Tool
         }
 
         echo Direktt_Public::direktt_render_loader(__('Saving note', 'direktt'));
-
-        $allowed_html = wp_kses_allowed_html('post');
 
 ?>
         <style>
@@ -149,10 +149,10 @@ class Direktt_Notes_Tool
         if (! isset($_POST['direktt_notes_post_id'])) {
             wp_send_json_error(array('message' => 'Invalid nonce, Missing id.'), 403);
         } else {
-            $post_id = sanitize_text_field($_POST['direktt_notes_post_id']);
+            $post_id = sanitize_text_field(wp_unslash($_POST['direktt_notes_post_id']));
         }
 
-        if (! isset($_POST['nonce']) || ! wp_verify_nonce($_POST['nonce'], 'direktt_save_user_notes_' . $post_id)) {
+        if (! isset($_POST['nonce']) || ! wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['nonce'])), 'direktt_save_user_notes_' . $post_id)) {
             wp_send_json_error(array('message' => 'Invalid nonce.'), 403);
         }
 
@@ -162,16 +162,28 @@ class Direktt_Notes_Tool
 
         if (
             empty($_FILES['file']) ||
-            ! isset($_FILES['file']['tmp_name']) ||
-            ! is_uploaded_file($_FILES['file']['tmp_name'])
+            ! isset($_FILES['file']['tmp_name'])
         ) {
             wp_send_json_error(array('message' => 'No file uploaded.'), 400);
-        }
-        $file = $_FILES['file'];
+        } 
 
-        // Allowed extensions
-        $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
-        if (!in_array($ext, array('png', 'jpg', 'jpeg', 'gif', 'bmp', 'ico', 'webp'))) {
+        $file = $_FILES['file'];        //phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+        $file['name'] = sanitize_file_name($file['name']);
+
+        // Basic PHP upload error check
+        if ($file['error'] !== UPLOAD_ERR_OK) {
+            wp_send_json_error(array('message' => 'Upload error: ' . $file['error']), 400);
+        }
+
+        // Restrict to allowed MIME types
+        $allowed_mimes = array(
+            'jpg|jpeg|jpe' => 'image/jpeg',
+            'png'          => 'image/png'
+        );
+
+        // Validate extension and real mime against the file contents
+        $check = wp_check_filetype_and_ext($file['tmp_name'], $file['name'], $allowed_mimes);
+        if (! $check['ext'] || ! $check['type']) {
             wp_send_json_error(array('message' => 'Invalid file type.'), 400);
         }
 
@@ -184,6 +196,8 @@ class Direktt_Notes_Tool
             return $dirs;
         };
         add_filter('upload_dir', $upload_dir_filter);
+
+        $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
 
         // 2. Set up a filter to use a custom filename
         $custom_filename = wp_generate_password(8, false, false) . '.' . $ext;
