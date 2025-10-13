@@ -54,10 +54,9 @@ class Direktt_Taxonomies_Tool {
                 : [];
             wp_set_object_terms( $user_id, $tags, 'direkttusertags' );
 
-            if( isset($_SERVER['REQUEST_URI']) ) {
-                $redirect_url = add_query_arg( 'status_flag', '1', sanitize_text_field(wp_unslash($_SERVER['REQUEST_URI'])) );
-                wp_safe_redirect( esc_url_raw( $redirect_url ) );
-            }
+            $redirect_url = add_query_arg( 'status_flag', '1' );
+            wp_safe_redirect( esc_url_raw( $redirect_url ) );
+            
             exit;
         }
     

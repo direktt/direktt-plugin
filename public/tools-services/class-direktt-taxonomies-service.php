@@ -48,8 +48,6 @@ class Direktt_Taxonomies_Service
 				wp_reset_postdata();
 			}
 
-			$post_sub = $_POST;
-
 			if (isset($_POST['save_user_categories'])) {
 				if (
 					! isset($_POST['save_user_categories_nonce'])
@@ -67,7 +65,7 @@ class Direktt_Taxonomies_Service
 					wp_add_object_terms($id_to_add, $category, 'direkttusercategories');
 				}
 
-				$redirect_url = add_query_arg('status_flag', '1', $_SERVER['REQUEST_URI']);
+				$redirect_url = add_query_arg('status_flag', '1');
 				wp_safe_redirect(esc_url_raw($redirect_url));
 				exit;
 			}
@@ -89,7 +87,7 @@ class Direktt_Taxonomies_Service
 					wp_add_object_terms($id_to_add, $tag, 'direkttusertags');
 				}
 
-				$redirect_url = add_query_arg('status_flag', '1', $_SERVER['REQUEST_URI']);
+				$redirect_url = add_query_arg('status_flag', '1');
 				wp_safe_redirect(esc_url_raw($redirect_url));
 				exit;
 			}
@@ -110,7 +108,7 @@ class Direktt_Taxonomies_Service
 					wp_remove_object_terms($id_to_remove, $category, 'direkttusercategories');
 				}
 
-				$redirect_url = add_query_arg('status_flag', '1', $_SERVER['REQUEST_URI']);
+				$redirect_url = add_query_arg('status_flag', '1');
 				wp_safe_redirect(esc_url_raw($redirect_url));
 				exit;
 			}
@@ -131,7 +129,7 @@ class Direktt_Taxonomies_Service
 					wp_remove_object_terms($id_to_remove, $tag, 'direkttusertags');
 				}
 
-				$redirect_url = add_query_arg('status_flag', '1', $_SERVER['REQUEST_URI']);
+				$redirect_url = add_query_arg('status_flag', '1');
 				wp_safe_redirect(esc_url_raw($redirect_url));
 				exit;
 			}
@@ -142,8 +140,14 @@ class Direktt_Taxonomies_Service
 				$status_message = esc_html__('Saved successfully.', 'direktt');
 			}
 
-			$uriParts = wp_parse_url($_SERVER['REQUEST_URI']);
-			$backUri = isset($uriParts['path']) ? $uriParts['path'] : '';
+			$backUri = '';
+
+			if (isset($_SERVER['REQUEST_URI'])) {
+
+				$request_uri = sanitize_text_field(wp_unslash($_SERVER['REQUEST_URI']));
+				$path = wp_parse_url($request_uri, PHP_URL_PATH);
+				$backUri = is_string( $path ) ? $path : '';
+			}
 
 			wp_enqueue_script('direktt-taxonomies-service-autocomplete-script');
 			wp_enqueue_script('direktt-taxonomies-service-script');
@@ -160,13 +164,12 @@ class Direktt_Taxonomies_Service
 					echo Direktt_Public::direktt_render_loader(__('Saving data', 'direktt'));
 
 					if (('edit-category' === $subpage || 'edit-tag' === $subpage) && isset($_GET['tax_name'])) {
+						$tax_name = sanitize_text_field(wp_unslash($_GET['tax_name']));
 						$taxonomy = 'edit-category' === $subpage ? 'direkttusercategories' : 'direkttusertags';
-						$term = get_term_by('name', sanitize_text_field($_GET['tax_name']), $taxonomy);
-						$tax_name = sanitize_text_field($_GET['tax_name']);
-
+						$term = get_term_by('name', $tax_name, $taxonomy);
 					?>
 						<p class="direktt-edit-taxonomies-service-status"><?php echo esc_html($status_message); ?></p>
-						<h2><?php echo 'edit-category' === $subpage ? esc_html__('Category Name:', 'direktt') : esc_html__('Tag Name:', 'direktt'); ?> <?php echo esc_html($_GET['tax_name']); ?></h2>
+						<h2><?php echo 'edit-category' === $subpage ? esc_html__('Category Name:', 'direktt') : esc_html__('Tag Name:', 'direktt'); ?> <?php echo $tax_name; ?></h2>
 						<div class="direktt-edit-taxonomies-service-users">
 							<form method="post" action="">
 								<div class="direktt-edit-taxonomies-service-users-search">
@@ -245,7 +248,7 @@ class Direktt_Taxonomies_Service
 					<h2><?php echo esc_html__('Categories', 'direktt'); ?></h2>
 					<?php
 					foreach ($all_categories as $category) {
-						$url = $_SERVER['REQUEST_URI'];
+						$url = sanitize_text_field( wp_unslash($_SERVER['REQUEST_URI']));
 						$parts = wp_parse_url($url);
 						parse_str($parts['query'] ?? '', $params);
 						$params['subpage'] = 'edit-category';
@@ -270,7 +273,7 @@ class Direktt_Taxonomies_Service
 					<h2><?php echo esc_html__('Tags', 'direktt'); ?></h2>
 					<?php
 					foreach ($all_tags as $tag) {
-						$url = $_SERVER['REQUEST_URI'];
+						$url = sanitize_text_field( wp_unslash($_SERVER['REQUEST_URI']));
 						$parts = wp_parse_url($url);
 						parse_str($parts['query'] ?? '', $params);
 						$params['subpage'] = 'edit-tag';

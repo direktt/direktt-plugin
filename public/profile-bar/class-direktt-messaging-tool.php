@@ -74,16 +74,15 @@ class Direktt_Messaging_Tool
             }
 
             $template_id = isset($_POST['templateID']) ? sanitize_text_field(wp_unslash($_POST['templateID'])): false;
-            $server_request_uri = isset($_SERVER['REQUEST_URI'])? sanitize_text_field(wp_unslash($_SERVER['REQUEST_URI'])): "";
 
             if ( $template_id && Direktt_Message::send_message_template(
                 array($subscriptionId),
                 $template_id,
                 []
             )) {
-                $redirect_url = add_query_arg('status_flag', '1', $server_request_uri);
+                $redirect_url = add_query_arg('status_flag', '1');
             } else {
-                $redirect_url = add_query_arg('status_flag', '2', $server_request_uri);
+                $redirect_url = add_query_arg('status_flag', '2');
             }
 
             wp_safe_redirect(esc_url_raw($redirect_url));

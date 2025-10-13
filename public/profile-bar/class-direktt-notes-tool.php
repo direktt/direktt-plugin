@@ -76,10 +76,10 @@ class Direktt_Notes_Tool
                 'post_content' => $notes
             ]);
 
-            if (isset($_SERVER['REQUEST_URI'])) {
-                $redirect_url = add_query_arg('status_flag', '1', sanitize_text_field(wp_unslash($_SERVER['REQUEST_URI'])));
-                wp_safe_redirect(esc_url_raw($redirect_url));
-            }
+            
+            $redirect_url = add_query_arg('status_flag', '1');
+            wp_safe_redirect(esc_url_raw($redirect_url));
+            
             exit;
         }
 
