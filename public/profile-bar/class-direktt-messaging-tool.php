@@ -98,8 +98,10 @@ class Direktt_Messaging_Tool
             $status_message = esc_html__('There was an error while sending the message.', 'direktt');
         }
 
-        echo Direktt_Public::direktt_render_confirm_popup('send-message-tool-confirm',  esc_html__("Are you sure that you want to send the message?", 'direktt'));
-        echo Direktt_Public::direktt_render_loader(esc_html__('Sending message', 'direktt'));
+        $allowed_html = wp_kses_allowed_html('post');
+        
+        echo wp_kses(Direktt_Public::direktt_render_confirm_popup('send-message-tool-confirm',  esc_html__("Are you sure that you want to send the message?", 'direktt')), $allowed_html );
+        echo wp_kses(Direktt_Public::direktt_render_loader(esc_html__('Sending message', 'direktt')), $allowed_html );
 
 ?>
 

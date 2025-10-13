@@ -103,7 +103,7 @@ class Direktt_Notes_Tool
             $status_message = esc_html__('There was an error while saving the note.', 'direktt');
         }
 
-        echo Direktt_Public::direktt_render_loader(__('Saving note', 'direktt'));
+        echo wp_kses(Direktt_Public::direktt_render_loader(__('Saving note', 'direktt')), $allowed_html );
 
 ?>
         <style>

@@ -160,8 +160,9 @@ class Direktt_Taxonomies_Service
 				<div class="direktt-edit-taxonomies-service-wrapper direktt-edit-taxonomies-service-editor" id="direktt-profile">
 					<?php
 
-					echo Direktt_Public::direktt_render_confirm_popup('edit-taxonomies-service-confirm', esc_html__("Are you sure that you want to remove the user?", 'direktt'));
-					echo Direktt_Public::direktt_render_loader(__('Saving data', 'direktt'));
+					$allowed_html = wp_kses_allowed_html('post');
+					echo wp_kses(Direktt_Public::direktt_render_confirm_popup('edit-taxonomies-service-confirm', esc_html__("Are you sure that you want to remove the user?", 'direktt')), $allowed_html );
+					echo wp_kses(Direktt_Public::direktt_render_loader(__('Saving data', 'direktt')), $allowed_html );
 
 					if (('edit-category' === $subpage || 'edit-tag' === $subpage) && isset($_GET['tax_name'])) {
 						$tax_name = sanitize_text_field(wp_unslash($_GET['tax_name']));
@@ -169,7 +170,7 @@ class Direktt_Taxonomies_Service
 						$term = get_term_by('name', $tax_name, $taxonomy);
 					?>
 						<p class="direktt-edit-taxonomies-service-status"><?php echo esc_html($status_message); ?></p>
-						<h2><?php echo 'edit-category' === $subpage ? esc_html__('Category Name:', 'direktt') : esc_html__('Tag Name:', 'direktt'); ?> <?php echo $tax_name; ?></h2>
+						<h2><?php echo 'edit-category' === $subpage ? esc_html__('Category Name:', 'direktt') : esc_html__('Tag Name:', 'direktt'); ?> <?php echo esc_html($tax_name); ?></h2>
 						<div class="direktt-edit-taxonomies-service-users">
 							<form method="post" action="">
 								<div class="direktt-edit-taxonomies-service-users-search">

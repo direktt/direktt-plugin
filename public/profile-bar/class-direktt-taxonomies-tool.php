@@ -76,7 +76,8 @@ class Direktt_Taxonomies_Tool {
             $status_message = esc_html__( 'Saved successfully.', 'direktt' );
         }
 
-         echo Direktt_Public::direktt_render_loader( __( 'Saving Categories & Tags', 'direktt' ) );
+        $allowed_html = wp_kses_allowed_html('post'); 
+        echo wp_kses(Direktt_Public::direktt_render_loader( __( 'Saving Categories & Tags', 'direktt' ) ), $allowed_html );
     
         ?>
 
