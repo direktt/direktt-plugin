@@ -40,9 +40,9 @@ class Direktt_Event
 
 		$the_default_timestamp_query = "ALTER TABLE $table_name MODIFY COLUMN event_time timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP;";
 
-		// phpcs:disable WordPress.DB.PreparedSQL.NotPrepared
-		// phpcs:disable WordPress.DB.DirectDatabaseQuery.NoCaching
-		// phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery
+		// phpcs:disable WordPress.DB.PreparedSQL.NotPrepared -- Justification: table name is not prepared
+		// phpcs:disable WordPress.DB.DirectDatabaseQuery.NoCaching -- Justification: alter custom table query performed upon plugin activation 
+		// phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery -- Justification: table name is not prepared
 
 		$wpdb->query($the_default_timestamp_query);
 
@@ -79,7 +79,7 @@ class Direktt_Event
 			$event_fil["event_value"] = $event_value;
 		}
 
-		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery -- Justification: custom database used
 		$wpdb->insert(
 			$table_name,
 			$event_fil

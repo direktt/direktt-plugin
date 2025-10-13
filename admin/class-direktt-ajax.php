@@ -240,17 +240,17 @@ class Direktt_Ajax
 		global $wpdb;
 		$table_name = $wpdb->prefix . 'direktt_events';
 
-		// phpcs:disable WordPress.DB.DirectDatabaseQuery.NoCaching
-		// phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery
+		// phpcs:disable WordPress.DB.DirectDatabaseQuery.NoCaching -- Justification: selective query on small dataset
+		// phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery -- Custom database used
 
 		if (intval($page) == 0) {
 			$results = $wpdb->get_results($wpdb->prepare(
-				"SELECT * FROM {$table_name} WHERE direktt_user_id = %s ORDER BY ID DESC LIMIT 20", // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+				"SELECT * FROM {$table_name} WHERE direktt_user_id = %s ORDER BY ID DESC LIMIT 20", // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Justification: table name is not prepared
 				$direktt_user_id
 			));
 		} else {
 			$results = $wpdb->get_results($wpdb->prepare(
-				"SELECT * FROM {$table_name} WHERE direktt_user_id = %s AND ID < %d ORDER BY ID DESC LIMIT 20", // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+				"SELECT * FROM {$table_name} WHERE direktt_user_id = %s AND ID < %d ORDER BY ID DESC LIMIT 20", // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Justification: table name is not prepared
 				$direktt_user_id,
 				intval($page)
 			));
@@ -573,10 +573,14 @@ class Direktt_Ajax
 
 		$args = array(
 			'post_type'      => 'direkttusers',
-			'posts_per_page' => -1,
+			'posts_per_page' => 500,
 			'fields'         => 'ids',
-			'tax_query'      => $tax_query,
-			'meta_query'     => $meta_query,
+			'no_found_rows' => true,
+			'update_post_meta_cache' => false,
+			'update_post_term_cache' => false,
+			'ignore_sticky_posts' => true,
+			'tax_query'      => $tax_query,		// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query -- Justification: bounded, cached, selective query on small dataset
+			'meta_query'     => $meta_query,	// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query -- - Justification: bounded, cached, selective query on small dataset
 			'post_status'    => 'any',
 		);
 

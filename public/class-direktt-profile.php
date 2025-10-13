@@ -107,8 +107,8 @@ class Direktt_Profile
 
 		ob_start();
 
-		$active_tab = isset($_GET['subpage']) ? sanitize_text_field(wp_unslash($_GET['subpage'])) : '';	//phpcs:ignore WordPress.Security.NonceVerification.Recommended
-		$subscriptionId   = isset($_GET['subscriptionId']) ? sanitize_text_field(wp_unslash($_GET['subscriptionId'])) : false; //phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$active_tab = isset($_GET['subpage']) ? sanitize_text_field(wp_unslash($_GET['subpage'])) : '';	//phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Justification: not a form processing, subpage based router for content rendering
+		$subscriptionId   = isset($_GET['subscriptionId']) ? sanitize_text_field(wp_unslash($_GET['subscriptionId'])) : false; //phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Justification: not a form processing, subscriptionId based router for content rendering
 		$profile_user = Direktt_User::get_user_by_subscription_id($subscriptionId);
 		?>
 		<div id="direktt-profile-wrapper">

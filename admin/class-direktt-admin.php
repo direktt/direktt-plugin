@@ -435,7 +435,8 @@ class Direktt_Admin
 
 	public function render_admin_settings()
 	{
-		$active_tab = isset($_GET['subpage']) ? sanitize_text_field(wp_unslash($_GET['subpage'])) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Justification: not a form processing, subpage based router for content rendering
+		$active_tab = isset($_GET['subpage']) ? sanitize_text_field(wp_unslash($_GET['subpage'])) : ''; 
 
 		if (!isset($_SERVER['REQUEST_URI'])) return;
 
@@ -531,8 +532,8 @@ class Direktt_Admin
 
 						$related_users = get_users(array(
 							'role__in' => array('direktt'),
-							'meta_key' => 'direktt_wp_user_id',	// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
-							'meta_value' => $user->ID,			// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value
+							'meta_key' => 'direktt_wp_user_id',	// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key -- Justification: selective query on small dataset
+							'meta_value' => $user->ID,			// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value -- Justification: selective query on small dataset
 							'fields' => 'ID'
 						));
 
@@ -672,8 +673,8 @@ class Direktt_Admin
 
 			$related_users = get_users(array(
 				'role__in' => array('direktt'),
-				'meta_key' => 'direktt_wp_user_id',				// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
-				'meta_value' => $userId,						// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value
+				'meta_key' => 'direktt_wp_user_id',				// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key -- Justification: selective query on small dataset
+				'meta_value' => $userId,						// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value -- Justification: selective query on small dataset
 				'fields' => 'ID' // Return only user IDs
 			));
 
@@ -949,8 +950,8 @@ class Direktt_Admin
 		if ($pair_code) {
 
 			$users = get_users(array(
-				'meta_key' => 'direktt_user_pair_code',			// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
-				'meta_value' => $pair_code,						// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value
+				'meta_key' => 'direktt_user_pair_code',			// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key -- Justification: selective query on small dataset
+				'meta_value' => $pair_code,						// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value -- Justification: selective query on small dataset
 				'fields' => 'ID'
 			));
 
@@ -959,8 +960,8 @@ class Direktt_Admin
 				$meta_user_post = Direktt_User::get_user_by_subscription_id($event['direktt_user_id']);
 
 				$users_to_update = get_users(array(
-					'meta_key' => 'direktt_user_id',		// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
-					'meta_value' => $meta_user_post['ID'],	// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value
+					'meta_key' => 'direktt_user_id',		// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key -- Justification: selective query on small dataset
+					'meta_value' => $meta_user_post['ID'],	// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value -- Justification: selective query on small dataset
 					'fields' => 'ID'
 				));
 

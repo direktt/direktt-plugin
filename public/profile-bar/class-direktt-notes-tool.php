@@ -167,7 +167,7 @@ class Direktt_Notes_Tool
             wp_send_json_error(array('message' => 'No file uploaded.'), 400);
         } 
 
-        $file = $_FILES['file'];        //phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+        $file = $_FILES['file'];        //phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Jutification: no sanitization for $_FILES['file']. All related properties have been checked - $file['name'] and mime type
         $file['name'] = sanitize_file_name($file['name']);
 
         // Basic PHP upload error check

@@ -169,7 +169,7 @@ class Direktt_Public
 	public function direktt_check_token()
 	{
 
-		$token = (isset($_GET['token'])) ? sanitize_text_field(wp_unslash($_GET['token'])) : false;		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$token = (isset($_GET['token'])) ? sanitize_text_field(wp_unslash($_GET['token'])) : false;		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Justification: not a form processing, token based router for content rendering
 
 		if ($token) {
 
