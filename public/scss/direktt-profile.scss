@@ -82,7 +82,7 @@
 	max-width: 100%;
 }
 
-#direktt-profile { 
+#direktt-profile {  
  
 	/* Buttons */
 	
@@ -132,39 +132,7 @@
 			}
 		}
 	} 
-	
-	/* Tables */
-	
-	table {
-		border-spacing: 0.5rem; 
-		width: 100%; 
-		thead {
-			border-bottom: 1px solid var(--direktt-profile-dark-gray-color);
-		}
-		th, td {
-			text-align: left;
-			padding: 0.5rem;
-			&:first-child {
-				padding-left: 0; 
-			}
-			&:last-child {
-				padding-right: 0;
-			}
-		}
-		th {
-			font-weight: 600; 
-		}
-		tbody tr:not(:last-child) {
-			border-bottom: 1px solid var(--direktt-profile-light-gray-color);
-		}
-		&.direktt-table-last-column-align-right  {
-			th:last-child,
-			td:last-child {
-				text-align: right;
-			}
-		}
-	}
-	
+		
 	/* End general */
 	
 	
@@ -420,7 +388,7 @@
 		}
 		.autoComplete_wrapper {
 			width: 100%;
-			margin-bottom: 1em;
+			/* margin-bottom: 1em; */
 			input#autoComplete {
 				width: 100%;
 				box-sizing: border-box;
@@ -476,8 +444,19 @@
 	/* Notes */
 	
 	#direktt-notes-view {
+		position: relative;
+		#notesSave {
+			position: absolute;
+			right: 0.5em;
+			top: 0.4em;
+			/* top: auto; */
+			left: auto;
+			width: auto;
+			z-index: 1;
+		}
 		.ql-toolbar {
 			/* margin-bottom: 1em; */
+			padding: 1em;
 		}
 		.ql-editor {
 			height: auto;
@@ -645,6 +624,9 @@
 			gap: 1em;
 			margin-bottom: 2em;
 			align-items: stretch;
+			#search_cases {
+				margin-bottom: 0; 
+			}
 		}
 		.direktt-service-status-cases-list {
 			border-top: 1px solid var(--direktt-profile-dark-gray-color);
@@ -653,6 +635,10 @@
 				&:not(:last-child) {
 					border-bottom: 1px solid var(--direktt-profile-light-gray-color);	
 				}
+				h3 {
+					margin-bottom: 0.5em;
+				}
+				.direktt-service-status-user, 
 				.direktt-service-status-description, 
 				.direktt-service-status-status { 
 					color: var(--direktt-profile-dark-gray-color);

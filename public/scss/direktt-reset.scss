@@ -50,7 +50,7 @@
 	
 	// Paragraphs
 	p {
-		margin-bottom: 1em;
+		
 	}
 
 	// Lists
@@ -102,7 +102,6 @@
 		/* width: 100%; */
 		font-weight: 600;
 		padding: 1em 2em;
-		margin-bottom: 1em;
 		font-size: inherit;
 		display: block;
 		border: none;
@@ -125,8 +124,8 @@
 	input[type="checkbox"] {
 		-webkit-appearance: none; 
 		appearance: none; 
-		width: 1.5rem;
-		height: 1.5rem;
+		width: 1rem;
+		height: 1rem;
 		/* border: 2px solid #ccc; */
 		border: none;
 		box-shadow: 0 0 0 2px var(--direktt-profile-light-gray-color);
@@ -144,11 +143,12 @@
 			font-weight: 600;
 			font-size: 1rem;
 			text-align: center;
-			line-height: 1.5rem; 
-			height: 1.5rem; 
-			width: 1.5rem; 
+			line-height: 1rem; 
+			height: 1rem; 
+			width: 1rem; 
 			position: absolute;
-			top: 1px;
+			top: 0px;
+			left: -1px;
 		}
 		&:checked {
 			box-shadow: 0 0 0 2px var(--direktt-profile-alternate-color);
@@ -161,14 +161,45 @@
 	label input[type="checkbox"] {
 		margin-right: 2px;
 	}
-	form {
-		margin-bottom: 1em;
-	}
-
-	// Tables
+	
+	/* Tables */
+	
 	table {
 		border-collapse: collapse;
 		border-spacing: 0;
+		border-spacing: 0.5rem; 
+		width: 100%; 
+		thead {
+			border-bottom: 1px solid var(--direktt-profile-dark-gray-color);
+		}
+		th, td {
+			text-align: left;
+			padding: 0.5rem;
+			&:first-child {
+				padding-left: 0; 
+			}
+			&:last-child {
+				padding-right: 0;
+			}
+		}
+		th {
+			font-weight: 600; 
+		}
+		tbody tr {
+			border-bottom: 1px solid var(--direktt-profile-light-gray-color);
+		}
+		&.direktt-table-last-column-align-right  {
+			th:last-child,
+			td:last-child {
+				text-align: right;
+			}
+		}
+	}
+	p, form, table, input[type="submit"], button:not([class^='ql-']), .button, .direktt-button{ 
+		&:not(:last-child){
+			margin-bottom: 1em;
+		}
+		
 	}
 }
 

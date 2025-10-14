@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const newBtn = document.createElement('button');
     newBtn.id = 'notesSave';
-    newBtn.className = 'button button-primary button-large'; // For WP and Quill styling
+    newBtn.className = 'button button-primary'; // For WP and Quill styling
     newBtn.innerHTML = 'Save';
     newBtn.title = 'Save'; // Optional, for tooltip
 
