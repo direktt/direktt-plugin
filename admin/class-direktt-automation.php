@@ -32,7 +32,7 @@ class Direktt_Automation_DB
 		$runs = "CREATE TABLE " . self::table_runs() . " (
                 id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
                 automation_key VARCHAR(64) NOT NULL,
-                contact_id BIGINT UNSIGNED NOT NULL,
+                direktt_user_id varchar(256) COLLATE utf8mb4_unicode_520_ci DEFAULT NULL,
                 current_step VARCHAR(64) NULL,
                 status ENUM('active','paused','completed','canceled') NOT NULL DEFAULT 'active',
                 state LONGTEXT NULL,
@@ -40,7 +40,7 @@ class Direktt_Automation_DB
                 last_step_at DATETIME NULL,
                 updated_at DATETIME NOT NULL,
                 PRIMARY KEY (id),
-                KEY contact_status (contact_id, status),
+                KEY contact_status (direktt_user_id, status),
                 KEY automation_status (automation_key, status),
                 KEY updated_at (updated_at)
             ) $charset_collate;";
@@ -48,7 +48,7 @@ class Direktt_Automation_DB
 		$queue = "CREATE TABLE " . self::table_queue() . " (
                 id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
                 run_id BIGINT UNSIGNED NOT NULL,
-                contact_id BIGINT UNSIGNED NOT NULL,
+                direktt_user_id varchar(256) COLLATE utf8mb4_unicode_520_ci DEFAULT NULL,
                 action_type VARCHAR(64) NOT NULL,
                 payload LONGTEXT NULL,
                 scheduled_at DATETIME NOT NULL,
@@ -63,13 +63,13 @@ class Direktt_Automation_DB
                 PRIMARY KEY (id),
                 KEY status_sched (status, scheduled_at, priority),
                 KEY run_idx (run_id),
-                KEY contact_status (contact_id, status)
+                KEY contact_status (direktt_user_id, status)
             ) $charset_collate;";
 
 		$messages = "CREATE TABLE " . self::table_messages() . " (
                 id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
                 run_id BIGINT UNSIGNED NOT NULL,
-                contact_id BIGINT UNSIGNED NOT NULL,
+                direktt_user_id varchar(256) COLLATE utf8mb4_unicode_520_ci DEFAULT NULL,
                 step_id VARCHAR(64) NULL,
                 channel VARCHAR(32) NOT NULL DEFAULT 'email',
                 template_id VARCHAR(128) NULL,
@@ -81,7 +81,7 @@ class Direktt_Automation_DB
                 created_at DATETIME NOT NULL,
                 updated_at DATETIME NOT NULL,
                 PRIMARY KEY (id),
-                KEY contact_status (contact_id, status, sent_at),
+                KEY contact_status (direktt_user_id, status, sent_at),
                 KEY provider_idx (provider_message_id)
             ) $charset_collate;";
 
@@ -107,7 +107,7 @@ class Direktt_Automation_Time
 
 class Direktt_Automation_RunRepository
 {
-	public function create($automation_key, $contact_id, array $state = [], $current_step = null)
+	public function create($automation_key, $direktt_user_id, array $state = [], $current_step = null)
 	{
 		global $wpdb;
 
@@ -116,7 +116,7 @@ class Direktt_Automation_RunRepository
 
 		$data = [
 			'automation_key' => $automation_key,
-			'contact_id'     => (int) $contact_id,
+			'direktt_user_id'     => $direktt_user_id,
 			'current_step'   => $current_step,
 			'status'         => 'active',
 			'state'          => wp_json_encode($state),
@@ -207,7 +207,7 @@ class Direktt_Automation_QueueRepository
 		return function_exists('as_schedule_single_action');
 	}
 
-	public function enqueue($run_id, $contact_id, $action_type, array $payload, $scheduled_ts, $priority = 0)
+	public function enqueue($run_id, $direktt_user_id, $action_type, array $payload, $scheduled_ts, $priority = 0)
 	{
 		global $wpdb;
 
@@ -219,7 +219,7 @@ class Direktt_Automation_QueueRepository
 			$table,
 			[
 				'run_id'       => (int) $run_id,
-				'contact_id'   => (int) $contact_id,
+				'direktt_user_id'   => $direktt_user_id,
 				'action_type'  => $action_type,
 				'payload'      => wp_json_encode($payload),
 				'scheduled_at' => $scheduled_at,
@@ -374,7 +374,7 @@ class Direktt_Automation_QueueRepository
 
 class Direktt_Automation_MessagesLogRepository
 {
-	public function log_queued($run_id, $contact_id, $step_id, $channel = 'email', $template_id = null, $scheduled_at = null)
+	public function log_queued($run_id, $direktt_user_id, $step_id, $channel = 'email', $template_id = null, $scheduled_at = null)
 	{
 		global $wpdb;
 		$table = Direktt_Automation_DB::table_messages();
@@ -384,7 +384,7 @@ class Direktt_Automation_MessagesLogRepository
 			$table,
 			[
 				'run_id'              => (int) $run_id,
-				'contact_id'          => (int) $contact_id,
+				'direktt_user_id'          => $direktt_user_id,
 				'step_id'             => $step_id,
 				'channel'             => $channel,
 				'template_id'         => $template_id,
@@ -519,7 +519,7 @@ class Direktt_Automation_MessageProcessor
 		$messages = new Direktt_Automation_MessagesLogRepository();
 		$msg_id   = $messages->log_queued(
 			(int) $queue_item['run_id'],
-			(int) $queue_item['contact_id'],
+			$queue_item['direktt_user_id'],
 			$payload['step_id'] ?? null,
 			'email',
 			$payload['template_id'] ?? null,
@@ -533,7 +533,6 @@ class Direktt_Automation_MessageProcessor
 			$messages->mark_failed($msg_id, 'wp_mail returned false');
 			throw new \RuntimeException('wp_mail failed');
 		}
-
 		// Optionally update run state/step here.
 	}
 }
