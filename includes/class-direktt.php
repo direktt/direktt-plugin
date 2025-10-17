@@ -1,5 +1,7 @@
 <?php
 
+defined('ABSPATH') || exit;
+
 class Direktt {
 
 	static $settings_array = array();

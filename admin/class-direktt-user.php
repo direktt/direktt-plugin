@@ -1,5 +1,7 @@
 <?php
 
+defined('ABSPATH') || exit;
+
 class Direktt_User
 {
 	private string $plugin_name;

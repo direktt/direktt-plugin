@@ -1,5 +1,7 @@
 <?php
 
+defined('ABSPATH') || exit;
+
 class Direktt_Taxonomies_Tool {
 
     private string $plugin_name;
