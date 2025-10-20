@@ -44,9 +44,11 @@ class Direktt {
 
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/action-scheduler/action-scheduler.php';
 
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/html2text/Html2Text.php';
+
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-direktt-loader.php';
 
-		require_once plugin_dir_path( dirname(__FILE__) ) . 'includes/class-direktt-wrapper.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-direktt-wrapper.php';
 
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-direktt-public.php';
 
@@ -77,6 +79,7 @@ class Direktt {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-direktt-message-template.php';
 
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-direktt-automation.php';
+		
 
 		$this->loader = new Direktt_Loader();
 		$this->direktt_api = new Direktt_Api( $this->get_plugin_name(), $this->get_version() );
@@ -168,6 +171,8 @@ class Direktt {
 
 		$this->loader->add_action( 'personal_options_update', $plugin_admin, 'save_user_meta_panel' );
 		$this->loader->add_action( 'edit_user_profile_update', $plugin_admin, 'save_user_meta_panel' );
+
+		$this->loader->add_action( 'pre_wp_mail', $plugin_admin, 'pre_wp_mail_handler', 10, 2 );
 
 	}
 

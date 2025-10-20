@@ -158,8 +158,7 @@ class Direktt_Admin
 			'exclude_from_search' => false,
 			'publicly_queryable'  => false,
 			'capability_type'     => 'post',
-			'capabilities'          => array(
-			),
+			'capabilities'          => array(),
 			'show_in_rest'	=> false,
 		);
 
@@ -435,7 +434,7 @@ class Direktt_Admin
 	public function render_admin_settings()
 	{
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Justification: not a form processing, subpage based router for content rendering
-		$active_tab = isset($_GET['subpage']) ? sanitize_text_field(wp_unslash($_GET['subpage'])) : ''; 
+		$active_tab = isset($_GET['subpage']) ? sanitize_text_field(wp_unslash($_GET['subpage'])) : '';
 
 		if (!isset($_SERVER['REQUEST_URI'])) return;
 
@@ -530,8 +529,8 @@ class Direktt_Admin
 						<?php
 
 						$related_users = Direktt_User::get_related_users($user->ID);
-					
-						if ( !empty($related_users) ) {
+
+						if (!empty($related_users)) {
 
 						?>
 
@@ -659,7 +658,7 @@ class Direktt_Admin
 				'role__in' => array('direktt'),
 				'meta_key' => 'direktt_wp_user_id',				// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key -- Justification: selective query on small dataset
 				'meta_value' => $userId,						// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value -- Justification: selective query on small dataset
-				'fields' => 'ID' 
+				'fields' => 'ID'
 			));
 
 			if (!empty($related_users)) {
@@ -673,10 +672,10 @@ class Direktt_Admin
 		$screens = ['page'];
 		foreach ($screens as $screen) {
 			add_meta_box(
-				'direktt_features',                 
-				'Direktt',      
-				array($this, 'render_direktt_custom_box'),  
-				$screen,      
+				'direktt_features',
+				'Direktt',
+				array($this, 'render_direktt_custom_box'),
+				$screen,
 				'side',
 				'low'
 			);
@@ -691,7 +690,7 @@ class Direktt_Admin
 		$box_admin_value = intval(get_post_meta($post->ID, 'direktt_custom_admin_box', true)) === 1;
 		$box_admin_checked = $box_admin_value ? 'checked' : 0;
 
-		$direktt_user_categories = get_post_meta($post->ID, 'direktt_user_categories', true); 
+		$direktt_user_categories = get_post_meta($post->ID, 'direktt_user_categories', true);
 		if (!is_array($direktt_user_categories)) $direktt_user_categories = array();
 
 		$category_terms = get_terms(array(
@@ -699,7 +698,7 @@ class Direktt_Admin
 			'hide_empty' => false,
 		));
 
-		$direktt_user_tags = get_post_meta($post->ID, 'direktt_user_tags', true); 
+		$direktt_user_tags = get_post_meta($post->ID, 'direktt_user_tags', true);
 		if (!is_array($direktt_user_tags)) $direktt_user_tags = array();
 
 		$tag_terms = get_terms(array(
@@ -835,11 +834,11 @@ class Direktt_Admin
 	{
 		add_meta_box(
 			'direkttMTJson_textarea',
-			__('Message Template Builder', 'direktt'), 
-			[$this, 'direkttmtemplates_render_textarea'], 
-			'direkttmtemplates',   
-			'normal',  
-			'high'   
+			__('Message Template Builder', 'direktt'),
+			[$this, 'direkttmtemplates_render_textarea'],
+			'direkttmtemplates',
+			'normal',
+			'high'
 		);
 	}
 
@@ -928,8 +927,88 @@ class Direktt_Admin
 
 		if ($pair_code) {
 
-			Direktt_User::pair_wp_user_by_code( $pair_code, $event['direktt_user_id'] );
-
+			Direktt_User::pair_wp_user_by_code($pair_code, $event['direktt_user_id']);
 		}
 	}
+
+	public function pre_wp_mail_handler($pre, $atts)
+	{
+		// Normalize all recipient fields
+		$fields = ['to', 'cc', 'bcc'];
+		$direktt_recipients = [];
+		$non_direktt_recipients = [
+			'to' => [],
+			'cc' => [],
+			'bcc' => []
+		];
+
+		foreach ($fields as $field) {
+			$recipients = isset($atts[$field]) ? $this->direktt_normalize_wp_mail_recipients($atts[$field]) : [];
+			foreach ($recipients as $email) {
+				if (strpos(strtolower($email), '@direktt.com') !== false) {
+					$direktt_recipients[] = $email;
+				} else {
+					$non_direktt_recipients[$field][] = $email;
+				}
+			}
+		}
+
+		// Send Direktt Message to Direktt recipients
+		if (!empty($direktt_recipients)) {
+			$message = isset($atts['message']) ? (string)$atts['message'] : '';
+			//$direktt_message_content = $this->direktt_transform_email_to_direktt_message($message);
+
+			$direktt_message_html = new \Html2Text\Html2Text($message);
+			$direktt_message_content = $direktt_message_html->getText();
+
+			$direktt_message_array = [];
+
+			foreach ($direktt_recipients as $recipient) {
+				$wp_user = get_user_by('email', $recipient);
+				if ($wp_user) {
+					$pushNotificationMessage = array(
+						"type" =>  "text",
+						"content" => $direktt_message_content
+					);
+					$direktt_user = Direktt_User::get_direktt_user_by_wp_user($wp_user);
+
+					if (isset($direktt_user['direktt_admin_subscription']) && $direktt_user['direktt_admin_subscription']) {
+						Direktt_Message::send_message_to_admin($pushNotificationMessage);
+					} else {
+						$direktt_message_array[$direktt_user['direktt_user_id']] = $pushNotificationMessage;
+					}
+				}
+			}
+			Direktt_Message::send_message($direktt_message_array);
+		}
+
+		// If at least one non-Direktt recipient, proceed with sending the email _only to them_
+		if (!empty($non_direktt_recipients['to']) || !empty($non_direktt_recipients['cc']) || !empty($non_direktt_recipients['bcc'])) {
+			add_filter('wp_mail', function ($email_atts) use ($non_direktt_recipients) {
+				$email_atts['to']  = $non_direktt_recipients['to'];
+				$email_atts['cc']  = $non_direktt_recipients['cc'];
+				$email_atts['bcc'] = $non_direktt_recipients['bcc'];
+				return $email_atts;
+			}, 99, 1);
+
+			return $pre; // Let WP send the altered email as normal
+		} else {
+			// No non-Direktt recipients: suppress the email
+			return true;
+		}
+	}
+
+	private function direktt_normalize_wp_mail_recipients($to)
+	{
+		if (is_string($to)) {
+			$parts = preg_split('/[,;]+/', $to, -1, PREG_SPLIT_NO_EMPTY);
+			$to = array_map('trim', (array) $parts);
+		} elseif (is_array($to)) {
+			$to = array_map('trim', $to);
+		} else {
+			$to = [];
+		}
+		return array_filter($to);
+	}
+
 }
