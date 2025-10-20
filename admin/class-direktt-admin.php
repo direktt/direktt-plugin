@@ -955,11 +955,32 @@ class Direktt_Admin
 
 		// Send Direktt Message to Direktt recipients
 		if (!empty($direktt_recipients)) {
-			$message = isset($atts['message']) ? (string)$atts['message'] : '';
-			//$direktt_message_content = $this->direktt_transform_email_to_direktt_message($message);
 
-			$direktt_message_html = new \Html2Text\Html2Text($message);
-			$direktt_message_content = $direktt_message_html->getText();
+			$message = isset($atts['message']) ? (string)$atts['message'] : '';
+
+			$content_type = 'text/plain'; 
+			$headers      = $atts['headers'];
+
+			if (! empty($headers)) {
+				if (is_string($headers)) {
+					$headers = preg_split("/\r?\n/", trim($headers));
+				}
+				foreach ($headers as $header) {
+					if (stripos($header, 'content-type:') === 0) {
+						$content_type = trim(substr($header, 13));
+						break;
+					}
+				}
+			}
+
+			$content_type = apply_filters('wp_mail_content_type', $content_type);
+
+			if (stripos($content_type, 'text/html') !== false) {
+				$direktt_message_html = new \Html2Text\Html2Text($message);
+				$direktt_message_content = $direktt_message_html->getText();
+			} else {
+				$direktt_message_content = $message;
+			}
 
 			$direktt_message_array = [];
 
@@ -1010,5 +1031,4 @@ class Direktt_Admin
 		}
 		return array_filter($to);
 	}
-
 }
