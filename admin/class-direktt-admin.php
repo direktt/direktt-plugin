@@ -945,8 +945,15 @@ class Direktt_Admin
 		foreach ($fields as $field) {
 			$recipients = isset($atts[$field]) ? $this->direktt_normalize_wp_mail_recipients($atts[$field]) : [];
 			foreach ($recipients as $email) {
-				if (strpos(strtolower($email), '@direktt.com') !== false) {
+				$wp_user = get_user_by('email', $email);
+				$direktt_user = Direktt_User::get_direktt_user_by_wp_user($wp_user);
+
+				if( $direktt_user ){
 					$direktt_recipients[] = $email;
+					// Send email if not @direktt
+					if (strpos(strtolower($email), '@direktt.com') === false) {
+						$non_direktt_recipients[$field][] = $email;
+					}
 				} else {
 					$non_direktt_recipients[$field][] = $email;
 				}
@@ -958,7 +965,7 @@ class Direktt_Admin
 
 			$message = isset($atts['message']) ? (string)$atts['message'] : '';
 
-			$content_type = 'text/plain'; 
+			$content_type = 'text/plain';
 			$headers      = $atts['headers'];
 
 			if (! empty($headers)) {
@@ -991,15 +998,23 @@ class Direktt_Admin
 						"type" =>  "text",
 						"content" => $direktt_message_content
 					);
+
 					$direktt_user = Direktt_User::get_direktt_user_by_wp_user($wp_user);
 
-					if (isset($direktt_user['direktt_admin_subscription']) && $direktt_user['direktt_admin_subscription']) {
-						Direktt_Message::send_message_to_admin($pushNotificationMessage);
-					} else {
-						$direktt_message_array[$direktt_user['direktt_user_id']] = $pushNotificationMessage;
+					if ($direktt_user) {
+						if (isset($direktt_user['direktt_admin_subscription']) && $direktt_user['direktt_admin_subscription']) {
+							$pushNotificationMessage = apply_filters('direktt/admin/email2message', $pushNotificationMessage);
+							if ($pushNotificationMessage) {
+								Direktt_Message::send_message_to_admin($pushNotificationMessage);
+							}
+						} else {
+							$direktt_message_array[$direktt_user['direktt_user_id']] = $pushNotificationMessage;
+						}
 					}
 				}
 			}
+
+			$direktt_message_array = apply_filters('direktt/user/email2message', $direktt_message_array);
 			Direktt_Message::send_message($direktt_message_array);
 		}
 
