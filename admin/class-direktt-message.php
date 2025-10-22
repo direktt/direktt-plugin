@@ -37,6 +37,8 @@ class Direktt_Message
                 'Content-type' => 'application/json',
             ),
         ));
+
+        return true;
     }
 
     static function update_message($subscriptionUid, $messageUid, $content)

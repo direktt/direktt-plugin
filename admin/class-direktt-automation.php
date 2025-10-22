@@ -2,6 +2,22 @@
 
 defined('ABSPATH') || exit;
 
+class Direktt_Automation
+{
+	public static function run_and_queue($automation_key, $subscription_id, $msg_obj, $action, $time_in_seconds)
+	{
+		$runs  = new Direktt_Automation_RunRepository();
+		$queue = new Direktt_Automation_QueueRepository();
+
+		$run_id = $runs->create($automation_key, $subscription_id, $msg_obj);
+
+		// Schedule after 5 seconds.
+		$queue->enqueue($run_id, $subscription_id, $action, $msg_obj, time() + (int) $time_in_seconds, 0);
+
+		return $run_id;
+	}
+}
+
 class Direktt_Automation_DB
 {
 	public static function table_runs()
@@ -88,7 +104,6 @@ class Direktt_Automation_DB
 		dbDelta($runs);
 		dbDelta($queue);
 		dbDelta($messages);
-
 	}
 }
 
@@ -124,7 +139,7 @@ class Direktt_Automation_RunRepository
 			'updated_at'     => $now,
 		];
 
-		$formats = ['%s', '%d', '%s', '%s', '%s', '%s', '%s'];
+		$formats = ['%s', '%s', '%s', '%s', '%s', '%s', '%s'];
 
 		$wpdb->insert($table, $data, $formats);
 		return (int) $wpdb->insert_id;
@@ -196,35 +211,43 @@ class Direktt_Automation_RunRepository
 		);
 	}
 
-	public function set_step_if_current($id, $expected_step, $new_step, $touch_last_step = true) {
-        global $wpdb;
-        $table = Direktt_Automation_DB::table_runs();
-        $now   = Direktt_Automation_Time::now_utc();
+	public function set_step_if_current($id, $expected_step, $new_step, $touch_last_step = true)
+	{
+		global $wpdb;
+		$table = Direktt_Automation_DB::table_runs();
+		$now   = Direktt_Automation_Time::now_utc();
 
-        if ($touch_last_step) {
-            $sql = $wpdb->prepare(
-                "UPDATE $table
+		if ($touch_last_step) {
+			$sql = $wpdb->prepare(
+				"UPDATE $table
                  SET current_step = %s,
                      last_step_at = %s,
                      updated_at = %s
                  WHERE id = %d
                    AND (current_step <=> %s)",
-                $new_step, $now, $now, (int)$id, $expected_step
-            );
-        } else {
-            $sql = $wpdb->prepare(
-                "UPDATE $table
+				$new_step,
+				$now,
+				$now,
+				(int)$id,
+				$expected_step
+			);
+		} else {
+			$sql = $wpdb->prepare(
+				"UPDATE $table
                  SET current_step = %s,
                      updated_at = %s
                  WHERE id = %d
                    AND (current_step <=> %s)",
-                $new_step, $now, (int)$id, $expected_step
-            );
-        }
+				$new_step,
+				$now,
+				(int)$id,
+				$expected_step
+			);
+		}
 
-        $rows = $wpdb->query($sql);
-        return $rows === 1; // true if we actually advanced
-    }
+		$rows = $wpdb->query($sql);
+		return $rows === 1; // true if we actually advanced
+	}
 }
 
 class Direktt_Automation_QueueRepository
@@ -262,7 +285,7 @@ class Direktt_Automation_QueueRepository
 				'created_at'   => $now,
 				'updated_at'   => $now,
 			],
-			['%d', '%d', '%s', '%s', '%s', '%d', '%s', '%d', '%s', '%s', '%s', '%s', '%s']
+			['%d', '%s', '%s', '%s', '%s', '%d', '%s', '%d', '%s', '%s', '%s', '%s', '%s']
 		);
 
 		$queue_id = (int) $wpdb->insert_id;
@@ -426,7 +449,7 @@ class Direktt_Automation_MessagesLogRepository
 				'created_at'          => $now,
 				'updated_at'          => $now,
 			],
-			['%d', '%d', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s']
+			['%d', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s']
 		);
 
 		return (int) $wpdb->insert_id;
@@ -536,17 +559,16 @@ class Direktt_Automation_MessageProcessor
 	// Example email processor: payload should include to, subject, body, headers.
 	public function process(array $queue_item, array $run)
 	{
+		global $direktt_user;
+
 		$payload = isset($queue_item['payload']) && is_array($queue_item['payload']) ? $queue_item['payload'] : [];
-		$to      = $payload['to'] ?? '';
-		$subject = $payload['subject'] ?? '';
-		$body    = $payload['body'] ?? '';
-		$headers = $payload['headers'] ?? [];
 
-		$this_step_id = $payload['step_id'] ?? ($run['current_step'] ?? 'email_15m');
+		//TODO  Step Id
+		$this_step_id = $payload['step_id'] ?? ($run['current_step'] ?? 'message_10s');
 
-		if (!$to || !$subject || !$body) {
+		/*if (!$to || !$subject || !$body) {
 			throw new \RuntimeException('Missing email fields');
-		}
+		}*/
 
 		$messages = new Direktt_Automation_MessagesLogRepository();
 		$msg_id   = $messages->log_queued(
@@ -558,7 +580,10 @@ class Direktt_Automation_MessageProcessor
 			$queue_item['scheduled_at']
 		);
 
-		$sent = wp_mail($to, $subject, $body, $headers);
+		$sent = Direktt_Message::send_message( array( $queue_item['direktt_user_id'] => $payload ) );
+
+		// $sent = wp_mail($to, $subject, $body, $headers);
+		
 		if ($sent) {
 			$messages->mark_sent($msg_id, null);
 		} else {
@@ -567,50 +592,52 @@ class Direktt_Automation_MessageProcessor
 		}
 		// Optionally update run state/step here.
 
+		return;
 
 		// 3) Update run state (append some useful info)
-        $runs  = new Direktt_Automation_RunRepository();
-        $state = is_array($run['state'] ?? null) ? $run['state'] : [];
-        $state['last_email'] = [
-            'message_id' => $msg_id,
-            'step_id'    => $this_step_id,
-            'sent_at'    => Direktt_Automation_Time::now_utc(),
-            'to'         => $to,
-        ];
-        $runs->update_state((int)$run['id'], $state);
+		$runs  = new Direktt_Automation_RunRepository();
+		$state = is_array($run['state'] ?? null) ? $run['state'] : [];
+		$state['last_email'] = [
+			'message_id' => $msg_id,
+			'step_id'    => $this_step_id,
+			'sent_at'    => Direktt_Automation_Time::now_utc(),
+			'to'         => $to,
+		];
+		$runs->update_state((int)$run['id'], $state);
 
-        // 4) Advance to the next step (atomic), and enqueue it
-        // For example: after email_15m, go to email_20m
-        $next_step_id = 'email_20m';
-        $advanced = $runs->set_step_if_current((int)$run['id'], $run['current_step'], $next_step_id, true);
+		// 4) Advance to the next step (atomic), and enqueue it
+		// For example: after email_15m, go to email_20m
 
-        if ($advanced) {
-            // Only enqueue the next step if we actually advanced.
-            $queue = new Direktt_Automation_QueueRepository();
-            $next_payload = [
-                'step_id'  => $next_step_id,
-                'to'       => $to,
-                'subject'  => '[Follow-up] ' . $subject,
-                'body'     => 'Second touch...',
-                'headers'  => $headers,
-                'template_id' => 'followup_template_v1',
-            ];
-            $queue->enqueue(
-                (int)$run['id'],
-                (int)$queue_item['direktt_user_id'],
-                'send_email',
-                $next_payload,
-                time() + 20 * 60, // schedule in 20 minutes
-                0
-            );
-        } else {
-            // Someone else already advanced the run; skip enqueueing.
-        }
+		// TODO Step Id
+		$next_step_id = 'email_20m';
+		$advanced = $runs->set_step_if_current((int)$run['id'], $run['current_step'], $next_step_id, true);
 
-        // 5) Optional: complete the run when last step is done
-        // if ($this_step_id === 'final_step_id') {
-        //     $runs->set_status((int)$run['id'], 'completed');
-        // }
+		if ($advanced) {
+			// Only enqueue the next step if we actually advanced.
+			$queue = new Direktt_Automation_QueueRepository();
+			$next_payload = [
+				'step_id'  => $next_step_id,
+				'to'       => $to,
+				'subject'  => '[Follow-up] ' . $subject,
+				'body'     => 'Second touch...',
+				'headers'  => $headers,
+				'template_id' => 'followup_template_v1',
+			];
+			$queue->enqueue(
+				(int)$run['id'],
+				(int)$queue_item['direktt_user_id'],
+				'send_email',
+				$next_payload,
+				time() + 20 * 60, // schedule in 20 minutes
+				0
+			);
+		} else {
+			// Someone else already advanced the run; skip enqueueing.
+		}
+
+		// 5) Optional: complete the run when last step is done
+		// if ($this_step_id === 'final_step_id') {
+		//     $runs->set_status((int)$run['id'], 'completed');
+		// }
 	}
 }
-

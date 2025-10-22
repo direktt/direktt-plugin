@@ -210,7 +210,7 @@ class Direktt {
 		
 		// Register more processors here as needed, e.g. 'advance_step', 'webhook', etc.
 		add_action('init', function (){
-			Direktt_Automation_ProcessorRegistry::register('send_message', [new Direktt_Automation_MessageProcessor(), 'process']);
+			Direktt_Automation_ProcessorRegistry::register('send_direktt_message', [new Direktt_Automation_MessageProcessor(), 'process']);
 		});
 
 	}
