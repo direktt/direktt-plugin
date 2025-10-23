@@ -207,11 +207,6 @@ class Direktt {
 		
 		$this->loader->add_filter( 'direktt_automation_process_queue_item', $plugin_automation_worker, 'process_queue_item', 10, 1 );
 		$this->loader->add_filter( 'direktt_automation_fallback_process_queue_item', $plugin_automation_worker, 'process_queue_item', 10, 1 );
-		
-		// Register more processors here as needed, e.g. 'advance_step', 'webhook', etc.
-		add_action('init', function (){
-			Direktt_Automation_ProcessorRegistry::register('send_direktt_message', [new Direktt_Automation_MessageProcessor(), 'process']);
-		});
 
 	}
 
