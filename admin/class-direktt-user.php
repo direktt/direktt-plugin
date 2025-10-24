@@ -1,5 +1,7 @@
 <?php
 
+defined('ABSPATH') || exit;
+
 class Direktt_User
 {
 	private string $plugin_name;
@@ -409,5 +411,25 @@ class Direktt_User
 				}
 			}
 		}
+	}
+
+	static function set_wp_user_name($wp_user, $first, $last)
+	{
+		if (!Direktt_User::is_wp_user_direktt_role($wp_user)) {
+			return;
+		}
+
+		$first = sanitize_text_field($first);
+		$last  = sanitize_text_field($last);
+
+		$result = wp_update_user(array(
+			'ID'          => $wp_user->ID,
+			'first_name'  => $first,
+			'last_name'   => $last,
+			'display_name' => trim("$first"), 
+			'nickname'  => $first, 
+		));
+
+		return $result; // WP_Error or user ID
 	}
 }

@@ -3,6 +3,8 @@
 use Tmeister\Firebase\JWT\JWT;
 use Tmeister\Firebase\JWT\Key;
 
+defined('ABSPATH') || exit;
+
 class Direktt_Public
 {
 	private string $plugin_name;

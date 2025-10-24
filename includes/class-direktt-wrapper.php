@@ -2,6 +2,8 @@
 
 namespace Direktt\Firebase\JWT;
 
+defined('ABSPATH') || exit;
+
 class JWT extends \Firebase\JWT\JWT {
 }
 

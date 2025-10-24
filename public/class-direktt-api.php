@@ -1,5 +1,7 @@
 <?php
 
+defined('ABSPATH') || exit;
+
 class Direktt_Api
 {
 	private string $plugin_name;
@@ -236,6 +238,10 @@ class Direktt_Api
 			foreach ($meta_input as $meta_key => $meta_value) {
 				update_post_meta($post_id, $meta_key, $meta_value);
 			}
+
+			$wp_user = Direktt_User::get_wp_direktt_user_by_post_id($post_id);
+			Direktt_User::set_wp_user_name($wp_user, $usr_title, __('Direktt', 'direktt'));
+
 			return $post_id;
 		}
 
@@ -256,6 +262,9 @@ class Direktt_Api
 			if (is_wp_error($wp_user_id)) {
 				return $wp_user_id;
 			}
+
+			$wp_user = Direktt_User::get_wp_direktt_user_by_post_id($wp_user_id);
+			Direktt_User::set_wp_user_name($wp_user, $usr_title, __('Direktt', 'direktt'));
 
 			do_action('direktt/user/subscribe', $direktt_user_id);
 
@@ -347,6 +356,9 @@ class Direktt_Api
 					'post_title' => $direktt_display_name
 				);
 				wp_update_post($post_data);
+
+				$wp_user = Direktt_User::get_wp_direktt_user_by_post_id($user['ID']);
+				Direktt_User::set_wp_user_name($wp_user, $direktt_display_name, __('Direktt', 'direktt'));
 			}
 
 			$data = array();

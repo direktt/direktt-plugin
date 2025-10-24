@@ -1,5 +1,7 @@
 <?php
 
+defined('ABSPATH') || exit;
+
 class Direktt_Event
 {
 	private string $plugin_name;
@@ -32,7 +34,9 @@ class Direktt_Event
 			KEY direktt_campaign_id (direktt_campaign_id),
   			KEY event_type (event_type),
   			KEY direktt_user_id (direktt_user_id),
-  			KEY event_time (event_time)
+  			KEY event_time (event_time),
+			KEY direktt_user_id_event_type_event_time (direktt_user_id, event_type, event_time),
+			KEY event_type_event_time (event_type, event_time)
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 $charset_collate;";
 
 		require_once ABSPATH . 'wp-admin/includes/upgrade.php';

@@ -1,5 +1,7 @@
 <?php
 
+defined('ABSPATH') || exit;
+
 class Direktt {
 
 	static $settings_array = array();
@@ -29,17 +31,24 @@ class Direktt {
 		$this->define_user_hooks();
 		$this->define_ajax_hooks();
 		$this->define_message_hooks();
+		$this->define_automation_hooks();
 	}
 
 	private function load_dependencies() {
+		
 		/**
 		 * Load dependencies managed by composer.
 		 */
+
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/vendor/autoload.php';
+
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/action-scheduler/action-scheduler.php';
+
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/html2text/Html2Text.php';
 
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-direktt-loader.php';
 
-		require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-direktt-wrapper.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-direktt-wrapper.php';
 
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-direktt-public.php';
 
@@ -68,6 +77,9 @@ class Direktt {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-direktt-message.php';
 
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-direktt-message-template.php';
+
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-direktt-automation.php';
+		
 
 		$this->loader = new Direktt_Loader();
 		$this->direktt_api = new Direktt_Api( $this->get_plugin_name(), $this->get_version() );
@@ -160,6 +172,8 @@ class Direktt {
 		$this->loader->add_action( 'personal_options_update', $plugin_admin, 'save_user_meta_panel' );
 		$this->loader->add_action( 'edit_user_profile_update', $plugin_admin, 'save_user_meta_panel' );
 
+		$this->loader->add_action( 'pre_wp_mail', $plugin_admin, 'pre_wp_mail_handler', 10, 2 );
+
 	}
 
 	private function define_event_hooks() {
@@ -183,6 +197,17 @@ class Direktt {
 		
 			$this->loader->add_filter( 'direktt/message/template/direktt_display_name', $plugin_message, 'direktt_display_name_filter', 10, 2 );
 			$this->loader->add_filter( 'direktt/message/template/direktt_channel_name', $plugin_message, 'direktt_channel_name_filter', 10, 2 );
+	}
+
+	private function define_automation_hooks() {
+
+		$plugin_automation_worker = new Direktt_Automation_Worker( );
+
+		register_activation_hook( WP_PLUGIN_DIR . '/direktt/direktt.php' , array('Direktt_Automation_DB', 'install') );
+		
+		$this->loader->add_filter( 'direktt_automation_process_queue_item', $plugin_automation_worker, 'process_queue_item', 10, 1 );
+		$this->loader->add_filter( 'direktt_automation_fallback_process_queue_item', $plugin_automation_worker, 'process_queue_item', 10, 1 );
+
 	}
 
 	private function define_ajax_hooks() {
