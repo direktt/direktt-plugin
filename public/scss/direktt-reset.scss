@@ -50,7 +50,7 @@
 	
 	// Paragraphs
 	p {
-		
+		margin: 0;
 	}
 
 	// Lists
@@ -83,8 +83,8 @@
 	button:not([class^='ql-']), input, select, textarea {
 		background: none;
 		border: 1px solid var(--direktt-profile-light-gray-color);
-		border-radius: 10px;
-		padding: 1em 2em;
+		border-radius: var(--direktt-profile-border-small-radius);
+		padding: 1em 1em;
 		font-family: inherit;
 		font-size: inherit;
 		/* font: inherit; */

@@ -39,6 +39,9 @@
 #direktt-profile strong, #direktt-profile b {
   font-weight: 600;
 }
+#direktt-profile p {
+  margin: 0;
+}
 #direktt-profile ul, #direktt-profile ol {
   /* list-style: none; */
   margin: 0 0 1em 0;
@@ -62,8 +65,8 @@
 #direktt-profile button:not([class^=ql-]), #direktt-profile input, #direktt-profile select, #direktt-profile textarea {
   background: none;
   border: 1px solid var(--direktt-profile-light-gray-color);
-  border-radius: 10px;
-  padding: 1em 2em;
+  border-radius: var(--direktt-profile-border-small-radius);
+  padding: 1em 1em;
   font-family: inherit;
   font-size: inherit;
   /* font: inherit; */
@@ -207,6 +210,7 @@ body.direktt-app .ui-menu .ui-menu-item-wrapper {
   --direktt-profile-light-color: white;
   /* Various */
   --direktt-profile-border-radius: 50px;
+  --direktt-profile-border-small-radius: 10px;
   --direktt-profile-tools-width: 200px;
   --direktt-profile-tools-negative-width: -200px;
 }

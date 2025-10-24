@@ -4,7 +4,7 @@
 
 @import "direktt-reset.scss"; 
 
-/* Variables */   
+/* Variables */     
 
 :root { 	
 	/* Fonts */ 
@@ -14,7 +14,7 @@
 	--direktt-profile-default-font-size-xsmall: 11px; 
 	--direktt-profile-default-line-height: 1.6;
 	--direktt-profile-default-font-weight: 400;
-	/* Colors */
+	/* Colors */ 
 	--direktt-profile-accent-color: #5DB075;
 	--direktt-profile-alternate-color: #387248;
 	--direktt-profile-warning-color: #d91515;
@@ -27,6 +27,7 @@
 	--direktt-profile-light-color: white;
 	/* Various */
 	--direktt-profile-border-radius: 50px;  
+	--direktt-profile-border-small-radius: 10px;  
 	--direktt-profile-tools-width: 200px;
 	--direktt-profile-tools-negative-width: -200px;  
 } 
@@ -46,7 +47,7 @@
     url('fonts/direktt-profile-icons.ttf?t=1758201785209') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
     url('fonts/direktt-profile-icons.svg?t=1758201785209#direktt-profile-icons') format('svg'); /* iOS 4.1- */
     font-display: swap;
-} 
+}   
  
 [class^="dpi-"]:before, [class*="dpi-"]:before {
     font-family: 'direktt-profile-icons' !important;
