@@ -25,12 +25,13 @@
 		font-weight: 600;
 		font-size: 1.5em;
 		line-height: 1.25;
-		/* margin-top: 1em; */
-		margin-top: 0;
 		margin-bottom: 1em;
 		margin-top: 1.5em;
 		&:first-child {
 			margin-top: 0;
+		}
+		&:has(+ table) {
+		  margin-bottom: 0.5em; /* space between h and table */
 		}
 	}
 	
@@ -106,6 +107,7 @@
 		display: block;
 		border: none;
 		background-color: var(--direktt-profile-button-default-background-color);
+		box-shadow: 0 0 0 2px var(--direktt-profile-button-default-background-color);
 		color: var(--direktt-profile-light-color);
 		line-height: 1;
 		&:hover {
@@ -165,14 +167,16 @@
 	/* Tables */
 	
 	table {
-		border-collapse: collapse;
-		border-spacing: 0;
-		border-spacing: 0.5rem; 
+		border-collapse: separate;
+		border-spacing: 0 0.5rem;
 		width: 100%; 
 		thead {
-			border-bottom: 1px solid var(--direktt-profile-dark-gray-color);
+			th {
+				font-weight: 600; 
+			}			
 		}
 		th, td {
+			border-bottom: 1px solid var(--direktt-profile-light-gray-color);
 			text-align: left;
 			padding: 0.5rem;
 			&:first-child {
@@ -183,7 +187,7 @@
 			}
 		}
 		th {
-			font-weight: 600; 
+			border-bottom: 1px solid var(--direktt-profile-dark-gray-color);
 		}
 		tbody tr {
 			border-bottom: 1px solid var(--direktt-profile-light-gray-color);

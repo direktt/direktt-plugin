@@ -93,12 +93,15 @@
 		}
 		&.button-primary {
 			background-color: var(--direktt-profile-alternate-color);
+			box-shadow: 0 0 0 2px var(--direktt-profile-alternate-color);
 		}
 		&.button-red {
 			background-color: var(--direktt-profile-warning-color);
+			box-shadow: 0 0 0 2px var(--direktt-profile-warning-color);
 		}
 		&.button-dark-gray {
 			background-color: var(--direktt-profile-dark-gray-color);
+			box-shadow: 0 0 0 2px var(--direktt-profile-dark-gray-color);
 		}
 		&.button-invert {
 			background-color: white;
@@ -389,7 +392,7 @@
 		}
 		.autoComplete_wrapper {
 			width: 100%;
-			/* margin-bottom: 1em; */
+			margin-bottom: 1em;
 			input#autoComplete {
 				width: 100%;
 				box-sizing: border-box;
@@ -429,6 +432,12 @@
 			}
 	
 		}
+		.direktt-taxonomies-tool-tags {
+			h3 {
+				margin-top: 1.5em;	
+			}
+		}
+			
 		.direktt-taxonomies-tool-status {
 			text-align: center;
 			font-weight: 600;
@@ -438,7 +447,7 @@
 			padding: 1em;		 	
 		}
 		.direktt-taxonomies-tool-submit {
-			margin-top: 1em;
+			margin-top: 2em;
 		}
 	}
 	
@@ -481,18 +490,14 @@
 				margin: 0;
 				padding: 0;
 				display: block;
-				text-align: center;
 				.direktt-cross-sell-title-area {
-					display: flex;
-					justify-content: space-between;
-					margin: 1em 0em 1em;
-					align-items: center;
-					gap: 1em;
+					margin-bottom: 1em;
 					.direktt-cross-sell-title {
 						font-weight: 600;
 					}
 					.direktt-cross-sell-data {
 						text-align: right;
+						min-width: 12em;
 						> span {
 							border-radius: 50%;
 							padding: 0 0.5rem;
@@ -501,12 +506,13 @@
 							font-weight: 600;
 							display: inline-block;
 							text-align: center;
-							min-width: 2rem;
-							line-height: 2rem;							
+							min-width: 1rem; /* 2rem (height) - 2 x 0.5rem (padding) */ 
+							line-height: 2rem; 
+							margin: 0 0.25em							
 						}
 					}
 				}
-			}
+			} 
 		}
 		.direktt-cross-sell-issued-coupons-div {
 			margin-top: 3em;
@@ -522,19 +528,19 @@
 		}
 		table.direktt-cross-sell-issued-coupons-table {
 			tr {
-				border-bottom: none;
-				&.direktt-cross-sell-actions {
-					border-bottom: 1px solid var(--direktt-profile-light-gray-color);
+				&:not(.direktt-cross-sell-actions) {
 					td {
-						padding: 0 0 0.5rem;
+						padding-bottom: 0;
+						border-bottom: none;
+					}
+				}
+				&.direktt-cross-sell-actions {
+					td {
 						.button {
 								text-align: center;
 						}
 						form {
 							margin-bottom: 0em;
-							.button {
-								margin-left: 0.5rem; 
-							}
 						}
 					}
 				}
@@ -560,7 +566,8 @@
 			display: flex;
 			flex-wrap: wrap;
 			align-items: center;
-			gap: 1em;
+			gap: 0;
+			margin-bottom: 1em;
 			> h2, > p {
 				flex-basis: fit-content;
 				flex-grow: 1;
@@ -578,9 +585,10 @@
 					font-weight: 600;
 					display: inline-block;
 					text-align: center;
-					min-width: 2rem;
+					 min-width: 1rem; /* 2rem (height) - 2 x 0.5rem (padding) */
 					line-height: 2rem; 
-				}	
+					margin: 0 0.25em
+				}
 			}
 		}
 		.direktt-loyalty-program-rules {
@@ -588,16 +596,18 @@
 			gap: 1em;
 			margin-bottom: 1em;	
 			flex-wrap: wrap;
-			button {
+			button {  
 				padding: 1em;
-				flex-basis: fit-content;
-				flex-grow: 1;
+				flex: 0 0 calc(25% - (3em / 4));
+				margin-bottom: 0;
 			}		 
 		}
 		#reset_points_btn {
 			background-color: var(--direktt-profile-alternate-color);
+			box-shadow: 0 0 0 2px var(--direktt-profile-alternate-color);
 		}
-		.direktt-loyalty-program-transactions {
+		.direktt-loyalty-program-transactions { 
+			margin-top: 1em;	
 			width: 100%;
 			table {
 				th, td {

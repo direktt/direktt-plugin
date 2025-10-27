@@ -120,7 +120,7 @@ class Direktt_Notes_Tool
         <div class="direktt-notes-tool-wrapper">
 
             <?php if ($status_message) : ?>
-                <div class="send-message-tool-info">
+                <div class="send-message-tool-info notice">
                     <p class="send-message-tool-status"><?php echo esc_html($status_message); ?></p>
                 </div>
             <?php endif; ?>
