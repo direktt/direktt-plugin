@@ -4,17 +4,64 @@ defined('ABSPATH') || exit;
 
 class Direktt_Automation
 {
-	public static function run_and_queue($automation_key, $subscription_id, $msg_obj, $action, $time_in_seconds, $initial_state = null)
-	{
+	public static function run_and_queue(
+		$automation_key,
+		$subscription_id,
+		$msg_obj,
+		$action,
+		$time_in_seconds,
+		$initial_state = null
+	) {
 		$runs  = new Direktt_Automation_RunRepository();
 		$queue = new Direktt_Automation_QueueRepository();
 
 		$run_id = $runs->create($automation_key, $subscription_id, $msg_obj, $initial_state);
 
-		// Schedule after 5 seconds.
 		$queue->enqueue($run_id, $subscription_id, $action, $msg_obj, time() + (int) $time_in_seconds, 0);
 
 		return $run_id;
+	}
+
+	public static function run_and_queue_recurring(
+		$automation_key,
+		$subscription_id,
+		$state_or_payload,
+		$action,
+		$start_in_seconds,
+		$interval_seconds = null,
+		$initial_step = null,
+		$max_runs = null,
+		$end_ts = null,
+		$allow_overlap = false,
+		$priority = 0,
+		$cron_expression = null
+	) {
+		$runs  = new Direktt_Automation_RunRepository();
+		$rec   = new Direktt_Automation_RecurringRepository();
+
+		// Create run; mirror your existing semantics (store state payload, set step)
+		$run_id = $runs->create($automation_key, $subscription_id, (array)$state_or_payload, $initial_step);
+
+		// Optionally also enqueue the very first run immediately (start_in_seconds delay):
+		// $queue = new Direktt_Automation_QueueRepository();
+		// $queue->enqueue($run_id, $subscription_id, $action, (array)$state_or_payload, time() + (int)$start_in_seconds, (int)$priority);
+
+		// Create recurrence definition (AS will tick and produce queue items)
+		$recurrence_id = $rec->create(
+			$run_id,
+			$subscription_id,
+			$action,
+			(array)$state_or_payload,
+			time() + (int)$start_in_seconds,
+			$interval_seconds,
+			$cron_expression,
+			$priority,
+			$max_runs,
+			$end_ts,
+			$allow_overlap
+		);
+
+		return [$run_id, $recurrence_id];
 	}
 }
 
@@ -36,6 +83,12 @@ class Direktt_Automation_DB
 	{
 		global $wpdb;
 		return $wpdb->prefix . 'direktt_auto_messages_log';
+	}
+
+	public static function table_recurrences()
+	{
+		global $wpdb;
+		return $wpdb->prefix . 'direktt_auto_recurrences';
 	}
 
 	public static function install()
@@ -82,6 +135,29 @@ class Direktt_Automation_DB
                 KEY contact_status (direktt_user_id, status)
             ) $charset_collate;";
 
+		$recurrences = "CREATE TABLE " . self::table_recurrences() . " (
+				id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+				run_id BIGINT UNSIGNED NOT NULL,
+				direktt_user_id varchar(256) COLLATE utf8mb4_unicode_520_ci DEFAULT NULL,
+				action_type VARCHAR(64) NOT NULL,
+				payload LONGTEXT NULL,
+				interval_seconds INT NULL,
+				cron_expression VARCHAR(64) NULL,
+				start_at DATETIME NOT NULL,
+				end_at DATETIME NULL,
+				max_runs INT NULL,
+				runs_count INT NOT NULL DEFAULT 0,
+				allow_overlap TINYINT(1) NOT NULL DEFAULT 0,
+				priority TINYINT NOT NULL DEFAULT 0,
+				status ENUM('active','paused','canceled','completed') NOT NULL DEFAULT 'active',
+				last_run_at DATETIME NULL,
+				created_at DATETIME NOT NULL,
+				updated_at DATETIME NOT NULL,
+				PRIMARY KEY (id),
+				KEY run_idx (run_id),
+				KEY status_idx (status)
+			) $charset_collate;";
+
 		$messages = "CREATE TABLE " . self::table_messages() . " (
                 id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
                 run_id BIGINT UNSIGNED NOT NULL,
@@ -101,8 +177,11 @@ class Direktt_Automation_DB
                 KEY provider_idx (provider_message_id)
             ) $charset_collate;";
 
+
+
 		dbDelta($runs);
 		dbDelta($queue);
+		dbDelta($recurrences);
 		dbDelta($messages);
 	}
 }
@@ -141,7 +220,7 @@ class Direktt_Automation_RunRepository
 
 		$formats = ['%s', '%s', '%s', '%s', '%s', '%s', '%s'];
 
-		$wpdb->insert($table, $data, $formats);
+		$wpdb->insert($table, $data, $formats); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.DirectQuery -- Justification: selective query on small dataset, Custom database used
 		return (int) $wpdb->insert_id;
 	}
 
@@ -150,7 +229,7 @@ class Direktt_Automation_RunRepository
 		global $wpdb;
 		$table = Direktt_Automation_DB::table_runs();
 
-		$row = $wpdb->get_row($wpdb->prepare("SELECT * FROM $table WHERE id = %d", $id), ARRAY_A);
+		$row = $wpdb->get_row($wpdb->prepare("SELECT * FROM $table WHERE id = %d", $id), ARRAY_A); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.DirectQuery -- Justification: table name is not prepared, selective query on small dataset, Custom database used
 		if ($row && !empty($row['state'])) {
 			$row['state'] = json_decode($row['state'], true);
 		}
@@ -162,6 +241,7 @@ class Direktt_Automation_RunRepository
 		global $wpdb;
 		$table = Direktt_Automation_DB::table_runs();
 
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.DirectQuery -- Justification: selective query on small dataset, Custom database used
 		return (bool) $wpdb->update(
 			$table,
 			[
@@ -191,6 +271,7 @@ class Direktt_Automation_RunRepository
 			$formats[]            = '%s';
 		}
 
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.DirectQuery -- Justification: selective query on small dataset, Custom database used
 		return (bool) $wpdb->update($table, $data, ['id' => (int) $id], $formats, ['%d']);
 	}
 
@@ -199,6 +280,7 @@ class Direktt_Automation_RunRepository
 		global $wpdb;
 		$table = Direktt_Automation_DB::table_runs();
 
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.DirectQuery -- Justification: selective query on small dataset, Custom database used
 		return (bool) $wpdb->update(
 			$table,
 			[
@@ -217,6 +299,8 @@ class Direktt_Automation_RunRepository
 		$table = Direktt_Automation_DB::table_runs();
 		$now   = Direktt_Automation_Time::now_utc();
 
+		// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Justification: table name is not prepared
+
 		if ($touch_last_step) {
 			$sql = $wpdb->prepare(
 				"UPDATE $table
@@ -230,7 +314,7 @@ class Direktt_Automation_RunRepository
 				$now,
 				(int)$id,
 				$expected_step
-			);
+			); 
 		} else {
 			$sql = $wpdb->prepare(
 				"UPDATE $table
@@ -245,7 +329,9 @@ class Direktt_Automation_RunRepository
 			);
 		}
 
-		$rows = $wpdb->query($sql);
+		// phpcs:enable
+
+		$rows = $wpdb->query($sql); // phpcs:disable WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.DirectQuery -- Justification: table name is not prepared, elective query on small dataset, Custom database used
 		return $rows === 1; // true if we actually advanced
 	}
 }
@@ -268,6 +354,7 @@ class Direktt_Automation_QueueRepository
 		$now          = Direktt_Automation_Time::now_utc();
 		$scheduled_at = is_numeric($scheduled_ts) ? Direktt_Automation_Time::ts_to_mysql($scheduled_ts) : $scheduled_ts;
 
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery -- Justification: Custom database used
 		$wpdb->insert(
 			$table,
 			[
@@ -310,7 +397,7 @@ class Direktt_Automation_QueueRepository
 		global $wpdb;
 		$table = Direktt_Automation_DB::table_queue();
 
-		$row = $wpdb->get_row($wpdb->prepare("SELECT * FROM $table WHERE id = %d", $id), ARRAY_A);
+		$row = $wpdb->get_row($wpdb->prepare("SELECT * FROM $table WHERE id = %d", $id), ARRAY_A); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Justification: table name is not prepared
 		if ($row && !empty($row['payload'])) {
 			$row['payload'] = json_decode($row['payload'], true);
 		}
@@ -323,6 +410,8 @@ class Direktt_Automation_QueueRepository
 		global $wpdb;
 		$table     = Direktt_Automation_DB::table_queue();
 		$worker_id = substr(uniqid('w_', true), 0, 63);
+
+		// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Justification: table name is not prepared
 
 		// Lock only if pending and due
 		$updated = $wpdb->query($wpdb->prepare(
@@ -342,6 +431,8 @@ class Direktt_Automation_QueueRepository
 			Direktt_Automation_Time::now_utc()
 		));
 
+		// phpcs:enable
+
 		if ($updated === 1) {
 			$row = $this->get($id);
 			if ($row && $row['worker_id'] === $worker_id && $row['status'] === 'locked') {
@@ -356,6 +447,7 @@ class Direktt_Automation_QueueRepository
 		global $wpdb;
 		$table = Direktt_Automation_DB::table_queue();
 
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.DirectQuery -- Justification: selective query on small dataset, Custom database used
 		return (bool) $wpdb->update(
 			$table,
 			[
@@ -373,6 +465,7 @@ class Direktt_Automation_QueueRepository
 		global $wpdb;
 		$table = Direktt_Automation_DB::table_queue();
 
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.DirectQuery -- Justification: selective query on small dataset, Custom database used
 		return (bool) $wpdb->update(
 			$table,
 			[
@@ -403,6 +496,7 @@ class Direktt_Automation_QueueRepository
 		$scheduled_ts = time() + (int) $delay_seconds;
 		$scheduled_at = Direktt_Automation_Time::ts_to_mysql($scheduled_ts);
 
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.DirectQuery -- Justification: selective query on small dataset, Custom database used
 		$ok = (bool) $wpdb->update(
 			$table,
 			[
@@ -423,6 +517,304 @@ class Direktt_Automation_QueueRepository
 
 		return $ok;
 	}
+
+	public function has_pending_for($run_id, $action_type)
+	{
+		global $wpdb;
+		$table = Direktt_Automation_DB::table_queue();
+
+		// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Justification: table name is not prepared
+
+		$sql = $wpdb->prepare(
+			"SELECT 1 FROM $table
+			WHERE run_id = %d
+			AND action_type = %s
+			AND status IN ('pending','locked')
+			LIMIT 1",
+			(int)$run_id,
+			$action_type
+		);
+
+		// phpcs:enable
+
+		return (bool) $wpdb->get_var($sql); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.DirectQuery -- Justification: table name is not prepared, selective query on small dataset, Custom database used
+	}
+}
+
+class Direktt_Automation_RecurringRepository
+{
+	const AS_GROUP = Direktt_Automation_QueueRepository::AS_GROUP;
+
+	protected function table()
+	{
+		global $wpdb;
+		return $wpdb->prefix . 'direktt_auto_recurrences';
+	}
+
+	protected function as_available()
+	{
+		return function_exists('as_schedule_single_action');
+	}
+
+	public function create($run_id, $direktt_user_id, $action_type, array $payload, $start_ts, $interval_seconds = null, $cron_expression = null, $priority = 0, $max_runs = null, $end_ts = null, $allow_overlap = false)
+	{
+		global $wpdb;
+		$now   = Direktt_Automation_Time::now_utc();
+		$start = is_numeric($start_ts) ? Direktt_Automation_Time::ts_to_mysql($start_ts) : $start_ts;
+		$end   = $end_ts ? (is_numeric($end_ts) ? Direktt_Automation_Time::ts_to_mysql($end_ts) : $end_ts) : null;
+
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery -- Custom database used
+		$wpdb->insert($this->table(), [
+			'run_id'          => (int)$run_id,
+			'direktt_user_id' => $direktt_user_id,
+			'action_type'     => $action_type,
+			'payload'         => wp_json_encode($payload),
+			'interval_seconds' => $interval_seconds ? (int)$interval_seconds : null,
+			'cron_expression' => $cron_expression,
+			'start_at'        => $start,
+			'end_at'          => $end,
+			'max_runs'        => $max_runs,
+			'runs_count'      => 0,
+			'allow_overlap'   => $allow_overlap ? 1 : 0,
+			'priority'        => (int)$priority,
+			'status'          => 'active',
+			'last_run_at'     => null,
+			'created_at'      => $now,
+			'updated_at'      => $now,
+		], ['%d', '%s', '%s', '%s', '%d', '%s', '%s', '%s', '%d', '%d', '%d', '%d', '%s', '%s', '%s']);
+
+		$id = (int)$wpdb->insert_id;
+
+		$this->schedule($id);
+
+		return $id;
+	}
+
+	public function get($id)
+	{
+		global $wpdb;
+		$row = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$this->table()} WHERE id = %d", (int)$id), ARRAY_A); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.DirectQuery -- Justification: table name is not prepared, selective query on small dataset, Custom database used
+		if ($row && !empty($row['payload'])) {
+			$row['payload'] = json_decode($row['payload'], true);
+		}
+		return $row;
+	}
+
+	public function set_status($id, $status)
+	{
+		global $wpdb;
+
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.DirectQuery -- Justification: selective query on small dataset, Custom database used
+		return (bool)$wpdb->update($this->table(), [
+			'status'     => $status,
+			'updated_at' => Direktt_Automation_Time::now_utc(),
+		], ['id' => (int)$id], ['%s', '%s'], ['%d']);
+	}
+
+	public function increment_count($id)
+	{
+		global $wpdb;
+		$now = Direktt_Automation_Time::now_utc();
+
+		// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.DirectQuery -- Justification: table name is not prepared, selective query on small dataset, Custom database used
+		$wpdb->query($wpdb->prepare(
+			"UPDATE {$this->table()} SET runs_count = runs_count + 1, last_run_at = %s, updated_at = %s WHERE id = %d",
+			$now,
+			$now,
+			(int)$id
+		));
+		// phpcs:enable
+	}
+
+	public function cancel($id, $complete_run = false)
+	{
+		$ok = $this->set_status($id, 'canceled');
+		if ($ok) {
+			$this->unschedule_async($id, $complete_run);
+		}
+		return $ok;
+	}
+
+	public function pause($id)
+	{
+		$ok = $this->set_status($id, 'paused');
+		if ($ok) {
+			$this->unschedule_async($id, false);
+		}
+		return $ok;
+	}
+
+	public function cancel_now($id, $complete_run = false)
+	{
+		$ok = $this->set_status($id, 'canceled');
+		if ($ok) {
+			$this->unschedule_now($id, $complete_run);
+		}
+		return $ok;
+	}
+
+	public function resume($id)
+	{
+		$ok = $this->set_status($id, 'active');
+		if ($ok) {
+			$this->schedule($id);
+		}
+		return $ok;
+	}
+
+	public function unschedule_now($id, $complete_run = false)
+	{
+		$args = ['recurrence_id' => (int)$id];
+
+		if (function_exists('as_unschedule_all_actions')) {
+			as_unschedule_all_actions('direktt_automation_process_recurrence', $args, self::AS_GROUP);
+		}
+		// WP-Cron fallback
+		wp_clear_scheduled_hook('direktt_automation_fallback_process_recurrence', $args);
+
+		if ($complete_run) {
+			$rec = $this->get($id);
+			if ($rec && !empty($rec['run_id'])) {
+				$runRepo = new Direktt_Automation_RunRepository();
+				$run     = $runRepo->get((int)$rec['run_id']);
+				if ($run && in_array($run['status'], ['active', 'paused'], true)) {
+					$runRepo->set_status((int)$rec['run_id'], 'completed');
+				}
+			}
+		}
+	}
+
+	public function unschedule_async($id, $complete_run = false)
+	{
+		$args = ['recurrence_id' => (int)$id, 'complete_run' => (bool)$complete_run];
+
+		if (function_exists('as_enqueue_async_action')) {
+			as_enqueue_async_action('direktt_automation_cancel_recurrence', $args, self::AS_GROUP);
+		} elseif (function_exists('as_schedule_single_action')) {
+			as_schedule_single_action(time(), 'direktt_automation_cancel_recurrence', $args, self::AS_GROUP);
+		} else {
+			wp_schedule_single_event(time(), 'direktt_automation_fallback_cancel_recurrence', $args);
+		}
+	}
+
+	protected function schedule($id)
+	{
+		$row = $this->get($id);
+		if (!$row || $row['status'] !== 'active') {
+			return;
+		}
+		$start_ts = strtotime($row['start_at']);
+		$args = ['recurrence_id' => (int)$id];
+
+		if ($this->as_available()) {
+			if (!empty($row['cron_expression'])) {
+				if (function_exists('as_schedule_cron_action')) {
+					as_schedule_cron_action($start_ts, $row['cron_expression'], 'direktt_automation_process_recurrence', $args, self::AS_GROUP, true);
+				}
+			} else {
+				as_schedule_recurring_action($start_ts, (int)$row['interval_seconds'], 'direktt_automation_process_recurrence', $args, self::AS_GROUP, true);
+			}
+		} else {
+			// WP-Cron fallback
+			$hook = 'direktt_automation_fallback_process_recurrence';
+			if (!empty($row['cron_expression'])) {
+				// No native cron expression support; schedule a minutely heartbeat, and gate inside the worker (optional).
+				// Simpler: approximate with interval_seconds if you have one or skip cron_expression in fallback.
+				return;
+			} else {
+				$slug = 'direktt_every_' . (int)$row['interval_seconds'];
+				add_filter('cron_schedules', function ($schedules) use ($row, $slug) {
+					$schedules[$slug] = [
+						'interval' => (int)$row['interval_seconds'],
+						'display'  => 'Direktt every ' . (int)$row['interval_seconds'] . 's',
+					];
+					return $schedules;
+				});
+				if (!wp_next_scheduled($hook, $args)) {
+					wp_schedule_event($start_ts, $slug, $hook, $args);
+				}
+			}
+		}
+	}
+
+	protected function unschedule($id)
+	{
+		$args = ['recurrence_id' => (int)$id];
+		if ($this->as_available()) {
+			as_unschedule_all_actions('direktt_automation_process_recurrence', $args, self::AS_GROUP);
+		} else {
+			wp_clear_scheduled_hook('direktt_automation_fallback_process_recurrence', $args);
+		}
+	}
+}
+
+class Direktt_Automation_RecurringWorker
+{
+	public static function process_recurrence($args)
+	{
+		$recurrence_id = is_array($args) && isset($args['recurrence_id']) ? (int)$args['recurrence_id'] : (int)$args;
+
+		$recRepo  = new Direktt_Automation_RecurringRepository();
+		$queueRepo = new Direktt_Automation_QueueRepository();
+
+		$rec = $recRepo->get($recurrence_id);
+		if (!$rec) {
+			return;
+		}
+
+		// If not active, nothing to do (but there might still be a pending next tick created before).
+		if ($rec['status'] !== 'active') {
+			// Schedule async canceller to cleanup any pending next occurrences
+			$recRepo->unschedule_async($recurrence_id, false);
+			return;
+		}
+
+		// Check constraints first. Remember: AS already scheduled the next tick before our handler runs.
+		$now = time();
+
+		$reached_end_time = !empty($rec['end_at']) && $now > strtotime($rec['end_at']);
+		$reached_max_runs = !empty($rec['max_runs']) && (int)$rec['runs_count'] >= (int)$rec['max_runs'];
+
+		if ($reached_end_time || $reached_max_runs) {
+			// Mark recurrence as completed (or canceled) and schedule async canceller to remove the pending next.
+			$recRepo->set_status($recurrence_id, 'canceled');
+
+			// Optionally complete the associated run when recurrence finishes
+			$complete_run = true;
+			$recRepo->unschedule_async($recurrence_id, $complete_run);
+
+			return;
+		}
+
+		// Optional overlap guard
+		if (empty($rec['allow_overlap']) && $queueRepo->has_pending_for((int)$rec['run_id'], $rec['action_type'])) {
+			// Skip this tick; next tick is already pending/locked. Do not increment count.
+			return;
+		}
+
+		// Enqueue one occurrence for your normal queue
+		$queueRepo->enqueue(
+			(int)$rec['run_id'],
+			$rec['direktt_user_id'],
+			$rec['action_type'],
+			is_array($rec['payload']) ? $rec['payload'] : (array)$rec['payload'],
+			$now,
+			(int)$rec['priority']
+		);
+
+		// Track count and last_run_at
+		$recRepo->increment_count($recurrence_id);
+	}
+
+	public static function cancel_recurrence_async($args)
+	{
+		$recurrence_id = is_array($args) && isset($args['recurrence_id']) ? (int)$args['recurrence_id'] : (int)$args;
+		$complete_run  = is_array($args) && !empty($args['complete_run']);
+
+		$recRepo = new Direktt_Automation_RecurringRepository();
+		// Remove any pending future ticks for this recurrence
+		$recRepo->unschedule_now($recurrence_id, $complete_run);
+	}
 }
 
 class Direktt_Automation_MessagesLogRepository
@@ -433,6 +825,7 @@ class Direktt_Automation_MessagesLogRepository
 		$table = Direktt_Automation_DB::table_messages();
 		$now   = Direktt_Automation_Time::now_utc();
 
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery -- Justification: custom database used
 		$wpdb->insert(
 			$table,
 			[
@@ -460,6 +853,7 @@ class Direktt_Automation_MessagesLogRepository
 		global $wpdb;
 		$table = Direktt_Automation_DB::table_messages();
 
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.DirectQuery -- Justification: selective query on small dataset, custom database used
 		return (bool) $wpdb->update(
 			$table,
 			[
@@ -479,6 +873,7 @@ class Direktt_Automation_MessagesLogRepository
 		global $wpdb;
 		$table = Direktt_Automation_DB::table_messages();
 
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.DirectQuery -- Justification: selective query on small dataset, custom database used
 		return (bool) $wpdb->update(
 			$table,
 			[
@@ -549,7 +944,6 @@ class Direktt_Automation_Worker
 			$attempts = (int) $queue_item['attempts'];
 			$delay    = min(3600, pow(2, $attempts) * 60); // 1m,2m,4m,8m... up to 1h
 			$queueRepo->retry_later($queue_item['id'], $delay, 6);
-			error_log('[MKT] Queue item failed: ' . $e->getMessage());
 		}
 	}
 }

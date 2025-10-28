@@ -83,6 +83,13 @@ class Direktt {
 
 		$this->loader = new Direktt_Loader();
 		$this->direktt_api = new Direktt_Api( $this->get_plugin_name(), $this->get_version() );
+
+		// skip action_scheduler
+
+		add_filter ('wp_plugin_check_ignore_directories', function ($directories) {
+    		$directories[] = 'action-scheduler';
+    		return $directories;
+		});
 	}
 
 	private function define_public_hooks() {
@@ -202,11 +209,20 @@ class Direktt {
 	private function define_automation_hooks() {
 
 		$plugin_automation_worker = new Direktt_Automation_Worker( );
+		$plugin_automation_recurring_worker = new Direktt_Automation_RecurringWorker( );
 
 		register_activation_hook( WP_PLUGIN_DIR . '/direktt/direktt.php' , array('Direktt_Automation_DB', 'install') );
 		
 		$this->loader->add_filter( 'direktt_automation_process_queue_item', $plugin_automation_worker, 'process_queue_item', 10, 1 );
 		$this->loader->add_filter( 'direktt_automation_fallback_process_queue_item', $plugin_automation_worker, 'process_queue_item', 10, 1 );
+
+		$this->loader->add_filter( 'direktt_automation_process_recurrence', $plugin_automation_recurring_worker, 'process_recurrence', 10, 1 );
+		$this->loader->add_filter( 'direktt_automation_fallback_process_recurrence', $plugin_automation_recurring_worker, 'process_recurrence', 10, 1 );
+
+		$this->loader->add_filter( 'direktt_automation_cancel_recurrence', $plugin_automation_recurring_worker, 'cancel_recurrence_async', 10, 1 );
+		$this->loader->add_filter( 'direktt_automation_fallback_cancel_recurrence', $plugin_automation_recurring_worker, 'cancel_recurrence_async', 10, 1 );
+
+		
 
 	}
 
