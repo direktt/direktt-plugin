@@ -96,6 +96,9 @@
 		  outline-offset: 2px;
 		}*/
 	}
+	input[type="text"] {
+		padding: 0.5em 1em;
+	}
 	input[type="submit"], button:not([class^='ql-']), .button, .direktt-button {
 		pointer-events: all;
 		cursor: pointer;
@@ -116,9 +119,6 @@
 		&:focus {
 		  outline: none;
 		}
-	}
-	input[type="text"] {
-		padding: 0.5em 1em;
 	}
 	textarea {
 		padding: 1em;
@@ -179,6 +179,7 @@
 			border-bottom: 1px solid var(--direktt-profile-light-gray-color);
 			text-align: left;
 			padding: 0.5rem;
+			vertical-align: top;
 			&:first-child {
 				padding-left: 0; 
 			}

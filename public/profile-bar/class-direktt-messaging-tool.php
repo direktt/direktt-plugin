@@ -110,7 +110,7 @@ class Direktt_Messaging_Tool
         <form method="post">
             <div class="send-message-tool-wrapper">
                 <?php if ($status_message) : ?>
-                    <div class="send-message-tool-info">
+                    <div class="send-message-tool-info notice">
                         <p class="send-message-tool-status"><?php echo esc_html($status_message); ?></p>
                     </div>
                 <?php endif; ?>

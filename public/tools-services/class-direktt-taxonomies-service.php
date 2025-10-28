@@ -159,17 +159,14 @@ class Direktt_Taxonomies_Service
 			<div id="direktt-profile-wrapper">
 				<div class="direktt-edit-taxonomies-service-wrapper direktt-edit-taxonomies-service-editor" id="direktt-profile">
 					<?php
-
-					$allowed_html = wp_kses_allowed_html('post');
-					echo wp_kses(Direktt_Public::direktt_render_confirm_popup('edit-taxonomies-service-confirm', esc_html__("Are you sure that you want to remove the user?", 'direktt')), $allowed_html );
-					echo wp_kses(Direktt_Public::direktt_render_loader(__('Saving data', 'direktt')), $allowed_html );
-
 					if (('edit-category' === $subpage || 'edit-tag' === $subpage) && isset($_GET['tax_name'])) {
 						$tax_name = sanitize_text_field(wp_unslash($_GET['tax_name']));
 						$taxonomy = 'edit-category' === $subpage ? 'direkttusercategories' : 'direkttusertags';
 						$term = get_term_by('name', $tax_name, $taxonomy);
 					?>
-						<p class="direktt-edit-taxonomies-service-status"><?php echo esc_html($status_message); ?></p>
+						<?php if( !empty( $status_message ) ): ?>
+							<p class="direktt-edit-taxonomies-service-status notice"><?php echo esc_html($status_message); ?></p>
+						<?php endif; ?>
 						<h2><?php echo 'edit-category' === $subpage ? esc_html__('Category Name:', 'direktt') : esc_html__('Tag Name:', 'direktt'); ?> <?php echo esc_html($tax_name); ?></h2>
 						<div class="direktt-edit-taxonomies-service-users">
 							<form method="post" action="">
@@ -182,7 +179,7 @@ class Direktt_Taxonomies_Service
 									<input type="hidden" id="usersNonce" name="usersNonce" value="<?php echo esc_attr(wp_create_nonce('user_list_nonce')); ?>">
 									<div class="direktt-edit-taxonomies-service-submit">
 										<p>
-											<input type="submit" id="addUserBtn" value="<?php echo esc_html__('Add User', 'direktt'); ?>" class="button button-primary button-large">
+											<input type="submit" id="addUserBtn" value="<?php echo esc_html__('Add User', 'direktt'); ?>" class="button button-primary">
 										</p>
 									</div>
 								</div>
@@ -235,6 +232,11 @@ class Direktt_Taxonomies_Service
 							</form>
 						</div>
 						<p><a href="<?php echo esc_url($backUri); ?>" class="direktt-button button-invert button-dark-gray"><?php echo esc_html__('Show All Taxonomies', 'direktt'); ?></a></p>
+						<?php
+							$allowed_html = wp_kses_allowed_html('post');
+							echo wp_kses(Direktt_Public::direktt_render_confirm_popup('edit-taxonomies-service-confirm', esc_html__("Are you sure that you want to remove the user?", 'direktt')), $allowed_html );
+							echo wp_kses(Direktt_Public::direktt_render_loader(__('Saving data', 'direktt')), $allowed_html );						
+						?>						
 				</div>
 			</div>
 		<?php
@@ -245,8 +247,8 @@ class Direktt_Taxonomies_Service
 		?>
 		<div id="direktt-profile-wrapper">
 			<div class="direktt-edit-taxonomies-service-wrapper" id="direktt-profile">
+				<h2><?php echo esc_html__('Categories', 'direktt'); ?></h2>
 				<div class="direktt-edit-taxonomies-service-categories">
-					<h2><?php echo esc_html__('Categories', 'direktt'); ?></h2>
 					<?php
 					foreach ($all_categories as $category) {
 						$url = sanitize_text_field( wp_unslash($_SERVER['REQUEST_URI']));
@@ -265,13 +267,13 @@ class Direktt_Taxonomies_Service
 							$count = count($user_ids);
 						}
 					?>
-						<p><a href="<?php echo esc_url($newUri); ?>" class="direktt-button button-large"><?php echo esc_html($category['name']); ?><?php echo ' <i>(' . esc_html($count) . ')</i>'; ?></a></p>
+						<p><a href="<?php echo esc_url($newUri); ?>" class="direktt-button"><?php echo esc_html($category['name']); ?><?php echo ' <i>(' . esc_html($count) . ')</i>'; ?></a></p>
 					<?php
 					}
 					?>
 				</div>
+				<h2><?php echo esc_html__('Tags', 'direktt'); ?></h2>
 				<div class="direktt-edit-taxonomies-service-tags">
-					<h2><?php echo esc_html__('Tags', 'direktt'); ?></h2>
 					<?php
 					foreach ($all_tags as $tag) {
 						$url = sanitize_text_field( wp_unslash($_SERVER['REQUEST_URI']));
@@ -290,7 +292,7 @@ class Direktt_Taxonomies_Service
 							$count = count($user_ids);
 						}
 					?>
-						<p><a href="<?php echo esc_url($newUri); ?>" class="direktt-button button-large"><?php echo esc_html($tag['name']); ?><?php echo ' <i>(' . esc_html($count) . ')</i>'; ?></a></p>
+						<p><a href="<?php echo esc_url($newUri); ?>" class="direktt-button"><?php echo esc_html($tag['name']); ?><?php echo ' <i>(' . esc_html($count) . ')</i>'; ?></a></p>
 					<?php
 					}
 					?>
