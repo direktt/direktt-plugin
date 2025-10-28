@@ -158,6 +158,7 @@
   border-bottom: 1px solid var(--direktt-profile-light-gray-color);
   text-align: left;
   padding: 0.5rem;
+  vertical-align: top;
 }
 #direktt-profile table th:first-child, #direktt-profile table td:first-child {
   padding-left: 0;

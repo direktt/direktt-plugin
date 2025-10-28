@@ -54,6 +54,7 @@
 		margin: 1em 0;
 		padding: 1em;	
 		border: 2px solid var(--direktt-profile-accent-color);
+		color: var(--direktt-profile-accent-color);
 		&.notice-error {
 			border-color: var(--direktt-profile-warning-color);
 			color: var(--direktt-profile-warning-color);
