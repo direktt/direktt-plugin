@@ -96,6 +96,9 @@
 		  outline-offset: 2px;
 		}*/
 	}
+	input[type="text"] {
+		padding: 0.5em 1em;
+	}
 	input[type="submit"], button:not([class^='ql-']), .button, .direktt-button {
 		pointer-events: all;
 		cursor: pointer;
@@ -116,9 +119,6 @@
 		&:focus {
 		  outline: none;
 		}
-	}
-	input[type="text"] {
-		padding: 0.5em 1em;
 	}
 	textarea {
 		padding: 1em;

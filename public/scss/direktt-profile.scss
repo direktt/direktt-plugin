@@ -65,6 +65,7 @@
 	.dpi-profile:before { content: "\f264" !important; }
 	.dpi-information:before { content: "\ee59" !important; }
 	.dpi-edit-user-taxonomies:before { content: "\f025" !important; }
+	.dpi-notes:before { content: "\ef3e" !important; }
 }
 
 /* Themes override */
@@ -136,6 +137,27 @@
 			}
 		}
 	} 
+	
+	/* Autocomplete */
+
+	.autoComplete_wrapper {
+		width: 100%;
+		margin-bottom: 1em;
+		input#autoComplete {
+			width: 100%;
+			box-sizing: border-box;
+			padding: 1.5em 1em;
+		}	
+		ul {
+			padding: 0;
+			margin: 0;
+			li {
+				font-size: inherit;
+				padding: 0.5em;
+				margin: 0;
+			}	
+		}
+	}
 		
 	/* End general */
 	
@@ -378,35 +400,7 @@
 	
 	/* Send message tab */
 	
-	.send-message-tool-wrapper {
-		/* padding: 1em 0; */
-		.send-message-tool-info {
-			p.send-message-tool-status {
-				text-align: center;
-				font-weight: 600;
-				border: 2px solid var(--direktt-profile-accent-color);
-				border-radius: 50px;
-				/* margin: 1em 0; */
-				padding: 1em;
-			}
-		}
-		.autoComplete_wrapper {
-			width: 100%;
-			margin-bottom: 1em;
-			input#autoComplete {
-				width: 100%;
-				box-sizing: border-box;
-			}	
-			ul {
-				padding: 0;
-				margin: 0;
-				li {
-					font-size: inherit;
-					padding: 0.5em;
-					margin: 0;
-				}	
-			}
-		}	
+	.send-message-tool-wrapper {	
 	}
 	
 	/* Edit taxonomies */
@@ -679,20 +673,15 @@
 	&.direktt-edit-taxonomies-service-wrapper {
 		min-height: auto;
 		padding: 1em;
-		display: flex;
-		flex-direction: column;
-		gap: 1em;
 		.direktt-button {
 			text-align: center;	
 		}
 		.direktt-edit-taxonomies-service-users form {
-			display: flex; 
-			flex-direction: column;
-			gap: 2em;
 			.direktt-edit-taxonomies-service-users-list {
 				display: flex;
 				flex-direction: column;
 				gap: 1em;
+				margin-bottom: 1em;
 				.direktt-edit-taxonomies-service-user-item {
 					border-top: 1px solid var(--direktt-profile-light-gray-color);
 					padding-top: 1em;
@@ -715,8 +704,8 @@
 			display: flex;
 			gap: 1em;
 			align-items: stretch;
-			border-top: 1px solid var(--direktt-profile-dark-gray-color);
-			border-bottom: 1px solid var(--direktt-profile-dark-gray-color);
+			/* border-top: 1px solid var(--direktt-profile-dark-gray-color); */
+			/* border-bottom: 1px solid var(--direktt-profile-dark-gray-color); */
 			padding: 1em 0;
 			input#direktt-user-search {
 				flex: 1 1 auto;
