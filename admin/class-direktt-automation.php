@@ -664,7 +664,7 @@ class Direktt_Automation_RecurringRepository
 
 	public function unschedule_now($id, $complete_run = false)
 	{
-		$args = ['recurrence_id' => (int)$id];
+		$args = ['recurrence_id' => (int)$id ];
 
 		if (function_exists('as_unschedule_all_actions')) {
 			as_unschedule_all_actions('direktt_automation_process_recurrence', $args, self::AS_GROUP);
@@ -686,7 +686,7 @@ class Direktt_Automation_RecurringRepository
 
 	public function unschedule_async($id, $complete_run = false)
 	{
-		$args = ['recurrence_id' => (int)$id, 'complete_run' => (bool)$complete_run];
+		$args = ['recurrence_id' => (int)$id, 'complete_run' => (bool)$complete_run ];
 
 		if (function_exists('as_enqueue_async_action')) {
 			as_enqueue_async_action('direktt_automation_cancel_recurrence', $args, self::AS_GROUP);
@@ -781,6 +781,7 @@ class Direktt_Automation_RecurringWorker
 
 			// Optionally complete the associated run when recurrence finishes
 			$complete_run = true;
+
 			$recRepo->unschedule_async($recurrence_id, $complete_run);
 
 			return;
@@ -809,7 +810,9 @@ class Direktt_Automation_RecurringWorker
 	public static function cancel_recurrence_async($args)
 	{
 		$recurrence_id = is_array($args) && isset($args['recurrence_id']) ? (int)$args['recurrence_id'] : (int)$args;
-		$complete_run  = is_array($args) && !empty($args['complete_run']);
+		
+		//$complete_run  = is_array($args) && !empty($args['complete_run']);
+		$complete_run = true;
 
 		$recRepo = new Direktt_Automation_RecurringRepository();
 		// Remove any pending future ticks for this recurrence
