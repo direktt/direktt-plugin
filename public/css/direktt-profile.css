@@ -32,6 +32,9 @@
   margin-bottom: 0.5em;
   /* space between h and table */
 }
+#direktt-profile input[type=hidden] + h1, #direktt-profile input[type=hidden] + h2, #direktt-profile input[type=hidden] + h3, #direktt-profile input[type=hidden] + h4, #direktt-profile input[type=hidden] + h5, #direktt-profile input[type=hidden] + h6 {
+  margin-top: 0;
+}
 #direktt-profile h3 {
   font-size: 1.25em;
 }
@@ -74,6 +77,7 @@
   /* font: inherit; */
   color: inherit;
   width: 100%;
+  box-sizing: border-box;
   /*&:focus {
     outline: 2px solid var(--direktt-profile-accent-color);
     outline-offset: 2px;
@@ -262,7 +266,7 @@ body.direktt-app .ui-menu .ui-menu-item-wrapper {
   content: "" !important;
 }
 #direktt-profile .dpi-notes:before {
-  content: "" !important;
+  content: "" !important;
 }
 
 /* Themes override */
@@ -328,10 +332,11 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
   margin: 1em 0;
   padding: 1em;
   border: 2px solid var(--direktt-profile-accent-color);
+  /* color: var(--direktt-profile-accent-color); */
 }
 #direktt-profile .notice.notice-error {
   border-color: var(--direktt-profile-warning-color);
-  color: var(--direktt-profile-warning-color);
+  /* color: var(--direktt-profile-warning-color); */
 }
 #direktt-profile .notice p {
   margin: 0;
@@ -882,11 +887,13 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
   margin-bottom: 0.5em;
 }
 #direktt-profile .direktt-profile-data-service-status-tool .direktt-service-status-cases-list .case-item .direktt-service-status-user,
+#direktt-profile .direktt-profile-data-service-status-tool .direktt-service-status-cases-list .case-item .direktt-service-status-user-id,
 #direktt-profile .direktt-profile-data-service-status-tool .direktt-service-status-cases-list .case-item .direktt-service-status-description,
 #direktt-profile .direktt-profile-data-service-status-tool .direktt-service-status-cases-list .case-item .direktt-service-status-status {
   color: var(--direktt-profile-dark-gray-color);
 }
 #direktt-profile .direktt-profile-data-service-status-tool .direktt-service-status-cases-list .case-item .direktt-service-status-user strong,
+#direktt-profile .direktt-profile-data-service-status-tool .direktt-service-status-cases-list .case-item .direktt-service-status-user-id strong,
 #direktt-profile .direktt-profile-data-service-status-tool .direktt-service-status-cases-list .case-item .direktt-service-status-description strong,
 #direktt-profile .direktt-profile-data-service-status-tool .direktt-service-status-cases-list .case-item .direktt-service-status-status strong {
   min-width: 7em;

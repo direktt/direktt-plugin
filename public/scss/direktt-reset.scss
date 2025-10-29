@@ -35,6 +35,12 @@
 		}
 	}
 	
+	input[type="hidden"] + {
+		h1, h2, h3, h4, h5, h6 {
+			margin-top: 0;
+		}	
+	}
+	
 	h3 {
 		font-size: 1.25em;
 	}
@@ -91,6 +97,7 @@
 		/* font: inherit; */
 		color: inherit;
 		width: 100%;
+		box-sizing: border-box;
 		/*&:focus {
 		  outline: 2px solid var(--direktt-profile-accent-color);
 		  outline-offset: 2px;

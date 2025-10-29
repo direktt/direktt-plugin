@@ -65,7 +65,7 @@
 	.dpi-profile:before { content: "\f264" !important; }
 	.dpi-information:before { content: "\ee59" !important; }
 	.dpi-edit-user-taxonomies:before { content: "\f025" !important; }
-	.dpi-notes:before { content: "\ef3e" !important; }
+	.dpi-notes:before { content: "\ec86" !important; }
 }
 
 /* Themes override */
@@ -640,10 +640,11 @@
 				&:not(:last-child) {
 					border-bottom: 1px solid var(--direktt-profile-light-gray-color);	
 				}
-				h3 {
+				h3 {  
 					margin-bottom: 0.5em; 
 				}
 				.direktt-service-status-user, 
+				.direktt-service-status-user-id,
 				.direktt-service-status-description, 
 				.direktt-service-status-status { 
 					color: var(--direktt-profile-dark-gray-color);
