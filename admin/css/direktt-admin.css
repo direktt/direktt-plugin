@@ -33,7 +33,13 @@ body.direktt_page_direktt-settings .direktt-greet-days-row .direktt-greet-day {
   font-weight: 600;
 }
 
-/* Message templete editor */
+/* In cutom post type */
+#direktt-meta-app h1 {
+  font-size: 21px;
+  font-weight: 600;
+}
+
+/* Message template editor */
 body.post-type-direkttmtemplates {
   --direktt-loader-primary-color: #2c3e50;
   --direktt-loader-secondary-color: #fff;
@@ -548,13 +554,18 @@ body.post-type-direkttmtemplates .text-caption label {
   text-align: right;
 }
 
-.direktt-loyalty-program-meta-box h3 {
+#poststuff .direktt-loyalty-program-meta-box h2 {
+  padding-left: 0;
+  font-weight: 600;
+  font-siye: 1.2em;
+}
+#poststuff .direktt-loyalty-program-meta-box h3 {
   margin-bottom: 0.5em;
 }
-.direktt-loyalty-program-meta-box table th:last-child, .direktt-loyalty-program-meta-box table td:last-child {
+#poststuff .direktt-loyalty-program-meta-box table th:last-child, #poststuff .direktt-loyalty-program-meta-box table td:last-child {
   text-align: right;
 }
-.direktt-loyalty-program-meta-box table th:first-child, .direktt-loyalty-program-meta-box table td:first-child {
+#poststuff .direktt-loyalty-program-meta-box table th:first-child, #poststuff .direktt-loyalty-program-meta-box table td:first-child {
   text-align: center;
 }
 

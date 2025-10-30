@@ -44,7 +44,16 @@ body.direktt_page_direktt-settings {
 
 }
 
-/* Message templete editor */ 
+/* In cutom post type */
+
+#direktt-meta-app {
+	h1 {
+		font-size: 21px;
+		font-weight: 600;
+	}
+}
+
+/* Message template editor */ 
 
 body.post-type-direkttmtemplates {
 	--direktt-loader-primary-color: #2c3e50;
@@ -677,8 +686,12 @@ body.post-type-direkttmtemplates {
 	}	
 }
 
-.direktt-loyalty-program-meta-box {
-
+#poststuff .direktt-loyalty-program-meta-box {
+	h2 {
+		padding-left: 0;
+		font-weight: 600;
+		font-siye: 1.2em;
+	}
 	h3 {
 		margin-bottom: 0.5em;
 	}
