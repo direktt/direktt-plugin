@@ -236,7 +236,7 @@ onMounted(() => {
 
   <v-card class="pa-4 mr-4" variant="text">
 
-    <table class="form-table" role="presentation">
+    <table class="widefat striped" role="presentation">
 
       <tbody v-if="data">
         <tr v-if="data.isSSL !== true">
@@ -356,7 +356,7 @@ onMounted(() => {
       <p></p>
       <v-divider class="border-opacity-100"></v-divider>
       <p></p>
-      <table class="form-table" role="presentation">
+      <table class="widefat striped" role="presentation">
 
         <tbody v-if="data">
           <tr>

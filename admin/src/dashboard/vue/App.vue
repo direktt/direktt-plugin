@@ -100,7 +100,7 @@ onMounted(() => {
 
   <v-card class="pa-4 mr-4" variant="text">
 
-    <table class="form-table" role="presentation">
+    <table class="widefat striped" role="presentation">
 
       <tbody v-if="data">
 
