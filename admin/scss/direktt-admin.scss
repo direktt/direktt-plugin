@@ -53,6 +53,25 @@ body.direktt_page_direktt-settings {
 	}
 }
 
+#appBuilder {
+	.v-card {
+		overflow: visible !important;
+		.direktt-message-template-builder {
+			.v-row {
+				position: relative;
+			}
+			.v-col.v-col-6:nth-child(1) {
+			}
+			.v-col.v-col-6:nth-child(2) {
+				.details-panel {
+					position: sticky;
+					top: 3em;
+				}
+			}
+		}
+	}
+}
+
 /* Message template editor */ 
 
 body.post-type-direkttmtemplates {
@@ -687,6 +706,28 @@ body.post-type-direkttmtemplates {
 }
 
 #poststuff .direktt-loyalty-program-meta-box {
+	.direktt-loyalty-program-wrap {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		p {
+			margin: 0;
+			font-weight: 600;
+			strong {
+				border-radius: 50%;
+				padding: 0 0.8rem;
+				background: #2271b1;
+				color: white;
+				font-weight: 600;
+				display: inline-block;
+				text-align: center;
+				min-width: 1rem; /* 2rem (height) - 2 x 0.5rem (padding) */
+				line-height: 2rem; 
+				margin: 0 0.25em;
+			}
+		}
+		
+	}
 	h2 {
 		padding-left: 0;
 		font-weight: 600;

@@ -39,6 +39,17 @@ body.direktt_page_direktt-settings .direktt-greet-days-row .direktt-greet-day {
   font-weight: 600;
 }
 
+#appBuilder .v-card {
+  overflow: visible !important;
+}
+#appBuilder .v-card .direktt-message-template-builder .v-row {
+  position: relative;
+}
+#appBuilder .v-card .direktt-message-template-builder .v-col.v-col-6:nth-child(2) .details-panel {
+  position: sticky;
+  top: 3em;
+}
+
 /* Message template editor */
 body.post-type-direkttmtemplates {
   --direktt-loader-primary-color: #2c3e50;
@@ -554,6 +565,28 @@ body.post-type-direkttmtemplates .text-caption label {
   text-align: right;
 }
 
+#poststuff .direktt-loyalty-program-meta-box .direktt-loyalty-program-wrap {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+#poststuff .direktt-loyalty-program-meta-box .direktt-loyalty-program-wrap p {
+  margin: 0;
+  font-weight: 600;
+}
+#poststuff .direktt-loyalty-program-meta-box .direktt-loyalty-program-wrap p strong {
+  border-radius: 50%;
+  padding: 0 0.8rem;
+  background: #2271b1;
+  color: white;
+  font-weight: 600;
+  display: inline-block;
+  text-align: center;
+  min-width: 1rem;
+  /* 2rem (height) - 2 x 0.5rem (padding) */
+  line-height: 2rem;
+  margin: 0 0.25em;
+}
 #poststuff .direktt-loyalty-program-meta-box h2 {
   padding-left: 0;
   font-weight: 600;
