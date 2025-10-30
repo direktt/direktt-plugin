@@ -426,7 +426,7 @@ class Direktt_Admin
 	{
 
 ?>
-		<div id="app"></div>
+		<div id="direktt-meta-app"></div>
 		<?php
 
 	}
@@ -483,7 +483,7 @@ class Direktt_Admin
 
 		if ($active_tab == '') {
 		?>
-			<div id="app"></div>
+			<div id="direktt-meta-app"></div>
 		<?php
 		} else {
 			foreach (Direktt::$settings_array as $item) {
@@ -498,7 +498,7 @@ class Direktt_Admin
 	{
 		if ($post->post_type != 'direkttusers') return;
 		?>
-		<div id="app"></div>
+		<div id="direktt-meta-app"></div>
 		<?php
 	}
 
@@ -872,7 +872,7 @@ class Direktt_Admin
 
 		echo '<p><label for="direktt_mt_type"><strong>' . esc_html__('Send Message Template', 'direktt') . '</strong></label></p> ';
 
-		echo ('<div id="app"></div>');
+		echo ('<div id="direktt-meta-app"></div>');
 	}
 
 	function direkttmtemplates_save_meta_box_data($post_id)

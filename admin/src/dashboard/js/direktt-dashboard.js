@@ -30,6 +30,6 @@ vueapp.component(VueQrcode.name, VueQrcode);
 vueapp.use(VueQueryPlugin)
 
 
-vueapp.mount("#app");
+vueapp.mount("#direktt-meta-app");
 
 

@@ -95,7 +95,7 @@ function emptyRichButton() {
       type: "link",
       params: {
         url: "",
-        target: "app",
+        target: "direktt-meta-app",
         subscriptionId: "",
         actionType: ""
       },

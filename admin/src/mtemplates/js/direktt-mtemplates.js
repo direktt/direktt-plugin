@@ -32,7 +32,7 @@ import '@mdi/font/css/materialdesignicons.css'
         vueapp.use(pinia)
         vueapp.use(vuetify)
         vueapp.use(VueQueryPlugin)
-        vueapp.mount("#app")
+        vueapp.mount("#direktt-meta-app")
 
         vueappBuilder.use(vuetify)
         vueappBuilder.mount("#appBuilder")
