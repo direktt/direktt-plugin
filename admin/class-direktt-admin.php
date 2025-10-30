@@ -494,7 +494,19 @@ class Direktt_Admin
 		}
 	}
 
-	public function render_meta_panel($post)
+	public function direktt_direkttusers_add_meta_box()
+	{
+		add_meta_box(
+			'direktt_direkttusers_meta_box',
+			esc_html__('Direktt User Properties', 'direktt'),
+			[$this, 'render_direkttusers_meta_box'],
+			'direkttusers',
+			'advanced',
+			'high'
+		);
+	}
+
+	public function render_direkttusers_meta_box($post)
 	{
 		if ($post->post_type != 'direkttusers') return;
 		?>
@@ -948,7 +960,7 @@ class Direktt_Admin
 				$wp_user = get_user_by('email', $email);
 				$direktt_user = Direktt_User::get_direktt_user_by_wp_user($wp_user);
 
-				if( $direktt_user ){
+				if ($direktt_user) {
 					$direktt_recipients[] = $email;
 					// Send email if not @direktt
 					if (strpos(strtolower($email), '@direktt.com') === false) {

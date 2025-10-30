@@ -100,9 +100,7 @@ onMounted(() => { });
 
 <template>
 
-  <h1 class="mt-4">Direktt User Properties</h1>
 
-  <v-card class="pa-4">
 
     <table class="widefat striped" role="presentation">
 
@@ -156,8 +154,6 @@ onMounted(() => { });
       </tbody>
     </table>
     <p></p>
-
-  </v-card>
 
   <h1 class="mt-4">Direktt User Events</h1>
   <v-infinite-scroll :height="300" :items="items" :onLoad="load">
