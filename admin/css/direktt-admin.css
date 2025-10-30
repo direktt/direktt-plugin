@@ -565,16 +565,11 @@ body.post-type-direkttmtemplates .text-caption label {
   text-align: right;
 }
 
-#poststuff .direktt-loyalty-program-meta-box .direktt-loyalty-program-wrap {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-#poststuff .direktt-loyalty-program-meta-box .direktt-loyalty-program-wrap p {
+#poststuff #direktt_loyalty_program_meta_box h2 .direktt-loyalty-current-points {
   margin: 0;
   font-weight: 600;
 }
-#poststuff .direktt-loyalty-program-meta-box .direktt-loyalty-program-wrap p strong {
+#poststuff #direktt_loyalty_program_meta_box h2 .direktt-loyalty-current-points strong {
   border-radius: 50%;
   padding: 0 0.8rem;
   background: #2271b1;
@@ -587,18 +582,10 @@ body.post-type-direkttmtemplates .text-caption label {
   line-height: 2rem;
   margin: 0 0.25em;
 }
-#poststuff .direktt-loyalty-program-meta-box h2 {
-  padding-left: 0;
-  font-weight: 600;
-  font-siye: 1.2em;
-}
-#poststuff .direktt-loyalty-program-meta-box h3 {
-  margin-bottom: 0.5em;
-}
-#poststuff .direktt-loyalty-program-meta-box table th:last-child, #poststuff .direktt-loyalty-program-meta-box table td:last-child {
+#poststuff #direktt_loyalty_program_meta_box table th:last-child, #poststuff #direktt_loyalty_program_meta_box table td:last-child {
   text-align: right;
 }
-#poststuff .direktt-loyalty-program-meta-box table th:first-child, #poststuff .direktt-loyalty-program-meta-box table td:first-child {
+#poststuff #direktt_loyalty_program_meta_box table th:first-child, #poststuff #direktt_loyalty_program_meta_box table td:first-child {
   text-align: center;
 }
 

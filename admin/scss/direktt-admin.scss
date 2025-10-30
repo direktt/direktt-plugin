@@ -705,12 +705,9 @@ body.post-type-direkttmtemplates {
 	}	
 }
 
-#poststuff .direktt-loyalty-program-meta-box {
-	.direktt-loyalty-program-wrap {
-		display: flex;
-		flex-direction: row;
-		justify-content: space-between;
-		p {
+#poststuff #direktt_loyalty_program_meta_box {
+	h2 {
+		.direktt-loyalty-current-points {
 			margin: 0;
 			font-weight: 600;
 			strong {
@@ -727,14 +724,6 @@ body.post-type-direkttmtemplates {
 			}
 		}
 		
-	}
-	h2 {
-		padding-left: 0;
-		font-weight: 600;
-		font-siye: 1.2em;
-	}
-	h3 {
-		margin-bottom: 0.5em;
 	}
 	table {
 		th, td {
