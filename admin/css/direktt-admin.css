@@ -9,6 +9,9 @@ body.direktt_page_direktt-settings .wrap,
 body.direktt_page_direktt-settings #wpbody-content > h2 {
   padding: 0 1em;
 }
+body.direktt_page_direktt-settings .v-select .v-field .v-field__input > input {
+  opacity: 0;
+}
 body.direktt_page_direktt-settings select {
   border: 1px solid #8c8f94;
 }
@@ -582,10 +585,17 @@ body.post-type-direkttmtemplates .text-caption label {
   line-height: 2rem;
   margin: 0 0.25em;
 }
-#poststuff #direktt_loyalty_program_meta_box table th:last-child, #poststuff #direktt_loyalty_program_meta_box table td:last-child {
+#poststuff #direktt_loyalty_program_meta_box .inside {
+  margin: 0;
+  padding: 0;
+}
+#poststuff #direktt_loyalty_program_meta_box .inside table {
+  border: 0;
+}
+#poststuff #direktt_loyalty_program_meta_box .inside table th:last-child, #poststuff #direktt_loyalty_program_meta_box .inside table td:last-child {
   text-align: right;
 }
-#poststuff #direktt_loyalty_program_meta_box table th:first-child, #poststuff #direktt_loyalty_program_meta_box table td:first-child {
+#poststuff #direktt_loyalty_program_meta_box .inside table th:first-child, #poststuff #direktt_loyalty_program_meta_box .inside table td:first-child {
   text-align: center;
 }
 
