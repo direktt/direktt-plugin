@@ -390,7 +390,7 @@ onMounted(() => {
                 in the template to display WP username just paired with)</label></th>
             <td>
               <v-select :items="templates" v-model="selected_template" label="Select Message Template" width="500"
-                return-object></v-select>
+                return-object clearable></v-select>
             </td>
           </tr>
           <tr>
