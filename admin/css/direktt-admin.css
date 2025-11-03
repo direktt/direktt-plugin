@@ -44,6 +44,7 @@ body.direktt_page_direktt-settings .direktt-greet-days-row .direktt-greet-day {
 
 #appBuilder .v-card {
   overflow: visible !important;
+  box-shadoe: none;
 }
 #appBuilder .v-card .direktt-message-template-builder .v-row {
   position: relative;
@@ -51,6 +52,65 @@ body.direktt_page_direktt-settings .direktt-greet-days-row .direktt-greet-day {
 #appBuilder .v-card .direktt-message-template-builder .v-col.v-col-6:nth-child(2) .details-panel {
   position: sticky;
   top: 3em;
+}
+
+/* Various */
+.direktt-review-meta-box .button.direktt-send-review {
+  width: 100%;
+}
+.direktt-review-meta-box h4 {
+  margin-bottom: 0.5em;
+}
+.direktt-review-meta-box table td:last-child {
+  text-align: right;
+}
+
+#poststuff #direktt_loyalty_program_meta_box h2 .direktt-loyalty-current-points {
+  margin: 0;
+  font-weight: 600;
+}
+#poststuff #direktt_loyalty_program_meta_box h2 .direktt-loyalty-current-points strong {
+  border-radius: 50%;
+  padding: 0 0.8rem;
+  background: #2271b1;
+  color: white;
+  font-weight: 600;
+  display: inline-block;
+  text-align: center;
+  min-width: 1rem;
+  /* 2rem (height) - 2 x 0.5rem (padding) */
+  line-height: 2rem;
+  margin: 0 0.25em;
+}
+#poststuff #direktt_loyalty_program_meta_box .inside {
+  margin: 0;
+  padding: 0;
+}
+#poststuff #direktt_loyalty_program_meta_box .inside table {
+  border: 0;
+}
+#poststuff #direktt_loyalty_program_meta_box .inside table th:last-child, #poststuff #direktt_loyalty_program_meta_box .inside table td:last-child {
+  text-align: right;
+}
+#poststuff #direktt_loyalty_program_meta_box .inside table th:first-child, #poststuff #direktt_loyalty_program_meta_box .inside table td:first-child {
+  text-align: center;
+}
+
+/* Edit Message Template */
+body.post-type-direkttmtemplates .v-theme--light {
+  --v-theme-info: 34, 113, 177;
+}
+body.post-type-direkttmtemplates .text-caption {
+  font-family: inherit;
+}
+body.post-type-direkttmtemplates .preview-item {
+  border-radius: 8px;
+}
+body.post-type-direkttmtemplates .preview-item.active {
+  box-shadow: none !important;
+}
+body.post-type-direkttmtemplates .v-tab--selected .v-tab__slider {
+  opacity: 0.5;
 }
 
 /* Message template editor */
@@ -517,6 +577,12 @@ body.post-type-direkttmtemplates .v-checkbox .v-input__details,
 body.post-type-direkttmtemplates .v-radio-group .v-input__details {
   display: none;
 }
+body.post-type-direkttmtemplates .direktt-message-template-builder .msg-list {
+  width: 80%;
+}
+body.post-type-direkttmtemplates .direktt-message-template-builder .msg-list .itemContent {
+  min-width: initial;
+}
 body.post-type-direkttmtemplates .direktt-message-template-builder .v-slide-group,
 body.post-type-direkttmtemplates .direktt-message-template-builder .v-tab.v-tab.v-btn {
   height: 36px;
@@ -527,9 +593,13 @@ body.post-type-direkttmtemplates .direktt-message-template-builder .v-tab.v-tab.
 body.post-type-direkttmtemplates .direktt-message-template-builder .v-window {
   min-height: 250px;
 }
+body.post-type-direkttmtemplates .direktt-message-template-builder .v-window h2 {
+  padding-left: 0 !important;
+}
 body.post-type-direkttmtemplates .direktt-message-template-builder .singleButton {
   background: #f6f7fa;
   border: 1px solid #ccf;
+  box-shadow: none;
 }
 body.post-type-direkttmtemplates .direktt-message-template-builder .actionDiv {
   width: 100%;
@@ -555,61 +625,6 @@ body.post-type-direkttmtemplates .text-caption label {
   to {
     background-position: right -40px top 0;
   }
-}
-
-/* Various */
-.direktt-review-meta-box .button.direktt-send-review {
-  width: 100%;
-}
-.direktt-review-meta-box h4 {
-  margin-bottom: 0.5em;
-}
-.direktt-review-meta-box table td:last-child {
-  text-align: right;
-}
-
-#poststuff #direktt_loyalty_program_meta_box h2 .direktt-loyalty-current-points {
-  margin: 0;
-  font-weight: 600;
-}
-#poststuff #direktt_loyalty_program_meta_box h2 .direktt-loyalty-current-points strong {
-  border-radius: 50%;
-  padding: 0 0.8rem;
-  background: #2271b1;
-  color: white;
-  font-weight: 600;
-  display: inline-block;
-  text-align: center;
-  min-width: 1rem;
-  /* 2rem (height) - 2 x 0.5rem (padding) */
-  line-height: 2rem;
-  margin: 0 0.25em;
-}
-#poststuff #direktt_loyalty_program_meta_box .inside {
-  margin: 0;
-  padding: 0;
-}
-#poststuff #direktt_loyalty_program_meta_box .inside table {
-  border: 0;
-}
-#poststuff #direktt_loyalty_program_meta_box .inside table th:last-child, #poststuff #direktt_loyalty_program_meta_box .inside table td:last-child {
-  text-align: right;
-}
-#poststuff #direktt_loyalty_program_meta_box .inside table th:first-child, #poststuff #direktt_loyalty_program_meta_box .inside table td:first-child {
-  text-align: center;
-}
-
-body.post-type-direkttmtemplates .v-theme--light {
-  --v-theme-info: 34, 113, 177;
-}
-body.post-type-direkttmtemplates .text-caption {
-  font-family: inherit;
-}
-body.post-type-direkttmtemplates .preview-item.active {
-  box-shadow: none !important;
-}
-body.post-type-direkttmtemplates .v-tab--selected .v-tab__slider {
-  opacity: 0.5;
 }
 
 /*# sourceMappingURL=direktt-admin.css.map */
