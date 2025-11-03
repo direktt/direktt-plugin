@@ -126,7 +126,6 @@ jQuery(document).ready(function ($) {
 
     $('.remove-user-btn').off('click').on('click', function (e) {
         e.preventDefault();
-        console.log($(this).data('id'))
         idToRemoveId = $(this).data('id');
         form = $(this).closest('form');  
         $('#edit-taxonomies-service-confirm').addClass('direktt-popup-on');

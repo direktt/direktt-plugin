@@ -114,7 +114,7 @@ onMounted(() => {
       <v-col cols="6">
         <v-autocomplete v-model="selectedCategories" :items="categories" color="blue-grey-lighten-2" item-title="name"
           item-value="value" label="Categories" chips closable-chips multiple v-show="userSet == 'selected'"
-          density="comfortable">
+          density="comfortable" id="categories_autocomplete">
           <template v-slot:chip="{ props, item }">
             <v-chip v-bind="props" :prepend-avatar="item.raw.avatar" :text="item.raw.name" color="info"
               variant="flat"></v-chip>

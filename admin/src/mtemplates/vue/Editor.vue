@@ -350,8 +350,6 @@ function openMediaPickerFile(index) {
 onMounted(() => {
   externalInputField = document.getElementById('direktt_mt_json')
 
-  console.log(externalInputField.value)
-
   if (externalInputField) messages.value = JSON.parse(externalInputField.value)
 
   //if (externalInputField) externalInputField.value = formatted.value
@@ -381,7 +379,7 @@ onMounted(() => {
             Add File
           </v-btn>
           <v-btn variant="flat" class="text-none text-caption" color="info" @click="addMessage('rich')">
-            Add Interactive Message
+            Add Interactive Content Part
           </v-btn>
         </v-row>
         <v-row justify="center">
@@ -412,11 +410,11 @@ onMounted(() => {
               <!-- Properties EDIT TAB -->
               <v-tabs-window-item value="properties">
                 <v-row class="pa-4">
-                  <h2><strong>Message type: {{ activeMessage.type }}</strong></h2>
+                  <h2><strong>Content Part Type: {{ activeMessage.type }}</strong></h2>
                   <v-spacer></v-spacer>
                   <v-btn variant="flat" color="info" class="text-none text-caption"
                     @click="removeMessage(activeMessageIndex)">
-                    Remove Message
+                    Remove Content Part
                   </v-btn>
                 </v-row>
                 <div class="msg-block-inner" style="padding:0.5em 0;">
@@ -439,7 +437,7 @@ onMounted(() => {
                   </template>
                   <template v-else-if="activeMessage.type === 'video'">
                     <v-row class="pl-4 pb-4 pr-4" align="end">
-                      <div class="mr-4" style="width:75%"><strong>Video Url:</strong> <v-text-field v-model="activeMessage.media" 
+                      <div class="mr-4" style="flex-basis:75%"><strong>Video Url:</strong> <v-text-field v-model="activeMessage.media" 
                         variant="outlined"></v-text-field></div>
                       <v-btn variant="flat" color="info" class="text-none text-caption mb-0"
                         @click="openMediaPickerVideo(activeMessageIndex)">
@@ -461,7 +459,7 @@ onMounted(() => {
                   </template>
                   <template v-else-if="activeMessage.type === 'file'">
                     <v-row class="pl-4 pb-4 pr-4" align="end">
-                      <div class="mr-4" style="width:75%"><strong>File Url:</strong> <v-text-field
+                      <div class="mr-4" style="flex-basis:75%"><strong>File Url:</strong> <v-text-field
                           v-model="activeMessage.media" variant="outlined"></v-text-field></div>
 
                       <v-btn variant="flat" color="info" class="text-none text-caption mb-0"
