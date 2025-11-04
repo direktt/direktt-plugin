@@ -5,6 +5,7 @@ use ActionScheduler_wpPostStore as PostStore;
 
 /**
  * Class Scheduler_Test
+ *
  * @group migration
  */
 class Scheduler_Test extends ActionScheduler_UnitTestCase {
@@ -96,7 +97,7 @@ class Scheduler_Test extends ActionScheduler_UnitTestCase {
 		$source_store      = new PostStore();
 		$destination_store = new ActionScheduler_DBStore();
 
-		for ( $i = 0; $i < 5; $i ++ ) {
+		for ( $i = 0; $i < 5; $i++ ) {
 			$time     = as_get_datetime_object( $i + 1 . ' minutes ago' );
 			$schedule = new ActionScheduler_SimpleSchedule( $time );
 			$action   = new ActionScheduler_Action( ActionScheduler_Callbacks::HOOK_WITH_CALLBACK, array(), $schedule );
@@ -133,6 +134,5 @@ class Scheduler_Test extends ActionScheduler_UnitTestCase {
 
 		// ensure that another instance has not been scheduled.
 		$this->assertFalse( $scheduler->is_migration_scheduled() );
-
 	}
 }

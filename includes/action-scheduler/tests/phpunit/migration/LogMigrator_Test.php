@@ -4,6 +4,7 @@ use Action_Scheduler\Migration\LogMigrator;
 
 /**
  * Class LogMigrator_Test
+ *
  * @group migration
  */
 class LogMigrator_Test extends ActionScheduler_UnitTestCase {
@@ -39,7 +40,7 @@ class LogMigrator_Test extends ActionScheduler_UnitTestCase {
 		$this->assertEqualSets(
 			$logs[1],
 			array_map(
-				function( $log ) {
+				function ( $log ) {
 					return $log->get_message();
 				},
 				$migrated

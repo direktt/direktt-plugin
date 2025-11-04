@@ -2,6 +2,7 @@
 
 /**
  * Class ActionScheduler_QueueRunner_Test
+ *
  * @group runners
  */
 class ActionScheduler_QueueRunner_Test extends ActionScheduler_UnitTestCase {
@@ -331,8 +332,8 @@ class ActionScheduler_QueueRunner_Test extends ActionScheduler_UnitTestCase {
 
 		// Define a filter function that allows scheduled actions for hook 'foo' to still be rescheduled, despite its
 		// history of consistent failure.
-		$filter = function( $is_failing, $action ) use ( &$observed ) {
-			$observed++;
+		$filter = function ( $is_failing, $action ) use ( &$observed ) {
+			++$observed;
 			return 'foo' === $action->get_hook() ? false : $is_failing;
 		};
 
@@ -559,7 +560,7 @@ class ActionScheduler_QueueRunner_Test extends ActionScheduler_UnitTestCase {
 		 * @return void
 		 */
 		$foo = function () use ( &$executed ) {
-			$executed++;
+			++$executed;
 			trigger_error( 'Trouble.', E_USER_ERROR ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_trigger_error
 		};
 
@@ -571,7 +572,7 @@ class ActionScheduler_QueueRunner_Test extends ActionScheduler_UnitTestCase {
 		 * @return void
 		 */
 		$bar = function () use ( &$executed ) {
-			$executed++;
+			++$executed;
 			throw new Exception( 'More trouble.' );
 		};
 
@@ -584,7 +585,7 @@ class ActionScheduler_QueueRunner_Test extends ActionScheduler_UnitTestCase {
 		 * @return void
 		 */
 		$baz = function () use ( &$executed ) {
-			$executed++;
+			++$executed;
 			(string) (object) array();
 		};
 
@@ -594,7 +595,7 @@ class ActionScheduler_QueueRunner_Test extends ActionScheduler_UnitTestCase {
 		 * @return void
 		 */
 		$foobar = function () use ( &$executed ) {
-			$executed++;
+			++$executed;
 		};
 
 		add_action( 'foo', $foo );

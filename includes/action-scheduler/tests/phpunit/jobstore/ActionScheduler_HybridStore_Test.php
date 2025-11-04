@@ -8,6 +8,7 @@ use ActionScheduler_wpPostStore as PostStore;
 
 /**
  * Class ActionScheduler_HybridStore_Test
+ *
  * @group tables
  */
 class ActionScheduler_HybridStore_Test extends ActionScheduler_UnitTestCase {
@@ -180,7 +181,6 @@ class ActionScheduler_HybridStore_Test extends ActionScheduler_UnitTestCase {
 		$this->assertEquals( 0, $source_store->get_claim_count() );
 		$this->assertEquals( 1, $destination_store->get_claim_count() );
 		$this->assertEquals( 1, $hybrid_store->get_claim_count() );
-
 	}
 
 	public function test_fetch_respects_demarkation() {

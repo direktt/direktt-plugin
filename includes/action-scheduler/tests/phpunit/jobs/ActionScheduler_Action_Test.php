@@ -2,6 +2,7 @@
 
 /**
  * Class ActionScheduler_Action_Test
+ *
  * @group actions
  */
 class ActionScheduler_Action_Test extends ActionScheduler_UnitTestCase {

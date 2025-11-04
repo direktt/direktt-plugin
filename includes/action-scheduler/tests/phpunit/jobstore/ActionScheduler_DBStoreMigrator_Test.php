@@ -2,6 +2,7 @@
 
 /**
  * Class ActionScheduler_DBStoreMigrator_Test
+ *
  * @group tables
  */
 class ActionScheduler_DBStoreMigrator_Test extends ActionScheduler_UnitTestCase {
