@@ -300,6 +300,9 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
 #direktt-profile .direktt-popup.direktt-popup-on {
   display: flex;
 }
+#direktt-profile .direktt-popup[style*="display: block"] {
+  display: flex !important;
+}
 #direktt-profile .direktt-popup .direktt-popup-content {
   box-shadow: 0px 0px 1em var(--direktt-profile-dark-color);
   background: white;
@@ -873,6 +876,7 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
 }
 #direktt-profile .direktt-profile-data-service-status-tool .direktt-service-status-search #search_cases {
   margin-bottom: 0;
+  flex: 0 1 6em;
 }
 #direktt-profile .direktt-profile-data-service-status-tool .direktt-service-status-cases-list {
   border-top: 1px solid var(--direktt-profile-dark-gray-color);

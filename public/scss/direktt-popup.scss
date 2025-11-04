@@ -18,6 +18,9 @@
 		&.direktt-popup-on {
 			display: flex;
 		}
+		&[style*='display: block']{
+			display: flex !important;
+		}
 		.direktt-popup-content {
 			box-shadow: 0px 0px 1em var(--direktt-profile-dark-color);
 			background: white;

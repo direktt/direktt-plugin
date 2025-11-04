@@ -616,7 +616,7 @@
 		}
 	}
 	
-	/* Reviews */ 
+	/* Reviews */
 	
 	
 	
@@ -631,6 +631,7 @@
 			align-items: stretch;
 			#search_cases {
 				margin-bottom: 0; 
+				flex: 0 1 6em;
 			}
 		}
 		.direktt-service-status-cases-list {
