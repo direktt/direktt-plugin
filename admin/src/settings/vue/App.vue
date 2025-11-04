@@ -3,6 +3,7 @@
 import { useDirekttStore } from './store.js'
 import { onMounted, computed, ref, watch } from 'vue'
 import { useQueryClient, useQuery, useMutation } from '@tanstack/vue-query'
+import { mdiAlertOutline, mdiCheckBold } from '@mdi/js'
 
 const queryClient = useQueryClient()
 
@@ -243,7 +244,7 @@ onMounted(() => {
           <th scope=" row"><label for="blogname">SSL Status:</label></th>
           <td>
             <div>
-              <v-icon color="error" icon="mdi-alert-outline" size="large" class='rm-4'></v-icon>
+              <v-icon color="error" :icon="mdiAlertOutline" size="large" class='rm-4'></v-icon>
               Your site url in your WordPress' General Settings not set to use https protocol.
               <br></br><strong>Direktt requires that your site is served via secured https connection</strong>
             </div>
@@ -282,21 +283,21 @@ onMounted(() => {
               <v-progress-circular :size="30" :width="4" color="info" indeterminate></v-progress-circular>
             </div>
             <div v-if="activation_status === false">
-              <v-icon color="error" icon="mdi-alert-outline" size="large" class='rm-4'></v-icon>
+              <v-icon color="error" :icon="mdiAlertOutline" size="large" class='rm-4'></v-icon>
               Not activated
               <br></br> <strong>Note: Your WordPress Instance is not activated.<br></br>Activate your
                 WordPress instance by entering your API Key and clicking the button Save Settings & Activate WP
               </strong>
             </div>
             <div v-if="activation_status === true">
-              <v-icon color="info" icon="mdi-check-bold" size="large" class='rm-4'></v-icon>
+              <v-icon color="info" :icon="mdiCheckBold" size="large" class='rm-4'></v-icon>
               Activated
             </div>
           </td>
 
           <td v-else>
             <div>
-              <v-icon color="error" icon="mdi-alert-outline" size="large" class='rm-4'></v-icon>
+              <v-icon color="error" icon="mdiAlertOutline" size="large" class='rm-4'></v-icon>
               Not activated
               <br></br> <strong>Note: Your WordPress Instance has
                 not yet been activated.<br></br>Activate your
@@ -321,7 +322,7 @@ onMounted(() => {
             <th scope="row"><label for="blogname">Number of Subscribers:</label></th>
             <td>
               <div v-if="activation_status">
-                <v-icon color="error" icon="mdi-alert-outline" size="large" class='rm-4'
+                <v-icon color="error" icon="mdiAlertOutline" size="large" class='rm-4'
                   v-if="channel_data.count != channel_data.localCount"></v-icon>
                 Direktt API: {{ channel_data.count }} / WordPress: {{ channel_data.localCount }}
                 <strong v-if="channel_data.count != channel_data.localCount"><br></br>Number of Subscribers in

@@ -14,6 +14,8 @@ import draggable from 'vuedraggable'
 import ItemPreview from "./ItemPreview.vue";
 import SingleButton from "./SingleButton.vue";
 
+import { mdiArrowUpDown } from '@mdi/js'
+
 const messages = ref([]);
 const activeMessageIndex = ref(0);
 
@@ -389,7 +391,7 @@ onMounted(() => {
               <div class="preview-item" :class="{ active: index === activeMessageIndex }"
                 @click="activeMessageIndex = index">
                 <v-row align="center" no-gutters>
-                  <v-icon color="info" icon="mdi-arrow-up-down" size="22" class="drag-handle mr-2"></v-icon>
+                  <v-icon color="info" :icon="mdiArrowUpDown" size="22" class="drag-handle mr-2"></v-icon>
                   <ItemPreview :item="element" />
                 </v-row>
               </div>
@@ -480,7 +482,7 @@ onMounted(() => {
                       <template #item="{ element: btn, index: bidx }">
                         <v-card width="100%" class="pt-4 pl-4 pr-4 mb-4 singleButton">
                           <v-row class="pt-4 pl-4 pr-4">
-                            <v-icon color="info" icon="mdi-arrow-up-down" size="20px" class="drag-btn mr-2"></v-icon>
+                            <v-icon color="info" :icon="mdiArrowUpDown" size="20px" class="drag-btn mr-2"></v-icon>
                             <v-spacer></v-spacer>
                             <v-btn variant="flat" class="text-none text-caption" color="info"
                               @click="removeRichButton(activeMessageIndex, bidx)">
