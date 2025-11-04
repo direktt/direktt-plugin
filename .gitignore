@@ -80,3 +80,4 @@ changes.diff
 /includes/vendor/squizlabs/*
 /includes/vendor/phpcsstandards/*
 /includes/vendor/wp-coding-standards/*
+/includes/vendor/dealerdirect/*
