@@ -8,6 +8,7 @@ use ActionScheduler_wpPostStore as PostStore;
 
 /**
  * Class Runner_Test
+ *
  * @group migration
  */
 class Runner_Test extends ActionScheduler_UnitTestCase {
@@ -38,7 +39,7 @@ class Runner_Test extends ActionScheduler_UnitTestCase {
 		$future   = array();
 		$complete = array();
 
-		for ( $i = 0; $i < 5; $i ++ ) {
+		for ( $i = 0; $i < 5; $i++ ) {
 			$time     = as_get_datetime_object( $i + 1 . ' minutes' );
 			$schedule = new ActionScheduler_SimpleSchedule( $time );
 			$action   = new ActionScheduler_Action( ActionScheduler_Callbacks::HOOK_WITH_CALLBACK, array(), $schedule );
@@ -89,7 +90,5 @@ class Runner_Test extends ActionScheduler_UnitTestCase {
 
 		$remaining = $source_store->query_actions( $args );
 		$this->assertCount( 0, $remaining );
-
 	}
-
 }

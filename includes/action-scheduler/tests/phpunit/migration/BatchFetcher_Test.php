@@ -5,6 +5,7 @@ use ActionScheduler_wpPostStore as PostStore;
 
 /**
  * Class BatchFetcher_Test
+ *
  * @group migration
  */
 class BatchFetcher_Test extends ActionScheduler_UnitTestCase {
@@ -30,7 +31,7 @@ class BatchFetcher_Test extends ActionScheduler_UnitTestCase {
 		$due    = array();
 		$future = array();
 
-		for ( $i = 0; $i < 5; $i ++ ) {
+		for ( $i = 0; $i < 5; $i++ ) {
 			$time     = as_get_datetime_object( $i + 1 . ' minutes' );
 			$schedule = new ActionScheduler_SimpleSchedule( $time );
 			$action   = new ActionScheduler_Action( ActionScheduler_Callbacks::HOOK_WITH_CALLBACK, array(), $schedule );
@@ -54,7 +55,7 @@ class BatchFetcher_Test extends ActionScheduler_UnitTestCase {
 		$future   = array();
 		$complete = array();
 
-		for ( $i = 0; $i < 5; $i ++ ) {
+		for ( $i = 0; $i < 5; $i++ ) {
 			$time     = as_get_datetime_object( $i + 1 . ' minutes' );
 			$schedule = new ActionScheduler_SimpleSchedule( $time );
 			$action   = new ActionScheduler_Action( ActionScheduler_Callbacks::HOOK_WITH_CALLBACK, array(), $schedule );

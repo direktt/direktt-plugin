@@ -2,6 +2,7 @@
 
 /**
  * Class ActionScheduler_wpCommentLogger_Test
+ *
  * @package test_cases\logging
  */
 class ActionScheduler_wpCommentLogger_Test extends ActionScheduler_UnitTestCase {
@@ -238,4 +239,3 @@ class ActionScheduler_wpCommentLogger_Test extends ActionScheduler_UnitTestCase 
 		return $this->use_comment_logger;
 	}
 }
-

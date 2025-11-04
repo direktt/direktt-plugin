@@ -1,20 +1,18 @@
 <?php
 
-defined('ABSPATH') || exit;
+defined( 'ABSPATH' ) || exit;
 
-class Direktt_Event
-{
+class Direktt_Event {
+
 	private string $plugin_name;
 	private string $version;
 
-	public function __construct(string $plugin_name, string $version)
-	{
+	public function __construct( string $plugin_name, string $version ) {
 		$this->plugin_name = $plugin_name;
 		$this->version     = $version;
 	}
 
-	static function create_database_table()
-	{
+	public static function create_database_table() {
 		global $wpdb;
 
 		$table_name = $wpdb->prefix . 'direktt_events';
@@ -40,7 +38,7 @@ class Direktt_Event
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 $charset_collate;";
 
 		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
-		dbDelta($sql);
+		dbDelta( $sql );
 
 		$the_default_timestamp_query = "ALTER TABLE $table_name MODIFY COLUMN event_time timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP;";
 
@@ -48,39 +46,38 @@ class Direktt_Event
 		// phpcs:disable WordPress.DB.DirectDatabaseQuery.NoCaching -- Justification: alter custom table query performed upon plugin activation 
 		// phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery -- Justification: table name is not prepared
 
-		$wpdb->query($the_default_timestamp_query);
+		$wpdb->query( $the_default_timestamp_query );
 
 		// phpcs:enable 	
 	}
 
-	static function insert_event($event)
-	{
+	public static function insert_event( $event ) {
 		global $wpdb;
 
 		$table_name = $wpdb->prefix . 'direktt_events';
 
-		if (array_key_exists('event_target', $event) && array_key_exists('event_type', $event)) {
+		if ( array_key_exists( 'event_target', $event ) && array_key_exists( 'event_type', $event ) ) {
 
-			do_action("direktt/event/" . $event["event_target"] . "/" .  $event["event_type"], $event);
+			do_action( 'direktt/event/' . $event['event_target'] . '/' . $event['event_type'], $event );
 		}
 
-		$event_fil = apply_filters("direktt/event/insert", $event);
+		$event_fil = apply_filters( 'direktt/event/insert', $event );
 
-		if (array_key_exists('event_data', $event_fil)) {
-			$event_data = json_decode($event_fil["event_data"]);
-			if (json_last_error() !== JSON_ERROR_NONE) {
+		if ( array_key_exists( 'event_data', $event_fil ) ) {
+			$event_data = json_decode( $event_fil['event_data'] );
+			if ( json_last_error() !== JSON_ERROR_NONE ) {
 				$evet_data_array = array(
-					"data" => $event_fil["event_data"]
+					'data' => $event_fil['event_data'],
 				);
 
-				$event_data = json_encode($evet_data_array);
-				$event_fil["event_data"] = $event_data;
+				$event_data              = wp_json_encode( $evet_data_array );
+				$event_fil['event_data'] = $event_data;
 			}
 		}
 
-		if (array_key_exists('event_value', $event_fil)) {
-			$event_value = json_encode($event_fil["event_value"]);
-			$event_fil["event_value"] = $event_value;
+		if ( array_key_exists( 'event_value', $event_fil ) ) {
+			$event_value              = wp_json_encode( $event_fil['event_value'] );
+			$event_fil['event_value'] = $event_value;
 		}
 
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery -- Justification: custom database used
@@ -89,7 +86,7 @@ class Direktt_Event
 			$event_fil
 		);
 
-		if ($wpdb->last_error !== '') :
+		if ( '' !== $wpdb->last_error ) :
 			$wpdb->print_error();
 		endif;
 	}

@@ -5,6 +5,7 @@ use Action_Scheduler\Migration\LogMigrator;
 
 /**
  * Class ActionMigrator_Test
+ *
  * @group migration
  */
 class ActionMigrator_Test extends ActionScheduler_UnitTestCase {

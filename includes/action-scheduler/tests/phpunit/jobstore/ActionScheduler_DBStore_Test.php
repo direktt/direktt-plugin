@@ -4,6 +4,7 @@ use Action_Scheduler\Tests\DataStores\AbstractStoreTest;
 
 /**
  * Class ActionScheduler_DBStore_Test
+ *
  * @group tables
  */
 class ActionScheduler_DBStore_Test extends AbstractStoreTest {
@@ -136,7 +137,7 @@ class ActionScheduler_DBStore_Test extends AbstractStoreTest {
 	public function test_claim_actions() {
 		$created_actions = array();
 		$store           = new ActionScheduler_DBStore();
-		for ( $i = 3; $i > - 3; $i -- ) {
+		for ( $i = 3; $i > - 3; $i-- ) {
 			$time     = as_get_datetime_object( $i . ' hours' );
 			$schedule = new ActionScheduler_SimpleSchedule( $time );
 			$action   = new ActionScheduler_Action( ActionScheduler_Callbacks::HOOK_WITH_CALLBACK, array( $i ), $schedule, 'my_group' );
@@ -188,7 +189,7 @@ class ActionScheduler_DBStore_Test extends AbstractStoreTest {
 			$unique_hook_two,
 		);
 
-		for ( $i = 3; $i > - 3; $i -- ) {
+		for ( $i = 3; $i > - 3; $i-- ) {
 			foreach ( $unique_hooks as $unique_hook ) {
 				$time      = as_get_datetime_object( $i . ' hours' );
 				$schedule  = new ActionScheduler_SimpleSchedule( $time );
@@ -230,7 +231,7 @@ class ActionScheduler_DBStore_Test extends AbstractStoreTest {
 			$unique_group_two,
 		);
 
-		for ( $i = 3; $i > - 3; $i -- ) {
+		for ( $i = 3; $i > - 3; $i-- ) {
 			foreach ( $unique_groups as $unique_group ) {
 				$time     = as_get_datetime_object( $i . ' hours' );
 				$schedule = new ActionScheduler_SimpleSchedule( $time );
@@ -322,7 +323,7 @@ class ActionScheduler_DBStore_Test extends AbstractStoreTest {
 			$unique_group_two,
 		);
 
-		for ( $i = 3; $i > - 3; $i -- ) {
+		for ( $i = 3; $i > - 3; $i-- ) {
 			foreach ( $unique_hooks as $unique_hook ) {
 				foreach ( $unique_groups as $unique_group ) {
 					$time      = as_get_datetime_object( $i . ' hours' );
@@ -437,7 +438,7 @@ class ActionScheduler_DBStore_Test extends AbstractStoreTest {
 
 		// This callback is used to simulate the unusual conditions whereby MySQL might unexpectedly return future
 		// actions, contrary to the conditions used by the store object when staking its claim.
-		$simulate_unexpected_db_behavior = function( $sql ) use ( $action_ids ) {
+		$simulate_unexpected_db_behavior = function ( $sql ) use ( $action_ids ) {
 			global $wpdb;
 
 			// Look out for the claim update query, ignore all others.
@@ -466,7 +467,7 @@ class ActionScheduler_DBStore_Test extends AbstractStoreTest {
 	public function test_duplicate_claim() {
 		$created_actions = array();
 		$store           = new ActionScheduler_DBStore();
-		for ( $i = 0; $i > - 3; $i -- ) {
+		for ( $i = 0; $i > - 3; $i-- ) {
 			$time     = as_get_datetime_object( $i . ' hours' );
 			$schedule = new ActionScheduler_SimpleSchedule( $time );
 			$action   = new ActionScheduler_Action( ActionScheduler_Callbacks::HOOK_WITH_CALLBACK, array( $i ), $schedule, 'my_group' );
@@ -483,7 +484,7 @@ class ActionScheduler_DBStore_Test extends AbstractStoreTest {
 	public function test_release_claim() {
 		$created_actions = array();
 		$store           = new ActionScheduler_DBStore();
-		for ( $i = 0; $i > - 3; $i -- ) {
+		for ( $i = 0; $i > - 3; $i-- ) {
 			$time     = as_get_datetime_object( $i . ' hours' );
 			$schedule = new ActionScheduler_SimpleSchedule( $time );
 			$action   = new ActionScheduler_Action( ActionScheduler_Callbacks::HOOK_WITH_CALLBACK, array( $i ), $schedule, 'my_group' );
@@ -500,13 +501,12 @@ class ActionScheduler_DBStore_Test extends AbstractStoreTest {
 		$this->assertCount( 3, $claim2->get_actions() );
 		$store->release_claim( $claim2 );
 		$this->assertCount( 0, $store->find_actions_by_claim_id( $claim1->get_id() ) );
-
 	}
 
 	public function test_search() {
 		$created_actions = array();
 		$store           = new ActionScheduler_DBStore();
-		for ( $i = - 3; $i <= 3; $i ++ ) {
+		for ( $i = - 3; $i <= 3; $i++ ) {
 			$time     = as_get_datetime_object( $i . ' hours' );
 			$schedule = new ActionScheduler_SimpleSchedule( $time );
 			$action   = new ActionScheduler_Action( ActionScheduler_Callbacks::HOOK_WITH_CALLBACK, array( $i ), $schedule, 'my_group' );
@@ -758,9 +758,9 @@ class ActionScheduler_DBStore_Test extends AbstractStoreTest {
 		$this->original_wpdb = $wpdb;
 
 		$wpdb = $this->getMockBuilder( get_class( $wpdb ) )
-		             ->setMethods( [ 'db_server_info' ] )
-		             ->disableOriginalConstructor()
-		             ->getMock();
+					->setMethods( array( 'db_server_info' ) )
+					->disableOriginalConstructor()
+					->getMock();
 
 		$wpdb->method( 'db_server_info' )->willReturn( $db_server_info );
 
@@ -783,31 +783,31 @@ class ActionScheduler_DBStore_Test extends AbstractStoreTest {
 		return array(
 			'MySQL 5.6.1 does not support skip locked'    => array(
 				false,
-				'5.6.1'
+				'5.6.1',
 			),
 			'MySQL 8.0.0 does not support skip locked'    => array(
 				false,
-				'8.0.0'
+				'8.0.0',
 			),
 			'MySQL 8.0.1 does support skip locked'        => array(
 				true,
-				'8.0.1'
+				'8.0.1',
 			),
 			'MySQL 8.4.4 does support skip locked'        => array(
 				true,
-				'8.4.4'
+				'8.4.4',
 			),
 			'MariaDB 10.5.0 does not support skip locked' => array(
 				false,
-				$maria_db_prefix . '10.5.0-MariaDB'
+				$maria_db_prefix . '10.5.0-MariaDB',
 			),
 			'MariaDB 10.6.0 does support skip locked'     => array(
 				true,
-				$maria_db_prefix . '10.6.0-MariaDB'
+				$maria_db_prefix . '10.6.0-MariaDB',
 			),
 			'MariaDB 11.5.0 does support skip locked'     => array(
 				true,
-				$maria_db_prefix . '11.5.0-MariaDB'
+				$maria_db_prefix . '11.5.0-MariaDB',
 			),
 		);
 	}

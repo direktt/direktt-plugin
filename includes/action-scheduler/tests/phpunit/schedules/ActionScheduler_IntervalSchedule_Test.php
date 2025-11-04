@@ -2,6 +2,7 @@
 
 /**
  * Class ActionScheduler_IntervalSchedule_Test
+ *
  * @group schedules
  */
 class ActionScheduler_IntervalSchedule_Test extends ActionScheduler_UnitTestCase {

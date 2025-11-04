@@ -128,7 +128,7 @@ abstract class AbstractStoreTest extends ActionScheduler_UnitTestCase {
 		$store  = $this->get_store();
 		$runner = ActionScheduler_Mocker::get_queue_runner( $store );
 
-		for ( $i = - 3; $i <= 3; $i ++ ) {
+		for ( $i = - 3; $i <= 3; $i++ ) {
 			// Some past actions, some future actions.
 			$time     = as_get_datetime_object( $i . ' hours' );
 			$schedule = new ActionScheduler_SimpleSchedule( $time );
@@ -150,7 +150,7 @@ abstract class AbstractStoreTest extends ActionScheduler_UnitTestCase {
 	public function test_has_pending_actions_due_only_future_actions() {
 		$store = $this->get_store();
 
-		for ( $i = 1; $i <= 3; $i ++ ) {
+		for ( $i = 1; $i <= 3; $i++ ) {
 			// Only future actions.
 			$time     = as_get_datetime_object( $i . ' hours' );
 			$schedule = new ActionScheduler_SimpleSchedule( $time );

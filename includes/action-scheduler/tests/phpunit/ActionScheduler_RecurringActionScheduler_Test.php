@@ -28,10 +28,13 @@ class ActionScheduler_RecurringActionScheduler_Test extends ActionScheduler_Unit
 		try {
 			// Verify that the 'action_scheduler_init' hook is registered with the correct callback
 			$this->assertTrue(
-				has_action( 'action_scheduler_init', array(
-					ActionScheduler_RecurringActionScheduler::class,
-					'schedule_recurring_scheduler_hook'
-				) ) > 0,
+				has_action(
+					'action_scheduler_init',
+					array(
+						ActionScheduler_RecurringActionScheduler::class,
+						'schedule_recurring_scheduler_hook',
+					)
+				) > 0,
 				'The schedule_recurring_scheduler_hook method should be hooked into action_scheduler_init.'
 			);
 		} finally {
@@ -41,7 +44,7 @@ class ActionScheduler_RecurringActionScheduler_Test extends ActionScheduler_Unit
 				'action_scheduler_init',
 				array(
 					ActionScheduler_RecurringActionScheduler::class,
-					'schedule_recurring_scheduler_hook'
+					'schedule_recurring_scheduler_hook',
 				)
 			);
 		}

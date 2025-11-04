@@ -478,7 +478,7 @@ class Procedural_API_Test extends ActionScheduler_UnitTestCase {
 	 * @param ActionScheduler_Store $store Store instance to set.
 	 */
 	private function set_action_scheduler_store( $store ) {
-		$store_factory_setter        = function() use ( $store ) {
+		$store_factory_setter        = function () use ( $store ) {
 			self::$store = $store;
 		};
 		$binded_store_factory_setter = Closure::bind( $store_factory_setter, null, ActionScheduler_Store::class );

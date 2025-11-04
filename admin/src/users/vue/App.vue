@@ -2,6 +2,7 @@
 import { useDirekttStore } from "./store.js";
 import { onMounted, computed, ref } from "vue";
 import { useQueryClient, useQuery, useMutation } from "@tanstack/vue-query";
+import { mdiAlertOutline, mdiCheckBold } from '@mdi/js'
 
 const store = useDirekttStore();
 
@@ -133,11 +134,11 @@ onMounted(() => { });
           <th scope="row"><label for="blogname">Marketing consent:</label></th>
           <td>
             <div v-if="!marketing_consent">
-              <v-icon color="error" icon="mdi-alert-outline" size="large" class='rm-4'></v-icon>
+              <v-icon color="error" :icon="mdiAlertOutline" size="large" class='rm-4'></v-icon>
               Consent not given!
             </div>
             <div v-if="marketing_consent">
-              <v-icon color="info" icon="mdi-check-bold" size="large" class='rm-4'></v-icon>
+              <v-icon color="info" :icon="mdiCheckBold" size="large" class='rm-4'></v-icon>
               Consent given
             </div>
           </td>
@@ -155,14 +156,14 @@ onMounted(() => { });
     </table>
     <p></p>
 
-  <h1 class="mt-4">Direktt User Events</h1>
+  <!--<h1 class="mt-4">Direktt User Events</h1>
   <v-infinite-scroll :height="300" :items="items" :onLoad="load">
     <template v-for="(item, index) in items" :key="item">
       <div :class="['pa-2', index % 2 === 0 ? 'bg-grey-lighten-2' : '']">
         Item number #{{ item }}
       </div>
     </template>
-  </v-infinite-scroll>
+  </v-infinite-scroll>-->
 </template>
 
 <style></style>

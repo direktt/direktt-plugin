@@ -2,6 +2,7 @@
 
 /**
  * Class ActionScheduler_CronSchedule_Test
+ *
  * @group schedules
  */
 class ActionScheduler_CronSchedule_Test extends ActionScheduler_UnitTestCase {

@@ -2,6 +2,7 @@
 
 /**
  * Class ActionScheduler_DBLogger_Test
+ *
  * @package test_cases\logging
  * @group tables
  */

@@ -1,10 +1,16 @@
 <?php
-
 /**
+ * Direktt plugin main file
+ *
+ * @package     Direktt
+ * @author      Direktt
+ * @copyright   2025 Hexxu Services ltd
+ * @license     GPL-2.0+
+ *
  * @wordpress-plugin
  * Plugin Name:       Direktt
  * Plugin URI:        https://direktt.com
- * Description:       Implements the WordPress functionality of the Direktt mobile platform
+ * Description:       Direktt Plugin implements the functionality of the Direktt mobile platform
  * Version:           1.0.0
  * Author:            Direktt
  * Author URI:        https://direktt.com
@@ -19,14 +25,11 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-/**
- * scss to css compiler
- */
- 
+// scss to css compiler.
 $bt_sass_file = plugin_dir_path( __FILE__ ) . 'bt-sass.php';
 
 if ( file_exists( $bt_sass_file ) ) {
-    require $bt_sass_file;
+	require $bt_sass_file;
 }
 
 require plugin_dir_path( __FILE__ ) . 'includes/class-direktt.php';
