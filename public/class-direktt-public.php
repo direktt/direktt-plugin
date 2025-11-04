@@ -10,12 +10,11 @@ class Direktt_Public {
 	private string $plugin_name;
 	private string $version;
 
-	// namespace for api calls
 	private string $namespace;
 
 	private ?WP_Error $jwt_error = null;
 
-	const supported_algorithms = array(
+	const SUPPORTED_ALGORITHMS = array(
 		'HS256',
 		'HS384',
 		'HS512',
@@ -79,7 +78,7 @@ class Direktt_Public {
 	private static function set_direktt_auth_cookie( $cookie_value ) {
 
 		$arr_cookie_options = array(
-			'expires'  => 0, // session cookie
+			'expires'  => 0,
 			'path'     => '/',
 			'domain'   => wp_parse_url( get_site_url(), PHP_URL_HOST ),
 			'secure'   => is_ssl(),
@@ -94,7 +93,7 @@ class Direktt_Public {
 		self::set_direktt_auth_cookie( '' );
 	}
 
-	static function not_auth_redirect() {
+	public static function not_auth_redirect() {
 		global $direktt_user;
 
 		$direktt_user = false;
@@ -113,7 +112,7 @@ class Direktt_Public {
 		}
 	}
 
-	static function validate_direktt_token( $token ) {
+	public static function validate_direktt_token( $token ) {
 
 		if ( ! $token ) {
 			return false;
@@ -123,12 +122,12 @@ class Direktt_Public {
 
 		$algorithm = self::get_algorithm();
 
-		if ( $api_key === '' || $algorithm === false ) {
+		if ( '' === $api_key || false === $algorithm ) {
 			return false;
 		}
 
 		try {
-			Direktt\Firebase\JWT\JWT::$leeway = 60 * 10; // ten minutes
+			Direktt\Firebase\JWT\JWT::$leeway = 60 * 10; // ten minutes.
 			$decoded_token                    = Direktt\Firebase\JWT\JWT::decode( $token, new Direktt\Firebase\JWT\Key( $api_key, $algorithm ) );
 		} catch ( Exception $e ) {
 			return false;
@@ -197,7 +196,7 @@ class Direktt_Public {
 	}
 
 	private function redirect_without_token() {
-		$current_url = ( isset( $_SERVER['HTTPS'] ) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http' );
+		$current_url = ( isset( $_SERVER['HTTPS'] ) && 'on' === $_SERVER['HTTPS'] ? 'https' : 'http' );
 		if ( ! isset( $_SERVER['HTTP_HOST'] ) || ! isset( $_SERVER['REQUEST_URI'] ) ) {
 			return;
 		}
@@ -228,7 +227,7 @@ class Direktt_Public {
 		exit;
 	}
 
-	static function is_restricted( $post ) {
+	public static function is_restricted( $post ) {
 		$for_users  = self::is_post_for_direktt_user( $post );
 		$for_admins = self::is_post_for_direktt_admin( $post );
 
@@ -299,7 +298,7 @@ class Direktt_Public {
 		}
 	}
 
-	static function direktt_ajax_check_user( $post ) {
+	public static function direktt_ajax_check_user( $post ) {
 		if ( ! $post ) {
 			return false;
 		}
@@ -323,7 +322,7 @@ class Direktt_Public {
 
 	private static function get_algorithm() {
 		$algorithm = apply_filters( 'jwt_auth_algorithm', 'HS256' );
-		if ( ! in_array( $algorithm, self::supported_algorithms ) ) {
+		if ( ! in_array( $algorithm, self::SUPPORTED_ALGORITHMS, true ) ) {
 			return false;
 		}
 
@@ -422,7 +421,7 @@ class Direktt_Public {
 	public function direktt_qr_pairing_code_shortcode( $atts ) {
 		$atts       = shortcode_atts(
 			array(
-				'size_in_px' => '200', // default size
+				'size_in_px' => '200', // default size.
 			),
 			$atts
 		);
@@ -493,7 +492,7 @@ class Direktt_Public {
 		return $classes;
 	}
 
-	static function direktt_render_alert_popup( $id, $text ) {
+	public static function direktt_render_alert_popup( $id, $text ) {
 		ob_start();
 		?>
 		<div class="direktt-popup direktt-alert-popup" <?php echo $id ? 'id="' . esc_attr( $id ) . '"' : ''; ?>>
@@ -513,7 +512,7 @@ class Direktt_Public {
 		return ob_get_clean();
 	}
 
-	static function direktt_render_confirm_popup( $id, $text ) {
+	public static function direktt_render_confirm_popup( $id, $text ) {
 		ob_start();
 		?>
 		<div class="direktt-popup direktt-confirm-popup" <?php echo $id ? 'id="' . esc_attr( $id ) . '"' : ''; ?>>
@@ -534,7 +533,7 @@ class Direktt_Public {
 		return ob_get_clean();
 	}
 
-	static function direktt_render_loader( $text = '' ) {
+	public static function direktt_render_loader( $text = '' ) {
 		ob_start();
 		?>
 		<div class="direktt-loader-overlay">
