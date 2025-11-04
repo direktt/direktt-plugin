@@ -107,9 +107,9 @@ class Direktt_Profile {
 
 		ob_start();
 
-		$active_tab     = isset( $_GET['subpage'] ) ? sanitize_text_field( wp_unslash( $_GET['subpage'] ) ) : ''; //phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Justification: not a form processing, subpage based router for content rendering
+		$active_tab      = isset( $_GET['subpage'] ) ? sanitize_text_field( wp_unslash( $_GET['subpage'] ) ) : ''; //phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Justification: not a form processing, subpage based router for content rendering
 		$subscription_id = isset( $_GET['subscriptionId'] ) ? sanitize_text_field( wp_unslash( $_GET['subscriptionId'] ) ) : false; //phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Justification: not a form processing, subscriptionId based router for content rendering
-		$profile_user   = Direktt_User::get_user_by_subscription_id( $subscription_id );
+		$profile_user    = Direktt_User::get_user_by_subscription_id( $subscription_id );
 		?>
 		<div id="direktt-profile-wrapper">
 			<div data-subpage="profile-tab-<?php echo esc_attr( $active_tab ); ?>" id="direktt-profile">
@@ -262,7 +262,7 @@ class Direktt_Profile {
 							if ( isset( $item['label'] ) ) {
 
 								parse_str( $parts['query'] ?? '', $params );
-								$params['subpage']           = $item['id'];
+								$params['subpage']            = $item['id'];
 								$new_params                   = array();
 								$new_params['subscriptionId'] = $subscription_id;
 								$new_params['subpage']        = $params['subpage'];

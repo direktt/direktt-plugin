@@ -53,7 +53,7 @@ class Direktt_Messaging_Tool {
 
 	public function render_user_messages() {
 		$subscription_id = isset( $_GET['subscriptionId'] ) ? sanitize_text_field( wp_unslash( $_GET['subscriptionId'] ) ) : false;
-		$profile_user   = Direktt_User::get_user_by_subscription_id( $subscription_id );
+		$profile_user    = Direktt_User::get_user_by_subscription_id( $subscription_id );
 
 		if ( false === $subscription_id || false === $profile_user ) {
 			return;

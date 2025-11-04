@@ -12,7 +12,7 @@ class Direktt_User {
 		$this->version     = $version;
 	}
 
-	static function get_user_by_post_id( $direktt_user_post_id ) {
+	public static function get_user_by_post_id( $direktt_user_post_id ) {
 		$args = array(
 			'post_type'      => 'direkttusers',
 			'post_status'    => 'publish',
@@ -48,7 +48,7 @@ class Direktt_User {
 		return $post_obj;
 	}
 
-	static function get_user_by_subscription_id( $direktt_user_id ) {
+	public static function get_user_by_subscription_id( $direktt_user_id ) {
 		$args = array(
 			'post_type'      => 'direkttusers',
 			'post_status'    => 'publish',
@@ -89,7 +89,7 @@ class Direktt_User {
 		return $post_obj;
 	}
 
-	static function get_user_by_membership_id( $direktt_membership_id ) {
+	public static function get_user_by_membership_id( $direktt_membership_id ) {
 		$args = array(
 			'post_type'      => 'direkttusers',
 			'post_status'    => 'publish',
@@ -130,7 +130,7 @@ class Direktt_User {
 		return $post_obj;
 	}
 
-	static function is_direktt_admin() {
+	public static function is_direktt_admin() {
 
 		global $direktt_user;
 
@@ -141,7 +141,7 @@ class Direktt_User {
 		return false;
 	}
 
-	static function get_wp_direktt_user_by_post_id( $direktt_user_id ) {
+	public static function get_wp_direktt_user_by_post_id( $direktt_user_id ) {
 
 		$args = array(
 			'role'       => 'direktt',
@@ -165,7 +165,7 @@ class Direktt_User {
 		}
 	}
 
-	static function get_all_user_categories() {
+	public static function get_all_user_categories() {
 
 		$category_terms = get_terms(
 			array(
@@ -186,7 +186,7 @@ class Direktt_User {
 		return $all_categories;
 	}
 
-	static function get_user_categories( $direktt_user_post_id ) {
+	public static function get_user_categories( $direktt_user_post_id ) {
 
 		$term_ids     = array();
 		$term_objects = get_the_terms( $direktt_user_post_id, 'direkttusercategories' );
@@ -197,7 +197,7 @@ class Direktt_User {
 		return $term_ids;
 	}
 
-	static function get_all_user_tags() {
+	public static function get_all_user_tags() {
 
 		$tag_terms = get_terms(
 			array(
@@ -217,7 +217,7 @@ class Direktt_User {
 		return $all_tags;
 	}
 
-	static function get_user_tags( $direktt_user_post_id ) {
+	public static function get_user_tags( $direktt_user_post_id ) {
 
 		$term_ids     = array();
 		$term_objects = get_the_terms( $direktt_user_post_id, 'direkttusertags' );
@@ -228,7 +228,7 @@ class Direktt_User {
 		return $term_ids;
 	}
 
-	static function get_direktt_user_by_wp_user( $wp_user ) {
+	public static function get_direktt_user_by_wp_user( $wp_user ) {
 
 		$direktt_user_id = false;
 
@@ -262,32 +262,32 @@ class Direktt_User {
 		}
 	}
 
-	static function is_wp_user_direktt_role( $wp_user ) {
+	public static function is_wp_user_direktt_role( $wp_user ) {
 		if ( $wp_user instanceof WP_User ) {
-			if ( in_array( 'direktt', $wp_user->roles ) ) {
+			if ( in_array( 'direktt', $wp_user->roles, true ) ) {
 				return true;
 			}
 		}
 		return false;
 	}
 
-	static function has_direktt_taxonomies( $direktt_user, $categories, $tags ) {
+	public static function has_direktt_taxonomies( $direktt_user, $categories, $tags ) {
 		if ( empty( $direktt_user ) || ! isset( $direktt_user['ID'] ) ) {
 			return false;
 		}
 
-		// Get assigned category and tag slugs
+		// Get assigned category and tag slugs.
 		$assigned_categories = wp_get_post_terms( $direktt_user['ID'], 'direkttusercategories', array( 'fields' => 'slugs' ) );
 		$assigned_tags       = wp_get_post_terms( $direktt_user['ID'], 'direkttusertags', array( 'fields' => 'slugs' ) );
 
-		// If any input category matches assigned categories
+		// If any input category matches assigned categories.
 		if ( ! empty( $categories ) && ! empty( $assigned_categories ) ) {
 			if ( array_intersect( $categories, $assigned_categories ) ) {
 				return true;
 			}
 		}
 
-		// If any input tag matches assigned tags
+		// If any input tag matches assigned tags.
 		if ( ! empty( $tags ) && ! empty( $assigned_tags ) ) {
 			if ( array_intersect( $tags, $assigned_tags ) ) {
 				return true;
@@ -297,7 +297,7 @@ class Direktt_User {
 		return false;
 	}
 
-	static function get_users( $include_admin = false ) {
+	public static function get_users( $include_admin = false ) {
 		$user_args = array(
 			'post_type'              => 'direkttusers',
 			'post_status'            => 'publish',
@@ -312,7 +312,7 @@ class Direktt_User {
 
 		if ( ! $include_admin ) {
 			$user_args['meta_query'] = array(            // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query -- Justification: bounded, cached, selective query on small dataset
-				'relation' => 'OR', // so posts with no meta or meta not 1 are included
+				'relation' => 'OR', // so posts with no meta or meta not 1 are included.
 				array(
 					'key'     => 'direktt_admin_subscription',
 					'compare' => 'NOT EXISTS',
@@ -339,7 +339,7 @@ class Direktt_User {
 		return $users;
 	}
 
-	static function get_related_users( $user_id ) {
+	public static function get_related_users( $user_id ) {
 		return get_users(
 			array(
 				'role__in' => array( 'direktt' ),
@@ -350,7 +350,7 @@ class Direktt_User {
 		);
 	}
 
-	static function pair_wp_user_by_code( $pair_code, $subscription_id ) {
+	public static function pair_wp_user_by_code( $pair_code, $subscription_id ) {
 
 		$wp_user = get_users(
 			array(
@@ -396,18 +396,18 @@ class Direktt_User {
 					);
 				} else {
 
-					$pushNotificationMessage = array(
+					$push_notification_message = array(
 						'type'    => 'text',
 						'content' => 'Your WP user have been successfuly paired with your Direktt user',
 					);
 
-					Direktt_Message::send_message( array( $subscription_id => $pushNotificationMessage ) );
+					Direktt_Message::send_message( array( $subscription_id => $push_notification_message ) );
 				}
 			}
 		}
 	}
 
-	static function set_wp_user_name( $wp_user, $first, $last ) {
+	public static function set_wp_user_name( $wp_user, $first, $last ) {
 		if ( ! self::is_wp_user_direktt_role( $wp_user ) ) {
 			return;
 		}
@@ -425,6 +425,6 @@ class Direktt_User {
 			)
 		);
 
-		return $result; // WP_Error or user ID
+		return $result; // WP_Error or user ID.
 	}
 }

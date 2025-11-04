@@ -12,7 +12,7 @@ class Direktt_Message_Template {
 		$this->version     = $version;
 	}
 
-	static function get_templates( $event_types = array() ) {
+	public static function get_templates( $event_types = array() ) {
 		$template_args = array(
 			'post_type'              => 'direkttmtemplates',
 			'post_status'            => 'publish',

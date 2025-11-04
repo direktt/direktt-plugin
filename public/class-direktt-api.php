@@ -7,7 +7,6 @@ class Direktt_Api {
 	private string $plugin_name;
 	private string $version;
 
-	// namespace for api calls
 	private string $namespace;
 
 	public function __construct( string $plugin_name, string $version ) {
@@ -211,7 +210,7 @@ class Direktt_Api {
 	}
 
 	public function subscribe_user( $direktt_user_id, $direktt_user_title = null, $direktt_user_avatar_url = null, $direktt_admin_subscription = null, $direktt_membership_id = null, $direktt_marketing_consent_status = null, $silent = false ) {
-		// STEP 1: Check if Direktt User already exists (by meta)
+
 		$existing_query = new WP_Query(
 			array(
 				'post_type'  => 'direkttusers',
@@ -224,10 +223,10 @@ class Direktt_Api {
 		);
 
 		$usr_title = $direktt_user_id;
-		if ( ! is_null( $direktt_user_title ) && $direktt_user_title !== '' ) {
+		if ( ! is_null( $direktt_user_title ) && '' !== $direktt_user_title ) {
 			$usr_title = $direktt_user_title;
 		}
-		if ( ! is_null( $direktt_admin_subscription ) && $direktt_admin_subscription !== '' ) {
+		if ( ! is_null( $direktt_admin_subscription ) && '' !== $direktt_admin_subscription ) {
 			if ( $direktt_admin_subscription ) {
 				$usr_title = 'Channel Admin';
 			}
@@ -236,41 +235,41 @@ class Direktt_Api {
 		$meta_input = array(
 			'direktt_user_id' => $direktt_user_id,
 		);
-		if ( ! is_null( $direktt_user_avatar_url ) && $direktt_user_avatar_url !== '' ) {
+		if ( ! is_null( $direktt_user_avatar_url ) && '' !== $direktt_user_avatar_url ) {
 			$meta_input['direktt_avatar_url'] = $direktt_user_avatar_url;
 		}
-		if ( ! is_null( $direktt_admin_subscription ) && $direktt_admin_subscription !== '' ) {
+		if ( ! is_null( $direktt_admin_subscription ) && '' !== $direktt_admin_subscription ) {
 			$meta_input['direktt_admin_subscription'] = $direktt_admin_subscription;
 		}
-		if ( ! is_null( $direktt_membership_id ) && $direktt_membership_id !== '' ) {
+		if ( ! is_null( $direktt_membership_id ) && '' !== $direktt_membership_id ) {
 			$meta_input['direktt_membership_id'] = $direktt_membership_id;
 		}
-		if ( ! is_null( $direktt_marketing_consent_status ) && $direktt_marketing_consent_status !== '' ) {
+		if ( ! is_null( $direktt_marketing_consent_status ) && '' !== $direktt_marketing_consent_status ) {
 			$meta_input['direktt_marketing_consent_status'] = $direktt_marketing_consent_status;
 		}
 
-		// STEP 2: If exists, update it
+		// STEP 2: If exists, update it.
 		if ( $existing_query->have_posts() ) {
 			$post_id = $existing_query->posts[0];
 
-			// Get old status for comparison
+			// Get old status for comparison.
 			$cur_status = get_post_status( $post_id );
 
-			// Prepare update array
+			// Prepare update array.
 			$post_arr = array(
 				'ID'         => $post_id,
 				'post_title' => $usr_title,
 			);
 
 			// If trashed or not published, publish it!
-			if ( $cur_status !== 'publish' ) {
+			if ( 'publish' !== $cur_status ) {
 				$post_arr['post_status'] = 'publish';
 			}
 
-			// Update post title/status if needed
+			// Update post title/status if needed.
 			wp_update_post( $post_arr );
 
-			// Update meta fields
+			// Update meta fields.
 			foreach ( $meta_input as $meta_key => $meta_value ) {
 				update_post_meta( $post_id, $meta_key, $meta_value );
 			}
@@ -281,7 +280,7 @@ class Direktt_Api {
 			return $post_id;
 		}
 
-		// STEP 3: Else, proceed with current creation logic
+		// STEP 3: Else, proceed with current creation logic.
 		$post_arr = array(
 			'post_type'   => 'direkttusers',
 			'post_title'  => $usr_title,
@@ -353,7 +352,7 @@ class Direktt_Api {
 			}
 
 			if ( $user ) {
-				if ( $avatar_url !== '' ) {
+				if ( '' !== $avatar_url ) {
 					update_post_meta( $user['ID'], 'direktt_avatar_url', $avatar_url );
 				} else {
 					delete_post_meta( $user['ID'], 'direktt_avatar_url' );
@@ -378,7 +377,7 @@ class Direktt_Api {
 			if ( array_key_exists( 'displayName', $parameters ) ) {
 
 				$direktt_display_name = sanitize_text_field( $parameters['displayName'] );
-				if ( $direktt_display_name === '' ) {
+				if ( '' === $direktt_display_name ) {
 					$direktt_display_name = $direktt_user_id;
 				}
 			} else {
@@ -496,7 +495,7 @@ class Direktt_Api {
 		if ( $user ) {
 
 			$this->delete_wp_direktt_user( $user['ID'] );
-			// wp_trash_post($user['ID']);
+
 			wp_delete_post( $user['ID'], true );
 
 			Direktt_Event::insert_event(
@@ -519,7 +518,7 @@ class Direktt_Api {
 			'meta_value'     => $direktt_user_id,   // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value -- Justification: bounded, selective query on small dataset
 			'role'           => 'direktt',
 			'posts_per_page' => 10,
-			'fields'         => 'ID', // Return only user IDs
+			'fields'         => 'ID', // Return only user IDs.
 			)
 		);
 
@@ -574,7 +573,6 @@ class Direktt_Api {
 				'direktt_user_id' => $direktt_user_id,
 				'event_target'    => $event_target,
 				'event_type'      => $event_type,
-				// 'event_time' => time()
 			);
 
 			if ( array_key_exists( 'campaignId', $parameters ) ) {
@@ -628,14 +626,14 @@ class Direktt_Api {
 	}
 
 	private function generate_random_string( $length = 12 ) {
-		$characters       = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-		$charactersLength = strlen( $characters );
-		$randomString     = '';
+		$characters        = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+		$characters_length = strlen( $characters );
+		$random_string     = '';
 
 		for ( $i = 0; $i < $length; $i++ ) {
-			$randomString .= $characters[ wp_rand( 0, $charactersLength - 1 ) ];
+			$random_string .= $characters[ wp_rand( 0, $characters_length - 1 ) ];
 		}
 
-		return $randomString;
+		return $random_string;
 	}
 }

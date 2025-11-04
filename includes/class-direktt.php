@@ -4,9 +4,9 @@ defined( 'ABSPATH' ) || exit;
 
 class Direktt {
 
-	static $settings_array      = array();
-	static $profile_tools_array = array();
-	static $profile_bar_array   = array();
+	public static $settings_array      = array();
+	public static $profile_tools_array = array();
+	public static $profile_bar_array   = array();
 
 	protected Direktt_Loader $loader;
 	protected Direktt_Api $direktt_api;
@@ -83,8 +83,7 @@ class Direktt {
 		$this->loader      = new Direktt_Loader();
 		$this->direktt_api = new Direktt_Api( $this->get_plugin_name(), $this->get_version() );
 
-		// skip action_scheduler
-
+		// skip action_scheduler.
 		add_filter(
 			'wp_plugin_check_ignore_directories',
 			function ( $directories ) {
@@ -111,9 +110,6 @@ class Direktt {
 	}
 
 	private function define_api_hooks() {
-
-		// $plugin_api = new Direktt_Api( $this->get_plugin_name(), $this->get_version() );
-		// $this->loader->add_action( 'rest_api_init', $plugin_api, 'api_register_routes' );
 
 		$this->loader->add_action( 'rest_api_init', $this->direktt_api, 'api_register_routes' );
 	}
@@ -169,11 +165,11 @@ class Direktt {
 
 		$this->loader->add_action( 'add_meta_boxes', $plugin_admin, 'direktt_direkttusers_add_meta_box' );
 
-		// Pairing related
+		// Pairing related.
 
 		$this->loader->add_action( 'direktt/event/chat/message_sent', $plugin_admin, 'pair_wp_user_by_code' );
 
-		// User Test meta related
+		// User Test meta related.
 
 		$this->loader->add_action( 'show_user_profile', $plugin_admin, 'render_user_meta_panel' );
 		$this->loader->add_action( 'edit_user_profile', $plugin_admin, 'render_user_meta_panel' );
@@ -200,7 +196,7 @@ class Direktt {
 
 		$plugin_message = new Direktt_Message( $this->get_plugin_name(), $this->get_version() );
 
-		// Filters for default template tags:
+		// Filters for default template tags.
 
 			$this->loader->add_filter( 'direktt/message/template/direktt_display_name', $plugin_message, 'direktt_display_name_filter', 10, 2 );
 			$this->loader->add_filter( 'direktt/message/template/direktt_channel_name', $plugin_message, 'direktt_channel_name_filter', 10, 2 );
@@ -235,11 +231,11 @@ class Direktt {
 		$this->loader->add_action( 'wp_ajax_direktt_get_marketing_consent', $plugin_ajax, 'ajax_get_marketing_consent' );
 		$this->loader->add_action( 'wp_ajax_direktt_get_user_events', $plugin_ajax, 'ajax_get_user_events' );
 
-		// direkttmtemplates
+		// direkttmtemplates.
 		$this->loader->add_action( 'wp_ajax_direktt_get_mtemplates_taxonomies', $plugin_ajax, 'ajax_get_mtemplates_taxonomies' );
 		$this->loader->add_action( 'wp_ajax_direktt_send_mtemplates_message', $plugin_ajax, 'ajax_send_mtemplates_message' );
 
-		// messaging on profile
+		// messaging on profile.
 		$this->loader->add_action( 'wp_ajax_direktt_get_mtemplates_profile_message', $plugin_ajax, 'ajax_get_mtemplates_profile_message' );
 		$this->loader->add_action( 'wp_ajax_direktt_get_users_taxonomy_service', $plugin_ajax, 'ajax_get_users_taxonomy_service' );
 	}
@@ -260,7 +256,7 @@ class Direktt {
 		return $this->version;
 	}
 
-	static function add_settings_page( $params ) {
+	public static function add_settings_page( $params ) {
 		self::$settings_array[] = $params;
 	}
 }

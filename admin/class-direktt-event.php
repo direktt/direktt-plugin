@@ -12,7 +12,7 @@ class Direktt_Event {
 		$this->version     = $version;
 	}
 
-	static function create_database_table() {
+	public static function create_database_table() {
 		global $wpdb;
 
 		$table_name = $wpdb->prefix . 'direktt_events';
@@ -51,7 +51,7 @@ class Direktt_Event {
 		// phpcs:enable 	
 	}
 
-	static function insert_event( $event ) {
+	public static function insert_event( $event ) {
 		global $wpdb;
 
 		$table_name = $wpdb->prefix . 'direktt_events';
@@ -70,13 +70,13 @@ class Direktt_Event {
 					'data' => $event_fil['event_data'],
 				);
 
-				$event_data              = json_encode( $evet_data_array );
+				$event_data              = wp_json_encode( $evet_data_array );
 				$event_fil['event_data'] = $event_data;
 			}
 		}
 
 		if ( array_key_exists( 'event_value', $event_fil ) ) {
-			$event_value              = json_encode( $event_fil['event_value'] );
+			$event_value              = wp_json_encode( $event_fil['event_value'] );
 			$event_fil['event_value'] = $event_value;
 		}
 
@@ -86,7 +86,7 @@ class Direktt_Event {
 			$event_fil
 		);
 
-		if ( $wpdb->last_error !== '' ) :
+		if ( '' !== $wpdb->last_error ) :
 			$wpdb->print_error();
 		endif;
 	}

@@ -13,7 +13,7 @@ class Direktt_Message {
 		$this->version     = $version;
 	}
 
-	static function send_message( $messages ) {
+	public static function send_message( $messages ) {
 		$api_key = get_option( 'direktt_api_key' ) ? esc_attr( get_option( 'direktt_api_key' ) ) : '';
 		$url     = 'https://sendbulkmessages-lnkonwpiwa-uc.a.run.app';
 
@@ -29,7 +29,7 @@ class Direktt_Message {
 		$response = wp_remote_post(
 			$url,
 			array(
-				'body'    => json_encode(
+				'body'    => wp_json_encode(
 					array(
 						'messages' => $data,
 					)
@@ -44,20 +44,20 @@ class Direktt_Message {
 		return true;
 	}
 
-	static function update_message( $subscriptionUid, $messageUid, $content ) {
+	public static function update_message( $subscription_uid, $message_uid, $content ) {
 		$api_key = get_option( 'direktt_api_key' ) ? esc_attr( get_option( 'direktt_api_key' ) ) : '';
 		$url     = 'https://updateMessage-lnkonwpiwa-uc.a.run.app';
 
 		$data = array(
-			'subscriptionUid' => $subscriptionUid,
-			'messageUid'      => $messageUid,
+			'subscriptionUid' => $subscription_uid,
+			'messageUid'      => $message_uid,
 			'content'         => $content,
 		);
 
 		$response = wp_remote_post(
 			$url,
 			array(
-				'body'    => json_encode( $data ),
+				'body'    => wp_json_encode( $data ),
 				'headers' => array(
 					'Authorization' => 'Bearer ' . $api_key,
 					'Content-type'  => 'application/json',
@@ -66,21 +66,8 @@ class Direktt_Message {
 		);
 	}
 
-	/*
-	static function replace_tags_in_template($string, $replacements)
-	{
-		if (!is_null($string)) {
-			return preg_replace_callback('/#([^#]+)#/', function ($matches) use ($replacements) {
-				$tag = $matches[1];
-				return array_key_exists($tag, $replacements) ? $replacements[$tag] : $matches[0];
-			}, $string);
-		}
-
-		return null;
-	} */
-
-	static function replace_tags_in_template( $string, $replacements, $direktt_user_id = null ) {
-		if ( $string === null ) {
+	public static function replace_tags_in_template( $input_string, $replacements, $direktt_user_id = null ) {
+		if ( null === $input_string ) {
 			return null;
 		}
 
@@ -89,22 +76,22 @@ class Direktt_Message {
 			function ( $matches ) use ( $replacements, $direktt_user_id ) {
 				$tag = $matches[1];
 
-				// Find replacement or default to the tag
+				// Find replacement or default to the tag.
 				$value = array_key_exists( $tag, $replacements ) ? $replacements[ $tag ] : $tag;
 
-				// Prepare filter name
+				// Prepare filter name.
 				$filter_name = 'direktt/message/template/' . $tag;
 
-				// Apply filter, pass value and user
+				// Apply filter, pass value and user.
 				return apply_filters( $filter_name, $value, $direktt_user_id );
 			},
-			$string
+			$input_string
 		);
 	}
 
 
 
-	static function send_message_template( $direktt_user_ids, $message_template_id, $replacements = array() ) {
+	public static function send_message_template( $direktt_user_ids, $message_template_id, $replacements = array() ) {
 		$api_key = get_option( 'direktt_api_key' ) ? esc_attr( get_option( 'direktt_api_key' ) ) : '';
 
 		$url = 'https://sendbulkmessages-lnkonwpiwa-uc.a.run.app';
@@ -123,7 +110,7 @@ class Direktt_Message {
 				foreach ( $messages as $message ) {
 
 					if ( is_array( $message->content ) || is_object( $message->content ) ) {
-						$message->content = json_encode( $message->content );
+						$message->content = wp_json_encode( $message->content );
 					}
 					if ( ! is_null( $message ) ) {
 						$obj                          = new stdClass();
@@ -137,7 +124,7 @@ class Direktt_Message {
 			$response = wp_remote_post(
 				$url,
 				array(
-					'body'    => json_encode(
+					'body'    => wp_json_encode(
 						array(
 							'messages' => $data,
 						)
@@ -170,7 +157,7 @@ class Direktt_Message {
 		return $direktt_channel_title;
 	}
 
-	static function send_message_to_admin( $message ) {
+	public static function send_message_to_admin( $message ) {
 		$api_key = get_option( 'direktt_api_key' ) ? esc_attr( get_option( 'direktt_api_key' ) ) : '';
 		$url     = 'https://sendadminmessage-lnkonwpiwa-uc.a.run.app';
 
@@ -181,7 +168,7 @@ class Direktt_Message {
 		$response = wp_remote_post(
 			$url,
 			array(
-				'body'    => json_encode( $data ),
+				'body'    => wp_json_encode( $data ),
 				'headers' => array(
 					'Authorization' => 'Bearer ' . $api_key,
 					'Content-type'  => 'application/json',
@@ -190,7 +177,7 @@ class Direktt_Message {
 		);
 	}
 
-	static function send_message_template_to_admin( $message_template_id, $replacements = array() ) {
+	public static function send_message_template_to_admin( $message_template_id, $replacements = array() ) {
 		$api_key = get_option( 'direktt_api_key' ) ? esc_attr( get_option( 'direktt_api_key' ) ) : '';
 		$url     = 'https://sendadminmessage-lnkonwpiwa-uc.a.run.app';
 
@@ -203,7 +190,7 @@ class Direktt_Message {
 
 			foreach ( $messages as $message ) {
 				if ( is_array( $message->content ) || is_object( $message->content ) ) {
-					$message->content = json_encode( $message->content );
+					$message->content = wp_json_encode( $message->content );
 				}
 
 				if ( ! is_null( $message ) ) {
@@ -215,7 +202,7 @@ class Direktt_Message {
 					$response = wp_remote_post(
 						$url,
 						array(
-							'body'    => json_encode( $data ),
+							'body'    => wp_json_encode( $data ),
 							'headers' => array(
 								'Authorization' => 'Bearer ' . $api_key,
 								'Content-type'  => 'application/json',

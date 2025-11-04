@@ -35,7 +35,7 @@ class Direktt_Taxonomies_Tool {
 
 	public function render_user_taxonomies() {
 		$subscription_id = isset( $_GET['subscriptionId'] ) ? sanitize_text_field( wp_unslash( $_GET['subscriptionId'] ) ) : false;
-		$profile_user   = Direktt_User::get_user_by_subscription_id( $subscription_id );
+		$profile_user    = Direktt_User::get_user_by_subscription_id( $subscription_id );
 
 		if ( isset( $_POST['save_user_taxonomies'] ) ) {
 			if ( ! isset( $_POST['save_user_taxonomies_nonce'] )

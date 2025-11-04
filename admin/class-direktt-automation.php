@@ -39,14 +39,10 @@ class Direktt_Automation {
 		$runs = new Direktt_Automation_RunRepository();
 		$rec  = new Direktt_Automation_RecurringRepository();
 
-		// Create run; mirror your existing semantics (store state payload, set step)
+		// Create run; mirror your existing semantics (store state payload, set step).
 		$run_id = $runs->create( $automation_key, $subscription_id, (array) $state_or_payload, $initial_step );
 
-		// Optionally also enqueue the very first run immediately (start_in_seconds delay):
-		// $queue = new Direktt_Automation_QueueRepository();
-		// $queue->enqueue($run_id, $subscription_id, $action, (array)$state_or_payload, time() + (int)$start_in_seconds, (int)$priority);
-
-		// Create recurrence definition (AS will tick and produce queue items)
+		// Create recurrence definition (AS will tick and produce queue items).
 		$recurrence_id = $rec->create(
 			$run_id,
 			$subscription_id,
@@ -317,7 +313,7 @@ class Direktt_Automation_RunRepository {
 		// phpcs:enable
 
 		$rows = $wpdb->query( $sql ); // phpcs:disable WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.DirectQuery -- Justification: table name is not prepared, elective query on small dataset, Custom database used
-		return $rows === 1; // true if we actually advanced
+		return 1 === $rows; // true if we actually advanced.
 	}
 }
 
@@ -360,7 +356,7 @@ class Direktt_Automation_QueueRepository {
 
 		$queue_id = (int) $wpdb->insert_id;
 
-		// Schedule processing with Action Scheduler or WP-Cron fallback
+		// Schedule processing with Action Scheduler or WP-Cron fallback.
 		$this->schedule_processing( $queue_id, strtotime( $scheduled_at ) );
 
 		return $queue_id;
@@ -385,7 +381,6 @@ class Direktt_Automation_QueueRepository {
 		return $row;
 	}
 
-	// Attempt to claim a row for processing. Returns the claimed row or false.
 	public function claim( $id ) {
 		global $wpdb;
 		$table     = Direktt_Automation_DB::table_queue();
@@ -393,7 +388,7 @@ class Direktt_Automation_QueueRepository {
 
 		// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Justification: table name is not prepared
 
-		// Lock only if pending and due
+		// Lock only if pending and due.
 		$updated = $wpdb->query(
 			$wpdb->prepare(
 				"UPDATE $table
@@ -415,9 +410,9 @@ class Direktt_Automation_QueueRepository {
 
 		// phpcs:enable
 
-		if ( $updated === 1 ) {
+		if ( 1 === $updated ) {
 			$row = $this->get( $id );
-			if ( $row && $row['worker_id'] === $worker_id && $row['status'] === 'locked' ) {
+			if ( $row && $row['worker_id'] === $worker_id && 'locked' === $row['status'] ) {
 				return $row;
 			}
 		}
@@ -648,16 +643,16 @@ class Direktt_Automation_RecurringRepository {
 		if ( function_exists( 'as_unschedule_all_actions' ) ) {
 			as_unschedule_all_actions( 'direktt_automation_process_recurrence', $args, self::AS_GROUP );
 		}
-		// WP-Cron fallback
+		// WP-Cron fallback.
 		wp_clear_scheduled_hook( 'direktt_automation_fallback_process_recurrence', $args );
 
 		if ( $complete_run ) {
 			$rec = $this->get( $id );
 			if ( $rec && ! empty( $rec['run_id'] ) ) {
-				$runRepo = new Direktt_Automation_RunRepository();
-				$run     = $runRepo->get( (int) $rec['run_id'] );
+				$run_repo = new Direktt_Automation_RunRepository();
+				$run      = $run_repo->get( (int) $rec['run_id'] );
 				if ( $run && in_array( $run['status'], array( 'active', 'paused' ), true ) ) {
-					$runRepo->set_status( (int) $rec['run_id'], 'completed' );
+					$run_repo->set_status( (int) $rec['run_id'], 'completed' );
 				}
 			}
 		}
@@ -680,7 +675,7 @@ class Direktt_Automation_RecurringRepository {
 
 	protected function schedule( $id ) {
 		$row = $this->get( $id );
-		if ( ! $row || $row['status'] !== 'active' ) {
+		if ( ! $row || 'active' !== $row['status'] ) {
 			return;
 		}
 		$start_ts = strtotime( $row['start_at'] );
@@ -695,7 +690,7 @@ class Direktt_Automation_RecurringRepository {
 				as_schedule_recurring_action( $start_ts, (int) $row['interval_seconds'], 'direktt_automation_process_recurrence', $args, self::AS_GROUP, true );
 			}
 		} else {
-			// WP-Cron fallback
+			// WP-Cron fallback.
 			$hook = 'direktt_automation_fallback_process_recurrence';
 			if ( ! empty( $row['cron_expression'] ) ) {
 				// No native cron expression support; schedule a minutely heartbeat, and gate inside the worker (optional).
@@ -735,18 +730,18 @@ class Direktt_Automation_RecurringWorker {
 	public static function process_recurrence( $args ) {
 		$recurrence_id = is_array( $args ) && isset( $args['recurrence_id'] ) ? (int) $args['recurrence_id'] : (int) $args;
 
-		$recRepo   = new Direktt_Automation_RecurringRepository();
-		$queueRepo = new Direktt_Automation_QueueRepository();
+		$rec_repo   = new Direktt_Automation_RecurringRepository();
+		$queue_repo = new Direktt_Automation_QueueRepository();
 
-		$rec = $recRepo->get( $recurrence_id );
+		$rec = $rec_repo->get( $recurrence_id );
 		if ( ! $rec ) {
 			return;
 		}
 
 		// If not active, nothing to do (but there might still be a pending next tick created before).
-		if ( $rec['status'] !== 'active' ) {
-			// Schedule async canceller to cleanup any pending next occurrences
-			$recRepo->unschedule_async( $recurrence_id, false );
+		if ( 'active' !== $rec['status'] ) {
+			// Schedule async canceller to cleanup any pending next occurrences.
+			$rec_repo->unschedule_async( $recurrence_id, false );
 			return;
 		}
 
@@ -758,24 +753,24 @@ class Direktt_Automation_RecurringWorker {
 
 		if ( $reached_end_time || $reached_max_runs ) {
 			// Mark recurrence as completed (or canceled) and schedule async canceller to remove the pending next.
-			$recRepo->set_status( $recurrence_id, 'canceled' );
+			$rec_repo->set_status( $recurrence_id, 'canceled' );
 
-			// Optionally complete the associated run when recurrence finishes
+			// Optionally complete the associated run when recurrence finishes.
 			$complete_run = true;
 
-			$recRepo->unschedule_async( $recurrence_id, $complete_run );
+			$rec_repo->unschedule_async( $recurrence_id, $complete_run );
 
 			return;
 		}
 
-		// Optional overlap guard
-		if ( empty( $rec['allow_overlap'] ) && $queueRepo->has_pending_for( (int) $rec['run_id'], $rec['action_type'] ) ) {
+		// Optional overlap guard.
+		if ( empty( $rec['allow_overlap'] ) && $queue_repo->has_pending_for( (int) $rec['run_id'], $rec['action_type'] ) ) {
 			// Skip this tick; next tick is already pending/locked. Do not increment count.
 			return;
 		}
 
-		// Enqueue one occurrence for your normal queue
-		$queueRepo->enqueue(
+		// Enqueue one occurrence for your normal queue.
+		$queue_repo->enqueue(
 			(int) $rec['run_id'],
 			$rec['direktt_user_id'],
 			$rec['action_type'],
@@ -784,19 +779,18 @@ class Direktt_Automation_RecurringWorker {
 			(int) $rec['priority']
 		);
 
-		// Track count and last_run_at
-		$recRepo->increment_count( $recurrence_id );
+		// Track count and last_run_at.
+		$rec_repo->increment_count( $recurrence_id );
 	}
 
 	public static function cancel_recurrence_async( $args ) {
 		$recurrence_id = is_array( $args ) && isset( $args['recurrence_id'] ) ? (int) $args['recurrence_id'] : (int) $args;
 
-		// $complete_run  = is_array($args) && !empty($args['complete_run']);
 		$complete_run = true;
 
-		$recRepo = new Direktt_Automation_RecurringRepository();
-		// Remove any pending future ticks for this recurrence
-		$recRepo->unschedule_now( $recurrence_id, $complete_run );
+		$rec_repo = new Direktt_Automation_RecurringRepository();
+		// Remove any pending future ticks for this recurrence.
+		$rec_repo->unschedule_now( $recurrence_id, $complete_run );
 	}
 }
 
@@ -888,25 +882,25 @@ class Direktt_Automation_Worker {
 		// Expect $args to be either ['queue_id' => X] or just queue_id.
 		$queue_id = is_array( $args ) && isset( $args['queue_id'] ) ? (int) $args['queue_id'] : (int) $args;
 
-		$queueRepo = new Direktt_Automation_QueueRepository();
-		$runRepo   = new Direktt_Automation_RunRepository();
+		$queue_repo = new Direktt_Automation_QueueRepository();
+		$run_repo   = new Direktt_Automation_RunRepository();
 
-		$claimed = $queueRepo->claim( $queue_id );
+		$claimed = $queue_repo->claim( $queue_id );
 		if ( ! $claimed ) {
 			return; // Already processed, not due yet, or could not claim.
 		}
 
 		$queue_item = $claimed;
-		$run        = $runRepo->get( (int) $queue_item['run_id'] );
+		$run        = $run_repo->get( (int) $queue_item['run_id'] );
 
-		if ( ! $run || $run['status'] !== 'active' ) {
-			$queueRepo->mark_failed( $queue_item['id'], 'Run not active or missing' );
+		if ( ! $run || 'active' !== $run['status'] ) {
+			$queue_repo->mark_failed( $queue_item['id'], 'Run not active or missing' );
 			return;
 		}
 
 		$processor = Direktt_Automation_ProcessorRegistry::get( $queue_item['action_type'] );
 		if ( ! $processor ) {
-			$queueRepo->mark_failed( $queue_item['id'], 'No processor for action_type: ' . $queue_item['action_type'] );
+			$queue_repo->mark_failed( $queue_item['id'], 'No processor for action_type: ' . $queue_item['action_type'] );
 			return;
 		}
 
@@ -915,12 +909,12 @@ class Direktt_Automation_Worker {
 			call_user_func( $processor, $queue_item, $run );
 
 			// Mark done on success.
-			$queueRepo->mark_done( $queue_item['id'] );
+			$queue_repo->mark_done( $queue_item['id'] );
 		} catch ( \Throwable $e ) {
 			// Retry with exponential backoff, cap attempts.
 			$attempts = (int) $queue_item['attempts'];
 			$delay    = min( 3600, pow( 2, $attempts ) * 60 ); // 1m,2m,4m,8m... up to 1h
-			$queueRepo->retry_later( $queue_item['id'], $delay, 6 );
+			$queue_repo->retry_later( $queue_item['id'], $delay, 6 );
 		}
 	}
 }

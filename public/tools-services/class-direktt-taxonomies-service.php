@@ -142,7 +142,7 @@ class Direktt_Taxonomies_Service {
 
 				$request_uri = sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) );
 				$path        = wp_parse_url( $request_uri, PHP_URL_PATH );
-				$back_uri     = is_string( $path ) ? $path : '';
+				$back_uri    = is_string( $path ) ? $path : '';
 			}
 
 			wp_enqueue_script( 'direktt-taxonomies-service-autocomplete-script' );
@@ -252,8 +252,8 @@ class Direktt_Taxonomies_Service {
 				parse_str( $parts['query'] ?? '', $params );
 				$params['subpage']  = 'edit-category';
 				$params['tax_name'] = $category['name'];
-				$new_query           = http_build_query( $params );
-				$new_uri             = $parts['path'] . ( $new_query ? '?' . $new_query : '' );
+				$new_query          = http_build_query( $params );
+				$new_uri            = $parts['path'] . ( $new_query ? '?' . $new_query : '' );
 
 				$term_obj = get_term_by( 'name', $category['name'], 'direkttusercategories' );
 				$count    = 0;
@@ -277,8 +277,8 @@ class Direktt_Taxonomies_Service {
 						parse_str( $parts['query'] ?? '', $params );
 						$params['subpage']  = 'edit-tag';
 						$params['tax_name'] = $tag['name'];
-						$new_query           = http_build_query( $params );
-						$new_uri             = $parts['path'] . ( $new_query ? '?' . $new_query : '' );
+						$new_query          = http_build_query( $params );
+						$new_uri            = $parts['path'] . ( $new_query ? '?' . $new_query : '' );
 
 						$term_obj = get_term_by( 'name', $tag['name'], 'direkttusertags' );
 						$count    = 0;

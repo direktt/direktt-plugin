@@ -47,26 +47,26 @@ class Direktt_Ajax {
 			$categories = ( isset( $_POST['categories'] ) ) ? json_decode( sanitize_text_field( wp_unslash( $_POST['categories'] ) ), true ) : false;
 			$tags       = ( isset( $_POST['tags'] ) ) ? json_decode( sanitize_text_field( wp_unslash( $_POST['tags'] ) ), true ) : false;
 
-			$userSet = ( isset( $_POST['userSet'] ) ) ? sanitize_text_field( wp_unslash( $_POST['userSet'] ) ) : false;
-			$consent = filter_input( INPUT_POST, 'consent', FILTER_VALIDATE_BOOLEAN ) ?? false;
+			$user_set = ( isset( $_POST['userSet'] ) ) ? sanitize_text_field( wp_unslash( $_POST['userSet'] ) ) : false;
+			$consent  = filter_input( INPUT_POST, 'consent', FILTER_VALIDATE_BOOLEAN ) ?? false;
 
 			$message_template_id = ( isset( $_POST['postId'] ) ) ? sanitize_text_field( wp_unslash( $_POST['postId'] ) ) : false;
 
-			if ( $userSet && $message_template_id ) {
+			if ( $user_set && $message_template_id ) {
 
 				$subscription_ids = array();
 
-				if ( $userSet === 'all' ) {
+				if ( 'all' === $user_set ) {
 					$subscription_ids = $this->get_subscription_ids_from_terms( array(), array(), true, $consent );
 					Direktt_Message::send_message_template( $subscription_ids, $message_template_id );
 				}
 
-				if ( $userSet === 'selected' ) {
+				if ( 'selected' === $user_set ) {
 					$subscription_ids = $this->get_subscription_ids_from_terms( $categories, $tags, false, $consent );
 					Direktt_Message::send_message_template( $subscription_ids, $message_template_id );
 				}
 
-				if ( $userSet === 'admin' ) {
+				if ( 'admin' === $user_set ) {
 					Direktt_Message::send_message_template_to_admin( $message_template_id );
 				}
 			}
@@ -138,7 +138,7 @@ class Direktt_Ajax {
 		$response = wp_remote_post(
 			$url,
 			array(
-				'body'    => json_encode( $data ),
+				'body'    => wp_json_encode( $data ),
 				'timeout' => 30,
 				'headers' => array(
 					'Authorization' => 'Bearer ' . $api_key,
@@ -156,17 +156,17 @@ class Direktt_Ajax {
 
 		if ( isset( $data['success'] ) && $data['success'] && ! empty( $data['data'] ) ) {
 
-			$id                     = $data['data']['id'] ?? null;
-			$title                  = $data['data']['title'] ?? null;
-			$domain                 = $data['data']['domain'] ?? null;
-			$activatedAt            = $data['data']['activatedAt'] ?? null;
-			$image                  = $data['data']['image'] ?? null;
-			$color                  = $data['data']['color'] ?? null;
-			$handle                 = $data['data']['handle'] ?? null;
-			$defaultSubscriptionUid = $data['data']['defaultSubscriptionUid'] ?? null;
-			$count                  = $data['data']['count'] ?? null;
+			$id                       = $data['data']['id'] ?? null;
+			$title                    = $data['data']['title'] ?? null;
+			$domain                   = $data['data']['domain'] ?? null;
+			$activated_at             = $data['data']['activatedAt'] ?? null;
+			$image                    = $data['data']['image'] ?? null;
+			$color                    = $data['data']['color'] ?? null;
+			$handle                   = $data['data']['handle'] ?? null;
+			$default_subscription_uid = $data['data']['defaultSubscriptionUid'] ?? null;
+			$count                    = $data['data']['count'] ?? null;
 
-			if ( ! is_null( $domain ) && ! is_null( $activatedAt ) ) {
+			if ( ! is_null( $domain ) && ! is_null( $activated_at ) ) {
 				$existing_title = get_option( 'direktt_channel_title' );
 				if ( ! is_null( $title ) && $title !== $existing_title ) {
 					update_option( 'direktt_channel_title', $title );
@@ -179,15 +179,15 @@ class Direktt_Ajax {
 			}
 		}
 
-		$localPostCount = wp_count_posts( 'direkttusers' );
-		$localCount     = intval( $localPostCount->publish );
+		$local_post_count = wp_count_posts( 'direkttusers' );
+		$local_count      = intval( $local_post_count->publish );
 
 		$ret_data = array(
-			'localCount' => $localCount,
+			'localCount' => $local_count,
 		);
 
-		if ( ! is_null( $activatedAt ) ) {
-			$ret_data['activatedAt'] = $activatedAt;
+		if ( ! is_null( $activated_at ) ) {
+			$ret_data['activatedAt'] = $activated_at;
 		}
 		if ( ! is_null( $domain ) ) {
 			$ret_data['domain'] = $domain;
@@ -300,7 +300,7 @@ class Direktt_Ajax {
 			wp_send_json_error( new WP_Error( 'Unauthorized', 'Nonce is not valid' ), 401 );
 			exit;
 		} else {
-			if ( $choice && $choice !== '' ) {
+			if ( $choice && '' !== $choice ) {
 
 				$current_api = get_option( 'direktt_api_key' );
 
@@ -317,7 +317,7 @@ class Direktt_Ajax {
 					$response = wp_remote_post(
 						$url,
 						array(
-							'body'    => json_encode( $data ),
+							'body'    => wp_json_encode( $data ),
 							'timeout' => 30,
 							'headers' => array(
 								'Authorization' => 'Bearer ' . $choice,
@@ -331,7 +331,7 @@ class Direktt_Ajax {
 						return;
 					}
 
-					if ( $response['response']['code'] !== '200' && $response['response']['code'] !== '201' ) {
+					if ( '200' !== $response['response']['code'] && '201' !== $response['response']['code'] ) {
 
 						wp_send_json_error( new WP_Error( 'Unauthorized', 'API Key validation failed' ), 401 );
 						return;
@@ -359,7 +359,7 @@ class Direktt_Ajax {
 				delete_option( 'direktt_pairing_succ_template' );
 			}
 
-			if ( $reset_pairings && $reset_pairings === 'true' ) {
+			if ( 'true' === $reset_pairings && $reset_pairings ) {
 				$this->delete_user_meta_for_all_users( 'direktt_user_pair_code' );
 			}
 		}
@@ -379,19 +379,20 @@ class Direktt_Ajax {
 			exit;
 		}
 
-		// Default: 20 per batch
+		// Default: 20 per batch.
 		$batch_size = isset( $_POST['batch_size'] ) ? intval( $_POST['batch_size'] ) : 1;
 		$offset     = isset( $_POST['offset'] ) ? intval( $_POST['offset'] ) : 0;
 
-		// Fetch subscriptions list only once, cache in transient for this session
-		$transient_key = 'direktt_sync_subscriptions_' . get_current_user_id();
-		if ( $offset === 0 || false === ( $subscriptions_data = get_transient( $transient_key ) ) ) {
+		// Fetch subscriptions list only once, cache in transient for this session.
+		$transient_key      = 'direktt_sync_subscriptions_' . get_current_user_id();
+		$subscriptions_data = get_transient( $transient_key );
+		if ( 0 === $offset || false === $subscriptions_data ) {
 			$subscriptions_data = $this->get_remote_subscriptions_full();
 			if ( ! $subscriptions_data ) {
 				wp_send_json_error( 'Unable to fetch subscriptions data', 500 );
 				return;
 			}
-			// cache for 5 mins; enough for a sync session
+			// cache for 1 min; enough for a sync session.
 			set_transient( $transient_key, $subscriptions_data, 1 * MINUTE_IN_SECONDS );
 			$this->cleanup_unsubscribed_users( $subscriptions_data['subscriptions'] );
 		}
@@ -399,9 +400,9 @@ class Direktt_Ajax {
 		$all_subscriptions = isset( $subscriptions_data['subscriptions'] ) ? $subscriptions_data['subscriptions'] : array();
 		$total             = count( $all_subscriptions );
 
-		// Safety net
+		// Safety net.
 		if ( $offset >= $total ) {
-			// clean up transient
+			// clean up transient.
 			delete_transient( $transient_key );
 			wp_send_json_success(
 				array(
@@ -413,24 +414,24 @@ class Direktt_Ajax {
 			return;
 		}
 
-		// Slice out one batch
+		// Slice out one batch.
 		$batch = array_slice( $all_subscriptions, $offset, $batch_size );
 
 		foreach ( $batch as $subscription ) {
-			$subscriptionId         = $subscription['subscriptionId'] ?? null;
-			$displayName            = $subscription['displayName'] ?? null;
-			$avatarUrl              = $subscription['avatarUrl'] ?? null;
-			$adminSubscription      = $subscription['adminSubscription'] === 'true' ?? null;
-			$membershipId           = $subscription['membershipId'] ?? null;
-			$marketingConsentStatus = $subscription['marketingConsentStatus'] === 'true' ?? null;
+			$subscription_id          = $subscription['subscriptionId'] ?? null;
+			$display_name             = $subscription['displayName'] ?? null;
+			$avatar_url               = $subscription['avatarUrl'] ?? null;
+			$admin_subscription       = 'true' === $subscription['adminSubscription'] ?? null;
+			$membership_id            = $subscription['membershipId'] ?? null;
+			$marketing_consent_ctatus = 'true' === $subscription['marketingConsentStatus'] ?? null;
 
 			$this->direktt_api->subscribe_user(
-				$subscriptionId,
-				$displayName,
-				$avatarUrl,
-				$adminSubscription,
-				$membershipId,
-				$marketingConsentStatus,
+				$subscription_id,
+				$display_name,
+				$avatar_url,
+				$admin_subscription,
+				$membership_id,
+				$marketing_consent_ctatus,
 				true
 			);
 		}
@@ -467,7 +468,7 @@ class Direktt_Ajax {
 		$response = wp_remote_post(
 			$url,
 			array(
-				'body'    => json_encode( array() ),
+				'body'    => wp_json_encode( array() ),
 				'timeout' => 30,
 				'headers' => array(
 					'Authorization' => 'Bearer ' . $api_key,
@@ -495,7 +496,7 @@ class Direktt_Ajax {
 			}
 		}
 
-		// Clean up unsubscribed users
+		// Clean up unsubscribed users.
 		$args       = array(
 			'post_type'      => 'direkttusers',
 			'posts_per_page' => -1,
@@ -508,7 +509,7 @@ class Direktt_Ajax {
 			return;
 		}
 
-		// 3. Unsubscribe locals not found remotely
+		// 3. Unsubscribe locals not found remotely.
 		foreach ( $user_query->posts as $post_id ) {
 			$local_id = get_post_meta( $post_id, 'direktt_user_id', true );
 			if ( $local_id && ! isset( $remote_user_ids_lookup[ $local_id ] ) ) {
@@ -525,7 +526,7 @@ class Direktt_Ajax {
 		$args  = array(
 			'post_type'      => 'direkttusers',
 			'post_status'    => 'publish',
-			'posts_per_page' => 1, // Just need to check existence
+			'posts_per_page' => 1, // Just need to check existence.
 			'fields'         => 'ids',
 		);
 		$query = new WP_Query( $args );
@@ -533,11 +534,11 @@ class Direktt_Ajax {
 	}
 
 	private function get_subscription_ids_from_terms( $category_ids = array(), $tag_ids = array(), $empty_allowed = true, $marketing_consent = false ) {
-		// Ensure inputs are arrays
+		// Ensure inputs are arrays.
 		$category_ids = (array) $category_ids;
 		$tag_ids      = (array) $tag_ids;
 
-		// Build tax_query
+		// Build tax_query.
 		$tax_query = array( 'relation' => 'OR' );
 
 		if ( ! empty( $category_ids ) ) {
@@ -557,12 +558,12 @@ class Direktt_Ajax {
 
 		$meta_query = array(
 			'relation' => 'OR',
-			// Case 1: Key doesn't exist (so admin subscription isn't set)
+			// Case 1: Key doesn't exist (so admin subscription isn't set).
 			array(
 				'key'     => 'direktt_admin_subscription',
 				'compare' => 'NOT EXISTS',
 			),
-			// Case 2: Key exists, but is not true or 1
+			// Case 2: Key exists, but is not true or 1.
 			array(
 				'key'     => 'direktt_admin_subscription',
 				'value'   => array( '1', 'true' ),
@@ -570,11 +571,11 @@ class Direktt_Ajax {
 			),
 		);
 
-		// If marketing consent is required, add it to the meta_query
+		// If marketing consent is required, add it to the meta_query.
 		if ( $marketing_consent ) {
 			$meta_query = array(
 				'relation' => 'AND',
-				// Admin subscription rules (wrap previous OR in its own array)
+				// Admin subscription rules (wrap previous OR in its own array).
 				array(
 					'relation' => 'OR',
 					array(
@@ -587,7 +588,7 @@ class Direktt_Ajax {
 						'compare' => 'NOT IN',
 					),
 				),
-				// Must have marketing consent set to '1' (true)
+				// Must have marketing consent set to '1' (true).
 				array(
 					'key'     => 'direktt_marketing_consent_status',
 					'value'   => '1',
@@ -618,7 +619,7 @@ class Direktt_Ajax {
 		$query    = new WP_Query( $args );
 		$post_ids = $query->posts;
 
-		// Get subscriptionId meta values
+		// Get subscriptionId meta values.
 		$subscription_ids = array();
 		if ( ! empty( $post_ids ) ) {
 			foreach ( $post_ids as $post_id ) {
