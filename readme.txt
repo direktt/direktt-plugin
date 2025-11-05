@@ -36,8 +36,11 @@ Direktt is a mobile customer care platform tightly integrated with WordPress. Vi
 = Where do I get API credentials or integration details? =
 Login into the [Direktt management console](https://direktt.com/wp-content/direkttweb/), create the channel and copy your API Key on Channel Info Screen.
 
-= I am Getting Your site url in your WordPress' General Settings not set to use https protocol. =
+= I am Getting Your site url in your WordPress' General Settings not set to use https protocol error. How to resolve this? =
 Direktt integration requires that your site works under https protocol. If you are not sure what that means, contact your hosting company for the instructions on how to setup https on your site.
+
+= Where can I find the source code of front-end js components  =
+You can find the source code of all Direktt plugin components in our [GitHib repository](https://github.com/direktt/direktt-plugin)
 
 == Screenshots ==
 
