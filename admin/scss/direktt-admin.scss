@@ -155,6 +155,7 @@ body.post-type-direkttmtemplates {
 
 
 /* Message template editor */ 
+/* TODO, use @include here */
 
 body.post-type-direkttmtemplates {
 	--direktt-loader-primary-color: #2c3e50;
@@ -215,17 +216,17 @@ body.post-type-direkttmtemplates {
 
 
 	.ItemPreview {
-	  max-width: 500px;
-	  overflow: hidden;
-	  font-family: var(--direktt-body-font-family);
-	  font-size: var(--direktt-body-font-size-normal);
-	  color: var(--direktt-body-font-color);
-	  height: 100%;
-	  position: relative;
-	  padding: 0;
-	  margin: 0;
-	  display: block;
-
+		max-width: 500px;
+		flex-basis: 100%;
+		overflow: hidden;
+		font-family: var(--direktt-body-font-family);
+		font-size: var(--direktt-body-font-size-normal);
+		color: var(--direktt-body-font-color);
+		height: 100%;
+		position: relative;
+		padding: 0;
+		margin: 0;
+		display: block;
 	  .loader {
 		max-width: calc(var(--direktt-loader-width) / cos(45deg));
 		height: var(--direktt-loader-height);

@@ -114,6 +114,7 @@ body.post-type-direkttmtemplates .v-tab--selected .v-tab__slider {
 }
 
 /* Message template editor */
+/* TODO, use @include here */
 body.post-type-direkttmtemplates {
   --direktt-loader-primary-color: #2c3e50;
   --direktt-loader-secondary-color: #fff;
@@ -177,6 +178,7 @@ body.post-type-direkttmtemplates {
 }
 body.post-type-direkttmtemplates .ItemPreview {
   max-width: 500px;
+  flex-basis: 100%;
   overflow: hidden;
   font-family: var(--direktt-body-font-family);
   font-size: var(--direktt-body-font-size-normal);
