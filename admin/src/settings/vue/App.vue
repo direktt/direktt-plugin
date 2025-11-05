@@ -297,7 +297,7 @@ onMounted(() => {
 
           <td v-else>
             <div>
-              <v-icon color="error" icon="mdiAlertOutline" size="large" class='rm-4'></v-icon>
+              <v-icon color="error" :icon="mdiAlertOutline" size="large" class='rm-4'></v-icon>
               Not activated
               <br></br> <strong>Note: Your WordPress Instance has
                 not yet been activated.<br></br>Activate your
