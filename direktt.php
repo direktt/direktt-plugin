@@ -11,13 +11,11 @@
  * Plugin Name:       Direktt
  * Plugin URI:        https://direktt.com
  * Description:       Direktt Plugin implements the functionality of the Direktt mobile platform
- * Version:           1.0.0
+ * Version:           1.0
  * Author:            Direktt
- * Author URI:        https://direktt.com
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       direktt
- * Domain Path:       /languages
  */
 
 // If this file is called directly, abort.
