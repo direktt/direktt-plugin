@@ -20,6 +20,9 @@ const messages = ref([]);
 const activeMessageIndex = ref(0);
 
 let externalInputField = null
+let externalInputFieldHidden = null
+
+const firstUpdate = false
 
 let scrollPos = 0
 
@@ -243,7 +246,13 @@ const getFinalTemplate = computed(() => {
 })
 
 watch(getFinalTemplate, (newVal, oldVal) => {
-  if (externalInputField) externalInputField.value = newVal
+  if (externalInputField) {
+    externalInputField.value = newVal
+    if (!firstUpdate){
+       externalInputFieldHidden.value = newVal
+       firstUpdate = true;
+    }
+  }
 })
 
 function openMediaPicker(index) {
@@ -377,13 +386,12 @@ function openMediaPickerFile(index) {
 
 onMounted(() => {
   externalInputField = document.getElementById('direktt_mt_json')
+  externalInputFieldHidden = document.getElementById('direktt_mt_json_hidden')
 
-  if (externalInputField) messages.value = JSON.parse(externalInputField.value)
+  if (externalInputField) {
+    messages.value = JSON.parse(externalInputField.value)
+  }
 
-  //if (externalInputField) externalInputField.value = formatted.value
-
-  // Sync INCOMING change: Optionally, listen to manual changes of external field
-  //externalInputField?.addEventListener('input', handleExternalInput)
 })
 
 </script>

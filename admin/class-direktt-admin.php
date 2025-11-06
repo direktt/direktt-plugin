@@ -877,7 +877,7 @@ class Direktt_Admin {
 
 		echo '<p><label for="direktt_mt_type"><strong>' . esc_html__( 'Template JSON Content', 'direktt' ) . '</strong></label></p> ';
 		echo '<textarea style="width:100%" rows="15" name="direktt_mt_json" id="direktt_mt_json" readonly>' . esc_textarea( $value ) . '</textarea>';
-		echo '<input type="hidden" name="direktt_mt_json_hidden" id="direktt_mt_json_hidden" value="' . esc_attr( $value ) . '">';
+		echo '<textarea style="display:none;" rows="15" name="direktt_mt_json_hidden" id="direktt_mt_json_hidden">' . esc_textarea( $value ) . '</textarea>';
 
 		echo '<p><label for="direktt_mt_type"><strong>' . esc_html__( 'Send Message Template', 'direktt' ) . '</strong></label></p> ';
 
