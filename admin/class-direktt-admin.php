@@ -896,7 +896,7 @@ class Direktt_Admin {
 		}
 		if ( isset( $_POST['post_type'] ) && 'direkttmtemplates' === $_POST['post_type'] ) {
 			if ( isset( $_POST['direktt_mt_json'] ) ) {
-				$content = trim( wp_json_encode( sanitize_text_field( wp_unslash( $_POST['direktt_mt_json'] ) ) ), '"' );
+				$content = trim( wp_json_encode( sanitize_text_field( wp_unslash( $_POST['direktt_mt_json'] ) ), JSON_UNESCAPED_UNICODE ), '"' );
 				update_post_meta( $post_id, 'direkttMTJson', $content );
 			}
 		}
