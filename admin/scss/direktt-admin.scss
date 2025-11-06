@@ -30,22 +30,27 @@ body.direktt_page_direktt-settings {
 		display: flex;
 		align-items: center;
 		margin-bottom: 0.5em;
-		opacity: 0.5;
-
-		&:has(div:has(input)) {
-			opacity: 1;
+		.direktt-greet-times {
+			opacity: 1;	
 		}
-
-		&:has(input[type="checkbox"]:checked) {
-			opacity: 1;
-		}
+		&:has(input[type="checkbox"]:checked) .direktt-greet-times {
+			opacity: 0.5;
+		}		
 
 		.direktt-greet-day {
 			flex-basis: 100px;
 			font-weight: 600;
 		}
 	}
-
+	
+	.form-table {
+		tr:nth-of-type(2) {
+			opacity: 0.5;
+		}
+		&:has(select[name="direktt_auto_greet_mode"] option[value="non-working-hours"]:checked) tr:nth-of-type(2)  {
+			opacity: 1;
+		}		
+	}
 }
 
 /* In cutom post type */
@@ -60,10 +65,11 @@ body.direktt_page_direktt-settings {
 #appBuilder {
 	.v-card {
 		overflow: visible !important;
-		box-shadoe: none;
+		box-shadow: none;
 		.direktt-message-template-builder {
 			.v-row {
 				position: relative;
+				flex-wrap: nowrap; 
 			}
 			.v-col.v-col-6:nth-child(1) {
 			}
@@ -93,6 +99,19 @@ body.direktt_page_direktt-settings {
 	}	
 }
 
+#poststuff #direktt_review_program_meta_box {
+	.inside {
+		padding: 0;
+		.direktt-review-header {
+			padding: 6px 12px 0;
+		}
+		table {
+			border-left: none;
+			border-right: none;
+			border-bottom: none;
+		}
+	}
+}
 #poststuff #direktt_loyalty_program_meta_box {
 	h2 {
 		.direktt-loyalty-current-points {
@@ -242,7 +261,7 @@ body.post-type-direkttmtemplates {
 
 	  .itemContent {
 		flex: 0 1 480px;
-		padding: 0 var(--direktt-item-horizontal-margin);
+		/* padding: 0 var(--direktt-item-horizontal-margin); */
 		min-width: 450px;
 
 		.item {
@@ -337,6 +356,9 @@ body.post-type-direkttmtemplates {
 
 			.text {
 			  font-weight: 500;
+			  &:empty {
+				display: none;
+			  }
 			}
 
 			.buttons {

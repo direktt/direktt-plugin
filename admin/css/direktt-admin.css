@@ -23,17 +23,22 @@ body.direktt_page_direktt-settings .direktt-greet-days-row {
   display: flex;
   align-items: center;
   margin-bottom: 0.5em;
+}
+body.direktt_page_direktt-settings .direktt-greet-days-row .direktt-greet-times {
+  opacity: 1;
+}
+body.direktt_page_direktt-settings .direktt-greet-days-row:has(input[type=checkbox]:checked) .direktt-greet-times {
   opacity: 0.5;
-}
-body.direktt_page_direktt-settings .direktt-greet-days-row:has(div:has(input)) {
-  opacity: 1;
-}
-body.direktt_page_direktt-settings .direktt-greet-days-row:has(input[type=checkbox]:checked) {
-  opacity: 1;
 }
 body.direktt_page_direktt-settings .direktt-greet-days-row .direktt-greet-day {
   flex-basis: 100px;
   font-weight: 600;
+}
+body.direktt_page_direktt-settings .form-table tr:nth-of-type(2) {
+  opacity: 0.5;
+}
+body.direktt_page_direktt-settings .form-table:has(select[name=direktt_auto_greet_mode] option[value=non-working-hours]:checked) tr:nth-of-type(2) {
+  opacity: 1;
 }
 
 /* In cutom post type */
@@ -44,10 +49,11 @@ body.direktt_page_direktt-settings .direktt-greet-days-row .direktt-greet-day {
 
 #appBuilder .v-card {
   overflow: visible !important;
-  box-shadoe: none;
+  box-shadow: none;
 }
 #appBuilder .v-card .direktt-message-template-builder .v-row {
   position: relative;
+  flex-wrap: nowrap;
 }
 #appBuilder .v-card .direktt-message-template-builder .v-col.v-col-6:nth-child(2) .details-panel {
   position: sticky;
@@ -63,6 +69,18 @@ body.direktt_page_direktt-settings .direktt-greet-days-row .direktt-greet-day {
 }
 .direktt-review-meta-box table td:last-child {
   text-align: right;
+}
+
+#poststuff #direktt_review_program_meta_box .inside {
+  padding: 0;
+}
+#poststuff #direktt_review_program_meta_box .inside .direktt-review-header {
+  padding: 6px 12px 0;
+}
+#poststuff #direktt_review_program_meta_box .inside table {
+  border-left: none;
+  border-right: none;
+  border-bottom: none;
 }
 
 #poststuff #direktt_loyalty_program_meta_box h2 .direktt-loyalty-current-points {
@@ -199,7 +217,7 @@ body.post-type-direkttmtemplates .ItemPreview .loader {
 }
 body.post-type-direkttmtemplates .ItemPreview .itemContent {
   flex: 0 1 480px;
-  padding: 0 var(--direktt-item-horizontal-margin);
+  /* padding: 0 var(--direktt-item-horizontal-margin); */
   min-width: 450px;
 }
 body.post-type-direkttmtemplates .ItemPreview .itemContent .item {
@@ -273,6 +291,9 @@ body.post-type-direkttmtemplates .ItemPreview .itemContent .item .contentPieces 
 }
 body.post-type-direkttmtemplates .ItemPreview .itemContent .item .contentPieces .text {
   font-weight: 500;
+}
+body.post-type-direkttmtemplates .ItemPreview .itemContent .item .contentPieces .text:empty {
+  display: none;
 }
 body.post-type-direkttmtemplates .ItemPreview .itemContent .item .contentPieces .buttons {
   display: flex;
