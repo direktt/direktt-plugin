@@ -21,6 +21,8 @@ const activeMessageIndex = ref(0);
 
 let externalInputField = null
 
+let scrollPos = 0
+
 function addMessage(type) {
   const newMsg = { id: uuidv4(), type };
   if (type === "text") {
@@ -250,12 +252,16 @@ function openMediaPicker(index) {
     return
   }
 
+  scrollPos = window.scrollY;
+
   const frame = window.wp.media({
     title: 'Select or Upload Image',
     library: { type: 'image' },
     button: { text: 'Use this image' },
     multiple: false,
   })
+
+  // wp.media.frame.on('all', function(e) { console.log(e); });
 
   frame.on('select', () => {
     const attachment = frame.state().get('selection').first().toJSON()
@@ -267,16 +273,12 @@ function openMediaPicker(index) {
     messages.value[index].height = attachment.height || ''
     //height.value = attachment.height || ''
 
-    // Try well-known thumbnail sizes (you can adjust as needed)
-    /*if (attachment.sizes && attachment.sizes.medium) {
-      messages.value[index].thumbnail = attachment.sizes.medium.url
-      messages.value[index].width = attachment.sizes.medium.width
-      messages.value[index].height = attachment.sizes.medium.height
-      // thumbnailUrl.value = attachment.sizes.medium.url
-    } else {
-    messages.value[index].thumbnail = attachment.url
-      //thumbnailUrl.value = attachment.url
-    //}*/
+    window.scrollTo(0, scrollPos);
+
+  })
+
+  frame.on('close', () => {
+    window.scrollTo(0, scrollPos);
   })
 
   frame.open()
@@ -287,6 +289,8 @@ function openMediaPickerVideoThumb(index) {
     alert('WordPress media library is not available on this page.')
     return
   }
+
+  scrollPos = window.scrollY;
 
   const frame = window.wp.media({
     title: 'Select or Upload Image',
@@ -302,6 +306,12 @@ function openMediaPickerVideoThumb(index) {
     messages.value[index].width = attachment.width || ''
     messages.value[index].height = attachment.height || ''
 
+    window.scrollTo(0, scrollPos);
+
+  })
+
+  frame.on('close', () => {
+    window.scrollTo(0, scrollPos);
   })
 
   frame.open()
@@ -313,6 +323,8 @@ function openMediaPickerVideo(index) {
     return
   }
 
+  scrollPos = window.scrollY;
+
   const frame = window.wp.media({
     title: 'Select or Upload Video',
     library: { type: ['video'] },
@@ -323,6 +335,12 @@ function openMediaPickerVideo(index) {
   frame.on('select', () => {
     const attachment = frame.state().get('selection').first().toJSON()
     messages.value[index].media = attachment.url
+
+    window.scrollTo(0, scrollPos);
+  })
+
+  frame.on('close', () => {
+    window.scrollTo(0, scrollPos);
   })
 
   frame.open()
@@ -334,6 +352,8 @@ function openMediaPickerFile(index) {
     return
   }
 
+  scrollPos = window.scrollY;
+
   const frame = window.wp.media({
     title: 'Select or Upload File',
     library: { type: ['application/pdf', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'audio'] },
@@ -344,6 +364,12 @@ function openMediaPickerFile(index) {
   frame.on('select', () => {
     const attachment = frame.state().get('selection').first().toJSON()
     messages.value[index].media = attachment.url
+
+    window.scrollTo(0, scrollPos);
+  })
+
+  frame.on('close', () => {
+    window.scrollTo(0, scrollPos);
   })
 
   frame.open()
@@ -439,8 +465,8 @@ onMounted(() => {
                   </template>
                   <template v-else-if="activeMessage.type === 'video'">
                     <v-row class="pl-4 pb-4 pr-4" align="end">
-                      <div class="mr-4" style="flex-basis:75%"><strong>Video Url:</strong> <v-text-field v-model="activeMessage.media" 
-                        variant="outlined"></v-text-field></div>
+                      <div class="mr-4" style="flex-basis:75%"><strong>Video Url:</strong> <v-text-field
+                          v-model="activeMessage.media" variant="outlined"></v-text-field></div>
                       <v-btn variant="flat" color="info" class="text-none text-caption mb-0"
                         @click="openMediaPickerVideo(activeMessageIndex)">
                         {{ activeMessage.media ? 'Change Video' : 'Select Video' }}</v-btn>
