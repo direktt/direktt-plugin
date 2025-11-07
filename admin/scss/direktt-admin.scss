@@ -43,11 +43,30 @@ body.direktt_page_direktt-settings {
 		}
 	}
 	
-	.form-table {
-		tr:nth-of-type(2) {
+	.form-table.direktt-auto-greet-ooo-table {
+		tr#direktt-auto-greet-settings-mt-always-on-row,
+		tr#direktt-auto-greet-settings-wh-row,
+		tr#direktt-auto-greet-settings-mt-nwh-row {
 			opacity: 0.5;
 		}
-		&:has(select[name="direktt_auto_greet_mode"] option[value="non-working-hours"]:checked) tr:nth-of-type(2)  {
+		&:has(select[name="direktt_auto_greet_mode"] option[value="always"]:checked) tr#direktt-auto-greet-settings-mt-always-on-row  {
+			opacity: 1;
+		}	
+		&:has(select[name="direktt_auto_greet_mode"] option[value="non-working-hours"]:checked) tr#direktt-auto-greet-settings-wh-row,
+		&:has(select[name="direktt_auto_greet_mode"] option[value="non-working-hours"]:checked) tr#direktt-auto-greet-settings-mt-nwh-row  {
+			opacity: 1;
+		}		
+	}
+	
+	.form-table.direktt-auto-greet-welcome-table {
+		tr#direktt-auto-greet-settings-mt-admin-row,
+		tr#direktt-auto-greet-settings-mt-new-subscriber-row {
+			opacity: 0.5;
+		}
+		&:has(input[name="direktt_welcome_user"]:checked) tr#direktt-auto-greet-settings-mt-new-subscriber-row  {
+			opacity: 1;
+		}
+		&:has(input[name="direktt_welcome_admin"]:checked) tr#direktt-auto-greet-settings-mt-admin-row  {
 			opacity: 1;
 		}		
 	}
