@@ -49,10 +49,42 @@ body.direktt_page_direktt-settings .form-table.direktt-auto-greet-welcome-table 
 body.direktt_page_direktt-settings .form-table.direktt-auto-greet-welcome-table tr#direktt-auto-greet-settings-mt-new-subscriber-row {
   opacity: 0.5;
 }
+body.direktt_page_direktt-settings .form-table.direktt-auto-greet-welcome-table tr#direktt-auto-greet-settings-mt-admin-row th, body.direktt_page_direktt-settings .form-table.direktt-auto-greet-welcome-table tr#direktt-auto-greet-settings-mt-admin-row td,
+body.direktt_page_direktt-settings .form-table.direktt-auto-greet-welcome-table tr#direktt-auto-greet-settings-mt-new-subscriber-row th,
+body.direktt_page_direktt-settings .form-table.direktt-auto-greet-welcome-table tr#direktt-auto-greet-settings-mt-new-subscriber-row td {
+  padding-top: 0;
+}
 body.direktt_page_direktt-settings .form-table.direktt-auto-greet-welcome-table:has(input[name=direktt_welcome_user]:checked) tr#direktt-auto-greet-settings-mt-new-subscriber-row {
   opacity: 1;
 }
 body.direktt_page_direktt-settings .form-table.direktt-auto-greet-welcome-table:has(input[name=direktt_welcome_admin]:checked) tr#direktt-auto-greet-settings-mt-admin-row {
+  opacity: 1;
+}
+body.direktt_page_direktt-settings .form-table.direktt-customer-review-table tr#direktt-customer-review-settings-mt-admin-row {
+  opacity: 0.5;
+}
+body.direktt_page_direktt-settings .form-table.direktt-customer-review-table tr#direktt-customer-review-settings-mt-admin-row th, body.direktt_page_direktt-settings .form-table.direktt-customer-review-table tr#direktt-customer-review-settings-mt-admin-row td {
+  padding-top: 0;
+}
+body.direktt_page_direktt-settings .form-table.direktt-customer-review-table:has(input[name=direktt_review_send_to_admin]:checked) tr#direktt-customer-review-settings-mt-admin-row {
+  opacity: 1;
+}
+body.direktt_page_direktt-settings .form-table.direktt-loyalty-program-table tr#direktt-loyalty-program-settings-mt-user-change-row,
+body.direktt_page_direktt-settings .form-table.direktt-loyalty-program-table tr#direktt-loyalty-program-settings-mt-user-reset-row,
+body.direktt_page_direktt-settings .form-table.direktt-loyalty-program-table tr#direktt-loyalty-program-settings-mt-admin-change-row,
+body.direktt_page_direktt-settings .form-table.direktt-loyalty-program-table tr#direktt-loyalty-program-settings-mt-admin-reset-row {
+  opacity: 0.5;
+}
+body.direktt_page_direktt-settings .form-table.direktt-loyalty-program-table tr#direktt-loyalty-program-settings-mt-user-change-row th, body.direktt_page_direktt-settings .form-table.direktt-loyalty-program-table tr#direktt-loyalty-program-settings-mt-user-change-row td,
+body.direktt_page_direktt-settings .form-table.direktt-loyalty-program-table tr#direktt-loyalty-program-settings-mt-user-reset-row th,
+body.direktt_page_direktt-settings .form-table.direktt-loyalty-program-table tr#direktt-loyalty-program-settings-mt-user-reset-row td,
+body.direktt_page_direktt-settings .form-table.direktt-loyalty-program-table tr#direktt-loyalty-program-settings-mt-admin-change-row th,
+body.direktt_page_direktt-settings .form-table.direktt-loyalty-program-table tr#direktt-loyalty-program-settings-mt-admin-change-row td,
+body.direktt_page_direktt-settings .form-table.direktt-loyalty-program-table tr#direktt-loyalty-program-settings-mt-admin-reset-row th,
+body.direktt_page_direktt-settings .form-table.direktt-loyalty-program-table tr#direktt-loyalty-program-settings-mt-admin-reset-row td {
+  padding-top: 0;
+}
+body.direktt_page_direktt-settings .form-table.direktt-loyalty-program-table:has(input[name=direktt_loyalty_user]:checked) tr#direktt-loyalty-program-settings-mt-user-change-row, body.direktt_page_direktt-settings .form-table.direktt-loyalty-program-table:has(input[name=direktt_loyalty_user_reset]:checked) tr#direktt-loyalty-program-settings-mt-user-reset-row, body.direktt_page_direktt-settings .form-table.direktt-loyalty-program-table:has(input[name=direktt_loyalty_admin]:checked) tr#direktt-loyalty-program-settings-mt-admin-change-row, body.direktt_page_direktt-settings .form-table.direktt-loyalty-program-table:has(input[name=direktt_loyalty_admin_reset]:checked) tr#direktt-loyalty-program-settings-mt-admin-reset-row {
   opacity: 1;
 }
 
