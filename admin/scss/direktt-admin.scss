@@ -62,11 +62,48 @@ body.direktt_page_direktt-settings {
 		tr#direktt-auto-greet-settings-mt-admin-row,
 		tr#direktt-auto-greet-settings-mt-new-subscriber-row {
 			opacity: 0.5;
+			th, td { padding-top: 0; }
 		}
 		&:has(input[name="direktt_welcome_user"]:checked) tr#direktt-auto-greet-settings-mt-new-subscriber-row  {
 			opacity: 1;
 		}
 		&:has(input[name="direktt_welcome_admin"]:checked) tr#direktt-auto-greet-settings-mt-admin-row  {
+			opacity: 1;
+		}		
+	}
+	
+	.form-table.direktt-membership-table {
+		tr#direktt-membership-settings-mt-user-issuance-row,
+		tr#direktt-membership-settings-mt-admin-issuance-row,
+		tr#direktt-membership-settings-mt-user-activation-row,
+		tr#direktt-membership-settings-mt-admin-activation-row,
+		tr#direktt-membership-settings-mt-user-usage-row,
+		tr#direktt-membership-settings-mt-admin-usage-row {
+			opacity: 0.5;
+			th, td { padding-top: 0; }
+		}
+		&:has(input[name="direktt_membership_user_issuance"]:checked) tr#direktt-membership-settings-mt-user-issuance-row,
+		&:has(input[name="direktt_membership_admin_issuance"]:checked) tr#direktt-membership-settings-mt-admin-issuance-row,
+		&:has(input[name="direktt_membership_user_activation"]:checked) tr#direktt-membership-settings-mt-user-activation-row,
+		&:has(input[name="direktt_membership_admin_activation"]:checked) tr#direktt-membership-settings-mt-admin-activation-row,
+		&:has(input[name="direktt_membership_user_usage"]:checked) tr#direktt-membership-settings-mt-user-usage-row,
+		&:has(input[name="direktt_membership_admin_usage"]:checked) tr#direktt-membership-settings-mt-admin-usage-row  {
+			opacity: 1;
+		}		
+	}
+	
+	.form-table.direktt-loyalty-program-table {
+		tr#direktt-loyalty-program-settings-mt-user-change-row,
+		tr#direktt-loyalty-program-settings-mt-user-reset-row,
+		tr#direktt-loyalty-program-settings-mt-admin-change-row,
+		tr#direktt-loyalty-program-settings-mt-admin-reset-row {
+			opacity: 0.5;
+			th, td { padding-top: 0; }
+		}
+		&:has(input[name="direktt_loyalty_user"]:checked) tr#direktt-loyalty-program-settings-mt-user-change-row,
+		&:has(input[name="direktt_loyalty_user_reset"]:checked) tr#direktt-loyalty-program-settings-mt-user-reset-row,
+		&:has(input[name="direktt_loyalty_admin"]:checked) tr#direktt-loyalty-program-settings-mt-admin-change-row,
+		&:has(input[name="direktt_loyalty_admin_reset"]:checked) tr#direktt-loyalty-program-settings-mt-admin-reset-row  {
 			opacity: 1;
 		}		
 	}
@@ -86,9 +123,12 @@ body.direktt_page_direktt-settings {
 		overflow: visible !important;
 		box-shadow: none;
 		.direktt-message-template-builder {
-			.v-row {
+			.preview-item .v-row {
 				position: relative;
 				flex-wrap: nowrap; 
+				.v-ivon {
+					margin-right: 0 !important;
+				}
 			}
 			.v-col.v-col-6:nth-child(1) {
 			}
@@ -761,9 +801,13 @@ body.post-type-direkttmtemplates {
 	/* Template builder */
 	.direktt-message-template-builder {
 		.msg-list {
-			width: 80%;
-			.itemContent {
-				min-width: initial; 
+			width: 100%;
+			padding: 0 16px;
+			.ItemPreview {
+				max-width: 100%;
+				.itemContent {
+					min-width: initial; 
+				}
 			}
 		}
 		.v-slide-group,
