@@ -317,6 +317,10 @@ function openMediaPicker() {
   frame.open()
 }
 
+function createSubscribeQRCode(channelId) {
+  return("https://direktt.com/subscribe/" + channelId)
+}
+
 
 onMounted(() => {
   if (!window.wp) {
@@ -506,10 +510,10 @@ onMounted(() => {
           </tr>
 
           <tr>
-            <th scope="row"><label for="blogname">QR Code Preview</label></th>
+            <th scope="row"><label for="blogname">Subscription QR Code Preview</label></th>
             <td>
               <QRCodeStyling 
-                qr-code-data="https://direktt.com"
+                :qr-code-data="createSubscribeQRCode(data.direktt_channel_id)"
                 :qr-code-logo-url="qr_code_logo_url" 
                 :qr-code-color="qr_code_color" 
                 :qr-code-bckg-color="qr_code_bckg_color" 

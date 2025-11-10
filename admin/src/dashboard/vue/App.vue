@@ -57,7 +57,8 @@ function createSubscribeQRCode(channelId, channelTitle) {
       retVars: {}
     }
   }
-  return JSON.stringify(actionObject)
+  //return JSON.stringify(actionObject)
+  return("https://direktt.com/subscribe/" + channelId)
 }
 
 const openInNewTab = (url) => {
@@ -142,7 +143,9 @@ onMounted(() => {
                 :qr-code-data="createSubscribeQRCode(data.direktt_channel_id, data.direktt_channel_title)"
                 :qr-code-logo-url="refDashboardObject.qr_code_logo_url"
                 :qr-code-color="refDashboardObject.qr_code_color"
-                :qr-code-bckg-color="refDashboardObject.qr_code_bckg_color" />
+                :qr-code-bckg-color="refDashboardObject.qr_code_bckg_color"
+                qr-code-download=true 
+                />
             </div>
           </td>
         </tr>

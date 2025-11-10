@@ -3,6 +3,7 @@ import { useDirekttStore } from "./store.js";
 import { onMounted, computed, ref } from "vue";
 import { useQueryClient, useQuery, useMutation } from "@tanstack/vue-query";
 import { mdiAlertOutline, mdiCheckBold } from '@mdi/js'
+import QRCodeStyling from "../../qrcode/vue/QRCodeStyling.vue";
 
 const store = useDirekttStore();
 
@@ -13,6 +14,8 @@ const direktt_admin_subscription = ref("")
 const direktt_membership_id = ref("")
 const direktt_avatar_url = ref("")
 const items = ref([]);
+
+const refUserObject = ref(window.direktt_users_object);
 
 const page = ref(0)
 
@@ -144,11 +147,14 @@ onMounted(() => { });
           </td>
         </tr>
         <tr v-if="data.direktt_channel_title != '' && data.direktt_channel_id != ''">
-          <th scope="row"><label for="blogname">QR Code for subscription:</label></th>
+          <th scope="row"><label for="blogname">User Chat QR Code</label></th>
           <td>
             <div>
-              <vue-qrcode :value="createChatQRCode( direktt_user_id )"
-                :options="{ width: 300 }"></vue-qrcode>
+              <QRCodeStyling v-if="refUserObject"
+                :qr-code-data="createChatQRCode( direktt_user_id )"
+                :qr-code-logo-url="refUserObject.qr_code_logo_url"
+                :qr-code-color="refUserObject.qr_code_color"
+                :qr-code-bckg-color="refUserObject.qr_code_bckg_color" />
             </div>
           </td>
         </tr>

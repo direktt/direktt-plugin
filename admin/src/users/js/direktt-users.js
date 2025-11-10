@@ -1,7 +1,6 @@
 import { createApp } from 'vue'
 import App from '../vue/App.vue'
 import { createPinia } from 'pinia'
-import VueQrcode from '@chenfengyuan/vue-qrcode';
 
 import { VueQueryPlugin } from '@tanstack/vue-query'
 
@@ -32,7 +31,6 @@ const vuetify = createVuetify({
 
 vueapp.use(pinia)
 vueapp.use(vuetify)
-vueapp.component(VueQrcode.name, VueQrcode);
 vueapp.use(VueQueryPlugin)
 
 vueapp.mount("#direktt-meta-app")

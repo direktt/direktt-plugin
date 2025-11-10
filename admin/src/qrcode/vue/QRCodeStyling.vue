@@ -13,7 +13,7 @@ import QRCodeStyling, {
 
 import tinycolor from "tinycolor2";
 
-const props = defineProps(["qrCodeData", "qrCodeLogoUrl", "qrCodeColor", "qrCodeBckgColor"]);
+const props = defineProps(["qrCodeData", "qrCodeLogoUrl", "qrCodeColor", "qrCodeBckgColor", "qrCodeDownload"]);
 
 const qrCodeRef = ref(null);
 
@@ -126,7 +126,7 @@ function shiftColors(baseColor) {
 <template>
     <div class="hello">
         <div id="qr-code-view" ref="qrCodeRef"></div>
-        <div id="qr-code-download">
+        <div v-if="props.qrCodeDownload" id="qr-code-download">
             <select v-model="extension">
                 <option value="svg">SVG</option>
                 <option value="png">PNG</option>

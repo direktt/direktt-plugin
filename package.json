@@ -31,7 +31,6 @@
     }
   },
   "dependencies": {
-    "@chenfengyuan/vue-qrcode": "^2.0.0",
     "@tanstack/vue-query": "^5.40.1",
     "lodash.debounce": "^4.0.8",
     "pinia": "^2.1.7",
