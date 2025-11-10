@@ -60,13 +60,28 @@ body.direktt_page_direktt-settings .form-table.direktt-auto-greet-welcome-table:
 body.direktt_page_direktt-settings .form-table.direktt-auto-greet-welcome-table:has(input[name=direktt_welcome_admin]:checked) tr#direktt-auto-greet-settings-mt-admin-row {
   opacity: 1;
 }
-body.direktt_page_direktt-settings .form-table.direktt-customer-review-table tr#direktt-customer-review-settings-mt-admin-row {
+body.direktt_page_direktt-settings .form-table.direktt-membership-table tr#direktt-membership-settings-mt-user-issuance-row,
+body.direktt_page_direktt-settings .form-table.direktt-membership-table tr#direktt-membership-settings-mt-admin-issuance-row,
+body.direktt_page_direktt-settings .form-table.direktt-membership-table tr#direktt-membership-settings-mt-user-activation-row,
+body.direktt_page_direktt-settings .form-table.direktt-membership-table tr#direktt-membership-settings-mt-admin-activation-row,
+body.direktt_page_direktt-settings .form-table.direktt-membership-table tr#direktt-membership-settings-mt-user-usage-row,
+body.direktt_page_direktt-settings .form-table.direktt-membership-table tr#direktt-membership-settings-mt-admin-usage-row {
   opacity: 0.5;
 }
-body.direktt_page_direktt-settings .form-table.direktt-customer-review-table tr#direktt-customer-review-settings-mt-admin-row th, body.direktt_page_direktt-settings .form-table.direktt-customer-review-table tr#direktt-customer-review-settings-mt-admin-row td {
+body.direktt_page_direktt-settings .form-table.direktt-membership-table tr#direktt-membership-settings-mt-user-issuance-row th, body.direktt_page_direktt-settings .form-table.direktt-membership-table tr#direktt-membership-settings-mt-user-issuance-row td,
+body.direktt_page_direktt-settings .form-table.direktt-membership-table tr#direktt-membership-settings-mt-admin-issuance-row th,
+body.direktt_page_direktt-settings .form-table.direktt-membership-table tr#direktt-membership-settings-mt-admin-issuance-row td,
+body.direktt_page_direktt-settings .form-table.direktt-membership-table tr#direktt-membership-settings-mt-user-activation-row th,
+body.direktt_page_direktt-settings .form-table.direktt-membership-table tr#direktt-membership-settings-mt-user-activation-row td,
+body.direktt_page_direktt-settings .form-table.direktt-membership-table tr#direktt-membership-settings-mt-admin-activation-row th,
+body.direktt_page_direktt-settings .form-table.direktt-membership-table tr#direktt-membership-settings-mt-admin-activation-row td,
+body.direktt_page_direktt-settings .form-table.direktt-membership-table tr#direktt-membership-settings-mt-user-usage-row th,
+body.direktt_page_direktt-settings .form-table.direktt-membership-table tr#direktt-membership-settings-mt-user-usage-row td,
+body.direktt_page_direktt-settings .form-table.direktt-membership-table tr#direktt-membership-settings-mt-admin-usage-row th,
+body.direktt_page_direktt-settings .form-table.direktt-membership-table tr#direktt-membership-settings-mt-admin-usage-row td {
   padding-top: 0;
 }
-body.direktt_page_direktt-settings .form-table.direktt-customer-review-table:has(input[name=direktt_review_send_to_admin]:checked) tr#direktt-customer-review-settings-mt-admin-row {
+body.direktt_page_direktt-settings .form-table.direktt-membership-table:has(input[name=direktt_membership_user_issuance]:checked) tr#direktt-membership-settings-mt-user-issuance-row, body.direktt_page_direktt-settings .form-table.direktt-membership-table:has(input[name=direktt_membership_admin_issuance]:checked) tr#direktt-membership-settings-mt-admin-issuance-row, body.direktt_page_direktt-settings .form-table.direktt-membership-table:has(input[name=direktt_membership_user_activation]:checked) tr#direktt-membership-settings-mt-user-activation-row, body.direktt_page_direktt-settings .form-table.direktt-membership-table:has(input[name=direktt_membership_admin_activation]:checked) tr#direktt-membership-settings-mt-admin-activation-row, body.direktt_page_direktt-settings .form-table.direktt-membership-table:has(input[name=direktt_membership_user_usage]:checked) tr#direktt-membership-settings-mt-user-usage-row, body.direktt_page_direktt-settings .form-table.direktt-membership-table:has(input[name=direktt_membership_admin_usage]:checked) tr#direktt-membership-settings-mt-admin-usage-row {
   opacity: 1;
 }
 body.direktt_page_direktt-settings .form-table.direktt-loyalty-program-table tr#direktt-loyalty-program-settings-mt-user-change-row,
@@ -98,9 +113,12 @@ body.direktt_page_direktt-settings .form-table.direktt-loyalty-program-table:has
   overflow: visible !important;
   box-shadow: none;
 }
-#appBuilder .v-card .direktt-message-template-builder .v-row {
+#appBuilder .v-card .direktt-message-template-builder .preview-item .v-row {
   position: relative;
   flex-wrap: nowrap;
+}
+#appBuilder .v-card .direktt-message-template-builder .preview-item .v-row .v-ivon {
+  margin-right: 0 !important;
 }
 #appBuilder .v-card .direktt-message-template-builder .v-col.v-col-6:nth-child(2) .details-panel {
   position: sticky;
@@ -648,9 +666,13 @@ body.post-type-direkttmtemplates .v-radio-group .v-input__details {
   display: none;
 }
 body.post-type-direkttmtemplates .direktt-message-template-builder .msg-list {
-  width: 80%;
+  width: 100%;
+  padding: 0 16px;
 }
-body.post-type-direkttmtemplates .direktt-message-template-builder .msg-list .itemContent {
+body.post-type-direkttmtemplates .direktt-message-template-builder .msg-list .ItemPreview {
+  max-width: 100%;
+}
+body.post-type-direkttmtemplates .direktt-message-template-builder .msg-list .ItemPreview .itemContent {
   min-width: initial;
 }
 body.post-type-direkttmtemplates .direktt-message-template-builder .v-slide-group,
