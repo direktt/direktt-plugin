@@ -5,6 +5,8 @@ import { onMounted, computed, ref, watch, nextTick } from 'vue'
 import { useQueryClient, useQuery, useMutation } from '@tanstack/vue-query'
 import { mdiAlertOutline, mdiCheckBold } from '@mdi/js'
 
+import QRCodeStyling from "../../qrcode/vue/QRCodeStyling.vue";
+
 const queryClient = useQueryClient()
 
 const store = useDirekttStore()
@@ -253,6 +255,7 @@ watch(data, async (val) => {
               defaultColor: qr_code_color.value,
               change(event, ui) {
                 qr_code_color.value = ui.color.toString();
+                console.log('Change 1');
               },
               clear() {
                 qr_code_color.value = '';
@@ -499,6 +502,18 @@ onMounted(() => {
               <input type="text" ref="qr_code_bckg_color_control" id="qr_code_bckg_color" name="qr_code_bckg_color"
                 v-model="qr_code_bckg_color" />
               <p class="description">Optional Color of the QR Code Background.</p>
+            </td>
+          </tr>
+
+          <tr>
+            <th scope="row"><label for="blogname">QR Code Preview</label></th>
+            <td>
+              <QRCodeStyling 
+                qr-code-data="https://direktt.com"
+                :qr-code-logo-url="qr_code_logo_url" 
+                :qr-code-color="qr_code_color" 
+                :qr-code-bckg-color="qr_code_bckg_color" 
+              />
             </td>
           </tr>
         </tbody>

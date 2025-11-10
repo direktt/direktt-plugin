@@ -4,12 +4,11 @@ import { useDirekttStore } from './store.js'
 import { onMounted, computed, ref, watch } from 'vue'
 import { useQueryClient, useQuery, useMutation } from '@tanstack/vue-query'
 import { mdiAlertOutline, mdiCheckBold } from '@mdi/js'
+import QRCodeStyling from "../../qrcode/vue/QRCodeStyling.vue";
 
 const queryClient = useQueryClient()
 
 const store = useDirekttStore()
-
-const nonce = ref(direktt_dashboard_object.nonce)
 
 const activation_status = ref(null)
 const channel_data = ref(null)
@@ -18,6 +17,8 @@ const { isLoading, isError, isFetching, data, error, refetch } = useQuery({
   queryKey: ['direktt-dashboard'],
   queryFn: getDashboard
 })
+
+const refDashboardObject = ref(window.direktt_dashboard_object);
 
 async function doAjax(args) {
   let result;
@@ -91,7 +92,6 @@ watch(data, async (val) => {
 })
 
 onMounted(() => {
-
 })
 
 </script>
@@ -110,7 +110,7 @@ onMounted(() => {
           <td>
             <div>
               <v-icon color="error" :icon="mdiAlertOutline" size="large" class='rm-4'></v-icon>
-              Your site url in your WordPress' General Settings not set to use https protocol. 
+              Your site url in your WordPress' General Settings not set to use https protocol.
               <br></br><strong>Direktt requires that your site is served via secured https connection</strong>
             </div>
           </td>
@@ -120,7 +120,7 @@ onMounted(() => {
           <th scope=" row"><label for="blogname">Channel title:</label></th>
           <td>
             <div>
-              {{ channel_data?.title? channel_data.title: data.direktt_channel_title }}
+              {{ channel_data?.title ? channel_data.title : data.direktt_channel_title }}
             </div>
           </td>
         </tr>
@@ -129,7 +129,7 @@ onMounted(() => {
           <th scope="row"><label for="blogname">Channel Id:</label></th>
           <td>
             <div>
-              {{ channel_data?.id? channel_data.id : data.direktt_channel_id }}
+              {{ channel_data?.id ? channel_data.id : data.direktt_channel_id }}
             </div>
           </td>
         </tr>
@@ -138,8 +138,11 @@ onMounted(() => {
           <th scope="row"><label for="blogname">QR Code for subscription:</label></th>
           <td>
             <div>
-              <vue-qrcode :value="createSubscribeQRCode(data.direktt_channel_id, data.direktt_channel_title)"
-                :options="{ width: 300 }"></vue-qrcode>
+              <QRCodeStyling v-if="refDashboardObject"
+                :qr-code-data="createSubscribeQRCode(data.direktt_channel_id, data.direktt_channel_title)"
+                :qr-code-logo-url="refDashboardObject.qr_code_logo_url"
+                :qr-code-color="refDashboardObject.qr_code_color"
+                :qr-code-bckg-color="refDashboardObject.qr_code_bckg_color" />
             </div>
           </td>
         </tr>
@@ -154,7 +157,8 @@ onMounted(() => {
             <div v-if="activation_status === false">
               <v-icon color="error" :icon="mdiAlertOutline" size="large" class='rm-4'></v-icon>
               Not activated
-              <br></br> <strong>Note: Your WordPress Instance is not activated.<br></br>You should activate your WordPress instance
+              <br></br> <strong>Note: Your WordPress Instance is not activated.<br></br>You should activate your
+                WordPress instance
                 on the Settings Panel.</strong>
             </div>
             <div v-if="activation_status === true">

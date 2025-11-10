@@ -12044,7 +12044,7 @@ button, select {
   text-transform: none;
 }
 
-button, [type="button"], [type="reset"], [type="submit"], [role="button"] {
+button, [role="button"], [type="button"], [type="reset"], [type="submit"] {
   cursor: pointer;
   color: inherit;
 }

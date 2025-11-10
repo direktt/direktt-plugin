@@ -289,8 +289,11 @@ class Direktt_Admin {
 				$this->plugin_name . '-settings',
 				$this->plugin_name . '_settings_object',
 				array(
-					'ajaxurl' => admin_url( 'admin-ajax.php' ),
-					'nonce'   => $nonce,
+					'ajaxurl' 				=> admin_url( 'admin-ajax.php' ),
+					'nonce'   				=> $nonce,
+					'qr_code_logo_url' 		=> get_option( 'direktt_qr_code_logo_url' ),
+					'qr_code_color' 		=> get_option( 'direktt_qr_code_color' ),
+					'qr_code_bckg_color' 	=> get_option( 'direktt_qr_code_bckg_color' ),
 				)
 			);
 
@@ -327,8 +330,11 @@ class Direktt_Admin {
 				$this->plugin_name . '-dashboard',
 				$this->plugin_name . '_dashboard_object',
 				array(
-					'ajaxurl' => admin_url( 'admin-ajax.php' ),
-					'nonce'   => $nonce,
+					'ajaxurl' 				=> admin_url( 'admin-ajax.php' ),
+					'nonce'   				=> $nonce,
+					'qr_code_logo_url' 		=> get_option( 'direktt_qr_code_logo_url' ),
+					'qr_code_color' 		=> get_option( 'direktt_qr_code_color' ),
+					'qr_code_bckg_color' 	=> get_option( 'direktt_qr_code_bckg_color' ),
 				)
 			);
 		}
@@ -364,9 +370,12 @@ class Direktt_Admin {
 					$this->plugin_name . '-users',
 					$this->plugin_name . '_users_object',
 					array(
-						'ajaxurl' => admin_url( 'admin-ajax.php' ),
-						'postId'  => $post->ID,
-						'nonce'   => $nonce,
+						'ajaxurl' 				=> admin_url( 'admin-ajax.php' ),
+						'postId'  				=> $post->ID,
+						'nonce'   				=> $nonce,
+						'qr_code_logo_url' 		=> get_option( 'direktt_qr_code_logo_url' ),
+						'qr_code_color' 		=> get_option( 'direktt_qr_code_color' ),
+						'qr_code_bckg_color' 	=> get_option( 'direktt_qr_code_bckg_color' ),
 					)
 				);
 			}
@@ -402,8 +411,11 @@ class Direktt_Admin {
 					$this->plugin_name . '-mtemplates',
 					$this->plugin_name . '_mtemplates_object',
 					array(
-						'ajaxurl' => admin_url( 'admin-ajax.php' ),
-						'postId'  => $post->ID,
+						'ajaxurl' 				=> admin_url( 'admin-ajax.php' ),
+						'postId'  				=> $post->ID,
+						'qr_code_logo_url' 		=> get_option( 'direktt_qr_code_logo_url' ),
+						'qr_code_color' 		=> get_option( 'direktt_qr_code_color' ),
+						'qr_code_bckg_color' 	=> get_option( 'direktt_qr_code_bckg_color' ),
 					)
 				);
 
