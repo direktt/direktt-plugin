@@ -101,6 +101,11 @@ class Direktt_Ajax {
 
 			'pairing_prefix'        => get_option( 'direktt_pairing_prefix' ) ? esc_attr( get_option( 'direktt_pairing_prefix' ) ) : '',
 			'pairing_succ_template' => get_option( 'direktt_pairing_succ_template' ) ? esc_attr( get_option( 'direktt_pairing_succ_template' ) ) : '',
+
+			'qr_code_logo_url' 		=> get_option( 'direktt_qr_code_logo_url' ) ? esc_attr( get_option( 'direktt_qr_code_logo_url' ) ) : '',
+			'qr_code_color' 		=> get_option( 'direktt_qr_code_color' ) ? esc_attr( get_option( 'direktt_qr_code_color' ) ) : '',
+			'qr_code_bckg_color' 	=> get_option( 'direktt_qr_code_bckg_color' ) ? esc_attr( get_option( 'direktt_qr_code_bckg_color' ) ) : '',
+
 			'templates'             => $templates,
 		);
 
@@ -295,6 +300,12 @@ class Direktt_Ajax {
 
 		$reset_pairings = ( isset( $_POST['reset_pairings'] ) ) ? sanitize_text_field( wp_unslash( $_POST['reset_pairings'] ) ) : false;
 
+		$qr_code_logo_url = ( isset( $_POST['qr_code_logo_url'] ) ) ? sanitize_text_field( wp_unslash( $_POST['qr_code_logo_url'] ) ) : false;
+
+		$qr_code_color = ( isset( $_POST['qr_code_color'] ) ) ? sanitize_text_field( wp_unslash( $_POST['qr_code_color'] ) ) : false;
+
+		$qr_code_bckg_color = ( isset( $_POST['qr_code_bckg_color'] ) ) ? sanitize_text_field( wp_unslash( $_POST['qr_code_bckg_color'] ) ) : false;
+
 		if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), $this->plugin_name . '-settings' ) ) {
 
 			wp_send_json_error( new WP_Error( 'Unauthorized', 'Nonce is not valid' ), 401 );
@@ -361,6 +372,24 @@ class Direktt_Ajax {
 
 			if ( 'true' === $reset_pairings && $reset_pairings ) {
 				$this->delete_user_meta_for_all_users( 'direktt_user_pair_code' );
+			}
+
+			if ( $qr_code_logo_url ) {
+				update_option( 'direktt_qr_code_logo_url', $qr_code_logo_url );
+			} else {
+				delete_option( 'direktt_qr_code_logo_url' );
+			}
+
+			if ( $qr_code_color ) {
+				update_option( 'direktt_qr_code_color', $qr_code_color );
+			} else {
+				delete_option( 'direktt_qr_code_color' );
+			}
+
+			if ( $qr_code_bckg_color ) {
+				update_option( 'direktt_qr_code_bckg_color', $qr_code_bckg_color );
+			} else {
+				delete_option( 'direktt_qr_code_bckg_color' );
 			}
 		}
 

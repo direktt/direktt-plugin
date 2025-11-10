@@ -1,7 +1,7 @@
 <script setup>
 
 import { useDirekttStore } from './store.js'
-import { onMounted, computed, ref, watch } from 'vue'
+import { onMounted, computed, ref, watch, nextTick } from 'vue'
 import { useQueryClient, useQuery, useMutation } from '@tanstack/vue-query'
 import { mdiAlertOutline, mdiCheckBold } from '@mdi/js'
 
@@ -18,6 +18,13 @@ const sync_loading = ref(false)
 
 const api_key = ref('')
 const redirect_url = ref('')
+
+const qr_code_logo_url = ref('')
+const qr_code_color = ref('')
+const qr_code_bckg_color = ref('')
+const qr_code_color_control = ref(null)
+const qr_code_bckg_color_control = ref(null)
+
 const pairing_prefix = ref('')
 const pairing_succ_template = ref('')
 const save_loading = ref(false)
@@ -38,6 +45,8 @@ const sync_total = ref(1);
 const sync_current = ref(0);
 const sync_bar_visible = ref(false);
 const sync_message = ref('');
+
+let scrollPos = 0
 
 
 const { isLoading, isError, isFetching, data, error, refetch } = useQuery({
@@ -94,6 +103,9 @@ async function getSettings() {
   api_key.value = response.data.api_key
   redirect_url.value = response.data.redirect_url
   pairing_prefix.value = response.data.pairing_prefix
+  qr_code_logo_url.value = response.data.qr_code_logo_url
+  qr_code_color.value = response.data.qr_code_color
+  qr_code_bckg_color.value = response.data.qr_code_bckg_color
   pairing_succ_template.value = response.data.pairing_succ_template
   templates.value = response.data.templates
 
@@ -112,6 +124,9 @@ function clickSaveSettings() {
     api_key: api_key.value,
     redirect_url: redirect_url.value,
     pairing_prefix: pairing_prefix.value,
+    qr_code_logo_url: qr_code_logo_url.value,
+    qr_code_color: qr_code_color.value,
+    qr_code_bckg_color: qr_code_bckg_color.value,
     reset_pairings: reset_pairings.value
   }
 
@@ -209,6 +224,19 @@ async function getActivationData(channelId) {
   return response.data; // adjust if response structure is different
 }
 
+watch(qr_code_color, (newColor) => {
+  if (qr_code_color_control.value) {
+    jQuery(qr_code_color_control.value).wpColorPicker('color', newColor);
+  }
+});
+
+watch(qr_code_bckg_color, (newColor) => {
+  if (qr_code_bckg_color_control.value) {
+    jQuery(qr_code_bckg_color_control.value).wpColorPicker('color', newColor);
+  }
+});
+
+
 watch(data, async (val) => {
   if (val && val.direktt_channel_id) {
     // Optionally, you could set a "loading" state for activation
@@ -218,17 +246,80 @@ watch(data, async (val) => {
       if (activationData && activationData.hasOwnProperty("activatedAt") && activationData.hasOwnProperty("domain") && activationData.domain !== "") {
         activation_status.value = true
         channel_data.value = activationData
+
+        nextTick(() => {
+          jQuery(qr_code_color_control.value).wpColorPicker(
+            {
+              defaultColor: qr_code_color.value,
+              change(event, ui) {
+                qr_code_color.value = ui.color.toString();
+              },
+              clear() {
+                qr_code_color.value = '';
+              }
+            },
+          );
+
+          jQuery(qr_code_bckg_color_control.value).wpColorPicker(
+            {
+              defaultColor: qr_code_bckg_color.value,
+              change(event, ui) {
+                qr_code_bckg_color.value = ui.color.toString();
+              },
+              clear() {
+                qr_code_bckg_color.value = '';
+              }
+            },
+          );
+        });
+
       } else {
         activation_status.value = false
       }
     } catch (e) {
       activation_status.value = null // or null/error if you want
     }
+
   }
 })
 
+function openMediaPicker() {
+  if (!window.wp || !window.wp.media) {
+    alert('WordPress media library is not available on this page.')
+    return
+  }
+
+  scrollPos = window.scrollY;
+
+  const frame = window.wp.media({
+    title: 'Select or Upload Image',
+    library: { type: 'image' },
+    button: { text: 'Use this image' },
+    multiple: false,
+  })
+
+  frame.on('select', () => {
+    const attachment = frame.state().get('selection').first().toJSON()
+
+    qr_code_logo_url.value = attachment.url
+
+    window.scrollTo(0, scrollPos);
+
+  })
+
+  frame.on('close', () => {
+    window.scrollTo(0, scrollPos);
+  })
+
+  frame.open()
+}
+
 
 onMounted(() => {
+  if (!window.wp) {
+    alert('WordPress library is not available on this page.')
+    return
+  }
 })
 
 </script>
@@ -370,6 +461,50 @@ onMounted(() => {
         </tbody>
       </table>
     </template>
+
+    <template v-if="data && data.direktt_channel_title != '' && data.direktt_channel_id != '' && activation_status">
+      <p></p>
+      <v-divider class="border-opacity-100"></v-divider>
+      <p></p>
+      <table class="form-table" role="presentation">
+
+        <tbody v-if="data">
+          <tr>
+            <th scope="row"><label for="direktt_membership_qr_code_image">
+                QR Code Logo
+              </label></th>
+            <td>
+              <p v-if="qr_code_logo_url"><img :src="qr_code_logo_url" style="height:150px;" class="mb-4"></p>
+              <input type="text" id="qr_code_logo_url" name="qr_code_logo_url" v-model="qr_code_logo_url" />
+              <input type="button" id="qr_code_logo_url_button" class="button" value="Choose Image"
+                @click.prevent="openMediaPicker()" />
+              <p class="description">
+                Optional Logo/Image to Display at Center of QR Code
+              </p>
+            </td>
+          </tr>
+
+          <tr>
+            <th scope="row"><label for="qr_code_color">QR Code Color</label></th>
+            <td>
+              <input type="text" ref="qr_code_color_control" id="qr_code_color" name="qr_code_color"
+                v-model="qr_code_color" />
+              <p class="description">Optional Color of Dots in the QR Code</p>
+            </td>
+          </tr>
+
+          <tr>
+            <th scope="row"><label for="qr_code_bckg_color">QR Code Background Color</label></th>
+            <td>
+              <input type="text" ref="qr_code_bckg_color_control" id="qr_code_bckg_color" name="qr_code_bckg_color"
+                v-model="qr_code_bckg_color" />
+              <p class="description">Optional Color of the QR Code Background.</p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </template>
+
     <template v-if="data && data.direktt_channel_title != '' && data.direktt_channel_id != '' && activation_status">
 
       <p></p>

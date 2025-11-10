@@ -22,7 +22,7 @@ const activeMessageIndex = ref(0);
 let externalInputField = null
 let externalInputFieldHidden = null
 
-const firstUpdate = false
+let firstUpdate = false
 
 let scrollPos = 0
 
