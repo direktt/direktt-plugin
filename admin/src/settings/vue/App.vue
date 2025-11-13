@@ -333,7 +333,7 @@ onMounted(() => {
 
 <template>
 
-  <v-card class="pa-4 mr-4" variant="text">
+  <div class="wrap">
 
     <table class="form-table" role="presentation">
 
@@ -576,8 +576,7 @@ onMounted(() => {
         </v-btn>
       </template>
     </v-snackbar>
-
-  </v-card>
+  </div>
 </template>
 
 <style></style>

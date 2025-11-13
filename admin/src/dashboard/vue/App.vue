@@ -3,7 +3,7 @@
 import { useDirekttStore } from './store.js'
 import { onMounted, computed, ref, watch } from 'vue'
 import { useQueryClient, useQuery, useMutation } from '@tanstack/vue-query'
-import { mdiAlertOutline, mdiCheckBold } from '@mdi/js'
+import { mdiAlertOutline, mdiCheckBold, mdiContentCopy } from '@mdi/js'
 import QRCodeStyling from "../../qrcode/vue/QRCodeStyling.vue";
 
 const queryClient = useQueryClient()
@@ -12,6 +12,8 @@ const store = useDirekttStore()
 
 const activation_status = ref(null)
 const channel_data = ref(null)
+
+const keyCopied = ref(false);
 
 const { isLoading, isError, isFetching, data, error, refetch } = useQuery({
   queryKey: ['direktt-dashboard'],
@@ -58,7 +60,7 @@ function createSubscribeQRCode(channelId, channelTitle) {
     }
   }
   //return JSON.stringify(actionObject)
-  return("https://direktt.com/subscribe/" + channelId)
+  return ("https://direktt.com/subscribe/" + channelId)
 }
 
 const openInNewTab = (url) => {
@@ -73,6 +75,42 @@ async function getActivationData(channelId) {
   });
   return response.data; // adjust if response structure is different
 }
+
+async function copyToClipboard(text) {
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    return navigator.clipboard.writeText(text);
+  } else {
+    // Fallback for older browsers
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.style.position = 'fixed';  // Prevent scrolling to bottom
+    document.body.appendChild(textarea);
+    textarea.focus();
+    textarea.select();
+    try {
+      // @ts-ignore: execCommand is deprecated, but used as fallback
+      document.execCommand('copy');
+      return Promise.resolve();
+    } catch (err) {
+      return Promise.reject(err);
+    } finally {
+      document.body.removeChild(textarea);
+    }
+  }
+}
+
+const copyKey = async (APIKey) => {
+  try {
+    await copyToClipboard(APIKey)
+    //await navigator.clipboard.writeText(APIKey);
+    keyCopied.value = true;
+    setTimeout(() => {
+      keyCopied.value = false;
+    }, 2000);
+  } catch (e) {
+    console.error("Copy failed", e);
+  }
+};
 
 watch(data, async (val) => {
   if (val && val.direktt_channel_id) {
@@ -100,7 +138,7 @@ onMounted(() => {
 <template>
   <h1>Direktt Dashboard</h1>
 
-  <v-card class="pa-4 mr-4" variant="text">
+  <div class="wrap">
 
     <table class="widefat striped" role="presentation">
 
@@ -143,9 +181,19 @@ onMounted(() => {
                 :qr-code-data="createSubscribeQRCode(data.direktt_channel_id, data.direktt_channel_title)"
                 :qr-code-logo-url="refDashboardObject.qr_code_logo_url"
                 :qr-code-color="refDashboardObject.qr_code_color"
-                :qr-code-bckg-color="refDashboardObject.qr_code_bckg_color"
-                qr-code-download=true 
-                />
+                :qr-code-bckg-color="refDashboardObject.qr_code_bckg_color" qr-code-download=true />
+            </div>
+          </td>
+        </tr>
+
+        <tr v-if="data.direktt_channel_title != '' && data.direktt_channel_id != ''">
+          <th scope="row"><label for="blogname">URL for subscription:</label></th>
+          <td>
+            <div>
+              {{ createSubscribeQRCode(data.direktt_channel_id, data.direktt_channel_title) }}
+              <v-icon tag="i" color="info" :icon="mdiContentCopy" class="cursor-pointer"
+                @click="copyKey(createSubscribeQRCode(data.direktt_channel_id, data.direktt_channel_title))" />
+              <v-badge v-if="keyCopied" color="info" content="Copied" inline></v-badge>
             </div>
           </td>
         </tr>
@@ -214,7 +262,7 @@ onMounted(() => {
       </tbody>
     </table>
 
-  </v-card>
+  </div>
 </template>
 
 <style></style>
