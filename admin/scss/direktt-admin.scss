@@ -47,14 +47,17 @@ body.direktt_page_direktt-settings {
 		tr#direktt-auto-greet-settings-mt-always-on-row,
 		tr#direktt-auto-greet-settings-wh-row,
 		tr#direktt-auto-greet-settings-mt-nwh-row {
-			opacity: 0.5;
+			/* opacity: 0.5; */
+			display: none;
 		}
 		&:has(select[name="direktt_auto_greet_mode"] option[value="always"]:checked) tr#direktt-auto-greet-settings-mt-always-on-row  {
-			opacity: 1;
+			/* opacity: 1; */
+			display: table-row;
 		}	
 		&:has(select[name="direktt_auto_greet_mode"] option[value="non-working-hours"]:checked) tr#direktt-auto-greet-settings-wh-row,
 		&:has(select[name="direktt_auto_greet_mode"] option[value="non-working-hours"]:checked) tr#direktt-auto-greet-settings-mt-nwh-row  {
-			opacity: 1;
+			/* opacity: 1; */
+			display: table-row;
 		}		
 	}
 	
