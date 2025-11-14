@@ -65,23 +65,25 @@ body.direktt_page_direktt-settings {
 		tr#direktt-auto-greet-settings-mt-admin-row,
 		tr#direktt-auto-greet-settings-mt-new-subscriber-row {
 			opacity: 0.5;
+			pointer-events: none;
 			th, td { padding-top: 0; }
 		}
-		&:has(input[name="direktt_welcome_user"]:checked) tr#direktt-auto-greet-settings-mt-new-subscriber-row  {
-			opacity: 1;
-		}
+		&:has(input[name="direktt_welcome_user"]:checked) tr#direktt-auto-greet-settings-mt-new-subscriber-row,
 		&:has(input[name="direktt_welcome_admin"]:checked) tr#direktt-auto-greet-settings-mt-admin-row  {
 			opacity: 1;
+			pointer-events: initial;
 		}		
 	}
 	
 	.form-table.direktt-customer-review-table {
 		tr#direktt-customer-review-settings-mt-admin-row {
 			opacity: 0.5;
+			pointer-events: none;
 			th, td { padding-top: 0; }
 		}
 		&:has(input[name="direktt_review_send_to_admin"]:checked) tr#direktt-customer-review-settings-mt-admin-row  {
 			opacity: 1;
+			pointer-events: initial;
 		}		
 	}
 	
@@ -93,6 +95,7 @@ body.direktt_page_direktt-settings {
 		tr#direktt-membership-settings-mt-user-usage-row,
 		tr#direktt-membership-settings-mt-admin-usage-row {
 			opacity: 0.5;
+			pointer-events: none;
 			th, td { padding-top: 0; }
 		}
 		&:has(input[name="direktt_membership_user_issuance"]:checked) tr#direktt-membership-settings-mt-user-issuance-row,
@@ -102,6 +105,7 @@ body.direktt_page_direktt-settings {
 		&:has(input[name="direktt_membership_user_usage"]:checked) tr#direktt-membership-settings-mt-user-usage-row,
 		&:has(input[name="direktt_membership_admin_usage"]:checked) tr#direktt-membership-settings-mt-admin-usage-row  {
 			opacity: 1;
+			pointer-events: initial;
 		}		
 	}
 	
@@ -111,6 +115,7 @@ body.direktt_page_direktt-settings {
 		tr#direktt-loyalty-program-settings-mt-admin-change-row,
 		tr#direktt-loyalty-program-settings-mt-admin-reset-row {
 			opacity: 0.5;
+			pointer-events: none;
 			th, td { padding-top: 0; }
 		}
 		&:has(input[name="direktt_loyalty_user"]:checked) tr#direktt-loyalty-program-settings-mt-user-change-row,
@@ -118,7 +123,15 @@ body.direktt_page_direktt-settings {
 		&:has(input[name="direktt_loyalty_admin"]:checked) tr#direktt-loyalty-program-settings-mt-admin-change-row,
 		&:has(input[name="direktt_loyalty_admin_reset"]:checked) tr#direktt-loyalty-program-settings-mt-admin-reset-row  {
 			opacity: 1;
+			pointer-events: initial;
 		}		
+	}
+	
+	.direktt-membership-reports  {
+		padding: 0 1em;
+		border: 1px solid #c3c4c7;
+		box-shadow: 0 1px 1px rgba(0, 0, 0, .04);
+		background: #fff;
 	}
 }
 
