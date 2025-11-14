@@ -113,10 +113,10 @@ function shiftColors(baseColor) {
 
     const tc = tinycolor(inputColor);
     if (tc.isDark()) {
-        // If dark, lighten by 10%
+        // If dark, lighten by 30%
         return tc.lighten(30).toHexString();
     } else {
-        // If light, darken by 10%
+        // If light, darken by 30%
         return tc.darken(30).toHexString();
     }
 }
