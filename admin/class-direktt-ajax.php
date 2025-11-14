@@ -342,7 +342,7 @@ class Direktt_Ajax {
 						return;
 					}
 
-					if ( '200' !== $response['response']['code'] && '201' !== $response['response']['code'] ) {
+					if ( 200 !== $response['response']['code'] && 201 !== $response['response']['code'] ) {
 
 						wp_send_json_error( new WP_Error( 'Unauthorized', 'API Key validation failed' ), 401 );
 						return;
