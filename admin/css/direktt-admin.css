@@ -40,11 +40,11 @@ body.direktt_page_direktt-settings .form-table.direktt-auto-greet-ooo-table tr#d
   /* opacity: 0.5; */
   display: none;
 }
-body.direktt_page_direktt-settings .form-table.direktt-auto-greet-ooo-table:has(select[name=direktt_auto_greet_mode] option[value=always]:checked) tr#direktt-auto-greet-settings-mt-always-on-row {
+body.direktt_page_direktt-settings .form-table.direktt-auto-greet-ooo-table:has(input[name=direktt_auto_greet_mode][value=always]:checked) tr#direktt-auto-greet-settings-mt-always-on-row {
   /* opacity: 1; */
   display: table-row;
 }
-body.direktt_page_direktt-settings .form-table.direktt-auto-greet-ooo-table:has(select[name=direktt_auto_greet_mode] option[value=non-working-hours]:checked) tr#direktt-auto-greet-settings-wh-row, body.direktt_page_direktt-settings .form-table.direktt-auto-greet-ooo-table:has(select[name=direktt_auto_greet_mode] option[value=non-working-hours]:checked) tr#direktt-auto-greet-settings-mt-nwh-row {
+body.direktt_page_direktt-settings .form-table.direktt-auto-greet-ooo-table:has(input[name=direktt_auto_greet_mode][value=non-working-hours]:checked) tr#direktt-auto-greet-settings-wh-row, body.direktt_page_direktt-settings .form-table.direktt-auto-greet-ooo-table:has(input[name=direktt_auto_greet_mode][value=non-working-hours]:checked) tr#direktt-auto-greet-settings-mt-nwh-row {
   /* opacity: 1; */
   display: table-row;
 }
@@ -61,6 +61,15 @@ body.direktt_page_direktt-settings .form-table.direktt-auto-greet-welcome-table:
   opacity: 1;
 }
 body.direktt_page_direktt-settings .form-table.direktt-auto-greet-welcome-table:has(input[name=direktt_welcome_admin]:checked) tr#direktt-auto-greet-settings-mt-admin-row {
+  opacity: 1;
+}
+body.direktt_page_direktt-settings .form-table.direktt-customer-review-table tr#direktt-customer-review-settings-mt-admin-row {
+  opacity: 0.5;
+}
+body.direktt_page_direktt-settings .form-table.direktt-customer-review-table tr#direktt-customer-review-settings-mt-admin-row th, body.direktt_page_direktt-settings .form-table.direktt-customer-review-table tr#direktt-customer-review-settings-mt-admin-row td {
+  padding-top: 0;
+}
+body.direktt_page_direktt-settings .form-table.direktt-customer-review-table:has(input[name=direktt_review_send_to_admin]:checked) tr#direktt-customer-review-settings-mt-admin-row {
   opacity: 1;
 }
 body.direktt_page_direktt-settings .form-table.direktt-membership-table tr#direktt-membership-settings-mt-user-issuance-row,
