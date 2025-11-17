@@ -22,6 +22,9 @@ body.direktt_page_direktt-settings h3 {
 body.direktt_page_direktt-settings .direktt-category-tag-fieldset label {
   width: 5em;
 }
+body.direktt_page_direktt-settings .direktt-category-tag-fieldset label:not(:last-of-type) {
+  margin-bottom: 1em !important;
+}
 body.direktt_page_direktt-settings .direktt-category-tag-fieldset select {
   width: 10em;
 }
@@ -132,7 +135,7 @@ body.direktt_page_direktt-settings .direktt-membership-reports {
   background: #fff;
 }
 body.direktt_page_direktt-settings .direktt-loyalty-program-points-rule .button-link-delete {
-  padding: 0.25em 0.25em 0.25em 0;
+  padding: 0.1em;
   cursor: pointer;
 }
 

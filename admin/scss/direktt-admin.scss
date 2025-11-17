@@ -29,6 +29,9 @@ body.direktt_page_direktt-settings {
 	.direktt-category-tag-fieldset {
 		label {
 			width: 5em;
+			&:not(:last-of-type) {
+				margin-bottom: 1em !important;
+			}
 		}
 		select {
 			width: 10em;
@@ -144,7 +147,7 @@ body.direktt_page_direktt-settings {
 	}
 	
 	.direktt-loyalty-program-points-rule .button-link-delete {
-		padding: 0.25em 0.25em 0.25em 0;
+		padding: 0.1em;
 		cursor: pointer;
 	}
 }
