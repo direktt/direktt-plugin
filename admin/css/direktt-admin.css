@@ -19,6 +19,12 @@ body.direktt_page_direktt-settings h3 {
   /* font-size: 1.5em; */
   font-weight: 400;
 }
+body.direktt_page_direktt-settings .direktt-category-tag-fieldset label {
+  width: 5em;
+}
+body.direktt_page_direktt-settings .direktt-category-tag-fieldset select {
+  width: 10em;
+}
 body.direktt_page_direktt-settings .direktt-greet-days-row {
   display: flex;
   align-items: center;
@@ -124,6 +130,10 @@ body.direktt_page_direktt-settings .direktt-membership-reports {
   border: 1px solid #c3c4c7;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
   background: #fff;
+}
+body.direktt_page_direktt-settings .direktt-loyalty-program-points-rule .button-link-delete {
+  padding: 0.25em 0.25em 0.25em 0;
+  cursor: pointer;
 }
 
 /* In cutom post type */
