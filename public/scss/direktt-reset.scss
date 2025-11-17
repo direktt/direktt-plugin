@@ -1,6 +1,13 @@
-
-
 /* Reset */
+
+:root {
+	touch-action: pan-x pan-y;
+	height: 100%
+}
+html {
+	touch-action: pan-x pan-y;
+	height: 100%
+}
 
 #direktt-profile {
 	// Base reset
