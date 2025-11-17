@@ -11,9 +11,15 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Implements the WordPress based functionality of the Direktt mobile customer care platform.
 
 == Description ==
-Direktt plugin connects your WordPress site with the Direktt mobile customer care platform.
+Direktt plugin connects your WordPress site with the (Direktt mobile customer care platform)[https://direktt.com/].
 
-This plugin provides the foundational WordPress-side functionality required to integrate with Direktt, including setup for localization and a framework for adding settings, hooks, and extensions as needed.
+This plugin provides the foundational WordPress-side functionality required to integrate with Direktt, including developers' framework for adding settings, hooks, and extensions as needed.
+It provides interface for: 
+
+- General Direktt Settings 
+- Direktt User Management
+- Direktt Message Template Management with Bulk Messaging Tool
+- Direktt Mobile App's User Profile Interface (Direktt User Taxonomy, User Notes and User Messaging) 
 
 Localization:
 
@@ -26,7 +32,9 @@ Learn more about Direktt at https://direktt.com
 1. Install the plugin using the wp-admin's Plugins screen or upload the plugin files manually to the /wp-content/plugins/direktt folder on your web server.
 2. Activate the plugin using the Plugins screen in WordPress' wp-admin.
 3. Login into the [Direktt management console](https://direktt.com/wp-content/direkttweb/), create the channel and copy your API Key on Channel Info Screen.
-Add the API key to your Direktt Settings on Direktt > Settings screen in wp-admin to enable your WordPress Direktt extensions to make API calls and receive events from Direktt platform.
+Add the API key to your Direktt Settings on Direktt > Settings screen in wp-admin to enable your WordPress to make API calls and receive events from Direktt platform.  
+
+You can find the detailed Quick Start Guide (HERE)[https://direktt.com/quick-start-guide/]
 
 == Frequently Asked Questions ==
 

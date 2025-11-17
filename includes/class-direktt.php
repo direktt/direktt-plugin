@@ -161,7 +161,7 @@ class Direktt {
 		$this->loader->add_action( 'add_meta_boxes_page', $plugin_admin, 'page_direktt_custom_box' );
 
 		$this->loader->add_action( 'save_post', $plugin_admin, 'save_direktt_custom_box', 10, 2 );
-		$this->loader->add_action( 'save_post', $plugin_admin, 'direkttmtemplates_save_meta_box_data' );
+		$this->loader->add_action( 'save_post', $plugin_admin, 'direkttmtemplates_save_meta_box_data', 10, 2 );
 
 		$this->loader->add_action( 'add_meta_boxes', $plugin_admin, 'direktt_direkttusers_add_meta_box' );
 
