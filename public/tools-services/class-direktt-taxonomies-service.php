@@ -17,6 +17,30 @@ class Direktt_Taxonomies_Service {
 		wp_register_script( 'direktt-taxonomies-service-autocomplete-script', plugins_url( '../js/autoComplete.min.js', __FILE__ ), array(), '10.2.9', true );
 		wp_register_script( 'direktt-taxonomies-service-script', plugins_url( '../js/direktt-service-taxonomies.js', __FILE__ ), array( 'direktt-taxonomies-service-autocomplete-script', 'jquery' ), $this->version, true );
 		wp_register_style( 'direktt-taxonomies-service-autocomplete-style', plugins_url( '../css/autoComplete.01.css', __FILE__ ), array(), $this->version );
+
+		$subpage = isset( $_GET['subpage'] ) ? sanitize_text_field( wp_unslash( $_GET['subpage'] ) ) : '';
+
+		$tax_name = isset( $_GET['tax_name'] ) ? sanitize_text_field( wp_unslash( $_GET['tax_name'] ) ) : '';
+		$taxonomy = 'edit-category' === $subpage ? 'direkttusercategories' : 'direkttusertags';
+		if( '' !== $tax_name ){
+			$term     = get_term_by( 'name', $tax_name, $taxonomy );
+			$user_ids = get_objects_in_term( $term->term_id, $taxonomy );
+			$user_ids = array_values( array_filter( array_map( 'absint', $user_ids ) ) );
+		} else {
+			$term     = '';
+			$user_ids = [];
+		}
+
+		wp_add_inline_script( 'direktt-taxonomies-service-script' , 
+			"let usersInList = " . wp_json_encode( $user_ids ) . ";\n" .
+			"let actionInputName = '" . esc_attr( 'edit-category' === $subpage ? 'save_user_categories' : 'save_user_tags' ) . "';\n" .
+			"let actionInputDeleteName = '" . esc_attr( 'edit-category' === $subpage ? 'remove_user_categories' : 'remove_user_tags' ) . "';\n" .
+			"let idToAddName = '" . esc_attr( 'edit-category' === $subpage ? 'id_to_add_category' : 'id_to_add_tag' ) . "';\n" .
+			"let idToRemoveName = '" . esc_attr( 'edit-category' === $subpage ? 'id_to_remove_category' : 'id_to_remove_tag' ) . "';\n" .
+			"let idToRemoveId = '';\n" .
+			"let form = null;\n",
+			'before'
+		);
 	}
 
 	public function direktt_taxonomies_service_shortcode() {
@@ -208,16 +232,8 @@ class Direktt_Taxonomies_Service {
 										?>
 									</div>
 
-									<script>
-										usersInList = <?php echo wp_json_encode( $user_ids ); ?>;
-										actionInputName = '<?php echo esc_attr( 'edit-category' === $subpage ? 'save_user_categories' : 'save_user_tags' ); ?>';
-										actionInputDeleteName = '<?php echo esc_attr( 'edit-category' === $subpage ? 'remove_user_categories' : 'remove_user_tags' ); ?>';
-										idToAddName = '<?php echo esc_attr( 'edit-category' === $subpage ? 'id_to_add_category' : 'id_to_add_tag' ); ?>';
-										idToRemoveName = '<?php echo esc_attr( 'edit-category' === $subpage ? 'id_to_remove_category' : 'id_to_remove_tag' ); ?>';
-										idToRemoveId = ''
-										form = null
-									</script>
 									<?php
+									
 								} else {
 									?>
 									<p><?php echo 'edit-category' === $subpage ? esc_html__( 'No users found for this category.', 'direktt' ) : esc_html__( 'No users found for this tag.', 'direktt' ); ?></p>
