@@ -25,6 +25,15 @@ body.direktt_page_direktt-settings {
 		/* font-size: 1.5em; */
 		font-weight: 400;
 	}
+	
+	.direktt-category-tag-fieldset {
+		label {
+			width: 5em;
+		}
+		select {
+			width: 10em;
+		}
+	}
 
 	.direktt-greet-days-row {
 		display: flex;
@@ -132,6 +141,11 @@ body.direktt_page_direktt-settings {
 		border: 1px solid #c3c4c7;
 		box-shadow: 0 1px 1px rgba(0, 0, 0, .04);
 		background: #fff;
+	}
+	
+	.direktt-loyalty-program-points-rule .button-link-delete {
+		padding: 0.25em 0.25em 0.25em 0;
+		cursor: pointer;
 	}
 }
 
