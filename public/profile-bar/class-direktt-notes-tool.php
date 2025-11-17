@@ -111,14 +111,6 @@ class Direktt_Notes_Tool {
 		echo wp_kses( Direktt_Public::direktt_render_loader( __( 'Saving note', 'direktt' ) ), $allowed_html );
 
 		?>
-		<style>
-			#editor,
-			.ql-editor {
-				touch-action: pan-x pan-y !important;
-				height: 100% !important;
-				font-size: 16px !important;
-			}
-		</style>
 
 		<div class="direktt-notes-tool-wrapper">
 

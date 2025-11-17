@@ -88,18 +88,7 @@ class Direktt_Profile {
 			'wp_head',
 			function () {
 				?>
-			<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-			<style>
-				:root {
-					touch-action: pan-x pan-y;
-					height: 100%
-				}
-
-				html {
-					touch-action: pan-x pan-y;
-					height: 100%
-				}
-			</style>
+					<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 				<?php
 			},
 			-1
