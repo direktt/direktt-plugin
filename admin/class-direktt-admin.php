@@ -901,7 +901,14 @@ class Direktt_Admin {
 		echo ( '<div id="direktt-meta-app"></div>' );
 	}
 
-	public function direkttmtemplates_save_meta_box_data( $post_id ) {
+	public function direkttmtemplates_save_meta_box_data( $post_id, $post ) {
+		
+		$post_type = get_post_type_object( $post->post_type );
+
+		if ( ! current_user_can( $post_type->cap->edit_post, $post_id ) ) {
+			return $post_id;
+		}
+		
 		if (
 			! isset( $_POST['direktt_mt_json_nonce'] ) ||
 			! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['direktt_mt_json_nonce'] ) ), 'direktt_mt_json_nonce' )

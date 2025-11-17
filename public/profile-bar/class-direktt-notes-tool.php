@@ -54,6 +54,13 @@ class Direktt_Notes_Tool {
 	}
 
 	public function render_user_notes() {
+
+		global $post;
+
+		if ( !$post || !Direktt_Public::direktt_ajax_check_user( $post ) ) {
+			return;
+		}
+
 		$allowed_html = wp_kses_allowed_html( 'post' );
 
 		if (

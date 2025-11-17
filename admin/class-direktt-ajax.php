@@ -409,7 +409,7 @@ class Direktt_Ajax {
 		}
 
 		// Default: 20 per batch.
-		$batch_size = isset( $_POST['batch_size'] ) ? intval( $_POST['batch_size'] ) : 1;
+		$batch_size = isset( $_POST['batch_size'] ) ? intval( $_POST['batch_size'] ) : 5;
 		$offset     = isset( $_POST['offset'] ) ? intval( $_POST['offset'] ) : 0;
 
 		// Fetch subscriptions list only once, cache in transient for this session.
@@ -450,9 +450,9 @@ class Direktt_Ajax {
 			$subscription_id          = $subscription['subscriptionId'] ?? null;
 			$display_name             = $subscription['displayName'] ?? null;
 			$avatar_url               = $subscription['avatarUrl'] ?? null;
-			$admin_subscription       = 'true' === $subscription['adminSubscription'] ?? null;
+			$admin_subscription       = true === $subscription['adminSubscription'] ?? null;
 			$membership_id            = $subscription['membershipId'] ?? null;
-			$marketing_consent_ctatus = 'true' === $subscription['marketingConsentStatus'] ?? null;
+			$marketing_consent_ctatus = true === $subscription['marketingConsentStatus'] ?? null;
 
 			$this->direktt_api->subscribe_user(
 				$subscription_id,
