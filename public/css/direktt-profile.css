@@ -581,6 +581,10 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
   display: block;
   text-align: center;
 }
+#direktt-profile #direktt-profile-tools ul li.direktt-profile-tool-active {
+  background-color: var(--direktt-profile-button-active-background-color);
+  box-shadow: 0 0 0 2px var(--direktt-profile-button-active-background-color);
+}
 .direktt-profile-tools-open #direktt-profile #direktt-profile-tools {
   margin-left: 0px;
   box-shadow: -5px 0 10px var(--direktt-profile-dark-color);
