@@ -103,7 +103,13 @@ class Direktt_Profile {
 		<div id="direktt-profile-wrapper">
 			<div data-subpage="profile-tab-<?php echo esc_attr( $active_tab ); ?>" id="direktt-profile">
 				<div id="direktt-profile-header">
-					<div id="direktt-profile-tools-toggler" class="dpi-menu"></div>
+					<?php
+					if( 0 < count(Direktt::$profile_tools_array) ){
+					?>
+						<div id="direktt-profile-tools-toggler" class="dpi-menu"></div>	
+					<?php 
+					}
+					?>
 					<div class="direktt-profile-header-data">
 						<?php
 						if ( $profile_user && $direktt_user ) {
@@ -249,7 +255,6 @@ class Direktt_Profile {
 						$temp_css = '';
 						foreach ( Direktt::$profile_tools_array as $item ) {
 							if ( isset( $item['label'] ) ) {
-
 								parse_str( $parts['query'] ?? '', $params );
 								$params['subpage']            = $item['id'];
 								$new_params                   = array();
@@ -257,13 +262,12 @@ class Direktt_Profile {
 								$new_params['subpage']        = $params['subpage'];
 								$new_query                    = http_build_query( $new_params );
 								$new_uri                      = $parts['path'] . ( $new_query ? '?' . $new_query : '' );
-								echo ( '<li data-subpage="direktt-tool-' . esc_attr( $params['subpage'] ) . '"><a href="' . esc_attr( $new_uri ) . '" class="dpi-' . esc_attr( $params['subpage'] ) . ' direktt-button">' . esc_html( $item['label'] ) . '</a></li>' );
-								$temp_css .= '#direktt-profile[data-subpage="profile-tab-' . esc_attr( $params['subpage'] ) . '"] #direktt-profile-tools ul li[data-subpage="direktt-tool-' . esc_attr( $params['subpage'] ) . '"] a, ';
+								$active_class = $item['id'] === $active_tab? ' direktt-profile-tool-active' : '';
+								echo ( '<li data-subpage="direktt-tool-' . esc_attr( $params['subpage'] ) . '"><a href="' . esc_attr( $new_uri ) . '" class="dpi-' . esc_attr( $params['subpage'] ) . ' direktt-button' . $active_class . '">' . esc_html( $item['label'] ) . '</a></li>' );
 							}
 						}
 						?>
 					</ul>
-					<?php echo ( '<style>' . esc_html( $temp_css ) . ' .dummy { background-color: var(--direktt-profile-button-active-background-color); }</style>' ); ?>
 				</div><!-- direktt-profile-tools -->
 		<?php
 
