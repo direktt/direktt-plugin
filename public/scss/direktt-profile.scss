@@ -266,7 +266,7 @@
 				padding: 0;
 				display: block;
 				text-align: center;
-				&.direktt-profile-tool-active {
+				.direktt-button.direktt-profile-tool-active {
 					background-color: var(--direktt-profile-button-active-background-color);
 					box-shadow: 0 0 0 2px var(--direktt-profile-button-active-background-color);
 				}
