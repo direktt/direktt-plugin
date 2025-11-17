@@ -11,15 +11,46 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Implements the WordPress based functionality of the Direktt mobile customer care platform.
 
 == Description ==
-Direktt plugin connects your WordPress site with the (Direktt mobile customer care platform)[https://direktt.com/].
+Direktt plugin connects your WordPress site with the [Direktt mobile customer care platform](https://direktt.com/).
 
-This plugin provides the foundational WordPress-side functionality required to integrate with Direktt, including developers' framework for adding settings, hooks, and extensions as needed.
-It provides interface for: 
+This plugin provides the foundational WordPress-side functionality required to integrate with Direktt, including developers' framework.
+
+It provides wp-admin interface for: 
 
 - General Direktt Settings 
 - Direktt User Management
 - Direktt Message Template Management with Bulk Messaging Tool
-- Direktt Mobile App's User Profile Interface (Direktt User Taxonomy, User Notes and User Messaging) 
+- Direktt Mobile App's User Profile Interface (Direktt User Taxonomy, User Notes and User Messaging).
+
+Direktt Platform sends your channel's events to your WordPress instance using API endopints implemented by Direktt WP plugin, so you can programmatically act on them.
+The events include:
+
+- New User Subscriptions
+- User Unsubscribe events
+- Sent and received user messages
+- Page views by channel subscribers via Direktt mobile app
+- QR code scans by channel subscribers via Direktt mobile app
+- Chat interface user actions in chat interface within Direktt mobile app
+
+Direktt WP plugin implements developer's framework which enables you to:
+
+- Implement hooks and actions to act on Direktt events
+- Plug into Direktt settings panel and user profile within Direktt mobile app
+- Use api functions to verify and authorize users and events coming from Direktt mobile app / platform
+- Send messages to channel subscribers
+
+Direktt WordPress plugin does not send any user tracking data back to Direktt platform.
+
+Direktt User related data sent from Direktt platform to WP API on these events includes:
+
+- User Display name,
+- User Avatar and 
+- Channel level unique subscription Id
+
+No user trackable data is shared between channels or with third party platforms or services (this includes email or any other Direktt platform level user data)
+
+Find Direktt Privacy Policy [HERE](https://direktt.com/privacy-policy/)
+Find Direktt Terms of Service [HERE](https://direktt.com/terms-of-service/)  
 
 Localization:
 
@@ -34,7 +65,7 @@ Learn more about Direktt at https://direktt.com
 3. Login into the [Direktt management console](https://direktt.com/wp-content/direkttweb/), create the channel and copy your API Key on Channel Info Screen.
 Add the API key to your Direktt Settings on Direktt > Settings screen in wp-admin to enable your WordPress to make API calls and receive events from Direktt platform.  
 
-You can find the detailed Quick Start Guide (HERE)[https://direktt.com/quick-start-guide/]
+You can find the detailed Quick Start Guide [HERE](https://direktt.com/quick-start-guide/)
 
 == Frequently Asked Questions ==
 
