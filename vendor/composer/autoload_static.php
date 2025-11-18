@@ -18,6 +18,10 @@ class ComposerStaticInit8f052e706405195a486b866a141e7790
     );
 
     public static $prefixLengthsPsr4 = array (
+        'W' =>
+        array (
+            'WPPack\\' => 7,
+        ),
         'S' =>
         array (
             'Symfony\\Polyfill\\Php80\\' => 23,
@@ -61,6 +65,10 @@ class ComposerStaticInit8f052e706405195a486b866a141e7790
     );
 
     public static $prefixDirsPsr4 = array (
+        'WPPack\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/direktt/direktt-wppack/src',
+        ),
         'Symfony\\Polyfill\\Php80\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-php80',

@@ -3,7 +3,7 @@
         'name' => 'direktt/direktt-plugin',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => 'a76764dfb0f0a62ea6ae220c2690745e8cff391d',
+        'reference' => '55ea78aa20b98d947b482dfb461f840bf6919e68',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -40,11 +40,22 @@
         'direktt/direktt-plugin' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => 'a76764dfb0f0a62ea6ae220c2690745e8cff391d',
+            'reference' => '55ea78aa20b98d947b482dfb461f840bf6919e68',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
             'dev_requirement' => false,
+        ),
+        'direktt/direktt-wppack' => array(
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => 'b7bb16219ca86c2e7c26e5809cf249f2d27cc124',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../direktt/direktt-wppack',
+            'aliases' => array(
+                0 => '9999999-dev',
+            ),
+            'dev_requirement' => true,
         ),
         'firebase/php-jwt' => array(
             'pretty_version' => 'v6.11.1',

@@ -315,6 +315,42 @@
             "install-path": "../dealerdirect/phpcodesniffer-composer-installer"
         },
         {
+            "name": "direktt/direktt-wppack",
+            "version": "dev-main",
+            "version_normalized": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/direktt/direktt-wppack.git",
+                "reference": "b7bb16219ca86c2e7c26e5809cf249f2d27cc124"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/direktt/direktt-wppack/zipball/b7bb16219ca86c2e7c26e5809cf249f2d27cc124",
+                "reference": "b7bb16219ca86c2e7c26e5809cf249f2d27cc124",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.2 || ^8.0"
+            },
+            "time": "2025-11-18T16:45:29+00:00",
+            "default-branch": true,
+            "bin": [
+                "bin/wppack"
+            ],
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "WPPack\\": "src/"
+                }
+            },
+            "description": "A Composer utility for zipping Direktt plugin to direktt.zip",
+            "support": {
+                "source": "https://github.com/direktt/direktt-wppack/tree/main"
+            },
+            "install-path": "../direktt/direktt-wppack"
+        },
+        {
             "name": "firebase/php-jwt",
             "version": "v6.11.1",
             "version_normalized": "6.11.1.0",
@@ -1901,6 +1937,7 @@
     "dev-package-names": [
         "coenjacobs/mozart",
         "dealerdirect/phpcodesniffer-composer-installer",
+        "direktt/direktt-wppack",
         "league/flysystem",
         "league/mime-type-detection",
         "phpcsstandards/phpcsextra",

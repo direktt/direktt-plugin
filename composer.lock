@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "605b841a674782237a8e31aa8e2f4161",
+    "content-hash": "825ab159312f8b78f97756869eee01b2",
     "packages": [
         {
             "name": "composer/installers",
@@ -413,6 +413,39 @@
                 }
             ],
             "time": "2025-11-11T04:32:07+00:00"
+        },
+        {
+            "name": "direktt/direktt-wppack",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/direktt/direktt-wppack.git",
+                "reference": "b7bb16219ca86c2e7c26e5809cf249f2d27cc124"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/direktt/direktt-wppack/zipball/b7bb16219ca86c2e7c26e5809cf249f2d27cc124",
+                "reference": "b7bb16219ca86c2e7c26e5809cf249f2d27cc124",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.2 || ^8.0"
+            },
+            "default-branch": true,
+            "bin": [
+                "bin/wppack"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "WPPack\\": "src/"
+                }
+            },
+            "description": "A Composer utility for zipping Direktt plugin to direktt.zip",
+            "support": {
+                "source": "https://github.com/direktt/direktt-wppack/tree/main"
+            },
+            "time": "2025-11-18T16:45:29+00:00"
         },
         {
             "name": "league/flysystem",
@@ -1838,7 +1871,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {},
+    "stability-flags": {
+        "direktt/direktt-wppack": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

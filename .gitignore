@@ -84,3 +84,6 @@ changes.diff
 /vendor/bin/*
 /vendor/coenjacobs/*
 /vendor/league/*
+/vendor/direktt/*
+/vendor/firebase/*
+/vendor/html2text/*

@@ -21,7 +21,8 @@
     "dealerdirect/phpcodesniffer-composer-installer": "*",
     "squizlabs/php_codesniffer": "3.*",
     "wp-coding-standards/wpcs": "3.0",
-    "coenjacobs/mozart": "*"
+    "coenjacobs/mozart": "*",
+    "direktt/direktt-wppack": "dev-main"
   },
   "extra": {
     "mozart": {
@@ -40,5 +41,11 @@
     "psr-4": {
       "Direktt\\Dependencies\\": "includes/dependencies/"
     }
-  }
+  },
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/direktt/direktt-wppack"
+    }
+  ]
 }
