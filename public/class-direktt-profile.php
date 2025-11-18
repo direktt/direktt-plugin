@@ -104,10 +104,10 @@ class Direktt_Profile {
 			<div data-subpage="profile-tab-<?php echo esc_attr( $active_tab ); ?>" id="direktt-profile">
 				<div id="direktt-profile-header">
 					<?php
-					if( 0 < count(Direktt::$profile_tools_array) ){
-					?>
+					if ( 0 < count( Direktt::$profile_tools_array ) ) {
+						?>
 						<div id="direktt-profile-tools-toggler" class="dpi-menu"></div>	
-					<?php 
+						<?php
 					}
 					?>
 					<div class="direktt-profile-header-data">
@@ -262,8 +262,8 @@ class Direktt_Profile {
 								$new_params['subpage']        = $params['subpage'];
 								$new_query                    = http_build_query( $new_params );
 								$new_uri                      = $parts['path'] . ( $new_query ? '?' . $new_query : '' );
-								$active_class = $item['id'] === $active_tab? ' direktt-profile-tool-active' : '';
-								echo ( '<li data-subpage="direktt-tool-' . esc_attr( $params['subpage'] ) . '"><a href="' . esc_attr( $new_uri ) . '" class="dpi-' . esc_attr( $params['subpage'] ) . ' direktt-button' . esc_attr($active_class) . '">' . esc_html( $item['label'] ) . '</a></li>' );
+								$active_class                 = $item['id'] === $active_tab ? ' direktt-profile-tool-active' : '';
+								echo ( '<li data-subpage="direktt-tool-' . esc_attr( $params['subpage'] ) . '"><a href="' . esc_attr( $new_uri ) . '" class="dpi-' . esc_attr( $params['subpage'] ) . ' direktt-button' . esc_attr( $active_class ) . '">' . esc_html( $item['label'] ) . '</a></li>' );
 							}
 						}
 						?>

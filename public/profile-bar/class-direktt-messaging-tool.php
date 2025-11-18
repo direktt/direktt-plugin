@@ -52,13 +52,13 @@ class Direktt_Messaging_Tool {
 	}
 
 	public function render_user_messages() {
-		
+
 		global $post;
 
-		if ( !$post || !Direktt_Public::direktt_ajax_check_user( $post ) ) {
+		if ( ! $post || ! Direktt_Public::direktt_ajax_check_user( $post ) ) {
 			return;
 		}
-		
+
 		$subscription_id = isset( $_GET['subscriptionId'] ) ? sanitize_text_field( wp_unslash( $_GET['subscriptionId'] ) ) : false;
 		$profile_user    = Direktt_User::get_user_by_subscription_id( $subscription_id );
 

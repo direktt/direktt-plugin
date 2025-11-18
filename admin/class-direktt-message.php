@@ -80,7 +80,7 @@ class Direktt_Message {
 				$value = array_key_exists( $tag, $replacements ) ? $replacements[ $tag ] : $tag;
 
 				// Apply filter, pass value and user.
-				return apply_filters( 'direktt/message/template/' . $tag , $value, $direktt_user_id );
+				return apply_filters( 'direktt/message/template/' . $tag, $value, $direktt_user_id );
 			},
 			$input_string
 		);

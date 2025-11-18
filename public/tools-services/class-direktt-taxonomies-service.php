@@ -21,19 +21,20 @@ class Direktt_Taxonomies_Service {
 		$subpage = isset( $_GET['subpage'] ) ? sanitize_text_field( wp_unslash( $_GET['subpage'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Justification: no data processing, script enqueueing based on param value
 
 		$tax_name = isset( $_GET['tax_name'] ) ? sanitize_text_field( wp_unslash( $_GET['tax_name'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Justification: no data processing, script enqueueing based on param value
-		
+
 		$taxonomy = 'edit-category' === $subpage ? 'direkttusercategories' : 'direkttusertags';
-		if( '' !== $tax_name ){
+		if ( '' !== $tax_name ) {
 			$term     = get_term_by( 'name', $tax_name, $taxonomy );
 			$user_ids = get_objects_in_term( $term->term_id, $taxonomy );
 			$user_ids = array_values( array_filter( array_map( 'absint', $user_ids ) ) );
 		} else {
 			$term     = '';
-			$user_ids = [];
+			$user_ids = array();
 		}
 
-		wp_add_inline_script( 'direktt-taxonomies-service-script' , 
-			"let usersInList = " . wp_json_encode( $user_ids ) . ";\n" .
+		wp_add_inline_script(
+			'direktt-taxonomies-service-script',
+			'let usersInList = ' . wp_json_encode( $user_ids ) . ";\n" .
 			"let actionInputName = '" . esc_attr( 'edit-category' === $subpage ? 'save_user_categories' : 'save_user_tags' ) . "';\n" .
 			"let actionInputDeleteName = '" . esc_attr( 'edit-category' === $subpage ? 'remove_user_categories' : 'remove_user_tags' ) . "';\n" .
 			"let idToAddName = '" . esc_attr( 'edit-category' === $subpage ? 'id_to_add_category' : 'id_to_add_tag' ) . "';\n" .
@@ -234,7 +235,7 @@ class Direktt_Taxonomies_Service {
 									</div>
 
 									<?php
-									
+
 								} else {
 									?>
 									<p><?php echo 'edit-category' === $subpage ? esc_html__( 'No users found for this category.', 'direktt' ) : esc_html__( 'No users found for this tag.', 'direktt' ); ?></p>

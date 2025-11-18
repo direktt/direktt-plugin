@@ -59,14 +59,14 @@ class Direktt_Public {
 			'direktt_public',
 			'direktt_public',
 			array(
-				'direktt_user'          		=> $direktt_user,
-				'direktt_post_id'       		=> get_the_ID(),
-				'direktt_ajax_url'      		=> admin_url( 'admin-ajax.php' ),
-				'direktt_rest_base'     		=> get_rest_url( null, 'direktt/v1/' ),
-				'direktt_wp_rest_nonce' 		=> wp_create_nonce( 'wp_rest' ),
-				'direktt_qr_code_logo_url' 		=> get_option( 'direktt_qr_code_logo_url' ),
-				'direktt_qr_code_color' 		=> get_option( 'direktt_qr_code_color' ),
-				'direktt_qr_code_bckg_color' 	=> get_option( 'direktt_qr_code_bckg_color' ),
+				'direktt_user'               => $direktt_user,
+				'direktt_post_id'            => get_the_ID(),
+				'direktt_ajax_url'           => admin_url( 'admin-ajax.php' ),
+				'direktt_rest_base'          => get_rest_url( null, 'direktt/v1/' ),
+				'direktt_wp_rest_nonce'      => wp_create_nonce( 'wp_rest' ),
+				'direktt_qr_code_logo_url'   => get_option( 'direktt_qr_code_logo_url' ),
+				'direktt_qr_code_color'      => get_option( 'direktt_qr_code_color' ),
+				'direktt_qr_code_bckg_color' => get_option( 'direktt_qr_code_bckg_color' ),
 			)
 		);
 
@@ -128,7 +128,7 @@ class Direktt_Public {
 
 		try {
 			Direktt\Dependencies\Firebase\JWT\JWT::$leeway = 60 * 10; // ten minutes.
-			$decoded_token                    = Direktt\Dependencies\Firebase\JWT\JWT::decode( $token, new Direktt\Dependencies\Firebase\JWT\Key( $api_key, $algorithm ) );
+			$decoded_token                                 = Direktt\Dependencies\Firebase\JWT\JWT::decode( $token, new Direktt\Dependencies\Firebase\JWT\Key( $api_key, $algorithm ) );
 		} catch ( Exception $e ) {
 			return false;
 		}

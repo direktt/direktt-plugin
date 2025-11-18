@@ -31,17 +31,23 @@ if ( file_exists( $direktt_sass_file ) ) {
 }
 
 // skip scoped vendor libraries
-add_filter ('wp_plugin_check_ignore_directories', function ($directories) {
-    $directories[] = 'includes/action-scheduler';
-	$directories[] = 'includes/dependencies';
-    return $directories;
-});
+add_filter(
+	'wp_plugin_check_ignore_directories',
+	function ( $directories ) {
+		$directories[] = 'includes/action-scheduler';
+		$directories[] = 'includes/dependencies';
+		return $directories;
+	}
+);
 
 // skip .gitignore
-add_filter ('wp_plugin_check_ignore_files', function ($files) {
-    $files[] = '.gitignore';
-    return $files;
-});
+add_filter(
+	'wp_plugin_check_ignore_files',
+	function ( $files ) {
+		$files[] = '.gitignore';
+		return $files;
+	}
+);
 
 require plugin_dir_path( __FILE__ ) . 'includes/class-direktt.php';
 
