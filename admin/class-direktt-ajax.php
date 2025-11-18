@@ -257,18 +257,20 @@ class Direktt_Ajax {
 
 		// phpcs:disable WordPress.DB.DirectDatabaseQuery.NoCaching -- Justification: selective query on small dataset
 		// phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery -- Custom database used
+		// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Justification: table name is not prepared
+		// phpcs:disable PluginCheck.Security.DirectDB.UnescapedDBParameter -- Justification: table name is not prepared
 
 		if ( intval( $page ) === 0 ) {
 			$results = $wpdb->get_results(
 				$wpdb->prepare(
-					"SELECT * FROM {$table_name} WHERE direktt_user_id = %s ORDER BY ID DESC LIMIT 20", // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Justification: table name is not prepared
+					"SELECT * FROM {$table_name} WHERE direktt_user_id = %s ORDER BY ID DESC LIMIT 20", 
 					$direktt_user_id
 				)
 			);
 		} else {
 			$results = $wpdb->get_results(
 				$wpdb->prepare(
-					"SELECT * FROM {$table_name} WHERE direktt_user_id = %s AND ID < %d ORDER BY ID DESC LIMIT 20", // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Justification: table name is not prepared
+					"SELECT * FROM {$table_name} WHERE direktt_user_id = %s AND ID < %d ORDER BY ID DESC LIMIT 20",
 					$direktt_user_id,
 					intval( $page )
 				)

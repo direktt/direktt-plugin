@@ -214,7 +214,7 @@ class Direktt_Automation_RunRepository {
 		global $wpdb;
 		$table = Direktt_Automation_DB::table_runs();
 
-		$row = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM $table WHERE id = %d", $id ), ARRAY_A ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.DirectQuery -- Justification: table name is not prepared, selective query on small dataset, Custom database used
+		$row = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM $table WHERE id = %d", $id ), ARRAY_A ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.DirectQuery, PluginCheck.Security.DirectDB.UnescapedDBParameter -- Justification: table name is not prepared, selective query on small dataset, Custom database used
 		if ( $row && ! empty( $row['state'] ) ) {
 			$row['state'] = json_decode( $row['state'], true );
 		}
@@ -312,7 +312,7 @@ class Direktt_Automation_RunRepository {
 
 		// phpcs:enable
 
-		$rows = $wpdb->query( $sql ); // phpcs:disable WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.DirectQuery -- Justification: table name is not prepared, elective query on small dataset, Custom database used
+		$rows = $wpdb->query( $sql ); // phpcs:disable WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.DirectQuery, PluginCheck.Security.DirectDB.UnescapedDBParameter -- Justification: table name is not prepared, selective query on small dataset, Custom database used
 		return 1 === $rows; // true if we actually advanced.
 	}
 }
@@ -374,7 +374,7 @@ class Direktt_Automation_QueueRepository {
 		global $wpdb;
 		$table = Direktt_Automation_DB::table_queue();
 
-		$row = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM $table WHERE id = %d", $id ), ARRAY_A ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Justification: table name is not prepared
+		$row = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM $table WHERE id = %d", $id ), ARRAY_A ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter -- Justification: table name is not prepared
 		if ( $row && ! empty( $row['payload'] ) ) {
 			$row['payload'] = json_decode( $row['payload'], true );
 		}
@@ -387,6 +387,7 @@ class Direktt_Automation_QueueRepository {
 		$worker_id = substr( uniqid( 'w_', true ), 0, 63 );
 
 		// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Justification: table name is not prepared
+		// phpcs:disable PluginCheck.Security.DirectDB.UnescapedDBParameter -- Justification: table name is not prepared
 
 		// Lock only if pending and due.
 		$updated = $wpdb->query(
@@ -510,7 +511,7 @@ class Direktt_Automation_QueueRepository {
 
 		// phpcs:enable
 
-		return (bool) $wpdb->get_var( $sql ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.DirectQuery -- Justification: table name is not prepared, selective query on small dataset, Custom database used
+		return (bool) $wpdb->get_var( $sql ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.DirectQuery, PluginCheck.Security.DirectDB.UnescapedDBParameter -- Justification: table name is not prepared, selective query on small dataset, Custom database used
 	}
 }
 

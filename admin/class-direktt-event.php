@@ -45,6 +45,7 @@ class Direktt_Event {
 		// phpcs:disable WordPress.DB.PreparedSQL.NotPrepared -- Justification: table name is not prepared
 		// phpcs:disable WordPress.DB.DirectDatabaseQuery.NoCaching -- Justification: alter custom table query performed upon plugin activation 
 		// phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery -- Justification: table name is not prepared
+		// phpcs:disable PluginCheck.Security.DirectDB.UnescapedDBParameter -- Justification: table name is not prepared
 
 		$wpdb->query( $the_default_timestamp_query );
 
