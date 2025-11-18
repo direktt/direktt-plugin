@@ -1,8 +1,5 @@
 <?php
 
-use Tmeister\Firebase\JWT\JWT;
-use Tmeister\Firebase\JWT\Key;
-
 defined( 'ABSPATH' ) || exit;
 
 class Direktt_Public {
@@ -130,8 +127,8 @@ class Direktt_Public {
 		}
 
 		try {
-			Direktt\Firebase\JWT\JWT::$leeway = 60 * 10; // ten minutes.
-			$decoded_token                    = Direktt\Firebase\JWT\JWT::decode( $token, new Direktt\Firebase\JWT\Key( $api_key, $algorithm ) );
+			Direktt\Dependencies\Firebase\JWT\JWT::$leeway = 60 * 10; // ten minutes.
+			$decoded_token                    = Direktt\Dependencies\Firebase\JWT\JWT::decode( $token, new Direktt\Dependencies\Firebase\JWT\Key( $api_key, $algorithm ) );
 		} catch ( Exception $e ) {
 			return false;
 		}

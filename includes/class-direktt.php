@@ -40,15 +40,11 @@ class Direktt {
 		 * Load dependencies managed by composer.
 		 */
 
-		require_once plugin_dir_path( __DIR__ ) . 'includes/vendor/autoload.php';
+		require_once plugin_dir_path( __DIR__ ) . 'vendor/autoload.php';
 
 		require_once plugin_dir_path( __DIR__ ) . 'includes/action-scheduler/action-scheduler.php';
 
-		require_once plugin_dir_path( __DIR__ ) . 'includes/html2text/Html2Text.php';
-
 		require_once plugin_dir_path( __DIR__ ) . 'includes/class-direktt-loader.php';
-
-		require_once plugin_dir_path( __DIR__ ) . 'includes/class-direktt-wrapper.php';
 
 		require_once plugin_dir_path( __DIR__ ) . 'public/class-direktt-public.php';
 

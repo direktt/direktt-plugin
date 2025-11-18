@@ -1055,7 +1055,7 @@ class Direktt_Admin
 			$content_type = apply_filters('wp_mail_content_type', $content_type);
 
 			if (stripos($content_type, 'text/html') !== false) {
-				$direktt_message_html    = new \Html2Text\Html2Text($message);
+				$direktt_message_html    = new Direktt\Html2Text\Html2Text($message);
 				$direktt_message_content = $direktt_message_html->getText();
 			} else {
 				$direktt_message_content = $message;
