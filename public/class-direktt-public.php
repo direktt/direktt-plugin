@@ -188,8 +188,6 @@ class Direktt_Public {
 			if ( $direktt_wp_user ) {
 				wp_set_current_user( $direktt_wp_user->ID );
 				wp_set_auth_cookie( $direktt_wp_user->ID );
-				do_action( 'wp_login', $direktt_wp_user->login, $direktt_wp_user );
-
 				$this->redirect_without_token();
 			}
 		}
@@ -321,7 +319,7 @@ class Direktt_Public {
 	}
 
 	private static function get_algorithm() {
-		$algorithm = apply_filters( 'jwt_auth_algorithm', 'HS256' );
+		$algorithm = apply_filters( 'direktt_jwt_auth_algorithm', 'HS256' );
 		if ( ! in_array( $algorithm, self::SUPPORTED_ALGORITHMS, true ) ) {
 			return false;
 		}

@@ -972,12 +972,12 @@ class Direktt_Admin
 	public function pair_wp_user_by_code($event)
 	{
 
-		function strip_special_chars($input)
+		function direktt_strip_special_chars($input)
 		{
 			return preg_replace('/[^a-zA-Z0-9]/', '', $input);
 		}
 
-		function find_pair_code($pair_str, $pair_patt = 'pair')
+		function direktt_find_pair_code($pair_str, $pair_patt = 'pair')
 		{
 			$pattern = '/' . $pair_patt . '\d{6}/';
 
@@ -994,8 +994,8 @@ class Direktt_Admin
 			$par_code_prefix = 'pair';
 		}
 
-		$event_data = strtolower(strip_special_chars($event['event_data']));
-		$pair_code  = find_pair_code($event_data, $par_code_prefix);
+		$event_data = strtolower(direktt_strip_special_chars($event['event_data']));
+		$pair_code  = direktt_find_pair_code($event_data, $par_code_prefix);
 
 		if ($pair_code) {
 
@@ -1052,10 +1052,8 @@ class Direktt_Admin
 				}
 			}
 
-			$content_type = apply_filters('wp_mail_content_type', $content_type);
-
 			if (stripos($content_type, 'text/html') !== false) {
-				$direktt_message_html    = new Direktt\Html2Text\Html2Text($message);
+				$direktt_message_html    = new Direktt\Dependencies\Html2Text\Html2Text($message);
 				$direktt_message_content = $direktt_message_html->getText();
 			} else {
 				$direktt_message_content = $message;

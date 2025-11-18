@@ -263,7 +263,7 @@ class Direktt_Profile {
 								$new_query                    = http_build_query( $new_params );
 								$new_uri                      = $parts['path'] . ( $new_query ? '?' . $new_query : '' );
 								$active_class = $item['id'] === $active_tab? ' direktt-profile-tool-active' : '';
-								echo ( '<li data-subpage="direktt-tool-' . esc_attr( $params['subpage'] ) . '"><a href="' . esc_attr( $new_uri ) . '" class="dpi-' . esc_attr( $params['subpage'] ) . ' direktt-button' . $active_class . '">' . esc_html( $item['label'] ) . '</a></li>' );
+								echo ( '<li data-subpage="direktt-tool-' . esc_attr( $params['subpage'] ) . '"><a href="' . esc_attr( $new_uri ) . '" class="dpi-' . esc_attr( $params['subpage'] ) . ' direktt-button' . esc_attr($active_class) . '">' . esc_html( $item['label'] ) . '</a></li>' );
 							}
 						}
 						?>

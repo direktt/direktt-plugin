@@ -18,9 +18,10 @@ class Direktt_Taxonomies_Service {
 		wp_register_script( 'direktt-taxonomies-service-script', plugins_url( '../js/direktt-service-taxonomies.js', __FILE__ ), array( 'direktt-taxonomies-service-autocomplete-script', 'jquery' ), $this->version, true );
 		wp_register_style( 'direktt-taxonomies-service-autocomplete-style', plugins_url( '../css/autoComplete.01.css', __FILE__ ), array(), $this->version );
 
-		$subpage = isset( $_GET['subpage'] ) ? sanitize_text_field( wp_unslash( $_GET['subpage'] ) ) : '';
+		$subpage = isset( $_GET['subpage'] ) ? sanitize_text_field( wp_unslash( $_GET['subpage'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Justification: no data processing, script enqueueing based on param value
 
-		$tax_name = isset( $_GET['tax_name'] ) ? sanitize_text_field( wp_unslash( $_GET['tax_name'] ) ) : '';
+		$tax_name = isset( $_GET['tax_name'] ) ? sanitize_text_field( wp_unslash( $_GET['tax_name'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Justification: no data processing, script enqueueing based on param value
+		
 		$taxonomy = 'edit-category' === $subpage ? 'direkttusercategories' : 'direkttusertags';
 		if( '' !== $tax_name ){
 			$term     = get_term_by( 'name', $tax_name, $taxonomy );

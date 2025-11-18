@@ -24,17 +24,17 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 // scss to css compiler.
-$bt_sass_file = plugin_dir_path( __FILE__ ) . 'bt-sass.php';
+$direktt_sass_file = plugin_dir_path( __FILE__ ) . 'bt-sass.php';
 
-if ( file_exists( $bt_sass_file ) ) {
-	require $bt_sass_file;
+if ( file_exists( $direktt_sass_file ) ) {
+	require $direktt_sass_file;
 }
 
 require plugin_dir_path( __FILE__ ) . 'includes/class-direktt.php';
 
-function run_direktt() {
+function direktt_run_direktt() {
 	$plugin = new Direktt();
 	$plugin->run();
 }
 
-run_direktt();
+direktt_run_direktt();
