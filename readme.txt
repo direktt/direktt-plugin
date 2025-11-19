@@ -58,6 +58,14 @@ Text Domain: direktt
 Domain Path: /languages
 Learn more about Direktt at https://direktt.com
 
+Direktt plugin uses a number of third party libraries. They include:
+
+* Vue.js - https://github.com/vuejs/
+* Vuetify - https://github.com/vuetifyjs/vuetify
+* Action Scheduler - https://github.com/woocommerce/action-scheduler
+* php-jwt - https://github.com/firebase/php-jwt
+* Html2Text - https://github.com/mtibben/html2text
+
 == Installation ==
 
 1. Install the plugin using the wp-admin's Plugins screen or upload the plugin files manually to the /wp-content/plugins/direktt folder on your web server.
