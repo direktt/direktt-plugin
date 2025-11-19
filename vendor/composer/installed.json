@@ -320,19 +320,20 @@
             "version_normalized": "dev-main",
             "source": {
                 "type": "git",
-                "url": "https://github.com/direktt/direktt-wppack.git",
-                "reference": "b7bb16219ca86c2e7c26e5809cf249f2d27cc124"
+                "url": "git@github.com:direktt/direktt-wppack.git",
+                "reference": "febefca782c4c7f6b2231c5937f0246781acbd06"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/direktt/direktt-wppack/zipball/b7bb16219ca86c2e7c26e5809cf249f2d27cc124",
-                "reference": "b7bb16219ca86c2e7c26e5809cf249f2d27cc124",
+                "url": "https://api.github.com/repos/direktt/direktt-wppack/zipball/febefca782c4c7f6b2231c5937f0246781acbd06",
+                "reference": "febefca782c4c7f6b2231c5937f0246781acbd06",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.2 || ^8.0"
+                "php": "^7.2 || ^8.0",
+                "symfony/finder": "^5.0"
             },
-            "time": "2025-11-18T16:45:29+00:00",
+            "time": "2025-11-19T14:32:33+00:00",
             "default-branch": true,
             "bin": [
                 "bin/wppack"
@@ -341,7 +342,8 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "WPPack\\": "src/"
+                    "WPPack\\": "src/",
+                    "GregPriday\\GitIgnore\\": "src/gitignore"
                 }
             },
             "description": "A Composer utility for zipping Direktt plugin to direktt.zip",

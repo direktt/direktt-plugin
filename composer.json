@@ -35,6 +35,9 @@
         "firebase\\php-jwt"
       ],
       "delete_vendor_directories": true
+    },
+    "direktt-wppack": {
+      "dest_folder": "c:\\Omnicom\\Development\\direktt\\direktt-plugin-deploy\\direktt\\"
     }
   },
   "autoload": {

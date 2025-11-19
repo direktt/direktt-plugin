@@ -22,6 +22,7 @@ return array(
     'League\\MimeTypeDetection\\' => array($vendorDir . '/league/mime-type-detection/src'),
     'League\\Flysystem\\' => array($vendorDir . '/league/flysystem/src'),
     'Html2Text\\' => array($vendorDir . '/html2text/html2text/src'),
+    'GregPriday\\GitIgnore\\' => array($vendorDir . '/direktt/direktt-wppack/src/gitignore'),
     'Firebase\\JWT\\' => array($vendorDir . '/firebase/php-jwt/src'),
     'Direktt\\Dependencies\\' => array($baseDir . '/includes/dependencies'),
     'Composer\\Installers\\' => array($vendorDir . '/composer/installers/src/Composer/Installers'),

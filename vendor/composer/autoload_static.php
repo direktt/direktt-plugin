@@ -49,6 +49,10 @@ class ComposerStaticInit8f052e706405195a486b866a141e7790
         array (
             'Html2Text\\' => 10,
         ),
+        'G' =>
+        array (
+            'GregPriday\\GitIgnore\\' => 21,
+        ),
         'F' =>
         array (
             'Firebase\\JWT\\' => 13,
@@ -128,6 +132,10 @@ class ComposerStaticInit8f052e706405195a486b866a141e7790
         'Html2Text\\' =>
         array (
             0 => __DIR__ . '/..' . '/html2text/html2text/src',
+        ),
+        'GregPriday\\GitIgnore\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/direktt/direktt-wppack/src/gitignore',
         ),
         'Firebase\\JWT\\' =>
         array (
