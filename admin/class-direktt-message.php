@@ -79,11 +79,8 @@ class Direktt_Message {
 				// Find replacement or default to the tag.
 				$value = array_key_exists( $tag, $replacements ) ? $replacements[ $tag ] : $tag;
 
-				// Prepare filter name.
-				$filter_name = 'direktt/message/template/' . $tag;
-
 				// Apply filter, pass value and user.
-				return apply_filters( $filter_name, $value, $direktt_user_id );
+				return apply_filters( 'direktt/message/template/' . $tag, $value, $direktt_user_id );
 			},
 			$input_string
 		);

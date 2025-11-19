@@ -18,6 +18,10 @@ class ComposerStaticInit8f052e706405195a486b866a141e7790
     );
 
     public static $prefixLengthsPsr4 = array (
+        'W' =>
+        array (
+            'WPPack\\' => 7,
+        ),
         'S' =>
         array (
             'Symfony\\Polyfill\\Php80\\' => 23,
@@ -41,6 +45,14 @@ class ComposerStaticInit8f052e706405195a486b866a141e7790
             'League\\MimeTypeDetection\\' => 25,
             'League\\Flysystem\\' => 17,
         ),
+        'H' =>
+        array (
+            'Html2Text\\' => 10,
+        ),
+        'F' =>
+        array (
+            'Firebase\\JWT\\' => 13,
+        ),
         'D' =>
         array (
             'Direktt\\Dependencies\\' => 21,
@@ -53,6 +65,10 @@ class ComposerStaticInit8f052e706405195a486b866a141e7790
     );
 
     public static $prefixDirsPsr4 = array (
+        'WPPack\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/direktt/direktt-wppack/src',
+        ),
         'Symfony\\Polyfill\\Php80\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-php80',
@@ -108,6 +124,14 @@ class ComposerStaticInit8f052e706405195a486b866a141e7790
         'League\\Flysystem\\' =>
         array (
             0 => __DIR__ . '/..' . '/league/flysystem/src',
+        ),
+        'Html2Text\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/html2text/html2text/src',
+        ),
+        'Firebase\\JWT\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/firebase/php-jwt/src',
         ),
         'Direktt\\Dependencies\\' =>
         array (

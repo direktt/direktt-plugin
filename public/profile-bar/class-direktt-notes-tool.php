@@ -57,7 +57,7 @@ class Direktt_Notes_Tool {
 
 		global $post;
 
-		if ( !$post || !Direktt_Public::direktt_ajax_check_user( $post ) ) {
+		if ( ! $post || ! Direktt_Public::direktt_ajax_check_user( $post ) ) {
 			return;
 		}
 

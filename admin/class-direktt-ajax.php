@@ -102,9 +102,9 @@ class Direktt_Ajax {
 			'pairing_prefix'        => get_option( 'direktt_pairing_prefix' ) ? esc_attr( get_option( 'direktt_pairing_prefix' ) ) : '',
 			'pairing_succ_template' => get_option( 'direktt_pairing_succ_template' ) ? esc_attr( get_option( 'direktt_pairing_succ_template' ) ) : '',
 
-			'qr_code_logo_url' 		=> get_option( 'direktt_qr_code_logo_url' ) ? esc_attr( get_option( 'direktt_qr_code_logo_url' ) ) : '',
-			'qr_code_color' 		=> get_option( 'direktt_qr_code_color' ) ? esc_attr( get_option( 'direktt_qr_code_color' ) ) : '',
-			'qr_code_bckg_color' 	=> get_option( 'direktt_qr_code_bckg_color' ) ? esc_attr( get_option( 'direktt_qr_code_bckg_color' ) ) : '',
+			'qr_code_logo_url'      => get_option( 'direktt_qr_code_logo_url' ) ? esc_attr( get_option( 'direktt_qr_code_logo_url' ) ) : '',
+			'qr_code_color'         => get_option( 'direktt_qr_code_color' ) ? esc_attr( get_option( 'direktt_qr_code_color' ) ) : '',
+			'qr_code_bckg_color'    => get_option( 'direktt_qr_code_bckg_color' ) ? esc_attr( get_option( 'direktt_qr_code_bckg_color' ) ) : '',
 
 			'templates'             => $templates,
 		);
@@ -257,18 +257,20 @@ class Direktt_Ajax {
 
 		// phpcs:disable WordPress.DB.DirectDatabaseQuery.NoCaching -- Justification: selective query on small dataset
 		// phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery -- Custom database used
+		// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Justification: table name is not prepared
+		// phpcs:disable PluginCheck.Security.DirectDB.UnescapedDBParameter -- Justification: table name is not prepared
 
 		if ( intval( $page ) === 0 ) {
 			$results = $wpdb->get_results(
 				$wpdb->prepare(
-					"SELECT * FROM {$table_name} WHERE direktt_user_id = %s ORDER BY ID DESC LIMIT 20", // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Justification: table name is not prepared
+					"SELECT * FROM {$table_name} WHERE direktt_user_id = %s ORDER BY ID DESC LIMIT 20",
 					$direktt_user_id
 				)
 			);
 		} else {
 			$results = $wpdb->get_results(
 				$wpdb->prepare(
-					"SELECT * FROM {$table_name} WHERE direktt_user_id = %s AND ID < %d ORDER BY ID DESC LIMIT 20", // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Justification: table name is not prepared
+					"SELECT * FROM {$table_name} WHERE direktt_user_id = %s AND ID < %d ORDER BY ID DESC LIMIT 20",
 					$direktt_user_id,
 					intval( $page )
 				)

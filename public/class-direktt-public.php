@@ -59,14 +59,14 @@ class Direktt_Public {
 			'direktt_public',
 			'direktt_public',
 			array(
-				'direktt_user'          		=> $direktt_user,
-				'direktt_post_id'       		=> get_the_ID(),
-				'direktt_ajax_url'      		=> admin_url( 'admin-ajax.php' ),
-				'direktt_rest_base'     		=> get_rest_url( null, 'direktt/v1/' ),
-				'direktt_wp_rest_nonce' 		=> wp_create_nonce( 'wp_rest' ),
-				'direktt_qr_code_logo_url' 		=> get_option( 'direktt_qr_code_logo_url' ),
-				'direktt_qr_code_color' 		=> get_option( 'direktt_qr_code_color' ),
-				'direktt_qr_code_bckg_color' 	=> get_option( 'direktt_qr_code_bckg_color' ),
+				'direktt_user'               => $direktt_user,
+				'direktt_post_id'            => get_the_ID(),
+				'direktt_ajax_url'           => admin_url( 'admin-ajax.php' ),
+				'direktt_rest_base'          => get_rest_url( null, 'direktt/v1/' ),
+				'direktt_wp_rest_nonce'      => wp_create_nonce( 'wp_rest' ),
+				'direktt_qr_code_logo_url'   => get_option( 'direktt_qr_code_logo_url' ),
+				'direktt_qr_code_color'      => get_option( 'direktt_qr_code_color' ),
+				'direktt_qr_code_bckg_color' => get_option( 'direktt_qr_code_bckg_color' ),
 			)
 		);
 
@@ -128,7 +128,7 @@ class Direktt_Public {
 
 		try {
 			Direktt\Dependencies\Firebase\JWT\JWT::$leeway = 60 * 10; // ten minutes.
-			$decoded_token                    = Direktt\Dependencies\Firebase\JWT\JWT::decode( $token, new Direktt\Dependencies\Firebase\JWT\Key( $api_key, $algorithm ) );
+			$decoded_token                                 = Direktt\Dependencies\Firebase\JWT\JWT::decode( $token, new Direktt\Dependencies\Firebase\JWT\Key( $api_key, $algorithm ) );
 		} catch ( Exception $e ) {
 			return false;
 		}
@@ -188,8 +188,6 @@ class Direktt_Public {
 			if ( $direktt_wp_user ) {
 				wp_set_current_user( $direktt_wp_user->ID );
 				wp_set_auth_cookie( $direktt_wp_user->ID );
-				do_action( 'wp_login', $direktt_wp_user->login, $direktt_wp_user );
-
 				$this->redirect_without_token();
 			}
 		}
@@ -321,7 +319,7 @@ class Direktt_Public {
 	}
 
 	private static function get_algorithm() {
-		$algorithm = apply_filters( 'jwt_auth_algorithm', 'HS256' );
+		$algorithm = apply_filters( 'direktt_jwt_auth_algorithm', 'HS256' );
 		if ( ! in_array( $algorithm, self::SUPPORTED_ALGORITHMS, true ) ) {
 			return false;
 		}
