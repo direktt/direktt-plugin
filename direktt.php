@@ -40,11 +40,12 @@ add_filter(
 	}
 );
 
-// skip .gitignore
+// skip .gitignore and .direktt-wppack
 add_filter(
 	'wp_plugin_check_ignore_files',
 	function ( $files ) {
 		$files[] = '.gitignore';
+		$files[] = '.direktt-wppack';
 		return $files;
 	}
 );
