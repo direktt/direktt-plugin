@@ -34,7 +34,7 @@ body.direktt_page_direktt-settings {
 			}
 		}
 		select {
-			width: 10em;
+			width: 15em;
 		}
 	}
 
@@ -134,6 +134,24 @@ body.direktt_page_direktt-settings {
 		&:has(input[name="direktt_loyalty_user_reset"]:checked) tr#direktt-loyalty-program-settings-mt-user-reset-row,
 		&:has(input[name="direktt_loyalty_admin"]:checked) tr#direktt-loyalty-program-settings-mt-admin-change-row,
 		&:has(input[name="direktt_loyalty_admin_reset"]:checked) tr#direktt-loyalty-program-settings-mt-admin-reset-row  {
+			opacity: 1;
+			pointer-events: initial;
+		}		
+	}
+	
+	.form-table.direktt-service-status-table {
+		tr#direktt-service-status-settings-mt-user-new-case-row,
+		tr#direktt-service-status-settings-mt-admin-new-case-row,
+		tr#direktt-service-status-settings-mt-user-case-change-row,
+		tr#direktt-service-status-settings-mt-admin-case-change-row {
+			opacity: 0.5;
+			pointer-events: none;
+			th, td { padding-top: 0; }
+		}
+		&:has(input[name="direktt_service_status_new_case_user"]:checked) tr#direktt-service-status-settings-mt-user-new-case-row,
+		&:has(input[name="direktt_service_status_new_case_admin"]:checked) tr#direktt-service-status-settings-mt-admin-new-case-row,
+		&:has(input[name="direktt_service_status_case_change_user"]:checked) tr#direktt-service-status-settings-mt-user-case-change-row,
+		&:has(input[name="direktt_service_status_case_change_admin"]:checked) tr#direktt-service-status-settings-mt-admin-case-change-row {
 			opacity: 1;
 			pointer-events: initial;
 		}		
