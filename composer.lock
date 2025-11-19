@@ -419,7 +419,7 @@
             "version": "dev-main",
             "source": {
                 "type": "git",
-                "url": "https://github.com/direktt/direktt-wppack.git",
+                "url": "git@github.com:direktt/direktt-wppack.git",
                 "reference": "b7bb16219ca86c2e7c26e5809cf249f2d27cc124"
             },
             "dist": {

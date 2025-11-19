@@ -3,7 +3,7 @@
         'name' => 'direktt/direktt-plugin',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '55ea78aa20b98d947b482dfb461f840bf6919e68',
+        'reference' => '52f7e5823b9580925901835634e523ce178c5fe2',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -40,7 +40,7 @@
         'direktt/direktt-plugin' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '55ea78aa20b98d947b482dfb461f840bf6919e68',
+            'reference' => '52f7e5823b9580925901835634e523ce178c5fe2',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
