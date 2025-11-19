@@ -36,6 +36,7 @@ add_filter(
 	function ( $directories ) {
 		$directories[] = 'includes/action-scheduler';
 		$directories[] = 'includes/dependencies';
+		$directories[] = 'vendor';
 		return $directories;
 	}
 );

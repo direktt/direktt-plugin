@@ -1,7 +1,6 @@
 changes.diff
 .direktt-wppack
 .gitignore
-composer.json
 composer.lock
 package.json
 package-lock.json
@@ -22,7 +21,6 @@ package-lock.json
 /vendor/league/
 /vendor/phpcsstandards/
 /vendor/squizlabs/
-/vendor/symfony/
 /vendor/wp-coding-standards/
 
 /languages/
