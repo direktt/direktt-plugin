@@ -293,7 +293,7 @@ class Direktt_Api {
 		if ( $wp_error ) {
 			return $wp_error;
 		} else {
-			$wp_user_id = $this->create_wp_direktt_user( $post_id );
+			$wp_user_id = $this->create_wp_direktt_user( $post_id, $direktt_user_id );
 			if ( is_wp_error( $wp_user_id ) ) {
 				return $wp_user_id;
 			}
@@ -316,13 +316,13 @@ class Direktt_Api {
 		}
 	}
 
-	private function create_wp_direktt_user( $user_id ) {
+	private function create_wp_direktt_user( $user_id, $direktt_user_id ) {
 		$username = 'direktt_' . $user_id;
-		$email    = $this->generate_random_string( 8 ) . '@direktt.com';
+		$email    = $direktt_user_id . '@direktt.com';
 		$password = $this->generate_random_string( 12 );
 
 		while ( email_exists( $email ) ) {
-			$email = $this->generate_random_string( 8 ) . '@example.com';
+			$email = $this->generate_random_string( 8 ) . '@direktt.com';
 		}
 
 		$wp_user_id = wp_create_user( $username, $password, $email );
