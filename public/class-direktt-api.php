@@ -317,6 +317,10 @@ class Direktt_Api {
 	}
 
 	private function create_wp_direktt_user( $user_id, $direktt_user_id ) {
+		$user            = Direktt_User::get_user_by_subscription_id( $direktt_user_id );
+
+		$direktt_display_name = $user["direktt_display_name"];
+
 		$username = 'direktt_' . $user_id;
 		$email    = $direktt_user_id . '@direktt.com';
 		$password = $this->generate_random_string( 12 );
@@ -335,6 +339,10 @@ class Direktt_Api {
 		$user->set_role( 'direktt' );
 
 		update_user_meta( $wp_user_id, 'direktt_user_id', $user_id );
+
+		$wp_user = get_user_by( 'id', $wp_user_id );
+
+		Direktt_User::set_wp_user_name( $wp_user, $direktt_display_name, __( 'Direktt', 'direktt' ) );
 	}
 
 	public function on_change_avatar_url( WP_REST_Request $request ) {
