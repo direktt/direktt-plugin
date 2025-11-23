@@ -61,6 +61,7 @@ body.direktt_page_direktt-settings {
 		tr#direktt-auto-greet-settings-mt-nwh-row {
 			/* opacity: 0.5; */
 			display: none;
+			th, td { padding-top: 0; }
 		}
 		&:has(input[name="direktt_auto_greet_mode"][value="always"]:checked) tr#direktt-auto-greet-settings-mt-always-on-row  {
 			/* opacity: 1; */
@@ -82,6 +83,24 @@ body.direktt_page_direktt-settings {
 		}
 		&:has(input[name="direktt_welcome_user"]:checked) tr#direktt-auto-greet-settings-mt-new-subscriber-row,
 		&:has(input[name="direktt_welcome_admin"]:checked) tr#direktt-auto-greet-settings-mt-admin-row  {
+			opacity: 1;
+			pointer-events: initial;
+		}		
+	}
+	
+	.form-table.direktt-cross-sell-table {
+		tr#direktt-cross-sell-settings-mt-user-issuance-row,
+		tr#direktt-cross-sell-settings-mt-admin-issuance-row,
+		tr#direktt-cross-sell-settings-mt-user-usage-row,
+		tr#direktt-cross-sell-settings-mt-admin-usage-row {
+			opacity: 0.5;
+			pointer-events: none;
+			th, td { padding-top: 0; }
+		}
+		&:has(input[name="direktt_cross_sell_user_issuance"]:checked) tr#direktt-cross-sell-settings-mt-user-issuance-row,
+		&:has(input[name="direktt_cross_sell_admin_issuance"]:checked) tr#direktt-cross-sell-settings-mt-admin-issuance-row,
+		&:has(input[name="direktt_cross_sell_user_usage"]:checked) tr#direktt-cross-sell-settings-mt-user-usage-row,
+		&:has(input[name="direktt_cross_sell_admin_usage"]:checked) tr#direktt-cross-sell-settings-mt-admin-usage-row {
 			opacity: 1;
 			pointer-events: initial;
 		}		
@@ -164,10 +183,17 @@ body.direktt_page_direktt-settings {
 		background: #fff;
 	}
 	
-	.direktt-loyalty-program-points-rule .button-link-delete {
-		padding: 0.1em;
-		cursor: pointer;
+	#direktt_points_repeater {
+		display: flex;
+		gap: 1em;
+		flex-wrap: wrap;		
+		.direktt-loyalty-program-points-rule .button-link-delete {
+			padding: 0.1em;
+			cursor: pointer;
+		}	
 	}
+	
+	
 }
 
 /* In cutom post type */
