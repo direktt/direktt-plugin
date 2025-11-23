@@ -9,13 +9,15 @@
     "allow-plugins": {
       "composer/installers": true,
       "dealerdirect/phpcodesniffer-composer-installer": true
-    }
+    },
+    "preferred-install": "source"
   },
   "require": {
     "php": ">=7.4",
     "composer/installers": "~1.0",
     "firebase/php-jwt": "^6.11",
-    "html2text/html2text": "^4.3"
+    "html2text/html2text": "^4.3",
+    "woocommerce/action-scheduler": "^3.9"
   },
   "require-dev": {
     "dealerdirect/phpcodesniffer-composer-installer": "*",
@@ -31,9 +33,13 @@
       "classmap_prefix": "Direktt_",
       "packages": [
         "html2text\\html2text",
-        "firebase\\php-jwt"
+        "firebase\\php-jwt",
+        "woocommerce\\action-scheduler"
       ],
       "delete_vendor_directories": true
+    },
+    "installer-paths": {
+      "vendor/woocommerce/action-scheduler": ["woocommerce/action-scheduler"]
     }
   },
   "autoload": {
@@ -41,12 +47,6 @@
       "Direktt\\Dependencies\\": "includes/dependencies/"
     }
   },
-  "repositories": [
-    {
-      "type": "vcs",
-      "url": "https://github.com/direktt/direktt-wppack"
-    }
-  ],
   "scripts": {
     "dist": [
       "wsl rm -f ../direktt.zip",
