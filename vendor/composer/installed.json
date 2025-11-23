@@ -1877,7 +1877,7 @@
                 "issues": "https://github.com/woocommerce/action-scheduler/issues",
                 "source": "https://github.com/woocommerce/action-scheduler/tree/3.9.3"
             },
-            "install-path": "../woocommerce/action-scheduler"
+            "install-path": "../../wp-content/plugins/action-scheduler"
         },
         {
             "name": "wp-coding-standards/wpcs",

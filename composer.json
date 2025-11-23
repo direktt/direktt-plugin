@@ -37,9 +37,6 @@
         "woocommerce\\action-scheduler"
       ],
       "delete_vendor_directories": true
-    },
-    "installer-paths": {
-      "vendor/woocommerce/action-scheduler": ["woocommerce/action-scheduler"]
     }
   },
   "autoload": {
