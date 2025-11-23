@@ -21,8 +21,7 @@
     "dealerdirect/phpcodesniffer-composer-installer": "*",
     "squizlabs/php_codesniffer": "3.*",
     "wp-coding-standards/wpcs": "3.0",
-    "coenjacobs/mozart": "*",
-    "direktt/direktt-wppack": "dev-main"
+    "coenjacobs/mozart": "*"
   },
   "extra": {
     "mozart": {
@@ -35,9 +34,6 @@
         "firebase\\php-jwt"
       ],
       "delete_vendor_directories": true
-    },
-    "direktt-wppack": {
-      "dest_folder": "c:\\Omnicom\\Development\\direktt\\direktt-plugin-deploy\\direktt\\"
     }
   },
   "autoload": {
@@ -50,5 +46,11 @@
       "type": "vcs",
       "url": "https://github.com/direktt/direktt-wppack"
     }
-  ]
+  ],
+  "scripts": {
+    "dist": [
+      "wsl rm -f ../direktt.zip",
+      "wsl zip -r ../direktt.zip . -x '.parcel-cache/*' '.vscode/*' '.git/*' 'node_modules/*' 'vendor/composer/installers/.github/*' 'vendor/firebase/*' 'vendor/html2text/*' '*.map' 'changes.diff' 'composer.lock' 'package.json' 'package-lock.json' '.gitignore' 'languages/*' 'public/scss/*' 'admin/scss/*' 'admin/src/*' 'classes/*'"
+    ]
+  }
 }
