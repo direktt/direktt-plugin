@@ -87,3 +87,5 @@ changes.diff
 /vendor/direktt/*
 /vendor/firebase/*
 /vendor/html2text/*
+/vendor/symfony/*
+/vendor/psr/*
