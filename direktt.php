@@ -23,6 +23,8 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
+define( 'DIREKTT_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+
 // scss to css compiler.
 $direktt_sass_file = plugin_dir_path( __FILE__ ) . 'bt-sass.php';
 

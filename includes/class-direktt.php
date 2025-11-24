@@ -167,7 +167,7 @@ class Direktt {
 
 		$plugin_event = new Direktt_Event( $this->get_plugin_name(), $this->get_version() );
 
-		register_activation_hook( WP_PLUGIN_DIR . '/direktt/direktt.php', array( 'Direktt_Event', 'create_database_table' ) );
+		register_activation_hook( DIREKTT_PLUGIN_DIR . 'direktt.php', array( 'Direktt_Event', 'create_database_table' ) );
 	}
 
 	private function define_user_hooks() {

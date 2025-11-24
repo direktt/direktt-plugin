@@ -4,7 +4,6 @@ defined( 'ABSPATH' ) || exit;
 
 class Direktt_Admin {
 
-
 	private string $plugin_name;
 	private string $version;
 

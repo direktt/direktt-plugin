@@ -99,7 +99,7 @@ class Direktt_Public {
 		$direktt_user = false;
 		self::remove_direktt_auth_cookie();
 
-		$redirect_url = get_option( 'unauthorized_redirect_url' );
+		$redirect_url = get_option( 'direktt_unauthorized_redirect_url' );
 
 		if ( $redirect_url ) {
 

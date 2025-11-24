@@ -4,7 +4,6 @@ defined( 'ABSPATH' ) || exit;
 
 class Direktt_Ajax {
 
-
 	private string $plugin_name;
 	private string $version;
 	private Direktt_Api $direktt_api;
@@ -97,7 +96,7 @@ class Direktt_Ajax {
 			'forceReload'           => wp_rand( 1, 100000 ),
 
 			'isSSL'                 => stripos( get_site_url(), 'https://' ) === 0,
-			'redirect_url'          => get_option( 'unauthorized_redirect_url' ) ? esc_attr( get_option( 'unauthorized_redirect_url' ) ) : '',
+			'redirect_url'          => get_option( 'direktt_unauthorized_redirect_url' ) ? esc_attr( get_option( 'direktt_unauthorized_redirect_url' ) ) : '',
 
 			'pairing_prefix'        => get_option( 'direktt_pairing_prefix' ) ? esc_attr( get_option( 'direktt_pairing_prefix' ) ) : '',
 			'pairing_succ_template' => get_option( 'direktt_pairing_succ_template' ) ? esc_attr( get_option( 'direktt_pairing_succ_template' ) ) : '',
@@ -355,9 +354,9 @@ class Direktt_Ajax {
 			}
 
 			if ( $url_choice ) {
-				update_option( 'unauthorized_redirect_url', $url_choice );
+				update_option( 'direktt_unauthorized_redirect_url', $url_choice );
 			} else {
-				delete_option( 'unauthorized_redirect_url' );
+				delete_option( 'direktt_unauthorized_redirect_url' );
 			}
 
 			if ( $pairing_prefix ) {
