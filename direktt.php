@@ -34,7 +34,6 @@ if ( file_exists( $direktt_sass_file ) ) {
 add_filter(
 	'wp_plugin_check_ignore_directories',
 	function ( $directories ) {
-		$directories[] = 'includes/action-scheduler';
 		$directories[] = 'includes/dependencies';
 		$directories[] = 'vendor';
 		return $directories;

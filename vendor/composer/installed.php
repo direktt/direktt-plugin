@@ -3,7 +3,7 @@
         'name' => 'direktt/direktt-plugin',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '06eddd3d13988d221c0a8a4b536069cddabcbd22',
+        'reference' => '9ee5597a850a4f578e4e6a2a573a9c37cfe078f5',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -40,7 +40,7 @@
         'direktt/direktt-plugin' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '06eddd3d13988d221c0a8a4b536069cddabcbd22',
+            'reference' => '9ee5597a850a4f578e4e6a2a573a9c37cfe078f5',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -234,15 +234,6 @@
             'install_path' => __DIR__ . '/../symfony/string',
             'aliases' => array(),
             'dev_requirement' => true,
-        ),
-        'woocommerce/action-scheduler' => array(
-            'pretty_version' => '3.9.3',
-            'version' => '3.9.3.0',
-            'reference' => 'c58cdbab17651303d406cd3b22cf9d75c71c986c',
-            'type' => 'wordpress-plugin',
-            'install_path' => __DIR__ . '/../../wp-content/plugins/action-scheduler',
-            'aliases' => array(),
-            'dev_requirement' => false,
         ),
         'wp-coding-standards/wpcs' => array(
             'pretty_version' => '3.0.0',

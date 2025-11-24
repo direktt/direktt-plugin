@@ -62,7 +62,6 @@ Direktt plugin uses a number of third party libraries. They include:
 
 * Vue.js - https://github.com/vuejs/
 * Vuetify - https://github.com/vuetifyjs/vuetify
-* Action Scheduler - https://github.com/woocommerce/action-scheduler
 * php-jwt - https://github.com/firebase/php-jwt
 * Html2Text - https://github.com/mtibben/html2text
 
