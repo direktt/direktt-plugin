@@ -1,6 +1,11 @@
+if (process.env.NODE_ENV !== 'production') {
+  __VUE_PROD_DEVTOOLS__ = true;
+} else {
+  __VUE_PROD_DEVTOOLS__ = false;
+}
+
 import { createApp } from 'vue'
 import App from '../vue/App.vue'
-import { createPinia } from 'pinia'
 
 import { VueQueryPlugin } from '@tanstack/vue-query'
 
@@ -15,7 +20,6 @@ import { aliases, mdi } from 'vuetify/iconsets/mdi-svg'
 // vue app setup
 
 vueapp = createApp(App);
-const pinia = createPinia()
 
 const vuetify = createVuetify({
     components,
@@ -29,7 +33,6 @@ const vuetify = createVuetify({
   },
 })
 
-vueapp.use(pinia)
 vueapp.use(vuetify)
 vueapp.use(VueQueryPlugin)
 

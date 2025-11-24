@@ -1,14 +1,11 @@
 <script setup>
 
-import { useDirekttStore } from './store.js'
 import { onMounted, computed, ref, watch } from 'vue'
 import { useQueryClient, useQuery, useMutation } from '@tanstack/vue-query'
 import { mdiAlertOutline, mdiCheckBold, mdiContentCopy } from '@mdi/js'
 import QRCodeStyling from "../../qrcode/vue/QRCodeStyling.vue";
 
 const queryClient = useQueryClient()
-
-const store = useDirekttStore()
 
 const activation_status = ref(null)
 const channel_data = ref(null)

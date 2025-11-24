@@ -1,9 +1,7 @@
 <script setup>
-import { useDirekttStore } from "./store.js";
 import { onMounted, computed, ref } from "vue";
 import { useQueryClient, useQuery, useMutation } from "@tanstack/vue-query";
 
-const store = useDirekttStore();
 const consent = ref(true)
 const userSet = ref('all')
 

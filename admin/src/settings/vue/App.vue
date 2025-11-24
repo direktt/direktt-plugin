@@ -1,6 +1,5 @@
 <script setup>
 
-import { useDirekttStore } from './store.js'
 import { onMounted, computed, ref, watch, nextTick } from 'vue'
 import { useQueryClient, useQuery, useMutation } from '@tanstack/vue-query'
 import { mdiAlertOutline, mdiCheckBold } from '@mdi/js'
@@ -8,8 +7,6 @@ import { mdiAlertOutline, mdiCheckBold } from '@mdi/js'
 import QRCodeStyling from "../../qrcode/vue/QRCodeStyling.vue";
 
 const queryClient = useQueryClient()
-
-const store = useDirekttStore()
 
 const nonce = ref(direktt_settings_object.nonce)
 

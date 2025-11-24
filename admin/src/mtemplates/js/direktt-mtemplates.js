@@ -1,7 +1,12 @@
+if (process.env.NODE_ENV !== 'production') {
+  __VUE_PROD_DEVTOOLS__ = true;
+} else {
+  __VUE_PROD_DEVTOOLS__ = false;
+}
+
 import { createApp } from 'vue'
 import AppBuilder from '../vue/AppBuilder.vue'
 import App from '../vue/App.vue'
-import { createPinia } from 'pinia'
 
 import { VueQueryPlugin } from '@tanstack/vue-query'
 
@@ -22,8 +27,6 @@ import { aliases, mdi } from 'vuetify/iconsets/mdi-svg'
         const vueappBuilder = createApp(AppBuilder);
         const vueapp = createApp(App);
 
-        const pinia = createPinia()
-
         const vuetify = createVuetify({
             components,
             directives,
@@ -36,7 +39,6 @@ import { aliases, mdi } from 'vuetify/iconsets/mdi-svg'
             },
         })
 
-        vueapp.use(pinia)
         vueapp.use(vuetify)
         vueapp.use(VueQueryPlugin)
         vueapp.mount("#direktt-meta-app")

@@ -33,7 +33,6 @@
   "dependencies": {
     "@tanstack/vue-query": "^5.40.1",
     "lodash.debounce": "^4.0.8",
-    "pinia": "^2.1.7",
     "qr-code-styling": "^1.9.2",
     "qrcode": "^1.5.3",
     "tinycolor2": "^1.6.0",

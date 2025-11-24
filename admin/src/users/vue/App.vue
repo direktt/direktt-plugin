@@ -1,11 +1,8 @@
 <script setup>
-import { useDirekttStore } from "./store.js";
 import { onMounted, computed, ref } from "vue";
 import { useQueryClient, useQuery, useMutation } from "@tanstack/vue-query";
 import { mdiAlertOutline, mdiCheckBold } from '@mdi/js'
 import QRCodeStyling from "../../qrcode/vue/QRCodeStyling.vue";
-
-const store = useDirekttStore();
 
 const postId = ref(direktt_users_object.postId);
 const marketing_consent = ref(false);
