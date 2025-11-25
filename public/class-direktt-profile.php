@@ -79,7 +79,7 @@ class Direktt_Profile {
 		$categories = array_filter( array_map( 'trim', explode( ',', $atts['categories'] ) ) );
 		$tags       = array_filter( array_map( 'trim', explode( ',', $atts['tags'] ) ) );
 
-		global $direktt_user;
+		$direktt_user = Direktt_User::direktt_get_current_user();
 
 		wp_enqueue_style( 'direktt-profile-style' );
 		wp_enqueue_script( 'direktt-profile-script' );

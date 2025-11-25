@@ -141,7 +141,6 @@ class Direktt_Notes_Tool {
 	}
 
 	public function direktt_quill_upload_image_handler() {
-		global $direktt_user;
 
 		if ( ! isset( $_POST['direktt_notes_post_id'] ) ) {
 			wp_send_json_error( array( 'message' => 'Invalid nonce, Missing id.' ), 403 );

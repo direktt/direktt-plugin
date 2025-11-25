@@ -274,9 +274,6 @@ class Direktt_Api {
 				update_post_meta( $post_id, $meta_key, $meta_value );
 			}
 
-			$wp_user = Direktt_User::get_wp_direktt_user_by_post_id( $post_id );
-			Direktt_User::set_wp_user_name( $wp_user, $usr_title, __( 'Direktt', 'direktt' ) );
-
 			return $post_id;
 		}
 
@@ -293,13 +290,6 @@ class Direktt_Api {
 		if ( $wp_error ) {
 			return $wp_error;
 		} else {
-			$wp_user_id = $this->create_wp_direktt_user( $post_id, $direktt_user_id );
-			if ( is_wp_error( $wp_user_id ) ) {
-				return $wp_user_id;
-			}
-
-			$wp_user = Direktt_User::get_wp_direktt_user_by_post_id( $wp_user_id );
-			Direktt_User::set_wp_user_name( $wp_user, $usr_title, __( 'Direktt', 'direktt' ) );
 
 			do_action( 'direktt/user/subscribe', $direktt_user_id );
 
@@ -314,35 +304,6 @@ class Direktt_Api {
 			}
 			return $post_id;
 		}
-	}
-
-	private function create_wp_direktt_user( $user_id, $direktt_user_id ) {
-		$user            = Direktt_User::get_user_by_subscription_id( $direktt_user_id );
-
-		$direktt_display_name = $user["direktt_display_name"];
-
-		$username = 'direktt_' . $user_id;
-		$email    = $direktt_user_id . '@direktt.com';
-		$password = $this->generate_random_string( 12 );
-
-		while ( email_exists( $email ) ) {
-			$email = $this->generate_random_string( 8 ) . '@direktt.com';
-		}
-
-		$wp_user_id = wp_create_user( $username, $password, $email );
-
-		if ( is_wp_error( $wp_user_id ) ) {
-			return $wp_user_id;
-		}
-
-		$user = new WP_User( $wp_user_id );
-		$user->set_role( 'direktt' );
-
-		update_user_meta( $wp_user_id, 'direktt_user_id', $user_id );
-
-		$wp_user = get_user_by( 'id', $wp_user_id );
-
-		Direktt_User::set_wp_user_name( $wp_user, $direktt_display_name, __( 'Direktt', 'direktt' ) );
 	}
 
 	public function on_change_avatar_url( WP_REST_Request $request ) {
@@ -398,9 +359,6 @@ class Direktt_Api {
 					'post_title' => $direktt_display_name,
 				);
 				wp_update_post( $post_data );
-
-				$wp_user = Direktt_User::get_wp_direktt_user_by_post_id( $user['ID'] );
-				Direktt_User::set_wp_user_name( $wp_user, $direktt_display_name, __( 'Direktt', 'direktt' ) );
 			}
 
 			$data = array();
@@ -431,7 +389,8 @@ class Direktt_Api {
 	}
 
 	public function do_direktt_action( WP_REST_Request $request ) {
-		global $direktt_user;
+		
+		$direktt_user = Direktt_User::direktt_get_current_user();
 		$parameters = json_decode( $request->get_body(), true );
 
 		if ( array_key_exists( 'token', $parameters ) ) {
@@ -502,8 +461,6 @@ class Direktt_Api {
 
 		if ( $user ) {
 
-			$this->delete_wp_direktt_user( $user['ID'] );
-
 			wp_delete_post( $user['ID'], true );
 
 			Direktt_Event::insert_event(
@@ -514,26 +471,6 @@ class Direktt_Api {
 				)
 			);
 			do_action( 'direktt/user/unsubscribe', $direktt_user_id );
-		}
-	}
-
-	private function delete_wp_direktt_user( $direktt_user_id ) {
-		require_once ABSPATH . 'wp-admin/includes/user.php';
-
-		$users = get_users(
-			array(
-				'meta_key'   => 'direktt_user_id',    // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key -- Justification: bounded, selective query on small dataset
-			'meta_value'     => $direktt_user_id,   // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value -- Justification: bounded, selective query on small dataset
-			'role'           => 'direktt',
-			'posts_per_page' => 10,
-			'fields'         => 'ID', // Return only user IDs.
-			)
-		);
-
-		if ( ! empty( $users ) ) {
-			foreach ( $users as $user_id ) {
-				wp_delete_user( intval( $user_id ) );
-			}
 		}
 	}
 
