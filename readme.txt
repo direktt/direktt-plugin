@@ -1,6 +1,6 @@
 === Direktt ===
 Contributors: direkttwp
-Tags: direktt, mobile, integration, api
+Tags: mobile app, customer care, messaging, push notifications, mobile integration
 Requires at least: 5.4
 Tested up to: 6.8
 Stable tag: 1.0
@@ -8,63 +8,63 @@ Requires PHP: 8.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Implements the WordPress based functionality of the Direktt mobile customer care platform.
+Connect your WordPress site to the Direktt mobile customer care platform for instant messaging and real-time user engagement.
 
 == Description ==
-Direktt plugin connects your WordPress site with the [Direktt mobile customer care platform](https://direktt.com/).
+Direktt helps you seamlessly integrate your WordPress website with the [Direktt mobile customer care platform](https://direktt.com/). With this plugin, you can:
 
-This plugin provides the foundational WordPress-side functionality required to integrate with Direktt, including developers' framework.
+- Access a wp-admin interface for Direktt settings, user management, and bulk messaging.
+- Manage messaging templates and send announcements to your Direktt channel subscribers.
+- View and manage user profiles, notes, and message history.
+- Receive and act on user events such as subscriptions, messages, and activity from the Direktt mobile app.
 
-It provides wp-admin interface for: 
+For developers, Direktt provides a framework to:
 
-- General Direktt Settings 
-- Direktt User Management
-- Direktt Message Template Management with Bulk Messaging Tool
-- Direktt Mobile App's User Profile Interface (Direktt User Taxonomy, User Notes and User Messaging).
+- Add custom hooks and actions for Direktt events.
+- Access and authorize users or events from the Direktt app.
+- Integrate with the Direktt panel or user profiles.
+- Send messages to app users programmatically.
+- Implement powerful Direktt automations
 
-Direktt platform sends your channel's events to your WordPress instance using API endopints implemented by Direktt WP plugin, so you can programmatically act on them.
-The events include:
+== Data & External Service Disclosure ==
 
-- New User Subscriptions
-- User Unsubscribe events
-- Sent and received user messages
-- Page views by channel subscribers via Direktt mobile app
-- QR code scans by channel subscribers via Direktt mobile app
-- Chat interface user actions in chat interface within Direktt mobile app
+This plugin connects your website to the Direktt platform using secure API calls. No user tracking or personal data is automatically sent from your site to Direktt.
 
-Direktt WP plugin implements developer's framework which enables you to:
+**When certain user actions occur (such as subscribing or messaging), the Direktt platform sends the following minimal user data to your WordPress site via API:**
 
-- Implement hooks and actions to act on Direktt events
-- Plug into Direktt settings panel and user profile within Direktt mobile app
-- Use api functions to verify and authorize users and events coming from Direktt mobile app / platform
-- Send messages to channel subscribers
+- Display name
+- Avatar
+- Channel-specific subscription ID
 
-== External Service Disclosure ==
+No personally identifiable or trackable data (such as email addresses) is shared with your or other channels or with any third-party platforms. All API calls are authenticated with your Direktt API key.
 
-Direktt WordPress plugin does not send any user tracking data back to Direktt platform.
+**Plugin API Endpoints Used:**
+The plugin communicates only during specific actions and uses the following Direktt API endpoints:
 
-Direktt User related data sent from Direktt platform to WP API on these events include:
+1. https://getDataForChannel-lnkonwpiwa-uc.a.run.app
+(Called when you view the Direktt dashboard in wp-admin to fetch current channel status)
 
-- Direktt User Display name,
-- Direktt User Avatar and 
-- Channel level unique subscription Id
+2. https://activatechannel-lnkonwpiwa-uc.a.run.app
+(Called on channel activation)
 
-No user trackable data is shared between channels or with third party platforms or services (this includes email or any other Direktt platform level user data)
+3. https://getsubscriptionsforchannel-lnkonwpiwa-uc.a.run.app
+(Called when channel user synchronization is initiated in the Direktt wp-admin settings)
 
-Plugin implements calls to the Direktt API upon user actions (no calls are made automatically or in background by the plugin). They include following endpoints:
+4. https://sendbulkmessages-lnkonwpiwa-uc.a.run.app
+(Called when sending a message to channel subscribers)
 
-* https://getDataForChannel-lnkonwpiwa-uc.a.run.app - endpoint is called when user visits the Direktt dasboard in wp-admin to gather current channel status
-* https://activatechannel-lnkonwpiwa-uc.a.run.app - endpont is called on channel activation
-* https://getsubscriptionsforchannel-lnkonwpiwa-uc.a.run.app - endpont is called when channel user synchronization is initiated in wp-admin's Direktt settings
+5. https://sendadminmessage-lnkonwpiwa-uc.a.run.app
+(Called when sending a message to the channel admin)
 
-* https://sendbulkmessages-lnkonwpiwa-uc.a.run.app - endpoint is called when message is sent to channel subscribers
-* https://sendadminmessage-lnkonwpiwa-uc.a.run.app - endpoint is called when message is sent to channel admin
-* https://updateMessage-lnkonwpiwa-uc.a.run.app - endpoint is called when sent message is updated
+6. https://updateMessage-lnkonwpiwa-uc.a.run.app
+(Called when updating a sent message)
 
-All calls are authenticated using Direktt API key
+**No calls are made automatically or in the background without user/admin action.**
 
-Find Direktt Privacy Policy [HERE](https://direktt.com/privacy-policy/)
-Find Direktt Terms of Service [HERE](https://direktt.com/terms-of-service/)  
+For more details, please see:
+
+- Direktt Privacy Policy [HERE](https://direktt.com/privacy-policy/)
+- Direktt Terms of Service [HERE](https://direktt.com/terms-of-service/)  
 
 Localization:
 
@@ -81,26 +81,24 @@ Direktt plugin uses a number of third party libraries. They include:
 
 == Installation ==
 
-1. Install the plugin using the wp-admin's Plugins screen or upload the plugin files manually to the /wp-content/plugins/direktt folder on your web server.
-2. Activate the plugin using the Plugins screen in WordPress' wp-admin.
-3. Login into the [Direktt management console](https://direktt.com/wp-content/direkttweb/), create the channel and copy your API Key on Channel Info Screen.
-Add the API key to your Direktt Settings on Direktt > Settings screen in wp-admin to enable your WordPress to make API calls and receive events from Direktt platform.  
-
-You can find the detailed Quick Start Guide [HERE](https://direktt.com/quick-start-guide/)
+1. Upload the plugin to `/wp-content/plugins/direktt` or install via the WordPress Plugins menu.
+2. Activate the plugin from the Plugins screen.
+3. Get your API key from the [Direktt management console](https://direktt.com/wp-content/direkttweb/) and add it in Direktt > Settings in WordPress.
+4. Follow the [Quick Start Guide](https://direktt.com/quick-start-guide/) for full setup instructions.
 
 == Frequently Asked Questions ==
 
 = What is Direktt? =
-Direktt is a mobile customer care platform tightly integrated with WordPress. Visit [https://direktt.com](https://direktt.com) for more details.
+Direktt is a customer care platform integrated with WordPress. Learn more at [https://direktt.com](https://direktt.com).
 
-= Where do I get API credentials or integration details? =
-Login into the [Direktt management console](https://direktt.com/wp-content/direkttweb/), create the channel and copy your API Key on Channel Info Screen.
+= Where can I get API credentials? =
+Login to the [Direktt management console](https://direktt.com/wp-content/direkttweb/) and copy your API key from the Channel Info screen.
 
-= I am Getting Your site url in your WordPress' General Settings not set to use https protocol error. How to resolve this? =
-Direktt integration requires that your site works under https protocol. If you are not sure what that means, contact your hosting company for the instructions on how to setup https on your site.
+= Why do I need HTTPS? =
+Direktt requires your site to be served over HTTPS for security. Contact your hosting provider if you need help enabling HTTPS.
 
-= Where can I find the source code of front-end js components  =
-You can find the source code of all Direktt plugin components in our [GitHib repository](https://github.com/direktt/direktt-plugin)
+= Where is the source code for the front-end components? =
+Find all plugin component code in our [GitHub repository](https://github.com/direktt/direktt-plugin).
 
 == Screenshots ==
 
@@ -111,7 +109,7 @@ You can find the source code of all Direktt plugin components in our [GitHib rep
 == Changelog ==
 
 = 1.0 =
-*Initial public release.
+* Initial public release.
 
 == Upgrade Notice ==
 
