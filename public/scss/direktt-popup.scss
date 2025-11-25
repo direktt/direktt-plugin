@@ -51,13 +51,25 @@
 
 #direktt-profile {
 	.notice  {
+		position: relative;
+		overflow: hidden;
+		&:before {
+			content: "";
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			background-color: var(--direktt-profile-warning-color);
+			opacity: 0.2;
+		}
 		text-align: center;
 		font-weight: 600;
 		border-radius: 50px;
 		margin: 1em 0;
 		padding: 1em;	
-		border: 2px solid var(--direktt-profile-accent-color);
-		/* color: var(--direktt-profile-accent-color); */
+		/* border: 2px solid var(--direktt-profile-accent-color); */
+		color: var(--direktt-profile-warning-color);
 		&.notice-error {
 			border-color: var(--direktt-profile-warning-color);
 			/* color: var(--direktt-profile-warning-color); */

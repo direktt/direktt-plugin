@@ -29,6 +29,7 @@ html {
 	
 	// Headings
 	h1, h2, h3, h4, h5, h6 {
+		font-family: var(--direktt-profile-headlines-font-family);
 		font-weight: 600;
 		font-size: 1.5em;
 		line-height: 1.25;
@@ -109,9 +110,11 @@ html {
 		  outline: 2px solid var(--direktt-profile-accent-color);
 		  outline-offset: 2px;
 		}*/
+		background: white;
 	}
 	input[type="text"] {
-		padding: 0.5em 1em;
+		padding: 1em 1em;
+		background: white;
 	}
 	input[type="submit"], button:not([class^='ql-']), .button, .direktt-button {
 		pointer-events: all;
@@ -136,6 +139,7 @@ html {
 	}
 	textarea {
 		padding: 1em;
+		background: white;
 	}
 	input[type="checkbox"] {
 		-webkit-appearance: none; 
@@ -186,6 +190,7 @@ html {
 		width: 100%; 
 		thead {
 			th {
+				font-family: var(--direktt-profile-headlines-font-family);
 				font-weight: 600; 
 			}			
 		}
