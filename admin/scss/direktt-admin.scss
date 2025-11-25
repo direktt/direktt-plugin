@@ -118,6 +118,38 @@ body.direktt_page_direktt-settings {
 		}		
 	}
 	
+	.direktt-customer-review-qr-code-section {
+		padding: 0 1em;
+		border: 1px solid #c3c4c7;
+		box-shadow: 0 1px 1px rgba(0, 0, 0, .04);
+		background: #fff;
+		display: inline-block;
+		> div {
+			display: inline-block;	
+		}
+		p.description {
+			max-width: 300px;
+			margin-bottom: 1em;
+			margin-top: 1em;
+		}
+		#direktt-customer-review-qr-code-canvas {
+			border: 1px solid #c3c4c7;
+			background: #fff;
+			margin-bottom: 1em;
+		}
+		#direktt-customer-review-qr-code-download {
+			display: flex;
+			gap: 1em;	
+			select { 
+				flex-basis: 70%;
+			}
+			button { 
+				flex-basis: 30%;
+			}			
+		}
+		
+	}
+	
 	.form-table.direktt-membership-table {
 		tr#direktt-membership-settings-mt-user-issuance-row,
 		tr#direktt-membership-settings-mt-admin-issuance-row,
@@ -181,15 +213,43 @@ body.direktt_page_direktt-settings {
 		border: 1px solid #c3c4c7;
 		box-shadow: 0 1px 1px rgba(0, 0, 0, .04);
 		background: #fff;
+		display: inline-block;
+		h2 {
+			padding: 0 10px 1em;
+			border-bottom: 1px solid #c3c4c7;
+		}
+		.form-table {
+			.direktt-membership-reports-range {
+				td select {
+					width: 100%;
+				}
+			}
+			.direktt-membership-reports-buttons {
+				td div {
+					display: flex;
+					gap: 1em;
+					button { 
+						flex-basis: 50%;
+					}
+				}
+			}
+		}
 	}
 	
 	#direktt_points_repeater {
 		display: flex;
 		gap: 1em;
-		flex-wrap: wrap;		
-		.direktt-loyalty-program-points-rule .button-link-delete {
-			padding: 0.1em;
-			cursor: pointer;
+		flex-wrap: wrap;
+		.direktt-loyalty-program-points-rule {
+			.direktt-loyalty-program-rule-positive {
+				border-color: green;
+			}
+			.direktt-loyalty-program-rule-negative {
+				border-color: red;
+			}
+			.button-link-delete {
+				cursor: pointer;
+			}		
 		}	
 	}
 	
