@@ -389,9 +389,9 @@ class Direktt_Api {
 	}
 
 	public function do_direktt_action( WP_REST_Request $request ) {
-		
+
 		$direktt_user = Direktt_User::direktt_get_current_user();
-		$parameters = json_decode( $request->get_body(), true );
+		$parameters   = json_decode( $request->get_body(), true );
 
 		if ( array_key_exists( 'token', $parameters ) ) {
 
