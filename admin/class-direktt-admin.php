@@ -1,47 +1,44 @@
 <?php
 
-defined('ABSPATH') || exit;
+defined( 'ABSPATH' ) || exit;
 
-class Direktt_Admin
-{
+class Direktt_Admin {
+
 
 	private string $plugin_name;
 	private string $version;
 
-	public function __construct(string $plugin_name, string $version)
-	{
+	public function __construct( string $plugin_name, string $version ) {
 		$this->plugin_name = $plugin_name;
 		$this->version     = $version;
 	}
 
-	public function register_menu_page()
-	{
+	public function register_menu_page() {
 
 		add_menu_page(
-			__('Direktt', 'direktt'),
-			__('Direktt', 'direktt'),
+			__( 'Direktt', 'direktt' ),
+			__( 'Direktt', 'direktt' ),
 			'manage_options',
 			'direktt-dashboard',
-			array($this, 'render_admin_dashboard'),
+			array( $this, 'render_admin_dashboard' ),
 			'',
 			30
 		);
 
 		add_submenu_page(
 			'direktt-dashboard',
-			__('Dashboard', 'direktt'),
-			__('Dashboard', 'direktt'),
+			__( 'Dashboard', 'direktt' ),
+			__( 'Dashboard', 'direktt' ),
 			'manage_options',
 			'direktt-dashboard'
 		);
 	}
 
-	public function register_cpt_menus()
-	{
+	public function register_cpt_menus() {
 		add_submenu_page(
 			'direktt-dashboard',
-			__('Direktt Users', 'direktt'),
-			__('Direktt Users', 'direktt'),
+			__( 'Direktt Users', 'direktt' ),
+			__( 'Direktt Users', 'direktt' ),
 			'edit_posts',
 			'edit.php?post_type=direkttusers',
 			null,
@@ -50,8 +47,8 @@ class Direktt_Admin
 
 		add_submenu_page(
 			'direktt-dashboard',
-			__('User Categories', 'direktt'),
-			__('User Categories', 'direktt'),
+			__( 'User Categories', 'direktt' ),
+			__( 'User Categories', 'direktt' ),
 			'edit_posts',
 			'edit-tags.php?taxonomy=direkttusercategories',
 			null,
@@ -60,8 +57,8 @@ class Direktt_Admin
 
 		add_submenu_page(
 			'direktt-dashboard',
-			__('User Tags', 'direktt'),
-			__('User Tags', 'direktt'),
+			__( 'User Tags', 'direktt' ),
+			__( 'User Tags', 'direktt' ),
 			'edit_posts',
 			'edit-tags.php?taxonomy=direkttusertags',
 			null,
@@ -70,8 +67,8 @@ class Direktt_Admin
 
 		add_submenu_page(
 			'direktt-dashboard',
-			__('Message Templates', 'direktt'),
-			__('Message Templates', 'direktt'),
+			__( 'Message Templates', 'direktt' ),
+			__( 'Message Templates', 'direktt' ),
 			'edit_posts',
 			'edit.php?post_type=direkttmtemplates',
 			null,
@@ -79,43 +76,40 @@ class Direktt_Admin
 		);
 	}
 
-	public function register_menu_page_end()
-	{
+	public function register_menu_page_end() {
 		add_submenu_page(
 			'direktt-dashboard',
-			__('Settings', 'direktt'),
-			__('Settings', 'direktt'),
+			__( 'Settings', 'direktt' ),
+			__( 'Settings', 'direktt' ),
 			'manage_options',
 			'direktt-settings',
-			array($this, 'render_admin_settings'),
+			array( $this, 'render_admin_settings' ),
 			100
 		);
 
-		do_action('direktt_setup_settings_pages');
+		do_action( 'direktt_setup_settings_pages' );
 	}
 
-	public function setup_admin_menu()
-	{
-		do_action('direktt_setup_admin_menu');
+	public function setup_admin_menu() {
+		do_action( 'direktt_setup_admin_menu' );
 	}
 
-	public function highlight_direktt_submenu($parent_file)
-	{
+	public function highlight_direktt_submenu( $parent_file ) {
 		global $submenu_file, $current_screen, $pagenow;
 
-		if ('edit-tags.php' === $pagenow || 'term.php' === $pagenow) {
-			if ('direkttusercategories' === $current_screen->taxonomy) {
+		if ( 'edit-tags.php' === $pagenow || 'term.php' === $pagenow ) {
+			if ( 'direkttusercategories' === $current_screen->taxonomy ) {
 				$submenu_file = 'edit-tags.php?taxonomy=direkttusercategories';
 				$parent_file  = 'direktt-dashboard';
-			} elseif ('direkttusertags' === $current_screen->taxonomy) {
+			} elseif ( 'direkttusertags' === $current_screen->taxonomy ) {
 				$submenu_file = 'edit-tags.php?taxonomy=direkttusertags';
 				$parent_file  = 'direktt-dashboard';
 			}
-		} elseif ('post.php' === $pagenow || 'post-new.php' === $pagenow) {
-			if ('direkttusers' === $current_screen->post_type) {
+		} elseif ( 'post.php' === $pagenow || 'post-new.php' === $pagenow ) {
+			if ( 'direkttusers' === $current_screen->post_type ) {
 				$submenu_file = 'edit.php?post_type=direkttusers';
 				$parent_file  = 'direktt-dashboard';
-			} elseif ('direkttmtemplates' === $current_screen->post_type) {
+			} elseif ( 'direkttmtemplates' === $current_screen->post_type ) {
 				$submenu_file = 'edit.php?post_type=direkttmtemplates';
 				$parent_file  = 'direktt-dashboard';
 			}
@@ -124,29 +118,28 @@ class Direktt_Admin
 		return $parent_file;
 	}
 
-	public function register_custom_post_types()
-	{
+	public function register_custom_post_types() {
 
 		$labels = array(
-			'name'               => __('Direktt Users', 'direktt'),
-			'singular_name'      => __('Direktt User', 'direktt'),
-			'menu_name'          => __('Direktt', 'direktt'),
-			'all_items'          => __('Direktt Users', 'direktt'),
-			'view_item'          => __('View Direktt User', 'direktt'),
-			'add_new_item'       => __('Add New Direktt User', 'direktt'),
-			'add_new'            => __('Add New', 'direktt'),
-			'edit_item'          => __('Edit Direktt User', 'direktt'),
-			'update_item'        => __('Update Direktt User', 'direktt'),
-			'search_items'       => __('Search Direktt Users', 'direktt'),
-			'not_found'          => __('Not Found', 'direktt'),
-			'not_found_in_trash' => __('Not found in Trash', 'direktt'),
+			'name'               => __( 'Direktt Users', 'direktt' ),
+			'singular_name'      => __( 'Direktt User', 'direktt' ),
+			'menu_name'          => __( 'Direktt', 'direktt' ),
+			'all_items'          => __( 'Direktt Users', 'direktt' ),
+			'view_item'          => __( 'View Direktt User', 'direktt' ),
+			'add_new_item'       => __( 'Add New Direktt User', 'direktt' ),
+			'add_new'            => __( 'Add New', 'direktt' ),
+			'edit_item'          => __( 'Edit Direktt User', 'direktt' ),
+			'update_item'        => __( 'Update Direktt User', 'direktt' ),
+			'search_items'       => __( 'Search Direktt Users', 'direktt' ),
+			'not_found'          => __( 'Not Found', 'direktt' ),
+			'not_found_in_trash' => __( 'Not found in Trash', 'direktt' ),
 		);
 
 		$args = array(
-			'label'               => __('users', 'direktt'),
-			'description'         => __('Direktt Users', 'direktt'),
+			'label'               => __( 'users', 'direktt' ),
+			'description'         => __( 'Direktt Users', 'direktt' ),
 			'labels'              => $labels,
-			'supports'            => array('title', 'editor'),
+			'supports'            => array( 'title', 'editor' ),
 			'hierarchical'        => false,
 			'public'              => false,
 			'show_ui'             => true,
@@ -163,22 +156,22 @@ class Direktt_Admin
 			'show_in_rest'        => false,
 		);
 
-		register_post_type('direkttusers', $args);
+		register_post_type( 'direkttusers', $args );
 
 		// User Categories.
 
 		$labels = array(
-			'name'              => _x('User Categories', 'taxonomy general name', 'direktt'),
-			'singular_name'     => _x('User Category', 'taxonomy singular name', 'direktt'),
-			'search_items'      => __('Search Categories', 'direktt'),
-			'all_items'         => __('All Categories', 'direktt'),
-			'parent_item'       => __('Parent Category', 'direktt'),
-			'parent_item_colon' => __('Parent Category:', 'direktt'),
-			'edit_item'         => __('Edit Category', 'direktt'),
-			'update_item'       => __('Update Category', 'direktt'),
-			'add_new_item'      => __('Add New Category', 'direktt'),
-			'new_item_name'     => __('New Category Name', 'direktt'),
-			'menu_name'         => __('Category', 'direktt'),
+			'name'              => _x( 'User Categories', 'taxonomy general name', 'direktt' ),
+			'singular_name'     => _x( 'User Category', 'taxonomy singular name', 'direktt' ),
+			'search_items'      => __( 'Search Categories', 'direktt' ),
+			'all_items'         => __( 'All Categories', 'direktt' ),
+			'parent_item'       => __( 'Parent Category', 'direktt' ),
+			'parent_item_colon' => __( 'Parent Category:', 'direktt' ),
+			'edit_item'         => __( 'Edit Category', 'direktt' ),
+			'update_item'       => __( 'Update Category', 'direktt' ),
+			'add_new_item'      => __( 'Add New Category', 'direktt' ),
+			'new_item_name'     => __( 'New Category Name', 'direktt' ),
+			'menu_name'         => __( 'Category', 'direktt' ),
 		);
 		$args   = array(
 			'hierarchical'       => true,
@@ -193,22 +186,22 @@ class Direktt_Admin
 			'publicly_queryable' => false,
 		);
 
-		register_taxonomy('direkttusercategories', array('direkttusers'), $args);
+		register_taxonomy( 'direkttusercategories', array( 'direkttusers' ), $args );
 
 		// User Tags.
 
 		$labels = array(
-			'name'              => _x('User Tags', 'taxonomy general name', 'direktt'),
-			'singular_name'     => _x('User Tag', 'taxonomy singular name', 'direktt'),
-			'search_items'      => __('Search Tags', 'direktt'),
-			'all_items'         => __('All Tags', 'direktt'),
-			'parent_item'       => __('Parent Tag', 'direktt'),
-			'parent_item_colon' => __('Parent Tag:', 'direktt'),
-			'edit_item'         => __('Edit Tag', 'direktt'),
-			'update_item'       => __('Update Tag', 'direktt'),
-			'add_new_item'      => __('Add New Tag', 'direktt'),
-			'new_item_name'     => __('New Tag Name', 'direktt'),
-			'menu_name'         => __('Tag', 'direktt'),
+			'name'              => _x( 'User Tags', 'taxonomy general name', 'direktt' ),
+			'singular_name'     => _x( 'User Tag', 'taxonomy singular name', 'direktt' ),
+			'search_items'      => __( 'Search Tags', 'direktt' ),
+			'all_items'         => __( 'All Tags', 'direktt' ),
+			'parent_item'       => __( 'Parent Tag', 'direktt' ),
+			'parent_item_colon' => __( 'Parent Tag:', 'direktt' ),
+			'edit_item'         => __( 'Edit Tag', 'direktt' ),
+			'update_item'       => __( 'Update Tag', 'direktt' ),
+			'add_new_item'      => __( 'Add New Tag', 'direktt' ),
+			'new_item_name'     => __( 'New Tag Name', 'direktt' ),
+			'menu_name'         => __( 'Tag', 'direktt' ),
 		);
 		$args   = array(
 			'hierarchical'       => true,
@@ -223,30 +216,30 @@ class Direktt_Admin
 			'publicly_queryable' => false,
 		);
 
-		register_taxonomy('direkttusertags', array('direkttusers'), $args);
+		register_taxonomy( 'direkttusertags', array( 'direkttusers' ), $args );
 
 		// Message templates.
 
 		$labels = array(
-			'name'               => __('Message Templates', 'direktt'),
-			'singular_name'      => __('Message Template', 'direktt'),
-			'menu_name'          => __('Direktt', 'direktt'),
-			'all_items'          => __('Message Templates', 'direktt'),
-			'view_item'          => __('View Message Template', 'direktt'),
-			'add_new_item'       => __('Add New Message Template', 'direktt'),
-			'add_new'            => __('Add New', 'direktt'),
-			'edit_item'          => __('Edit Message Template', 'direktt'),
-			'update_item'        => __('Update Message Template', 'direktt'),
-			'search_items'       => __('Search Message Templates', 'direktt'),
-			'not_found'          => __('Not Found', 'direktt'),
-			'not_found_in_trash' => __('Not found in Trash', 'direktt'),
+			'name'               => __( 'Message Templates', 'direktt' ),
+			'singular_name'      => __( 'Message Template', 'direktt' ),
+			'menu_name'          => __( 'Direktt', 'direktt' ),
+			'all_items'          => __( 'Message Templates', 'direktt' ),
+			'view_item'          => __( 'View Message Template', 'direktt' ),
+			'add_new_item'       => __( 'Add New Message Template', 'direktt' ),
+			'add_new'            => __( 'Add New', 'direktt' ),
+			'edit_item'          => __( 'Edit Message Template', 'direktt' ),
+			'update_item'        => __( 'Update Message Template', 'direktt' ),
+			'search_items'       => __( 'Search Message Templates', 'direktt' ),
+			'not_found'          => __( 'Not Found', 'direktt' ),
+			'not_found_in_trash' => __( 'Not found in Trash', 'direktt' ),
 		);
 
 		$args = array(
-			'label'               => __('message templates', 'direktt'),
-			'description'         => __('Message Templates', 'direktt'),
+			'label'               => __( 'message templates', 'direktt' ),
+			'description'         => __( 'Message Templates', 'direktt' ),
 			'labels'              => $labels,
-			'supports'            => array('title'),
+			'supports'            => array( 'title' ),
 			'hierarchical'        => false,
 			'public'              => false,
 			'show_ui'             => true,
@@ -262,19 +255,18 @@ class Direktt_Admin
 			'capabilities'        => array(),
 			'show_in_rest'        => false,
 		);
-		register_post_type('direkttmtemplates', $args);
+		register_post_type( 'direkttmtemplates', $args );
 	}
 
-	public function enqueue_plugin_assets(string $suffix)
-	{
+	public function enqueue_plugin_assets( string $suffix ) {
 
 		// Settings page.
 
-		if ('direktt_page_direktt-settings' === $suffix) {
+		if ( 'direktt_page_direktt-settings' === $suffix ) {
 			wp_enqueue_script(
 				$this->plugin_name . '-settings',
-				plugin_dir_url(__DIR__) . 'admin/js/settings/direktt-settings.js',
-				array('jquery'),
+				plugin_dir_url( __DIR__ ) . 'admin/js/settings/direktt-settings.js',
+				array( 'jquery' ),
 				$this->version,
 				array(
 					'in_footer' => true,
@@ -283,36 +275,36 @@ class Direktt_Admin
 
 			wp_enqueue_style(
 				$this->plugin_name . '-settings',
-				plugin_dir_url(__DIR__) . 'admin/js/settings/direktt-settings.css',
+				plugin_dir_url( __DIR__ ) . 'admin/js/settings/direktt-settings.css',
 				array(),
 				$this->version
 			);
 
-			$nonce = wp_create_nonce($this->plugin_name . '-settings');
+			$nonce = wp_create_nonce( $this->plugin_name . '-settings' );
 
 			wp_localize_script(
 				$this->plugin_name . '-settings',
 				$this->plugin_name . '_settings_object',
 				array(
-					'ajaxurl'            => admin_url('admin-ajax.php'),
+					'ajaxurl'            => admin_url( 'admin-ajax.php' ),
 					'nonce'              => $nonce,
-					'qr_code_logo_url'   => get_option('direktt_qr_code_logo_url'),
-					'qr_code_color'      => get_option('direktt_qr_code_color'),
-					'qr_code_bckg_color' => get_option('direktt_qr_code_bckg_color'),
+					'qr_code_logo_url'   => get_option( 'direktt_qr_code_logo_url' ),
+					'qr_code_color'      => get_option( 'direktt_qr_code_color' ),
+					'qr_code_bckg_color' => get_option( 'direktt_qr_code_bckg_color' ),
 				)
 			);
 
 			wp_enqueue_media();
-			wp_enqueue_style('wp-color-picker');
-			wp_enqueue_script('wp-color-picker');
+			wp_enqueue_style( 'wp-color-picker' );
+			wp_enqueue_script( 'wp-color-picker' );
 		}
 
 		// Dashboard.
 
-		if ('toplevel_page_direktt-dashboard' === $suffix) {
+		if ( 'toplevel_page_direktt-dashboard' === $suffix ) {
 			wp_enqueue_script(
 				$this->plugin_name . '-dashboard',
-				plugin_dir_url(__DIR__) . 'admin/js/dashboard/direktt-dashboard.js',
+				plugin_dir_url( __DIR__ ) . 'admin/js/dashboard/direktt-dashboard.js',
 				array(),
 				$this->version,
 				array(
@@ -323,36 +315,36 @@ class Direktt_Admin
 			// Enqueue the style file.
 			wp_enqueue_style(
 				$this->plugin_name . '-dashboard',
-				plugin_dir_url(__DIR__) . 'admin/js/dashboard/direktt-dashboard.css',
+				plugin_dir_url( __DIR__ ) . 'admin/js/dashboard/direktt-dashboard.css',
 				array(),
 				$this->version
 			);
 
-			$nonce = wp_create_nonce($this->plugin_name . '-dashboard');
+			$nonce = wp_create_nonce( $this->plugin_name . '-dashboard' );
 
 			wp_localize_script(
 				$this->plugin_name . '-dashboard',
 				$this->plugin_name . '_dashboard_object',
 				array(
-					'ajaxurl'            => admin_url('admin-ajax.php'),
+					'ajaxurl'            => admin_url( 'admin-ajax.php' ),
 					'nonce'              => $nonce,
-					'qr_code_logo_url'   => get_option('direktt_qr_code_logo_url'),
-					'qr_code_color'      => get_option('direktt_qr_code_color'),
-					'qr_code_bckg_color' => get_option('direktt_qr_code_bckg_color'),
+					'qr_code_logo_url'   => get_option( 'direktt_qr_code_logo_url' ),
+					'qr_code_color'      => get_option( 'direktt_qr_code_color' ),
+					'qr_code_bckg_color' => get_option( 'direktt_qr_code_bckg_color' ),
 				)
 			);
 		}
 
 		// CPT direktusers.
 
-		if ('post.php' === $suffix || 'post-new.php' === $suffix) {
+		if ( 'post.php' === $suffix || 'post-new.php' === $suffix ) {
 			global $post;
 
-			if ('direkttusers' === $post->post_type) {
+			if ( 'direkttusers' === $post->post_type ) {
 
 				wp_enqueue_script(
 					$this->plugin_name . '-users',
-					plugin_dir_url(__DIR__) . 'admin/js/users/direktt-users.js',
+					plugin_dir_url( __DIR__ ) . 'admin/js/users/direktt-users.js',
 					array(),
 					$this->version,
 					array(
@@ -363,39 +355,39 @@ class Direktt_Admin
 				// Enqueue the style file.
 				wp_enqueue_style(
 					$this->plugin_name . '-users',
-					plugin_dir_url(__DIR__) . 'admin/js/users/direktt-users.css',
+					plugin_dir_url( __DIR__ ) . 'admin/js/users/direktt-users.css',
 					array(),
 					$this->version
 				);
 
-				$nonce = wp_create_nonce($this->plugin_name . '-direktt-users');
+				$nonce = wp_create_nonce( $this->plugin_name . '-direktt-users' );
 
 				wp_localize_script(
 					$this->plugin_name . '-users',
 					$this->plugin_name . '_users_object',
 					array(
-						'ajaxurl'            => admin_url('admin-ajax.php'),
+						'ajaxurl'            => admin_url( 'admin-ajax.php' ),
 						'postId'             => $post->ID,
 						'nonce'              => $nonce,
-						'qr_code_logo_url'   => get_option('direktt_qr_code_logo_url'),
-						'qr_code_color'      => get_option('direktt_qr_code_color'),
-						'qr_code_bckg_color' => get_option('direktt_qr_code_bckg_color'),
+						'qr_code_logo_url'   => get_option( 'direktt_qr_code_logo_url' ),
+						'qr_code_color'      => get_option( 'direktt_qr_code_color' ),
+						'qr_code_bckg_color' => get_option( 'direktt_qr_code_bckg_color' ),
 					)
 				);
 			}
 
-			if ('direkttmtemplates' === $post->post_type) {
+			if ( 'direkttmtemplates' === $post->post_type ) {
 
 				wp_enqueue_style(
 					$this->plugin_name . '-admin-reset',
-					plugin_dir_url(__DIR__) . 'admin/css/direktt-admin-reset.css',
+					plugin_dir_url( __DIR__ ) . 'admin/css/direktt-admin-reset.css',
 					array(),
 					$this->version
 				);
 
 				wp_enqueue_script(
 					$this->plugin_name . '-mtemplates',
-					plugin_dir_url(__DIR__) . 'admin/js/mtemplates/direktt-mtemplates.js',
+					plugin_dir_url( __DIR__ ) . 'admin/js/mtemplates/direktt-mtemplates.js',
 					array(),
 					$this->version,
 					array(
@@ -406,7 +398,7 @@ class Direktt_Admin
 				// Enqueue the style file.
 				wp_enqueue_style(
 					$this->plugin_name . '-mtemplates',
-					plugin_dir_url(__DIR__) . 'admin/js/mtemplates/direktt-mtemplates.css',
+					plugin_dir_url( __DIR__ ) . 'admin/js/mtemplates/direktt-mtemplates.css',
 					array(),
 					$this->version
 				);
@@ -415,11 +407,11 @@ class Direktt_Admin
 					$this->plugin_name . '-mtemplates',
 					$this->plugin_name . '_mtemplates_object',
 					array(
-						'ajaxurl'            => admin_url('admin-ajax.php'),
+						'ajaxurl'            => admin_url( 'admin-ajax.php' ),
 						'postId'             => $post->ID,
-						'qr_code_logo_url'   => get_option('direktt_qr_code_logo_url'),
-						'qr_code_color'      => get_option('direktt_qr_code_color'),
-						'qr_code_bckg_color' => get_option('direktt_qr_code_bckg_color'),
+						'qr_code_logo_url'   => get_option( 'direktt_qr_code_logo_url' ),
+						'qr_code_color'      => get_option( 'direktt_qr_code_color' ),
+						'qr_code_bckg_color' => get_option( 'direktt_qr_code_bckg_color' ),
 					)
 				);
 
@@ -429,15 +421,15 @@ class Direktt_Admin
 
 		wp_enqueue_style(
 			$this->plugin_name . '-admin',
-			plugin_dir_url(__DIR__) . 'admin/css/direktt-admin.css',
+			plugin_dir_url( __DIR__ ) . 'admin/css/direktt-admin.css',
 			array(),
 			$this->version
 		);
 
 		wp_enqueue_script(
 			$this->plugin_name . '-admin',
-			plugin_dir_url(__DIR__) . 'admin/js/direktt-admin.js',
-			array('jquery'),
+			plugin_dir_url( __DIR__ ) . 'admin/js/direktt-admin.js',
+			array( 'jquery' ),
 			$this->version,
 			array(
 				'in_footer' => true,
@@ -452,108 +444,104 @@ class Direktt_Admin
 		);
 
 		$all_tags = array();
-		foreach ($tag_terms as $term) {
+		foreach ( $tag_terms as $term ) {
 			$all_tags[] = $term->name;
 		}
 
 		wp_add_inline_script(
 			$this->plugin_name . '-admin',
-			'let tags = ' . wp_json_encode($all_tags) . ";\n",
+			'let tags = ' . wp_json_encode( $all_tags ) . ";\n",
 			'before'
 		);
 	}
 
-	public function render_admin_dashboard()
-	{
+	public function render_admin_dashboard() {
 
-?>
+		?>
 		<div id="direktt-meta-app"></div>
 		<?php
 	}
 
-	public function render_admin_settings()
-	{
+	public function render_admin_settings() {
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Justification: not a form processing, subpage based router for content rendering
-		$active_tab = isset($_GET['subpage']) ? sanitize_text_field(wp_unslash($_GET['subpage'])) : '';
+		$active_tab = isset( $_GET['subpage'] ) ? sanitize_text_field( wp_unslash( $_GET['subpage'] ) ) : '';
 
-		if (! isset($_SERVER['REQUEST_URI'])) {
+		if ( ! isset( $_SERVER['REQUEST_URI'] ) ) {
 			return;
 		}
 
-		$url   = sanitize_text_field(wp_unslash($_SERVER['REQUEST_URI']));
-		$parts = wp_parse_url($url);
+		$url   = sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) );
+		$parts = wp_parse_url( $url );
 
 		// Print out the Direktt Settings label and link.
 
-		echo ('<h1>' . esc_html__('Direktt Settings', 'direktt') . '</h1>');
+		echo ( '<h1>' . esc_html__( 'Direktt Settings', 'direktt' ) . '</h1>' );
 
-		echo ('<nav class="nav-tab-wrapper">');
+		echo ( '<nav class="nav-tab-wrapper">' );
 
-		if (! empty(Direktt::$settings_array)) {
-			parse_str($parts['query'] ?? '', $params);
-			unset($params['subpage']);
-			$new_query = http_build_query($params);
-			$new_uri   = $parts['path'] . ($new_query ? '?' . $new_query : '');
+		if ( ! empty( Direktt::$settings_array ) ) {
+			parse_str( $parts['query'] ?? '', $params );
+			unset( $params['subpage'] );
+			$new_query = http_build_query( $params );
+			$new_uri   = $parts['path'] . ( $new_query ? '?' . $new_query : '' );
 			// Only apply 'nav-tab-active' when active_tab is empty.
 
-			$active_class = ('' === $active_tab) ? ' nav-tab-active' : '';
-			echo ('<a href="' . esc_url($new_uri) . '" class="nav-tab' . esc_attr($active_class) . '">' . esc_html__('General Settings', 'direktt') . '</a>');
+			$active_class = ( '' === $active_tab ) ? ' nav-tab-active' : '';
+			echo ( '<a href="' . esc_url( $new_uri ) . '" class="nav-tab' . esc_attr( $active_class ) . '">' . esc_html__( 'General Settings', 'direktt' ) . '</a>' );
 		}
 
 		// Sort links by priority asc.
 
 		usort(
 			Direktt::$settings_array,
-			function ($a, $b) {
+			function ( $a, $b ) {
 				return $a['priority'] <=> $b['priority'];
 			}
 		);
 
 		// Print out all other labels and links.
 
-		foreach (Direktt::$settings_array as $item) {
-			if (isset($item['label'])) {
-				parse_str($parts['query'] ?? '', $params);
+		foreach ( Direktt::$settings_array as $item ) {
+			if ( isset( $item['label'] ) ) {
+				parse_str( $parts['query'] ?? '', $params );
 				$params['subpage'] = $item['id'];
-				$new_query         = http_build_query($params);
-				$new_uri           = $parts['path'] . ($new_query ? '?' . $new_query : '');
+				$new_query         = http_build_query( $params );
+				$new_uri           = $parts['path'] . ( $new_query ? '?' . $new_query : '' );
 
 				// Use nav-tab-active if active_tab matches this item's id.
 
-				$active_class = ($active_tab === $item['id']) ? ' nav-tab-active' : '';
-				echo ('<a href="' . esc_url($new_uri) . '" class="nav-tab' . esc_attr($active_class) . '">' . esc_html($item['label']) . '</a>');
+				$active_class = ( $active_tab === $item['id'] ) ? ' nav-tab-active' : '';
+				echo ( '<a href="' . esc_url( $new_uri ) . '" class="nav-tab' . esc_attr( $active_class ) . '">' . esc_html( $item['label'] ) . '</a>' );
 			}
 		}
-		echo ('</nav>');
+		echo ( '</nav>' );
 
-		if ('' === $active_tab) {
-		?>
+		if ( '' === $active_tab ) {
+			?>
 			<div id="direktt-meta-app"></div>
-		<?php
+			<?php
 		} else {
-			foreach (Direktt::$settings_array as $item) {
-				if (isset($item['id']) && $active_tab === $item['id']) {
-					call_user_func($item['callback']);
+			foreach ( Direktt::$settings_array as $item ) {
+				if ( isset( $item['id'] ) && $active_tab === $item['id'] ) {
+					call_user_func( $item['callback'] );
 				}
 			}
 		}
 	}
 
-	public function direktt_direkttusers_add_meta_box()
-	{
+	public function direktt_direkttusers_add_meta_box() {
 		add_meta_box(
 			'direktt_direkttusers_meta_box',
-			esc_html__('Direktt User Properties', 'direktt'),
-			array($this, 'render_direkttusers_meta_box'),
+			esc_html__( 'Direktt User Properties', 'direktt' ),
+			array( $this, 'render_direkttusers_meta_box' ),
 			'direkttusers',
 			'advanced',
 			'high'
 		);
 	}
 
-	public function render_direkttusers_meta_box($post)
-	{
-		if ('direkttusers' !== $post->post_type) {
+	public function render_direkttusers_meta_box( $post ) {
+		if ( 'direkttusers' !== $post->post_type ) {
 			return;
 		}
 		?>
@@ -561,133 +549,129 @@ class Direktt_Admin
 		<?php
 	}
 
-	public function render_user_meta_panel($user)
-	{
+	public function render_user_meta_panel( $user ) {
 
-		if ($user instanceof WP_User) {
+		if ( $user instanceof WP_User ) {
 
-			$direktt_user_related = Direktt_User::get_related_user($user->ID);
+			$direktt_user_related = Direktt_User::get_related_user( $user->ID );
 
-			$direktt_user_pair_code = $this->get_or_generate_user_pair_code($user->ID);
+			$direktt_user_pair_code = $this->get_or_generate_user_pair_code( $user->ID );
 
-		?>
-			<h2> <?php echo esc_html__('Direktt User Properties', 'direktt'); ?></h2>
-			<?php wp_nonce_field('direktt_user_meta_nonce', 'user_meta_nonce_field'); ?>
+			?>
+			<h2> <?php echo esc_html__( 'Direktt User Properties', 'direktt' ); ?></h2>
+			<?php wp_nonce_field( 'direktt_user_meta_nonce', 'user_meta_nonce_field' ); ?>
 			<table class="form-table" role="presentation">
 				<tbody v-if="data">
 					<tr>
-						<th scope="row"><label for="direktt_test_user_id"><?php echo esc_html__('Post Id of Test Direktt User ', 'direktt'); ?><p class="description"><?php echo esc_html__('Post id of Direktt User which will be used on Direktt pages', 'direktt'); ?></p></label></th>
+						<th scope="row"><label for="direktt_test_user_id"><?php echo esc_html__( 'Post Id of Test Direktt User ', 'direktt' ); ?><p class="description"><?php echo esc_html__( 'Post id of Direktt User which will be used on Direktt pages', 'direktt' ); ?></p></label></th>
 						<td>
-							<input type="text" name="direktt_test_user_id" id="direktt_test_user_id" size="50" placeholder="Enter Direktt User Id here" value="<?php echo esc_attr(get_user_meta($user->ID, 'direktt_test_user_id', true)); ?>">
+							<input type="text" name="direktt_test_user_id" id="direktt_test_user_id" size="50" placeholder="Enter Direktt User Id here" value="<?php echo esc_attr( get_user_meta( $user->ID, 'direktt_test_user_id', true ) ); ?>">
 						</td>
 					</tr>
 
 					<?php
 
-					if ($direktt_user_related) {
-					?>
+					if ( $direktt_user_related ) {
+						?>
 						<tr>
-							<th scope="row"><label for="direktt_test_user_id"><?php echo esc_html__('Post Id of related Direktt User:', 'direktt'); ?></label></th>
+							<th scope="row"><label for="direktt_test_user_id"><?php echo esc_html__( 'Post Id of related Direktt User:', 'direktt' ); ?></label></th>
 							<td>
-								<b><?php echo esc_attr($direktt_user_related['ID']); ?> - <?php echo '<a href="' . esc_url(get_edit_post_link($direktt_user_related['ID'])) . '">View Post</a>'; ?></b>
+								<b><?php echo esc_attr( $direktt_user_related['ID'] ); ?> - <?php echo '<a href="' . esc_url( get_edit_post_link( $direktt_user_related['ID'] ) ) . '">View Post</a>'; ?></b>
 							</td>
 						</tr>
 
 
 						<tr>
-							<th scope="row"><label for="direktt_test_user_id"><?php echo esc_html__('Delete Relation with Direktt User', 'direktt'); ?></label></th>
+							<th scope="row"><label for="direktt_test_user_id"><?php echo esc_html__( 'Delete Relation with Direktt User', 'direktt' ); ?></label></th>
 							<td>
 								<label for="direktt_delete_relation">
 									<input name="direktt_delete_relation" type="checkbox" id="direktt_delete_relation" value="1">
-									<?php echo esc_html__('Check to delete relation with Direktt User and click Update Profile', 'direktt'); ?></label>
+									<?php echo esc_html__( 'Check to delete relation with Direktt User and click Update Profile', 'direktt' ); ?></label>
 							</td>
 						</tr>
 
-					<?php
-					} elseif (! empty($direktt_user_pair_code)) {
-					?>
+						<?php
+					} elseif ( ! empty( $direktt_user_pair_code ) ) {
+						?>
 
 						<tr>
-							<th scope="row"><label for="direktt_test_user_id"><?php echo esc_html__('Code for pairing with related Direktt User:', 'direktt'); ?></label></th>
+							<th scope="row"><label for="direktt_test_user_id"><?php echo esc_html__( 'Code for pairing with related Direktt User:', 'direktt' ); ?></label></th>
 							<td>
-								<b><?php echo esc_html($direktt_user_pair_code); ?></b>
+								<b><?php echo esc_html( $direktt_user_pair_code ); ?></b>
 							</td>
 						</tr>
 
 						<tr>
-							<th scope="row"><label for="direktt_test_user_id"><?php echo esc_html__('Reset Pairing Code', 'direktt'); ?></label></th>
+							<th scope="row"><label for="direktt_test_user_id"><?php echo esc_html__( 'Reset Pairing Code', 'direktt' ); ?></label></th>
 							<td>
 								<label for="direktt_update_code">
 									<input name="direktt_update_code" type="checkbox" id="direktt_update_code" value="1">
-									<?php echo esc_html__('Check to update pairing code and click Update Profile ', 'direktt'); ?></label>
+									<?php echo esc_html__( 'Check to update pairing code and click Update Profile ', 'direktt' ); ?></label>
 							</td>
 						</tr>
 
-					<?php
+						<?php
 					}
 					?>
 				</tbody>
 			</table>
-		<?php
+			<?php
 		}
 	}
 
-	private function get_or_generate_user_pair_code($user_id)
-	{
+	private function get_or_generate_user_pair_code( $user_id ) {
 		$meta_key  = 'direktt_user_pair_code';
-		$pair_code = get_user_meta($user_id, $meta_key, true);
+		$pair_code = get_user_meta( $user_id, $meta_key, true );
 
-		if (empty($pair_code)) {
+		if ( empty( $pair_code ) ) {
 
-			$par_code_prefix = get_option('direktt_pairing_prefix', false);
+			$par_code_prefix = get_option( 'direktt_pairing_prefix', false );
 
-			if (! $par_code_prefix) {
+			if ( ! $par_code_prefix ) {
 				$par_code_prefix = 'pair';
 			}
 
-			$pair_code = $par_code_prefix . str_pad(wp_rand(1, 999999), 6, '0', STR_PAD_LEFT);
-			update_user_meta($user_id, $meta_key, $pair_code);
+			$pair_code = $par_code_prefix . str_pad( wp_rand( 1, 999999 ), 6, '0', STR_PAD_LEFT );
+			update_user_meta( $user_id, $meta_key, $pair_code );
 		}
 
 		return $pair_code;
 	}
 
-	public function save_user_meta_panel($user_id)
-	{
-		if (! current_user_can('edit_user', $user_id)) {
+	public function save_user_meta_panel( $user_id ) {
+		if ( ! current_user_can( 'edit_user', $user_id ) ) {
 			return;
 		}
 
 		if (
-			! isset($_POST['user_meta_nonce_field'])
-			|| ! wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['user_meta_nonce_field'])), 'direktt_user_meta_nonce')
+			! isset( $_POST['user_meta_nonce_field'] )
+			|| ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['user_meta_nonce_field'] ) ), 'direktt_user_meta_nonce' )
 		) {
 			return;
 		}
 
-		if (isset($_POST['direktt_test_user_id'])) {
-			update_user_meta($user_id, 'direktt_test_user_id', sanitize_text_field(wp_unslash($_POST['direktt_test_user_id'])));
+		if ( isset( $_POST['direktt_test_user_id'] ) ) {
+			update_user_meta( $user_id, 'direktt_test_user_id', sanitize_text_field( wp_unslash( $_POST['direktt_test_user_id'] ) ) );
 		} else {
-			delete_user_meta($user_id, 'direktt_test_user_id');
+			delete_user_meta( $user_id, 'direktt_test_user_id' );
 		}
 
-		if (isset($_POST['direktt_update_code'])) {
-			delete_user_meta($user_id, 'direktt_user_pair_code');
+		if ( isset( $_POST['direktt_update_code'] ) ) {
+			delete_user_meta( $user_id, 'direktt_user_pair_code' );
 		}
 
-		if (isset($_POST['direktt_delete_relation'])) {
-			delete_user_meta($user_id, 'direktt_user_id');
+		if ( isset( $_POST['direktt_delete_relation'] ) ) {
+			delete_user_meta( $user_id, 'direktt_user_id' );
 		}
 	}
 
-	public function page_direktt_custom_box()
-	{
-		$screens = array('page');
-		foreach ($screens as $screen) {
+	public function page_direktt_custom_box() {
+		$screens = array( 'page' );
+		foreach ( $screens as $screen ) {
 			add_meta_box(
 				'direktt_features',
 				'Direktt',
-				array($this, 'render_direktt_custom_box'),
+				array( $this, 'render_direktt_custom_box' ),
 				$screen,
 				'side',
 				'low'
@@ -695,16 +679,15 @@ class Direktt_Admin
 		}
 	}
 
-	public function render_direktt_custom_box($post)
-	{
-		wp_nonce_field('direktt_custom_box_nonce', 'direktt_custom_box_nonce');
-		$box_value         = intval(get_post_meta($post->ID, 'direktt_custom_box', true)) === 1;
+	public function render_direktt_custom_box( $post ) {
+		wp_nonce_field( 'direktt_custom_box_nonce', 'direktt_custom_box_nonce' );
+		$box_value         = intval( get_post_meta( $post->ID, 'direktt_custom_box', true ) ) === 1;
 		$box_checked       = $box_value ? 'checked' : 0;
-		$box_admin_value   = intval(get_post_meta($post->ID, 'direktt_custom_admin_box', true)) === 1;
+		$box_admin_value   = intval( get_post_meta( $post->ID, 'direktt_custom_admin_box', true ) ) === 1;
 		$box_admin_checked = $box_admin_value ? 'checked' : 0;
 
-		$direktt_user_categories = get_post_meta($post->ID, 'direktt_user_categories', true);
-		if (! is_array($direktt_user_categories)) {
+		$direktt_user_categories = get_post_meta( $post->ID, 'direktt_user_categories', true );
+		if ( ! is_array( $direktt_user_categories ) ) {
 			$direktt_user_categories = array();
 		}
 
@@ -715,8 +698,8 @@ class Direktt_Admin
 			)
 		);
 
-		$direktt_user_tags = get_post_meta($post->ID, 'direktt_user_tags', true);
-		if (! is_array($direktt_user_tags)) {
+		$direktt_user_tags = get_post_meta( $post->ID, 'direktt_user_tags', true );
+		if ( ! is_array( $direktt_user_tags ) ) {
 			$direktt_user_tags = array();
 		}
 
@@ -728,234 +711,226 @@ class Direktt_Admin
 		);
 
 		$all_tags = array();
-		foreach ($tag_terms as $term) {
+		foreach ( $tag_terms as $term ) {
 			$all_tags[] = $term->name;
 		}
 
 		?>
 		<p>
-			<input id="direktt_custom_box" name="direktt_custom_box" type="checkbox" <?php echo esc_attr($box_checked); ?>>
-			<label><?php echo esc_html__('Allow access to Direktt users', 'direktt'); ?></label>
+			<input id="direktt_custom_box" name="direktt_custom_box" type="checkbox" <?php echo esc_attr( $box_checked ); ?>>
+			<label><?php echo esc_html__( 'Allow access to Direktt users', 'direktt' ); ?></label>
 		</p>
 		<p>
-			<input id="direktt_custom_admin_box" name="direktt_custom_admin_box" type="checkbox" <?php echo esc_attr($box_admin_checked); ?>>
-			<label><?php echo esc_html__('Allow access to Direktt admin', 'direktt'); ?></label>
+			<input id="direktt_custom_admin_box" name="direktt_custom_admin_box" type="checkbox" <?php echo esc_attr( $box_admin_checked ); ?>>
+			<label><?php echo esc_html__( 'Allow access to Direktt admin', 'direktt' ); ?></label>
 		</p>
 		<p>
-			<strong><?php echo esc_html__('Allow access to Direktt User Categories:', 'direktt'); ?></strong>
+			<strong><?php echo esc_html__( 'Allow access to Direktt User Categories:', 'direktt' ); ?></strong>
 		</p>
 		<p>
 			<?php
-			if (empty($category_terms) || is_wp_error($category_terms)) {
-				echo '<em>' . esc_html__('No Direktt User Categories Found', 'direktt') . '</em>';
+			if ( empty( $category_terms ) || is_wp_error( $category_terms ) ) {
+				echo '<em>' . esc_html__( 'No Direktt User Categories Found', 'direktt' ) . '</em>';
 				return;
 			}
 
-			foreach ($category_terms as $term) {
+			foreach ( $category_terms as $term ) {
 				printf(
 					'<label><input type="checkbox" name="direktt_user_categories[]" value="%d" %s /> %s</label><br>',
-					esc_attr($term->term_id),
-					in_array($term->term_id, $direktt_user_categories, true) ? 'checked="checked"' : '',
-					esc_html($term->name)
+					esc_attr( $term->term_id ),
+					in_array( $term->term_id, $direktt_user_categories, true ) ? 'checked="checked"' : '',
+					esc_html( $term->name )
 				);
 			}
 			?>
 		</p>
 		<?php
 		$selected_term_names = array();
-		foreach ($direktt_user_tags as $term_id) {
-			$term_obj = get_term($term_id, 'direkttusertags');
-			if ($term_obj && ! is_wp_error($term_obj)) {
+		foreach ( $direktt_user_tags as $term_id ) {
+			$term_obj = get_term( $term_id, 'direkttusertags' );
+			if ( $term_obj && ! is_wp_error( $term_obj ) ) {
 				$selected_term_names[] = $term_obj->name;
 			}
 		}
 
 		?>
 		<p>
-			<strong><?php echo esc_html__('Allow access to Direktt User Tags:', 'direktt'); ?></strong>
+			<strong><?php echo esc_html__( 'Allow access to Direktt User Tags:', 'direktt' ); ?></strong>
 		</p>
 		<p>
 			<input
 				type="text"
 				id="direktt_user_tags"
 				name="direktt_user_tags"
-				value="<?php echo esc_attr(implode(', ', $selected_term_names)); ?>"
+				value="<?php echo esc_attr( implode( ', ', $selected_term_names ) ); ?>"
 				style="width:100%;"
-				data-available-tags='<?php echo wp_json_encode($all_tags); ?>' />
+				data-available-tags='<?php echo wp_json_encode( $all_tags ); ?>' />
 		</p>
-		<p class="description"><?php echo esc_html__('Enter tags separated by commas. Existing tags: ', 'direktt'); ?><?php echo esc_html(implode(', ', $all_tags)); ?></p>
+		<p class="description"><?php echo esc_html__( 'Enter tags separated by commas. Existing tags: ', 'direktt' ); ?><?php echo esc_html( implode( ', ', $all_tags ) ); ?></p>
 
-<?php
+		<?php
 	}
 
-	public function save_direktt_custom_box($post_id, $post)
-	{
+	public function save_direktt_custom_box( $post_id, $post ) {
 
-		if (! isset($_POST['direktt_custom_box_nonce']) || ! wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['direktt_custom_box_nonce'])), 'direktt_custom_box_nonce')) {
+		if ( ! isset( $_POST['direktt_custom_box_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['direktt_custom_box_nonce'] ) ), 'direktt_custom_box_nonce' ) ) {
 			return $post_id;
 		}
 
-		$post_type = get_post_type_object($post->post_type);
+		$post_type = get_post_type_object( $post->post_type );
 
-		if (! current_user_can($post_type->cap->edit_post, $post_id)) {
+		if ( ! current_user_can( $post_type->cap->edit_post, $post_id ) ) {
 			return $post_id;
 		}
 
-		if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
 			return $post_id;
 		}
 
-		if ('page' !== $post->post_type) {
+		if ( 'page' !== $post->post_type ) {
 			return $post_id;
 		}
 
-		if (isset($_POST['direktt_custom_box']) && sanitize_text_field(wp_unslash($_POST['direktt_custom_box'])) === 'on') {
-			update_post_meta($post_id, 'direktt_custom_box', true);
+		if ( isset( $_POST['direktt_custom_box'] ) && sanitize_text_field( wp_unslash( $_POST['direktt_custom_box'] ) ) === 'on' ) {
+			update_post_meta( $post_id, 'direktt_custom_box', true );
 		} else {
-			delete_post_meta($post_id, 'direktt_custom_box');
+			delete_post_meta( $post_id, 'direktt_custom_box' );
 		}
 
-		if (isset($_POST['direktt_custom_admin_box']) && sanitize_text_field(wp_unslash($_POST['direktt_custom_admin_box'])) === 'on') {
-			update_post_meta($post_id, 'direktt_custom_admin_box', true);
+		if ( isset( $_POST['direktt_custom_admin_box'] ) && sanitize_text_field( wp_unslash( $_POST['direktt_custom_admin_box'] ) ) === 'on' ) {
+			update_post_meta( $post_id, 'direktt_custom_admin_box', true );
 		} else {
-			delete_post_meta($post_id, 'direktt_custom_admin_box');
+			delete_post_meta( $post_id, 'direktt_custom_admin_box' );
 		}
 
-		$term_ids = isset($_POST['direktt_user_categories']) && is_array($_POST['direktt_user_categories'])
-			? array_map('intval', $_POST['direktt_user_categories']) : array();
-		update_post_meta($post_id, 'direktt_user_categories', $term_ids);
+		$term_ids = isset( $_POST['direktt_user_categories'] ) && is_array( $_POST['direktt_user_categories'] )
+			? array_map( 'intval', $_POST['direktt_user_categories'] ) : array();
+		update_post_meta( $post_id, 'direktt_user_categories', $term_ids );
 
-		$tags_input = isset($_POST['direktt_user_tags']) ? sanitize_text_field(wp_unslash($_POST['direktt_user_tags'])) : '';
-		$tag_names  = array_filter(array_map('trim', explode(',', $tags_input)));
+		$tags_input = isset( $_POST['direktt_user_tags'] ) ? sanitize_text_field( wp_unslash( $_POST['direktt_user_tags'] ) ) : '';
+		$tag_names  = array_filter( array_map( 'trim', explode( ',', $tags_input ) ) );
 
 		$tag_ids = array();
-		foreach ($tag_names as $tag_name) {
-			$term = get_term_by('name', $tag_name, 'direkttusertags');
-			if ($term && ! is_wp_error($term)) {
+		foreach ( $tag_names as $tag_name ) {
+			$term = get_term_by( 'name', $tag_name, 'direkttusertags' );
+			if ( $term && ! is_wp_error( $term ) ) {
 				$tag_ids[] = $term->term_id;
 			}
 		}
-		update_post_meta($post_id, 'direktt_user_tags', $tag_ids);
+		update_post_meta( $post_id, 'direktt_user_tags', $tag_ids );
 
 		return $post_id;
 	}
 
-	public function direkttmtemplates_add_custom_box()
-	{
+	public function direkttmtemplates_add_custom_box() {
 		add_meta_box(
 			'direkttMTJson_textarea',
-			__('Message Template Builder', 'direktt'),
-			array($this, 'direkttmtemplates_render_textarea'),
+			__( 'Message Template Builder', 'direktt' ),
+			array( $this, 'direkttmtemplates_render_textarea' ),
 			'direkttmtemplates',
 			'normal',
 			'high'
 		);
 	}
 
-	public function direkttmtemplates_render_textarea($post)
-	{
-		$value = get_post_meta($post->ID, 'direkttMTJson', true);
+	public function direkttmtemplates_render_textarea( $post ) {
+		$value = get_post_meta( $post->ID, 'direkttMTJson', true );
 
-		if (! $value || '' === $value) {
+		if ( ! $value || '' === $value ) {
 			$value = '[]';
 		}
 
-		$dropdown_value = get_post_meta($post->ID, 'direkttMTType', true);
+		$dropdown_value = get_post_meta( $post->ID, 'direkttMTType', true );
 
-		if (! $dropdown_value) {
+		if ( ! $dropdown_value ) {
 			$dropdown_value = 'all';
 		}
 
-		echo '<p><label for="direktt_mt_type"><strong>' . esc_html__('Where to display template', 'direktt') . '</strong></label> ';
+		echo '<p><label for="direktt_mt_type"><strong>' . esc_html__( 'Where to display template', 'direktt' ) . '</strong></label> ';
 		echo '<select name="direktt_mt_type" id="direktt_mt_type">';
-		echo '<option value="all"' . selected($dropdown_value, 'all', false) . '>' . esc_html__('Always display this template', 'direktt') . '</option>';
-		echo '<option value="bulk"' . selected($dropdown_value, 'bulk', false) . '>' . esc_html__('Display only when sending Bulk Messages', 'direktt') . '</option>';
-		echo '<option value="individual"' . selected($dropdown_value, 'individual', false) . '>' . esc_html__('Display only when sending Individual Messages', 'direktt') . '</option>';
-		echo '<option value="none"' . selected($dropdown_value, 'none', false) . '>' . esc_html__('Never, I will use it only via API', 'direktt') . '</option>';
+		echo '<option value="all"' . selected( $dropdown_value, 'all', false ) . '>' . esc_html__( 'Always display this template', 'direktt' ) . '</option>';
+		echo '<option value="bulk"' . selected( $dropdown_value, 'bulk', false ) . '>' . esc_html__( 'Display only when sending Bulk Messages', 'direktt' ) . '</option>';
+		echo '<option value="individual"' . selected( $dropdown_value, 'individual', false ) . '>' . esc_html__( 'Display only when sending Individual Messages', 'direktt' ) . '</option>';
+		echo '<option value="none"' . selected( $dropdown_value, 'none', false ) . '>' . esc_html__( 'Never, I will use it only via API', 'direktt' ) . '</option>';
 		echo '</select></p>';
 
-		wp_nonce_field('direktt_mt_json_nonce', 'direktt_mt_json_nonce');
+		wp_nonce_field( 'direktt_mt_json_nonce', 'direktt_mt_json_nonce' );
 
-		echo ('<div id="appBuilder"></div>');
+		echo ( '<div id="appBuilder"></div>' );
 
-		echo '<p><label for="direktt_mt_type"><strong>' . esc_html__('Template JSON Content', 'direktt') . '</strong></label></p> ';
-		echo '<textarea style="width:100%" rows="15" name="direktt_mt_json" id="direktt_mt_json" readonly>' . esc_textarea($value) . '</textarea>';
-		echo '<textarea style="display:none;" rows="15" name="direktt_mt_json_hidden" id="direktt_mt_json_hidden">' . esc_textarea($value) . '</textarea>';
+		echo '<p><label for="direktt_mt_type"><strong>' . esc_html__( 'Template JSON Content', 'direktt' ) . '</strong></label></p> ';
+		echo '<textarea style="width:100%" rows="15" name="direktt_mt_json" id="direktt_mt_json" readonly>' . esc_textarea( $value ) . '</textarea>';
+		echo '<textarea style="display:none;" rows="15" name="direktt_mt_json_hidden" id="direktt_mt_json_hidden">' . esc_textarea( $value ) . '</textarea>';
 
-		echo '<p><label for="direktt_mt_type"><strong>' . esc_html__('Send Message Template', 'direktt') . '</strong></label></p> ';
+		echo '<p><label for="direktt_mt_type"><strong>' . esc_html__( 'Send Message Template', 'direktt' ) . '</strong></label></p> ';
 
-		echo ('<div id="direktt-meta-app"></div>');
+		echo ( '<div id="direktt-meta-app"></div>' );
 	}
 
-	public function direkttmtemplates_save_meta_box_data($post_id, $post)
-	{
+	public function direkttmtemplates_save_meta_box_data( $post_id, $post ) {
 
-		$post_type = get_post_type_object($post->post_type);
+		$post_type = get_post_type_object( $post->post_type );
 
-		if (! current_user_can($post_type->cap->edit_post, $post_id)) {
+		if ( ! current_user_can( $post_type->cap->edit_post, $post_id ) ) {
 			return $post_id;
 		}
 
 		if (
-			! isset($_POST['direktt_mt_json_nonce']) ||
-			! wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['direktt_mt_json_nonce'])), 'direktt_mt_json_nonce')
+			! isset( $_POST['direktt_mt_json_nonce'] ) ||
+			! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['direktt_mt_json_nonce'] ) ), 'direktt_mt_json_nonce' )
 		) {
 			return;
 		}
-		if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
 			return;
 		}
-		if (isset($_POST['post_type']) && 'direkttmtemplates' === $_POST['post_type']) {
-			if (isset($_POST['direktt_mt_json'])) {
-				$content = trim(wp_json_encode(sanitize_text_field(wp_unslash($_POST['direktt_mt_json'])), JSON_UNESCAPED_UNICODE), '"');
-				update_post_meta($post_id, 'direkttMTJson', $content);
+		if ( isset( $_POST['post_type'] ) && 'direkttmtemplates' === $_POST['post_type'] ) {
+			if ( isset( $_POST['direktt_mt_json'] ) ) {
+				$content = trim( wp_json_encode( sanitize_text_field( wp_unslash( $_POST['direktt_mt_json'] ) ), JSON_UNESCAPED_UNICODE ), '"' );
+				update_post_meta( $post_id, 'direkttMTJson', $content );
 			}
 		}
 
-		if (isset($_POST['direktt_mt_type'])) {
-			$dropdown_value = sanitize_text_field(wp_unslash($_POST['direktt_mt_type']));
-			update_post_meta($post_id, 'direkttMTType', $dropdown_value);
+		if ( isset( $_POST['direktt_mt_type'] ) ) {
+			$dropdown_value = sanitize_text_field( wp_unslash( $_POST['direktt_mt_type'] ) );
+			update_post_meta( $post_id, 'direkttMTType', $dropdown_value );
 		}
 	}
 
-	public function pair_wp_user_by_code($event)
-	{
+	public function pair_wp_user_by_code( $event ) {
 
-		function direktt_strip_special_chars($input)
-		{
-			return preg_replace('/[^a-zA-Z0-9]/', '', $input);
+		function direktt_strip_special_chars( $input ) {
+			return preg_replace( '/[^a-zA-Z0-9]/', '', $input );
 		}
 
-		function direktt_find_pair_code($pair_str, $pair_patt = 'pair')
-		{
+		function direktt_find_pair_code( $pair_str, $pair_patt = 'pair' ) {
 			$pattern = '/' . $pair_patt . '\d{6}/';
 
-			if (preg_match($pattern, $pair_str, $matches)) {
+			if ( preg_match( $pattern, $pair_str, $matches ) ) {
 				return $matches[0];
 			} else {
 				return false;
 			}
 		}
 
-		$par_code_prefix = get_option('direktt_pairing_prefix', false);
+		$par_code_prefix = get_option( 'direktt_pairing_prefix', false );
 
-		if (! $par_code_prefix) {
+		if ( ! $par_code_prefix ) {
 			$par_code_prefix = 'pair';
 		}
 
-		$event_data = strtolower(direktt_strip_special_chars($event['event_data']));
-		$pair_code  = direktt_find_pair_code($event_data, $par_code_prefix);
+		$event_data = strtolower( direktt_strip_special_chars( $event['event_data'] ) );
+		$pair_code  = direktt_find_pair_code( $event_data, $par_code_prefix );
 
-		if ($pair_code) {
+		if ( $pair_code ) {
 
-			Direktt_User::pair_wp_user_by_code($pair_code, $event['direktt_user_id']);
+			Direktt_User::pair_wp_user_by_code( $pair_code, $event['direktt_user_id'] );
 		}
 	}
 
-	public function pre_wp_mail_handler($pre, $atts)
-	{
+	public function pre_wp_mail_handler( $pre, $atts ) {
 		// Normalize all recipient fields.
-		$fields                 = array('to', 'cc', 'bcc');
+		$fields                 = array( 'to', 'cc', 'bcc' );
 		$direktt_recipients     = array();
 		$non_direktt_recipients = array(
 			'to'  => array(),
@@ -963,41 +938,41 @@ class Direktt_Admin
 			'bcc' => array(),
 		);
 
-		foreach ($fields as $field) {
-			$recipients = isset($atts[$field]) ? $this->direktt_normalize_wp_mail_recipients($atts[$field]) : array();
-			foreach ($recipients as $email) {
-				$wp_user      = get_user_by('email', $email);
-				$direktt_user = Direktt_User::get_related_user($wp_user->ID);
+		foreach ( $fields as $field ) {
+			$recipients = isset( $atts[ $field ] ) ? $this->direktt_normalize_wp_mail_recipients( $atts[ $field ] ) : array();
+			foreach ( $recipients as $email ) {
+				$wp_user      = get_user_by( 'email', $email );
+				$direktt_user = Direktt_User::get_related_user( $wp_user->ID );
 
-				if ($direktt_user) {
+				if ( $direktt_user ) {
 					$direktt_recipients[] = $direktt_user;
 				}
-				$non_direktt_recipients[$field][] = $email;
+				$non_direktt_recipients[ $field ][] = $email;
 			}
 		}
 
 		// Send Direktt Message to Direktt recipients.
-		if (! empty($direktt_recipients)) {
+		if ( ! empty( $direktt_recipients ) ) {
 
-			$message = isset($atts['message']) ? (string) $atts['message'] : '';
+			$message = isset( $atts['message'] ) ? (string) $atts['message'] : '';
 
 			$content_type = 'text/plain';
 			$headers      = $atts['headers'];
 
-			if (! empty($headers)) {
-				if (is_string($headers)) {
-					$headers = preg_split("/\r?\n/", trim($headers));
+			if ( ! empty( $headers ) ) {
+				if ( is_string( $headers ) ) {
+					$headers = preg_split( "/\r?\n/", trim( $headers ) );
 				}
-				foreach ($headers as $header) {
-					if (stripos($header, 'content-type:') === 0) {
-						$content_type = trim(substr($header, 13));
+				foreach ( $headers as $header ) {
+					if ( stripos( $header, 'content-type:' ) === 0 ) {
+						$content_type = trim( substr( $header, 13 ) );
 						break;
 					}
 				}
 			}
 
-			if (stripos($content_type, 'text/html') !== false) {
-				$direktt_message_html    = new Direktt\Dependencies\Html2Text\Html2Text($message);
+			if ( stripos( $content_type, 'text/html' ) !== false ) {
+				$direktt_message_html    = new Direktt\Dependencies\Html2Text\Html2Text( $message );
 				$direktt_message_content = $direktt_message_html->getText();
 			} else {
 				$direktt_message_content = $message;
@@ -1005,7 +980,7 @@ class Direktt_Admin
 
 			$direktt_message_array = array();
 
-			foreach ($direktt_recipients as $recipient) {
+			foreach ( $direktt_recipients as $recipient ) {
 
 				$push_notification_message = array(
 					'type'    => 'text',
@@ -1014,27 +989,27 @@ class Direktt_Admin
 
 				$direktt_user = $recipient;
 
-				if ($direktt_user) {
-					if (isset($direktt_user['direktt_admin_subscription']) && $direktt_user['direktt_admin_subscription']) {
-						$push_notification_message = apply_filters('direktt/admin/email2message', $push_notification_message);
-						if ($push_notification_message) {
-							Direktt_Message::send_message_to_admin($push_notification_message);
+				if ( $direktt_user ) {
+					if ( isset( $direktt_user['direktt_admin_subscription'] ) && $direktt_user['direktt_admin_subscription'] ) {
+						$push_notification_message = apply_filters( 'direktt/admin/email2message', $push_notification_message );
+						if ( $push_notification_message ) {
+							Direktt_Message::send_message_to_admin( $push_notification_message );
 						}
 					} else {
-						$direktt_message_array[$direktt_user['direktt_user_id']] = $push_notification_message;
+						$direktt_message_array[ $direktt_user['direktt_user_id'] ] = $push_notification_message;
 					}
 				}
 			}
 
-			$direktt_message_array = apply_filters('direktt/user/email2message', $direktt_message_array);
-			Direktt_Message::send_message($direktt_message_array);
+			$direktt_message_array = apply_filters( 'direktt/user/email2message', $direktt_message_array );
+			Direktt_Message::send_message( $direktt_message_array );
 		}
 
 		// If at least one non-Direktt recipient, proceed with sending the email _only to them.
-		if (! empty($non_direktt_recipients['to']) || ! empty($non_direktt_recipients['cc']) || ! empty($non_direktt_recipients['bcc'])) {
+		if ( ! empty( $non_direktt_recipients['to'] ) || ! empty( $non_direktt_recipients['cc'] ) || ! empty( $non_direktt_recipients['bcc'] ) ) {
 			add_filter(
 				'wp_mail',
-				function ($email_atts) use ($non_direktt_recipients) {
+				function ( $email_atts ) use ( $non_direktt_recipients ) {
 					$email_atts['to']  = $non_direktt_recipients['to'];
 					$email_atts['cc']  = $non_direktt_recipients['cc'];
 					$email_atts['bcc'] = $non_direktt_recipients['bcc'];
@@ -1051,16 +1026,15 @@ class Direktt_Admin
 		}
 	}
 
-	private function direktt_normalize_wp_mail_recipients($to)
-	{
-		if (is_string($to)) {
-			$parts = preg_split('/[,;]+/', $to, -1, PREG_SPLIT_NO_EMPTY);
-			$to    = array_map('trim', (array) $parts);
-		} elseif (is_array($to)) {
-			$to = array_map('trim', $to);
+	private function direktt_normalize_wp_mail_recipients( $to ) {
+		if ( is_string( $to ) ) {
+			$parts = preg_split( '/[,;]+/', $to, -1, PREG_SPLIT_NO_EMPTY );
+			$to    = array_map( 'trim', (array) $parts );
+		} elseif ( is_array( $to ) ) {
+			$to = array_map( 'trim', $to );
 		} else {
 			$to = array();
 		}
-		return array_filter($to);
+		return array_filter( $to );
 	}
 }

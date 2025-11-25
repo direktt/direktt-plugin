@@ -73,13 +73,12 @@ class Direktt {
 
 		$this->loader      = new Direktt_Loader();
 		$this->direktt_api = new Direktt_Api( $this->get_plugin_name(), $this->get_version() );
-
 	}
 
 	private function define_public_hooks() {
 		$plugin_public = new Direktt_Public( $this->get_plugin_name(), $this->get_version() );
 
-		$this->loader->add_action( 'init', $plugin_public, 'direktt_check_token');
+		$this->loader->add_action( 'init', $plugin_public, 'direktt_check_token' );
 		$this->loader->add_action( 'wp', $plugin_public, 'direktt_check_user' );
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'direktt_enqueue_public_scripts' );
