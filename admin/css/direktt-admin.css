@@ -109,6 +109,36 @@ body.direktt_page_direktt-settings .form-table.direktt-customer-review-table:has
   opacity: 1;
   pointer-events: initial;
 }
+body.direktt_page_direktt-settings .direktt-customer-review-qr-code-section {
+  padding: 0 1em;
+  border: 1px solid #c3c4c7;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+  background: #fff;
+  display: inline-block;
+}
+body.direktt_page_direktt-settings .direktt-customer-review-qr-code-section > div {
+  display: inline-block;
+}
+body.direktt_page_direktt-settings .direktt-customer-review-qr-code-section p.description {
+  max-width: 300px;
+  margin-bottom: 1em;
+  margin-top: 1em;
+}
+body.direktt_page_direktt-settings .direktt-customer-review-qr-code-section #direktt-customer-review-qr-code-canvas {
+  border: 1px solid #c3c4c7;
+  background: #fff;
+  margin-bottom: 1em;
+}
+body.direktt_page_direktt-settings .direktt-customer-review-qr-code-section #direktt-customer-review-qr-code-download {
+  display: flex;
+  gap: 1em;
+}
+body.direktt_page_direktt-settings .direktt-customer-review-qr-code-section #direktt-customer-review-qr-code-download select {
+  flex-basis: 70%;
+}
+body.direktt_page_direktt-settings .direktt-customer-review-qr-code-section #direktt-customer-review-qr-code-download button {
+  flex-basis: 30%;
+}
 body.direktt_page_direktt-settings .form-table.direktt-membership-table tr#direktt-membership-settings-mt-user-issuance-row,
 body.direktt_page_direktt-settings .form-table.direktt-membership-table tr#direktt-membership-settings-mt-admin-issuance-row,
 body.direktt_page_direktt-settings .form-table.direktt-membership-table tr#direktt-membership-settings-mt-user-activation-row,
@@ -180,14 +210,34 @@ body.direktt_page_direktt-settings .direktt-membership-reports {
   border: 1px solid #c3c4c7;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
   background: #fff;
+  display: inline-block;
+}
+body.direktt_page_direktt-settings .direktt-membership-reports h2 {
+  padding: 0 10px 1em;
+  border-bottom: 1px solid #c3c4c7;
+}
+body.direktt_page_direktt-settings .direktt-membership-reports .form-table .direktt-membership-reports-range td select {
+  width: 100%;
+}
+body.direktt_page_direktt-settings .direktt-membership-reports .form-table .direktt-membership-reports-buttons td div {
+  display: flex;
+  gap: 1em;
+}
+body.direktt_page_direktt-settings .direktt-membership-reports .form-table .direktt-membership-reports-buttons td div button {
+  flex-basis: 50%;
 }
 body.direktt_page_direktt-settings #direktt_points_repeater {
   display: flex;
   gap: 1em;
   flex-wrap: wrap;
 }
+body.direktt_page_direktt-settings #direktt_points_repeater .direktt-loyalty-program-points-rule .direktt-loyalty-program-rule-positive {
+  border-color: green;
+}
+body.direktt_page_direktt-settings #direktt_points_repeater .direktt-loyalty-program-points-rule .direktt-loyalty-program-rule-negative {
+  border-color: red;
+}
 body.direktt_page_direktt-settings #direktt_points_repeater .direktt-loyalty-program-points-rule .button-link-delete {
-  padding: 0.1em;
   cursor: pointer;
 }
 
