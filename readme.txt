@@ -22,7 +22,7 @@ It provides wp-admin interface for:
 - Direktt Message Template Management with Bulk Messaging Tool
 - Direktt Mobile App's User Profile Interface (Direktt User Taxonomy, User Notes and User Messaging).
 
-Direktt Platform sends your channel's events to your WordPress instance using API endopints implemented by Direktt WP plugin, so you can programmatically act on them.
+Direktt platform sends your channel's events to your WordPress instance using API endopints implemented by Direktt WP plugin, so you can programmatically act on them.
 The events include:
 
 - New User Subscriptions
@@ -39,15 +39,29 @@ Direktt WP plugin implements developer's framework which enables you to:
 - Use api functions to verify and authorize users and events coming from Direktt mobile app / platform
 - Send messages to channel subscribers
 
+== External Service Disclosure ==
+
 Direktt WordPress plugin does not send any user tracking data back to Direktt platform.
 
-Direktt User related data sent from Direktt platform to WP API on these events includes:
+Direktt User related data sent from Direktt platform to WP API on these events include:
 
-- User Display name,
-- User Avatar and 
+- Direktt User Display name,
+- Direktt User Avatar and 
 - Channel level unique subscription Id
 
 No user trackable data is shared between channels or with third party platforms or services (this includes email or any other Direktt platform level user data)
+
+Plugin implements calls to the Direktt API upon user actions (no calls are made automatically or in background by the plugin). They include following endpoints:
+
+* https://getDataForChannel-lnkonwpiwa-uc.a.run.app - endpoint is called when user visits the Direktt dasboard in wp-admin to gather current channel status
+* https://activatechannel-lnkonwpiwa-uc.a.run.app - endpont is called on channel activation
+* https://getsubscriptionsforchannel-lnkonwpiwa-uc.a.run.app - endpont is called when channel user synchronization is initiated in wp-admin's Direktt settings
+
+* https://sendbulkmessages-lnkonwpiwa-uc.a.run.app - endpoint is called when message is sent to channel subscribers
+* https://sendadminmessage-lnkonwpiwa-uc.a.run.app - endpoint is called when message is sent to channel admin
+* https://updateMessage-lnkonwpiwa-uc.a.run.app - endpoint is called when sent message is updated
+
+All calls are authenticated using Direktt API key
 
 Find Direktt Privacy Policy [HERE](https://direktt.com/privacy-policy/)
 Find Direktt Terms of Service [HERE](https://direktt.com/terms-of-service/)  

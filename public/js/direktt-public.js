@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
     checkForDcid()
 });
 
-function setStrictDomainSessionCookie(name, value) {
+function setStrictDomainSessionCookie(name, value, days = 30) {
 
     function getDomainFromURL() {
         const domain = window.location.hostname;
@@ -13,9 +13,11 @@ function setStrictDomainSessionCookie(name, value) {
 
     const domain = getDomainFromURL();
 
-    let cookieString = `${encodeURIComponent(name)}=${encodeURIComponent(value)}; SameSite=Strict; Path=/; Secure;`;
+    const expires = new Date(Date.now() + days * 86400000).toUTCString();
 
-    cookieString += ` Domain=${domain};`;
+     let cookieString =
+        `${encodeURIComponent(name)}=${encodeURIComponent(value)}; ` +
+        `SameSite=Strict; Path=/; Secure; Domain=${domain}; Expires=${expires};`;
 
     document.cookie = cookieString;
 }
@@ -51,7 +53,7 @@ function checkForDcid() {
     const dcidValue = getQueryStringParam('dcid');
 
     if (dcidValue !== null) {
-        setStrictDomainSessionCookie('direktt_dcid', dcidValue);
+        setStrictDomainSessionCookie('direktt_dcid', dcidValue, 0);
     } else {
         const dcidValue = getCookie('direktt_dcid');
 

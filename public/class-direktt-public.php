@@ -197,9 +197,6 @@ class Direktt_Public
 
 			$direktt_user_retrieved = self::validate_direktt_token($token);
 
-			var_dump($direktt_user_retrieved);
-			die();
-
 			if ($direktt_user_retrieved) {
 
 				$direktt_user = $direktt_user_retrieved;
