@@ -7,17 +7,23 @@
 /* Variables */     
 
 :root { 	
-	/* Fonts */ 
-	--direktt-profile-default-font-family: "Noto Sans", Helvetica, Arial, sans-serif;
+	/* Fonts */
+	--direktt-profile-default-font-family: "Inter", Helvetica, Arial, sans-serif;
+	--direktt-profile-headlines-font-family: "Poppins", Helvetica, Arial, sans-serif;
 	--direktt-profile-default-font-size-normal: 14px;
 	--direktt-profile-default-font-size-small: 12px;
 	--direktt-profile-default-font-size-xsmall: 11px; 
 	--direktt-profile-default-line-height: 1.6;
 	--direktt-profile-default-font-weight: 400;
 	/* Colors */ 
-	--direktt-profile-accent-color: #5DB075;
-	--direktt-profile-alternate-color: #387248;
-	--direktt-profile-warning-color: #d91515;
+	--direktt-profile-page-color: #111111;
+	--direktt-profile-page-background-color: #F5F6F8;
+	/* --direktt-profile-accent-color: #5DB075; */
+	--direktt-profile-accent-color: #3F35F7;
+	/* --direktt-profile-alternate-color: #387248; */
+	--direktt-profile-alternate-color: #000000;
+	--direktt-profile-warning-color: #E23420;
+	--direktt-profile-award-color: #5DB075;
 	--direktt-profile-light-gray-color: #dddddd;
 	--direktt-profile-dark-gray-color: #999999; 
 	--direktt-profile-dark-color: black;
@@ -34,7 +40,8 @@
 
 /* Fonts */
 
-@import url( 'https://fonts.googleapis.com/css?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap' );
+@import url( 'https://fonts.googleapis.com/css?family=Poppins:ital,wght@0,100..900;1,100..900&display=swap' );
+@import url( 'https://fonts.googleapis.com/css?family=Inter:ital,wght@0,100..900;1,100..900&display=swap' );
 
 /* Icons */
 
@@ -74,7 +81,7 @@
 
 /* Popups and notices */    
 
-@import "direktt-popup.scss";   
+@import "direktt-popup.scss";  
 
 
 /* Functionalities and Styling */ 
@@ -82,6 +89,8 @@
 #direktt-profile-wrapper {
 	overflow: hidden;
 	max-width: 100%;
+	color: var(--direktt-profile-page-color);
+	background-color: var(--direktt-profile-page-background-color);
 }
 
 #direktt-profile {  
@@ -89,16 +98,22 @@
 	/* Buttons */
 	
 	button:not([class^='ql-']), .button, .direktt-button {
+		font-family: var(--direktt-profile-headlines-font-family);
 		&.button-large {
 			padding: 1.5em 2em; 
 		}
-		&.button-primary {
+		&.button-primary, 		/* Osnovni button je u stvari primary */
+		&.button-secondary {
 			background-color: var(--direktt-profile-alternate-color);
 			box-shadow: 0 0 0 2px var(--direktt-profile-alternate-color);
 		}
 		&.button-red {
 			background-color: var(--direktt-profile-warning-color);
 			box-shadow: 0 0 0 2px var(--direktt-profile-warning-color);
+		}
+		&.button-green {
+			background-color: var(--direktt-profile-award-color);
+			box-shadow: 0 0 0 2px var(--direktt-profile-award-color);
 		}
 		&.button-dark-gray {
 			background-color: var(--direktt-profile-dark-gray-color);
@@ -115,6 +130,10 @@
 			&.button-red {
 				box-shadow: 0 0 0 2px var(--direktt-profile-warning-color);
 				color: var(--direktt-profile-warning-color);
+			}
+			&.button-green {
+				box-shadow: 0 0 0 2px var(--direktt-profile-award-color);
+				color: var(--direktt-profile-award-color);
 			}
 			&.button-dark-gray {
 				box-shadow: 0 0 0 2px var(--direktt-profile-dark-gray-color);
@@ -528,7 +547,7 @@
 			margin-top: 3em;
 		}
 		.button.direktt-cross-sell-back {
-			text-align: center;
+			text-align: center; 
 		}
 		table.direktt-profile-data-cross-sell-tool-single-coupon-table {
 			margin-bottom: 2em;
@@ -546,6 +565,7 @@
 				}
 				&.direktt-cross-sell-actions {
 					td {
+						padding-bottom: 1.5em;
 						.button {
 								text-align: center;
 						}
