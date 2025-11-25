@@ -81,6 +81,7 @@ class Direktt {
 
 		$this->loader->add_action( 'init', $plugin_public, 'direktt_check_token');
 		$this->loader->add_action( 'wp', $plugin_public, 'direktt_check_user' );
+
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'direktt_enqueue_public_scripts' );
 		$this->loader->add_action( 'init', $plugin_public, 'direktt_register_pairing_code_shortcode' );
 		$this->loader->add_action( 'init', $plugin_public, 'direktt_register_qr_pairing_code_shortcode' );

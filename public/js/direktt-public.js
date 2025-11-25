@@ -55,7 +55,6 @@ function checkForDcid() {
     } else {
         const dcidValue = getCookie('direktt_dcid');
 
-        //todo - namestiti u neku globalnu promenljivu, kao i usera uostalom...
         if (dcidValue !== null) {
             console.log(`The value of dcid cookie is: ${dcidValue}`);
         } else {

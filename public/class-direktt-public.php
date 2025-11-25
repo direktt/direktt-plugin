@@ -184,6 +184,7 @@ class Direktt_Public
 
 	public function direktt_check_token()
 	{
+		
 		global $direktt_user;
 
 		$direktt_user = false;
@@ -195,6 +196,9 @@ class Direktt_Public
 		if ($token) {
 
 			$direktt_user_retrieved = self::validate_direktt_token($token);
+
+			var_dump($direktt_user_retrieved);
+			die();
 
 			if ($direktt_user_retrieved) {
 
@@ -232,6 +236,7 @@ class Direktt_Public
 
 			return;
 		}
+
 	}
 
 	private function redirect_without_token()
@@ -295,9 +300,9 @@ class Direktt_Public
 		if (!self::is_restricted($post)) {
 			wp_enqueue_style('direktt-profile-style');
 			return;
-		} 
+		}
 
-		if( !$direktt_user ){
+		if (!$direktt_user) {
 			self::not_auth_redirect();
 			return;
 		}
@@ -320,7 +325,7 @@ class Direktt_Public
 
 		if (! self::is_restricted($post)) {
 			return true;
-		} elseif (! $direktt_user ) {
+		} elseif (! $direktt_user) {
 			return false;
 		}
 
@@ -510,7 +515,7 @@ class Direktt_Public
 	public function direktt_add_body_class($classes)
 	{
 		$direktt_user =  Direktt_User::direktt_get_current_user();
-		
+
 		if ($direktt_user) {
 			$classes[] = 'direktt-app';
 		}

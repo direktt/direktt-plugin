@@ -319,6 +319,22 @@ class Direktt_User
 		return $direktt_user_related; 
 	}
 
+	public static function get_related_wp_user_id($direktt_user)
+	{
+		$wp_user = get_users(
+			array(
+				'meta_key'   => 'direktt_user_id',             // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key -- Justification: bounded, selective query on small dataset
+				'meta_value'     => $direktt_user["ID"],                         // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value -- Justification: bounded, selective query on small dataset
+				'posts_per_page' => 1,
+				'fields'         => 'ID',
+			)
+		);
+		if (! empty($wp_user)) {
+			return ($wp_user[0]);
+		}
+		return false;
+	}
+
 	public static function pair_wp_user_by_code($pair_code, $subscription_id)
 	{
 
