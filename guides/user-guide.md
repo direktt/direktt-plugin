@@ -12,13 +12,15 @@ Use this documentation to answer common questions, troubleshoot, and explore all
 
 ## Creating Channels
 
-Creating a channel in Direktt is the first step to engaging your audience, sending updates, and managing notifications. Follow the steps below to set up your channel and get ready to connect with subscribers.
+Creating a channel in Direktt is the first step to engaging your audience, sending updates, and managing notifications. 
+
+Follow the steps below to set up your channel and get ready to connect with subscribers.
 
 ### **Step-by-Step Guide**
 
 #### **1\. Navigate to Channels**
 
-* Log in to the **Direktt admin console**.  
+* Log in to the **[Direktt admin console](https://direktt.com/wp-content/direkttweb/)**.  
 * Click on **Dashboard & Channels** in the top menu.  
 * You’ll see an overview of your existing channels.
 
