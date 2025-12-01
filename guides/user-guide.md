@@ -467,12 +467,10 @@ With the **Direktt Profile shortcode**, you can create a dedicated user profile 
 ### **Accessing the Profile Page from the Direktt App**
 
 User profile can be accessed from Admin mode in Direktt Mobile App  
-
 * Open the Direktt App and tap **More** in the bottom-right corner.  
 * On your More screen, tap the **Switch to Admin mode** button.
 
 Open one of the user chats within your channel and tap the **Profile button** in the top right.  
-
 * The app will open your WordPress profile page, displaying user info, categories, and tags.
 
 ### **Summary**
@@ -534,7 +532,8 @@ Now you can test and preview any Direktt page in WordPress as if you were a real
 
 ## Creating Message Templates
 
-Message Templates in Direktt allow you to define and reuse structured messages, including text, media, files, and interactive buttons. Templates are managed as a custom post type (CPT) in WordPress and can be sent to subscribers, used for bulk messaging, or referenced directly in your code.
+Message Templates in Direktt allow you to define and reuse structured messages, including text, media, files, and interactive buttons. 
+Templates are managed as a custom post type (CPT) in WordPress and can be sent to subscribers, used for bulk messaging, or referenced directly in your code.
 
 This guide walks you step by step through creating a message template using the Direktt WordPress plugin.
 
@@ -542,21 +541,21 @@ This guide walks you step by step through creating a message template using the 
 
 * 1\. Go to WordPress Admin  
   * Log in to your WordPress admin dashboard.  
-* 2\. Navigate to Direktt \> Message Templates  
-  * You’ll see a list of existing templates and an option to add new ones.
+* 2\. Navigate to **Direktt \> Message Templates**  
+  * You’ll see a **list of existing templates** and an option to add new ones.
 
 ### **Step 1: Add a New Message Template**
 
-* Click Add New Message Template at the top of the Message Templates screen.
+* Click **Add New Message Template** at the top of the **Message Templates screen**.
 
 ### **Step 2: Configure Basic Settings**
 
-* Title: Enter a descriptive name for your template. *(Example: "Welcome Message" or "Promo Newsletter")*  
-* Where to display template: Use the dropdown to choose template visibility:  
-  * Always display this template: Available for both individual and bulk messaging.  
-  * Display only when sending Bulk Messages  
-  * Display only when sending Individual Messages  
-  * Never, I will use it only via API: Hidden from UI, reference only in custom code.
+* **Title**: Enter a descriptive name for your template. (Example: "Welcome Message" or "Promo Newsletter")  
+* **Where to display template**: Use the dropdown to choose template visibility:  
+  * **Always display this template**: Available for both individual and bulk messaging.  
+  * **Display only when sending Bulk Messages**  
+  * **Display only when sending Individual Messages**  
+  * **Never, I will use it only via API**: Hidden from UI, reference only in custom code.
 
 ### **Step 3: Add Content Parts**
 
@@ -564,61 +563,64 @@ Message templates can include multiple content types. Each part will be shown in
 
 | Content Type | How to Add | Example Use |
 | ----- | ----- | ----- |
-| Text | Add Text | Greetings, info, etc. |
-| Image | Add Image | Banners, product photos |
-| Video | Add Video | Promo videos, demos |
-| File | Add File | Attachments, docs, PDFs |
-| Interactive | Add Interactive Content | Buttons for action steps |
+| **Text** | Add Text | Greetings, info, etc. |
+| **Image** | Add Image | Banners, product photos |
+| **Video** | Add Video | Promo videos, demos |
+| **File** | Add File | Attachments, docs, PDFs |
+| **Interactive** | Add Interactive Content | Buttons for action steps |
 
 #### **How to Add a Content Part**
 
-* Click the corresponding Add \[Type\] button (e.g., *Add Text*, *Add Image*, etc.).  
-* For media (image/video/file), select an item from the WordPress Media Library.  
-* For text, type your message.  
-* For each part, you’ll see a Properties panel for configuration.
+* Click the corresponding Add `[Type]` button (e.g., *Add Text*, *Add Image*, etc.).  
+* For media (image/video/file), select an item from the **WordPress Media Library**.  
+* For text, **type your message**.  
+* For each part, you’ll see a **Properties panel** for configuration.
 
 **Example: Adding Text**
 
-* Click Add Text.  
-* Enter your message in the "Message Content" field. (e.g., *Hi, welcome to our channel\!*)  
+* Click **Add Text**.  
+* Enter your message in the **"Message Content"** field. (e.g., *Hi, welcome to our channel\!*)  
 * The live preview and JSON structure will update as you type.
 
 **Example: Adding Image**
 
-* Click Add Image.  
-* Click Select Image and choose from the Media Library.  
-* Optionally, set thumbnail width/height.  
+* Click **Add Image**.  
+* Click **Select Image** and choose from the Media Library.  
+* Thumbnail width/height will be set automatically.  
 * Add image-related message text.
 
 **Example: Adding Video**
 
-* Click Add Video.  
-* Select the video file from the Media Library.  
-* (Optional) Add a thumbnail image, width, and height.  
+* Click **Add Video**.  
+* Select the video file from the **Media Library**.  
+* **Add a thumbnail** image.
+* Thumbnail width/height will be set automatically.   
 * Add a caption or description.
 
 **Example: Adding File**
 
-* Click Add File.  
-* Select the file from the Media Library.  
+* Click **Add File**.  
+* **Select the file** from the Media Library.  
 * Add a message or instructions related to the file.
 
 **Example: Adding Interactive Content (Buttons)**
 
-* Click Add Interactive Content Part.  
-* In the Properties panel, use Add Button for each button.  
-  * Button Label: The button's visible label.  
-  * Text above button: Description or instructions above the button.  
-  * Action Type: Choose one:  
-    * Link: Opens a URL (choose if to open in-app or browser).  
-    * API: Makes an API callback to your WP instance. Enter the API action type and success message.  
-    * Chat: Opens chat with user (admin only).  
-    * Profile: Opens user profile (admin only).  
-  * Return Variables: (Optional) Store data for the action. Key-value pairs.
+* Click **Add Interactive Content Part**.  
+* In the Properties panel, use **Add Button** for each button.  
+  * **Button Label**: The button's visible label.  
+  * **Text above button**: Description or instructions above the button.  
+  * **Action Type**: Choose one:  
+    * **Link**: Opens a URL (choose if to open in-app or browser).  
+    * **API**: Makes an API callback to your WP instance. Enter the API action type and success message.  
+    * **Chat**: Opens chat with user **(admin only)**.  
+    * **Profile**: Opens user profile **admin only)**.  
+  * **Return Variables**: (Optional) Store data for the action. Key-value pairs.
 
 #### **Using Dynamic Replacement Tags in Message Templates**
 
-You can personalize any message content by adding dynamic replacement tags. When a message is sent, these tags are replaced with values specific to each recipient or channel.
+You can personalize any message content by adding dynamic replacement tags. 
+
+When a message is sent, these tags are replaced with values specific to each recipient or channel.
 
 **Available at all times:**
 
@@ -639,28 +641,28 @@ When sent, users will see their actual display name and the channel’s name in 
 
 ### **Step 4: Review and Edit Template JSON**
 
-* The Template JSON Content area shows a live JSON representation.  
+* The **Template JSON Content** area shows a live JSON representation.  
 * For advanced users, you may use JSON representation in your Direktt extension code via the Direktt API. Refer to Developer Documentation for details
 
 ### **Step 5: Save and Publish**
 
-* When finished, select Save Draft or Publish.  
+* When finished, select **Save Draft or Publish**.  
 * Your new message template will now appear in the templates listing, according to the visibility setting you chose.
 
 ### **Step 6: Sending Templates (Optional)**
 
-* Templates can be sent directly from this screen using the Send Template as Message section.  
+* Templates can be sent directly from this screen using the **Send Template as Message** section.  
 * You may send to:  
-  * All channel subscribers  
-  * Selected subscribers (using categories/tags)  
-  * Channel admin
+  * **All channel subscribers**  
+  * **Selected subscribers** (using categories/tags)  
+  * **Channel admin**
 
 ### **Additional Tips**
 
 * Drag and drop content parts to reorder them.  
 * Use concise, clear content for the best user experience on mobile devices.  
-* For code-based usage, reference the template by its CPT Post Id via the Direktt API.  
-* Set template visibility to *Never, I will use it only via API* for system, plugin, or workflow integrations to keep the UI clean.
+* For code-based usage, reference the template by its CPT post Id via the Direktt API.  
+* Set template visibility to **Never, I will use it only via API** for system, plugin, or workflow integrations to keep the UI clean.
 
 ### **Frequently Asked Questions**
 
