@@ -494,40 +494,40 @@ Once you enable Direktt user rights for a page, access is restricted - these pag
 
 ### **Set Up “Test Direktt User” Mode for Your WP User**
 
-* Go to Your WordPress Dashboard.  
-* From the main menu, select Users \> Profile (or “Your Profile”).  
-* Find the “Direktt User Properties” section.  
-* In the field labeled Post Id of Test Direktt User, enter the Post ID of the Direktt user you wish to simulate.  
+* Go to your WordPress Dashboard.  
+* From the main menu, select **Users \> Profile** (or “Your Profile”).  
+* Find the **“Direktt User Properties”** section.  
+* In the field labeled **Post Id of Test Direktt User**, enter the **Post ID** of the Direktt user you wish to simulate.  
   * Every Direktt user Post (including subscribers and channel admin) has a unique Post ID.  
-* Click Update Profile to save.
+* Click **Update Profile** to save.
 
 ### **Test Direktt Pages As the Selected User**
 
-* With the Post Id set:  
+* With the **Post Id** set:  
   * Log in with your WordPress user.  
-  * Open any Direktt-restricted page in your browser (e.g., the profile page: https://your-wordpress-domain/direktt-profile/ *or the custom URL if set*).  
+  * Open any Direktt-restricted page in your browser (e.g., the profile page: `https://your-wordpress-domain/direktt-profile/` or the custom URL if set).  
   * The page will behave and display content as if you are logged in as the chosen Direktt user in the mobile app.
 
 ### **Pro Tip: Simulate Specific Subscriber Profiles**
 
 You can also preview a specific user profile using their subscription ID:
 
-* Set Post Id of Test Direktt User to the Post ID of the channel admin.  
-* Visit the profile page with the ?subscriptionId= parameter, for example: `https://your-wordpress-domain/direktt-profile/?subscriptionId=SUBSCRIPTION_ID`  
+* Set **Post Id of Test Direktt User** to the Post ID of the channel admin.  
+* Visit the profile page with the `?subscriptionId=` parameter, for example: `https://your-wordpress-domain/direktt-profile/?subscriptionId=SUBSCRIPTION_ID`  
 * Replace `SUBSCRIPTION_ID` with the desired subscriber’s subscription ID.  
 * You will see the profile and page content exactly as if you were logged in as channel admin in the Direktt app.
 
 ### **Why This Works**
 
-* Bypassing In-App-Only Restriction: This method grants your logged-in WP user temporary access to pages otherwise locked to Direktt app users.  
-* Test All Roles and Scenarios: Instantly switch between different user views by changing the Post Id.
+* **Bypassing In-App-Only Restriction**: This method grants your logged-in WP user temporary access to pages otherwise locked to Direktt app users.  
+* **Test All Roles and Scenarios**: Instantly switch between different user views by changing the Post Id.
 
 ### **Troubleshooting**
 
 | Issue | Solution |
 | ----- | ----- |
 | Page still inaccessible | Double-check you are logged in and Post Id is set correctly; clear caches if needed. |
-| Unsure of correct Post Id | Go to Direktt \> Direktt Users. Hover over the User for which you want to find the ID, and then click Edit. Once the post editor loads, look at the URL in your browser's address bar. You will see a URL similar to: [https://yoursite.com/wp-admin/post.php?post=123\&action=edit](https://yoursite.com/wp-admin/post.php?post=123&action=edit)The number following `post=` (in this example, `123`) is the Post ID. |
+| Unsure of correct Post Id | Go to **Direktt \> Direktt Users**. Hover over the User for which you want to find the ID, and then click **Edit**. Once the post editor loads, look at the URL in your browser's address bar. You will see a URL similar to: `https://yoursite.com/wp-admin/post.php?post=123\&action=edit` The number following `post=` (in this example, `123`) is the **Post ID**. |
 | No Direktt User Properties section | Ensure the Direktt plugin is active and up to date. |
 
 Now you can test and preview any Direktt page in WordPress as if you were a real app user \- no phone required\!
