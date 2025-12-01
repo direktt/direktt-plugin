@@ -371,6 +371,54 @@ If you run into any difficulties, contact **[Direktt support](https://direktt.co
 
 Your Direktt WordPress instance is now securely connected and ready to supercharge your engagement\!
 
+## Direktt WordPress Settings
+
+The Direktt WordPress Settings page lets you configure and manage the integration between your WordPress site and your Direktt channel. Below are the available options and their purpose.
+
+### Accessing Direktt Settings
+
+To access the settings:
+* Navigate to **Direktt > Settings** in your WordPress admin dashboard.
+
+### Channel Info
+
+* **Channel Title**: Displays your linked Direktt channel’s name.
+* **Channel Id**: Unique identifier for your Direktt channel.
+* **Direktt API Key**: The API key connecting your WordPress instance with Direktt. You can copy or update this if you regenerate it in the **[Direktt admin console](https://direktt.com/wp-content/direkttweb/)**.
+
+### Activation & Instance Info
+
+* **Activation Status**: Indicates whether your WordPress instance is currently activated and connected to Direktt.
+* **Registered Domain**: Shows the domain name registered with Direktt.
+* **Number of Subscribers**: Displays the count of Direktt and WordPress subscribers synced.
+
+* **Sync Subscribers’ Database**: Click this button to manually trigger a resynchronization between your Direktt channel and the WordPress user records.
+
+### Unauthorized Access Management
+
+* **Optional redirect URL upon unauthorized access**: Specify a URL or path (e.g., `/unauthorized/`) where non-authorized users will be redirected if they attempt to access restricted content.
+
+### QR Code Customization
+
+You can configure the look and feel of your channel’s subscription QR code which users scan to subscribe via the Direktt app.
+
+* **QR Code Logo**: Upload or select an image to be placed in the center of your QR code.
+* **QR Code Color**: Choose the dot color for the QR code using the color picker.
+* **QR Code Background Color**: Select a background color for your QR code.
+* **Subscription QR Code Preview**: Displays a live preview of your QR code reflecting your color and logo choices.
+
+### Pairing and Automation Settings
+
+Pairing settings control the workflow for connecting WordPress users with Direktt app users.
+
+* **Prefix for pairing message**: Enter a keyword prefix (e.g., "pairing") that must start the pairing message sent by the user in chat, to initiate the pairing process.
+* **Message template for successful pairing**: Select which Direktt Message Template will be used to confirm to the user that pairing was successful. (Choose from templates already created in **Direktt > Message Templates**.)
+* **Reset all pairing codes**: Tick this option to reset pairing codes for all users if needed (for example, after a major membership update).
+
+### Saving Settings
+
+After changing any options, click **Save Settings** at the bottom of the page. Changes will apply instantly.
+
 ## Managing Direktt Users in WordPress
 
 Direktt users are automatically synced and managed through your WordPress dashboard whenever users subscribe or unsubscribe through the Direktt mobile app. 
