@@ -57,8 +57,6 @@ On the Channel Info tab, you can adjust the following settings:
 
 Once you’ve created a channel, you can customize more properties to control user experience, provide services, and clarify your channel’s privacy rules. Below is a guide to configuring Service Links and Channel Policies.
 
----
-
 ### **Service Links**
 
 Service Links are shortcuts to important resources or digital services for your subscribers (e.g., coupons, booking, loyalty program dashboard).  
@@ -120,8 +118,6 @@ For more details on Admin Links and plan options, see the relevant sections in t
 ## Pricing Plans and Subscription Management 
 
 Direktt offers flexible pricing plans to suit different business needs and audience sizes. You can easily view, purchase, and manage your subscription directly from your Direktt admin console.
-
----
 
 ### **1\. Understanding Pricing Plans**
 
