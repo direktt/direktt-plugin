@@ -391,7 +391,6 @@ To access the settings:
 * **Activation Status**: Indicates whether your WordPress instance is currently activated and connected to Direktt.
 * **Registered Domain**: Shows the domain name registered with Direktt.
 * **Number of Subscribers**: Displays the count of Direktt and WordPress subscribers synced.
-
 * **Sync Subscribers’ Database**: Click this button to manually trigger a resynchronization between your Direktt channel and the WordPress user records.
 
 ### Unauthorized Access Management
