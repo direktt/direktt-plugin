@@ -59,7 +59,7 @@ On the Channel Info tab, you can adjust the following settings:
 
 ## Channel Settings
 
-Once you’ve created a channel, you can customize more properties to control user experience, provide services, and clarify your channel’s privacy rules. Below is a guide to configuring Service Links and Channel Policies.
+Once you’ve created a channel, you can customize more properties to control user experience, provide services, and clarify your channel’s privacy rules. Below is a guide to configuring **Service Links** and **Channel Policies**.
 
 ### **Service Links**
 
