@@ -547,8 +547,6 @@ This guide walks you step by step through creating a message template using the 
   * Display only when sending Individual Messages  
   * Never, I will use it only via API: Hidden from UI, reference only in custom code.
 
----
-
 ### **Step 3: Add Content Parts**
 
 Message templates can include multiple content types. Each part will be shown in the order added.
@@ -568,33 +566,33 @@ Message templates can include multiple content types. Each part will be shown in
 * For text, type your message.  
 * For each part, you’ll see a Properties panel for configuration.
 
-##### **Example: Adding Text**
+**Example: Adding Text**
 
 * Click Add Text.  
 * Enter your message in the "Message Content" field. (e.g., *Hi, welcome to our channel\!*)  
 * The live preview and JSON structure will update as you type.
 
-##### **Example: Adding Image**
+**Example: Adding Image**
 
 * Click Add Image.  
 * Click Select Image and choose from the Media Library.  
 * Optionally, set thumbnail width/height.  
 * Add image-related message text.
 
-##### **Example: Adding Video**
+**Example: Adding Video**
 
 * Click Add Video.  
 * Select the video file from the Media Library.  
 * (Optional) Add a thumbnail image, width, and height.  
 * Add a caption or description.
 
-##### **Example: Adding File**
+**Example: Adding File**
 
 * Click Add File.  
 * Select the file from the Media Library.  
 * Add a message or instructions related to the file.
 
-##### **Example: Adding Interactive Content (Buttons)**
+**Example: Adding Interactive Content (Buttons)**
 
 * Click Add Interactive Content Part.  
 * In the Properties panel, use Add Button for each button.  
@@ -607,51 +605,38 @@ Message templates can include multiple content types. Each part will be shown in
     * Profile: Opens user profile (admin only).  
   * Return Variables: (Optional) Store data for the action. Key-value pairs.
 
----
-
 #### **Using Dynamic Replacement Tags in Message Templates**
 
-### You can personalize any message content by adding dynamic replacement tags. When a message is sent, these tags are replaced with values specific to each recipient or channel.
+You can personalize any message content by adding dynamic replacement tags. When a message is sent, these tags are replaced with values specific to each recipient or channel.
 
-* ### Available at all times:
+**Available at all times:**
 
-  * ### Direktt user display name: \#direktt\_display\_name\#
+  * **Direktt user display name:** `#direktt_display_name#`
 
-  * ### Channel name: \#direktt\_channel\_name\#
+  * **Channel name:** `#direktt_channel_name#`
 
-* ### 
+**How to add tags:** Type the tag name enclosed in two hash signs. 
 
-* ### How to add tags: Type the tag name enclosed in two hash signs. Example:
+**Example:**
+* Hi `#direktt_display_name#`, welcome to `#direktt_channel_name#`!
+ 
+When sent, users will see their actual display name and the channel’s name in place of these tags.
 
-* ### Hi \#direktt\_display\_name\#, welcome to \#direktt\_channel\_name\#\!
+**Other tags:** Additional context-specific tags may be supported, depending on your workflows and installed extensions. Refer to Developer Documentation on how to use them via Direktt API
 
-* ### 
+### Tip: 
 
-* ### When sent, users will see their actual display name and the channel’s name in place of these tags.
-
-### Other tags: Additional context-specific tags may be supported, depending on your workflows and installed extensions. Refer to Developer Documentation on how to use them via Direktt API
-
-### Tip: Use tags in any text field, including text content, interactive part descriptions, and above/below buttons for a more personalized communication experience.
-
-### 
-
-### 
-
-### 
+Use tags in any text field, including text content, interactive part descriptions, and above/below buttons for a more personalized communication experience.
 
 ### **Step 4: Review and Edit Template JSON**
 
 * The Template JSON Content area shows a live JSON representation.  
 * For advanced users, you may use JSON representation in your Direktt extension code via the Direktt API. Refer to Developer Documentation for details
 
----
-
 ### **Step 5: Save and Publish**
 
 * When finished, select Save Draft or Publish.  
 * Your new message template will now appear in the templates listing, according to the visibility setting you chose.
-
----
 
 ### **Step 6: Sending Templates (Optional)**
 
@@ -661,33 +646,25 @@ Message templates can include multiple content types. Each part will be shown in
   * Selected subscribers (using categories/tags)  
   * Channel admin
 
----
-
-## **Additional Tips**
+### **Additional Tips**
 
 * Drag and drop content parts to reorder them.  
 * Use concise, clear content for the best user experience on mobile devices.  
 * For code-based usage, reference the template by its CPT Post Id via the Direktt API.  
 * Set template visibility to *Never, I will use it only via API* for system, plugin, or workflow integrations to keep the UI clean.
 
----
+### **Frequently Asked Questions**
 
-## **Frequently Asked Questions**
+**Q: Can I include more than one type of content in a template?** 
+* Yes, templates can include any mix and order of content types. For example, you can follow a text message with an image, then an interactive button part.
 
-Q: Can I include more than one type of content in a template? *Yes, templates can include any mix and order of content types. For example, you can follow a text message with an image, then an interactive button part.*
+**Q: Can I edit a template after publishing?**
+* Yes, just click on the template name in the list to edit it. All changes will apply going forward.
 
-Q: Can I edit a template after publishing? *Yes, just click on the template name in the list to edit it. All changes will apply going forward.*
+**Q: What's the purpose of the "Where to display template" option?** 
+* This determines where the template is visible in the Direktt plugin and Direktt Mobile App \- bulk messaging, individual messaging, API-only, or always available. Use this to keep template lists tidy and relevant for your use case.
 
-Q: What's the purpose of the "Where to display template" option? *This determines where the template is visible in the Direktt plugin and Direktt Mobile App \- bulk messaging, individual messaging, API-only, or always available. Use this to keep template lists tidy and relevant for your use case.*
-
-Q: How do I use a template from my own code? *You can reference Direktt message templates by their post ID or slug using the Direktt API in your custom WordPress code or integrations. Refer to Developer Documentation for details*
-
----
+**Q: How do I use a template from my own code?** 
+You can reference Direktt message templates by their post ID or slug using the Direktt API in your custom WordPress code or integrations. Refer to Developer Documentation for details
 
 Your message template is now ready to use for targeted, automated, or bulk communication with your Direktt subscribers.
-
-Available admin services
-
-Direktt Extensions
-
-Developer Documentation
