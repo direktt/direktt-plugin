@@ -113,7 +113,7 @@ Set a clear privacy and data protection policy to inform users about how their d
 * Review your Channel Policy for accuracy and clarity.  
 * Service Link order can help highlight the most important resources first.
 
-For more details on Admin Links and plan options, see the relevant sections in this documentation.
+For more details on Admin Service links and Pricing Plan options, see the relevant sections in this documentation.
 
 ## Pricing Plans and Subscription Management 
 
@@ -133,72 +133,54 @@ Direktt offers flexible pricing plans to suit different business needs and audie
 
 #### **Go to Pricing Plan**
 
-* In the Direktt admin console, open your channel and select the Pricing Plan tab.
-
-* Here you’ll see:
-
+* In the Direktt admin console, open your channel and select the **Pricing Plan tab**.
+* **Here you’ll see:**
   * Your current pricing plan.
-
   * Renewal dates.
-
   * A summary of available plans and their features.
-
-* To manage your subscription, click Manage Subscription.
+* To manage your subscription, click **Manage Subscription**.
 
 #### **Manage Subscription and Billing**
 
-* You’ll be redirected to Direktt’s subscription portal (powered by Lemon Squeezy).
-
+* You’ll be redirected to Direktt’s subscription portal **(powered by Lemon Squeezy)**.
 * Enter your email address and press Sign In.
-
 * Check your inbox for a secure sign-in link.
-
 * Click the link to access your subscription and billing settings.
 
 **What You Can Do Here:**
 
 * View your active subscriptions
-
 * Update/cancel a subscription
-
 * Edit payment methods
-
 * Download invoices and check billing history
-
 * Update billing information (address, company, tax ID)
 
 ### **Purchasing or Upgrading a Subscription**
 
 * **Select Your Plan**
 
-  * In the Pricing Plan tab, choose your desired plan (Standard or Premium).
+  * In the Pricing Plan tab, choose your desired plan **(Standard or Premium)**.
 
 * **Checkout**
 
-  * Click to purchase or upgrade.
-
+  * Click to **purchase or upgrade**.
   * You’ll see a checkout form.
-
   * Enter your email, preferred payment method, and billing details.
-
   * Confirm and complete your payment.
 
 * **Confirmation and Activation**
 
   * Your new plan is activated immediately upon successful payment.
-
   * You’ll receive confirmation emails and receipts.
 
 ### **Changing or Cancelling Your Plan**
 
 * To switch plans or cancel, revisit Manage Subscription as detailed above.
-
 * You can downgrade, upgrade, or stop renewal at any time; changes take effect according to the current billing cycle.
 
 ### **Troubleshooting and Support**
 
 * If you have issues with payments or plan changes, use the Lemon Squeezy Support link in the subscription portal.
-
 * For Direktt-specific plan questions, contact Direktt support via email or Discord.
 
 ### **Tips**
@@ -212,35 +194,35 @@ Direktt makes it easy for users to join your channel - whether they’re shoppin
 
 ### **1\. Subscribe by Scanning a QR Code**
 
-* Where to use: Print or display your QR code in-store, on product materials, or digital ads.  
-* How to find your QR code:  
-  * In the Direktt Admin Console, under Channel Info \- “Channel’s Subscription QR Code”.  
-  * Or in WordPress wp-admin under Direktt \> Dashboard.  
-* How users join:  
+* **Where to use**: Print or display your QR code in-store, on product materials, or digital ads.  
+* **How to find your QR code**:  
+  * In the Direktt Admin Console, under **Channel Info \- “Channel’s Subscription QR Code”**.  
+  * Or in WordPress wp-admin under **Direktt \> Dashboard**.  
+* **How users join**:  
   * Open the camera app on your phone \- no need to have Direktt mobile app installed  
   * Point the camera at the QR code.  
   * If not installed, users are prompted to download the Direktt app first.
 
 ### **2\. Subscribe via Subscription Link**
 
-* Where to use: Share the unique subscription link in your social media posts, on your website, or anywhere you engage your audience.  
-* How to find your link:  
-  * In the Direktt Admin Console, under Channel Info - “Url for Channel Subscription”.  
-  * Or in Direktt \> Dashboard in WordPress.  
-* How users join:  
+* **Where to use**: Share the unique subscription link in your social media posts, on your website, or anywhere you engage your audience.  
+* **How to find your link**:  
+  * In the Direktt Admin Console, under Channel Info - **“Url for Channel Subscription”**.  
+  * Or in **Direktt \> Dashboard** in WordPress.  
+* **How users join**:  
   * Tap the link (e.g., from social media or blog).  
   * If Direktt app is not installed, user is prompted to install it.  
   * After opening in Direktt app, user subscribes with a single tap.
 
 ### **3\. Subscribe by Channel Handle**
 
-* Where to use: Share your channel handle (unique identifier, e.g. “pineapple\_pizzeria”) with your audience.  
-* How to define handle:  
-  * Set your channel handle in Direktt Admin Console under Channel Info.  
-* How users join:  
-  * In the Direktt app, tap Add Channel.  
+* **Where to use**: Share your channel handle (unique identifier, e.g. “pineapple\_pizzeria”) with your audience.  
+* **How to define handle**:  
+  * Set your channel handle in **Direktt Admin Console** under **Channel Info**.  
+* **How users join**:  
+  * In the Direktt app, tap **Add Channel**.  
   * Enter your channel’s handle in the search bar.  
-  * When a match is found, tap Add.  
+  * When a match is found, tap **Add**.  
   * Get confirmation that the channel is added.
 
 ### **4\. Policy Agreement on Subscription**
