@@ -210,8 +210,6 @@ You can always review your subscriber limits and plan features from the Pricing 
 
 Direktt makes it easy for users to join your channel - whether they’re shopping in-store, browsing online, or following your social media. There are three ways to subscribe, all designed to be quick and user-friendly.
 
----
-
 ### **1\. Subscribe by Scanning a QR Code**
 
 * Where to use: Print or display your QR code in-store, on product materials, or digital ads.  
@@ -222,8 +220,6 @@ Direktt makes it easy for users to join your channel - whether they’re shoppin
   * Open the camera app on your phone \- no need to have Direktt mobile app installed  
   * Point the camera at the QR code.  
   * If not installed, users are prompted to download the Direktt app first.
-
----
 
 ### **2\. Subscribe via Subscription Link**
 
@@ -236,8 +232,6 @@ Direktt makes it easy for users to join your channel - whether they’re shoppin
   * If Direktt app is not installed, user is prompted to install it.  
   * After opening in Direktt app, user subscribes with a single tap.
 
----
-
 ### **3\. Subscribe by Channel Handle**
 
 * Where to use: Share your channel handle (unique identifier, e.g. “pineapple\_pizzeria”) with your audience.  
@@ -249,21 +243,15 @@ Direktt makes it easy for users to join your channel - whether they’re shoppin
   * When a match is found, tap Add.  
   * Get confirmation that the channel is added.
 
----
-
 ### **4\. Policy Agreement on Subscription**
 
 * When users subscribe (by QR, link, or handle), they must accept your Channel Policy if defined in the Direktt Admin Console (under “Channel Policy” tab).  
 * If no policy is set, users are informed that the policy is missing.  
 * Users must tap Agree to join (or Cancel).
 
----
-
 ### **What if User Doesn’t Have the Direktt App?**
 
 * When scanning the QR code or tapping the link, users without the app will be prompted to install Direktt before subscribing.
-
----
 
 ### **Summary Table**
 
@@ -273,17 +261,14 @@ Direktt makes it easy for users to join your channel - whether they’re shoppin
 | Subscription Link | Direktt Admin Console / WP Dashboard | Tap link → Open in app (or prompted to install) | No \- will prompt |
 | Channel Handle | Set in Direktt Admin Console | Enter handle in app’s Add Channel screen and tap Add | Yes |
 
----
+### **Tips**
 
-Pro Tip: Make it easy for users - share your handle, QR code, or subscription link wherever you promote your channel\!
-
----
-
-If you need help locating your subscription QR code, link, or handle, refer to the Direktt Admin Console or WordPress Dashboard. For further support, contact Direktt support.
+* Make it easy for users - share your handle, QR code, or subscription link wherever you promote your channel\!
+* If you need help locating your subscription QR code, link, or handle, refer to the Direktt Admin Console or WordPress Dashboard. For further support, contact Direktt support.
 
 ## Built in Admin Features
 
-## **Admin Features in the Direktt Mobile App**
+### **Admin Features in the Direktt Mobile App**
 
 The Direktt mobile app lets channel administrators manage communication, send bulk messages, and access admin-specific links - right from their mobile device. 
 
