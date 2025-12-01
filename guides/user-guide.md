@@ -372,25 +372,16 @@ Direktt users are automatically synced and managed through your WordPress dashbo
 ### **Viewing and Editing Direktt Users**
 
 * Go to Direktt \> Direktt Users in wp-admin.
-
 * Each user subscription creates a new post.
-
   * Post Title: Shows user’s display name.
-
   * Post Content: Stores user notes from the user profile in Direktt mobile app.
-
   * Channel Admin: Is titled “Channel Admin” with Admin Subscription: true.
 
 * Click any user to see and edit details:
-
   * Direktt User Properties section:
-
     * Subscription ID, Membership ID, avatar, QR code, and admin status.
-
     * These fields give you a snapshot of each user.
-
   * User Categories and User Tags:
-
     * In the sidebar, check relevant boxes/tags to organize and segment users for group messaging or access control.
 
 * When a user unsubscribes: Their post is removed automatically from Direktt Users.
@@ -398,7 +389,6 @@ Direktt users are automatically synced and managed through your WordPress dashbo
 ### **Managing Categories and Tags**
 
 * User Categories Segment users into broad roles or groups. Go to Direktt \> User Categories to create/edit categories.
-
 * User Tags For granular segmentation and flexible access rules. Go to Direktt \> User Tags to manage tags.
 
 Categories and tags can be used in access rights for pages, messaging campaigns, and automation.
@@ -406,9 +396,7 @@ Categories and tags can be used in access rights for pages, messaging campaigns,
 ### **Using Direktt Extensions**
 
 * When you install Direktt extensions, new meta fields will appear in each user’s post edit screen.
-
 * These fields are tailored for each extension’s function (e.g., loyalty points, purchase data).
-
 * Configure or review extension-specific data as needed.
 
 ### **Pairing Direktt Users with WordPress Users**
@@ -418,13 +406,9 @@ Benefits: Pairing enables automation between WP and Direktt (e.g., actions on yo
 #### **How to Pair**
 
 * Go to Users \> Profile (for any WP User).
-
 * Find Code for pairing with related Direktt User in the “Direktt User Properties” section.
-
 * Send or display this code to a WP User   WP User sends the code in a chat message in Direktt Mobile App.
-
 * The Direktt user will then be linked (“paired”) to the WordPress user.
-
   * The relation can be viewed or deleted on the WP user profile screen.
 
 ### **Troubleshooting and Tips**
@@ -439,11 +423,8 @@ Benefits: Pairing enables automation between WP and Direktt (e.g., actions on yo
 ### **Summary**
 
 * Every Direktt subscriber/unsubscriber is managed as a WordPress post in Direktt \> Users.
-
 * Use categories and tags for segmentation, mass communication, or feature access.
-
 * Pair Direktt users with WP users for automation and custom flows.
-
 * User notes and user taxonomies are editable inside the post screen.
 
 This setup ensures smooth, scalable management for even the largest subscriber bases.
