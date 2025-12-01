@@ -554,7 +554,7 @@ Once you enable Direktt user rights for a page, access is restricted - these pag
 
 * With the **Post Id** set:  
   * Log in with your WordPress user.  
-  * Open any Direktt-restricted page in your browser (e.g., the profile page: `https://your-wordpress-domain/direktt-profile/` or the custom URL if set).  
+  * Open any Direktt-restricted page in your browser (e.g., the Taxonomies Service Page - check below in the Default Admin Services section for the setup instructions).  
   * The page will behave and display content as if you are logged in as the chosen Direktt user in the mobile app.
 
 ### **Pro Tip: Simulate Specific Subscriber Profiles**
