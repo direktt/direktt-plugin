@@ -121,7 +121,9 @@ For more details on Admin Service links and Pricing Plan options, see the releva
 
 ## Pricing Plans and Subscription Management 
 
-Direktt offers flexible pricing plans to suit different business needs and audience sizes. You can easily view, purchase, and manage your subscription directly from your Direktt admin console.
+Direktt offers flexible pricing plans to suit different business needs and audience sizes. 
+
+You can easily view, purchase, and manage your subscription directly from your **[Direktt admin console](https://direktt.com/wp-content/direkttweb/)**.
 
 ### **Understanding Pricing Plans**
 
@@ -137,7 +139,7 @@ Direktt offers flexible pricing plans to suit different business needs and audie
 
 #### **Go to Pricing Plan**
 
-* In the Direktt admin console, open your channel and select the **Pricing Plan tab**.
+* In the **[Direktt admin console](https://direktt.com/wp-content/direkttweb/)**, open your channel and select the **Pricing Plan tab**.
 * **Here you’ll see:**
   * Your current pricing plan.
   * Renewal dates.
@@ -324,7 +326,7 @@ Connecting your WordPress site to Direktt unlocks all the features of real-time 
 
 ### **Prerequisites**
 
-* Direktt channel is created and you have access to the Direktt admin console.  
+* Direktt channel is created and you have access to the **[Direktt admin console](https://direktt.com/wp-content/direkttweb/)**.  
 * WordPress administrator access (wp-admin).  
 * **SSL/HTTPS enabled on your WordPress site**. (Required by Direktt for secure API communication.)
 
@@ -332,7 +334,7 @@ Connecting your WordPress site to Direktt unlocks all the features of real-time 
 
 #### **1\. Retrieve Your WordPress API Key from Direktt**
 
-* Log in to the **[Direktt admin console](https://direktt.io/)** and navigate to your channel.  
+* Log in to the **[Direktt admin console](https://direktt.com/wp-content/direkttweb/)** and navigate to your channel.  
 * Scroll to the **WordPress Instance Info** and **API Key & API Access section**.  
 * If your instance is not yet activated:  
   * You’ll see a status of **Inactive**.  
@@ -355,14 +357,14 @@ Connecting your WordPress site to Direktt unlocks all the features of real-time 
 
 #### **4\. Enter Your API Key & Activate**
 
-* Paste the **API Key** you copied from the Direktt admin console into the **Direktt API Key field**.  
+* Paste the **API Key** you copied from the **[Direktt admin console](https://direktt.com/wp-content/direkttweb/)** into the **Direktt API Key field**.  
 * Click **Save Settings & Activate WP**.  
   * If your WordPress site does not use HTTPS, you will see an error. Enable SSL and update your WordPress site URL to use https://.  
   * Upon successful activation, the Activation Status will update to **Activated**, and your registered domain will be displayed.
 
 #### **5\. Verify Activation in Direktt Admin Console**
 
-* Return to the **Direktt admin console** and refresh the channel info page.  
+* Return to the **[Direktt admin console](https://direktt.com/wp-content/direkttweb/)** and refresh the channel info page.  
 * You should now see your WordPress instance listed as **Active**, with the activation date and your domain.
 
 If you run into any difficulties, contact Direktt support for assistance.
@@ -441,7 +443,7 @@ With the Direktt Profile shortcode, you can create a dedicated user profile page
 
 * By default: The user profile URL is https://your-wordpress-domain/direktt-profile/.  
 * To use a custom URL:  
-  * Go to the Direktt admin console.  
+  * Go to the **[Direktt admin console](https://direktt.com/wp-content/direkttweb/)**.  
   * Navigate to your channel’s settings.  
   * Enter your preferred URL in the User Profile Url field and click Save Changes.
 
