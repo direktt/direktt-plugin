@@ -79,10 +79,10 @@ Service Links appear as buttons within your channel in the Direktt mobile app fo
       * **App**: Opens the link inside the Direktt app (WebView).  
   * Click **Submit**.  
 * Edit or Remove  
-  * Use the pencil icon to edit an existing Service Link.  
-  * Use the trash icon to remove it.  
+  * Use the **pencil icon** to edit an existing Service Link.  
+  * Use the **trash icon** to remove it.  
 * Drag & Drop  
-  * Reorder Service Links by dragging them to your preferred order.
+  * Reorder Service Links by **dragging them** to your preferred order.
 
 ### **Channel Policy**
 
@@ -91,12 +91,12 @@ Set a clear privacy and data protection policy to inform users about how their d
 #### **Defining a Channel Policy**
 
 * Go to Channel Policy  
-  * Click the Channel Policy tab.  
+  * Click the **Channel Policy** tab.  
 * Add Policy Details  
-  * Title: (e.g., “Pizzeria Privacy Policy”)  
-  * Text: Describe your channel’s privacy, data protection, or terms of use as simply and clearly as possible.  
+  * **Title**: (e.g., “Pizzeria Privacy Policy”)  
+  * **Text**: Describe your channel’s privacy, data protection, or terms of use as simply and clearly as possible.  
 * Save  
-  * Click Save Changes.
+  * Click **Save Changes**.
 
 **Note:** Subscribers will see and must agree to your channel policy before joining.
 
