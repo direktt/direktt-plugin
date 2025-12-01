@@ -148,8 +148,8 @@ You can easily view, purchase, and manage your subscription directly from your *
 
 #### **Manage Subscription and Billing**
 
-* You’ll be redirected to Direktt’s subscription portal **(powered by Lemon Squeezy)**.
-* Enter your email address and press Sign In.
+* You’ll be redirected to [Direktt’s subscription portal](https://shop.direktt.com/billing) **(powered by [Lemon Squeezy](https://www.lemonsqueezy.com/))**.
+* Enter your email address and press **Sign In**.
 * Check your inbox for a secure sign-in link.
 * Click the link to access your subscription and billing settings.
 
@@ -160,6 +160,7 @@ You can easily view, purchase, and manage your subscription directly from your *
 * Edit payment methods
 * Download invoices and check billing history
 * Update billing information (address, company, tax ID)
+* 
 
 ### **Purchasing or Upgrading a Subscription**
 
@@ -181,13 +182,13 @@ You can easily view, purchase, and manage your subscription directly from your *
 
 ### **Changing or Cancelling Your Plan**
 
-* To switch plans or cancel, revisit Manage Subscription as detailed above.
+* To switch plans or cancel, revisit **[Manage Subscription](https://shop.direktt.com/billing)** as detailed above.
 * You can downgrade, upgrade, or stop renewal at any time; changes take effect according to the current billing cycle.
 
 ### **Troubleshooting and Support**
 
-* If you have issues with payments or plan changes, use the Lemon Squeezy Support link in the subscription portal.
-* For Direktt-specific plan questions, contact Direktt support via email or Discord.
+* If you have issues with payments or plan changes, use the [Lemon Squeezy Support](https://www.lemonsqueezy.com/help) link in the **[subscription portal](https://shop.direktt.com/billing)**.
+* For Direktt-specific plan questions, contact [Direktt support](https://direktt.com/support/) via email or Discord.
 
 ### **Tips**
 You can always review your subscriber limits and plan features from the Pricing Plan tab to ensure your channel has the right resources as you grow. If you approach your plan’s limits, upgrade anytime for uninterrupted service.
