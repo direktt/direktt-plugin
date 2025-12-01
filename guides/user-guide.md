@@ -119,7 +119,7 @@ For more details on Admin Links and plan options, see the relevant sections in t
 
 Direktt offers flexible pricing plans to suit different business needs and audience sizes. You can easily view, purchase, and manage your subscription directly from your Direktt admin console.
 
-### **1\. Understanding Pricing Plans**
+### **Understanding Pricing Plans**
 
 | Plan | Price (EUR/month) | Channel Subscriber Limit | Features |
 | ----- | ----- | ----- | ----- |
@@ -129,51 +129,51 @@ Direktt offers flexible pricing plans to suit different business needs and audie
 
 * All plans include access to the Direktt mobile app, 1-on-1 messaging, advanced WordPress extensions, and support via email and Discord.
 
-### **2\. Viewing and Managing Your Current Plan**
+### **Viewing and Managing Your Current Plan**
 
-* Go to Pricing Plan
+#### **Go to Pricing Plan**
 
-  * In the Direktt admin console, open your channel and select the Pricing Plan tab.
+* In the Direktt admin console, open your channel and select the Pricing Plan tab.
 
-  * Here you’ll see:
+* Here you’ll see:
 
-    * Your current pricing plan.
+  * Your current pricing plan.
 
-    * Renewal dates.
+  * Renewal dates.
 
-    * A summary of available plans and their features.
+  * A summary of available plans and their features.
 
-  * To manage your subscription, click Manage Subscription.
+* To manage your subscription, click Manage Subscription.
 
-* Manage Subscription and Billing
+#### **Manage Subscription and Billing**
 
-  * You’ll be redirected to Direktt’s subscription portal (powered by Lemon Squeezy).
+* You’ll be redirected to Direktt’s subscription portal (powered by Lemon Squeezy).
 
-  * Enter your email address and press Sign In.
+* Enter your email address and press Sign In.
 
-  * Check your inbox for a secure sign-in link.
+* Check your inbox for a secure sign-in link.
 
-  * Click the link to access your subscription and billing settings.
+* Click the link to access your subscription and billing settings.
 
-* What You Can Do Here:
+**What You Can Do Here:**
 
-  * View your active subscriptions
+* View your active subscriptions
 
-  * Update/cancel a subscription
+* Update/cancel a subscription
 
-  * Edit payment methods
+* Edit payment methods
 
-  * Download invoices and check billing history
+* Download invoices and check billing history
 
-  * Update billing information (address, company, tax ID)
+* Update billing information (address, company, tax ID)
 
-### **3\. Purchasing or Upgrading a Subscription**
+### **Purchasing or Upgrading a Subscription**
 
-* Select Your Plan
+* **Select Your Plan**
 
   * In the Pricing Plan tab, choose your desired plan (Standard or Premium).
 
-* Checkout
+* **Checkout**
 
   * Click to purchase or upgrade.
 
@@ -183,19 +183,19 @@ Direktt offers flexible pricing plans to suit different business needs and audie
 
   * Confirm and complete your payment.
 
-* Confirmation and Activation
+* **Confirmation and Activation**
 
   * Your new plan is activated immediately upon successful payment.
 
   * You’ll receive confirmation emails and receipts.
 
-### **4\. Changing or Cancelling Your Plan**
+### **Changing or Cancelling Your Plan**
 
 * To switch plans or cancel, revisit Manage Subscription as detailed above.
 
 * You can downgrade, upgrade, or stop renewal at any time; changes take effect according to the current billing cycle.
 
-### **5\. Troubleshooting and Support**
+### **Troubleshooting and Support**
 
 * If you have issues with payments or plan changes, use the Lemon Squeezy Support link in the subscription portal.
 
