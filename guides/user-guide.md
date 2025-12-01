@@ -678,7 +678,9 @@ When a message is sent, these tags are replaced with values specific to each rec
 **How to add tags:** Type the tag name enclosed in two hash signs. 
 
 **Example:**
-* Hi `#direktt_display_name#`, welcome to `#direktt_channel_name#`!
+  ```
+  Hi #direktt_display_name#, welcome to #direktt_channel_name#!
+  ```
  
 When sent, users will see their actual display name and the channel’s name in place of these tags.
 
