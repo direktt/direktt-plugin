@@ -266,7 +266,6 @@ Here’s how to use the admin tools and manage channels on the go.
 
 * Open the Direktt App and tap **More** in the bottom-right corner.  
 * On **More screen**, tap the **Switch to Admin mode** button.  
-* Once in Admin mode, you’ll see an Admin Mode indicator.
 
 ### **Managing Admin Channels**
 
