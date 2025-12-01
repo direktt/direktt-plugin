@@ -16,38 +16,38 @@ Creating a channel in Direktt is the first step to engaging your audience, sendi
 
 #### **1\. Navigate to Channels**
 
-* Log in to the Direktt admin console.  
-* Click on Dashboard & Channels in the top menu.  
+* Log in to the **Direktt admin console**.  
+* Click on **Dashboard & Channels** in the top menu.  
 * You’ll see an overview of your existing channels.
 
 #### **2\. Add a New Channel**
 
-* Click the blue Add New Channel button located at the top right of the channels list.  
+* Click the blue **Add New Channel** button located at the top right of the channels list.  
 * A pop-up window labeled Add New Channel will appear.
 
 #### **3\. Name Your Channel**
 
 * In the pop-up, enter your desired Channel Name  
-* Click Submit to create the channel.
+* Click **Submit** to create the channel.
 
 #### **4\. Configure Channel Settings**
 
 * Your new channel now appears in your channel list.  
-* Click the Edit (pencil) icon next to your new channel in the Actions column.  
+* Click the **Edit (pencil) icon** next to your new channel in the Actions column.  
 * You’ll be directed to the Channel Info page.
 
 #### **5\. Edit Channel Details**
 
 On the Channel Info tab, you can adjust the following settings:
 
-* Channel Image: Click Upload New Photo to add a profile image. (JPG, GIF, PNG, max 800kB)  
-* Channel Name: Update the name if needed.  
-* Channel Handle: Set a unique handle for your channel. Requirements:  
+* **Channel Image**: Click **Upload New Photo** to add a profile image. (JPG, GIF, PNG, max 800kB)  
+* **Channel Name**: Update the name if needed.  
+* **Channel Handle**: Set a unique handle for your channel. Requirements:  
   * 6–24 characters  
   * Lowercase letters, numbers, and underscores only  
   * No spaces or special characters  
-* Channel Color: Choose a color for your channel’s branding.  
-* When finished, click Save Changes.
+* **Channel Color**: Choose a color for your channel’s branding.  
+* When finished, click **Save Changes**.
 
 #### **6\. Find Your Subscription QR Code**
 
