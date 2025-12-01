@@ -324,51 +324,44 @@ Connecting your WordPress site to Direktt unlocks all the features of real-time 
 
 * Direktt channel is created and you have access to the Direktt admin console.  
 * WordPress administrator access (wp-admin).  
-* SSL/HTTPS enabled on your WordPress site. (Required by Direktt for secure API communication.)
-
----
+* **SSL/HTTPS enabled on your WordPress site**. (Required by Direktt for secure API communication.)
 
 ### **Step-by-Step Activation Guide**
 
 #### **1\. Retrieve Your WordPress API Key from Direktt**
 
-* Log in to the [Direktt admin console](https://direktt.io/) and navigate to your channel.  
-* Scroll to the WordPress Instance Info and API Key & API Access section.  
+* Log in to the **[Direktt admin console](https://direktt.io/)** and navigate to your channel.  
+* Scroll to the **WordPress Instance Info** and **API Key & API Access section**.  
 * If your instance is not yet activated:  
-  * You’ll see a status of Inactive.  
-* Copy the API Key for WordPress by clicking the copy icon next to the key.
+  * You’ll see a status of **Inactive**.  
+* **Copy the API Key** for WordPress by clicking the copy icon next to the key.
 
-Tip: If you regenerate your API Key, make sure to update it in your WordPress settings.  
----
+### Tip: 
+
+* If you regenerate your API Key, make sure to update it in your WordPress settings.  
 
 #### **2\. Install & Activate the Direktt Plugin on WordPress**
 
 * Log in to your WordPress admin panel (wp-admin).  
-* Go to Plugins \> Add New and search for Direktt.  
-* Click Install and then Activate the plugin.
-
----
+* Go to **Plugins \> Add New** and search for **Direktt**.  
+* Click **Install** and then **Activate the plugin**.
 
 #### **3\. Open Direktt Settings in WordPress**
 
-* In your WordPress dashboard, find the Direktt menu on the left.  
-* Click Settings.
-
----
+* In your WordPress dashboard, find the **Direktt menu** on the left.  
+* Click **Settings**.
 
 #### **4\. Enter Your API Key & Activate**
 
-* Paste the API Key you copied from the Direktt admin console into the Direktt API Key field.  
-* Click Save Settings & Activate WP.  
+* Paste the **API Key** you copied from the Direktt admin console into the **Direktt API Key field**.  
+* Click **Save Settings & Activate WP**.  
   * If your WordPress site does not use HTTPS, you will see an error. Enable SSL and update your WordPress site URL to use https://.  
-  * Upon successful activation, the Activation Status will update to Activated, and your registered domain will be displayed.
-
----
+  * Upon successful activation, the Activation Status will update to **Activated**, and your registered domain will be displayed.
 
 #### **5\. Verify Activation in Direktt Admin Console**
 
-* Return to the Direktt admin console and refresh the channel info page.  
-* You should now see your WordPress instance listed as Active, with the activation date and your domain.
+* Return to the **Direktt admin console** and refresh the channel info page.  
+* You should now see your WordPress instance listed as **Active**, with the activation date and your domain.
 
 If you run into any difficulties, contact Direktt support for assistance.
 
@@ -376,77 +369,67 @@ Your Direktt WordPress instance is now securely connected and ready to superchar
 
 ## Managing Direktt Users in WordPress
 
-## Direktt users are automatically synced and managed through your WordPress dashboard whenever users subscribe or unsubscribe through the Direktt mobile app. Each Direktt user’s WordPress post can be edited, categorized, tagged, or paired with a WP User for advanced integrations.
+Direktt users are automatically synced and managed through your WordPress dashboard whenever users subscribe or unsubscribe through the Direktt mobile app. Each Direktt user’s WordPress post can be edited, categorized, tagged, or paired with a WP User for advanced integrations.
 
-## ---
+### **Viewing and Editing Direktt Users**
 
-### **1\. Viewing and Editing Direktt Users**
+* Go to Direktt \> Direktt Users in wp-admin.
 
-* ## Go to Direktt \> Direktt Users in wp-admin.
+* Each user subscription creates a new post.
 
-* ## Each user subscription creates a new post.
+  * Post Title: Shows user’s display name.
 
-  * ## Post Title: Shows user’s display name.
+  * Post Content: Stores user notes from the user profile in Direktt mobile app.
 
-  * ## Post Content: Stores user notes from the user profile in Direktt mobile app.
+  * Channel Admin: Is titled “Channel Admin” with Admin Subscription: true.
 
-  * ## Channel Admin: Is titled “Channel Admin” with Admin Subscription: true.
+* Click any user to see and edit details:
 
-* ## Click any user to see and edit details:
+  * Direktt User Properties section:
 
-  * ## Direktt User Properties section:
+    * Subscription ID, Membership ID, avatar, QR code, and admin status.
 
-    * ## Subscription ID, Membership ID, avatar, QR code, and admin status.
+    * These fields give you a snapshot of each user.
 
-    * ## These fields give you a snapshot of each user.
+  * User Categories and User Tags:
 
-  * ## User Categories and User Tags:
+    * In the sidebar, check relevant boxes/tags to organize and segment users for group messaging or access control.
 
-    * ## In the sidebar, check relevant boxes/tags to organize and segment users for group messaging or access control.
+* When a user unsubscribes: Their post is removed automatically from Direktt Users.
 
-* ## When a user unsubscribes: Their post is removed automatically from Direktt Users.
+### **Managing Categories and Tags**
 
-## ---
+* User Categories Segment users into broad roles or groups. Go to Direktt \> User Categories to create/edit categories.
 
-### **2\. Managing Categories and Tags**
+* User Tags For granular segmentation and flexible access rules. Go to Direktt \> User Tags to manage tags.
 
-* ## User Categories Segment users into broad roles or groups. Go to Direktt \> User Categories to create/edit categories.
+Categories and tags can be used in access rights for pages, messaging campaigns, and automation.
 
-* ## User Tags For granular segmentation and flexible access rules. Go to Direktt \> User Tags to manage tags.
+### **Using Direktt Extensions**
 
-## Categories and tags can be used in access rights for pages, messaging campaigns, and automation.
+* When you install Direktt extensions, new meta fields will appear in each user’s post edit screen.
 
-## ---
+* These fields are tailored for each extension’s function (e.g., loyalty points, purchase data).
 
-### **3\. Using Direktt Extensions**
+* Configure or review extension-specific data as needed.
 
-* ## When you install Direktt extensions, new meta fields will appear in each user’s post edit screen.
+### **Pairing Direktt Users with WordPress Users**
 
-* ## These fields are tailored for each extension’s function (e.g., loyalty points, purchase data).
-
-* ## Configure or review extension-specific data as needed.
-
-## ---
-
-### **4\. Pairing Direktt Users with WordPress Users**
-
-## Benefits: Pairing enables automation between WP and Direktt (e.g., actions on your site that trigger app messages, custom experiences).
+Benefits: Pairing enables automation between WP and Direktt (e.g., actions on your site that trigger app messages, custom experiences).
 
 #### **How to Pair**
 
-* ## Go to Users \> Profile (for any WP User).
+* Go to Users \> Profile (for any WP User).
 
-* ## Find Code for pairing with related Direktt User in the “Direktt User Properties” section.
+* Find Code for pairing with related Direktt User in the “Direktt User Properties” section.
 
-* ## Send or display this code to a WP User   WP User sends the code in a chat message in Direktt Mobile App.
+* Send or display this code to a WP User   WP User sends the code in a chat message in Direktt Mobile App.
 
-* ## The Direktt user will then be linked (“paired”) to the WordPress user.
+* The Direktt user will then be linked (“paired”) to the WordPress user.
 
-  * ## The relation can be viewed or deleted on the WP user profile screen.
+  * The relation can be viewed or deleted on the WP user profile screen.
 
-## ---
-
-### **5\. Troubleshooting and Tips**
+### **Troubleshooting and Tips**
 
 | Issue | Solution |
 | ----- | ----- |
@@ -455,21 +438,18 @@ Your Direktt WordPress instance is now securely connected and ready to superchar
 | Assigning categories/tags not working | Save changes in the user post and ensure taxonomy terms exist. |
 | New extension field not visible | Make sure the extension is installed and active. |
 
-## ---
 
-## Summary
+### **Summary**
 
-* ## Every Direktt subscriber/unsubscriber is managed as a WordPress post in Direktt \> Users.
+* Every Direktt subscriber/unsubscriber is managed as a WordPress post in Direktt \> Users.
 
-* ## Use categories and tags for segmentation, mass communication, or feature access.
+* Use categories and tags for segmentation, mass communication, or feature access.
 
-* ## Pair Direktt users with WP users for automation and custom flows.
+* Pair Direktt users with WP users for automation and custom flows.
 
-* ## User notes and user taxonomies are editable inside the post screen.
+* User notes and user taxonomies are editable inside the post screen.
 
-## This setup ensures smooth, scalable management for even the largest subscriber bases.
-
-## 
+This setup ensures smooth, scalable management for even the largest subscriber bases.
 
 ## Setting Up User Profile
 
