@@ -160,7 +160,6 @@ You can easily view, purchase, and manage your subscription directly from your *
 * Edit payment methods
 * Download invoices and check billing history
 * Update billing information (address, company, tax ID)
-* 
 
 ### **Purchasing or Upgrading a Subscription**
 
@@ -188,7 +187,7 @@ You can easily view, purchase, and manage your subscription directly from your *
 ### **Troubleshooting and Support**
 
 * If you have issues with payments or plan changes, use the [Lemon Squeezy Support](https://www.lemonsqueezy.com/help) link in the **[subscription portal](https://shop.direktt.com/billing)**.
-* For Direktt-specific plan questions, contact [Direktt support](https://direktt.com/support/) via email or Discord.
+* For Direktt-specific plan questions, contact **[Direktt support](https://direktt.com/support/)** via email or Discord.
 
 ### **Tips**
 You can always review your subscriber limits and plan features from the Pricing Plan tab to ensure your channel has the right resources as you grow. If you approach your plan’s limits, upgrade anytime for uninterrupted service.
@@ -232,11 +231,11 @@ Direktt makes it easy for users to join your channel - whether they’re shoppin
   * When a match is found, tap **Add**.  
   * Get confirmation that the channel is added.
 
-### **4\. Policy Agreement on Subscription**
+### **Policy Agreement on Subscription**
 
 * When users subscribe (by QR, link, or handle), they must accept your Channel Policy if defined in the Direktt Admin Console (under “Channel Policy” tab).  
 * If no policy is set, users are informed that the policy is missing.  
-* Users must tap Agree to join (or Cancel).
+* Users must tap **Agree** to join (or Cancel).
 
 ### **What if User Doesn’t Have the Direktt App?**
 
@@ -253,7 +252,7 @@ Direktt makes it easy for users to join your channel - whether they’re shoppin
 ### **Tips**
 
 * **Make it easy for users** - share your handle, QR code, or subscription link wherever you promote your channel\!
-* If you need help locating your subscription QR code, link, or handle, refer to the Direktt Admin Console or WordPress Dashboard. For further support, contact Direktt support.
+* If you need help locating your subscription QR code, link, or handle, refer to the Direktt Admin Console or WordPress Dashboard. For further support, contact **[Direktt support](https://direktt.com/support/)**.
 
 ## Built in Admin Features
 
@@ -266,7 +265,7 @@ Here’s how to use the admin tools and manage channels on the go.
 ### **Switching to Admin Mode**
 
 * Open the Direktt App and tap **More** in the bottom-right corner.  
-* On your profile/settings page, tap the **Switch to Admin mode** button.  
+* On **More screen**, tap the **Switch to Admin mode** button.  
 * Once in Admin mode, you’ll see an Admin Mode indicator.
 
 ### **Managing Admin Channels**
@@ -278,7 +277,7 @@ Here’s how to use the admin tools and manage channels on the go.
 
 #### **1\. Channel Chats**
 
-* View and respond to subscriber chats as an admin.  
+* View and respond to **subscriber chats** as an admin.  
 * Access past conversations and notifications.
 
 #### **2\. Bulk Messaging**
@@ -323,7 +322,9 @@ Admin Links let you quickly access connected admin tools and resources for each 
 
 ## Activating WordPress Instance
 
-Connecting your WordPress site to Direktt unlocks all the features of real-time messaging, loyalty integration, and subscriber management - directly within your WordPress dashboard. Follow these step-by-step instructions to activate your instance. This process requires both the Direktt admin console and your WordPress admin panel.
+Connecting your WordPress site to Direktt unlocks all the features of real-time messaging, loyalty integration, and subscriber management - directly within your WordPress dashboard. 
+
+Follow these step-by-step instructions to activate your instance. This process requires both the Direktt admin console and your WordPress admin panel.
 
 ### **Prerequisites**
 
@@ -341,9 +342,7 @@ Connecting your WordPress site to Direktt unlocks all the features of real-time 
   * You’ll see a status of **Inactive**.  
 * **Copy the API Key** for WordPress by clicking the copy icon next to the key.
 
-### **Tip:** 
-
-* If you regenerate your API Key, make sure to update it in your WordPress settings.  
+**Tip:** If you regenerate your API Key, make sure to update it in your WordPress settings.  
 
 #### **2\. Install & Activate the Direktt Plugin on WordPress**
 
@@ -368,55 +367,58 @@ Connecting your WordPress site to Direktt unlocks all the features of real-time 
 * Return to the **[Direktt admin console](https://direktt.com/wp-content/direkttweb/)** and refresh the channel info page.  
 * You should now see your WordPress instance listed as **Active**, with the activation date and your domain.
 
-If you run into any difficulties, contact Direktt support for assistance.
+If you run into any difficulties, contact **[Direktt support](https://direktt.com/support/)** for assistance.
 
 Your Direktt WordPress instance is now securely connected and ready to supercharge your engagement\!
 
 ## Managing Direktt Users in WordPress
 
-Direktt users are automatically synced and managed through your WordPress dashboard whenever users subscribe or unsubscribe through the Direktt mobile app. Each Direktt user’s WordPress post can be edited, categorized, tagged, or paired with a WP User for advanced integrations.
+Direktt users are automatically synced and managed through your WordPress dashboard whenever users subscribe or unsubscribe through the Direktt mobile app. 
+
+Each Direktt user’s WordPress post can be edited, categorized, tagged, or paired with a WP User for advanced integrations.
 
 ### **Viewing and Editing Direktt Users**
 
-* Go to Direktt \> Direktt Users in wp-admin.
+* Go to **Direktt \> Direktt Users** in wp-admin.
 * Each user subscription creates a new post.
-  * Post Title: Shows user’s display name.
-  * Post Content: Stores user notes from the user profile in Direktt mobile app.
-  * Channel Admin: Is titled “Channel Admin” with Admin Subscription: true.
+  * **Post Title**: Shows user’s display name.
+  * **Post Content**: Stores user notes from the user profile in Direktt mobile app.
+  * **Channel Admin**: Is titled **“Channel Admin”** with **Admin Subscription: true**.
 
 * Click any user to see and edit details:
-  * Direktt User Properties section:
+  * **Direktt User Properties section**:
     * Subscription ID, Membership ID, avatar, QR code, and admin status.
     * These fields give you a snapshot of each user.
-  * User Categories and User Tags:
+  * **User Categories and User Tags**:
     * In the sidebar, check relevant boxes/tags to organize and segment users for group messaging or access control.
 
-* When a user unsubscribes: Their post is removed automatically from Direktt Users.
+* **When a user unsubscribes**: Their post is removed automatically from Direktt Users.
 
 ### **Managing Categories and Tags**
 
-* User Categories Segment users into broad roles or groups. Go to Direktt \> User Categories to create/edit categories.
-* User Tags For granular segmentation and flexible access rules. Go to Direktt \> User Tags to manage tags.
+* Use **User Categories** to segment users into broad roles or groups. Go to **Direktt \> User Categories** to create/edit categories.
+* Use **User Tags** for granular segmentation and flexible access rules. Go to **Direktt \> User Tags** to manage tags.
 
-Categories and tags can be used in access rights for pages, messaging campaigns, and automation.
+Categories and tags can be used in **access rights for pages**, **messaging campaigns**, and **automation**.
 
 ### **Using Direktt Extensions**
 
-* When you install Direktt extensions, new meta fields will appear in each user’s post edit screen.
+* When you install **Direktt extensions**, new meta fields will appear in each user’s post edit screen.
 * These fields are tailored for each extension’s function (e.g., loyalty points, purchase data).
 * Configure or review extension-specific data as needed.
 
 ### **Pairing Direktt Users with WordPress Users**
 
-Benefits: Pairing enables automation between WP and Direktt (e.g., actions on your site that trigger app messages, custom experiences).
+**Benefits:** Pairing enables automation between WP and Direktt (e.g., actions on your site that trigger app messages, custom experiences).
 
 #### **How to Pair**
 
-* Go to Users \> Profile (for any WP User).
-* Find Code for pairing with related Direktt User in the “Direktt User Properties” section.
-* Send or display this code to a WP User   WP User sends the code in a chat message in Direktt Mobile App.
+* Go to **Users \> Profile** (for any WP User).
+* Find Code for pairing with related Direktt User in the **“Direktt User Properties”** section.
+* **Send or display this code** to a WP User   
+  * WP User sends the code in a **chat message in Direktt Mobile App**.
 * The Direktt user will then be linked (“paired”) to the WordPress user.
-  * The relation can be viewed or deleted on the WP user profile screen.
+  * The relation can be viewed or deleted on the **WP user profile screen**
 
 ### **Troubleshooting and Tips**
 
@@ -429,7 +431,7 @@ Benefits: Pairing enables automation between WP and Direktt (e.g., actions on yo
 
 ### **Summary**
 
-* Every Direktt subscriber/unsubscriber is managed as a WordPress post in Direktt \> Users.
+* Every Direktt subscriber/unsubscriber is managed as a WordPress post in **Direktt \> Users**.
 * Use categories and tags for segmentation, mass communication, or feature access.
 * Pair Direktt users with WP users for automation and custom flows.
 * User notes and user taxonomies are editable inside the post screen.
@@ -438,45 +440,47 @@ This setup ensures smooth, scalable management for even the largest subscriber b
 
 ## Setting Up User Profile
 
-With the Direktt Profile shortcode, you can create a dedicated user profile page in WordPress \- accessible directly from the Direktt mobile app’s chat. Here’s a step-by-step setup guide, from deciding on your profile URL to configuring per-user access rights.
+With the **Direktt Profile shortcode**, you can create a dedicated user profile page in WordPress \- accessible directly from the **Direktt mobile app’s chat**. Here’s a step-by-step setup guide, from deciding on your profile URL to configuring per-user access rights.
 
 ### **(Optional) Define Your User Profile URL in Direktt Admin Console**
 
-* By default: The user profile URL is https://your-wordpress-domain/direktt-profile/.  
+* By default: The user profile URL is `https://your-wordpress-domain/direktt-profile/`.  
 * To use a custom URL:  
   * Go to the **[Direktt admin console](https://direktt.com/wp-content/direkttweb/)**.  
-  * Navigate to your channel’s settings.  
-  * Enter your preferred URL in the User Profile Url field and click Save Changes.
+  * Navigate to your **channel’s settings**.  
+  * Enter your preferred URL in the **User Profile Url** field and click **Save Changes**.
 
 ### **Create a Profile Page in WordPress**
 
-* Go to Pages \> Add New in your WordPress admin.  
+* Go to **Pages \> Add New** in your WordPress admin.  
 * Set a title (e.g., "Direktt Profile").  
-* It is best to use a Blank Template for the WordPress admin \- Template options may vary by theme. Block themes like Twenty Twenty-Three offer ‘Empty template’ for a minimal page. Refer to your theme's documentation or support for the theme specific instructions  
-* Click Save.
+* It is best to use a **Blank Template** for the **Profile page**. Keep in mind that template options may vary by theme. Block themes like Twenty Twenty-Three offer ‘Empty template’ for a minimal page. Refer to your theme's documentation or support for the theme specific instructions  
+* Click **Save**.
 
 ### **Add the Profile Shortcode & Define Access**
 
-* In the page editor, add a Shortcode block.  
-* Enter `[direktt_user_profile]` in the block.  
-* Set access rights: In the right sidebar (page settings), under Direktt options grant access to Direktt admins as the user profile functionality should be available to channel admins only. If any access right is set, the page becomes only accessible via the Direktt mobile app.  
-* Click Save or Publish.
+* In your page editor, add a **Shortcode** block.  
+* Use `[direktt_user_profile]` as shortcode.  
+* **Set access rights:** In the right sidebar (page settings), under **Direktt options** grant access to **Direktt admins** as the user profile functionality should be available to **channel admins only**. If any access right is set, the page becomes only accessible via the Direktt mobile app.  
+* Click **Save** or **Publish**.
 
-### **4Accessing the Profile Page from the Direktt App**
+### **Accessing the Profile Page from the Direktt App**
 
 User profile can be accessed from Admin mode in Direktt Mobile App  
-* Open the Direktt App and tap More in the bottom-right corner.  
-* On your profile/settings page, tap the Switch to Admin mode button.
 
-Open one of the user chats within your channel and tap the Profile button in the top right.  
+* Open the Direktt App and tap **More** in the bottom-right corner.  
+* On your More screen, tap the **Switch to Admin mode** button.
+
+Open one of the user chats within your channel and tap the **Profile button** in the top right.  
+
 * The app will open your WordPress profile page, displaying user info, categories, and tags.
 
 ### **Summary**
 
-* You can set a custom or default profile URL.  
+* You can set a **custom or default profile URL**.  
 * Create a blank page with the `[direktt_user_profile]` shortcode.  
 * Restrict access to Direktt admin for app-only visibility.  
-* Admins reach the profile via the chat's Profile button in the app.
+* Admins reach the profile via the chat's **Profile button** in the app.
 
 ### **Tip:** 
 
