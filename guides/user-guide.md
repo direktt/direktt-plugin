@@ -102,11 +102,11 @@ Set a clear privacy and data protection policy to inform users about how their d
 
 ### **Other Channel Properties Overview**
 
-* Channel Info: Set the channel name, handle, avatar, color, and (optionally) a channel-specific user profile link.  
-* Service Links: Link to external services or resources and configure how they open.  
-* Channel Policy: Set privacy and data/usage policies.  
-* Admin Links: (See next guides for details)  
-* Pricing Plan: Review plan limits and upgrade if needed.
+* **Channel Info**: Set the channel name, handle, avatar, color, and (optionally) a channel-specific user profile link.  
+* **Service Links**: Link to external services or resources and configure how they open.  
+* **Channel Policy**: Set privacy and data/usage policies.  
+* **Admin Links**: (See next guides for details)  
+* **Pricing Plan**: Review plan limits and upgrade if needed.
 
 ### **Tips**
 
