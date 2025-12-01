@@ -334,7 +334,7 @@ Connecting your WordPress site to Direktt unlocks all the features of real-time 
   * You’ll see a status of **Inactive**.  
 * **Copy the API Key** for WordPress by clicking the copy icon next to the key.
 
-### Tip: 
+### **Tip:** 
 
 * If you regenerate your API Key, make sure to update it in your WordPress settings.  
 
@@ -624,9 +624,7 @@ When sent, users will see their actual display name and the channel’s name in 
 
 **Other tags:** Additional context-specific tags may be supported, depending on your workflows and installed extensions. Refer to Developer Documentation on how to use them via Direktt API
 
-### Tip: 
-
-Use tags in any text field, including text content, interactive part descriptions, and above/below buttons for a more personalized communication experience.
+**Tip:** Use tags in any text field, including text content, interactive part descriptions, and above/below buttons for a more personalized communication experience.
 
 ### **Step 4: Review and Edit Template JSON**
 
