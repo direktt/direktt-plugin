@@ -51,7 +51,7 @@ On the Channel Info tab, you can adjust the following settings:
 
 #### **6\. Find Your Subscription QR Code**
 
-- On the right-hand side, you’ll see your channel’s unique Subscription QR Code—subscribers can use this to join your channel quickly.
+- On the right-hand side, you’ll see your channel’s unique **Subscription QR Code** - subscribers can use this to join your channel quickly.
 
 ## Channel Settings
 
@@ -61,22 +61,23 @@ Once you’ve created a channel, you can customize more properties to control us
 
 ### **Service Links**
 
-Service Links are shortcuts to important resources or digital services for your subscribers (e.g., coupons, booking, loyalty program dashboard). Service Links appear as buttons within your channel in the Direktt mobile app for easy user access.
+Service Links are shortcuts to important resources or digital services for your subscribers (e.g., coupons, booking, loyalty program dashboard).  
+Service Links appear as buttons within your channel in the Direktt mobile app for easy user access.
 
 #### **Adding or Editing Service Links**
 
 * Go to Service Links  
   * Open your channel.  
-  * Click the Service Links tab.  
+  * Click the **Service Links** tab.  
 * Add New Service Link  
-  * Click Add New Service Link.  
+  * Click **Add New Service Link**.  
   * Fill in:  
-    * Service Link Name: The label shown to users (e.g., "My Coupons").  
-    * Service Link URL: The full website link you want to share.  
+    * **Service Link Name**: The label shown to users (e.g., "My Coupons").  
+    * **Service Link URL**: The full website link you want to share.  
     * Choose Target:  
-      * Browser: Opens the link in a separate browser window.  
-      * App: Opens the link inside the Direktt app (WebView).  
-  * Click Submit.  
+      * **Browser**: Opens the link in a separate browser window.  
+      * **App**: Opens the link inside the Direktt app (WebView).  
+  * Click **Submit**.  
 * Edit or Remove  
   * Use the pencil icon to edit an existing Service Link.  
   * Use the trash icon to remove it.  
@@ -220,7 +221,7 @@ For more details on Admin Links and plan options, see the relevant sections in t
 
 ## How Users Can Subscribe to Your Channel
 
-Direktt makes it easy for users to join your channel—whether they’re shopping in-store, browsing online, or following your social media. There are three ways to subscribe, all designed to be quick and user-friendly.
+Direktt makes it easy for users to join your channel - whether they’re shopping in-store, browsing online, or following your social media. There are three ways to subscribe, all designed to be quick and user-friendly.
 
 ---
 
@@ -241,7 +242,7 @@ Direktt makes it easy for users to join your channel—whether they’re shoppin
 
 * Where to use: Share the unique subscription link in your social media posts, on your website, or anywhere you engage your audience.  
 * How to find your link:  
-  * In the Direktt Admin Console, under Channel Info—“Url for Channel Subscription”.  
+  * In the Direktt Admin Console, under Channel Info - “Url for Channel Subscription”.  
   * Or in Direktt \> Dashboard in WordPress.  
 * How users join:  
   * Tap the link (e.g., from social media or blog).  
@@ -287,7 +288,7 @@ Direktt makes it easy for users to join your channel—whether they’re shoppin
 
 ---
 
-Pro Tip: Make it easy for users—share your handle, QR code, or subscription link wherever you promote your channel\!
+Pro Tip: Make it easy for users - share your handle, QR code, or subscription link wherever you promote your channel\!
 
 ---
 
@@ -297,7 +298,7 @@ If you need help locating your subscription QR code, link, or handle, refer to t
 
 ## **Admin Features in the Direktt Mobile App**
 
-The Direktt mobile app lets channel administrators manage communication, send bulk messages, and access admin-specific links—right from their mobile device. 
+The Direktt mobile app lets channel administrators manage communication, send bulk messages, and access admin-specific links - right from their mobile device. 
 
 Here’s how to use the admin tools and manage channels on the go.
 
@@ -372,7 +373,7 @@ To add or edit Admin Links:
 
 ## Activating WordPress Instance
 
-Connecting your WordPress site to Direktt unlocks all the features of real-time messaging, loyalty integration, and subscriber management—directly within your WordPress dashboard. Follow these step-by-step instructions to activate your instance. This process requires both the Direktt admin console and your WordPress admin panel.
+Connecting your WordPress site to Direktt unlocks all the features of real-time messaging, loyalty integration, and subscriber management - directly within your WordPress dashboard. Follow these step-by-step instructions to activate your instance. This process requires both the Direktt admin console and your WordPress admin panel.
 
 ---
 
@@ -586,7 +587,7 @@ Your Direktt profile page is now securely and seamlessly integrated with your Wo
 
 ## How to Test Direktt Pages from WordPress wp-admin
 
-Once you enable Direktt user rights for a page, access is restricted—these pages are only visible from within the Direktt app for the intended user roles. This can make desktop/website testing tricky. However, you can simulate the exact experience of a Direktt user within wp-admin by following these steps:
+Once you enable Direktt user rights for a page, access is restricted - these pages are only visible from within the Direktt app for the intended user roles. This can make desktop/website testing tricky. However, you can simulate the exact experience of a Direktt user within wp-admin by following these steps:
 
 ---
 
