@@ -131,85 +131,78 @@ Direktt offers flexible pricing plans to suit different business needs and audie
 
 ### **2\. Viewing and Managing Your Current Plan**
 
-* ## Go to Pricing Plan
+* Go to Pricing Plan
 
-  * ## In the Direktt admin console, open your channel and select the Pricing Plan tab.
+  * In the Direktt admin console, open your channel and select the Pricing Plan tab.
 
-  * ## Here you’ll see:
+  * Here you’ll see:
 
-    * ## Your current pricing plan.
+    * Your current pricing plan.
 
-    * ## Renewal dates.
+    * Renewal dates.
 
-    * ## A summary of available plans and their features.
+    * A summary of available plans and their features.
 
-  * ## To manage your subscription, click Manage Subscription.
+  * To manage your subscription, click Manage Subscription.
 
-* ## Manage Subscription and Billing
+* Manage Subscription and Billing
 
-  * ## You’ll be redirected to Direktt’s subscription portal (powered by Lemon Squeezy).
+  * You’ll be redirected to Direktt’s subscription portal (powered by Lemon Squeezy).
 
-  * ## Enter your email address and press Sign In.
+  * Enter your email address and press Sign In.
 
-  * ## Check your inbox for a secure sign-in link.
+  * Check your inbox for a secure sign-in link.
 
-  * ## Click the link to access your subscription and billing settings.
+  * Click the link to access your subscription and billing settings.
 
-* ## What You Can Do Here:
+* What You Can Do Here:
 
-  * ## View your active subscriptions
+  * View your active subscriptions
 
-  * ## Update/cancel a subscription
+  * Update/cancel a subscription
 
-  * ## Edit payment methods
+  * Edit payment methods
 
-  * ## Download invoices and check billing history
+  * Download invoices and check billing history
 
-  * ## Update billing information (address, company, tax ID)
-
-## ---
+  * Update billing information (address, company, tax ID)
 
 ### **3\. Purchasing or Upgrading a Subscription**
 
-* ## Select Your Plan
+* Select Your Plan
 
-  * ## In the Pricing Plan tab, choose your desired plan (Standard or Premium).
+  * In the Pricing Plan tab, choose your desired plan (Standard or Premium).
 
-* ## Checkout
+* Checkout
 
-  * ## Click to purchase or upgrade.
+  * Click to purchase or upgrade.
 
-  * ## You’ll see a checkout form.
+  * You’ll see a checkout form.
 
-  * ## Enter your email, preferred payment method, and billing details.
+  * Enter your email, preferred payment method, and billing details.
 
-  * ## Confirm and complete your payment.
+  * Confirm and complete your payment.
 
-* ## Confirmation and Activation
+* Confirmation and Activation
 
-  * ## Your new plan is activated immediately upon successful payment.
+  * Your new plan is activated immediately upon successful payment.
 
-  * ## You’ll receive confirmation emails and receipts.
-
-## ---
+  * You’ll receive confirmation emails and receipts.
 
 ### **4\. Changing or Cancelling Your Plan**
 
-* ## To switch plans or cancel, revisit Manage Subscription as detailed above.
+* To switch plans or cancel, revisit Manage Subscription as detailed above.
 
-* ## You can downgrade, upgrade, or stop renewal at any time; changes take effect according to the current billing cycle.
-
-## ---
+* You can downgrade, upgrade, or stop renewal at any time; changes take effect according to the current billing cycle.
 
 ### **5\. Troubleshooting and Support**
 
-* ## If you have issues with payments or plan changes, use the Lemon Squeezy Support link in the subscription portal.
+* If you have issues with payments or plan changes, use the Lemon Squeezy Support link in the subscription portal.
 
-* ## For Direktt-specific plan questions, contact Direktt support via email or Discord.
+* For Direktt-specific plan questions, contact Direktt support via email or Discord.
 
-## ---
-
-## Tip: You can always review your subscriber limits and plan features from the Pricing Plan tab to ensure your channel has the right resources as you grow. If you approach your plan’s limits, upgrade anytime for uninterrupted service.
+### **Tips**
+You can always review your subscriber limits and plan features from the Pricing Plan tab to ensure your channel has the right resources as you grow. If you approach your plan’s limits, upgrade anytime for uninterrupted service.
 
 # Direktt Mobile App
 
