@@ -127,9 +127,7 @@ Direktt offers flexible pricing plans to suit different business needs and audie
 | Standard | 44.95 | 200 | All Free features, higher limits |
 | Premium | 94.95 | 1000 | All Standard features, even higher limits |
 
-* ## All plans include access to the Direktt mobile app, 1-on-1 messaging, advanced WordPress extensions, and support via email and Discord.
-
-## ---
+* All plans include access to the Direktt mobile app, 1-on-1 messaging, advanced WordPress extensions, and support via email and Discord.
 
 ### **2\. Viewing and Managing Your Current Plan**
 
