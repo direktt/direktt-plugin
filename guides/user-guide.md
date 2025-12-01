@@ -460,8 +460,6 @@ With the Direktt Profile shortcode, you can create a dedicated user profile page
   * Navigate to your channel’s settings.  
   * Enter your preferred URL in the User Profile Url field and click Save Changes.
 
----
-
 ### **Create a Profile Page in WordPress**
 
 * Go to Pages \> Add New in your WordPress admin.  
@@ -469,37 +467,32 @@ With the Direktt Profile shortcode, you can create a dedicated user profile page
 * It is best to use a Blank Template for the WordPress admin \- Template options may vary by theme. Block themes like Twenty Twenty-Three offer ‘Empty template’ for a minimal page. Refer to your theme's documentation or support for the theme specific instructions  
 * Click Save.
 
----
-
 ### **Add the Profile Shortcode & Define Access**
 
 * In the page editor, add a Shortcode block.  
-* Enter `\[direktt\_user\_profile\]` in the block.  
+* Enter `[direktt_user_profile]` in the block.  
 * Set access rights: In the right sidebar (page settings), under Direktt options grant access to Direktt admins as the user profile functionality should be available to channel admins only. If any access right is set, the page becomes only accessible via the Direktt mobile app.  
 * Click Save or Publish.
 
----
-
 ### **4Accessing the Profile Page from the Direktt App**
 
-* User profile can be accessed from Admin mode in Direktt Mobile App  
-  	Open the Direktt App and tap More in the bottom-right corner.  
-  * On your profile/settings page, tap the Switch to Admin mode button.
+User profile can be accessed from Admin mode in Direktt Mobile App  
+* Open the Direktt App and tap More in the bottom-right corner.  
+* On your profile/settings page, tap the Switch to Admin mode button.
 
 Open one of the user chats within your channel and tap the Profile button in the top right.  
-	The app will open your WordPress profile page, displaying user info, categories, and tags.
-
----
+* The app will open your WordPress profile page, displaying user info, categories, and tags.
 
 ### **Summary**
 
 * You can set a custom or default profile URL.  
-* Create a blank page with the \[direktt\_user\_profile\] shortcode.  
+* Create a blank page with the `[direktt_user_profile]` shortcode.  
 * Restrict access to Direktt admin for app-only visibility.  
 * Admins reach the profile via the chat's Profile button in the app.
 
-Tip: To test, use the Direktt mobile app from the Admin mode\!  
----
+### **Tip:** 
+
+To test, use the Direktt mobile app from the Admin mode\!  
 
 Your Direktt profile page is now securely and seamlessly integrated with your WordPress site and accessible from the Direktt app.
 
@@ -507,9 +500,7 @@ Your Direktt profile page is now securely and seamlessly integrated with your Wo
 
 Once you enable Direktt user rights for a page, access is restricted - these pages are only visible from within the Direktt app for the intended user roles. This can make desktop/website testing tricky. However, you can simulate the exact experience of a Direktt user within wp-admin by following these steps:
 
----
-
-### **1\. Set Up “Test Direktt User” Mode for Your WP User**
+### **Set Up “Test Direktt User” Mode for Your WP User**
 
 * Go to Your WordPress Dashboard.  
 * From the main menu, select Users \> Profile (or “Your Profile”).  
@@ -518,35 +509,26 @@ Once you enable Direktt user rights for a page, access is restricted - these pag
   * Every Direktt user Post (including subscribers and channel admin) has a unique Post ID.  
 * Click Update Profile to save.
 
----
-
-### **2\. Test Direktt Pages As the Selected User**
+### **Test Direktt Pages As the Selected User**
 
 * With the Post Id set:  
   * Log in with your WordPress user.  
   * Open any Direktt-restricted page in your browser (e.g., the profile page: https://your-wordpress-domain/direktt-profile/ *or the custom URL if set*).  
   * The page will behave and display content as if you are logged in as the chosen Direktt user in the mobile app.
 
----
-
-### **3\. Pro Tip: Simulate Specific Subscriber Profiles**
+### **Pro Tip: Simulate Specific Subscriber Profiles**
 
 You can also preview a specific user profile using their subscription ID:
 
 * Set Post Id of Test Direktt User to the Post ID of the channel admin.  
-* Visit the profile page with the ?subscriptionId= parameter, for example:  
-* https://your-wordpress-domain/direktt-profile/?subscriptionId=SUBSCRIPTION\_ID  
-* Replace SUBSCRIPTION\_ID with the desired subscriber’s subscription ID.  
+* Visit the profile page with the ?subscriptionId= parameter, for example: `https://your-wordpress-domain/direktt-profile/?subscriptionId=SUBSCRIPTION_ID`  
+* Replace `SUBSCRIPTION_ID` with the desired subscriber’s subscription ID.  
 * You will see the profile and page content exactly as if you were logged in as channel admin in the Direktt app.
-
----
 
 ### **Why This Works**
 
 * Bypassing In-App-Only Restriction: This method grants your logged-in WP user temporary access to pages otherwise locked to Direktt app users.  
 * Test All Roles and Scenarios: Instantly switch between different user views by changing the Post Id.
-
----
 
 ### **Troubleshooting**
 
@@ -556,11 +538,7 @@ You can also preview a specific user profile using their subscription ID:
 | Unsure of correct Post Id | Go to Direktt \> Direktt Users. Hover over the User for which you want to find the ID, and then click Edit. Once the post editor loads, look at the URL in your browser's address bar. You will see a URL similar to: [https://yoursite.com/wp-admin/post.php?post=123\&action=edit](https://yoursite.com/wp-admin/post.php?post=123&action=edit)The number following `post=` (in this example, `123`) is the Post ID. |
 | No Direktt User Properties section | Ensure the Direktt plugin is active and up to date. |
 
----
-
 Now you can test and preview any Direktt page in WordPress as if you were a real app user \- no phone required\!
-
-## 
 
 ## Creating Message Templates
 
