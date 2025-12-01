@@ -663,6 +663,6 @@ When sent, users will see their actual display name and the channel’s name in 
 * This determines where the template is visible in the Direktt plugin and Direktt Mobile App \- bulk messaging, individual messaging, API-only, or always available. Use this to keep template lists tidy and relevant for your use case.
 
 **Q: How do I use a template from my own code?** 
-You can reference Direktt message templates by their post ID or slug using the Direktt API in your custom WordPress code or integrations. Refer to Developer Documentation for details
+* You can reference Direktt message templates by their post ID or slug using the Direktt API in your custom WordPress code or integrations. Refer to Developer Documentation for details
 
 Your message template is now ready to use for targeted, automated, or bulk communication with your Direktt subscribers.
