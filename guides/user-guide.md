@@ -239,13 +239,13 @@ Direktt makes it easy for users to join your channel - whether they’re shoppin
 
 | Method | Where to Find | User Steps | App Required? |
 | ----- | ----- | ----- | ----- |
-| QR Code | Direktt Admin Console / WP Dashboard | Scan with Camera app or Direktt app’s Add Channel \> Scan QR Code | No \- will prompt |
-| Subscription Link | Direktt Admin Console / WP Dashboard | Tap link → Open in app (or prompted to install) | No \- will prompt |
-| Channel Handle | Set in Direktt Admin Console | Enter handle in app’s Add Channel screen and tap Add | Yes |
+| **QR Code** | Direktt Admin Console / WP Dashboard | Scan with Camera app or Direktt app’s Add Channel \> Scan QR Code | No \- will prompt |
+| **Subscription Link** | Direktt Admin Console / WP Dashboard | Tap link → Open in app (or prompted to install) | No \- will prompt |
+| **Channel Handle** | Set in Direktt Admin Console | Enter handle in app’s Add Channel screen and tap Add | Yes |
 
 ### **Tips**
 
-* Make it easy for users - share your handle, QR code, or subscription link wherever you promote your channel\!
+* **Make it easy for users** - share your handle, QR code, or subscription link wherever you promote your channel\!
 * If you need help locating your subscription QR code, link, or handle, refer to the Direktt Admin Console or WordPress Dashboard. For further support, contact Direktt support.
 
 ## Built in Admin Features
@@ -256,22 +256,16 @@ The Direktt mobile app lets channel administrators manage communication, send bu
 
 Here’s how to use the admin tools and manage channels on the go.
 
----
-
 ### **Switching to Admin Mode**
 
-* Open the Direktt App and tap More in the bottom-right corner.  
-* On your profile/settings page, tap the Switch to Admin mode button.  
+* Open the Direktt App and tap **More** in the bottom-right corner.  
+* On your profile/settings page, tap the **Switch to Admin mode** button.  
 * Once in Admin mode, you’ll see an Admin Mode indicator.
-
----
 
 ### **Managing Admin Channels**
 
-* In Admin mode, your home tab (Channels) lists all channels you manage as “Admin Channels.”  
-* Tap a channel to open its admin dashboard.
-
----
+* In Admin mode, your home tab (Channels) lists all channels you manage as **“Admin Channels.”**  
+* **Tap a channel** to open its admin dashboard.
 
 ### **Admin Channel Dashboard Features**
 
@@ -282,7 +276,7 @@ Here’s how to use the admin tools and manage channels on the go.
 
 #### **2\. Bulk Messaging**
 
-* Tap Send Bulk Messages (visible in Admin mode).  
+* Tap **Send Bulk Messages** (visible in Admin mode).  
 * Write a message and send it to all channel subscribers at once.  
 * Useful for announcements, updates, or promotions.
 
@@ -291,31 +285,26 @@ Here’s how to use the admin tools and manage channels on the go.
 Admin Links let you quickly access connected admin tools and resources for each channel.
 
 * Service examples: bulk message templates, categorization/tags, and other management tools.  
-* Find your admin links in the “Services” section of the channel dashboard. These appear as blue buttons.  
-* 
+* Find your admin links in the **“Services” section** of the channel dashboard. These appear as blue buttons.  
 
-To add or edit Admin Links:
+**To add or edit Admin Links:**
 
-* In the web admin console, go to your channel’s Admin Links tab.  
-* Click Add New Admin Link or use the pencil icon to edit.  
-* Set a descriptive name, URL, and target (browser/app), then click Submit.  
-  * App: Opens the link within the Direktt app (in-app browser/WebView).  
-  * Browser: Opens the link in your device’s default browser.  
-* You can drag and drop links in the admin console to reorder how they appear in the app.
-
----
+* In the web admin console, go to your channel’s **Admin Links tab**.  
+* Click **Add New Admin Link** or use the pencil icon to edit.  
+* Set a **descriptive name**, **URL**, and **target (browser/app)**, then click **Submit**.  
+  * **App**: Opens the link within the Direktt app (in-app browser/WebView).  
+  * **Browser**: Opens the link in your device’s default browser.  
+* You can **drag and drop** links in the admin console to reorder how they appear in the app.
 
 ### **Admin Capabilities at a Glance**
 
 | Feature | What You Can Do |
 | ----- | ----- |
-| Switch to Admin Mode | Access admin tools and dashboards for your channels |
-| Bulk Messaging | Send messages to all subscribers at once |
-| Channel Chat Management | Engage in individual or group chats as admin |
-| Access Admin Links (Tools/Shortcuts) | Quickly reach channel management functions/services |
-| Manage Admin Links (via web) | Customize the list of admin shortcuts for each channel |
-
----
+| **Switch to Admin Mode** | Access admin tools and dashboards for your channels |
+| **Bulk Messaging** | Send messages to all subscribers at once |
+| **Channel Chat Management** | Engage in individual or group chats as admin |
+| **Access Admin Links** (Tools/Shortcuts) | Quickly reach channel management functions/services |
+| **Manage Admin Links** (via web) | Customize the list of admin shortcuts for each channel |
 
 ### **Tips**
 
