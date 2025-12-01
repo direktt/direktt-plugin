@@ -507,7 +507,12 @@ With the **Direktt Profile shortcode**, you can create a dedicated user profile 
 ### **Add the Profile Shortcode & Define Access**
 
 * In your page editor, add a **Shortcode** block.  
-* Use `[direktt_user_profile]` as shortcode.  
+* Use following shortcode:
+
+  ```
+  [direktt_user_profile]
+  ```
+
 * **Set access rights:** In the right sidebar (page settings), under **Direktt options** grant access to **Direktt admins** as the user profile functionality should be available to **channel admins only**. If any access right is set, the page becomes only accessible via the Direktt mobile app.  
 * Click **Save** or **Publish**.
 
