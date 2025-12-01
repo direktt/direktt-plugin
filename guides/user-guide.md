@@ -726,3 +726,66 @@ When sent, users will see their actual display name and the channel’s name in 
 * You can reference Direktt message templates by their post ID or slug using the Direktt API in your custom WordPress code or integrations. Refer to Developer Documentation for details
 
 Your message template is now ready to use for targeted, automated, or bulk communication with your Direktt subscribers.
+
+## Default Admin Services
+
+Direktt provides default Admin Services designed to make channel management tasks fast and accessible for administrators from within the Direktt mobile app. The primary default service is the **Taxonomies Service**, which allows channel admins to assign or remove users from categories and tags - empowering easy and intuitive user segmentation right from your phone.
+
+### Setting Up the Taxonomies Service Page in WordPress
+
+To make the Taxonomies Service available to your channel admins in the app, you’ll first create a dedicated, Direktt-restricted page in WordPress and add the relevant shortcode.
+
+**Follow these steps:**
+
+1. **Create a New Empty Page**
+    - In your WordPress dashboard, go to **Pages > Add New**.
+    - Set a page title like **Admin Taxonomies Service**.
+    - Choose an **Empty/Blank template** for a minimal appearance (check your theme for this option).
+
+2. **Insert the Taxonomies Service Shortcode**
+    - Add a **Shortcode** block to your page.
+    - Paste this shortcode:
+
+      ```
+      [direktt_edit_taxonomies_service]
+      ```
+
+3. **Restrict Access to Direktt Admins Only**
+    - In the right sidebar (page settings), locate the **Direktt** options panel.
+    - Check **Allow access to Direktt admin**.
+    - Leave “Allow access to Direktt users” unchecked. Only admins should have access.
+    - Click **Publish** or **Update** to save the page.
+
+**Tip:** Restricting access ensures only authorized channel admins can use this management tool within the Direktt app.
+
+### Linking the Taxonomies Service in Direktt Admin Console
+
+To make your new service visible and accessible from the Direktt mobile app:
+
+1. **Go to the [Direktt admin console](https://direktt.com/wp-content/direkttweb/)** and open your channel.
+2. Select the **Admin Links** tab.
+3. Click **Add New Admin Link**.
+    - **Service Link Name:** Enter a name such as “Taxonomies Service”.
+    - **Service Link URL:** Enter the full URL of your new Taxonomies Service page (e.g., `https://yourdomain.com/admin-taxonomies-service/`).
+    - **Target:** Choose **App** to open the service within the Direktt mobile app.
+4. Click **Submit** to save.
+
+Your “Taxonomies Service” link will now appear in the Admin Services section in the Direktt app for channel admins.
+
+### Functionality Overview
+
+The Taxonomies Service provides a simple interface in the Direktt mobile app for managing user groupings:
+
+- **View All Categories and Tags:** Admins see a list of all active user categories and tags.
+- **Assign or Remove Users:** Tap a category or tag to view and modify the users assigned to it. Add or remove users with just a couple of taps.
+- **Streamline Segmentation:** Quickly segment your audience for messaging, access control, and workflow automations—directly from your phone, without needing the desktop dashboard.
+
+**At a Glance: Setting Up the Taxonomies Service**
+
+| Task                          | Steps                                                                                   |
+|-------------------------------|----------------------------------------------------------------------------------------|
+| Create Taxonomies Service Page | New page, `[direktt_edit_taxonomies_service]` shortcode, restrict to Direktt admins    |
+| Add Admin Service Link         | In Direktt admin console > Admin Links, add new, set target to "App"                   |
+| Use in Direktt mobile app      | Assign/remove users from categories/tags, segment users instantly from anywhere        |
+
+For more admin service options or troubleshooting, please contact [Direktt support](https://direktt.com/support/).
