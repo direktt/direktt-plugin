@@ -318,8 +318,6 @@ Admin Links let you quickly access connected admin tools and resources for each 
 
 Connecting your WordPress site to Direktt unlocks all the features of real-time messaging, loyalty integration, and subscriber management - directly within your WordPress dashboard. Follow these step-by-step instructions to activate your instance. This process requires both the Direktt admin console and your WordPress admin panel.
 
----
-
 ### **Prerequisites**
 
 * Direktt channel is created and you have access to the Direktt admin console.  
@@ -438,7 +436,6 @@ Benefits: Pairing enables automation between WP and Direktt (e.g., actions on yo
 | Assigning categories/tags not working | Save changes in the user post and ensure taxonomy terms exist. |
 | New extension field not visible | Make sure the extension is installed and active. |
 
-
 ### **Summary**
 
 * Every Direktt subscriber/unsubscriber is managed as a WordPress post in Direktt \> Users.
@@ -455,9 +452,7 @@ This setup ensures smooth, scalable management for even the largest subscriber b
 
 With the Direktt Profile shortcode, you can create a dedicated user profile page in WordPress \- accessible directly from the Direktt mobile app’s chat. Here’s a step-by-step setup guide, from deciding on your profile URL to configuring per-user access rights.
 
----
-
-### **1\. (Optional) Define Your User Profile URL in Direktt Admin Console**
+### **(Optional) Define Your User Profile URL in Direktt Admin Console**
 
 * By default: The user profile URL is https://your-wordpress-domain/direktt-profile/.  
 * To use a custom URL:  
@@ -467,7 +462,7 @@ With the Direktt Profile shortcode, you can create a dedicated user profile page
 
 ---
 
-### **2\. Create a Profile Page in WordPress**
+### **Create a Profile Page in WordPress**
 
 * Go to Pages \> Add New in your WordPress admin.  
 * Set a title (e.g., "Direktt Profile").  
@@ -476,16 +471,16 @@ With the Direktt Profile shortcode, you can create a dedicated user profile page
 
 ---
 
-### **3\. Add the Profile Shortcode & Define Access**
+### **Add the Profile Shortcode & Define Access**
 
 * In the page editor, add a Shortcode block.  
-* Enter \[direktt\_user\_profile\] in the block.  
+* Enter `\[direktt\_user\_profile\]` in the block.  
 * Set access rights: In the right sidebar (page settings), under Direktt options grant access to Direktt admins as the user profile functionality should be available to channel admins only. If any access right is set, the page becomes only accessible via the Direktt mobile app.  
 * Click Save or Publish.
 
 ---
 
-### **4\. Accessing the Profile Page from the Direktt App**
+### **4Accessing the Profile Page from the Direktt App**
 
 * User profile can be accessed from Admin mode in Direktt Mobile App  
   	Open the Direktt App and tap More in the bottom-right corner.  
