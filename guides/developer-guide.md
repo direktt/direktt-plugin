@@ -49,7 +49,7 @@ Direktt is made up of three main components:
 - **Users (Subscribers):**
   - Any Direktt mobile app user can subscribe to one or more channels.
   - Subscribers can join, chat, and use digital services in any channel they've joined.
-  - Admins can also subscribe to other channels as regular users or event their own (for testing purposes).
+  - Admins can also subscribe to other channels as regular users or even their own for testing purposes.
 
 ### Chatting and Engagement
 
