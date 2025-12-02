@@ -1,4 +1,4 @@
-# 1. Register on Direktt 📝
+## 1. Register on Direktt 📝
 
 ### **Go to the Registration Page**
 
