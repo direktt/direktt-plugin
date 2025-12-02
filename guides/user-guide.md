@@ -567,7 +567,12 @@ Once you enable Direktt user rights for a page, access is restricted - these pag
 > You can also preview a specific user profile using their subscription ID:
 
 > * Set **Post Id of Test Direktt User** to the Post ID of the channel admin.  
-> * Visit the profile page with the `?subscriptionId=` parameter, for example: `https://your-wordpress-domain/direktt-profile/?subscriptionId=SUBSCRIPTION_ID`  
+> * Visit the profile page with the `?subscriptionId=` parameter, for example: 
+  
+>  ```
+>  https://your-wordpress-domain/direktt-profile/?subscriptionId=SUBSCRIPTION_ID
+>  ```
+
 > * Replace `SUBSCRIPTION_ID` with the desired subscriber’s subscription ID.  
 > * You will see the profile and page content exactly as if you were logged in as channel admin in the Direktt app.
 
