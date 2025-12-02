@@ -79,13 +79,13 @@
 
 ## Connect WordPress to Direktt 🔗📝
 
-### **1. Install Direktt WP Plugin
+### **1. Install Direktt WP Plugin**
 
 * Log in to your WordPress admin (wp-admin).
 * Go to Plugins > Add New, search for “Direktt.”
 * Click Install and Activate.
 
-### **2. Activate Your WP Instance
+### **2. Activate Your WP Instance**
 
 * In the Direktt admin console, open your channel’s info screen.
 * Scroll to the API Key & API Access section.
@@ -93,7 +93,7 @@
 * In WordPress, go to Direktt > Settings, and paste the API Key in the Direktt API Key field.
 * Click Save Settings & Activate WP.
 
-### **3. WP Connected to Your Direktt Channel!
+### **3. WP Connected to Your Direktt Channel!**
 
 * Your WordPress site is now successfully connected to your Direktt channel!
 
