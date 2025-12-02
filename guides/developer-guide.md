@@ -18,7 +18,7 @@ Direktt is made up of three main components:
 
 ### 1. Direktt Server & Web Admin Console
 - **What it does:** Handles all core communication and channel management.
-- **How you use it:** Access via the [Direktt Admin Console](https://direktt.com/wp-content/direkttweb/) to create channels, configure services, download QR codes, and manage integrations.
+- **How you use it:** Access via the [Direktt Admin Console](https://direktt.com/wp-content/direkttweb/) to create channels, configure services, and manage integrations.
 
 ### 2. Direktt Mobile App
 - **What it does:** Lets end-users subscribe to your channels, chat instantly, and access digital services - all from their mobile device.
@@ -42,21 +42,21 @@ Direktt is made up of three main components:
 - **How does admin work?**  
   - Each channel is managed by a single administrator (the creator).
   - One admin can manage multiple channels.
-  - One WordPress site can be linked to one channel (for more channels, use multisite or separate WP installs).
+  - One WordPress site can be linked to one channel (for more channels, use separate WP installs).
 
 ### Mobile App Users & Subscriptions
 
 - **Users (Subscribers):**
   - Any Direktt mobile app user can subscribe to one or more channels.
   - Subscribers can join, chat, and use digital services in any channel they've joined.
-  - Admins can also subscribe to other channels as regular users.
+  - Admins can also subscribe to other channels as regular users or event their own (for testing purposes).
 
 ### Chatting and Engagement
 
 - **Direct chat:**  
   Admins and subscribers enjoy secure, 1:1 conversations within the app.
 - **Bulk messaging:**  
-  Admins can send announcements or promotions to all subscribers of their channel.
+  Admins can send bulk messages, announcements or promotions to all subscribers of their channel.
 
 ### Privacy by Design
 
