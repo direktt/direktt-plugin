@@ -38,15 +38,15 @@
 
 ### **1. Subscribe to Your Channel**
 
-* Click the Edit button (in Actions column) for your channel.
-* Use your mobile phone to scan the Subscription QR Code
+* Click the **Edit** button (in Actions column) for your channel.
+* Use your mobile phone to scan the **Subscription QR Code**
 
 ### **2. Download Direktt Mobile App**
 
-* Don’t have the app? You’ll be prompted to install it.
+* **Don’t have the app?** You’ll be prompted to install it.
 * Log in using your Direktt credentials.
-  * Android users: Automatically subscribed after login.
-  * iOS users: Scan the QR Code again after logging in.
+  * **Android users:** Automatically subscribed after login.
+  * **iOS users:** Scan the QR Code again after logging in.
 
 ### **3. Subscribed to Channel!**
 
@@ -54,44 +54,44 @@
 
 ### **4. Set Your Display Name and Avatar**
 
-* Tap More in the bottom right.
-* Tap Edit icon above default avatar.
-* Set your new display name & avatar, then tap Save.
-* Return to the channel list via Channels in bottom left.
+* Tap **More** in the bottom right.
+* Tap **Edit icon** above default avatar.
+* Set your new display name & avatar, then tap **Save**.
+* Return to the channel list via **Channels** in bottom left.
 
 ### **5. Send your first message as subscriber**
 
 * Tap your channel, then tap its chat.
 * Type and send your first message.
-* Go back to the channel screen – tap back arrow in upper left
+* Go back to the channel screen – tap **back arrow**in upper left
 
 ### **6. Send your first message as admin**
 
-* Tap More and switch to Admin mode
+* Tap **More** and switch to **Admin mode**
 * Select your channel and open its chats.
-* Enter the chat with your subscriber user
+* **Enter the chat** with your subscriber user
 * Send a message as admin.
-* Switch back to User mode from More.
+* Switch back to **User mode** from **More**.
 
 ### **7. Channel tested!**
 
-* You’ve sent messages as both subscriber and admin – your channel chat is fully working!
+* You’ve sent messages as both subscriber **and**admin – your channel chat is fully working!
 
 ## Connect WordPress to Direktt 🔗📝
 
 ### **1. Install Direktt WP Plugin**
 
-* Log in to your WordPress admin (wp-admin).
-* Go to Plugins > Add New, search for “Direktt.”
-* Click Install and Activate.
+* Log in to your **WordPress admin** (wp-admin).
+* Go to **Plugins > Add New**, search for “Direktt.”
+* Click **Install** and **Activate**.
 
 ### **2. Activate Your WP Instance**
 
-* In the Direktt admin console, open your channel’s info screen.
-* Scroll to the API Key & API Access section.
-* Copy your API Key for WordPress.
-* In WordPress, go to Direktt > Settings, and paste the API Key in the Direktt API Key field.
-* Click Save Settings & Activate WP.
+* In the **[Direktt admin console](https://direktt.com/wp-content/direkttweb/)**, open your channel’s info screen.
+* Scroll to the **API Key & API Access** section.
+* **Copy** your **API Key for WordPress**.
+* In WordPress, go to **Direktt > Settings**, and **paste the API Key** in the **Direktt API Key** field.
+* Click **Save Settings & Activate WP**.
 
 ### **3. WP Connected to Your Direktt Channel!**
 
@@ -103,17 +103,17 @@ Having trouble? Try these common solutions:
 
 **1. Didn’t get your confirmation email?**
 
-* Check your Junk or Spam folder for the email from Direktt.
+* Check your **Junk** or **Spam** folder for the email from Direktt.
 
 **2. Channel not visible in the mobile app (admin mode)?**
 
-* Make sure you log into the Direktt mobile app with the same user account you used for the Direktt admin console.
+* Make sure you log into the **Direktt mobile app** with the **same user account** you used for the **[Direktt admin console](https://direktt.com/wp-content/direkttweb/)**.
 
 **3. Plugin connection issues?**
 
-* Double-check that you have copied the entire API key, and there are no extra spaces when pasting it into WordPress.
+* Double-check that you have **copied the entire API key**, and there are **no extra spaces** when pasting it into WordPress.
 * If the plugin still doesn’t connect, try re-saving the settings and check your WordPress site’s internet access.
 
-Still having trouble? Contact Support.
+Still having trouble? Contact **[Direktt support](https://direktt.com/support/)**.
 
 > **General tip:** Keep your Direktt app and WordPress plugins updated for the latest features and fixes.

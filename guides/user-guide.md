@@ -133,7 +133,7 @@ You can easily view, purchase, and manage your subscription directly from your *
 | **Standard** | 44.95 | 200 | All Free features, higher limits |
 | **Premium** | 94.95 | 1000 | All Standard features, even higher limits |
 
-* All plans include access to the Direktt mobile app, 1-on-1 messaging, advanced WordPress extensions, and support via email and Discord.
+* All plans include access to the Direktt mobile app, 1-on-1 messaging, advanced WordPress extensions, and **[Direktt support](https://direktt.com/support/)** via email and Discord.
 
 ### **Viewing and Managing Your Current Plan**
 
