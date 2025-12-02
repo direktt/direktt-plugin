@@ -1,15 +1,15 @@
 # Direktt Developer's Guide: Basic Concepts & Platform Overview
 
-Welcome to the Direktt Developer's Guide! This section introduces the key concepts, architecture, and main extension points of the Direktt platform—so you can quickly understand how to build integrated, interactive customer experiences using WordPress.
+Welcome to the Direktt Developer's Guide! This section introduces the key concepts, architecture, and main extension points of the Direktt platform - so you can quickly understand how to build integrated, interactive customer experiences using WordPress.
 
 ## What is Direktt?
 
-**Direktt** is a flexible customer communication platform that brings together private mobile chat, in-store engagement, and digital services—all managed through a seamless integration with your WordPress site.
+**Direktt** is a flexible customer communication platform that brings together private mobile chat, in-store engagement, and digital services - all managed through a seamless integration with your WordPress site.
 
 With Direktt, your business can:
 - **Chat directly** with customers via mobile.
 - **Deliver membership/loyalty programs** using QR codes.
-- **Run digital services** such as ticket validation, order pickups, offers, and more—either online or in-store.
+- **Run digital services** such as ticket validation, order pickups, offers, and more - either online or in-store.
 - **Easily extend and customize** your workflows using familiar WordPress plugin techniques.
 
 ## Platform Architecture: The Three Core Parts
@@ -21,7 +21,7 @@ Direktt is made up of three main components:
 - **How you use it:** Access via the [Direktt Admin Console](https://direktt.com/wp-content/direkttweb/) to create channels, configure services, download QR codes, and manage integrations.
 
 ### 2. Direktt Mobile App
-- **What it does:** Lets end-users subscribe to your channels, chat instantly, and access digital services—all from their mobile device.
+- **What it does:** Lets end-users subscribe to your channels, chat instantly, and access digital services - all from their mobile device.
 - **Key features:** Join channels, message admins, scan QR codes for actions, access personal membership IDs, and use in-channel digital services.
 
 ### 3. Direktt WordPress Plugin (and Extensions)
@@ -38,7 +38,7 @@ Direktt is made up of three main components:
 ### Channels & Channel Admins
 
 - **What is a channel?**  
-  A channel is your dedicated customer space—a private chat environment for your business and its audience.
+  A channel is your dedicated customer space - a private chat environment for your business and its audience.
 - **How does admin work?**  
   - Each channel is managed by a single administrator (the creator).
   - One admin can manage multiple channels.
@@ -80,14 +80,14 @@ After joining your channel (by scanning QR, following a link, or searching chann
 From the Direktt app, admins can:
 - **Initiate private chats** with any subscriber.
 - **Send bulk messages** (announcements, updates).
-- **Access subscriber profiles**—including assigning/removing categories & tags.
+- **Access subscriber profiles** - including assigning/removing categories & tags.
 - **Use specialized admin tools:** Triggered from within subscriber profiles or as Admin Services in the app (e.g., loyalty tools, ticket checks, or other workflows).
 
 > **Tip:** Admin services are configured via the Direktt Web Admin Console and can be linked to custom WordPress workflows or tools.
 
 ## Subscriber Profile & Admin Tools
 
-When an admin (or authorized staff) scans a user's Membership ID QR code, the **subscriber's profile** appears in the app—allowing:
+When an admin (or authorized staff) scans a user's Membership ID QR code, the **subscriber's profile** appears in the app - allowing:
 
 - **Quick assignments:** Add or remove categories/tags for segmentation.
 - **Custom workflows:** Extend this area with WordPress-powered tools (e.g., validate tickets, top-up accounts, or issue rewards).
@@ -98,7 +98,7 @@ When an admin (or authorized staff) scans a user's Membership ID QR code, the **
 
 Use QR codes to create frictionless, smart interactions:
 - **Generate** via the Direktt Web Console or WordPress API.
-- **Automate actions** when scanned—add items to cart, validate passes, trigger loyalty updates, etc.
+- **Automate actions** when scanned - add items to cart, validate passes, trigger loyalty updates, etc.
 - **Tie QR actions** directly to your WordPress REST API for unlimited extensions.
 
 **Examples:**
@@ -115,7 +115,7 @@ Direktt is designed for developers: leverage familiar WordPress paradigms with n
 
 1. **Adding Digital Services:**
     - Configure custom service menu links in the Admin Console.
-    - Serve member-only pages, apps, offers, and automations—Direktt auto-authenticates users.
+    - Serve member-only pages, apps, offers, and automations - Direktt auto-authenticates users.
 
 2. **Enhancing User Profiles:**
     - Add custom admin tools or interfaces to the profile area.
