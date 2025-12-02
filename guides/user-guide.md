@@ -491,7 +491,11 @@ With the **Direktt Profile shortcode**, you can create a dedicated user profile 
 
 ### **(Optional) Define Your User Profile URL in Direktt Admin Console**
 
-* By default: The user profile URL is `https://your-wordpress-domain/direktt-profile/`.  
+* By default: The user profile URL is 
+  ```
+  https://your-wordpress-domain/direktt-profile/
+  ```
+
 * To use a custom URL:  
   * Go to the **[Direktt admin console](https://direktt.com/wp-content/direkttweb/)**.  
   * Navigate to your **channel’s settings**.  
