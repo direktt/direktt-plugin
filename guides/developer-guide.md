@@ -97,8 +97,8 @@ When an admin (or authorized staff) scans a user's Membership ID QR code, the **
 ## QR Codes: Powerful Building Blocks
 
 Use QR codes to create frictionless, smart interactions:
-- **Generate** via the Direktt Web Console or WordPress API.
-- **Automate actions** when scanned - add items to cart, validate passes, trigger loyalty updates, etc.
+- **Generate** via the Direktt Web Console or within WordPress wp-admin.
+- **Automate actions** when scanned - assign taxonomies to subscribers, add items to cart, validate passes, trigger loyalty updates, etc.
 - **Tie QR actions** directly to your WordPress REST API for unlimited extensions.
 
 **Examples:**
@@ -107,28 +107,80 @@ Use QR codes to create frictionless, smart interactions:
 - Redeem a personalized coupon.
 - Trigger instant loyalty updates.
 
-## How You Can Extend Direktt as a WordPress Developer
+## Direktt WordPress Plugin: Developer Overview
 
-Direktt is designed for developers: leverage familiar WordPress paradigms with new mobile power.
+The **Direktt WordPress plugin** enables you to deeply connect your WordPress site to the Direktt platform—bringing powerful communication, automation, and digital service features to both your website and your customers’ mobile devices.
 
-### Extend & Integrate by:
+Use this plugin as your gateway to create unified customer experiences, automate key processes, and unlock powerful integration points—all using familiar WordPress practices.
 
-1. **Adding Digital Services:**
-    - Configure custom service menu links in the Admin Console.
-    - Serve member-only pages, apps, offers, and automations - Direktt auto-authenticates users.
+### Key Features: What You Can Do Out of the Box
 
-2. **Enhancing User Profiles:**
-    - Add custom admin tools or interfaces to the profile area.
-    - Enable real-time updates for points, tickets, orders, etc.
+The Direktt WordPress plugin ships with a rich set of features ready for immediate use:
 
-3. **Hooking Into Message Flow:**
-    - Intercept/respond to messages (for AI/chatbots, automations, etc.).
-    - Build conversational triggers for advanced engagement.
+**Full Subscriber Management**
+- **Custom Post Type integration:** Every Direktt subscriber is represented as a custom post in WordPress.
+- **User roles:** Direktt user role assigned to matched WP users.
+- **View, organize, and edit** subscriber details directly from the WP dashboard.
 
-4. **Sending Interactive Messages:**
-    - Use the Direktt API to deliver messages with buttons or interactive elements (booking, voting, purchases, etc.).
-    - All interactions are securely routed to your WordPress site using retVar and API payloads.
+**Segmentation & Targeting with Taxonomies**
+- **Group subscribers** using built-in and custom taxonomies (Categories & Tags).
+- **Segment your users** for messaging, digital service delivery, or analytics.
 
-5. **Smart QR Interactions:**
-    - Generate custom QR codes linked to REST API actions.
-    - Automate any workflow (redemptions, access, validation, etc.) with a quick scan.
+**Reusable Message Templates**
+- **Compose message templates** with mixed content: text, media, files, and interactive elements.
+- **Send templates** from the Direktt Mobile App or programmatically via API.
+
+**Bulk Messaging**
+- **Targeted bulk send:** Message all subscribers, or segment by category/tag.
+- **Reach the right audience** instantly with announcements, promotions, or important updates.
+
+**Content Authorization & Access Control**
+- **Restrict access** to Direktt-powered pages, Ajax endpoints, and REST API endpoints.
+- **Authorize by role and taxonomy**—lock content for members, admins, or specific groups.
+
+**Direct Extension Support**
+- **Plug in new features:** Enable Direktt Extensions for instant access to advanced digital services:
+    - Appointment bookings
+    - Real-time updates
+    - Order status alerts
+    - Loyalty/reward programs
+    - WooCommerce integrations
+    - Coupons, surveys, and more!
+
+### Direktt WordPress Plugin API: Extend and Automate
+
+The plugin exposes a robust developer API that lets you connect, automate, and extend Direktt with your site’s custom code and existing plugins.
+
+#### Core API Capabilities
+
+**Send Custom Messages**
+- **Programmatically send** messages to subscribers from your own plugin or theme code, including:
+    - Plain text
+    - Images & media
+    - Structured interactive messages (buttons for actions, carousels, polls, and more)
+
+**React to Direktt & WP Events with Hooks**
+- **On Subscriber Join:** Welcome new users, trigger onboarding workflows, or alert your admins.
+- **On Incoming Message:** Parse and respond automatically (e.g., trigger AI replies, support bots, etc.).
+- **On Custom Actions:** Respond when someone scans a QR code or interacts with a rich message.
+- **WooCommerce Integration:** Handle events like abandoned carts, order status changes, or purchases, and notify shoppers via the mobile app.
+- **Any WordPress Event:** Integrate with general WP hooks—trigger Direktt workflows on logins, form submissions, page actions, and more.
+
+**Secure & Extend Digital Services**
+- **Authenticate & authorize** Direktt users for your pages and custom front-end tools.
+- **Extend user profiles:** Add custom admin panels or profile fields, visible within the mobile app.
+- **Secure API Calls:** Restrict REST endpoints and Ajax calls to verified Direktt users.
+
+**Integrate with Your Favorite Plugins**
+- **Leverage existing plugins:** Run automations or add digital services based on what’s installed—no need to reinvent the wheel.
+
+**Generate & Display QR Codes for Actions**
+- **Trigger actions via scanning:** Create QR codes that subscribers scan via the Direktt app to:
+    - Redeem offers
+    - Check-in at locations
+    - Validate tickets
+    - Start custom workflows
+
+- **Show codes:** Use on your site, printed in-store, or at events for frictionless engagement.
+
+> **Tip:** Whether you’re building new membership perks, automating notifications, integrating e-commerce, or launching brand new digital services—Direktt plugin’s hooks, APIs, and extension points put all the power in your hands.
