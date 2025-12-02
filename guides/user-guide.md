@@ -190,7 +190,8 @@ You can easily view, purchase, and manage your subscription directly from your *
 * For Direktt-specific plan questions, contact **[Direktt support](https://direktt.com/support/)** via email or Discord.
 
 ### **Tips**
-You can always review your subscriber limits and plan features from the Pricing Plan tab to ensure your channel has the right resources as you grow. If you approach your plan’s limits, upgrade anytime for uninterrupted service.
+
+> You can always review your subscriber limits and plan features from the Pricing Plan tab to ensure your channel has the right resources as you grow. If you approach your plan’s limits, upgrade anytime for uninterrupted service.
 
 # Direktt Mobile App
 
@@ -251,8 +252,8 @@ Direktt makes it easy for users to join your channel - whether they’re shoppin
 
 ### **Tips**
 
-* **Make it easy for users** - share your handle, QR code, or subscription link wherever you promote your channel\!
-* If you need help locating your subscription QR code, link, or handle, refer to the Direktt Admin Console or WordPress Dashboard. For further support, contact **[Direktt support](https://direktt.com/support/)**.
+> * **Make it easy for users** - share your handle, QR code, or subscription link wherever you promote your channel\!
+> * If you need help locating your subscription QR code, link, or handle, refer to the Direktt Admin Console or WordPress Dashboard. For further support, contact **[Direktt support](https://direktt.com/support/)**.
 
 ## Built in Admin Features
 
@@ -313,9 +314,9 @@ Admin Links let you quickly access connected admin tools and resources for each 
 
 ### **Tips**
 
-* Use clear names for Admin Links so it’s obvious what each shortcut does within the app.  
-* Switch back to User mode from the More menu when you want to interact as a regular subscriber.  
-* Message delivery via bulk messaging respects the subscriber limits of your current plan.
+> * Use clear names for Admin Links so it’s obvious what each shortcut does within the app.  
+> * Switch back to User mode from the More menu when you want to interact as a regular subscriber.  
+> * Message delivery via bulk messaging respects the subscriber limits of your current plan.
 
 # WordPress Integration
 
@@ -341,7 +342,7 @@ Follow these step-by-step instructions to activate your instance. This process r
   * You’ll see a status of **Inactive**.  
 * **Copy the API Key** for WordPress by clicking the copy icon next to the key.
 
-**Tip:** If you regenerate your API Key, make sure to update it in your WordPress settings.  
+> **Tip:** If you regenerate your API Key, make sure to update it in your WordPress settings.  
 
 #### **2\. Install & Activate the Direktt Plugin on WordPress**
 
@@ -533,8 +534,8 @@ Open one of the user chats within your channel and tap the **Profile button** in
 
 ### **Tip:** 
 
-To test, use the Direktt mobile app from the Admin mode\!  
-
+> To test, use the Direktt mobile app from the Admin mode\!  
+  
 Your Direktt profile page is now securely and seamlessly integrated with your WordPress site and accessible from the Direktt app.
 
 ## How to Test Direktt Pages from WordPress wp-admin
@@ -559,12 +560,12 @@ Once you enable Direktt user rights for a page, access is restricted - these pag
 
 ### **Pro Tip: Simulate Specific Subscriber Profiles**
 
-You can also preview a specific user profile using their subscription ID:
+> You can also preview a specific user profile using their subscription ID:
 
-* Set **Post Id of Test Direktt User** to the Post ID of the channel admin.  
-* Visit the profile page with the `?subscriptionId=` parameter, for example: `https://your-wordpress-domain/direktt-profile/?subscriptionId=SUBSCRIPTION_ID`  
-* Replace `SUBSCRIPTION_ID` with the desired subscriber’s subscription ID.  
-* You will see the profile and page content exactly as if you were logged in as channel admin in the Direktt app.
+> * Set **Post Id of Test Direktt User** to the Post ID of the channel admin.  
+> * Visit the profile page with the `?subscriptionId=` parameter, for example: `https://your-wordpress-domain/direktt-profile/?subscriptionId=SUBSCRIPTION_ID`  
+> * Replace `SUBSCRIPTION_ID` with the desired subscriber’s subscription ID.  
+> * You will see the profile and page content exactly as if you were logged in as channel admin in the Direktt app.
 
 ### **Why This Works**
 
@@ -690,7 +691,7 @@ When sent, users will see their actual display name and the channel’s name in 
 
 **Other tags:** Additional context-specific tags may be supported, depending on your workflows and installed extensions. Refer to Developer Documentation on how to use them via Direktt API
 
-**Tip:** Use tags in any text field, including text content, interactive part descriptions, and above/below buttons for a more personalized communication experience.
+> **Tip:** Use tags in any text field, including text content, interactive part descriptions, and above/below buttons for a more personalized communication experience.
 
 ### **Step 4: Review and Edit Template JSON**
 
@@ -712,10 +713,10 @@ When sent, users will see their actual display name and the channel’s name in 
 
 ### **Additional Tips**
 
-* Drag and drop content parts to reorder them.  
-* Use concise, clear content for the best user experience on mobile devices.  
-* For code-based usage, reference the template by its CPT post Id via the Direktt API.  
-* Set template visibility to **Never, I will use it only via API** for system, plugin, or workflow integrations to keep the UI clean.
+> * Drag and drop content parts to reorder them.  
+> * Use concise, clear content for the best user experience on mobile devices.  
+> * For code-based usage, reference the template by its CPT post Id via the Direktt API.  
+> * Set template visibility to **Never, I will use it only via API** for system, plugin, or workflow integrations to keep the UI clean.
 
 ### **Frequently Asked Questions**
 
@@ -762,7 +763,7 @@ To make the Taxonomies Service available to your channel admins in the app, you�
     - Leave “Allow access to Direktt users” unchecked. Only admins should have access.
     - Click **Publish** or **Update** to save the page.
 
-**Tip:** Restricting access ensures only authorized channel admins can use this management tool within the Direktt app.
+> **Tip:** Restricting access ensures only authorized channel admins can use this management tool within the Direktt app.
 
 ### Linking the Taxonomies Service in Direktt Admin Console
 
