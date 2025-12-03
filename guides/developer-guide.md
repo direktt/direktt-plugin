@@ -283,7 +283,6 @@ Direktt_User::direktt_get_current_user()
 ```php
 Direktt_User::is_direktt_admin()
 ```
-
 - **Returns:** true if current $direktt_user is a channel admin false otherwise
 
 ### Lookup Users
@@ -293,26 +292,33 @@ Direktt_User::is_direktt_admin()
   ```php
   Direktt_User::get_user_by_post_id($direktt_user_post_id)
   ```
-
   -  **Returns:** Associative array of user data, or false if not found
 
 - **By Subscription ID**
 
-Direktt_User::get_user_by_subscription_id($direktt_user_id)
-Returns: Associative array of user data, or false if not found
-By Membership ID
+  ```php
+  Direktt_User::get_user_by_subscription_id($direktt_user_id)
+  ```
+  -  **Returns**: Associative array of user data, or false if not found
 
-Direktt_User::get_user_by_membership_id($direktt_membership_id)
-Returns: Associative array of user data, or false if not found
+- **By Membership ID**
+
+  ```php
+  Direktt_User::get_user_by_membership_id($direktt_membership_id)
+  ```
+  -  **Returns**: Associative array of user data, or false if not found
 
 ### List All Direktt Users
 
+```php
 Direktt_User::get_users($include_admin = false)
-Parameters:
-$include_admin (bool): If true, includes channel admin in list; if false, returns only regular subscribers.
-Returns: array of users, each:
-value: post ID
-title: display name
+```
+- **Parameters:**
+  - `$include_admin`(bool): If `true`, includes channel admin in list; if `false`, returns only regular subscribers.
+
+- **Returns:** array of users, each:
+  - `value`: post ID
+  - `title`: display name
 
 ### Pairing and Cross-User Lookups
 
