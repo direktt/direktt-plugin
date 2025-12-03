@@ -184,3 +184,85 @@ The plugin exposes a robust developer API that lets you connect, automate, and e
 - **Show codes:** Use on your site, printed in-store, or at events for frictionless engagement.
 
 > **Tip:** Whether you’re building new membership perks, automating notifications, integrating e-commerce, or launching brand new digital services—Direktt plugin’s hooks, APIs, and extension points put all the power in your hands.
+
+# Direktt Users and Authentication in WordPress
+
+Direktt offers seamless integration with WordPress, letting you securely authenticate, manage, and pair your users across mobile and website experiences. This guide covers how Direktt users are represented in WordPress, the authentication flow, user data structure, essential helper methods, and developer integration tips.
+
+## User Roles in Direktt
+
+Within each channel, Direktt defines **two roles**:
+
+- **Channel Administrator**
+  - The creator and admin of the channel (one per channel)
+- **Channel Subscribers** (Direktt Users)
+  - All other members of that channel
+
+### Feature Access by Role
+
+| Channel Role       | Features & Capabilities                     |
+|--------------------|---------------------------------------------|
+| **Subscriber**     | 1-on-1 chat with admin<br>Access digital services (e.g., appointments, loyalty) |
+| **Channel Admin**  | All Subscriber actions<br>Bulk messaging<br>Access and manage user profiles<br>Admin dashboard and tools in Direktt app<br>Admin-only notifications |
+
+## How Direktt Users Are Managed in WordPress
+
+Every Direktt subscriber - admin or user - is stored as a **Custom Post Type** (CPT) post in WordPress:  
+
+- **CPT Key:** `direkttusers`
+- Shown in: **Direktt > Direktt Users** (in wp-admin)
+
+### User Creation Flow
+
+1. A user subscribes to your channel in the Direktt mobile app.
+2. WordPress receives a webhook/REST API call and creates a corresponding **Direktt User** post.
+
+### Direktt User Meta Fields
+
+Each `direkttusers` post stores:
+
+| Meta Key                        | Description |
+|----------------------------------|-------------|
+| **direktt_user_id**              | Unique Subscription ID (channel-specific; *not* the WP post ID). |
+| **direktt_admin_subscription**   | `true` if channel admin, `false`/unset if regular user. |
+| **direktt_marketing_consent_status** | User's opt-in/out for marketing. |
+| **direktt_membership_id**        | Membership ID for physical card or QR. |
+| **direktt_avatar_url**           | URL of profile avatar. |
+| Post Title                       | Display name |
+| Post Content                     | User notes (editable by admin in-app) |
+
+Your custom integrations can add further meta fields as needed.
+
+### WordPress User Pairing Meta
+
+If a WP User is **paired** with a Direktt User, the following meta exist on the WP User:
+
+| Meta Key                | Description |
+|-------------------------|-------------|
+| **direktt_user_id**     | Post ID of related Direktt User (`direkttusers` CPT) |
+| **direktt_test_user_id**| (For testing only) Post ID of Direktt Test User - see "Testing Direktt Pages..." in User Guide. |
+
+## Session Authentication & `$direktt_user` Global Variable
+
+Whenever a user visits your WordPress site via the Direktt mobile app (through Services, chat buttons, or QR codes), their **Direktt Subscription ID** is automatically passed and authenticated.
+
+**Result:**  
+A global PHP variable - `$direktt_user` - is set for that session, containing all relevant Direktt user data.
+
+**Also:**  
+If a logged-in WordPress user is paired to a Direktt User, `$direktt_user` is set for their web session as well.
+
+### Structure of `$direktt_user`
+
+The array structure closely matches the Direktt User CPT:
+
+- `ID` (int): Direktt User post ID
+- `direktt_display_name` (string)
+- `direktt_avatar_url` (string)
+- `direktt_user_id` (string, Subscription ID)
+- `direktt_admin_subscription` (bool)
+- `direktt_membership_id` (string)
+- `direktt_marketing_consent_status` (bool)
+- `direktt_user_categories` (array of category names)
+- `direktt_user_tags` (array of tag names)
+- `direktt_notes` (string)
