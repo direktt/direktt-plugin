@@ -340,34 +340,42 @@ Direktt_User::get_users($include_admin = false)
 
 ## Pairing WordPress Users and Direktt Users
 
-Pairing allows you to bind a logged-in WP User with their Direktt app user profile—enabling unified messaging, services, automation, and cross-channel tracking without exposing private data.
+**Pairing** allows you to bind a logged-in WP User with their Direktt app user profile—enabling unified messaging, services, automation, and cross-channel tracking without exposing private data.
 
-Pairing Use Cases
-Send reminders or order updates via Direktt after online actions
-Deliver loyalty or promotional messages following e-commerce actions
-Sync user access and content between website and mobile app
-How Pairing Works
-1. Text-based Pairing Code
-Each WP User is assigned a code (direktt_user_pair_code meta)—viewable and regeneratable in their WP user profile.
+### Pairing Use Cases
 
-Admin can display this using the [direktt_pairing_code] shortcode in pages or theme templates:
+- Send reminders or order updates via Direktt after online actions
+- Deliver loyalty or promotional messages following e-commerce actions
+- Sync user access and content between website and mobile app
 
-echo do_shortcode('[direktt_pairing_code]');
-User sends this code in the Direktt app’s chat. The backend pairs the WP User with the Direktt User and confirms via customizable message templates.
+### How Pairing Works
 
-2. Pairing QR Code
-Display a scannable QR code ([direktt_qr_pairing_code]) anywhere on your site:
+1. **Text-based Pairing Code**
 
-echo do_shortcode('[direktt_qr_pairing_code]');
-User scans with Direktt app; pairing is handled instantly.
+  - Each WP User is assigned a code (direktt_user_pair_code meta)—viewable and regeneratable in their WP user profile.
+  - Admin can display this using the `[direktt_pairing_code]` shortcode in pages or theme templates:
+  ```php
+  echo do_shortcode('[direktt_pairing_code]');
+  ```
+  - User sends this code in the Direktt app’s chat. The backend pairs the WP User with the Direktt User and confirms via customizable message templates.
 
-What the User Sees
-If already paired: Message states association exists (shows related Direktt user).
-If not paired: Shows pairing code or QR for the current user.
-Admin Management
-Pairing can be managed and removed in either WP user or Direktt user admin screens
-All pairing activity is stored as user/post meta (extendable by your plugins)
-Working With Direktt User Taxonomies (Categories & Tags)
+2. **Pairing QR Code**
+- Display a scannable QR code (`[direktt_qr_pairing_code]`) anywhere on your site:
+  ```php
+  echo do_shortcode('[direktt_qr_pairing_code]');
+  ```
+- User scans with Direktt app; pairing is handled instantly.
+
+**What the User Sees**
+- If already paired: Message states association exists (shows related Direktt user).
+- If not paired: Shows pairing code or QR for the current user.
+
+**Admin Management**
+- Pairing can be managed and removed in either WP user or Direktt user admin screens
+- All pairing activity is stored as user/post meta (extendable by your plugins)
+
+## Working With Direktt User Taxonomies (Categories & Tags)
+
 Taxonomies are the key to segmentation, targeting, and access control. Each Direktt User supports two built-in taxonomies:
 
 Direktt User Categories (direkttusercategories):
