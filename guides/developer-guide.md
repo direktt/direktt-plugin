@@ -350,16 +350,15 @@ Direktt_User::get_users($include_admin = false)
 
 ### How Pairing Works
 
-1. **Text-based Pairing Code**
-
-  - Each WP User is assigned a code (direktt_user_pair_code meta)—viewable and regeneratable in their WP user profile.
-  - Admin can display this using the `[direktt_pairing_code]` shortcode in pages or theme templates:
+**Text-based Pairing Code**
+- Each WP User is assigned a code (direktt_user_pair_code meta)—viewable and regeneratable in their WP user profile.
+- Admin can display this using the `[direktt_pairing_code]` shortcode in pages or theme templates:
   ```php
   echo do_shortcode('[direktt_pairing_code]');
   ```
-  - User sends this code in the Direktt app’s chat. The backend pairs the WP User with the Direktt User and confirms via customizable message templates.
+- User sends this code in the Direktt app’s chat. The backend pairs the WP User with the Direktt User and confirms via customizable message templates.
 
-2. **Pairing QR Code**
+**Pairing QR Code**
 - Display a scannable QR code (`[direktt_qr_pairing_code]`) anywhere on your site:
   ```php
   echo do_shortcode('[direktt_qr_pairing_code]');
