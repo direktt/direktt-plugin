@@ -266,3 +266,132 @@ The array structure closely matches the Direktt User CPT:
 - `direktt_user_categories` (array of category names)
 - `direktt_user_tags` (array of tag names)
 - `direktt_notes` (string)
+
+## Working With Direktt Users: API Reference
+
+You rarely access `$direktt_user` directly - use these helper functions from the `Direktt_User` class:
+
+### Get the Current Direktt User
+
+```php
+Direktt_User::direktt_get_current_user()
+```
+- **Returns:** array (user data; structure as above) if set false otherwise
+
+### Check for Channel Admin Status
+
+```php
+Direktt_User::is_direktt_admin()
+```
+
+- **Returns:** true if current $direktt_user is a channel admin false otherwise
+
+### Lookup Users
+
+- **By Direktt User Post ID**
+
+  ```php
+  Direktt_User::get_user_by_post_id($direktt_user_post_id)
+  ```
+
+  -  **Returns:** Associative array of user data, or false if not found
+
+- **By Subscription ID**
+
+Direktt_User::get_user_by_subscription_id($direktt_user_id)
+Returns: Associative array of user data, or false if not found
+By Membership ID
+
+Direktt_User::get_user_by_membership_id($direktt_membership_id)
+Returns: Associative array of user data, or false if not found
+
+### List All Direktt Users
+
+Direktt_User::get_users($include_admin = false)
+Parameters:
+$include_admin (bool): If true, includes channel admin in list; if false, returns only regular subscribers.
+Returns: array of users, each:
+value: post ID
+title: display name
+
+### Pairing and Cross-User Lookups
+
+Get Direktt User Related to a WP User
+
+Direktt_User::get_related_user($wp_user_id)
+Parameters: WordPress User ID (int)
+Returns: Direktt user array (see above), or false if not paired
+Get WP User ID Related to a Direktt User
+
+Direktt_User::get_related_wp_user_id($direktt_user)
+Parameters: Direktt user array (as above)
+Returns: WP User ID (int) if paired, else false
+
+## Pairing WordPress Users and Direktt Users
+
+Pairing allows you to bind a logged-in WP User with their Direktt app user profile—enabling unified messaging, services, automation, and cross-channel tracking without exposing private data.
+
+Pairing Use Cases
+Send reminders or order updates via Direktt after online actions
+Deliver loyalty or promotional messages following e-commerce actions
+Sync user access and content between website and mobile app
+How Pairing Works
+1. Text-based Pairing Code
+Each WP User is assigned a code (direktt_user_pair_code meta)—viewable and regeneratable in their WP user profile.
+
+Admin can display this using the [direktt_pairing_code] shortcode in pages or theme templates:
+
+echo do_shortcode('[direktt_pairing_code]');
+User sends this code in the Direktt app’s chat. The backend pairs the WP User with the Direktt User and confirms via customizable message templates.
+
+2. Pairing QR Code
+Display a scannable QR code ([direktt_qr_pairing_code]) anywhere on your site:
+
+echo do_shortcode('[direktt_qr_pairing_code]');
+User scans with Direktt app; pairing is handled instantly.
+
+What the User Sees
+If already paired: Message states association exists (shows related Direktt user).
+If not paired: Shows pairing code or QR for the current user.
+Admin Management
+Pairing can be managed and removed in either WP user or Direktt user admin screens
+All pairing activity is stored as user/post meta (extendable by your plugins)
+Working With Direktt User Taxonomies (Categories & Tags)
+Taxonomies are the key to segmentation, targeting, and access control. Each Direktt User supports two built-in taxonomies:
+
+Direktt User Categories (direkttusercategories):
+Examples: "VIP", "Frequent Shopper", "Beta Tester"
+Direktt User Tags (direkttusertags):
+Fine-grained labels: "2024 Contest", "Early Bird", "Coupon User"
+Use Cases:
+
+Target bulk messages to a specific group
+Gate a digital service page or offer to "VIP" users
+Trigger automations based on tag/category assignment
+Taxonomy Helper Methods
+Get All Categories
+Direktt_User::get_all_user_categories()
+Returns: Array of [ 'value' => term_id, 'name' => term name ]
+Get User's Categories
+Direktt_User::get_user_categories($direktt_user_post_id)
+Returns: Array of category term IDs (integers)
+Get All Tags
+Direktt_User::get_all_user_tags()
+Returns: Array of [ 'value' => term_id, 'name' => tag name ]
+Get User's Tags
+Direktt_User::get_user_tags($direktt_user_post_id)
+Returns: Array of tag term IDs (integers)
+Check If User Has Given Categories/Tags
+Direktt_User::has_direktt_taxonomies($direktt_user, $categories, $tags)
+Parameters:
+$direktt_user: user data array (as above)
+$categories: array of category slugs (strings)
+$tags: array of tag slugs (strings)
+Returns: true if user matches any provided category or tag, else false
+Developer Tips
+Use [direktt_pairing_code] and [direktt_qr_pairing_code] on logged-in only pages so the correct pairing code is shown per WP user.
+Check and manage all pairings in Direktt > Direktt Users and regular WP user admin screens.
+All pairing and taxonomy activity is logged as meta — perfect for automation and advanced integrations.
+Taxonomies are your friend: Use for segmentation, feature gating, OR custom analytics.
+Pro Tip:
+You can freely extend all user meta, pairing flows, and hooks for advanced automation—see the [Developer API Reference] and example plugin snippets for inspiration.
