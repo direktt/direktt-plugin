@@ -379,39 +379,51 @@ Direktt_User::get_users($include_admin = false)
 
 Taxonomies are the key to segmentation, targeting, and access control. Each Direktt User supports two built-in taxonomies:
 
-Direktt User Categories (direkttusercategories):
-Examples: "VIP", "Frequent Shopper", "Beta Tester"
-Direktt User Tags (direkttusertags):
-Fine-grained labels: "2024 Contest", "Early Bird", "Coupon User"
-Use Cases:
+- **Direktt User Categories** (`direkttusercategories`):
+  - Examples: "VIP", "Frequent Shopper", "Beta Tester"
+- **Direktt User Tags** (`direkttusertags`):
+  - Fine-grained labels: "2024 Contest", "Early Bird", "Coupon User"
 
-Target bulk messages to a specific group
-Gate a digital service page or offer to "VIP" users
-Trigger automations based on tag/category assignment
-Taxonomy Helper Methods
-Get All Categories
+**Use Cases:**
+
+- Target bulk messages to a specific group
+- Gate a digital service page or offer to "VIP" users
+- Trigger automations based on tag/category assignment
+
+### Taxonomy Helper Methods
+
+**Get All Categories**
+
 Direktt_User::get_all_user_categories()
-Returns: Array of [ 'value' => term_id, 'name' => term name ]
-Get User's Categories
+- **Returns:** Array of `[ 'value' => term_id, 'name' => term name ]`
+
+**Get User's Categories**
+
 Direktt_User::get_user_categories($direktt_user_post_id)
-Returns: Array of category term IDs (integers)
-Get All Tags
+- **Returns:** Array of category term IDs (integers)
+
+**Get All Tags**
+
 Direktt_User::get_all_user_tags()
-Returns: Array of [ 'value' => term_id, 'name' => tag name ]
-Get User's Tags
+- **Returns:** Array of `[ 'value' => term_id, 'name' => tag name ]`
+
+**Get User's Tags**
 Direktt_User::get_user_tags($direktt_user_post_id)
-Returns: Array of tag term IDs (integers)
-Check If User Has Given Categories/Tags
+- **Returns:** Array of tag term IDs (integers)
+
+**Check If User Has Given Categories/Tags**
 Direktt_User::has_direktt_taxonomies($direktt_user, $categories, $tags)
-Parameters:
-$direktt_user: user data array (as above)
-$categories: array of category slugs (strings)
-$tags: array of tag slugs (strings)
-Returns: true if user matches any provided category or tag, else false
-Developer Tips
-Use [direktt_pairing_code] and [direktt_qr_pairing_code] on logged-in only pages so the correct pairing code is shown per WP user.
-Check and manage all pairings in Direktt > Direktt Users and regular WP user admin screens.
-All pairing and taxonomy activity is logged as meta — perfect for automation and advanced integrations.
-Taxonomies are your friend: Use for segmentation, feature gating, OR custom analytics.
-Pro Tip:
-You can freely extend all user meta, pairing flows, and hooks for advanced automation—see the [Developer API Reference] and example plugin snippets for inspiration.
+- **Parameters:**
+  - `$direktt_user:` user data array (as above)
+  - `$categories:` array of category slugs (strings)
+  - `$tags:` array of tag slugs (strings)
+- **Returns:** `true` if user matches any provided category or tag, else `false`
+
+### Developer Tips
+- Use `[direktt_pairing_code]` and `[direktt_qr_pairing_code]` on **logged-in only** pages so the correct pairing code is shown per WP user.
+- Check and manage all pairings in **Direktt > Direktt Users** and regular WP user admin screens.
+- All pairing and taxonomy activity is logged as meta — perfect for automation and advanced integrations.
+- Taxonomies are your friend: Use for segmentation, feature gating, OR custom analytics.
+
+> **Pro Tip:**
+> You can freely extend all user meta, pairing flows, and hooks for advanced automation—see the Developer API Reference and example plugin snippets for inspiration.
