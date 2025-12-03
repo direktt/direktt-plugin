@@ -394,25 +394,37 @@ Taxonomies are the key to segmentation, targeting, and access control. Each Dire
 
 **Get All Categories**
 
+```php
 Direktt_User::get_all_user_categories()
+```
 - **Returns:** Array of `[ 'value' => term_id, 'name' => term name ]`
 
 **Get User's Categories**
 
+```php
 Direktt_User::get_user_categories($direktt_user_post_id)
+```
 - **Returns:** Array of category term IDs (integers)
 
 **Get All Tags**
 
+```php
 Direktt_User::get_all_user_tags()
+```
 - **Returns:** Array of `[ 'value' => term_id, 'name' => tag name ]`
 
 **Get User's Tags**
+
+```php
 Direktt_User::get_user_tags($direktt_user_post_id)
+```
 - **Returns:** Array of tag term IDs (integers)
 
 **Check If User Has Given Categories/Tags**
+
+```php
 Direktt_User::has_direktt_taxonomies($direktt_user, $categories, $tags)
+```
 - **Parameters:**
   - `$direktt_user:` user data array (as above)
   - `$categories:` array of category slugs (strings)
