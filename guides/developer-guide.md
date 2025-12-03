@@ -322,16 +322,21 @@ Direktt_User::get_users($include_admin = false)
 
 ### Pairing and Cross-User Lookups
 
-Get Direktt User Related to a WP User
+- **Get Direktt User Related to a WP User**
 
-Direktt_User::get_related_user($wp_user_id)
-Parameters: WordPress User ID (int)
-Returns: Direktt user array (see above), or false if not paired
-Get WP User ID Related to a Direktt User
+  ```php
+  Direktt_User::get_related_user($wp_user_id)
+  ```
+  -  **Parameters:** WordPress User ID (int)
+  -  **Returns:** Direktt user array (see above), or false if not paired
 
-Direktt_User::get_related_wp_user_id($direktt_user)
-Parameters: Direktt user array (as above)
-Returns: WP User ID (int) if paired, else false
+- **Get WP User ID Related to a Direktt User**
+
+  ```php
+  Direktt_User::get_related_wp_user_id($direktt_user)
+  ```
+  - **Parameters:** Direktt user array (as above)
+  - **Returns:** WP User ID (int) if paired, else false
 
 ## Pairing WordPress Users and Direktt Users
 
