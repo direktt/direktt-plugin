@@ -353,6 +353,7 @@ Direktt_User::get_users($include_admin = false)
 **Text-based Pairing Code**
 - Each WP User is assigned a code (direktt_user_pair_code meta)—viewable and regeneratable in their WP user profile.
 - Admin can display this using the `[direktt_pairing_code]` shortcode in pages or theme templates:
+
   ```php
   echo do_shortcode('[direktt_pairing_code]');
   ```
@@ -360,6 +361,7 @@ Direktt_User::get_users($include_admin = false)
 
 **Pairing QR Code**
 - Display a scannable QR code (`[direktt_qr_pairing_code]`) anywhere on your site:
+
   ```php
   echo do_shortcode('[direktt_qr_pairing_code]');
   ```
