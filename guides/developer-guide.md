@@ -1120,3 +1120,118 @@ Common properties within each content part:
   }
 ]
 ```
+
+### Rich Messages (Buttons)
+
+Rich messages allow you to send **interactive** content (currently buttons) via a type: `"rich"` content part.
+
+For `rich` types, the `content` property is a **JSON-encoded string**, containing an object with:
+
+- subtype (string)  
+  Currently supported: "buttons".
+
+- msgObj (array)  
+  An array of button definitions. Each entry is an object with:
+  - txt (string) Text shown above the button.
+  - label (string) Text shown on the button itself.
+  - action (object) Direktt action object that defines what happens when the button is tapped.
+
+**Button Action Object**
+
+Each button’s action has:
+
+- type (string)  
+  One of the supported action types:
+  - "link": open a URL.
+  - "api": call back into your WordPress instance via Direktt API.
+  - "chat": open chat (admin only).
+  - "profile": open user profile (admin only).
+- params (object)  
+  Parameters vary by type. Example for link:
+  - url (string): URL to open.
+  - target (string):
+    - "app": open inside Direktt app (in-app WebView).
+    - "browser": open in device browser.
+-  retVars (object)  
+  Key/value pairs returned to your server when the button is tapped:
+  - For link, returned as query vars.
+  - For api, returned in the payload.
+
+You can use these to capture user choices, run workflows, or track interactions.
+
+### Buttons Rich Content JSON Example
+
+Content (decoded form):
+
+```json
+{
+  "subtype": "buttons",
+  "msgObj": [
+    {
+      "txt": "This is Text above Button 1",
+      "label": "This is Button 1's Label",
+      "action": {
+        "type": "link",
+        "params": {
+          "url": "https://direktt.com",
+          "target": "app"
+        },
+        "retVars": {}
+      }
+    },
+    {
+      "txt": "This is Text above Button 2",
+      "label": "This is Button 2's Label",
+      "action": {
+        "type": "link",
+        "params": {
+          "url": "https://wordpress.org",
+          "target": "app"
+        },
+        "retVars": {}
+      }
+    }
+  ]
+}
+```
+
+Wrapped in a `rich` content part:
+
+```json
+[
+  {
+    "type": "rich",
+    "content": "{... JSON above encoded as a string ...}"
+  }
+]
+```
+
+Buttons Rich Content PHP Example
+Here’s how you might build a single `rich` content part in PHP:
+
+```php
+$richMessageObj = array(
+  'type'    => 'rich',
+  'content' => wp_json_encode(
+    array(
+      'subtype' => 'buttons',
+      'msgObj'  => array(
+        array(
+          'txt'    => 'Text message content',
+          'label'  => 'CLICK HERE',
+          'action' => array(
+            'type'   => 'link',
+            'params' => array(
+              'url'    => 'https://example.com',
+              'target' => 'app',
+            ),
+            'retVars' => new stdClass(), // Empty object.
+          ),
+        ),
+      ),
+    )
+  ),
+);
+```
+
+You could then include `$richMessageObj` as one item in your message array.
