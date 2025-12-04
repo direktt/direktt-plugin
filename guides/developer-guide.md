@@ -1288,3 +1288,31 @@ This means you can:
 
 - Provide runtime replacements via `$replacements` array.
 - And/or define a filter for any tag to auto-compute its value.
+
+**Adding Your Own Tag Filters**
+
+You can implement custom, computed replacement tags like this:
+
+```php
+add_filter(
+  'direktt/message/template/custom_loyalty_points',
+  function( $value, $direktt_user_id ) {
+
+      // Lookup user by subscription ID.
+      $user = Direktt_User::get_user_by_subscription_id( $direktt_user_id );
+
+      if ( ! $user ) {
+          return $value;
+      }
+
+      // For example, read loyalty points from user meta or a custom extension.
+      $points = get_post_meta( $user['ID'], 'my_loyalty_points', true );
+
+      return $points ? $points : 0;
+  },
+  10,
+  2
+);
+```
+
+Then use `#custom_loyalty_points#` in your message templates. When sending with send_message_template(), the filter will compute the final value.
