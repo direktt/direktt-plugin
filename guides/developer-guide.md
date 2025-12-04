@@ -927,3 +927,75 @@ function direktt_sample_rest( $atts ) {
   return ob_get_clean();
 }
 ```
+
+REST route registration:
+
+```php
+function register_direktt_sample_rest() {
+
+  register_rest_route(
+      'direktt/v1',
+      '/sampleRest/',
+      array(
+          'methods'             => 'POST',
+          'callback'            => 'direktt_btnclick_rest_handler', // Handles the actual request.
+          'args'                => array(),
+          'permission_callback' => 'api_validate_sample_handler',  // Checks user permissions before callback runs.
+      )
+  );
+}
+```
+
+Permission handler:
+
+```php
+function api_validate_sample_handler( WP_REST_Request $request ) {
+
+  $parameters = json_decode( $request->get_body(), true );
+
+  if ( is_array( $parameters ) && array_key_exists( 'post_id', $parameters ) ) {
+
+      // For numeric IDs, intval is usually more appropriate.
+      $post_id = intval( $parameters['post_id'] );
+      $post    = get_post( $post_id );
+
+      if ( $post && Direktt_Public::direktt_ajax_check_user( $post ) ) {
+          return true;
+      }
+  }
+
+  return false;
+}
+```
+
+REST callback:
+
+```php
+function direktt_btnclick_rest_handler( WP_REST_Request $request ) {
+
+  $direktt_user = Direktt_User::direktt_get_current_user();
+
+  wp_send_json(
+      array(
+          'message' => 'Subscription Id: ' . $direktt_user['direktt_user_id'],
+      ),
+      200
+  );
+}
+```
+
+Hook everything up:
+
+```php
+add_shortcode( 'direktt_sample_rest', 'direktt_sample_rest' );
+add_action( 'rest_api_init', 'register_direktt_sample_rest' );
+```
+
+This mirrors the AJAX approach but uses standard REST patterns:
+
+- `permission_callback` for authorization.
+- JSON request body.
+- WordPress REST nonce in `X-WP-Nonce` header.
+- `wp_send_json()` for responses.
+
+By following these patterns and using the provided helper methods, you can build secure, role-aware digital services and tools that respect Direktt’s authorization model across pages, AJAX, and REST APIs.
