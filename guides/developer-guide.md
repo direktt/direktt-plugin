@@ -1265,3 +1265,26 @@ Common tags:
   Replaced with the channel’s title.
 
 You can add your own tags as well, as long as you pass a replacement value when calling `send_message_template()` or `send_message_template_to_admin()`, or implement filters (see below).
+
+**Replacement Tag Processing:**
+
+All replacement logic goes through:
+
+```php
+Direktt_Message::replace_tags_in_template( $input_string, $replacements, $direktt_user_id = null )
+```
+
+- Scans `$input_string` for tokens matching `#something#`.
+- For each token:
+  - Takes the inner part as `$tag` (e.g. `direktt_display_name`).
+  - Looks for `$replacements[ $tag ]`:
+    - If found, uses that value.
+    - If not found, the default is the tag name itself.
+  - Applies a filter based on the tag name:
+    - Hook name: `direktt/message/template/<tag>`.
+    - Filter parameters: `$value`, `$direktt_user_id`.
+
+This means you can:
+
+- Provide runtime replacements via `$replacements` array.
+- And/or define a filter for any tag to auto-compute its value.
