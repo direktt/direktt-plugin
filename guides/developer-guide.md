@@ -495,11 +495,11 @@ Here are some common configurations using the Direktt meta box:
 
 | Use Case                | Meta Box Settings |
 |-------------------------|-------------|
-| **Page for all Direktt users**     | Post ID of related Direktt User (`direkttusers` CPT) |
-| **Admin-only tools page**          | (For testing only) Post ID of Direktt Test User - see "Testing Direktt Pages..." in User Guide. |
-| **VIP-only offers page**           | Post ID of related Direktt User (`direkttusers` CPT) |
-| **Sales team dashboard**           | (For testing only) Post ID of Direktt Test User - see "Testing Direktt Pages..." in User Guide. |
-| **Limited-time campaign page for a specific tag only**     | Post ID of related Direktt User (`direkttusers` CPT) |
-| **Public, not Direktt-restricted** | (For testing only) Post ID of Direktt Test User - see "Testing Direktt Pages..." in User Guide. |
+| **Page for all Direktt users**     | Check “Allow access to Direktt users” |
+| **Admin-only tools page**          | Check “Allow access to Direktt admin” |
+| **VIP-only offers page**           | Select category “vip” in User Categories (leave others unchecked) |
+| **Sales team dashboard**           | Select category “sales-representatives” in User Categories |
+| **Limited-time campaign page for a specific tag only**     | Select tag “promo-2024” in User Tags |
+| **Public, not Direktt-restricted** | Leave all Direktt options unchecked |
 
 You can combine these; for example, a page accessible to both admin and “vip” category users.
