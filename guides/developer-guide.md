@@ -1321,6 +1321,8 @@ Then use `#custom_loyalty_points#` in your message templates. When sending with 
 
 The Direktt_Message class provides several helper methods for sending and updating messages.
 
+### Send Message
+
 ```php
 Direktt_Message::send_message( $messages )
 ```
@@ -1361,6 +1363,8 @@ Direktt_Message::send_message(
 );
 ```
 
+### Update Sent Message
+
 ```php
 Direktt_Message::update_message( $subscription_uid, $message_uid, $content )
 ```
@@ -1389,6 +1393,8 @@ Sends it to the Direktt updateMessage endpoint.
 **Returns:**
 
 No explicit return value (void). The response from wp_remote_post() is stored in $response but not returned. For custom error handling, you can adapt the method in your own code.
+
+### Send Message Template
 
 ```php
 Direktt_Message::send_message_template( $direktt_user_ids, $message_template_id, $replacements = array() )
@@ -1442,6 +1448,8 @@ Returns false.
 Both provided replacements ($replacements) and filters (direktt/message/template/<tag>) are applied.
 Each user ID is passed as $direktt_user_id to replace_tags_in_template(), enabling per-user dynamic data (e.g. display name, points, etc.).
 
+### Send Message to Admin
+
 ```php
 Direktt_Message::send_message_to_admin( $message )
 ```
@@ -1467,6 +1475,8 @@ Sends a POST to the sendadminmessage endpoint for the linked channel.
 **Returns:**
 
 No explicit return value (void). $response from wp_remote_post() is not returned.
+
+### Send Message Template to Admin
 
 ```php
 Direktt_Message::send_message_template_to_admin( $message_template_id, $replacements = array() )
