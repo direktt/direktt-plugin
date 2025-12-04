@@ -440,7 +440,7 @@ Direktt_User::has_direktt_taxonomies($direktt_user, $categories, $tags)
 > **Pro Tip:**
 > You can freely extend all user meta, pairing flows, and hooks for advanced automation—see the Developer API Reference and example plugin snippets for inspiration.
 
-## Direktt Authorization & Access Control
+# Direktt Authorization & Access Control
 
 Direktt lets you lock down parts of your WordPress site so they are only accessible to authenticated Direktt users (subscribers or channel admins), optionally filtered by Direktt taxonomies such as user categories or tags.
 
@@ -458,7 +458,7 @@ This section explains:
 - How to secure AJAX and REST endpoints with practical examples.
 - How to use localized JS data (direktt_public) on the front end.
 
-### Protecting Pages with Direktt Access Rules
+## Protecting Pages with Direktt Access Rules
 
 Direktt uses four page-level meta keys to determine whether a page is restricted to Direktt users and, if so, who may access it:
 
@@ -489,7 +489,7 @@ In practice, you do not set these meta values directly. Instead, you use the Dir
 
 The Direktt plugin writes the appropriate meta and enforces the rules automatically.
 
-**Examples of Page Access Settings**
+### Examples of Page Access Settings
 
 Here are some common configurations using the Direktt meta box:
 
@@ -504,7 +504,7 @@ Here are some common configurations using the Direktt meta box:
 
 You can combine these; for example, a page accessible to both admin and “vip” category users.
 
-### Testing Restricted Pages as a Specific Direktt User
+## Testing Restricted Pages as a Specific Direktt User
 
 During development and QA, repeatedly logging in through the Direktt mobile app is not practical. Instead, you can simulate a Direktt user in your browser:
 
@@ -524,7 +524,7 @@ While this field is set:
 
 This is ideal for testing custom digital services and admin tools directly in your browser.
 
-### Key Helper Methods in Direktt_Public
+## Key Helper Methods in Direktt_Public
 ```php
 Direktt_Public::is_restricted( $post )`
 ```
@@ -588,7 +588,7 @@ Server-side permission check for AJAX handlers. Reuses the same access logic as 
 
 Use this in your AJAX handlers to ensure only authorized Direktt users can run actions tied to a given page.
 
-### Best Practices for Direktt Authorization
+## Best Practices for Direktt Authorization
 
 To keep your access control consistent and secure:
 
@@ -681,3 +681,30 @@ add_shortcode( 'direktt_sample_shortcode', 'direktt_sample_shortcode' );
 ```
 
 Place `[direktt_sample_shortcode]` on a Direktt-restricted page and configure allowed categories/tags via the meta box to fine-tune who sees what.
+
+## Securing AJAX Endpoints for Direktt Users
+
+When you implement AJAX on Direktt-protected pages, you must ensure:
+
+1. **The UI is only shown to authorized Direktt users**
+  (using `$direktt_user` and taxonomies in your shortcode or template).
+
+2. **The server-side handler re-checks authorization**
+  with `Direktt_Public::direktt_ajax_check_user( $post )`, using a trusted `post_id`.
+
+3. **CSRF protection is in place**
+  with WordPress nonces.
+
+### Example: AJAX Button With Direktt Authorization
+
+The example below:
+
+- Provides a `[direktt_sample_ajax]` shortcode that renders a “Click me” button only for qualified Direktt users.
+- Uses Fetch API to hit an `admin-ajax.php` handler.
+- Server:
+  - Validates `post_id`.
+  - Checks Direktt access via `direktt_ajax_check_user()`.
+  - Verifies a nonce.
+  - Returns the user’s `subscriptionId` if authorized.
+
+Shortcode implementation:
