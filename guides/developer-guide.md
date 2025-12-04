@@ -503,3 +503,23 @@ Here are some common configurations using the Direktt meta box:
 | **Public, not Direktt-restricted** | Leave all Direktt options unchecked |
 
 You can combine these; for example, a page accessible to both admin and “vip” category users.
+
+### Testing Restricted Pages as a Specific Direktt User
+
+During development and QA, repeatedly logging in through the Direktt mobile app is not practical. Instead, you can simulate a Direktt user in your browser:
+
+1. Go to **Users > Profile** (or open any WP user’s profile).
+2. In the **Direktt User Properties** section, set:
+  - `Post Id of Test Direktt User` to the desired Direktt user post ID (from Direktt > Direktt Users).
+3. Save the profile.
+
+While this field is set:
+
+- Any Direktt-restricted page you open while logged in as that WP user behaves as if it was opened from the Direktt mobile app by the chosen Direktt user.
+- `$direktt_user` is populated accordingly.
+- You can test access to:
+  - Protected pages.
+  - AJAX endpoints.
+  - REST endpoints.
+
+This is ideal for testing custom digital services and admin tools directly in your browser.
