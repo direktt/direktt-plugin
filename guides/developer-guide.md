@@ -1514,4 +1514,50 @@ Send a template-based message to the **admin user**. Works similarly to `send_me
 
 **Notes on Replacement Logic:**
 
-- Since `$direktt_user_id` is `null`, user-specific filters (like `direktt_display_name_filter`) may not apply in the same way - use admin or channel - wide tags instead (e.g. #direktt_channel_name#), or pass values explicitly via `$replacements`.
+- Since `$direktt_user_id` is `null`, user-specific filters (like `direktt_display_name_filter`) may not apply in the same way - use admin or channel - wide tags instead (e.g. `#direktt_channel_name#`), or pass values explicitly via `$replacements`.
+
+## Message-Related Code Example (Welcome Message on Subscription)
+
+The following simplified example shows how to:
+
+- Listen to the “user subscribed” hook.
+- Fetch the user’s display name.
+- Read configuration options for a welcome flow.
+- Send a template message with dynamic `#title#` replacement.
+
+Hook and handler:
+
+```php
+add_action( 'direktt/user/subscribe', 'on_direktt_subscribe_user' );
+
+function on_direktt_subscribe_user( $direktt_user_id ) {
+
+  // Obtain the subscribing user's object and display name.
+  $user_obj   = Direktt_User::get_user_by_subscription_id( $direktt_user_id );
+  $user_title = get_the_title( $user_obj['ID'] );
+
+  // Retrieve the configured welcome message template ID and check if welcome messaging is activated.
+  $welcome_user          = get_option( 'direktt_welcome_user', 'no' ) === 'yes';
+  $welcome_user_template = intval( get_option( 'direktt_welcome_user_template', 0 ) );
+
+  if ( $welcome_user && 0 !== $welcome_user_template ) {
+
+      // Send the message template to the user, providing the tag replacement values in an associative array.
+      Direktt_Message::send_message_template(
+          array( $direktt_user_id ), // Array of subscription IDs.
+          $welcome_user_template,
+          array(
+              'title' => $user_title, // Replaces #title# in the template.
+          )
+      );
+  }
+}
+```
+
+This relies on:
+
+- A configured **message template** that uses `#title#` inside its content.
+- Plugin options `direktt_welcome_user` and `direktt_welcome_user_template` (as used in your extension).
+- The Direktt Messaging API (`send_message_template`) to handle replacements and sending.
+
+By combining rich message structures, templates, replacement tags, and the ``Direktt_Message`` API, you can build powerful, personalized messaging flows that react to user events and behaviors across your WordPress site and the Direktt mobile app.
