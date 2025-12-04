@@ -621,59 +621,59 @@ Register this shortcode in your plugin or theme:
 ```php
 function direktt_sample_shortcode( $atts ) {
   // Merge attributes with defaults (both attributes are comma-separated slugs).
-$atts = shortcode_atts(
-    array(
-        'categories' => '',
-        'tags'       => '',
-    ),
-    $atts,
-    'direktt_sample_shortcode'
-);
+  $atts = shortcode_atts(
+      array(
+          'categories' => '',
+          'tags'       => '',
+      ),
+      $atts,
+      'direktt_sample_shortcode'
+  );
 
-// Parse categories/tags attributes into arrays, trim whitespace, ignore empty.
-$categories = array_filter( array_map( 'trim', explode( ',', $atts['categories'] ) ) );
-$tags       = array_filter( array_map( 'trim', explode( ',', $atts['tags'] ) ) );
+  // Parse categories/tags attributes into arrays, trim whitespace, ignore empty.
+  $categories = array_filter( array_map( 'trim', explode( ',', $atts['categories'] ) ) );
+  $tags       = array_filter( array_map( 'trim', explode( ',', $atts['tags'] ) ) );
 
-global $direktt_user;
+  global $direktt_user;
 
-ob_start();
+  ob_start();
 
-// Retrieve the Direktt user post using their subscription/user ID.
-$direktt_user_post = isset( $direktt_user['direktt_user_id'] )
-    ? Direktt_User::get_user_by_subscription_id( $direktt_user['direktt_user_id'] )
-    : false;
+  // Retrieve the Direktt user post using their subscription/user ID.
+  $direktt_user_post = isset( $direktt_user['direktt_user_id'] )
+      ? Direktt_User::get_user_by_subscription_id( $direktt_user['direktt_user_id'] )
+      : false;
 
-/*
- * Show content only if:
- * - The Direktt user exists AND
- * - (No categories/tags were specified [show to any Direktt user]
- *    OR the user matches the specified categories/tags via custom taxonomy
- *    OR the user is a Direktt admin [always show for admin])
- */
-if (
-    $direktt_user_post
-    && (
-        ( ! $categories && ! $tags )
-        || Direktt_User::has_direktt_taxonomies( $direktt_user, $categories, $tags )
-        || Direktt_User::is_direktt_admin()
-    )
-) {
-    if ( Direktt_User::is_direktt_admin() ) {
-        // If the user is admin, show "Channel Admin".
-        echo '<p>Channel Admin</p>';
+  /*
+  * Show content only if:
+  * - The Direktt user exists AND
+  * - (No categories/tags were specified [show to any Direktt user]
+  *    OR the user matches the specified categories/tags via custom taxonomy
+  *    OR the user is a Direktt admin [always show for admin])
+  */
+  if (
+      $direktt_user_post
+      && (
+          ( ! $categories && ! $tags )
+          || Direktt_User::has_direktt_taxonomies( $direktt_user, $categories, $tags )
+          || Direktt_User::is_direktt_admin()
+      )
+  ) {
+      if ( Direktt_User::is_direktt_admin() ) {
+          // If the user is admin, show "Channel Admin".
+          echo '<p>Channel Admin</p>';
 
-    } elseif ( Direktt_User::has_direktt_taxonomies( $direktt_user, array( 'sales-representatives' ), array() ) ) {
-        // If user belongs to category with slug "sales-representatives".
-        echo '<p>Sales Representative</p>';
+      } elseif ( Direktt_User::has_direktt_taxonomies( $direktt_user, array( 'sales-representatives' ), array() ) ) {
+          // If user belongs to category with slug "sales-representatives".
+          echo '<p>Sales Representative</p>';
 
-    } else {
-        // All other matched Direktt users.
-        echo '<p>Channel Subscriber</p>';
-    }
-}
+      } else {
+          // All other matched Direktt users.
+          echo '<p>Channel Subscriber</p>';
+      }
+  }
 
-// Users without correct role/taxonomy or not Direktt users see nothing.
-return ob_get_clean();
+  // Users without correct role/taxonomy or not Direktt users see nothing.
+  return ob_get_clean();
 
 }
 
