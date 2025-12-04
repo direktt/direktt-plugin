@@ -686,13 +686,13 @@ Place `[direktt_sample_shortcode]` on a Direktt-restricted page and configure al
 
 When you implement AJAX on Direktt-protected pages, you must ensure:
 
-1. **The UI is only shown to authorized Direktt users**
+1. **The UI is only shown to authorized Direktt users**  
   (using `$direktt_user` and taxonomies in your shortcode or template).
 
-2. **The server-side handler re-checks authorization**
+2. **The server-side handler re-checks authorization**  
   with `Direktt_Public::direktt_ajax_check_user( $post )`, using a trusted `post_id`.
 
-3. **CSRF protection is in place**
+3. **CSRF protection is in place**  
   with WordPress nonces.
 
 ### Example: AJAX Button With Direktt Authorization
