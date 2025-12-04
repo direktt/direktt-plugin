@@ -778,3 +778,51 @@ function direktt_sample_ajax( $atts ) {
   return ob_get_clean();
 }
 ```
+
+AJAX handler:
+
+```php
+function direktt_btnclick_handler() {
+
+  // Ensure 'post_id' is present in POST for validation.
+  if ( ! isset( $_POST['post_id'] ) ) {
+      wp_send_json( array( 'status' => 'post_id_failed' ), 400 );
+  }
+
+  $post_id = intval( $_POST['post_id'] );
+  $post    = get_post( $post_id );
+
+  // Validate that post exists and the current user can perform the action.
+  if ( $post && Direktt_Public::direktt_ajax_check_user( $post ) ) {
+
+      // Verify nonce for security against CSRF attacks.
+      if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( $_POST['nonce'], 'direktt_btnclick_nonce' ) ) {
+          wp_send_json( array( 'status' => 'nonce_failed' ), 401 );
+      }
+
+      $direktt_user = Direktt_User::direktt_get_current_user();
+
+      // Return subscription ID.
+      wp_send_json(
+          array(
+              'message' => 'Subscription Id: ' . $direktt_user['direktt_user_id'],
+          ),
+          200
+      );
+  } else {
+
+      // User not authorized or post not found.
+      wp_send_json( array( 'status' => 'non_authorized' ), 401 );
+  }
+}
+
+add_shortcode( 'direktt_sample_ajax', 'direktt_sample_ajax' );
+add_action( 'wp_ajax_direktt_btnclick', 'direktt_btnclick_handler' );
+add_action( 'wp_ajax_nopriv_direktt_btnclick', 'direktt_btnclick_handler' );
+```
+
+This pattern ensures:
+
+- The UI only appears for eligible Direktt users.
+- The server enforces the same access rules.
+- CSRF is prevented via nonces.
