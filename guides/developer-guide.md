@@ -1235,3 +1235,33 @@ $richMessageObj = array(
 ```
 
 You could then include `$richMessageObj` as one item in your message array.
+
+## Direktt Message Templates & Replacement Tags
+
+Direktt provides **message templates** via a custom post type (**Direktt > Message Templates**). Each template stores one or more message parts as a JSON representation (`direkttMTJson` post meta).
+
+You can send templates:
+
+- To one or more subscribers (bulk or individually).
+- To the channel admin.
+- From:
+  - The Direktt mobile app UI, or
+  - Your own plugin code using Direktt_Message methods.
+
+### Replacement Tags
+
+Templates can contain **replacement tags**, which look like:
+
+`#tag_name#`
+
+At sending time, these tags are replaced with actual values from an associative array you provide in your code.
+
+Common tags:
+
+- `#direktt_display_name#`  
+  Replaced with the subscriber’s display name.
+
+- `#direktt_channel_name#`  
+  Replaced with the channel’s title.
+
+You can add your own tags as well, as long as you pass a replacement value when calling `send_message_template()` or `send_message_template_to_admin()`, or implement filters (see below).
