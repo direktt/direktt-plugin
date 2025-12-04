@@ -600,3 +600,84 @@ To keep your access control consistent and secure:
 - **Use nonces in AJAX:** Protect against CSRF using wp_create_nonce() + wp_verify_nonce().
 - Reuse `$direktt_user helpers:` Use `Direktt_User::direktt_get_current_user()` and associated helpers to inspect the current Direktt user.
 - **Keep logic centralized:** If you replicate similar checks across multiple shortcodes or endpoints, wrap them in your own helper function.
+
+### Example: Role/Segment-Based Shortcode Content
+
+You can personalize content on a Direktt-protected page by inspecting the current Direktt user’s role and taxonomies inside a shortcode.
+
+The shortcode below:
+
+- Accepts optional `categories` and `tags` attributes (comma-separated slugs).
+- Shows:
+  - “Channel Admin” if the current Direktt user is the channel admin;
+  - “Sales Representative” if the user belongs to the category `sales-representatives`;
+  - Otherwise “Channel Subscriber” for any other matched Direktt user;
+  - Nothing if:
+    - There is no valid Direktt user, or
+    - They do not match required categories/tags.
+
+Register this shortcode in your plugin or theme:
+
+```php
+function direktt_sample_shortcode( $atts ) {
+  // Merge attributes with defaults (both attributes are comma-separated slugs).
+$atts = shortcode_atts(
+    array(
+        'categories' => '',
+        'tags'       => '',
+    ),
+    $atts,
+    'direktt_sample_shortcode'
+);
+
+// Parse categories/tags attributes into arrays, trim whitespace, ignore empty.
+$categories = array_filter( array_map( 'trim', explode( ',', $atts['categories'] ) ) );
+$tags       = array_filter( array_map( 'trim', explode( ',', $atts['tags'] ) ) );
+
+global $direktt_user;
+
+ob_start();
+
+// Retrieve the Direktt user post using their subscription/user ID.
+$direktt_user_post = isset( $direktt_user['direktt_user_id'] )
+    ? Direktt_User::get_user_by_subscription_id( $direktt_user['direktt_user_id'] )
+    : false;
+
+/*
+ * Show content only if:
+ * - The Direktt user exists AND
+ * - (No categories/tags were specified [show to any Direktt user]
+ *    OR the user matches the specified categories/tags via custom taxonomy
+ *    OR the user is a Direktt admin [always show for admin])
+ */
+if (
+    $direktt_user_post
+    && (
+        ( ! $categories && ! $tags )
+        || Direktt_User::has_direktt_taxonomies( $direktt_user, $categories, $tags )
+        || Direktt_User::is_direktt_admin()
+    )
+) {
+    if ( Direktt_User::is_direktt_admin() ) {
+        // If the user is admin, show "Channel Admin".
+        echo '<p>Channel Admin</p>';
+
+    } elseif ( Direktt_User::has_direktt_taxonomies( $direktt_user, array( 'sales-representatives' ), array() ) ) {
+        // If user belongs to category with slug "sales-representatives".
+        echo '<p>Sales Representative</p>';
+
+    } else {
+        // All other matched Direktt users.
+        echo '<p>Channel Subscriber</p>';
+    }
+}
+
+// Users without correct role/taxonomy or not Direktt users see nothing.
+return ob_get_clean();
+
+}
+
+add_shortcode( 'direktt_sample_shortcode', 'direktt_sample_shortcode' );
+```
+
+Place `[direktt_sample_shortcode]` on a Direktt-restricted page and configure allowed categories/tags via the meta box to fine-tune who sees what.
