@@ -488,3 +488,18 @@ In practice, you do not set these meta values directly. Instead, you use the Dir
 - Allowed User Tags
 
 The Direktt plugin writes the appropriate meta and enforces the rules automatically.
+
+**Examples of Page Access Settings**
+
+Here are some common configurations using the Direktt meta box:
+
+| Use Case                | Meta Box Settings |
+|-------------------------|-------------|
+| **Page for all Direktt users**     | Post ID of related Direktt User (`direkttusers` CPT) |
+| **Admin-only tools page**          | (For testing only) Post ID of Direktt Test User - see "Testing Direktt Pages..." in User Guide. |
+| **VIP-only offers page**           | Post ID of related Direktt User (`direkttusers` CPT) |
+| **Sales team dashboard**           | (For testing only) Post ID of Direktt Test User - see "Testing Direktt Pages..." in User Guide. |
+| **Limited-time campaign page for a specific tag only**     | Post ID of related Direktt User (`direkttusers` CPT) |
+| **Public, not Direktt-restricted** | (For testing only) Post ID of Direktt Test User - see "Testing Direktt Pages..." in User Guide. |
+
+You can combine these; for example, a page accessible to both admin and “vip” category users.
