@@ -708,3 +708,73 @@ The example below:
   - Returns the user’s `subscriptionId` if authorized.
 
 Shortcode implementation:
+
+```php
+function direktt_sample_ajax( $atts ) {
+
+  // Merge passed shortcode attributes with defaults.
+  $atts = shortcode_atts(
+      array(
+          'categories' => '',
+          'tags'       => '',
+      ),
+      $atts,
+      'direktt_sample_ajax'
+  );
+
+  // Parse 'categories' and 'tags' attributes into trimmed arrays, filter out empty values.
+  $categories = array_filter( array_map( 'trim', explode( ',', $atts['categories'] ) ) );
+  $tags       = array_filter( array_map( 'trim', explode( ',', $atts['tags'] ) ) );
+
+  global $direktt_user;
+
+  ob_start();
+
+  // Retrieve user post by subscription ID if available.
+  $direktt_user_post = isset( $direktt_user['direktt_user_id'] )
+      ? Direktt_User::get_user_by_subscription_id( $direktt_user['direktt_user_id'] )
+      : false;
+
+  // Check user eligibility:
+  //  1. User must have a valid direktt_user_post.
+  //  2. If categories/tags are specified, user must have those taxonomies, or is a Direktt admin.
+  if (
+      $direktt_user_post
+      && (
+          ( ! $categories && ! $tags )
+          || Direktt_User::has_direktt_taxonomies( $direktt_user, $categories, $tags )
+          || Direktt_User::is_direktt_admin()
+      )
+  ) {
+
+      // Generate a WP nonce for security, to validate AJAX requests.
+      $nonce = wp_create_nonce( 'direktt_btnclick_nonce' );
+      ?>
+
+      <button id="btn">Click me</button>
+      <script type="text/javascript">
+          document.getElementById('btn').addEventListener('click', function() {
+              var data = new FormData();
+              data.append('action', 'direktt_btnclick'); // AJAX action hook name
+              data.append('nonce', '<?php echo esc_js( $nonce ); ?>'); // Include the generated nonce for validation
+              data.append('post_id', direktt_public.direktt_post_id); // Pass the relevant post ID
+
+              // Use Fetch API to make an AJAX request to admin-ajax.php
+              fetch(direktt_public.direktt_ajax_url, {
+                  method: 'POST',
+                  credentials: 'same-origin',
+                  body: data
+              })
+              .then(response => response.json())
+              .then(result => {
+                  console.log('Server says: ' + result.message);
+              });
+          });
+      </script>
+
+      <?php
+  }
+
+  return ob_get_clean();
+}
+```
