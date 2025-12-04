@@ -1331,20 +1331,21 @@ Send one or more messages directly to specific subscribers, without using templa
 
 **Parameters:**
 
-$messages (array) Associative array where:
-Key: Direktt Subscription ID (subscriptionId string).
-Value: Message object to send (as a PHP object) for that subscription.
-Internally, for each entry:
+- `$messages` (array) Associative array where:
+  - Key: Direktt Subscription ID (`subscriptionId` string).
+  - Value: Message object to send (as a PHP object) for that subscription.
 
-Builds a payload object:
-subscriptionId → key.
-pushNotificationMessage → value.
-POSTs to Direktt remote endpoint (/sendbulkmessages).
+Internally, for each entry:
+- Builds a payload object:
+  - `subscriptionId` → key.
+  - `pushNotificationMessage` → value.
+- POSTs to Direktt remote endpoint (`/sendbulkmessages`).
+
 You are responsible for building the message object in the correct format (array of content parts, etc.).
 
 **Returns:**
 
-Always true on completion, regardless of whether the remote call succeeded or failed. (You can inspect $response via custom modifications if you need error handling.)
+- Always `true` on completion, regardless of whether the remote call succeeded or failed. 
 
 **Example:**
 
@@ -1373,26 +1374,26 @@ Update an existing message’s content (e.g., for editing or correcting a previo
 
 **Parameters:**
 
-$subscription_uid (string)
-The Direktt subscription UID of the target user (same as subscriptionId).
+- `$subscription_uid` (string)  
+  The Direktt subscription UID of the target user (same as subscriptionId).
 
-$message_uid (string)
-The unique ID of the message you want to update (provided by Direktt).
+- `$message_uid` (string)
+  The unique ID of the message you want to update (provided by Direktt).
 
-$content (mixed)
-The new content you want to set for the message. This should match the expected message format for the Direktt update API (generally a message object or its content parts).
+- `$content` (mixed)  
+  The new content you want to set for the message. This should match the expected message format for the Direktt update API (generally a message object or its content parts).
 
 Internally:
 
-Builds a POST payload:
-subscriptionUid
-messageUid
-content
-Sends it to the Direktt updateMessage endpoint.
+- Builds a POST payload:
+  - `subscriptionUid`
+  - `messageUid`
+  - `content`
+- Sends it to the Direktt `updateMessage` endpoint.
 
 **Returns:**
 
-No explicit return value (void). The response from wp_remote_post() is stored in $response but not returned. For custom error handling, you can adapt the method in your own code.
+- No explicit return value (void).
 
 ### Send Message Template
 
@@ -1404,49 +1405,48 @@ Send a message template to one or more Direktt users, with optional tag replacem
 
 **Parameters:**
 
-$direktt_user_ids (array)
-Array of subscription IDs (strings). Each element is a subscriptionId for a subscriber.
+- $direktt_user_ids (array)  
+  Array of subscription IDs (strings). Each element is a subscriptionId for a subscriber.
 
-$message_template_id (int)
-ID of the Direktt Message Template (CPT) to send.
-The JSON template is stored in post meta key direkttMTJson.
+- $message_template_id (int)  
+  ID of the Direktt Message Template (CPT) to send.  
+  The JSON template is stored in post meta key direkttMTJson.
 
-$replacements (array, optional)
-Associative array of replacement values for template tags:
-
-Key: tag name without # (e.g. 'title', 'direktt_display_name').
-Value: string to be inserted.
+- $replacements (array, optional)  
+  Associative array of replacement values for template tags:
+  -  Key: tag name without # (e.g. 'title', 'direktt_display_name').
+  -  Value: string to be inserted.
 
 **What it does:**
 
-Retrieves the JSON template from meta (direkttMTJson).
-For each subscription ID in $direktt_user_ids:
-Calls replace_tags_in_template() with:
-The raw JSON template.
-$replacements.
-$direktt_user_id (subscription ID for the target user).
-This:
-Replaces all #tag# placeholders.
-Applies tag-specific filters (e.g. user display name).
-Decodes the JSON into $messages (array of content parts).
-For each $message in the decoded list:
-If $message->content is an array or object, it is JSON-encoded to a string.
-Builds a payload object:
-subscriptionId → current user id.
-pushNotificationMessage → current $message.
-Sends all built payload objects as a single bulk request to /sendbulkmessages.
+- Retrieves the JSON template from meta (direkttMTJson).
+- For each subscription ID in $direktt_user_ids:
+  - Calls replace_tags_in_template() with:
+    - The raw JSON template.
+    - $replacements.
+    - $direktt_user_id (subscription ID for the target user).
+  - This:
+    - Replaces all #tag# placeholders.
+    - Applies tag-specific filters (e.g. user display name).
+  - Decodes the JSON into $messages (array of content parts).
+- For each $message in the decoded list:
+  - If $message->content is an array or object, it is JSON-encoded to a string.
+  - Builds a payload object:
+    - subscriptionId → current user id.
+    - pushNotificationMessage → current $message.
+- Sends all built payload objects as a single bulk request to /sendbulkmessages.
 
 **Returns:**
 
-If a template is found and at least one message is processed:
-Returns the last $message object processed (mainly for debugging).
-If no template is found:
-Returns false.
+- If a template is found and at least one message is processed:
+  - Returns the last $message object processed (mainly for debugging).
+- If no template is found:
+  - Returns false.
 
 **Notes on Replacement Logic:**
 
-Both provided replacements ($replacements) and filters (direktt/message/template/<tag>) are applied.
-Each user ID is passed as $direktt_user_id to replace_tags_in_template(), enabling per-user dynamic data (e.g. display name, points, etc.).
+- Both provided replacements ($replacements) and filters (direktt/message/template/<tag>) are applied.
+- Each user's subscription ID is passed as $direktt_user_id to replace_tags_in_template(), enabling per-user dynamic data (e.g. display name, points, etc.).
 
 ### Send Message to Admin
 
@@ -1454,27 +1454,28 @@ Each user ID is passed as $direktt_user_id to replace_tags_in_template(), enabli
 Direktt_Message::send_message_to_admin( $message )
 ```
 
-Send a message directly to the channel admin via a dedicated admin endpoint.
+Send a message directly to the **channel admin** via a dedicated admin endpoint.
 
 **Parameters:**
 
-$message (object)
-A message object representing the admin message. It should be formatted the same way as subscriber messages (array of content parts, etc.), but given as the value of pushNotificationMessage.
+- $message (object)  
+  A message object representing the admin message. It should be formatted the same way as subscriber messages (array of content parts, etc.), but given as the value of pushNotificationMessage.
 
-Typical structure:
+  Typical structure:
 
-An object or array representing either:
-A full message array, or
-A single message object, depending on API expectations.
+  - An object or array representing either:
+    - A full message array, or
+    - A single message object, depending on API expectations.
+
 Internally:
 
-Builds payload:
-pushNotificationMessage → $message.
-Sends a POST to the sendadminmessage endpoint for the linked channel.
+- Builds payload:
+  - pushNotificationMessage → $message.
+- Sends a POST to the sendadminmessage endpoint for the linked channel.
 
 **Returns:**
 
-No explicit return value (void). $response from wp_remote_post() is not returned.
+- No explicit return value (void). $response from wp_remote_post() is not returned.
 
 ### Send Message Template to Admin
 
@@ -1482,7 +1483,7 @@ No explicit return value (void). $response from wp_remote_post() is not returned
 Direktt_Message::send_message_template_to_admin( $message_template_id, $replacements = array() )
 ```
 
-Send a template-based message to the admin user. Works similarly to send_message_template(), but targets the admin-only endpoint.
+Send a template-based message to the **admin user**. Works similarly to `send_message_template()`, but targets the admin-only endpoint.
 
 **Parameters:**
 
