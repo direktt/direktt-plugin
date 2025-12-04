@@ -999,3 +999,73 @@ This mirrors the AJAX approach but uses standard REST patterns:
 - `wp_send_json()` for responses.
 
 By following these patterns and using the provided helper methods, you can build secure, role-aware digital services and tools that respect Direktt’s authorization model across pages, AJAX, and REST APIs.
+
+# Direktt Messages: Structure, Templates, and API
+
+Direktt messages are the primary way to communicate with your subscribers and channel admin from WordPress. This section explains:
+
+- How Direktt messages are structured.
+- How to build advanced “rich” messages (buttons).
+- How message templates and replacement tags work.
+- How to use the Direktt_Message API methods in your own code.
+- Practical code examples.
+
+## Message Structure Overview
+
+In Direktt, a **message** is an **array of content parts**.
+
+When sending from the Direktt mobile app UI, a message typically contains a single content part (e.g., one text or one image).
+
+When sending via the **Direktt WordPress API**, a single message can include **multiple content parts** of various types (text + image + buttons, etc.).
+
+**Supported content part types:**
+
+- `text`
+- `image`
+- `video`
+- `file`
+- `rich` (interactive content; currently used for buttons)
+
+Each content part is a JSON object with type-specific properties.
+
+At the top level, a message is an array of these parts:
+
+- Message = `[ contentPart1, contentPart2, ... ]`
+
+### Content Part Properties
+
+Common properties within each content part:
+
+- `type` (string)  
+  The type of the content part. Possible values:
+  - `"text"`
+  - `"image"`
+  - `"video"`
+  - `"file"`
+  - `"rich"` (for interactive content such as buttons)
+- `content` (string)
+  - For `text`, `image`, `video`, `file`: human-readable text content or caption.
+  - For `rich`: **JSON-encoded string** describing the rich content object (e.g., buttons definition).
+- `media` (string)
+  - URL of the associated file:
+    - For `image`: image URL.
+    - For `video`: video file URL.
+    - For `file`: file URL (e.g., PDF).
+- `thumbnail` (string, optional)
+  - URL of a thumbnail image used for previews.
+  - If omitted, the `media` URL may be used as fallback.
+- `width` (int)
+  - Width of the thumbnail in pixels (for images and videos).
+- `height` (int)
+  - Height of the thumbnail in pixels (for images and videos).
+- `unfurl` (string, optional)
+  - JSON-encoded object describing “unfurl” data for the first URL in the message:
+    - `url`: URL of the unfurled link.
+    - `image`: URL of the preview image.
+    - `title`: Title of the unfurled link.
+- `reply` (string, optional)
+  - JSON-encoded object describing the original message when this message is a reply:
+    - `id`: ID of the original message.
+    - `quoteAutho`r: Author name of the quoted message.
+    - `thumbnail`: Thumbnail image URL for the quoted message.
+    - `text`: Quoted text content.
