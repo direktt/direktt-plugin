@@ -525,8 +525,9 @@ While this field is set:
 This is ideal for testing custom digital services and admin tools directly in your browser.
 
 ### Key Helper Methods in Direktt_Public
-
-1. `Direktt_Public::is_restricted( $post )`
+```php
+Direktt_Public::is_restricted( $post )`
+```
 
 **Purpose:**
 Determine if a given post/page is restricted by any Direktt rule.
