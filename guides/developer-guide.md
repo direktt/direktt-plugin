@@ -439,3 +439,52 @@ Direktt_User::has_direktt_taxonomies($direktt_user, $categories, $tags)
 
 > **Pro Tip:**
 > You can freely extend all user meta, pairing flows, and hooks for advanced automation—see the Developer API Reference and example plugin snippets for inspiration.
+
+## Direktt Authorization & Access Control
+
+Direktt lets you lock down parts of your WordPress site so they are only accessible to authenticated Direktt users (subscribers or channel admins), optionally filtered by Direktt taxonomies such as user categories or tags.
+
+You can control access to:
+
+- Static pages (front-end content).
+- AJAX endpoints (admin-ajax.php handlers).
+- Custom REST API endpoints.
+
+This section explains:
+
+- How page-level protection works (meta keys and flow).
+- How to test as different Direktt users.
+- How to use helper methods in your own code.
+- How to secure AJAX and REST endpoints with practical examples.
+- How to use localized JS data (direktt_public) on the front end.
+
+### Protecting Pages with Direktt Access Rules
+
+Direktt uses four page-level meta keys to determine whether a page is restricted to Direktt users and, if so, who may access it:
+
+1. `direktt_custom_box`
+
+  - When set to 1, the page is restricted to any authenticated Direktt user (subscriber or admin).
+
+2. `direktt_custom_admin_box`
+
+  - When set to 1, the page is restricted to the Direktt channel admin only.
+
+3. `direktt_user_categories`
+
+  - Stores an array of Direktt User Category term IDs.
+  - Only Direktt users who belong to one of these categories may access the page.
+
+4. `direktt_user_tags`
+
+  - Stores an array of Direktt User Tag term IDs.
+  - Only Direktt users who have at least one of these tags may access the page.
+
+In practice, you do not set these meta values directly. Instead, you use the Direktt meta box on the page edit screen (wp-admin) to configure:
+
+- “Allow access to Direktt users”
+- “Allow access to Direktt admin”
+- Allowed User Categories
+- Allowed User Tags
+
+The Direktt plugin writes the appropriate meta and enforces the rules automatically.
