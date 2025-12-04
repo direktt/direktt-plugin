@@ -826,3 +826,104 @@ This pattern ensures:
 - The UI only appears for eligible Direktt users.
 - The server enforces the same access rules.
 - CSRF is prevented via nonces.
+
+## Securing Custom REST API Endpoints
+
+All core Direktt REST routes (under `direktt/v1`) are already secured by the plugin and the Direktt platform. The platform injects and validates tokens, so `$direktt_user` is set correctly inside REST handlers.
+
+When registering your own custom endpoints, you can:
+
+- Use the same namespace (`direktt/v1`) or define another.
+- Rely on the global `$direktt_user` inside callbacks.
+- Enforce access rules `in a permission_callback` using:
+  - `Direktt_User::direktt_get_current_user()`
+  - `Direktt_Public::direktt_ajax_check_user( $post )` (for page-related logic)
+
+### When `$direktt_user` Is Available in REST
+
+`$direktt_user` is automatically set when:
+
+- The call includes a valid Direktt token (from in-app Services, QR flows, etc.).
+- The request is made from a Direktt-authenticated browser session (auth cookie present).
+- A paired or test Direktt user applies to the current WordPress user.
+
+You should still check that a valid page/post and user relationship exists before performing actions.
+
+### Example: REST Button With Direktt Authorization
+
+The following example:
+
+- Provides `[direktt_sample_rest]` shortcode that renders a button for eligible Direktt users.
+- On click, sends a JSON POST to a custom REST endpoint (`direktt/v1/sampleRest/`).
+- Permission callback validates:
+  - `post_id` from JSON body.
+  - That the current Direktt user can access that post (via `direktt_ajax_check_user()`).
+- REST callback returns the user’s subscription ID.
+
+Shortcode:
+
+```php
+function direktt_sample_rest( $atts ) {
+
+  // Merge supplied shortcode attributes with defaults.
+  $atts = shortcode_atts(
+      array(
+          'categories' => '',
+          'tags'       => '',
+      ),
+      $atts,
+      'direktt_sample_rest'
+  );
+
+  // Convert attribute strings to trimmed, non-empty arrays.
+  $categories = array_filter( array_map( 'trim', explode( ',', $atts['categories'] ) ) );
+  $tags       = array_filter( array_map( 'trim', explode( ',', $atts['tags'] ) ) );
+
+  global $direktt_user;
+
+  ob_start();
+
+  // Get user post object if direktt_user_id is present in global $direktt_user.
+  $direktt_user_post = isset( $direktt_user['direktt_user_id'] )
+      ? Direktt_User::get_user_by_subscription_id( $direktt_user['direktt_user_id'] )
+      : false;
+
+  // Check access rules: must have a valid user, matching taxonomies, or be admin.
+  if (
+      $direktt_user_post
+      && (
+          ( ! $categories && ! $tags )
+          || Direktt_User::has_direktt_taxonomies( $direktt_user, $categories, $tags )
+          || Direktt_User::is_direktt_admin()
+      )
+  ) {
+      ?>
+      <button id="btnrest">Click me</button>
+      <script type="text/javascript">
+          document.getElementById('btnrest').addEventListener('click', function() {
+              // Prepare payload with post_id taken from direktt_public (should be validated server-side).
+              var data = JSON.stringify({
+                  post_id: direktt_public.direktt_post_id
+              });
+
+              fetch(direktt_public.direktt_rest_base + 'sampleRest/', {
+                  method: 'POST',
+                  headers: {
+                      'Content-Type': 'application/json',
+                      'X-WP-Nonce': direktt_public.direktt_wp_rest_nonce // WP nonce for REST auth
+                  },
+                  credentials: 'same-origin',
+                  body: data
+              })
+              .then(response => response.json())
+              .then(result => {
+                  console.log('Server says: ' + result.message);
+              });
+          });
+      </script>
+      <?php
+  }
+
+  return ob_get_clean();
+}
+```
