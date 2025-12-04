@@ -587,3 +587,16 @@ Server-side permission check for AJAX handlers. Reuses the same access logic as 
   - `false` (or early return) if $post is invalid.
 
 Use this in your AJAX handlers to ensure only authorized Direktt users can run actions tied to a given page.
+
+### Best Practices for Direktt Authorization
+
+To keep your access control consistent and secure:
+
+- **Always enforce on the server:** Do not rely on front-end checks alone. Use:
+  - `Direktt_Public::direktt_ajax_check_user( $post )` for AJAX.
+  - `permission_callback` in REST routes, using the same internal logic.
+- **Leverage taxonomies for segmentation:** Use Direktt User Categories/Tags instead of custom flags wherever possible for targeted access and messaging.
+- **Do not trust query parameters blindly:** Validate and sanitize IDs (e.g., post_id) and always re-check authorization for that resource.
+- **Use nonces in AJAX:** Protect against CSRF using wp_create_nonce() + wp_verify_nonce().
+- Reuse `$direktt_user helpers:` Use `Direktt_User::direktt_get_current_user()` and associated helpers to inspect the current Direktt user.
+- **Keep logic centralized:** If you replicate similar checks across multiple shortcodes or endpoints, wrap them in your own helper function.
