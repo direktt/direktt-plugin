@@ -523,3 +523,62 @@ While this field is set:
   - REST endpoints.
 
 This is ideal for testing custom digital services and admin tools directly in your browser.
+
+### Key Helper Methods in Direktt_Public
+
+1. `Direktt_Public::is_restricted( $post )`
+
+**Purpose:**
+Determine if a given post/page is restricted by any Direktt rule.
+
+- **Parameters:**
+  - `$post` (WP_Post): The post object to check.
+- **Returns:**
+  - `true` if the post is restricted to:
+    - Direktt users, or
+    - Direktt admin, or
+    - Any Direktt user categories, or
+    - Any Direktt user tags.
+  - `false` otherwise.
+
+Internally, this checks:
+
+- `direktt_custom_box`
+- `direktt_custom_admin_box`
+- `direktt_user_categories`
+- `direktt_user_tags`
+
+2. `Direktt_Public::not_auth_redirect()`
+
+**Purpose:**
+Handle unauthorized access for Direktt-protected content.
+
+- Clears the Direktt authentication cookie.
+- Sets $direktt_user = false.
+- If an unauthorized redirect URL is configured:
+  - Sends a wp_safe_redirect() to that URL.
+- Otherwise:
+  - Sends an HTTP 403 (Unauthorized) and exits.
+
+- **Parameters:**
+None.
+
+- **Returns:**
+  - `void` (execution usually stops via redirect or exit)
+
+3. `Direktt_Public::direktt_ajax_check_user( $post )`
+
+**Purpose:**
+Server-side permission check for AJAX handlers. Reuses the same access logic as page rendering.
+
+- **Parameters:**
+  - `$post` (WP_Post): Post object that defines the Direktt access rules.
+
+- **Returns:**
+  - `true` if:
+    - The post is not restricted, OR
+    - The current Direktt user (`$direktt_user`) satisfies the access rules.
+  - `false` if the post is restricted and the user is not authorized.
+  - `false` (or early return) if $post is invalid.
+
+Use this in your AJAX handlers to ensure only authorized Direktt users can run actions tied to a given page.
