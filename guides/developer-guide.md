@@ -1066,6 +1066,57 @@ Common properties within each content part:
 - `reply` (string, optional)
   - JSON-encoded object describing the original message when this message is a reply:
     - `id`: ID of the original message.
-    - `quoteAutho`r: Author name of the quoted message.
+    - `quoteAuthor`: Author name of the quoted message.
     - `thumbnail`: Thumbnail image URL for the quoted message.
     - `text`: Quoted text content.
+
+### Message JSON Examples
+
+**Text Message**
+```json
+[
+  {
+    "type": "text",
+    "content": "Welcome to our channel"
+  }
+]
+```
+
+**Image Message**
+```json
+[
+  {
+    "type": "image",
+    "content": "Image description HERE",
+    "thumbnail": "https://placehold.in/600x200.png/dark",
+    "media": "https://placehold.in/600x200.png/dark",
+    "width": 600,
+    "height": 200
+  }
+]
+```
+
+**Video Message**
+```json
+[
+  {
+    "type": "video",
+    "content": "Video description HERE",
+    "media": "https://videos.pexels.com/video-files/3195394/3195394-uhd_2560_1440_25fps.mp4",
+    "thumbnail": "https://placehold.in/2560x1440.png",
+    "width": 2560,
+    "height": 1440
+  }
+]
+```
+
+**File Message**
+```json
+[
+  {
+    "type": "file",
+    "content": "File description HERE",
+    "media": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+  }
+]
+```
