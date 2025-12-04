@@ -549,7 +549,9 @@ Internally, this checks:
 - `direktt_user_categories`
 - `direktt_user_tags`
 
-2. `Direktt_Public::not_auth_redirect()`
+```php
+Direktt_Public::not_auth_redirect()
+```
 
 **Purpose:**
 Handle unauthorized access for Direktt-protected content.
@@ -567,7 +569,9 @@ None.
 - **Returns:**
   - `void` (execution usually stops via redirect or exit)
 
-3. `Direktt_Public::direktt_ajax_check_user( $post )`
+```php
+Direktt_Public::direktt_ajax_check_user( $post )
+```
 
 **Purpose:**
 Server-side permission check for AJAX handlers. Reuses the same access logic as page rendering.
