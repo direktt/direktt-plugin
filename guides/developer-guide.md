@@ -563,8 +563,8 @@ Handle unauthorized access for Direktt-protected content.
 - Otherwise:
   - Sends an HTTP 403 (Unauthorized) and exits.
 
-- **Parameters:**
-None.
+- **Parameters:**  
+  - None
 
 - **Returns:**
   - `void` (execution usually stops via redirect or exit)
