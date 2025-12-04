@@ -1315,4 +1315,192 @@ add_filter(
 );
 ```
 
-Then use `#custom_loyalty_points#` in your message templates. When sending with send_message_template(), the filter will compute the final value.
+Then use `#custom_loyalty_points#` in your message templates. When sending with `send_message_template()`, the filter will compute the final value.
+
+## Message-Related API Methods
+
+The Direktt_Message class provides several helper methods for sending and updating messages.
+
+```php
+Direktt_Message::send_message( $messages )
+```
+
+Send one or more messages directly to specific subscribers, without using templates.
+
+**Parameters:**
+
+$messages (array) Associative array where:
+Key: Direktt Subscription ID (subscriptionId string).
+Value: Message object to send (as a PHP object) for that subscription.
+Internally, for each entry:
+
+Builds a payload object:
+subscriptionId → key.
+pushNotificationMessage → value.
+POSTs to Direktt remote endpoint (/sendbulkmessages).
+You are responsible for building the message object in the correct format (array of content parts, etc.).
+
+**Returns:**
+
+Always true on completion, regardless of whether the remote call succeeded or failed. (You can inspect $response via custom modifications if you need error handling.)
+
+**Example:**
+
+```php
+$message = array(
+  (object) array(
+    'type'    => 'text',
+    'content' => 'Hello from WordPress!',
+    ),
+  );
+
+Direktt_Message::send_message(
+  array(
+    'SUBSCRIPTION_ID_123' => $message,
+  )
+);
+```
+
+```php
+Direktt_Message::update_message( $subscription_uid, $message_uid, $content )
+```
+
+Update an existing message’s content (e.g., for editing or correcting a previous message).
+
+**Parameters:**
+
+$subscription_uid (string)
+The Direktt subscription UID of the target user (same as subscriptionId).
+
+$message_uid (string)
+The unique ID of the message you want to update (provided by Direktt).
+
+$content (mixed)
+The new content you want to set for the message. This should match the expected message format for the Direktt update API (generally a message object or its content parts).
+
+Internally:
+
+Builds a POST payload:
+subscriptionUid
+messageUid
+content
+Sends it to the Direktt updateMessage endpoint.
+
+**Returns:**
+
+No explicit return value (void). The response from wp_remote_post() is stored in $response but not returned. For custom error handling, you can adapt the method in your own code.
+
+```php
+Direktt_Message::send_message_template( $direktt_user_ids, $message_template_id, $replacements = array() )
+```
+
+Send a message template to one or more Direktt users, with optional tag replacements.
+
+**Parameters:**
+
+$direktt_user_ids (array)
+Array of subscription IDs (strings). Each element is a subscriptionId for a subscriber.
+
+$message_template_id (int)
+ID of the Direktt Message Template (CPT) to send.
+The JSON template is stored in post meta key direkttMTJson.
+
+$replacements (array, optional)
+Associative array of replacement values for template tags:
+
+Key: tag name without # (e.g. 'title', 'direktt_display_name').
+Value: string to be inserted.
+
+**What it does:**
+
+Retrieves the JSON template from meta (direkttMTJson).
+For each subscription ID in $direktt_user_ids:
+Calls replace_tags_in_template() with:
+The raw JSON template.
+$replacements.
+$direktt_user_id (subscription ID for the target user).
+This:
+Replaces all #tag# placeholders.
+Applies tag-specific filters (e.g. user display name).
+Decodes the JSON into $messages (array of content parts).
+For each $message in the decoded list:
+If $message->content is an array or object, it is JSON-encoded to a string.
+Builds a payload object:
+subscriptionId → current user id.
+pushNotificationMessage → current $message.
+Sends all built payload objects as a single bulk request to /sendbulkmessages.
+
+**Returns:**
+
+If a template is found and at least one message is processed:
+Returns the last $message object processed (mainly for debugging).
+If no template is found:
+Returns false.
+
+**Notes on Replacement Logic:**
+
+Both provided replacements ($replacements) and filters (direktt/message/template/<tag>) are applied.
+Each user ID is passed as $direktt_user_id to replace_tags_in_template(), enabling per-user dynamic data (e.g. display name, points, etc.).
+
+```php
+Direktt_Message::send_message_to_admin( $message )
+```
+
+Send a message directly to the channel admin via a dedicated admin endpoint.
+
+**Parameters:**
+
+$message (object)
+A message object representing the admin message. It should be formatted the same way as subscriber messages (array of content parts, etc.), but given as the value of pushNotificationMessage.
+
+Typical structure:
+
+An object or array representing either:
+A full message array, or
+A single message object, depending on API expectations.
+Internally:
+
+Builds payload:
+pushNotificationMessage → $message.
+Sends a POST to the sendadminmessage endpoint for the linked channel.
+
+**Returns:**
+
+No explicit return value (void). $response from wp_remote_post() is not returned.
+
+```php
+Direktt_Message::send_message_template_to_admin( $message_template_id, $replacements = array() )
+```
+
+Send a template-based message to the admin user. Works similarly to send_message_template(), but targets the admin-only endpoint.
+
+**Parameters:**
+
+$message_template_id (int)
+ID of the message template (CPT). The template JSON is stored in direkttMTJson.
+
+$replacements (array, optional)
+Associative array of replacement values for tags inside the template, same format as for send_message_template().
+
+**What it does:**
+
+Loads the raw JSON template from direkttMTJson.
+Runs replace_tags_in_template():
+$direktt_user_id is null here (admin is not referenced as a subscription).
+$replacements are applied.
+Tag filters can still contribute values if they don’t depend on user.
+Decodes $messages (array of content parts).
+For each $message:
+JSON-encodes $message->content if it is an array or object.
+Builds payload:
+pushNotificationMessage → $message.
+Sends a POST to sendadminmessage endpoint.
+
+**Returns:**
+
+true if messages were found and processed.
+false if no template JSON is stored for the given ID.
+
+**Notes on Replacement Logic:**
+
+Since $direktt_user_id is null, user-specific filters (like direktt_display_name_filter) may not apply in the same way—use admin or channel-wide tags instead (e.g. #direktt_channel_name#), or pass values explicitly via $replacements.
