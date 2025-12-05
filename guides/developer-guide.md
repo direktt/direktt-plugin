@@ -1743,9 +1743,9 @@ Opens a user’s Direktt profile (admin-only context).
 
 A common use case is **event check‑in** via QR code:
 
-1. User arrives at event and scans a QR code using Direktt mobile app.
-2. The app sends an `api` action back to your WordPress site.
-3. Your code:  
+- User arrives at event and scans a QR code using Direktt mobile app.
+- The app sends an `api` action back to your WordPress site.
+- Your code:  
   - Marks the user as checked in.
   - Optionally assigns a user **category/tag** (e.g. `registered`).
   - Optionally sends a confirmation message.
