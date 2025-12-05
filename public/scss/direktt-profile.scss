@@ -762,7 +762,14 @@
 			margin-top: 1em;
 		}  
 	}
-	
+
+	/* Membership */
+	.direktt-profile-data-membership-tool {
+		.direktt-membership-filter-wrapper {
+			display: flex;
+			gap: 5px;
+		}
+	}
 	
 	/* Cross sell */
 	
