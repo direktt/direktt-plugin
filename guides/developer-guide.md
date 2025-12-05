@@ -2032,3 +2032,52 @@ There are four main integration points:
 
 The first two are covered in the User Guide (Service Links & Admin Links).
 This section focuses on **Profile Tools and Settings Panels**, using the Direktt Extension Boilerplate as a concrete example.
+
+## Extending the Direktt User Profile (Profile Tools)
+
+The Direktt **user profile page** is a WordPress page rendered by the `[direktt_user_profile]` shortcode (see User Guide: Setting Up User Profile).
+
+- Default URL: `https://your-domain/direktt-profile/`
+- Or: a **custom URL** you configure in the Direktt Admin Console as **User Profile Url**.
+
+From the Direktt mobile app (Admin mode):
+
+- The admin opens a chat with a subscriber.
+- Taps the **Profile** button.
+- The app opens the profile page (using `[direktt_user_profile]`), including:
+  - Basic user info.
+  - Built‑in tools (Notes, Taxonomies, Messaging).
+  - Any **custom profile tools** registered by your extensions.
+
+### How Profile Tools Are Registered
+
+Profile tools are registered via the static method:
+
+```php
+Direktt_Profile::add_profile_tool( $params );
+```
+
+You call this from a function hooked to:
+
+```php
+add_action( 'direktt_setup_profile_tools', 'your_extension_setup_profile_tool' );
+```
+
+The Direktt core calls `do_action( 'direktt_setup_profile_tools' );` on `init.`
+Each extension listening to this action can register its own tools.
+
+### `add_profile_tool()` Parameter Reference
+
+`$params` is an associative array. Important keys:
+
+| Key               | Type     | Required | Description                                                                                                                          |
+|-------------------|----------|----------|--------------------------------------------------------------------------------------------------------------------------------------|
+| `id`              | string   | Yes      | Unique ID for the tool (used in the `subpage` query var and as part of CSS classes).                                                |
+| `label`           | string   | Yes      | Label shown in the profile tools menu in the user profile UI.                                                                       |
+| `callback`        | callable | Yes      | PHP function/method that renders the tool’s content when this tool is active.                                                       |
+| `categories`      | array    | No       | Array of Direktt User Category **slugs**. Tool is visible only if the current Direktt user has at least one of these categories or is admin. |
+| `tags`            | array    | No       | Array of Direktt User Tag **slugs**. Tool is visible only if the current Direktt user has at least one of these tags or is admin.  |
+| `priority`        | int      | No       | Sort order for this tool in the tools list (lower values appear first).                                                             |
+| `cssEnqueueArray` | array    | No       | List of associative arrays describing CSS files to register and enqueue when this tool is active (compatible with `wp_register_style()`). |
+| `jsEnqueueArray`  | array    | No       | List of associative arrays describing JS files to register and enqueue when this tool is active (compatible with `wp_register_script()`).  |
+
