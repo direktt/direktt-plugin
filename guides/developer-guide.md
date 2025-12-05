@@ -1651,12 +1651,14 @@ Opens a URL when the user taps the button or scans the QR.
 
 **Required** `params`:
 
-url (string) – The full URL to open.
-target (string) – Where to open the link:
-"app" – Inside the Direktt app (WebView).
-"browser" – In the device’s default browser.
-Example:
+- `url` (string) – The full URL to open.
+- `target` (string) – Where to open the link:
+  - `"app"` – Inside the Direktt app (WebView).
+  - `"browser"` – In the device’s default browser.
 
+**Example:**
+
+```json
 {
   "type": "link",
   "params": {
@@ -1665,15 +1667,20 @@ Example:
   },
   "retVars": {}
 }
-2. api Action
-Triggers a callback to your WordPress instance via the Direktt plugin. Use it for any custom logic (check-in, coupon redemption, loyalty updates, etc.).
+```
 
-Required params:
+### `api` Action
 
-actionType (string) – A key that identifies which WordPress hook should handle this action.
-successMessage (string, optional) – A short message shown to the user in the app after success.
-Example:
+Triggers a **callback to your WordPress instance** via the Direktt plugin. Use it for any custom logic (check-in, coupon redemption, loyalty updates, etc.).
 
+**Required** `params`:
+
+- `actionType` (string) – A key that identifies which WordPress hook should handle this action.
+- `successMessage` (string, optional) – A short message shown to the user in the app after success.
+
+**Example:**
+
+```json
 {
   "type": "api",
   "params": {
@@ -1682,19 +1689,27 @@ Example:
   },
   "retVars": {}
 }
+```
+
 In this example, the WordPress plugin will fire:
 
+```php
 do_action( 'direktt/action/apply_ticket', $params );
-So your code should hook into direktt/action/apply_ticket.
+```
 
-3. chat Action
+So your code should hook into `direktt/action/apply_ticket`.
+
+### `chat` Action
+
 Opens a chat with a specific user (used in admin flows and admin-only buttons).
 
-Required params:
+**Required** `params`:
 
-subscriptionId (string) – Direktt subscription ID of the user whose chat should be opened.
-Example:
+- `subscriptionId` (string) – Direktt subscription ID of the user whose chat should be opened.
 
+**Example:**
+
+```json
 {
   "type": "chat",
   "params": {
@@ -1702,14 +1717,19 @@ Example:
   },
   "retVars": {}
 }
-4. profile Action
+```
+
+### `profile` Action
+
 Opens a user’s Direktt profile (admin-only context).
 
-Required params:
+**Required** `params`:
 
-subscriptionId (string) – Direktt subscription ID of the user whose profile should be opened.
-Example:
+- `subscriptionId` (string) – Direktt subscription ID of the user whose profile should be opened.
 
+**Example:**
+
+```json
 {
   "type": "profile",
   "params": {
@@ -1717,3 +1737,4 @@ Example:
   },
   "retVars": {}
 }
+```
