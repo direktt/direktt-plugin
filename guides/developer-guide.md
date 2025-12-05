@@ -1130,10 +1130,15 @@ For `rich` types, the `content` property is a **JSON-encoded string**, containin
 - subtype (string)  
   Currently supported: "buttons".
 
+- disabled (bool, optional)    
+  - `true` Interactivity will be disabled
+  - `false` Buttons will be enabled
+
 - msgObj (array)  
   An array of button definitions. Each entry is an object with:
   - txt (string) Text shown above the button.
   - label (string) Text shown on the button itself.
+  - accent (bool, optional) `true` indicates that the button should be colored in accent color
   - action (object) Direktt action object that defines what happens when the button is tapped.
 
 **Button Action Object**
@@ -1561,3 +1566,51 @@ This relies on:
 - The Direktt Messaging API (`send_message_template`) to handle replacements and sending.
 
 By combining rich message structures, templates, replacement tags, and the ``Direktt_Message`` API, you can build powerful, personalized messaging flows that react to user events and behaviors across your WordPress site and the Direktt mobile app.
+
+# Direktt Actions
+
+Direktt Actions let you instruct the **Direktt mobile app** to perform specific operations when a user taps a button in an interactive message, or when a QR code is scanned.
+
+You will most often use Direktt Actions to:
+
+- Open a **link** in the app or browser.
+- Call back into your **WordPress** instance to run custom logic.
+- Open a **chat** with a user (admin only).
+- Open a **user profile** (admin only).
+
+This section explains:
+
+- How Direktt Actions are structured.
+- The supported action types and their parameters.
+- How `retVars` work (including automatic taxonomy updates).
+- How to handle `api` actions in your WordPress plugin.
+
+## How Direktt Actions Work (Conceptual Overview)
+
+A Direktt Action is a small JSON object that tells the app what to do next. It is usually embedded in:
+
+- An **action QR code** (e.g. “scan this to check in”).
+- A **button** inside a rich (interactive) Direktt message.
+
+**Example flow (Membership QR scan):**
+
+1. An admin scans a user’s **Membership ID** in the Direktt app.
+2. The QR code contains a **profile action** with the user’s subscriptionId.
+3. The Direktt app opens that user’s profile screen.
+4. The admin can then:
+  - Invalidate a ticket.
+  - Assign/remove user categories/tags.
+  - Update loyalty fields (via your custom extensions).
+  - Issue rewards, etc.
+
+Behind the scenes, the Membership QR code’s action looks conceptually like:
+
+```php
+{
+  "type": "profile",
+  "params": {
+    "subscriptionId": "XXXXXXXXXXXX"
+  },
+  "retVars": {}
+}
+```
