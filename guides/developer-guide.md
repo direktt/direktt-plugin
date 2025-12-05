@@ -1963,12 +1963,9 @@ Your WordPress code:
 add_action( 'direktt/action/entry_checkin', 'on_entry_checkin' );
 
 function on_entry_checkin( $params ) {
-    global $direktt_user;
 
     // $params includes:
     // - Any retVars (e.g. 'eventId')
-    // - actionType
-    // - subscriptionId (current user)
     // - messageId (if triggered from interactive message), etc.
 
     // Example: just notify the channel admin with the received params.
@@ -1981,7 +1978,6 @@ function on_entry_checkin( $params ) {
 
     // Optionally:
     // - Use $params['eventId'] to look up event data.
-    // - Use $direktt_user['direktt_user_id'] as the current user.
     // - Use $params['messageId'] with Direktt_Message::update_message().
 }
 ```
