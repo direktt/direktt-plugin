@@ -2081,3 +2081,28 @@ Each extension listening to this action can register its own tools.
 | `cssEnqueueArray` | array    | No       | List of associative arrays describing CSS files to register and enqueue when this tool is active (compatible with `wp_register_style()`). |
 | `jsEnqueueArray`  | array    | No       | List of associative arrays describing JS files to register and enqueue when this tool is active (compatible with `wp_register_script()`).  |
 
+Each element of `cssEnqueueArray` / `jsEnqueueArray` is itself an associative array suitable to pass directly into `wp_register_style()` / `wp_register_script()` via splat (...$css_file / ...$js_file), for example:
+
+```php
+array(
+  'handle' => 'my-extension-profile-css',
+  'src'    => plugin_dir_url( __FILE__ ) . 'css/profile.css',
+  'deps'   => array(),
+  'ver'    => '1.0.0',
+  'media'  => 'all',
+)
+array(
+  'handle'    => 'my-extension-profile-js',
+  'src'       => plugin_dir_url( __FILE__ ) . 'js/profile.js',
+  'deps'      => array( 'jquery' ),
+  'ver'       => '1.0.0',
+  'in_footer' => true,
+)
+```
+
+Direktt core:
+
+- Registers these scripts/styles during `enqueue_profile_scripts()`.
+- Enqueues them **only** when:
+  - The current subpage matches your `id`, and
+  - The user is allowed to see the tool (matching categories/tags or admin).
