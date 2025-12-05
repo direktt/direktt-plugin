@@ -2325,3 +2325,44 @@ function direktt_extension_boilerplate_enqueue_public_assets() {
 - This script can be used both:
   - In your **profile tools** JS (deps can include `'direktt-extension-boilerplate-public'`).
   - In **service pages** (custom shortcodes, etc.).
+
+## Direktt Extension Boilerplate: What It Implements
+
+The **Direktt Extension Boilerplate** (GitHub: https://github.com/direktt/direktt-extension-boilerplate) provides a minimal, working example of a Direktt extension plugin. It demonstrates:
+
+- **Safety & Activation Check**
+  - Ensures the **Direktt WordPress Plugin** is active before this extension is activated.
+  - If not, it:
+    - Deactivates itself.
+    - Shows an admin notice and a plugins list row message.
+
+- **Public Asset Hook (`direktt_enqueue_public_scripts`)**
+  - Shows how to enqueue a front-end script **only when there is a Direktt user**.
+  - Provides a base JS file (`direktt-extension-boilerplate-public.js`) you can extend.
+
+- **Custom Settings Page (Direktt > Settings)**
+  - Hooks `direktt_setup_settings_pages`.
+  - Calls `Direktt::add_settings_page()` with:
+    - `id`, `label`, `callback`
+    - `cssEnqueueArray` / `jsEnqueueArray`
+  - Renders a minimal settings screen (“Direktt Extension Boilerplate Settings Go Here.”).
+
+- **Custom Profile Tool (User Profile UI)**
+  - Hooks `direktt_setup_profile_tools`.
+  - Calls `Direktt_Profile::add_profile_tool()` with:
+    - `id`, `label`, `callback`
+    - Optional categories/tags filters.
+    - `cssEnqueueArray` / `jsEnqueueArray`.
+  - Renders a minimal profile tool tab (“Direktt Extension Boilerplate Profile Interface Goes Here.”).
+
+You can **clone this boilerplate** and:
+
+- Rename the plugin, text-domain, and handles.
+- Replace the settings and profile tool callbacks with your own logic.
+- Add further hooks:
+  - Direktt actions (`direktt/action/...`).
+  - Direktt message hooks (`direktt/message/template/...`).
+  - Direktt user events (`direktt/user/...`).
+- Add Service pages with your own shortcodes, then wire them into **Service Links/Admin Links** in the Direktt Admin Console.
+
+With these integration points, you can build powerful Direktt Extensions that feel native inside both **Direktt mobile app** and **WordPress wp-admin**, while leveraging standard WordPress plugin patterns.
