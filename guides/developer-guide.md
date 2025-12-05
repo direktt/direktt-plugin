@@ -1787,3 +1787,208 @@ On the WordPress side, your handler will receive:
 ```
 
 (Along with other internal fields like subscriptionId, see below.)
+
+## `retVars` for Custom Data (Link & API)
+
+retVars are **custom variables** bundled with the action. They are sent back to your WordPress instance as:
+
+- Extra **query parameters** (for `link` actions).
+- Extra **payload properties** (for `api` actions).
+
+This is useful to:
+
+- Pass event IDs, campaign codes, or any other context.
+- Trigger different logic per button or per QR code.
+- Avoid encoding logic into the URL itself.
+
+### Example: Link Action with `retVars`
+
+```json
+{
+  "action": {
+    "type": "link",
+    "params": {
+      "url": "https://example.com/sample-page/?sampleVar=1",
+      "target": "app"
+    },
+    "retVars": {
+      "eventId": "XXXXXXX"
+    }
+  }
+}
+```
+
+Resulting URL in the app:
+
+```
+https://example.com/sample-page/?sampleVar=1&eventId=XXXXXXX
+```
+
+### Example: API Action with `retVars`
+
+```json
+{
+  "action": {
+    "type": "api",
+    "params": {
+      "actionType": "entry_checkin"
+    },
+    "retVars": {
+      "eventId": "XXXXXXX"
+    }
+  }
+}
+```
+
+On the WordPress side, the $params passed to your action hook will include:
+
+```php
+array(
+  'eventId' => 'XXXXXXX',
+  // ... plus other fields added by the plugin
+)
+```
+
+### The Special `messageId` retVar
+
+There is a **built‑in / “hidden”** `retVar` automatically added to every link and api action that originates from an **interactive message button:**
+
+- `messageId` – The ID of the **message** that triggered this action.
+
+You can use `messageId` to **update** the original message after the action is processed, for example to:
+
+- Mark it as “used”.
+- Change its text to “Ticket validated”.
+- Disable buttons.
+
+Use the `Direktt_Message::update_message()` method:
+
+```php
+Direktt_Message::update_message( $subscription_uid, $message_uid, $content );
+```
+
+- `$subscription_uid` – User’s subscription ID.
+- `$message_uid` – The message ID (messageId retVar).
+- `$content` – New content for the message (message object / content parts).
+
+### Built‑in Taxonomy Management via `retVars`
+
+Certain `retVars` keys are **reserved** and understood by the Direktt WordPress plugin. They enable you to **assign or remove user taxonomies automatically** after a `link` or `api` action – without writing any custom taxonomy code.
+
+Supported keys:
+
+- `addDirekttUserCategory`
+- `removeDirekttUserCategory`
+- `addDirekttUserTag`
+- `removeDirekttUserTag`
+
+Each of these expects an **array** of either:
+
+- Term **slugs**, or
+- Term **IDs**
+
+for the corresponding taxonomy.
+
+The plugin then automatically:
+
+- Fetches the calling user (`$direktt_user`).
+- Adds or removes the given terms on that Direktt user.
+
+### Example: Auto‑assign “registered” Category on Check‑in
+
+```json
+{
+  "action": {
+    "type": "api",
+    "params": {
+      "actionType": "entry_checkin"
+    },
+    "retVars": {
+      "eventId": "XXXXXXX",
+      "addDirekttUserCategory": ["registered"]
+    }
+  }
+}
+```
+
+When this action is executed:
+
+Your entry_checkin handler runs.
+The plugin automatically adds the registered category to the current Direktt user (no extra code needed).
+Any other retVars (eventId, etc.) are passed to your handler.
+What Happens When an api Action Is Triggered
+When a user triggers an api action (via button tap or QR scan), the flow is:
+
+The Direktt app sends the action (with params and retVars) to the Direktt server.
+
+Direktt forwards this to your connected WordPress instance using the plugin’s API endpoint.
+
+The Direktt plugin:
+
+Authenticates the request and sets $direktt_user.
+
+Merges:
+
+params,
+retVars,
+and internal values like subscriptionId and messageId (if present), into one $params array.
+Fires a WordPress action hook:
+
+do_action( 'direktt/action/' . $actionType, $params );
+Your custom handler runs and can:
+
+Inspect $direktt_user.
+Use $params (eventId, messageId, etc.).
+Send messages, update meta, run business logic, etc.
+If successMessage was provided in params, that text is displayed back to the user in the app.
+
+Handling Custom API Actions in WordPress
+To handle your custom api actions, register a hook that matches the actionType defined in your action.
+
+For example, for:
+
+{
+  "type": "api",
+  "params": {
+    "actionType": "entry_checkin"
+  },
+  "retVars": {
+    "eventId": "XXXXXXX"
+  }
+}
+Your WordPress code:
+
+add_action( 'direktt/action/entry_checkin', 'on_entry_checkin' );
+
+function on_entry_checkin( $params ) {
+    global $direktt_user;
+
+    // $params includes:
+    // - Any retVars (e.g. 'eventId')
+    // - actionType
+    // - subscriptionId (current user)
+    // - messageId (if triggered from interactive message), etc.
+
+    // Example: just notify the channel admin with the received params.
+    $message_to_admin = array(
+        'type'    => 'text',
+        'content' => 'API call received. Params are: ' . wp_json_encode( $params ),
+    );
+
+    Direktt_Message::send_message_to_admin( $message_to_admin );
+
+    // Optionally:
+    // - Use $params['eventId'] to look up event data.
+    // - Use $direktt_user['direktt_user_id'] as the current user.
+    // - Use $params['messageId'] with Direktt_Message::update_message().
+}
+If you also include taxonomy retVars like addDirekttUserCategory, the plugin will automatically update the user’s categories/tags after your handler runs.
+
+Summary
+Direktt Actions are small JSON objects that tell the app what to do:
+link, api, chat, or profile.
+params define the action behavior, retVars carry extra context back to WordPress.
+messageId is automatically sent for interactive-message actions, allowing you to update the original message.
+Special retVars (addDirekttUserCategory, addDirekttUserTag, etc.) let you manage user taxonomies without writing taxonomy code.
+For api actions, the Direktt plugin triggers direktt/action/<actionType> with a $params array. You hook into it and implement your business logic.
+Using these patterns, you can build rich, QR‑driven and button‑driven workflows that connect the Direktt app tightly with your WordPress services and data.
