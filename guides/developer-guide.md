@@ -1738,3 +1738,52 @@ Opens a user’s Direktt profile (admin-only context).
   "retVars": {}
 }
 ```
+
+### Using Actions for Event Check‑in (Example)
+
+A common use case is **event check‑in** via QR code:
+
+1. User arrives at event and scans a QR code using Direktt mobile app.
+2. The app sends an `api` action back to your WordPress site.
+3. Your code:
+  - Marks the user as checked in.
+  - Optionally assigns a user **category/tag** (e.g. `registered`).
+  - Optionally sends a confirmation message.
+
+**Basic** `api` **Check-in Action**
+
+```json
+{
+  "type": "api",
+  "params": {
+    "actionType": "entry_checkin"
+  },
+  "retVars": {}
+}
+```
+
+**Adding Context with** `retVars`
+
+To link the check-in to a specific event (for example, a WordPress post ID), you can pass custom data via retVars:
+
+```json
+{
+  "type": "api",
+  "params": {
+    "actionType": "entry_checkin"
+  },
+  "retVars": {
+    "eventId": "12345"
+  }
+}
+```
+
+On the WordPress side, your handler will receive:
+
+```json
+{
+  "eventId": "12345"
+}
+```
+
+(Along with other internal fields like subscriptionId, see below.)
