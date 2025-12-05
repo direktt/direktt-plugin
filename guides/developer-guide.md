@@ -1994,3 +1994,41 @@ If you also include taxonomy `retVars` like `addDirekttUserCategory`, the plugin
 - For `api` actions, the Direktt plugin triggers `direktt/action/<actionType>` with a `$params` array. You hook into it and implement your business logic.
 
 Using these patterns, you can build rich, QR‑driven and button‑driven workflows that connect the Direktt app tightly with your WordPress services and data.
+
+# Building Direktt Extensions
+
+Direktt Extensions are regular WordPress plugins that “plug into” existing Direktt user interfaces and APIs. With them you can:
+
+- Add custom tools to the **Direktt user profile UI** (used by channel admins in the mobile app).
+- Add custom **settings panels** under **Direktt > Settings** in wp-admin.
+- Optionally add **front-end services** (pages/shortcodes) that are opened from:
+  - **User Services** (subscriber-facing Services in the app).
+  - **Admin Services** (admin-only Services in the app).
+This section explains where you can integrate, how to do it, and how the **Direktt Extension Boilerplate** is structured as a starting point.
+
+## Where You Can Plug Into the Direktt UI
+
+There are four main integration points:
+
+### User Services (subscriber-facing)
+
+- Shown as buttons in the Services section of the channel in the Direktt mobile app.
+- Implemented as URLs (usually WordPress pages with shortcodes) configured as **Service Links** in the Direktt Admin Console.
+
+### Admin Services (admin-facing)
+
+- Shown as buttons in the Admin Services section when the channel admin is in **Admin mode**.
+- Also implemented as URLs (WordPress pages with shortcodes) configured as **Admin Links** in the Direktt Admin Console.
+
+### Profile Tools – extension integration point
+
+- Appear as extra “tools” / in the **Direktt user profile UI - left site drawer menu**, opened from the Direktt mobile app.
+- Implemented via `Direktt_Profile::add_profile_tool()` inside the `direktt_setup_profile_tools` action.
+
+### Direktt Settings Panels in wp-admin – extension integration point
+
+- Appear under **Direktt > Settings** in wp-admin as extra settings screens for your extension.
+- Implemented via `Direktt::add_settings_page()` inside the `direktt_setup_settings_pages` action.
+
+The first two are covered in the User Guide (Service Links & Admin Links).
+This section focuses on **Profile Tools and Settings Panels**, using the Direktt Extension Boilerplate as a concrete example.
