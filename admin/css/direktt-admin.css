@@ -316,6 +316,9 @@ body.direktt_page_direktt-settings #direktt_points_repeater .direktt-loyalty-pro
 #poststuff #direktt_loyalty_program_meta_box .inside table th:first-child, #poststuff #direktt_loyalty_program_meta_box .inside table td:first-child {
   text-align: center;
 }
+#poststuff #direktt_loyalty_program_meta_box .direktt-loyalty-program-no-transactions {
+  padding-left: 12px;
+}
 
 /* Edit Message Template */
 body.post-type-direkttmtemplates .v-theme--light {
