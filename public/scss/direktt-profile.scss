@@ -34,8 +34,8 @@
 	/* Various */
 	--direktt-profile-border-radius: 50px;  
 	--direktt-profile-border-small-radius: 10px;  
-	--direktt-profile-tools-width: 200px;
-	--direktt-profile-tools-negative-width: -200px;  
+	--direktt-profile-tools-width: 240px;
+	--direktt-profile-tools-negative-width: -240px;  
 } 
 
 /* Fonts */
@@ -768,6 +768,9 @@
 		.direktt-membership-filter-wrapper {
 			display: flex;
 			gap: 5px;
+		}
+		.direktt-membership-package-active-no {
+			opacity: 0.3;
 		}
 	}
 	

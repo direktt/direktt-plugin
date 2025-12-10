@@ -241,8 +241,8 @@ body.direktt-app .ui-menu .ui-menu-item-wrapper {
   /* Various */
   --direktt-profile-border-radius: 50px;
   --direktt-profile-border-small-radius: 10px;
-  --direktt-profile-tools-width: 200px;
-  --direktt-profile-tools-negative-width: -200px;
+  --direktt-profile-tools-width: 240px;
+  --direktt-profile-tools-negative-width: -240px;
 }
 
 /* Fonts */
@@ -1013,6 +1013,9 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
 #direktt-profile .direktt-profile-data-membership-tool .direktt-membership-filter-wrapper {
   display: flex;
   gap: 5px;
+}
+#direktt-profile .direktt-profile-data-membership-tool .direktt-membership-package-active-no {
+  opacity: 0.3;
 }
 #direktt-profile .direktt-profile-data-cross-sell-tool.direktt-service .direktt-cross-sell-qr-canvas-wrapper {
   border: 1px solid var(--direktt-profile-light-gray-color);
