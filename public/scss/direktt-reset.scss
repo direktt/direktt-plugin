@@ -167,8 +167,8 @@ html {
 			height: 1em; 
 			width: 1em; 
 			position: absolute;
-			top: 0px;
-			left: 0px;
+			top: 1px;
+			left: -1px;
 		}
 		&:checked {
 			box-shadow: 0 0 0 2px var(--direktt-profile-alternate-color);
