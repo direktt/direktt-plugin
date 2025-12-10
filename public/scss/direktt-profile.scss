@@ -765,12 +765,16 @@
 
 	/* Membership */
 	.direktt-profile-data-membership-tool {
-		.direktt-membership-packages-table,
+		.direktt-membership-packages-table {
+			tr:not(.direktt-membership-actions) {
+				td {
+					border-bottom: none;
+					padding-bottom: 0;
+				}
+				
+			}			
+		}
 		.direktt-profile-data-membership-tool-table {
-			th:not(:first-child),
-			td:not(:first-child) {
-				text-align: right;
-			}
 			tr.direktt-membership-package-active-no, 
 			tr.direktt-membership-package-active-yes {
 				td {
@@ -778,6 +782,19 @@
 					padding-bottom: 0;
 				}
 				
+			}
+			tr:not(.direktt-membership-package-active-no):not(.direktt-membership-package-active-yes) {
+				td {
+					text-align: center;
+				}
+				
+			}
+		}
+		.direktt-membership-packages-table,
+		.direktt-profile-data-membership-tool-table {
+			th:not(:first-child),
+			td:not(:first-child) {
+				text-align: right;
 			}
 			tr.direktt-membership-package-active-no {
 				opacity: 0.3;

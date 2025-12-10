@@ -152,8 +152,8 @@ html {
   height: 1em;
   width: 1em;
   position: absolute;
-  top: 0px;
-  left: 0px;
+  top: 1px;
+  left: -1px;
 }
 #direktt-profile input[type=checkbox]:checked {
   box-shadow: 0 0 0 2px var(--direktt-profile-alternate-color);
@@ -1010,18 +1010,23 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
 #direktt-profile .direktt-profile-data-auto-greet .direktt-button {
   margin-top: 1em;
 }
+#direktt-profile .direktt-profile-data-membership-tool .direktt-membership-packages-table tr:not(.direktt-membership-actions) td {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+#direktt-profile .direktt-profile-data-membership-tool .direktt-profile-data-membership-tool-table tr.direktt-membership-package-active-no td,
+#direktt-profile .direktt-profile-data-membership-tool .direktt-profile-data-membership-tool-table tr.direktt-membership-package-active-yes td {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+#direktt-profile .direktt-profile-data-membership-tool .direktt-profile-data-membership-tool-table tr:not(.direktt-membership-package-active-no):not(.direktt-membership-package-active-yes) td {
+  text-align: center;
+}
 #direktt-profile .direktt-profile-data-membership-tool .direktt-membership-packages-table th:not(:first-child),
 #direktt-profile .direktt-profile-data-membership-tool .direktt-membership-packages-table td:not(:first-child),
 #direktt-profile .direktt-profile-data-membership-tool .direktt-profile-data-membership-tool-table th:not(:first-child),
 #direktt-profile .direktt-profile-data-membership-tool .direktt-profile-data-membership-tool-table td:not(:first-child) {
   text-align: right;
-}
-#direktt-profile .direktt-profile-data-membership-tool .direktt-membership-packages-table tr.direktt-membership-package-active-no td,
-#direktt-profile .direktt-profile-data-membership-tool .direktt-membership-packages-table tr.direktt-membership-package-active-yes td,
-#direktt-profile .direktt-profile-data-membership-tool .direktt-profile-data-membership-tool-table tr.direktt-membership-package-active-no td,
-#direktt-profile .direktt-profile-data-membership-tool .direktt-profile-data-membership-tool-table tr.direktt-membership-package-active-yes td {
-  border-bottom: none;
-  padding-bottom: 0;
 }
 #direktt-profile .direktt-profile-data-membership-tool .direktt-membership-packages-table tr.direktt-membership-package-active-no,
 #direktt-profile .direktt-profile-data-membership-tool .direktt-profile-data-membership-tool-table tr.direktt-membership-package-active-no {
