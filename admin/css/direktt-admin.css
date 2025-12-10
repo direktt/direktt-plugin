@@ -26,7 +26,11 @@
   margin-top: 0;
   font-weight: 600;
 }
+.direktt-admin-popup .direktt-admin-popup-content .direktt-admin-popup-title {
+  margin-top: 0;
+}
 
+/* Settings */
 body.direktt_page_direktt-settings .v-theme--light {
   --v-theme-info: 19 94 150;
 }
@@ -270,86 +274,9 @@ body.direktt_page_direktt-settings #direktt_points_repeater .direktt-loyalty-pro
   cursor: pointer;
 }
 
-/* In cutom post type */
-#direktt-meta-app h1 {
-  font-size: 21px;
-  font-weight: 600;
-}
-
-#appBuilder .v-card {
-  overflow: visible !important;
-  box-shadow: none;
-}
-#appBuilder .v-card .direktt-message-template-builder .preview-item .v-row {
-  position: relative;
-  flex-wrap: nowrap;
-}
-#appBuilder .v-card .direktt-message-template-builder .preview-item .v-row .v-ivon {
-  margin-right: 0 !important;
-}
-#appBuilder .v-card .direktt-message-template-builder .v-col.v-col-6:nth-child(2) .details-panel {
-  position: sticky;
-  top: 3em;
-}
-
-/* Various */
-.direktt-review-meta-box .button.direktt-send-review {
-  width: 100%;
-}
-.direktt-review-meta-box h4 {
-  margin-bottom: 0.5em;
-}
-.direktt-review-meta-box table td:last-child {
-  text-align: right;
-}
-
-#poststuff #direktt_review_program_meta_box .inside {
-  padding: 0;
-}
-#poststuff #direktt_review_program_meta_box .inside .direktt-review-header {
-  padding: 6px 12px 0;
-}
-#poststuff #direktt_review_program_meta_box .inside table {
-  border-left: none;
-  border-right: none;
-  border-bottom: none;
-}
-
-#poststuff #direktt_loyalty_program_meta_box h2 .direktt-loyalty-current-points {
-  margin: 0;
-  font-weight: 600;
-}
-#poststuff #direktt_loyalty_program_meta_box h2 .direktt-loyalty-current-points strong {
-  border-radius: 50%;
-  padding: 0 0.8rem;
-  background: #2271b1;
-  color: white;
-  font-weight: 600;
-  display: inline-block;
-  text-align: center;
-  min-width: 1rem;
-  /* 2rem (height) - 2 x 0.5rem (padding) */
-  line-height: 2rem;
-  margin: 0 0.25em;
-}
-#poststuff #direktt_loyalty_program_meta_box .inside {
-  margin: 0;
-  padding: 0;
-}
-#poststuff #direktt_loyalty_program_meta_box .inside table {
-  border: 0;
-}
-#poststuff #direktt_loyalty_program_meta_box .inside table th:last-child, #poststuff #direktt_loyalty_program_meta_box .inside table td:last-child {
-  text-align: right;
-}
-#poststuff #direktt_loyalty_program_meta_box .inside table th:first-child, #poststuff #direktt_loyalty_program_meta_box .inside table td:first-child {
-  text-align: center;
-}
-#poststuff #direktt_loyalty_program_meta_box .direktt-loyalty-program-no-transactions {
-  padding-left: 12px;
-}
-
-/* Edit Message Template */
+/* In custom post type 
+---------------------------------------- */
+/* Message templetes */
 body.post-type-direkttmtemplates .v-theme--light {
   --v-theme-info: 34, 113, 177;
 }
@@ -364,6 +291,105 @@ body.post-type-direkttmtemplates .preview-item.active {
 }
 body.post-type-direkttmtemplates .v-tab--selected .v-tab__slider {
   opacity: 0.5;
+}
+body.post-type-direkttmtemplates #appBuilder .v-card {
+  overflow: visible !important;
+  box-shadow: none;
+}
+body.post-type-direkttmtemplates #appBuilder .v-card .direktt-message-template-builder .preview-item .v-row {
+  position: relative;
+  flex-wrap: nowrap;
+}
+body.post-type-direkttmtemplates #appBuilder .v-card .direktt-message-template-builder .preview-item .v-row .v-ivon {
+  margin-right: 0 !important;
+}
+body.post-type-direkttmtemplates #appBuilder .v-card .direktt-message-template-builder .v-col.v-col-6:nth-child(2) .details-panel {
+  position: sticky;
+  top: 3em;
+}
+body.post-type-direkttmtemplates #direktt-meta-app h1 {
+  font-size: 21px;
+  font-weight: 600;
+}
+
+/* Direktt users */
+body.post-type-direkttusers .direktt-review-meta-box .button.direktt-send-review {
+  width: 100%;
+}
+body.post-type-direkttusers .direktt-review-meta-box h4 {
+  margin-bottom: 0.5em;
+}
+body.post-type-direkttusers .direktt-review-meta-box table td:last-child {
+  text-align: right;
+}
+body.post-type-direkttusers #poststuff #direktt_review_program_meta_box .inside {
+  padding: 0;
+}
+body.post-type-direkttusers #poststuff #direktt_review_program_meta_box .inside .direktt-review-header {
+  padding: 6px 12px 0;
+}
+body.post-type-direkttusers #poststuff #direktt_review_program_meta_box .inside table {
+  border-left: none;
+  border-right: none;
+  border-bottom: none;
+}
+body.post-type-direkttusers #poststuff #direktt_loyalty_program_meta_box h2 .direktt-loyalty-current-points {
+  margin: 0;
+  font-weight: 600;
+}
+body.post-type-direkttusers #poststuff #direktt_loyalty_program_meta_box h2 .direktt-loyalty-current-points strong {
+  border-radius: 50%;
+  padding: 0 0.8rem;
+  background: #2271b1;
+  color: white;
+  font-weight: 600;
+  display: inline-block;
+  text-align: center;
+  min-width: 1rem;
+  /* 2rem (height) - 2 x 0.5rem (padding) */
+  line-height: 2rem;
+  margin: 0 0.25em;
+}
+body.post-type-direkttusers #poststuff #direktt_loyalty_program_meta_box .inside {
+  margin: 0;
+  padding: 0;
+}
+body.post-type-direkttusers #poststuff #direktt_loyalty_program_meta_box .inside table {
+  border: 0;
+}
+body.post-type-direkttusers #poststuff #direktt_loyalty_program_meta_box .inside table th:last-child, body.post-type-direkttusers #poststuff #direktt_loyalty_program_meta_box .inside table td:last-child {
+  text-align: right;
+}
+body.post-type-direkttusers #poststuff #direktt_loyalty_program_meta_box .inside table th:first-child, body.post-type-direkttusers #poststuff #direktt_loyalty_program_meta_box .inside table td:first-child {
+  text-align: center;
+}
+body.post-type-direkttusers #poststuff #direktt_loyalty_program_meta_box .direktt-loyalty-program-no-transactions {
+  padding-left: 12px;
+}
+body.post-type-direkttusers #poststuff #direktt_direkttusers_meta_box .inside {
+  margin: 0;
+  padding: 0;
+}
+body.post-type-direkttusers #poststuff #direktt_direkttusers_meta_box .inside table {
+  border: 0;
+}
+
+/* Service case */
+body.post-type-direktt_service_case input#dss_direktt_subscription_id_input {
+  width: 100%;
+}
+
+/* Cross sell */
+body .direktt-profile-data-cross-sell-tool-partners-coupon-groups {
+  display: flex;
+  frex-wrap: wrap;
+}
+body .direktt-profile-data-cross-sell-tool-partners-coupon-groups span {
+  padding: 8px 10px 7px;
+  border-radius: 5px;
+  margin: 0 1px;
+  background: #f0f0f1;
+  background: rgba(0, 0, 0, 0.07);
 }
 
 /* Message template editor */

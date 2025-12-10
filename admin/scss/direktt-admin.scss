@@ -24,8 +24,13 @@
 			margin-top: 0;
 			font-weight: 600;
 		}
+		.direktt-admin-popup-title {
+			margin-top: 0;
+		}
 	}
 }
+
+/* Settings */
 
 body.direktt_page_direktt-settings {
 	.v-theme--light {
@@ -285,110 +290,10 @@ body.direktt_page_direktt-settings {
 	
 }
 
-/* In cutom post type */
+/* In custom post type 
+---------------------------------------- */
 
-#direktt-meta-app {
-	h1 {
-		font-size: 21px;
-		font-weight: 600;
-	}
-}
-
-#appBuilder {
-	.v-card {
-		overflow: visible !important;
-		box-shadow: none;
-		.direktt-message-template-builder {
-			.preview-item .v-row {
-				position: relative;
-				flex-wrap: nowrap; 
-				.v-ivon {
-					margin-right: 0 !important;
-				}
-			}
-			.v-col.v-col-6:nth-child(1) {
-			}
-			.v-col.v-col-6:nth-child(2) {
-				.details-panel {
-					position: sticky;
-					top: 3em;
-				}
-			}
-		}
-	}
-}
-
-/* Various */
-
-.direktt-review-meta-box {
-	.button.direktt-send-review {
-		width: 100%;
-	}
-	h4 {
-		margin-bottom: 0.5em;
-	}
-	table {
-		td:last-child {
-			text-align: right;
-		}
-	}	
-}
-
-#poststuff #direktt_review_program_meta_box {
-	.inside {
-		padding: 0;
-		.direktt-review-header {
-			padding: 6px 12px 0;
-		}
-		table {
-			border-left: none;
-			border-right: none;
-			border-bottom: none;
-		}
-	}
-}
-#poststuff #direktt_loyalty_program_meta_box {
-	h2 {
-		.direktt-loyalty-current-points {
-			margin: 0;
-			font-weight: 600;
-			strong {
-				border-radius: 50%;
-				padding: 0 0.8rem;
-				background: #2271b1;
-				color: white;
-				font-weight: 600;
-				display: inline-block;
-				text-align: center;
-				min-width: 1rem; /* 2rem (height) - 2 x 0.5rem (padding) */
-				line-height: 2rem; 
-				margin: 0 0.25em;
-			}
-		}
-		
-	}
-	.inside {
-		margin: 0;
-		padding: 0;
-		table {
-			border: 0;
-			th, td {
-				&:last-child {
-					text-align: right;
-				}
-				&:first-child {
-					text-align: center;
-				}
-				
-			}
-		}
-	}
-	.direktt-loyalty-program-no-transactions {
-		padding-left: 12px;
-	}
-}
-
-/* Edit Message Template */
+/* Message templetes */
 
 body.post-type-direkttmtemplates {
 	.v-theme--light {
@@ -406,9 +311,144 @@ body.post-type-direkttmtemplates {
 	.v-tab--selected .v-tab__slider {
 		opacity: 0.5; 
 	}
+	#appBuilder {
+		.v-card {
+			overflow: visible !important;
+			box-shadow: none;
+			.direktt-message-template-builder {
+				.preview-item .v-row {
+					position: relative;
+					flex-wrap: nowrap; 
+					.v-ivon {
+						margin-right: 0 !important;
+					}
+				}
+				.v-col.v-col-6:nth-child(1) {
+				}
+				.v-col.v-col-6:nth-child(2) {
+					.details-panel {
+						position: sticky;
+						top: 3em;
+					}
+				}
+			}
+		}
+	}
+
+	#direktt-meta-app {
+		h1 {
+			font-size: 21px;
+			font-weight: 600;
+		}
+	}
+}
+
+/* Direktt users */
+
+body.post-type-direkttusers {
+	.direktt-review-meta-box {
+		.button.direktt-send-review {
+			width: 100%;
+		}
+		h4 {
+			margin-bottom: 0.5em;
+		}
+		table {
+			td:last-child {
+				text-align: right;
+			}
+		}	
+	}
+
+	#poststuff #direktt_review_program_meta_box {
+		.inside {
+			padding: 0;
+			.direktt-review-header {
+				padding: 6px 12px 0;
+			}
+			table {
+				border-left: none;
+				border-right: none;
+				border-bottom: none;
+			}
+		}
+	}
+	#poststuff #direktt_loyalty_program_meta_box {
+		h2 {
+			.direktt-loyalty-current-points {
+				margin: 0;
+				font-weight: 600;
+				strong {
+					border-radius: 50%;
+					padding: 0 0.8rem;
+					background: #2271b1;
+					color: white;
+					font-weight: 600;
+					display: inline-block;
+					text-align: center;
+					min-width: 1rem; /* 2rem (height) - 2 x 0.5rem (padding) */
+					line-height: 2rem; 
+					margin: 0 0.25em;
+				}
+			}
+			
+		}
+		.inside {
+			margin: 0;
+			padding: 0;
+			table {
+				border: 0;
+				th, td {
+					&:last-child {
+						text-align: right;
+					}
+					&:first-child {
+						text-align: center;
+					}
+					
+				}
+			}
+		}
+		.direktt-loyalty-program-no-transactions {
+			padding-left: 12px;
+		}
+	}
+
+	#poststuff  #direktt_direkttusers_meta_box {
+		.inside {
+			margin: 0;
+			padding: 0;
+			table {
+				border: 0;
+			}
+		}		
+	}	
+}
+
+/* Service case */
+
+body.post-type-direktt_service_case {
+	input#dss_direktt_subscription_id_input {
+		width: 100%;
+	}	
 }
 
 
+/* Cross sell */
+
+body {
+	.direktt-profile-data-cross-sell-tool-partners-coupon-groups {
+		display: flex;
+		frex-wrap: wrap;
+		span {
+			padding: 8px 10px 7px;
+			border-radius: 5px;
+			margin: 0 1px;
+			background: #f0f0f1;
+			background: rgba(0, 0, 0, .07);
+		}
+	}
+}
 
 
 /* Message template editor */ 
