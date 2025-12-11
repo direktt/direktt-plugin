@@ -11,6 +11,8 @@ import {
 
 import Editor from "./Editor.vue";
 
+const props = defineProps(["categories", "tags"]);
+
 const selected_template= ref({ value: 'all', label: 'All Messages' })
 const messageTypes = [
   { value: 'all', label: 'All Messages' },
@@ -24,7 +26,7 @@ const messageTypes = [
 <template>
 
   <v-card class="pa-4">
-    <Editor></Editor>
+    <Editor :categories="props.categories" :tags="props.tags"></Editor>
   </v-card>
 
 

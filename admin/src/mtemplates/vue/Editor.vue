@@ -16,6 +16,8 @@ import SingleButton from "./SingleButton.vue";
 
 import { mdiArrowUpDown } from '@mdi/js'
 
+const props = defineProps(["categories", "tags"]);
+
 const messages = ref([]);
 const activeMessageIndex = ref(0);
 
@@ -524,7 +526,7 @@ onMounted(() => {
                             </v-btn>
                           </v-row>
                           <v-row class="pa-4">
-                            <SingleButton :btn="btn"></SingleButton>
+                            <SingleButton :btn="btn" :categories="props.categories" :tags="props.tags"></SingleButton>
                           </v-row>
                         </v-card>
                       </template>

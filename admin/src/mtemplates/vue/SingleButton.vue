@@ -7,7 +7,7 @@ import {
 
 import RetVars from "./RetVars.vue";
 
-const props = defineProps(["btn"]);
+const props = defineProps(["btn", "categories", "tags"]);
 
 const hasRetVars = ref(false);
 
@@ -48,7 +48,7 @@ function onUpdateObj(newObj) {
                 </select>
             </div>
             <div class="mb-2">
-                <RetVars :obj="btn.action.retVars" @update:obj="onUpdateObj"></RetVars>
+                <RetVars :obj="btn.action.retVars" :categories="props.categories" :tags="props.tags" @update:obj="onUpdateObj"></RetVars>
             </div>
         </div>
 
@@ -59,7 +59,7 @@ function onUpdateObj(newObj) {
             <div class="mb-4"><strong>Success Message:</strong> <v-text-field v-model="btn.action.params.successMessage"
                     variant="outlined"></v-text-field></div>
             <div class="mb-2">
-                <RetVars :obj="btn.action.retVars" @update:obj="onUpdateObj"></RetVars>
+                <RetVars :obj="btn.action.retVars" :categories="props.categories" :tags="props.tags" @update:obj="onUpdateObj"></RetVars>
             </div>
         </div>
 

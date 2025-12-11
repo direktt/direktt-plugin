@@ -44,6 +44,7 @@ import { aliases, mdi } from 'vuetify/iconsets/mdi-svg'
         vueapp.mount("#direktt-meta-app")
 
         vueappBuilder.use(vuetify)
+        vueappBuilder.use(VueQueryPlugin)
         vueappBuilder.mount("#appBuilder")
 
     });

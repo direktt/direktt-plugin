@@ -97,9 +97,11 @@ onMounted(() => {
 <template>
 
   <v-card width="100%" class="pa-4 mb-4 sendMessageCard">
+    <!--
     <v-row class="pl-4 pr-4 text-caption">
       <v-checkbox label="Send only to users who gave consent" v-model="consent" color="info"></v-checkbox>
     </v-row>
+    -->
     <v-row class="pl-4 pr-4 text-caption">
       <v-radio-group inline v-model="userSet">
         <v-radio label="All Channel Subscribers" value="all" color="info"></v-radio>

@@ -103,33 +103,34 @@ onMounted(() => { });
 
 
 
-    <table class="widefat striped" role="presentation">
+  <table class="widefat striped" role="presentation">
 
-      <tbody v-if="data">
-        <tr>
-          <th scope="row"><label for="blogname">Direktt Subscription ID:</label></th>
-          <td>
-            {{ direktt_user_id }}
-          </td>
-        </tr>
-        <tr>
-          <th scope="row"><label for="blogname">Admin Subscription:</label></th>
-          <td>
-            {{ direktt_admin_subscription }}
-          </td>
-        </tr>
-        <tr>
-          <th scope="row"><label for="blogname">Avatar URL:</label></th>
-          <td>
-            {{ direktt_avatar_url }}
-          </td>
-        </tr>
-        <tr>
-          <th scope="row"><label for="blogname">Memebrship ID:</label></th>
-          <td>
-            {{ direktt_membership_id }}
-          </td>
-        </tr>
+    <tbody v-if="data">
+      <tr>
+        <th scope="row"><label for="blogname">Direktt Subscription ID:</label></th>
+        <td>
+          {{ direktt_user_id }}
+        </td>
+      </tr>
+      <tr>
+        <th scope="row"><label for="blogname">Admin Subscription:</label></th>
+        <td>
+          {{ direktt_admin_subscription }}
+        </td>
+      </tr>
+      <tr>
+        <th scope="row"><label for="blogname">Avatar URL:</label></th>
+        <td>
+          {{ direktt_avatar_url }}
+        </td>
+      </tr>
+      <tr>
+        <th scope="row"><label for="blogname">Memebrship ID:</label></th>
+        <td>
+          {{ direktt_membership_id }}
+        </td>
+      </tr>
+      <!--
         <tr>
           <th scope="row"><label for="blogname">Marketing consent:</label></th>
           <td>
@@ -143,21 +144,20 @@ onMounted(() => { });
             </div>
           </td>
         </tr>
-        <tr v-if="data.direktt_channel_title != '' && data.direktt_channel_id != ''">
-          <th scope="row"><label for="blogname">User Chat QR Code</label></th>
-          <td>
-            <div>
-              <QRCodeStyling v-if="refUserObject"
-                :qr-code-data="createChatQRCode( direktt_user_id )"
-                :qr-code-logo-url="refUserObject.qr_code_logo_url"
-                :qr-code-color="refUserObject.qr_code_color"
-                :qr-code-bckg-color="refUserObject.qr_code_bckg_color" />
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <p></p>
+        -->
+      <tr v-if="data.direktt_channel_title != '' && data.direktt_channel_id != ''">
+        <th scope="row"><label for="blogname">User Chat QR Code</label></th>
+        <td>
+          <div>
+            <QRCodeStyling v-if="refUserObject" :qr-code-data="createChatQRCode(direktt_user_id)"
+              :qr-code-logo-url="refUserObject.qr_code_logo_url" :qr-code-color="refUserObject.qr_code_color"
+              :qr-code-bckg-color="refUserObject.qr_code_bckg_color" />
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <p></p>
 
   <!--<h1 class="mt-4">Direktt User Events</h1>
   <v-infinite-scroll :height="300" :items="items" :onLoad="load">
@@ -166,7 +166,7 @@ onMounted(() => { });
         Item number #{{ item }}
       </div>
     </template>
-  </v-infinite-scroll>-->
+</v-infinite-scroll>-->
 </template>
 
 <style></style>

@@ -6,9 +6,21 @@ const props = defineProps({
     type: Object,
     required: true,
   },
+  categories: {
+    type: Array,
+    required: false,
+    default: () => [],
+  },
+  tags: {
+    type: Array,
+    required: false,
+    default: () => [],
+  },
 });
 
 const emit = defineEmits(["update:obj"]);
+
+const selectedCategories = ref([]);
 
 // Helper: convert object to pairs
 function objectToPairs(obj) {
@@ -105,5 +117,18 @@ function removePair(idx) {
         </v-btn>
       </v-col>
     </v-row>
+
+    <v-autocomplete v-model="selectedCategories" :items="props.categories" color="blue-grey-lighten-2" item-title="name"
+      item-value="value" label="Categories" chips closable-chips multiple density="comfortable" id="categories_autocomplete">
+      <template v-slot:chip="{ props, item }">
+        <v-chip v-bind="props" :prepend-avatar="item.raw.avatar" :text="item.raw.name" color="info"
+          variant="flat"></v-chip>
+      </template>
+
+      <template v-slot:item="{ props, item }">
+        <v-list-item v-bind="props" :prepend-avatar="item.raw.avatar" :subtitle="item.raw.group"
+          :title="item.raw.name"></v-list-item>
+      </template>
+    </v-autocomplete>
   </v-card>
 </template>

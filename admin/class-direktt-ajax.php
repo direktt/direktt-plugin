@@ -47,7 +47,9 @@ class Direktt_Ajax {
 			$tags       = ( isset( $_POST['tags'] ) ) ? json_decode( sanitize_text_field( wp_unslash( $_POST['tags'] ) ), true ) : false;
 
 			$user_set = ( isset( $_POST['userSet'] ) ) ? sanitize_text_field( wp_unslash( $_POST['userSet'] ) ) : false;
+			
 			$consent  = filter_input( INPUT_POST, 'consent', FILTER_VALIDATE_BOOLEAN ) ?? false;
+			$consent = false;
 
 			$message_template_id = ( isset( $_POST['postId'] ) ) ? sanitize_text_field( wp_unslash( $_POST['postId'] ) ) : false;
 
