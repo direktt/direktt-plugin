@@ -1012,13 +1012,11 @@ Direktt messages are the primary way to communicate with your subscribers and ch
 
 ## Message Structure Overview
 
-In Direktt, a **message** is an **array of content parts**.
+In Direktt, a **message** contains a single content part **(e.g., one text or one image)**.
 
-When sending from the Direktt mobile app UI, a message typically contains a single content part (e.g., one text or one image).
+When sending via the **Direktt WordPress API**, each content part possibly sent as an array will end up being a separate, single Direktt message.
 
-When sending via the **Direktt WordPress API**, a single message can include **multiple content parts** of various types (text + image + buttons, etc.).
-
-**Supported content part types:**
+**Supported content part types / message types:**
 
 - `text`
 - `image`
@@ -1027,10 +1025,6 @@ When sending via the **Direktt WordPress API**, a single message can include **m
 - `rich` (interactive content; currently used for buttons)
 
 Each content part is a JSON object with type-specific properties.
-
-At the top level, a message is an array of these parts:
-
-- Message = `[ contentPart1, contentPart2, ... ]`
 
 ### Content Part Properties
 
@@ -1074,51 +1068,43 @@ Common properties within each content part:
 
 **Text Message**
 ```json
-[
-  {
-    "type": "text",
-    "content": "Welcome to our channel"
-  }
-]
+{
+  "type": "text",
+  "content": "Welcome to our channel"
+}
 ```
 
 **Image Message**
 ```json
-[
-  {
-    "type": "image",
-    "content": "Image description HERE",
-    "thumbnail": "https://placehold.in/600x200.png/dark",
-    "media": "https://placehold.in/600x200.png/dark",
-    "width": 600,
-    "height": 200
-  }
-]
+{
+  "type": "image",
+  "content": "Image description HERE",
+  "thumbnail": "https://placehold.in/600x200.png/dark",
+  "media": "https://placehold.in/600x200.png/dark",
+  "width": 600,
+  "height": 200
+}
 ```
 
 **Video Message**
 ```json
-[
-  {
-    "type": "video",
-    "content": "Video description HERE",
-    "media": "https://videos.pexels.com/video-files/3195394/3195394-uhd_2560_1440_25fps.mp4",
-    "thumbnail": "https://placehold.in/2560x1440.png",
-    "width": 2560,
-    "height": 1440
-  }
-]
+{
+  "type": "video",
+  "content": "Video description HERE",
+  "media": "https://videos.pexels.com/video-files/3195394/3195394-uhd_2560_1440_25fps.mp4",
+  "thumbnail": "https://placehold.in/2560x1440.png",
+  "width": 2560,
+  "height": 1440
+}
 ```
 
 **File Message**
 ```json
-[
-  {
-    "type": "file",
-    "content": "File description HERE",
-    "media": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
-  }
-]
+{
+  "type": "file",
+  "content": "File description HERE",
+  "media": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+}
 ```
 
 ### Rich Messages (Buttons)
@@ -1203,12 +1189,10 @@ Content (decoded form):
 Wrapped in a `rich` content part:
 
 ```json
-[
-  {
-    "type": "rich",
-    "content": "{... JSON above encoded as a string ...}"
-  }
-]
+{
+  "type": "rich",
+  "content": "{... JSON above encoded as a string ...}"
+}
 ```
 
 Buttons Rich Content PHP Example
@@ -1239,11 +1223,13 @@ $richMessageObj = array(
 );
 ```
 
-You could then include `$richMessageObj` as one item in your message array.
+You could then include `$richMessageObj` as one item in your message array when sending from **Direktt WordPress API**.
 
 ## Direktt Message Templates & Replacement Tags
 
-Direktt provides **message templates** via a custom post type (**Direktt > Message Templates**). Each template stores one or more message parts as a JSON representation (`direkttMTJson` post meta).
+Direktt provides **message templates** via a custom post type (**Direktt > Message Templates**). Each template stores one or more content parts as a JSON representation (`direkttMTJson` post meta).
+
+Each content part will be a separate Direktt message with the order set in the template preserved.
 
 You can send templates:
 
@@ -1251,6 +1237,7 @@ You can send templates:
 - To the channel admin.
 - From:
   - The Direktt mobile app UI, or
+  - wp-admin
   - Your own plugin code using Direktt_Message methods.
 
 ### Replacement Tags
@@ -1346,21 +1333,19 @@ Internally, for each entry:
   - `pushNotificationMessage` → value.
 - POSTs to Direktt remote endpoint (`/sendbulkmessages`).
 
-You are responsible for building the message object in the correct format (array of content parts, etc.).
+You are responsible for building the message object in the correct format.
 
 **Returns:**
 
-- Always `true` on completion, regardless of whether the remote call succeeded or failed. 
+- Array of responses from the remote endpoint regardless of whether the remote call succeeded or failed. 
 
 **Example:**
 
 ```php
 $message = array(
-  (object) array(
-    'type'    => 'text',
-    'content' => 'Hello from WordPress!',
-    ),
-  );
+  'type'    => 'text',
+  'content' => 'Hello from WordPress!',
+);
 
 Direktt_Message::send_message(
   array(
@@ -1386,7 +1371,7 @@ Update an existing message’s content (e.g., for editing or correcting a previo
   The unique ID of the message you want to update (provided by Direktt).
 
 - `$content` (mixed)  
-  The new content you want to set for the message. This should match the expected message format for the Direktt update API (generally a message object or its content parts).
+  The new content you want to set for the message. This should match the expected message format.
 
 Internally:
 
@@ -1439,12 +1424,12 @@ Send a message template to one or more Direktt users, with optional tag replacem
   - Builds a payload object:
     - `subscriptionId` → current user id.
     - `pushNotificationMessage` → current `$message`.
-- Sends all built payload objects as a single bulk request to `/sendbulkmessages`.
+- Sends all built payload objects to `/sendbulkmessages` in batches.
 
 **Returns:**
 
 - If a template is found and at least one message is processed:
-  - Returns the last `$message` object processed (mainly for debugging).
+  - Returns the responses array from remote endpoint.
 - If no template is found:
   - Returns `false`.
 
@@ -1459,28 +1444,21 @@ Send a message template to one or more Direktt users, with optional tag replacem
 Direktt_Message::send_message_to_admin( $message )
 ```
 
-Send a message directly to the **channel admin** via a dedicated admin endpoint.
+Send a message(s) directly to the **channel admin** via a dedicated admin endpoint.
 
 **Parameters:**
 
-- `$message` (object)  
-  A message object representing the admin message. It should be formatted the same way as subscriber messages (array of content parts, etc.), but given as the value of `pushNotificationMessage`.
-
-  Typical structure:
-
-  - An object or array representing either:
-    - A full message array, or
-    - A single message object, depending on API expectations.
+- `$message` (object / Array)  
+  A message object representing the admin message. It should be formatted the same way as subscriber messages. If given array of message objects, each will be sent while preserving the order in the array
 
 Internally:
-
 - Builds payload:
   - `pushNotificationMessage` → `$message`.
 - Sends a POST to the `sendadminmessage` endpoint for the linked channel.
 
 **Returns:**
 
-- No explicit return value (void). `$response` from `wp_remote_post()` is not returned.
+- Return an array of responses from remote endpoint.
 
 ### Send Message Template to Admin
 
