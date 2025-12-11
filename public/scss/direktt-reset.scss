@@ -142,10 +142,11 @@ html {
 		background: white;
 	}
 	input[type="checkbox"] {
+		font-size: 18px;
 		-webkit-appearance: none; 
 		appearance: none; 
-		width: 1rem;
-		height: 1rem;
+		width: 1em;
+		height: 1em;
 		/* border: 2px solid #ccc; */
 		border: none;
 		box-shadow: 0 0 0 2px var(--direktt-profile-light-gray-color);
@@ -154,20 +155,19 @@ html {
 		cursor: pointer;
 		padding: 0;
 		outline: none;
-		position: relative;
+		position: relative; 
 		&:after {
 			font-family: 'direktt-profile-icons' !important;
 			content: ' ';
 			display: block;
 			color: transparent;
 			font-weight: 600;
-			font-size: 1rem;
 			text-align: center;
 			line-height: 1rem; 
-			height: 1rem; 
-			width: 1rem; 
+			height: 1em; 
+			width: 1em; 
 			position: absolute;
-			top: 0px;
+			top: 1px;
 			left: -1px;
 		}
 		&:checked {

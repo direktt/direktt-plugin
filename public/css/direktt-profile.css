@@ -126,10 +126,11 @@ html {
   background: white;
 }
 #direktt-profile input[type=checkbox] {
+  font-size: 18px;
   -webkit-appearance: none;
   appearance: none;
-  width: 1rem;
-  height: 1rem;
+  width: 1em;
+  height: 1em;
   /* border: 2px solid #ccc; */
   border: none;
   box-shadow: 0 0 0 2px var(--direktt-profile-light-gray-color);
@@ -146,13 +147,12 @@ html {
   display: block;
   color: transparent;
   font-weight: 600;
-  font-size: 1rem;
   text-align: center;
   line-height: 1rem;
-  height: 1rem;
-  width: 1rem;
+  height: 1em;
+  width: 1em;
   position: absolute;
-  top: 0px;
+  top: 1px;
   left: -1px;
 }
 #direktt-profile input[type=checkbox]:checked {
@@ -241,8 +241,8 @@ body.direktt-app .ui-menu .ui-menu-item-wrapper {
   /* Various */
   --direktt-profile-border-radius: 50px;
   --direktt-profile-border-small-radius: 10px;
-  --direktt-profile-tools-width: 200px;
-  --direktt-profile-tools-negative-width: -200px;
+  --direktt-profile-tools-width: 240px;
+  --direktt-profile-tools-negative-width: -240px;
 }
 
 /* Fonts */
@@ -455,6 +455,7 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
   /* Taxonomy tool */
   /* Loyalty program */
   /* Auto greet */
+  /* Membership */
   /* Cross sell */
 }
 #direktt-profile button:not([class^=ql-]), #direktt-profile .button, #direktt-profile .direktt-button {
@@ -1008,6 +1009,32 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
 }
 #direktt-profile .direktt-profile-data-auto-greet .direktt-button {
   margin-top: 1em;
+}
+#direktt-profile .direktt-profile-data-membership-tool .direktt-membership-packages-table tr:not(.direktt-membership-actions) td {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+#direktt-profile .direktt-profile-data-membership-tool .direktt-profile-data-membership-tool-table tr.direktt-membership-package-active-no td,
+#direktt-profile .direktt-profile-data-membership-tool .direktt-profile-data-membership-tool-table tr.direktt-membership-package-active-yes td {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+#direktt-profile .direktt-profile-data-membership-tool .direktt-profile-data-membership-tool-table tr:not(.direktt-membership-package-active-no):not(.direktt-membership-package-active-yes) td {
+  text-align: center;
+}
+#direktt-profile .direktt-profile-data-membership-tool .direktt-membership-packages-table th:not(:first-child),
+#direktt-profile .direktt-profile-data-membership-tool .direktt-membership-packages-table td:not(:first-child),
+#direktt-profile .direktt-profile-data-membership-tool .direktt-profile-data-membership-tool-table th:not(:first-child),
+#direktt-profile .direktt-profile-data-membership-tool .direktt-profile-data-membership-tool-table td:not(:first-child) {
+  text-align: right;
+}
+#direktt-profile .direktt-profile-data-membership-tool .direktt-membership-packages-table tr.direktt-membership-package-active-no,
+#direktt-profile .direktt-profile-data-membership-tool .direktt-profile-data-membership-tool-table tr.direktt-membership-package-active-no {
+  opacity: 0.3;
+}
+#direktt-profile .direktt-profile-data-membership-tool .direktt-membership-filter-wrapper {
+  display: flex;
+  gap: 5px;
 }
 #direktt-profile .direktt-profile-data-cross-sell-tool.direktt-service .direktt-cross-sell-qr-canvas-wrapper {
   border: 1px solid var(--direktt-profile-light-gray-color);

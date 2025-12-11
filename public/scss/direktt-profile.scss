@@ -34,8 +34,8 @@
 	/* Various */
 	--direktt-profile-border-radius: 50px;  
 	--direktt-profile-border-small-radius: 10px;  
-	--direktt-profile-tools-width: 200px;
-	--direktt-profile-tools-negative-width: -200px;  
+	--direktt-profile-tools-width: 240px;
+	--direktt-profile-tools-negative-width: -240px;  
 } 
 
 /* Fonts */
@@ -762,7 +762,49 @@
 			margin-top: 1em;
 		}  
 	}
-	
+
+	/* Membership */
+	.direktt-profile-data-membership-tool {
+		.direktt-membership-packages-table {
+			tr:not(.direktt-membership-actions) {
+				td {
+					border-bottom: none;
+					padding-bottom: 0;
+				}
+				
+			}			
+		}
+		.direktt-profile-data-membership-tool-table {
+			tr.direktt-membership-package-active-no, 
+			tr.direktt-membership-package-active-yes {
+				td {
+					border-bottom: none;
+					padding-bottom: 0;
+				}
+				
+			}
+			tr:not(.direktt-membership-package-active-no):not(.direktt-membership-package-active-yes) {
+				td {
+					text-align: center;
+				}
+				
+			}
+		}
+		.direktt-membership-packages-table,
+		.direktt-profile-data-membership-tool-table {
+			th:not(:first-child),
+			td:not(:first-child) {
+				text-align: right;
+			}
+			tr.direktt-membership-package-active-no {
+				opacity: 0.3;
+			}	
+		}
+		.direktt-membership-filter-wrapper {
+			display: flex;
+			gap: 5px;
+		}
+	}
 	
 	/* Cross sell */
 	
