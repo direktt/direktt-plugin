@@ -460,6 +460,7 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
 }
 #direktt-profile button:not([class^=ql-]), #direktt-profile .button, #direktt-profile .direktt-button {
   font-family: var(--direktt-profile-headlines-font-family);
+  text-align: center;
 }
 #direktt-profile button:not([class^=ql-]).button-large, #direktt-profile .button.button-large, #direktt-profile .direktt-button.button-large {
   padding: 1.5em 2em;
@@ -479,6 +480,12 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
 #direktt-profile button:not([class^=ql-]).button-dark-gray, #direktt-profile .button.button-dark-gray, #direktt-profile .direktt-button.button-dark-gray {
   background-color: var(--direktt-profile-dark-gray-color);
   box-shadow: 0 0 0 2px var(--direktt-profile-dark-gray-color);
+}
+#direktt-profile button:not([class^=ql-]).button-left, #direktt-profile .button.button-left, #direktt-profile .direktt-button.button-left {
+  text-align: left;
+}
+#direktt-profile button:not([class^=ql-]).button-right, #direktt-profile .button.button-right, #direktt-profile .direktt-button.button-right {
+  text-align: right;
 }
 #direktt-profile button:not([class^=ql-]).button-invert, #direktt-profile .button.button-invert, #direktt-profile .direktt-button.button-invert {
   background-color: white;
@@ -1019,18 +1026,16 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
   border-bottom: none;
   padding-bottom: 0;
 }
-#direktt-profile .direktt-profile-data-membership-tool .direktt-profile-data-membership-tool-table tr:not(.direktt-membership-package-active-no):not(.direktt-membership-package-active-yes) td {
-  text-align: center;
+#direktt-profile .direktt-profile-data-membership-tool .direktt-profile-data-membership-tool-table tr.direktt-membership-package-active-no {
+  opacity: 0.3;
 }
+#direktt-profile .direktt-profile-data-membership-tool .direktt-profile-data-membership-tool th:not(:first-child),
+#direktt-profile .direktt-profile-data-membership-tool .direktt-profile-data-membership-tool td:not(:first-child),
 #direktt-profile .direktt-profile-data-membership-tool .direktt-membership-packages-table th:not(:first-child),
 #direktt-profile .direktt-profile-data-membership-tool .direktt-membership-packages-table td:not(:first-child),
 #direktt-profile .direktt-profile-data-membership-tool .direktt-profile-data-membership-tool-table th:not(:first-child),
 #direktt-profile .direktt-profile-data-membership-tool .direktt-profile-data-membership-tool-table td:not(:first-child) {
   text-align: right;
-}
-#direktt-profile .direktt-profile-data-membership-tool .direktt-membership-packages-table tr.direktt-membership-package-active-no,
-#direktt-profile .direktt-profile-data-membership-tool .direktt-profile-data-membership-tool-table tr.direktt-membership-package-active-no {
-  opacity: 0.3;
 }
 #direktt-profile .direktt-profile-data-membership-tool .direktt-membership-filter-wrapper {
   display: flex;

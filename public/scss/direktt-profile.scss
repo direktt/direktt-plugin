@@ -99,6 +99,7 @@
 	
 	button:not([class^='ql-']), .button, .direktt-button {
 		font-family: var(--direktt-profile-headlines-font-family);
+		text-align: center;
 		&.button-large {
 			padding: 1.5em 2em; 
 		}
@@ -117,6 +118,12 @@
 		&.button-dark-gray {
 			background-color: var(--direktt-profile-dark-gray-color);
 			box-shadow: 0 0 0 2px var(--direktt-profile-dark-gray-color);
+		}
+		&.button-left {
+			text-align: left;
+		}
+		&.button-right {
+			text-align: right;
 		}
 		&.button-invert {
 			background-color: white;
@@ -781,23 +788,18 @@
 					border-bottom: none;
 					padding-bottom: 0;
 				}
-				
 			}
-			tr:not(.direktt-membership-package-active-no):not(.direktt-membership-package-active-yes) {
-				td {
-					text-align: center;
-				}
-				
+			tr.direktt-membership-package-active-no {
+				opacity: 0.3;
 			}
+
 		}
+		.direktt-profile-data-membership-tool,
 		.direktt-membership-packages-table,
 		.direktt-profile-data-membership-tool-table {
 			th:not(:first-child),
 			td:not(:first-child) {
 				text-align: right;
-			}
-			tr.direktt-membership-package-active-no {
-				opacity: 0.3;
 			}	
 		}
 		.direktt-membership-filter-wrapper {
