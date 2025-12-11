@@ -114,6 +114,7 @@ class Direktt {
 		$notes_tool = new Direktt_Notes_Tool( $this->get_plugin_name(), $this->get_version() );
 		$this->loader->add_action( 'direktt_setup_profile_bar', $notes_tool, 'setup_profile_tools_notes' );
 		$this->loader->add_action( 'wp_ajax_direktt_quill_upload_image', $notes_tool, 'direktt_quill_upload_image_handler' );
+		$this->loader->add_action( 'wp_ajax_nopriv_direktt_quill_upload_image', $notes_tool, 'direktt_quill_upload_image_handler' );
 
 		$taxonomies_service = new Direktt_Taxonomies_Service( $this->get_plugin_name(), $this->get_version() );
 		$this->loader->add_action( 'direktt_enqueue_public_scripts', $taxonomies_service, 'direktt_register_taxonomies_service_scripts' );
@@ -201,8 +202,9 @@ class Direktt {
 		$this->loader->add_action( 'wp_ajax_direktt_send_mtemplates_message', $plugin_ajax, 'ajax_send_mtemplates_message' );
 
 		// messaging on profile.
-		$this->loader->add_action( 'wp_ajax_direktt_get_mtemplates_profile_message', $plugin_ajax, 'ajax_get_mtemplates_profile_message' );
+		$this->loader->add_action( 'wp_ajax_nopriv_direktt_get_mtemplates_profile_message', $plugin_ajax, 'ajax_get_mtemplates_profile_message' );
 		$this->loader->add_action( 'wp_ajax_direktt_get_users_taxonomy_service', $plugin_ajax, 'ajax_get_users_taxonomy_service' );
+		$this->loader->add_action( 'wp_ajax_nopriv_direktt_get_users_taxonomy_service', $plugin_ajax, 'ajax_get_users_taxonomy_service' );
 	}
 
 	public function run() {
