@@ -412,6 +412,13 @@ class Direktt_Admin
 					$this->version
 				);
 
+				wp_enqueue_style(
+					$this->plugin_name . '-message-preview',
+					plugin_dir_url(__DIR__) . 'admin/css/direktt-message-preview.css',
+					array($this->plugin_name . '-admin'),
+					$this->version
+				);
+
 				wp_enqueue_script(
 					$this->plugin_name . '-mtemplates',
 					plugin_dir_url(__DIR__) . 'admin/js/mtemplates/direktt-mtemplates.js',
