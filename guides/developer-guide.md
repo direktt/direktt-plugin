@@ -1802,6 +1802,8 @@ Resulting URL in the app:
 https://example.com/sample-page/?sampleVar=1&eventId=XXXXXXX
 ```
 
+**Keep in mind that the retVars values have to be strings, so if you want to pass a JSON object, you need to stringify / wp_json_encode it**
+
 ### Example: API Action with `retVars`
 
 ```json
@@ -1860,7 +1862,7 @@ Supported keys:
 - `addDirekttUserTag`
 - `removeDirekttUserTag`
 
-Each of these expects an **array** of either:
+Each of these expects an **stringified / wp_json_encodeed array** of either:
 
 - Term **slugs**, or
 - Term **IDs**
@@ -1883,7 +1885,8 @@ The plugin then automatically:
     },
     "retVars": {
       "eventId": "XXXXXXX",
-      "addDirekttUserCategory": ["registered"]
+      "addDirekttUserCategory": "[\"registered\"]",
+      "removeDirekttUserTag": "[3]"
     }
   }
 }
