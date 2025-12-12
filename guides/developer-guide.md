@@ -1862,10 +1862,10 @@ Supported keys:
 - `addDirekttUserTag`
 - `removeDirekttUserTag`
 
-Each of these expects an **stringified / wp_json_encodeed array** of either:
+Each of these expects a **stringified / wp_json_encode(d) array** of either:
 
-- Term **slugs**, or
-- Term **IDs**
+- Term **slugs (strings)**, or
+- Term **IDs (ints)**
 
 for the corresponding taxonomy.
 
