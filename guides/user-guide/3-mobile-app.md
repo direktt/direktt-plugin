@@ -26,7 +26,7 @@ Direktt makes it easy for users to join your channel - whether they’re shoppin
 
 ### **3. Subscribe by Channel Handle**
 
-* **Where to use**: Share your channel handle (unique identifier, e.g. “pineapple\_pizzeria”) with your audience.  
+* **Where to use**: Share your channel handle (unique identifier, e.g. “pineapple_pizzeria”) with your audience.  
 * **How to define handle**:  
   * Set your channel handle in **Direktt Admin Console** under **Channel Info**.  
 * **How users join**:  
@@ -41,7 +41,7 @@ Direktt makes it easy for users to join your channel - whether they’re shoppin
 * If no policy is set, users are informed that the policy is missing.  
 * Users must tap **Agree** to join (or Cancel).
 
-### **What if User Doesnt Have the Direktt App?**
+### **What if User Doesn't Have the Direktt App?**
 
 * When scanning the QR code or tapping the link, users without the app will be prompted to install Direktt before subscribing.
 
@@ -49,13 +49,13 @@ Direktt makes it easy for users to join your channel - whether they’re shoppin
 
 | Method | Where to Find | User Steps | App Required? |
 | ----- | ----- | ----- | ----- |
-| **QR Code** | Direktt Admin Console / WP Dashboard | Scan with Camera app or Direktt app’s Add Channel \> Scan QR Code | No \- will prompt |
-| **Subscription Link** | Direktt Admin Console / WP Dashboard | Tap link → Open in app (or prompted to install) | No \- will prompt |
+| **QR Code** | Direktt Admin Console / WP Dashboard | Scan with Camera app or Direktt app’s Add Channel > Scan QR Code | No - will prompt |
+| **Subscription Link** | Direktt Admin Console / WP Dashboard | Tap link → Open in app (or prompted to install) | No - will prompt |
 | **Channel Handle** | Set in Direktt Admin Console | Enter handle in app’s Add Channel screen and tap Add | Yes |
 
 ### **Tips**
 
-> * **Make it easy for users** - share your handle, QR code, or subscription link wherever you promote your channel\!
+> * **Make it easy for users** - share your handle, QR code, or subscription link wherever you promote your channel!
 > * If you need help locating your subscription QR code, link, or handle, refer to the Direktt Admin Console or WordPress Dashboard. For further support, contact **[Direktt support](https://direktt.com/support/)**.
 
 ## Built in Admin Features
