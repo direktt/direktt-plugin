@@ -2,7 +2,7 @@
 
 Direktt makes it easy for users to join your channel - whether they’re shopping in-store, browsing online, or following your social media. There are three ways to subscribe, all designed to be quick and user-friendly.
 
-### **1\. Subscribe by Scanning a QR Code**
+### **1. Subscribe by Scanning a QR Code**
 
 * **Where to use**: Print or display your QR code in-store, on product materials, or digital ads.  
 * **How to find your QR code**:  
@@ -13,18 +13,18 @@ Direktt makes it easy for users to join your channel - whether they’re shoppin
   * Point the camera at the QR code.  
   * If not installed, users are prompted to download the Direktt app first.
 
-### **2\. Subscribe via Subscription Link**
+### **2. Subscribe via Subscription Link**
 
 * **Where to use**: Share the unique subscription link in your social media posts, on your website, or anywhere you engage your audience.  
 * **How to find your link**:  
   * In the Direktt Admin Console, under Channel Info - **“Url for Channel Subscription”**.  
-  * Or in **Direktt \> Dashboard** in WordPress.  
+  * Or in **Direktt > Dashboard** in WordPress.  
 * **How users join**:  
   * Tap the link (e.g., from social media or blog).  
   * If Direktt app is not installed, user is prompted to install it.  
   * After opening in Direktt app, user subscribes with a single tap.
 
-### **3\. Subscribe by Channel Handle**
+### **3. Subscribe by Channel Handle**
 
 * **Where to use**: Share your channel handle (unique identifier, e.g. “pineapple\_pizzeria”) with your audience.  
 * **How to define handle**:  
@@ -78,18 +78,18 @@ Here’s how to use the admin tools and manage channels on the go.
 
 ### **Admin Channel Dashboard Features**
 
-#### **1\. Channel Chats**
+#### **1. Channel Chats**
 
 * View and respond to **subscriber chats** as an admin.  
 * Access past conversations and notifications.
 
-#### **2\. Bulk Messaging**
+#### **2. Bulk Messaging**
 
 * Tap **Send Bulk Messages** (visible in Admin mode).  
 * Write a message and send it to all channel subscribers at once.  
 * Useful for announcements, updates, or promotions.
 
-#### **3\. Admin Links (Admin Services)**
+#### **3. Admin Links (Admin Services)**
 
 Admin Links let you quickly access connected admin tools and resources for each channel.
 
