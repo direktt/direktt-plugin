@@ -6,10 +6,10 @@ Direktt makes it easy for users to join your channel - whether they’re shoppin
 
 * **Where to use**: Print or display your QR code in-store, on product materials, or digital ads.  
 * **How to find your QR code**:  
-  * In the Direktt Admin Console, under **Channel Info \- “Channel’s Subscription QR Code”**.  
-  * Or in WordPress wp-admin under **Direktt \> Dashboard**.  
+  * In the Direktt Admin Console, under **Channel Info - “Channel’s Subscription QR Code”**.  
+  * Or in WordPress wp-admin under **Direktt > Dashboard**.  
 * **How users join**:  
-  * Open the camera app on your phone \- no need to have Direktt mobile app installed  
+  * Open the camera app on your phone - no need to have Direktt mobile app installed  
   * Point the camera at the QR code.  
   * If not installed, users are prompted to download the Direktt app first.
 
