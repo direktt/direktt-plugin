@@ -41,7 +41,7 @@ Direktt makes it easy for users to join your channel - whether they’re shoppin
 * If no policy is set, users are informed that the policy is missing.  
 * Users must tap **Agree** to join (or Cancel).
 
-### **What if User Doesn’t Have the Direktt App?**
+### **What if User Doesnt Have the Direktt App?**
 
 * When scanning the QR code or tapping the link, users without the app will be prompted to install Direktt before subscribing.
 
