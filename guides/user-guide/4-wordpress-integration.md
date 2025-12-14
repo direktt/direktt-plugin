@@ -224,11 +224,11 @@ Your Direktt profile page is now securely and seamlessly integrated with your Wo
 
 Once you enable Direktt user rights for a page, access is restricted - these pages are only visible from within the Direktt app for the intended user roles. This can make desktop/website testing tricky. However, you can simulate the exact experience of a Direktt user within wp-admin by following these steps:
 
-### **Set Up “Test Direktt User” Mode for Your WP User**
+### **Set Up "Test Direktt User" Mode for Your WP User**
 
 * Go to your WordPress Dashboard.  
-* From the main menu, select **Users \> Profile** (or “Your Profile”).  
-* Find the **“Direktt User Properties”** section.  
+* From the main menu, select **Users > Profile** (or "Your Profile").  
+* Find the **"Direktt User Properties"** section.  
 * In the field labeled **Post Id of Test Direktt User**, enter the **Post ID** of the Direktt user you wish to simulate.  
   * Every Direktt user Post (including subscribers and channel admin) has a unique Post ID.  
 * Click **Update Profile** to save.
