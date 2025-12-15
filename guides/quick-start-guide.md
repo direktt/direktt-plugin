@@ -34,7 +34,7 @@
 
 * Your new channel appears in the channel list – you’re ready to go!
 
-![Direktt Admin Console](https://direktt.com/wp-content/screenshots/quick-start-guide-1.webp)
+[![Direktt Admin Console](https://direktt.com/wp-content/screenshots/quick-start-guide-1.webp)](https://direktt.com/wp-content/screenshots/quick-start-guide-1.webp)
 
 ## Test Your Channel 🔎
 
