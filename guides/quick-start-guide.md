@@ -77,7 +77,7 @@
 
 ### **7. Channel tested!**
 
-* You’ve sent messages as both subscriber **and**admin – your channel chat is fully working!
+* You’ve sent messages as both subscriber **and** admin – your channel chat is fully working!
 
 ## Connect WordPress to Direktt 🔗📝
 
