@@ -80,6 +80,8 @@ Service Links appear as buttons within your channel in the Direktt mobile app fo
 * Drag & Drop  
   * Reorder Service Links by **dragging them** to your preferred order.
 
+[![Channel List](https://direktt.com/wp-content/screenshots/user-guide-2-4.webp)](https://direktt.com/wp-content/screenshots/user-guide-2-4.webp)
+
 ### **Channel Policy**
 
 Set a clear privacy and data protection policy to inform users about how their data will be handled by your channel.
@@ -95,6 +97,8 @@ Set a clear privacy and data protection policy to inform users about how their d
   * Click **Save Changes**.
 
 **Note:** Subscribers will see and must agree to your channel policy before joining.
+
+[![Channel List](https://direktt.com/wp-content/screenshots/user-guide-2-5.webp)](https://direktt.com/wp-content/screenshots/user-guide-2-5.webp)
 
 ### **Other Channel Properties Overview**
 
