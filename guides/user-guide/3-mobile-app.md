@@ -105,6 +105,8 @@ Admin Links let you quickly access connected admin tools and resources for each 
   * **Browser**: Opens the link in your device’s default browser.  
 * You can **drag and drop** links in the admin console to reorder how they appear in the app.
 
+[![Admin Services](https://direktt.com/wp-content/screenshots/user-guide-3-1.webp)](https://direktt.com/wp-content/screenshots/user-guide-3-1.webp)
+
 ### **Admin Capabilities at a Glance**
 
 | Feature | What You Can Do |
