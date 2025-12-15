@@ -12,7 +12,7 @@ Follow these step-by-step instructions to activate your instance. This process r
 
 ### **Step-by-Step Activation Guide**
 
-#### **1\. Retrieve Your WordPress API Key from Direktt**
+#### **1. Retrieve Your WordPress API Key from Direktt**
 
 * Log in to the **[Direktt admin console](https://direktt.com/wp-content/direkttweb/)** and navigate to your channel.  
 * Scroll to the **WordPress Instance Info** and **API Key & API Access section**.  
@@ -20,34 +20,38 @@ Follow these step-by-step instructions to activate your instance. This process r
   * You’ll see a status of **Inactive**.  
 * **Copy the API Key** for WordPress by clicking the copy icon next to the key.
 
-> **Tip:** If you regenerate your API Key, make sure to update it in your WordPress settings.  
+> **Tip:** If you regenerate your API Key, make sure to update it in your WordPress settings.
 
-#### **2\. Install & Activate the Direktt Plugin on WordPress**
+[![API Key](https://direktt.com/wp-content/screenshots/user-guide-4-1.webp)](https://direktt.com/wp-content/screenshots/user-guide-4-1.webp)
+
+#### **2. Install & Activate the Direktt Plugin on WordPress**
 
 * Log in to your WordPress admin panel (wp-admin).  
-* Go to **Plugins \> Add New** and search for **Direktt**.  
+* Go to **Plugins > Add New** and search for **Direktt**.  
 * Click **Install** and then **Activate the plugin**.
 
-#### **3\. Open Direktt Settings in WordPress**
+#### **3. Open Direktt Settings in WordPress**
 
 * In your WordPress dashboard, find the **Direktt menu** on the left.  
 * Click **Settings**.
 
-#### **4\. Enter Your API Key & Activate**
+#### **4. Enter Your API Key & Activate**
 
 * Paste the **API Key** you copied from the **[Direktt admin console](https://direktt.com/wp-content/direkttweb/)** into the **Direktt API Key field**.  
 * Click **Save Settings & Activate WP**.  
   * If your WordPress site does not use HTTPS, you will see an error. Enable SSL and update your WordPress site URL to use https://.  
   * Upon successful activation, the Activation Status will update to **Activated**, and your registered domain will be displayed.
 
-#### **5\. Verify Activation in Direktt Admin Console**
+#### **5. Verify Activation in Direktt Admin Console**
 
 * Return to the **[Direktt admin console](https://direktt.com/wp-content/direkttweb/)** and refresh the channel info page.  
 * You should now see your WordPress instance listed as **Active**, with the activation date and your domain.
 
 If you run into any difficulties, contact **[Direktt support](https://direktt.com/support/)** for assistance.
 
-Your Direktt WordPress instance is now securely connected and ready to supercharge your engagement\!
+Your Direktt WordPress instance is now securely connected and ready to supercharge your engagement!
+
+[![Direktt Settings](https://direktt.com/wp-content/screenshots/user-guide-4-2.webp)](https://direktt.com/wp-content/screenshots/user-guide-4-2.webp)
 
 ## Direktt WordPress Settings
 
@@ -104,7 +108,7 @@ Each Direktt user’s WordPress post can be edited, categorized, tagged, or pair
 
 ### **Viewing and Editing Direktt Users**
 
-* Go to **Direktt \> Direktt Users** in wp-admin.
+* Go to **Direktt > Direktt Users** in wp-admin.
 * Each user subscription creates a new post.
   * **Post Title**: Shows user’s display name.
   * **Post Content**: Stores user notes from the user profile in Direktt mobile app.
@@ -121,8 +125,8 @@ Each Direktt user’s WordPress post can be edited, categorized, tagged, or pair
 
 ### **Managing Categories and Tags**
 
-* Use **User Categories** to segment users into broad roles or groups. Go to **Direktt \> User Categories** to create/edit categories.
-* Use **User Tags** for granular segmentation and flexible access rules. Go to **Direktt \> User Tags** to manage tags.
+* Use **User Categories** to segment users into broad roles or groups. Go to **Direktt > User Categories** to create/edit categories.
+* Use **User Tags** for granular segmentation and flexible access rules. Go to **Direktt > User Tags** to manage tags.
 
 Categories and tags can be used in **access rights for pages**, **messaging campaigns**, and **automation**.
 
@@ -138,25 +142,27 @@ Categories and tags can be used in **access rights for pages**, **messaging camp
 
 #### **How to Pair**
 
-* Go to **Users \> Profile** (for any WP User).
+* Go to **Users > Profile** (for any WP User).
 * Find Code for pairing with related Direktt User in the **“Direktt User Properties”** section.
 * **Send or display this code** to a WP User   
   * WP User sends the code in a **chat message in Direktt Mobile App**.
 * The Direktt user will then be linked (“paired”) to the WordPress user.
   * The relation can be viewed or deleted on the **WP user profile screen**
 
+[![Pairing Users](https://direktt.com/wp-content/screenshots/user-guide-4-3.webp)](https://direktt.com/wp-content/screenshots/user-guide-4-3.webp)
+
 ### **Troubleshooting and Tips**
 
 | Issue | Solution |
 | ----- | ----- |
-| User missing from Direktt Users | Check synchronization status on Direktt \> Settings and Sync Subscriber's database if needed |
+| User missing from Direktt Users | Check synchronization status on Direktt > Settings and Sync Subscriber's database if needed |
 | Unpairing needed | Use “Delete Relation with Direktt User” in WP User's Profile. |
 | Assigning categories/tags not working | Save changes in the user post and ensure taxonomy terms exist. |
 | New extension field not visible | Make sure the extension is installed and active. |
 
 ### **Summary**
 
-* Every Direktt subscriber/unsubscriber is managed as a WordPress post in **Direktt \> Users**.
+* Every Direktt subscriber/unsubscriber is managed as a WordPress post in **Direktt > Users**.
 * Use categories and tags for segmentation, mass communication, or feature access.
 * Pair Direktt users with WP users for automation and custom flows.
 * User notes and user taxonomies are editable inside the post screen.
@@ -165,7 +171,7 @@ This setup ensures smooth, scalable management for even the largest subscriber b
 
 ## Setting Up User Profile
 
-With the **Direktt Profile shortcode**, you can create a dedicated user profile page in WordPress \- accessible directly from the **Direktt mobile app’s chat**. Here’s a step-by-step setup guide, from deciding on your profile URL to configuring per-user access rights.
+With the **Direktt Profile shortcode**, you can create a dedicated user profile page in WordPress - accessible directly from the **Direktt mobile app’s chat**. Here’s a step-by-step setup guide, from deciding on your profile URL to configuring per-user access rights.
 
 ### **(Optional) Define Your User Profile URL in Direktt Admin Console**
 
@@ -181,7 +187,7 @@ With the **Direktt Profile shortcode**, you can create a dedicated user profile 
 
 ### **Create a Profile Page in WordPress**
 
-* Go to **Pages \> Add New** in your WordPress admin.  
+* Go to **Pages > Add New** in your WordPress admin.  
 * Set a title (e.g., "Direktt Profile").  
 * It is best to use a **Blank Template** for the **Profile page**. Keep in mind that template options may vary by theme. Block themes like Twenty Twenty-Three offer ‘Empty template’ for a minimal page. Refer to your theme's documentation or support for the theme specific instructions  
 * Click **Save**.
@@ -216,7 +222,7 @@ Open one of the user chats within your channel and tap the **Profile button** in
 
 ### **Tip:** 
 
-> To test, use the Direktt mobile app from the Admin mode\!  
+> To test, use the Direktt mobile app from the Admin mode!  
   
 Your Direktt profile page is now securely and seamlessly integrated with your WordPress site and accessible from the Direktt app.
 
@@ -232,6 +238,8 @@ Once you enable Direktt user rights for a page, access is restricted - these pag
 * In the field labeled **Post Id of Test Direktt User**, enter the **Post ID** of the Direktt user you wish to simulate.  
   * Every Direktt user Post (including subscribers and channel admin) has a unique Post ID.  
 * Click **Update Profile** to save.
+
+[![Test Direktt User](https://direktt.com/wp-content/screenshots/user-guide-4-4.webp)](https://direktt.com/wp-content/screenshots/user-guide-4-4.webp)
 
 ### **Test Direktt Pages As the Selected User**
 
@@ -264,10 +272,10 @@ Once you enable Direktt user rights for a page, access is restricted - these pag
 | Issue | Solution |
 | ----- | ----- |
 | Page still inaccessible | Double-check you are logged in and Post Id is set correctly; clear caches if needed. |
-| Unsure of correct Post Id | Go to **Direktt \> Direktt Users**. Hover over the User for which you want to find the ID, and then click **Edit**. Once the post editor loads, look at the URL in your browser's address bar. You will see a URL similar to: `https://yoursite.com/wp-admin/post.php?post=123\&action=edit` The number following `post=` (in this example, `123`) is the **Post ID**. |
+| Unsure of correct Post Id | Go to **Direktt > Direktt Users**. Hover over the User for which you want to find the ID, and then click **Edit**. Once the post editor loads, look at the URL in your browser's address bar. You will see a URL similar to: `https://yoursite.com/wp-admin/post.php?post=123\&action=edit` The number following `post=` (in this example, `123`) is the **Post ID**. |
 | No Direktt User Properties section | Ensure the Direktt plugin is active and up to date. |
 
-Now you can test and preview any Direktt page in WordPress as if you were a real app user \- no phone required\!
+Now you can test and preview any Direktt page in WordPress as if you were a real app user - no phone required!
 
 ## Creating Message Templates
 
@@ -278,9 +286,9 @@ This guide walks you step by step through creating a message template using the 
 
 ### **Accessing Message Templates**
 
-* 1\. Go to WordPress Admin  
+* 1. Go to WordPress Admin  
   * Log in to your WordPress admin dashboard.  
-* 2\. Navigate to **Direktt \> Message Templates**  
+* 2. Navigate to **Direktt > Message Templates**  
   * You’ll see a **list of existing templates** and an option to add new ones.
 
 ### **Step 1: Add a New Message Template**
@@ -318,7 +326,7 @@ Message templates can include multiple content types. Each part will be shown in
 **Example: Adding Text**
 
 * Click **Add Text**.  
-* Enter your message in the **"Message Content"** field. (e.g., *Hi, welcome to our channel\!*)  
+* Enter your message in the **"Message Content"** field. (e.g., *Hi, welcome to our channel!*)  
 * The live preview and JSON structure will update as you type.
 
 **Example: Adding Image**
@@ -352,7 +360,7 @@ Message templates can include multiple content types. Each part will be shown in
     * **Link**: Opens a URL (choose if to open in-app or browser).  
     * **API**: Makes an API callback to your WP instance. Enter the API action type and success message.  
     * **Chat**: Opens chat with user **(admin only)**.  
-    * **Profile**: Opens user profile **admin only)**.  
+    * **Profile**: Opens user profile **(admin only)**.  
   * **Return Variables**: (Optional) Store data for the action. Key-value pairs.
 
 #### **Using Dynamic Replacement Tags in Message Templates**
@@ -379,6 +387,8 @@ When sent, users will see their actual display name and the channel’s name in 
 **Other tags:** Additional context-specific tags may be supported, depending on your workflows and installed extensions. Refer to Developer Documentation on how to use them via Direktt API
 
 > **Tip:** Use tags in any text field, including text content, interactive part descriptions, and above/below buttons for a more personalized communication experience.
+
+[![Direktt Message Templates](https://direktt.com/wp-content/screenshots/user-guide-4-5.webp)](https://direktt.com/wp-content/screenshots/user-guide-4-5.webp)
 
 ### **Step 4: Review and Edit Template JSON**
 
@@ -414,7 +424,7 @@ When sent, users will see their actual display name and the channel’s name in 
 * Yes, just click on the template name in the list to edit it. All changes will apply going forward.
 
 **Q: What's the purpose of the "Where to display template" option?** 
-* This determines where the template is visible in the Direktt plugin and Direktt Mobile App \- bulk messaging, individual messaging, API-only, or always available. Use this to keep template lists tidy and relevant for your use case.
+* This determines where the template is visible in the Direktt plugin and Direktt Mobile App - bulk messaging, individual messaging, API-only, or always available. Use this to keep template lists tidy and relevant for your use case.
 
 **Q: How do I use a template from my own code?** 
 * You can reference Direktt message templates by their post ID or slug using the Direktt API in your custom WordPress code or integrations. Refer to Developer Documentation for details
