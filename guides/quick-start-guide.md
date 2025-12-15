@@ -43,6 +43,8 @@
 * Click the **Edit** button (in Actions column) for your channel.
 * Use your mobile phone to scan the **Subscription QR Code**
 
+[![Subscription QR Code](https://direktt.com/wp-content/screenshots/quick-start-guide-2.webp)](https://direktt.com/wp-content/screenshots/quick-start-guide-2.webp)
+
 ### **2. Download Direktt Mobile App**
 
 * **Don’t have the app?** You’ll be prompted to install it.
@@ -98,6 +100,8 @@
 ### **3. WP Connected to Your Direktt Channel!**
 
 * Your WordPress site is now successfully connected to your Direktt channel!
+
+[![WP Connected](https://direktt.com/wp-content/screenshots/quick-start-guide-4.webp)](https://direktt.com/wp-content/screenshots/quick-start-guide-4.webp)
 
 ## Tips & Troubleshooting 🔧
 
