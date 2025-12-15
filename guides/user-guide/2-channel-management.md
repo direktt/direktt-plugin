@@ -24,7 +24,7 @@ Follow the steps below to set up your channel and get ready to connect with subs
 * In the pop-up, enter your desired Channel Name  
 * Click **Submit** to create the channel.
 
-[![Channel List](https://direktt.com/wp-content/screenshots/user-guide-2-2.webp)](https://direktt.com/wp-content/screenshots/user-guide-2-2.webp)
+[![Add Channel](https://direktt.com/wp-content/screenshots/user-guide-2-2.webp)](https://direktt.com/wp-content/screenshots/user-guide-2-2.webp)
 
 #### **4\. Configure Channel Settings**
 
@@ -49,7 +49,7 @@ On the Channel Info tab, you can adjust the following settings:
 
 - On the right-hand side, you’ll see your channel’s unique **Subscription QR Code** - subscribers can use this to join your channel quickly.
 
-[![Channel List](https://direktt.com/wp-content/screenshots/user-guide-2-3.webp)](https://direktt.com/wp-content/screenshots/user-guide-2-3.webp)
+[![Subscription QR Code](https://direktt.com/wp-content/screenshots/user-guide-2-3.webp)](https://direktt.com/wp-content/screenshots/user-guide-2-3.webp)
 
 ## Channel Settings
 
@@ -80,7 +80,7 @@ Service Links appear as buttons within your channel in the Direktt mobile app fo
 * Drag & Drop  
   * Reorder Service Links by **dragging them** to your preferred order.
 
-[![Channel List](https://direktt.com/wp-content/screenshots/user-guide-2-4.webp)](https://direktt.com/wp-content/screenshots/user-guide-2-4.webp)
+[![Service Links](https://direktt.com/wp-content/screenshots/user-guide-2-4.webp)](https://direktt.com/wp-content/screenshots/user-guide-2-4.webp)
 
 ### **Channel Policy**
 
@@ -98,7 +98,7 @@ Set a clear privacy and data protection policy to inform users about how their d
 
 **Note:** Subscribers will see and must agree to your channel policy before joining.
 
-[![Channel List](https://direktt.com/wp-content/screenshots/user-guide-2-5.webp)](https://direktt.com/wp-content/screenshots/user-guide-2-5.webp)
+[![Channel Policy](https://direktt.com/wp-content/screenshots/user-guide-2-5.webp)](https://direktt.com/wp-content/screenshots/user-guide-2-5.webp)
 
 ### **Other Channel Properties Overview**
 
