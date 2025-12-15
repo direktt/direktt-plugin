@@ -12,6 +12,8 @@ Follow the steps below to set up your channel and get ready to connect with subs
 * Click on **Dashboard & Channels** in the top menu.  
 * You’ll see an overview of your existing channels.
 
+[![Channel List](https://direktt.com/wp-content/screenshots/user-guide-2-1.webp)](https://direktt.com/wp-content/screenshots/user-guide-2-1.webp)
+
 #### **2\. Add a New Channel**
 
 * Click the blue **Add New Channel** button located at the top right of the channels list.  
@@ -21,6 +23,8 @@ Follow the steps below to set up your channel and get ready to connect with subs
 
 * In the pop-up, enter your desired Channel Name  
 * Click **Submit** to create the channel.
+
+[![Channel List](https://direktt.com/wp-content/screenshots/user-guide-2-2.webp)](https://direktt.com/wp-content/screenshots/user-guide-2-2.webp)
 
 #### **4\. Configure Channel Settings**
 
@@ -44,6 +48,8 @@ On the Channel Info tab, you can adjust the following settings:
 #### **6\. Find Your Subscription QR Code**
 
 - On the right-hand side, you’ll see your channel’s unique **Subscription QR Code** - subscribers can use this to join your channel quickly.
+
+[![Channel List](https://direktt.com/wp-content/screenshots/user-guide-2-3.webp)](https://direktt.com/wp-content/screenshots/user-guide-2-3.webp)
 
 ## Channel Settings
 
