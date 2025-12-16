@@ -546,4 +546,17 @@ class Direktt_Public {
 		<?php
 		return ob_get_clean();
 	}
+
+	public static function direktt_echo_timestamp( $timestamp ) {
+		$format = get_option( 'direktt_timestamp_display_format', 'datetime' );
+		if ( 'datetime' === $format ) {
+			ob_start();
+			echo esc_html( $timestamp );
+			return ob_get_clean();
+		} elseif ( 'relative' === $format ) {
+			ob_start();
+			echo esc_html( human_time_diff( $timestamp ) . __( ' ago', 'direktt' ) );
+			return ob_get_clean();
+		}
+	}
 }
