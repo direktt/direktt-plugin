@@ -101,6 +101,7 @@ class Direktt_Ajax {
 			'redirect_url'          => get_option( 'direktt_unauthorized_redirect_url' ) ? esc_attr( get_option( 'direktt_unauthorized_redirect_url' ) ) : '',
 
 			'pairing_prefix'        => get_option( 'direktt_pairing_prefix' ) ? esc_attr( get_option( 'direktt_pairing_prefix' ) ) : '',
+			'date_format'        	=> get_option( 'direktt_timestamp_display_format' ) ? esc_attr( get_option( 'direktt_timestamp_display_format' ) ) : 'datetime',
 			'pairing_succ_template' => get_option( 'direktt_pairing_succ_template' ) ? esc_attr( get_option( 'direktt_pairing_succ_template' ) ) : '',
 
 			'qr_code_logo_url'      => get_option( 'direktt_qr_code_logo_url' ) ? esc_attr( get_option( 'direktt_qr_code_logo_url' ) ) : '',
@@ -299,6 +300,8 @@ class Direktt_Ajax {
 
 		$pairing_prefix = ( isset( $_POST['pairing_prefix'] ) ) ? sanitize_text_field( wp_unslash( $_POST['pairing_prefix'] ) ) : false;
 
+		$date_format = ( isset( $_POST['date_format'] ) ) ? sanitize_text_field( wp_unslash( $_POST['date_format'] ) ) : false;
+
 		$pairing_succ_template = ( isset( $_POST['pairing_succ_template'] ) ) ? sanitize_text_field( wp_unslash( $_POST['pairing_succ_template'] ) ) : false;
 
 		$reset_pairings = ( isset( $_POST['reset_pairings'] ) ) ? sanitize_text_field( wp_unslash( $_POST['reset_pairings'] ) ) : false;
@@ -365,6 +368,12 @@ class Direktt_Ajax {
 				update_option( 'direktt_pairing_prefix', $pairing_prefix );
 			} else {
 				delete_option( 'direktt_pairing_prefix' );
+			}
+
+			if ( $date_format ) {
+				update_option( 'direktt_timestamp_display_format', $date_format );
+			} else {
+				delete_option( 'direktt_timestamp_display_format' );
 			}
 
 			if ( $pairing_succ_template ) {

@@ -24,6 +24,7 @@ const qr_code_bckg_color = ref('')
 const qr_code_color_control = ref(null)
 const qr_code_bckg_color_control = ref(null)
 
+const date_format = ref('')
 const pairing_prefix = ref('')
 const pairing_succ_template = ref('')
 const save_loading = ref(false)
@@ -102,6 +103,7 @@ async function getSettings() {
   api_key.value = response.data.api_key
   redirect_url.value = response.data.redirect_url
   pairing_prefix.value = response.data.pairing_prefix
+  date_format.value = response.data.date_format
   qr_code_logo_url.value = response.data.qr_code_logo_url
   qr_code_color.value = response.data.qr_code_color
   qr_code_bckg_color.value = response.data.qr_code_bckg_color
@@ -123,6 +125,7 @@ function clickSaveSettings() {
     api_key: api_key.value,
     redirect_url: redirect_url.value,
     pairing_prefix: pairing_prefix.value,
+    date_format: date_format.value,
     qr_code_logo_url: qr_code_logo_url.value,
     qr_code_color: qr_code_color.value,
     qr_code_bckg_color: qr_code_bckg_color.value,
@@ -315,7 +318,7 @@ function openMediaPicker() {
 }
 
 function createSubscribeQRCode(channelId) {
-  return("https://direktt.com/subscribe/" + channelId)
+  return ("https://direktt.com/subscribe/" + channelId)
 }
 
 
@@ -474,6 +477,30 @@ onMounted(() => {
 
         <tbody v-if="data">
           <tr>
+            <th scope="row"><label for="blogname">Timestamp Display Format</label></th>
+            <td>
+              <v-radio-group v-model="date_format" inline class="bm-0">
+                <v-radio label="Date & Time" value="datetime"></v-radio>
+                <v-radio label="Relative Time" value="relative"></v-radio>
+              </v-radio-group>
+               <p class="description">
+                <strong>Date & Time:</strong> e.g. 2025-12-16 13:39:00,<br></br>
+                <strong>Relative Time:</strong> e.g. 5 minutes ago         
+              </p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </template>
+
+    <template v-if="data && data.direktt_channel_title != '' && data.direktt_channel_id != '' && activation_status">
+      <p></p>
+      <v-divider class="border-opacity-100"></v-divider>
+      <p></p>
+      <table class="form-table" role="presentation">
+
+        <tbody v-if="data">
+          <tr>
             <th scope="row"><label for="direktt_membership_qr_code_image">
                 QR Code Logo
               </label></th>
@@ -509,12 +536,9 @@ onMounted(() => {
           <tr>
             <th scope="row"><label for="blogname">Subscription QR Code Preview</label></th>
             <td>
-              <QRCodeStyling 
-                :qr-code-data="createSubscribeQRCode(data.direktt_channel_id)"
-                :qr-code-logo-url="qr_code_logo_url" 
-                :qr-code-color="qr_code_color" 
-                :qr-code-bckg-color="qr_code_bckg_color" 
-              />
+              <QRCodeStyling :qr-code-data="createSubscribeQRCode(data.direktt_channel_id)"
+                :qr-code-logo-url="qr_code_logo_url" :qr-code-color="qr_code_color"
+                :qr-code-bckg-color="qr_code_bckg_color" />
             </td>
           </tr>
         </tbody>
