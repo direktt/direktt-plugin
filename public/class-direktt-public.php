@@ -555,7 +555,7 @@ class Direktt_Public {
 			return ob_get_clean();
 		} elseif ( 'relative' === $format ) {
 			ob_start();
-			echo esc_html( human_time_diff( $timestamp ) . __( ' ago', 'direktt' ) );
+			echo esc_html( human_time_diff( $timestamp, current_time( 'timestamp' ) ) );
 			return ob_get_clean();
 		}
 	}
