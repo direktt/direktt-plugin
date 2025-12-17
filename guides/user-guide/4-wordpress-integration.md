@@ -79,6 +79,19 @@ To access the settings:
 
 * **Optional redirect URL upon unauthorized access**: Specify a URL or path (e.g., `/unauthorized/`) where non-authorized users will be redirected if they attempt to access restricted content.
 
+### Timestamp Display Format
+
+Controls how date/time values are rendered across Direktt-facing UI in WordPress.
+
+This format is used in:
+- the **Direktt user profile** page (`[direktt_user_profile]`)
+- **Direktt plugin shortcodes**
+- **extension shortcodes** (wherever timestamps are displayed)
+
+Options:
+- **Date & Time**: Shows a full timestamp (e.g., `2025-12-16 13:39:00`)
+- **Relative Time**: Shows a relative value (e.g., `5 minutes ago`)
+
 ### QR Code Customization
 
 You can configure the look and feel of your channel’s subscription QR code which users scan to subscribe via the Direktt app.
