@@ -782,6 +782,7 @@
 			}			
 		}
 		.direktt-profile-data-membership-tool-table {
+			tr.direktt-membership-package-active-expired, 
 			tr.direktt-membership-package-active-no, 
 			tr.direktt-membership-package-active-yes {
 				td {
@@ -789,8 +790,14 @@
 					padding-bottom: 0;
 				}
 			}
-			tr.direktt-membership-package-active-no {
-				opacity: 0.3;
+			tr.direktt-membership-package-active-yes td:first-child {
+				color: var(--direktt-profile-award-color);
+			}
+			tr.direktt-membership-package-active-no td:first-child {
+				color: var(--direktt-profile-dark-gray-color);
+			}
+			tr.direktt-membership-package-expired td:first-child {
+				color: var(--direktt-profile-warning-color);
 			}
 
 		}

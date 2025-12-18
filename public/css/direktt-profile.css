@@ -1021,13 +1021,20 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
   border-bottom: none;
   padding-bottom: 0;
 }
+#direktt-profile .direktt-profile-data-membership-tool .direktt-profile-data-membership-tool-table tr.direktt-membership-package-active-expired td,
 #direktt-profile .direktt-profile-data-membership-tool .direktt-profile-data-membership-tool-table tr.direktt-membership-package-active-no td,
 #direktt-profile .direktt-profile-data-membership-tool .direktt-profile-data-membership-tool-table tr.direktt-membership-package-active-yes td {
   border-bottom: none;
   padding-bottom: 0;
 }
-#direktt-profile .direktt-profile-data-membership-tool .direktt-profile-data-membership-tool-table tr.direktt-membership-package-active-no {
-  opacity: 0.3;
+#direktt-profile .direktt-profile-data-membership-tool .direktt-profile-data-membership-tool-table tr.direktt-membership-package-active-yes td:first-child {
+  color: var(--direktt-profile-award-color);
+}
+#direktt-profile .direktt-profile-data-membership-tool .direktt-profile-data-membership-tool-table tr.direktt-membership-package-active-no td:first-child {
+  color: var(--direktt-profile-dark-gray-color);
+}
+#direktt-profile .direktt-profile-data-membership-tool .direktt-profile-data-membership-tool-table tr.direktt-membership-package-expired td:first-child {
+  color: var(--direktt-profile-warning-color);
 }
 #direktt-profile .direktt-profile-data-membership-tool .direktt-profile-data-membership-tool th:not(:first-child),
 #direktt-profile .direktt-profile-data-membership-tool .direktt-profile-data-membership-tool td:not(:first-child),
