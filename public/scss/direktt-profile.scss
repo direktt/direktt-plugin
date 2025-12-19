@@ -67,7 +67,6 @@
 	.dpi-menu:before { content: "\ef3e" !important; }
 	.dpi-close:before { content: "\f4c8" !important; }
 	.dpi-check:before { content: "\eb7b" !important; }
-	.dpi-arrow-left:before { content: "\ea60" !important; }
 	.dpi-send-user-message:before { content: "\eb4d" !important; padding-top: 0.05em !important; }
 	.dpi-profile:before { content: "\f264" !important; }
 	.dpi-information:before { content: "\ee59" !important; }
@@ -353,12 +352,6 @@
 	&[data-subpage="profile-tab-send-user-message"] #direktt-profile-menu-bar ul li[data-subpage="direktt-menu-send-user-message"] a:before,
 	&[data-subpage="profile-tab-edit-user-taxonomies"] #direktt-profile-menu-bar ul li[data-subpage="direktt-menu-edit-user-taxonomies"] a:before {
 		background-color: var(--direktt-profile-button-active-background-color);
-	}
-	&:not([data-subpage="profile-tab-"]):not([data-subpage="profile-tab-send-user-message"]):not([data-subpage="profile-tab-edit-user-taxonomies"]) {
-		#direktt-profile-header #direktt-profile-tools-toggler:before {
-			background-color: var(--direktt-profile-button-active-background-color);
-			content: "\ea60" !important; 
-		}	
 	}
 	span.pill {
 		padding: 0.5em 1em;
