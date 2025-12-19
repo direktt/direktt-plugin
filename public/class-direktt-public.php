@@ -547,7 +547,7 @@ class Direktt_Public {
 		return ob_get_clean();
 	}
 
-	public static function direktt_echo_timestamp( $timestamp ) {
+	public static function direktt_echo_timestamp( $timestamp, $in_ago = 'ago' ) {
 		$format = get_option( 'direktt_timestamp_display_format', 'datetime' );
 		if ( 'datetime' === $format ) {
 			ob_start();
@@ -555,7 +555,7 @@ class Direktt_Public {
 			return ob_get_clean();
 		} elseif ( 'relative' === $format ) {
 			ob_start();
-			echo esc_html( human_time_diff( $timestamp, current_time( 'timestamp' ) ) );
+			echo ( $in_ago === 'in' ? esc_html__( 'in', 'direktt' ) . ' ' : '' ) . esc_html( human_time_diff( strtotime( $timestamp ), current_time( 'timestamp' ) ) ) . ( $in_ago === 'ago' ? ' ' . esc_html__( 'ago', 'direktt' ) : '' );
 			return ob_get_clean();
 		}
 	}
