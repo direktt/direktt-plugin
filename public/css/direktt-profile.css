@@ -271,9 +271,6 @@ body.direktt-app .ui-menu .ui-menu-item-wrapper {
 #direktt-profile .dpi-check:before {
   content: "" !important;
 }
-#direktt-profile .dpi-arrow-left:before {
-  content: "" !important;
-}
 #direktt-profile .dpi-send-user-message:before {
   content: "" !important;
   padding-top: 0.05em !important;
@@ -681,10 +678,6 @@ body.wp-theme-twentytwentyfive.direktt-app .entry-content.has-global-padding {
 }
 #direktt-profile[data-subpage=profile-tab-] #direktt-profile-menu-bar ul li[data-subpage=direktt-menu-profile] a:before, #direktt-profile[data-subpage=profile-tab-send-user-message] #direktt-profile-menu-bar ul li[data-subpage=direktt-menu-send-user-message] a:before, #direktt-profile[data-subpage=profile-tab-edit-user-taxonomies] #direktt-profile-menu-bar ul li[data-subpage=direktt-menu-edit-user-taxonomies] a:before {
   background-color: var(--direktt-profile-button-active-background-color);
-}
-#direktt-profile:not([data-subpage=profile-tab-]):not([data-subpage=profile-tab-send-user-message]):not([data-subpage=profile-tab-edit-user-taxonomies]) #direktt-profile-header #direktt-profile-tools-toggler:before {
-  background-color: var(--direktt-profile-button-active-background-color);
-  content: "" !important;
 }
 #direktt-profile span.pill {
   padding: 0.5em 1em;
