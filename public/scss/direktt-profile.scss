@@ -357,6 +357,7 @@
 	&:not([data-subpage="profile-tab-"]):not([data-subpage="profile-tab-send-user-message"]):not([data-subpage="profile-tab-edit-user-taxonomies"]) {
 		#direktt-profile-header #direktt-profile-tools-toggler:before {
 			background-color: var(--direktt-profile-button-active-background-color);
+			content: "\ea60" !important; 
 		}	
 	}
 	span.pill {
