@@ -120,6 +120,6 @@ Having trouble? Try these common solutions:
 * Double-check that you have **copied the entire API key**, and there are **no extra spaces** when pasting it into WordPress.
 * If the plugin still doesn’t connect, try re-saving the settings and check your WordPress site’s internet access.
 
-Still having trouble? Contact **[Direktt support](https://direktt.com/support/)**.
+Still having trouble? Contact **[Direktt support](https://direktt.com/contact-support/)**.
 
 > **General tip:** Keep your Direktt app and WordPress plugins updated for the latest features and fixes.
