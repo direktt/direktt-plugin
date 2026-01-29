@@ -56,7 +56,7 @@ Direktt makes it easy for users to join your channel - whether they’re shoppin
 ### **Tips**
 
 > * **Make it easy for users** - share your handle, QR code, or subscription link wherever you promote your channel!
-> * If you need help locating your subscription QR code, link, or handle, refer to the Direktt Admin Console or WordPress Dashboard. For further support, contact **[Direktt support](https://direktt.com/support/)**.
+> * If you need help locating your subscription QR code, link, or handle, refer to the Direktt Admin Console or WordPress Dashboard. For further support, contact **[Direktt support](https://direktt.com/contact-support/)**.
 
 ## Built in Admin Features
 

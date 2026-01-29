@@ -47,7 +47,7 @@ Follow these step-by-step instructions to activate your instance. This process r
 * Return to the **[Direktt admin console](https://direktt.com/wp-content/direkttweb/)** and refresh the channel info page.  
 * You should now see your WordPress instance listed as **Active**, with the activation date and your domain.
 
-If you run into any difficulties, contact **[Direktt support](https://direktt.com/support/)** for assistance.
+If you run into any difficulties, contact **[Direktt support](https://direktt.com/contact-support/)** for assistance.
 
 Your Direktt WordPress instance is now securely connected and ready to supercharge your engagement!
 
@@ -505,4 +505,4 @@ The Taxonomies Service provides a simple interface in the Direktt mobile app for
 | Add Admin Service Link         | In Direktt admin console > Admin Links, add new, set target to "App"                   |
 | Use in Direktt mobile app      | Assign/remove users from categories/tags, segment users instantly from anywhere        |
 
-For more admin service options or troubleshooting, please contact [Direktt support](https://direktt.com/support/).
+For more admin service options or troubleshooting, please contact **[Direktt support](https://direktt.com/contact-support/)**.

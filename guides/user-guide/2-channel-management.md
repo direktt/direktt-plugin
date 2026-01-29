@@ -185,7 +185,7 @@ You can easily view, purchase, and manage your subscription directly from your *
 ### **Troubleshooting and Support**
 
 * If you have issues with payments or plan changes, use the [Lemon Squeezy Support](https://www.lemonsqueezy.com/help) link in the **[subscription portal](https://shop.direktt.com/billing)**.
-* For Direktt-specific plan questions, contact **[Direktt support](https://direktt.com/support/)** via email or Discord.
+* For Direktt-specific plan questions, contact **[Direktt support](https://direktt.com/contact-support/)** via email or Discord.
 
 ### **Tips**
 
