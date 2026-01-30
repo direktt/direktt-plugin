@@ -108,8 +108,7 @@ Set a clear privacy and data protection policy to inform users about how their d
 * **Admin Links**: (See next guides for details)  
 * **Pricing Plan**: Review plan limits and upgrade if needed.
 
-### **Tips**
-
+> **Tips**  
 > * Use clear and descriptive names for Service Links.  
 > * Ensure all URLs are correct and accessible from user devices.  
 > * Review your Channel Policy for accuracy and clarity.  
@@ -187,6 +186,4 @@ You can easily view, purchase, and manage your subscription directly from your *
 * If you have issues with payments or plan changes, use the [Lemon Squeezy Support](https://www.lemonsqueezy.com/help) link in the **[subscription portal](https://shop.direktt.com/billing)**.
 * For Direktt-specific plan questions, contact **[Direktt support](https://direktt.com/contact-support/)** via email or Discord.
 
-### **Tips**
-
-> You can always review your subscriber limits and plan features from the Pricing Plan tab to ensure your channel has the right resources as you grow. If you approach your plan’s limits, upgrade anytime for uninterrupted service.
+> **Tip:** You can always review your subscriber limits and plan features from the Pricing Plan tab to ensure your channel has the right resources as you grow. If you approach your plan’s limits, upgrade anytime for uninterrupted service.
