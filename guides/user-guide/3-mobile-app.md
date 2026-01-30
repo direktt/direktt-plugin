@@ -53,8 +53,8 @@ Direktt makes it easy for users to join your channel - whether they’re shoppin
 | **Subscription Link** | Direktt Admin Console / WP Dashboard | Tap link → Open in app (or prompted to install) | No - will prompt |
 | **Channel Handle** | Set in Direktt Admin Console | Enter handle in app’s Add Channel screen and tap Add | Yes |
 
-### **Tips**
-
+> #### Tips
+> 
 > * **Make it easy for users** - share your handle, QR code, or subscription link wherever you promote your channel!
 > * If you need help locating your subscription QR code, link, or handle, refer to the Direktt Admin Console or WordPress Dashboard. For further support, contact **[Direktt support](https://direktt.com/contact-support/)**.
 
@@ -117,8 +117,8 @@ Admin Links let you quickly access connected admin tools and resources for each 
 | **Access Admin Links** (Tools/Shortcuts) | Quickly reach channel management functions/services |
 | **Manage Admin Links** (via web) | Customize the list of admin shortcuts for each channel |
 
-### **Tips**
-
+> #### Tips
+> 
 > * Use clear names for Admin Links so it’s obvious what each shortcut does within the app.  
 > * Switch back to User mode from the More menu when you want to interact as a regular subscriber.  
 > * Message delivery via bulk messaging respects the subscriber limits of your current plan.
