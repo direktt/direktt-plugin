@@ -260,12 +260,9 @@ Once you enable Direktt user rights for a page, access is restricted - these pag
   * The page will behave and display content as if you are logged in as the chosen Direktt user in the mobile app.
 
 > **Pro Tip: Simulate Specific Subscriber Profiles**
-
 > You can also preview a specific user profile using their subscription ID:
-
 > * Set **Post Id of Test Direktt User** to the Post ID of the channel admin.  
 > * Visit the profile page with the `?subscriptionId=` parameter, for example: 
-  
 >  ```
 >  https://your-wordpress-domain/direktt-profile/?subscriptionId=SUBSCRIPTION_ID
 >  ```
