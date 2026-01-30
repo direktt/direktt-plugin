@@ -259,7 +259,7 @@ Once you enable Direktt user rights for a page, access is restricted - these pag
   * Open any Direktt-restricted page in your browser (e.g., the Taxonomies Service Page - check below in the Default Admin Services section for the setup instructions).  
   * The page will behave and display content as if you are logged in as the chosen Direktt user in the mobile app.
 
-> **Pro Tip: Simulate Specific Subscriber Profiles**
+> #### **Pro Tip:** Simulate Specific Subscriber Profiles
 > You can also preview a specific user profile using their subscription ID:
 > * Set **Post Id of Test Direktt User** to the Post ID of the channel admin.  
 > * Visit the profile page with the `?subscriptionId=` parameter, for example: 
