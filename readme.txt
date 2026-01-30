@@ -2,7 +2,7 @@
 Contributors: direkttwp
 Tags: mobile app, customer care, messaging, push notifications, mobile integration
 Requires at least: 5.4
-Tested up to: 6.8
+Tested up to: 6.9
 Stable tag: 1.0
 Requires PHP: 8.0
 License: GPLv2 or later
