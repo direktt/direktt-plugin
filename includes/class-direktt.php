@@ -202,6 +202,7 @@ class Direktt {
 		$this->loader->add_action( 'wp_ajax_direktt_send_mtemplates_message', $plugin_ajax, 'ajax_send_mtemplates_message' );
 
 		// messaging on profile.
+		$this->loader->add_action( 'wp_ajax_direktt_get_mtemplates_profile_message', $plugin_ajax, 'ajax_get_mtemplates_profile_message' );
 		$this->loader->add_action( 'wp_ajax_nopriv_direktt_get_mtemplates_profile_message', $plugin_ajax, 'ajax_get_mtemplates_profile_message' );
 		$this->loader->add_action( 'wp_ajax_direktt_get_users_taxonomy_service', $plugin_ajax, 'ajax_get_users_taxonomy_service' );
 		$this->loader->add_action( 'wp_ajax_nopriv_direktt_get_users_taxonomy_service', $plugin_ajax, 'ajax_get_users_taxonomy_service' );

@@ -92,8 +92,8 @@ class Direktt_Taxonomies_Tool {
 		<form method="post" action="">
 			<div class="direktt-taxonomies-tool-wrapper">
 				<?php if ( $status_message ) : ?>
-					<div class="direktt-taxonomies-tool-info">
-						<p class="direktt-taxonomies-tool-status"><?php echo esc_html( $status_message ); ?></p>
+					<div class="send-message-tool-info notice">
+						<p class="send-message-tool-status"><?php echo esc_html( $status_message ); ?></p>
 					</div>
 				<?php endif; ?>
 				<div class="direktt-taxonomies-tool-categories">
