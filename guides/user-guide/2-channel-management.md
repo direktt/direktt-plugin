@@ -108,7 +108,8 @@ Set a clear privacy and data protection policy to inform users about how their d
 * **Admin Links**: (See next guides for details)  
 * **Pricing Plan**: Review plan limits and upgrade if needed.
 
-> **Tips**  
+> #### Tips
+> 
 > * Use clear and descriptive names for Service Links.  
 > * Ensure all URLs are correct and accessible from user devices.  
 > * Review your Channel Policy for accuracy and clarity.  
