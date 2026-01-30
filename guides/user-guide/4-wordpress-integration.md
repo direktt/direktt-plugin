@@ -266,7 +266,6 @@ Once you enable Direktt user rights for a page, access is restricted - these pag
 >  ```
 >  https://your-wordpress-domain/direktt-profile/?subscriptionId=SUBSCRIPTION_ID
 >  ```
-
 > * Replace `SUBSCRIPTION_ID` with the desired subscriber’s subscription ID.  
 > * You will see the profile and page content exactly as if you were logged in as channel admin in the Direktt app.
 
@@ -416,7 +415,7 @@ When sent, users will see their actual display name and the channel’s name in 
   * **Selected subscribers** (using categories/tags)  
   * **Channel admin**
 
-> **Additional Tips**
+> **Additional Tips:**
 > * Drag and drop content parts to reorder them.  
 > * Use concise, clear content for the best user experience on mobile devices.  
 > * For code-based usage, reference the template by its CPT post Id via the Direktt API.  
