@@ -26,6 +26,8 @@ For developers, Direktt provides a framework to:
 - Send messages to app users programmatically.
 - Implement powerful Direktt automations
 
+You can find Developer documentation here: [Direktt developer guides](https://direktt.com/resources/developer-guide-basic-concepts-platform-overview/)
+
 == Data & External Service Disclosure ==
 
 This plugin connects your website to the Direktt platform using secure API calls. No user tracking or personal data is automatically sent from your site to Direktt.
@@ -102,9 +104,12 @@ Find all plugin component code in our [GitHub repository](https://github.com/dir
 
 == Screenshots ==
 
-1. Direktt Dashboard
-2. Direktt Settings
-3. Message Templates Builder
+1. Direktt Image Message Template
+2. Direktt Interactive Message Template
+3. Direktt Dashboard
+4. User Profile Accessible from Direktt Mobile app
+5. User Taxonomies in User Profile
+6. User Notes in User Profile
 
 == Changelog ==
 
