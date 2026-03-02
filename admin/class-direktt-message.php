@@ -263,4 +263,74 @@ class Direktt_Message
 		}
 		return false;
 	}
+
+	public static function send_message_to_users_with_category($user_category, $message_template_id, $replacements = array())
+	{
+		$args = array(
+			'post_type'      => 'direkttusers',
+			'post_status'    => 'publish',
+			'posts_per_page' => -1,
+			'orderby'        => 'title',
+			'order'          => 'ASC',
+			'tax_query'      => array(
+				array(
+					'taxonomy' => 'direkttusercategories',
+					'field'    => is_numeric( $user_category ) ? 'term_id' : 'slug',
+					'terms'    => array( $user_category ),
+				),
+			),
+		);
+
+		$users = get_posts( $args );
+
+		if ( empty( $users ) ) {
+			return false;
+		}
+
+		$direktt_user_ids = array();
+
+		foreach ( $users as $user ) {
+			$subscription_id = get_post_meta( $user->ID, 'direktt_user_id', true );
+			if ( ! empty( $subscription_id ) ) {
+				$direktt_user_ids[] = $subscription_id;
+			}
+		}
+
+		self::send_message_template( $direktt_user_ids, $message_template_id, $replacements );
+	}
+
+	public static function send_message_to_users_with_tag($user_tag, $message_template_id, $replacements = array())
+	{
+		$args = array(
+			'post_type'      => 'direkttusers',
+			'post_status'    => 'publish',
+			'posts_per_page' => -1,
+			'orderby'        => 'title',
+			'order'          => 'ASC',
+			'tax_query'      => array(
+				array(
+					'taxonomy' => 'direkttusertags',
+					'field'    => is_numeric( $user_tag ) ? 'term_id' : 'slug',
+					'terms'    => array( $user_tag ),
+				),
+			),
+		);
+
+		$users = get_posts( $args );
+
+		if ( empty( $users ) ) {
+			return false;
+		}
+
+		$direktt_user_ids = array();
+
+		foreach ( $users as $user ) {
+			$subscription_id = get_post_meta( $user->ID, 'direktt_user_id', true );
+			if ( ! empty( $subscription_id ) ) {
+				$direktt_user_ids[] = $subscription_id;
+			}
+		}
+		
+		self::send_message_template( $direktt_user_ids, $message_template_id, $replacements );
+	}
 }
