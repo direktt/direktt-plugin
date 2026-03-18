@@ -102,7 +102,11 @@ class Direktt_Message
 				$value = array_key_exists($tag, $replacements) ? $replacements[$tag] : $tag;
 
 				// Apply filter, pass value and user.
-				return apply_filters('direktt/message/template/' . $tag, $value, $direktt_user_id);
+				$value = apply_filters('direktt/message/template/' . $tag, $value, $direktt_user_id);
+
+				$value = wp_json_encode($value, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+
+				return substr($value, 1, -1);
 			},
 			$input_string
 		);
